@@ -35,7 +35,7 @@ export default function Hero() {
 
           {/* Main Headline */}
           <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight animate-fade-in-up">
-            SEO, UI/UX ve Yapay Zeka ile{" "}
+            UI/UX, SEO ve Yapay Zeka ile{" "}
             <span className="text-gradient">Dijitalde Gerçek Büyüme</span>{" "}
             Sağlıyorum
           </h1>

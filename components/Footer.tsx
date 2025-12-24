@@ -2,17 +2,17 @@ import Link from "next/link";
 import { Mail, Linkedin, Twitter, Github } from "lucide-react";
 
 const services = [
+  { name: "UI/UX Tasarım", href: "/hizmetler/ui-ux-tasarim" },
   { name: "SEO Danışmanlığı", href: "/hizmetler/seo-danismanligi" },
   { name: "Online Reklamcılık", href: "/hizmetler/online-reklamcilik" },
-  { name: "UI/UX Tasarım", href: "/hizmetler/ui-ux-tasarim" },
   { name: "Yapay Zeka Çözümleri", href: "/hizmetler/yapay-zeka-cozumleri" },
   { name: "Sosyal Medya Yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
 ];
 
 const blogCategories = [
+  { name: "UI/UX Tasarım", href: "/ui-ux-tasarim" },
   { name: "SEO", href: "/seo" },
   { name: "Online Reklamcılık", href: "/online-reklamcilik" },
-  { name: "UI/UX Tasarım", href: "/ui-ux-tasarim" },
   { name: "Yapay Zeka", href: "/yapay-zeka" },
   { name: "Sosyal Medya", href: "/sosyal-medya" },
 ];

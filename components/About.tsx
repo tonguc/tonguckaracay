@@ -54,7 +54,7 @@ export default function About() {
             
             <div className="space-y-4 text-primary-300 leading-relaxed mb-8">
               <p>
-                25 yılı aşkın deneyimimle SEO, dijital pazarlama, UI/UX tasarım ve 
+                25 yılı aşkın deneyimimle UI/UX tasarım, SEO, dijital pazarlama ve 
                 yapay zeka alanlarında işletmelere stratejik danışmanlık veriyorum.
               </p>
               <p>
@@ -66,6 +66,21 @@ export default function About() {
                 Teknik uzmanlığımı, kullanıcı deneyimi odaklı tasarım anlayışıyla birleştirerek 
                 sadece trafik değil, gerçek dönüşüm sağlayan stratejiler geliştiriyorum.
               </p>
+            </div>
+
+            {/* Referans Markalar */}
+            <div className="mb-8">
+              <p className="text-sm text-primary-400 mb-3">Çalıştığım markalardan bazıları:</p>
+              <div className="flex flex-wrap gap-2">
+                {["Sabancı Holding", "Borusan Otomotiv", "MNG Holding", "Filli Boya", "Sabah", "ATV", "Star TV", "24 TV"].map((brand) => (
+                  <span 
+                    key={brand}
+                    className="px-3 py-1.5 text-sm text-primary-300 bg-surface-card/50 border border-surface-border/50 rounded-lg"
+                  >
+                    {brand}
+                  </span>
+                ))}
+              </div>
             </div>
 
             {/* CTA */}

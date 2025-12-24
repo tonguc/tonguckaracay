@@ -12,6 +12,13 @@ import {
 
 const services = [
   {
+    icon: Palette,
+    title: "UI/UX Tasarım",
+    description: "Kullanıcı odaklı, dönüşüm optimizasyonlu tasarımlar. Web sitesi ve uygulama arayüz tasarımı.",
+    href: "/hizmetler/ui-ux-tasarim",
+    features: ["Kullanıcı Araştırması", "Wireframe & Prototip", "Dönüşüm Optimizasyonu"],
+  },
+  {
     icon: Search,
     title: "SEO Danışmanlığı",
     description: "Google'da üst sıralara çıkın. Teknik SEO, içerik stratejisi ve link building ile organik trafiğinizi artırın.",
@@ -24,13 +31,6 @@ const services = [
     description: "Google Ads ve Meta Ads ile hedef kitlenize ulaşın. ROI odaklı kampanya yönetimi ve optimizasyon.",
     href: "/hizmetler/online-reklamcilik",
     features: ["Google Ads", "Meta Ads", "Remarketing"],
-  },
-  {
-    icon: Palette,
-    title: "UI/UX Tasarım",
-    description: "Kullanıcı odaklı, dönüşüm optimizasyonlu tasarımlar. Web sitesi ve uygulama arayüz tasarımı.",
-    href: "/hizmetler/ui-ux-tasarim",
-    features: ["Kullanıcı Araştırması", "Wireframe & Prototip", "Dönüşüm Optimizasyonu"],
   },
   {
     icon: Bot,
