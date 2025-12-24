@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-surface-darker text-primary-100 font-body antialiased;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(251, 191, 36, 0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(99, 102, 241, 0.05), transparent);
+  }
+
+  ::selection {
+    @apply bg-accent-500/30 text-white;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-400 via-accent-300 to-accent-500;
+  }
+  
+  .text-gradient-subtle {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-100 to-primary-300;
+  }
+  
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 
+           bg-gradient-to-r from-accent-500 to-accent-600 
+           text-primary-950 font-semibold rounded-lg
+           hover:from-accent-400 hover:to-accent-500
+           transform hover:scale-[1.02] active:scale-[0.98]
+           transition-all duration-200 ease-out
+           shadow-lg shadow-accent-500/20 hover:shadow-xl hover:shadow-accent-500/30;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 
+           bg-surface-card border border-surface-border
+           text-primary-100 font-medium rounded-lg
+           hover:bg-surface-border hover:border-primary-500/30
+           transform hover:scale-[1.02] active:scale-[0.98]
+           transition-all duration-200 ease-out;
+  }
+  
+  .card {
+    @apply bg-surface-card/50 backdrop-blur-sm 
+           border border-surface-border/50 rounded-2xl
+           hover:border-accent-500/30 hover:bg-surface-card/80
+           transition-all duration-300 ease-out;
+  }
+  
+  .card-glow {
+    @apply relative overflow-hidden;
+  }
+  
+  .card-glow::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(251, 191, 36, 0.06), transparent 40%);
+  }
+  
+  .card-glow:hover::before {
+    @apply opacity-100;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-display font-bold text-white mb-4;
+  }
+  
+  .section-subtitle {
+    @apply text-lg text-primary-300 max-w-2xl;
+  }
+
+  /* Animated underline for links */
+  .link-underline {
+    @apply relative;
+  }
+  
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 bottom-0 w-0 h-px bg-accent-400 transition-all duration-300;
+  }
+  
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+}
+
+@layer utilities {
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+  .animation-delay-600 { animation-delay: 600ms; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface-darker;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-border rounded-full hover:bg-primary-600;
+}
+
+/* Focus styles */
+*:focus-visible {
+  @apply outline-none ring-2 ring-accent-500/50 ring-offset-2 ring-offset-surface-darker;
+}
