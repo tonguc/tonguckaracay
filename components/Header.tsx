@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 const services = [
@@ -55,9 +56,18 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="font-display text-xl font-bold text-white hover:text-accent-400 transition-colors"
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            Tonguç<span className="text-accent-400">.</span>
+            <Image
+              src="/logo.png"
+              alt="Tonguç Karaçay"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <span className="font-display text-xl font-bold text-white hidden sm:inline">
+              Tonguç<span className="text-accent-400">.</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

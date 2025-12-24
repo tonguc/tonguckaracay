@@ -65,16 +65,10 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Services Grid - 3 top, 2 bottom centered */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-          {services.slice(0, 3).map((service, index) => (
+        {/* Services Grid - Eşit genişlikte */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+          {services.map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />
-          ))}
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {services.slice(3, 5).map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index + 3} />
           ))}
         </div>
       </div>
@@ -94,33 +88,33 @@ function ServiceCard({
   return (
     <Link 
       href={service.href}
-      className={`card card-glow p-6 group block animate-fade-in-up`}
+      className={`card card-glow p-5 group block animate-fade-in-up`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Icon */}
-      <div className="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/20 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-accent-500/20 transition-all duration-300">
-        <Icon className="w-6 h-6 text-accent-400" />
+      <div className="w-10 h-10 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-accent-500/20 transition-all duration-300">
+        <Icon className="w-5 h-5 text-accent-400" />
       </div>
 
       {/* Title with Arrow */}
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xl font-display font-semibold text-white group-hover:text-accent-400 transition-colors">
+      <div className="flex items-start justify-between gap-2 mb-2">
+        <h3 className="text-base font-display font-semibold text-white group-hover:text-accent-400 transition-colors leading-tight">
           {service.title}
         </h3>
-        <ArrowUpRight className="w-5 h-5 text-primary-500 group-hover:text-accent-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+        <ArrowUpRight className="w-4 h-4 text-primary-500 group-hover:text-accent-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0" />
       </div>
 
       {/* Description */}
-      <p className="text-primary-300 mb-5 leading-relaxed">
+      <p className="text-primary-300 text-sm mb-4 leading-relaxed line-clamp-3">
         {service.description}
       </p>
 
       {/* Features */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5">
         {service.features.map((feature) => (
           <span 
             key={feature}
-            className="px-3 py-1 text-xs font-medium text-primary-300 bg-surface-border/30 rounded-full"
+            className="px-2 py-0.5 text-xs font-medium text-primary-400 bg-surface-border/30 rounded-full"
           >
             {feature}
           </span>
