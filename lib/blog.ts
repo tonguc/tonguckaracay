@@ -648,11 +648,11 @@ export function getFeaturedPosts(): BlogPost[] {
 }
 
 export function getAllCategories(): string[] {
-  return [...new Set(blogPosts.map(post => post.category))];
+  return Array.from(new Set(blogPosts.map(post => post.category)));
 }
 
 export function getAllTags(): string[] {
-  return [...new Set(blogPosts.flatMap(post => post.tags))];
+  return Array.from(new Set(blogPosts.flatMap(post => post.tags)));
 }
 
 // Additional blog posts (continued)
