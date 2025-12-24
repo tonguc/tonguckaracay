@@ -11,7 +11,8 @@ import {
   Sparkles,
   Target,
   Zap,
-  MessageSquare
+  MessageSquare,
+  Search
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -215,7 +216,7 @@ export default function UIUXTasarimPage() {
               Satış funnel'ı tamamlanmıyor. Bunların hepsi kötü kullanıcı deneyiminin belirtileri. 
               İyi bir UI/UX tasarımı ile bu sorunları çözebiliriz.
             </p>
-            <div className="grid md:grid-cols-3 gap-6 text-left">
+            <div className="grid md:grid-cols-3 gap-5 text-left mb-5">
               <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
                 <div className="text-3xl font-bold text-accent-400 mb-2">%70</div>
                 <p className="text-primary-300 text-sm">Kullanıcıların kötü UX nedeniyle siteleri terk etme oranı</p>
@@ -227,6 +228,16 @@ export default function UIUXTasarimPage() {
               <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
                 <div className="text-3xl font-bold text-accent-400 mb-2">%400</div>
                 <p className="text-primary-300 text-sm">İyi UX tasarımının dönüşüm oranına potansiyel etkisi</p>
+              </div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-5 text-left max-w-2xl mx-auto">
+              <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
+                <div className="text-3xl font-bold text-accent-400 mb-2">%88</div>
+                <p className="text-primary-300 text-sm">Kötü deneyim sonrası siteye dönmeyen kullanıcı oranı</p>
+              </div>
+              <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
+                <div className="text-3xl font-bold text-accent-400 mb-2">$100</div>
+                <p className="text-primary-300 text-sm">UX'e yatırılan her 1$'ın ortalama getirisi</p>
               </div>
             </div>
           </div>
@@ -375,6 +386,18 @@ export default function UIUXTasarimPage() {
                     <h3 className="text-lg font-semibold text-white mb-1">Doğrudan İletişim</h3>
                     <p className="text-primary-300 text-sm">
                       Ajans değilim, bireysel çalışıyorum. Projenizle bizzat ben ilgileniyorum. Aracı yok, doğrudan iletişim var.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-accent-500/20 flex items-center justify-center">
+                    <Search className="w-5 h-5 text-accent-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-1">SEO Uyumlu Tasarım</h3>
+                    <p className="text-primary-300 text-sm">
+                      Tasarımlar baştan SEO düşünülerek yapılır. Site hızı, Core Web Vitals ve yapısal veri optimizasyonu standart sürecimin parçası.
                     </p>
                   </div>
                 </div>
