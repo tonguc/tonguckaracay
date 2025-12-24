@@ -126,22 +126,22 @@ export default function OnlineReklamcilikPage() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {services.map((service, index) => (
               <div 
                 key={index}
-                className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all"
+                className="bg-surface-darker/50 border border-surface-border rounded-2xl p-5 hover:border-accent-500/50 transition-all"
               >
                 <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
                   <service.icon className="w-6 h-6 text-accent-400" />
                 </div>
-                <h3 className="text-xl font-display font-semibold text-white mb-3">
+                <h3 className="text-lg font-display font-semibold text-white mb-2">
                   {service.title}
                 </h3>
-                <p className="text-primary-300 text-sm leading-relaxed mb-4">
+                <p className="text-primary-300 text-sm leading-relaxed mb-3">
                   {service.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {service.features.map((feature, i) => (
                     <span key={i} className="px-2 py-1 text-xs text-primary-300 bg-surface-card rounded-md">
                       {feature}

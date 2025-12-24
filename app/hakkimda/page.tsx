@@ -6,15 +6,16 @@ import {
   Award,
   Briefcase,
   Globe,
-  Calendar,
   CheckCircle2,
   MapPin,
-  Linkedin
+  Linkedin,
+  Megaphone,
+  Share2
 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Hakkımda | Tonguç Karaçay - AI-Driven UX & Growth Partner",
-  description: "25+ yıllık deneyimle UI/UX tasarım, SEO ve AI çözümleri. THY, BMW, Galatasaray, Sabah gibi 35+ markaya hizmet. Türkiye ve uluslararası firmalara danışmanlık.",
+  description: "25+ yıllık deneyimle UI/UX tasarım, SEO ve AI çözümleri. THY, BMW, Galatasaray gibi 35+ markaya hizmet. Türkiye ve uluslararası firmalara danışmanlık.",
   keywords: "Tonguç Karaçay, AI-Driven UX, Growth Partner, UI UX tasarımcı, SEO uzmanı",
 };
 
@@ -22,17 +23,27 @@ const expertise = [
   {
     icon: Award,
     title: "UI/UX Tasarım",
-    description: "Kullanıcı araştırması, wireframe, prototip ve arayüz tasarımı. Dönüşüm odaklı kullanıcı deneyimi."
+    description: "Kullanıcı araştırması, wireframe, prototip ve arayüz tasarımı."
   },
   {
     icon: Globe,
-    title: "SEO & Dijital Pazarlama",
-    description: "Teknik SEO, içerik stratejisi, link building. Türkiye ve uluslararası pazarlarda deneyim."
+    title: "SEO Danışmanlığı",
+    description: "Teknik SEO, içerik stratejisi, uluslararası SEO."
+  },
+  {
+    icon: Megaphone,
+    title: "Online Reklamcılık",
+    description: "Google Ads, Meta Ads, performans pazarlama."
   },
   {
     icon: Briefcase,
     title: "Yapay Zeka Çözümleri",
-    description: "AI chatbot, otomasyon ve iş süreçlerinde yapay zeka entegrasyonu."
+    description: "AI chatbot, otomasyon, iş süreçleri entegrasyonu."
+  },
+  {
+    icon: Share2,
+    title: "Sosyal Medya",
+    description: "Strateji, içerik planlaması, organik büyüme."
   }
 ];
 
@@ -194,19 +205,19 @@ export default function HakkimdaPage() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {expertise.map((item, index) => (
               <div 
                 key={index}
-                className="bg-surface-card/50 border border-surface-border rounded-2xl p-6 text-center hover:border-accent-500/50 transition-all"
+                className="bg-surface-card/50 border border-surface-border rounded-2xl p-5 text-center hover:border-accent-500/50 transition-all"
               >
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
-                  <item.icon className="w-7 h-7 text-accent-400" />
+                <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mx-auto mb-3">
+                  <item.icon className="w-6 h-6 text-accent-400" />
                 </div>
-                <h3 className="text-xl font-display font-semibold text-white mb-3">
+                <h3 className="text-lg font-display font-semibold text-white mb-2">
                   {item.title}
                 </h3>
-                <p className="text-primary-300 text-sm leading-relaxed">
+                <p className="text-primary-300 text-xs leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -218,12 +229,11 @@ export default function HakkimdaPage() {
       {/* Story */}
       <section className="py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="section-title mb-8 text-center">
-              Hikayem
-            </h2>
+          <h2 className="section-title mb-8">
+            Hikayem
+          </h2>
 
-            <div className="space-y-6 text-primary-300 leading-relaxed">
+          <div className="space-y-6 text-primary-300 leading-relaxed">
               <p>
                 Dijital dünyaya olan tutkum 90'lı yılların sonlarında başladı. O dönemde Türkiye'de 
                 internet henüz yeni yayılıyordu ve ben bu yeni mecranın potansiyelini gördüm. 
@@ -258,7 +268,6 @@ export default function HakkimdaPage() {
                 kullanıyorum.
               </p>
             </div>
-          </div>
         </div>
       </section>
 
