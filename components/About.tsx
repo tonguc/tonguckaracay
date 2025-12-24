@@ -70,9 +70,9 @@ export default function About() {
 
             {/* Referans Markalar */}
             <div className="mb-8">
-              <p className="text-sm text-primary-400 mb-3">Çalıştığım markalardan bazıları:</p>
+              <p className="text-sm text-primary-400 mb-3">Çalıştığım ve destek verdiğim firmalardan bazıları:</p>
               <div className="flex flex-wrap gap-2">
-                {["Sabancı Holding", "Borusan Otomotiv", "MNG Holding", "Filli Boya", "Sabah", "ATV", "Star TV", "24 TV"].map((brand) => (
+                {["THY", "BMW", "Jaguar", "Galatasaray", "Sabah", "ATV", "A Haber", "Borusan Otomotiv"].map((brand) => (
                   <span 
                     key={brand}
                     className="px-3 py-1.5 text-sm text-primary-300 bg-surface-card/50 border border-surface-border/50 rounded-lg"

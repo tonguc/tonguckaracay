@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Linkedin, Twitter, Github } from "lucide-react";
+import { Mail, Linkedin, Twitter, ExternalLink } from "lucide-react";
 
 const services = [
   { name: "UI/UX Tasarım", href: "/hizmetler/ui-ux-tasarim" },
@@ -19,8 +19,8 @@ const blogCategories = [
 
 const socialLinks = [
   { name: "LinkedIn", href: "https://linkedin.com/in/tonguckaracay", icon: Linkedin },
+  { name: "Behance", href: "https://behance.net/tonguc", icon: ExternalLink },
   { name: "Twitter", href: "https://twitter.com/tonguckaracay", icon: Twitter },
-  { name: "GitHub", href: "https://github.com/tonguckaracay", icon: Github },
 ];
 
 export default function Footer() {
@@ -35,7 +35,7 @@ export default function Footer() {
               Tonguç<span className="text-accent-400">.</span>
             </Link>
             <p className="text-primary-400 mb-6 leading-relaxed">
-              SEO, dijital pazarlama ve yapay zeka çözümleriyle işletmenizin dijital büyümesine katkı sağlıyorum.
+              AI-Driven UX & Growth Partner. 25+ yıl deneyimle UI/UX, SEO ve yapay zeka çözümleri.
             </p>
             {/* Social Links */}
             <div className="flex items-center gap-3">

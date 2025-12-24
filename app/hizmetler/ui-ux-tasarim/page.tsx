@@ -99,17 +99,43 @@ const process = [
 ];
 
 const brands = [
-  "Sabancı Holding",
-  "Borusan Otomotiv", 
-  "MNG Holding",
-  "Filli Boya",
+  "THY",
+  "BMW",
+  "Jaguar",
+  "Range Rover",
+  "Mini",
+  "Borusan Otomotiv",
+  "Galatasaray",
   "Sabah",
+  "Sabah USA",
+  "Star",
   "ATV",
-  "Star TV",
-  "24 TV",
+  "A Haber",
+  "A Spor",
+  "Güneş",
+  "Takvim",
   "Fotomaç",
   "Akşam",
-  "Lig Radyo"
+  "Yeni Asır",
+  "24 TV",
+  "360 TV",
+  "Turkuvaz Radyo",
+  "Alem FM",
+  "Aktüel",
+  "Ağaoğlu My Life",
+  "Asis",
+  "Burulaş",
+  "LiveDoctor",
+  "Callhealer",
+  "Sigorta 7",
+  "Network Hardwares",
+  "E-Wallet",
+  "Leman",
+  "Eva",
+  "Otohaber",
+  "Dr. Fatih Akova",
+  "Dr. Kemal Tuskan",
+  "Dr. Baver Samancı"
 ];
 
 const faqs = [
@@ -216,7 +242,7 @@ export default function UIUXTasarimPage() {
               Satış funnel'ı tamamlanmıyor. Bunların hepsi kötü kullanıcı deneyiminin belirtileri. 
               İyi bir UI/UX tasarımı ile bu sorunları çözebiliriz.
             </p>
-            <div className="grid md:grid-cols-3 gap-5 text-left mb-5">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-left">
               <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
                 <div className="text-3xl font-bold text-accent-400 mb-2">%70</div>
                 <p className="text-primary-300 text-sm">Kullanıcıların kötü UX nedeniyle siteleri terk etme oranı</p>
@@ -229,8 +255,6 @@ export default function UIUXTasarimPage() {
                 <div className="text-3xl font-bold text-accent-400 mb-2">%400</div>
                 <p className="text-primary-300 text-sm">İyi UX tasarımının dönüşüm oranına potansiyel etkisi</p>
               </div>
-            </div>
-            <div className="grid md:grid-cols-2 gap-5 text-left max-w-2xl mx-auto">
               <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
                 <div className="text-3xl font-bold text-accent-400 mb-2">%88</div>
                 <p className="text-primary-300 text-sm">Kötü deneyim sonrası siteye dönmeyen kullanıcı oranı</p>
@@ -415,7 +439,7 @@ export default function UIUXTasarimPage() {
                 />
                 <div className="text-center">
                   <h3 className="text-xl font-display font-bold text-white mb-1">Tonguç Karaçay</h3>
-                  <p className="text-accent-400 mb-4">UI/UX Tasarımcı & SEO Uzmanı</p>
+                  <p className="text-accent-400 mb-4">AI-Driven UX & Growth Partner</p>
                   <p className="text-primary-300 text-sm">
                     "Her tasarımın arkasında bir kullanıcı var. Onların ihtiyaçlarını anlamak, başarılı tasarımın temelidir."
                   </p>
@@ -431,18 +455,18 @@ export default function UIUXTasarimPage() {
         <div className="container-custom">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-display font-bold text-white mb-3">
-              Çalıştığım Markalar
+              Çalıştığım ve Destek Verdiğim Firmalar
             </h2>
             <p className="text-primary-300">
-              Türkiye'nin önde gelen kurumsal şirketlerine tasarım hizmeti verdim
+              Türkiye ve uluslararası markalara UI/UX tasarım hizmeti verdim
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-3">
             {brands.map((brand, index) => (
               <div 
                 key={index}
-                className="px-6 py-3 bg-surface-card/50 border border-surface-border rounded-lg text-primary-300 hover:border-accent-500/50 hover:text-white transition-all"
+                className="px-4 py-2 bg-surface-card/50 border border-surface-border rounded-lg text-primary-300 text-sm hover:border-accent-500/50 hover:text-white transition-all"
               >
                 {brand}
               </div>

@@ -13,9 +13,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Hakkımda | Tonguç Karaçay - UI/UX Tasarımcı & SEO Uzmanı",
-  description: "25+ yıllık deneyimle UI/UX tasarım, SEO ve dijital pazarlama alanında Türkiye ve uluslararası firmalara danışmanlık. Sabancı, Borusan, MNG gibi markalara hizmet.",
-  keywords: "Tonguç Karaçay, UI UX tasarımcı, SEO uzmanı, dijital pazarlama danışmanı",
+  title: "Hakkımda | Tonguç Karaçay - AI-Driven UX & Growth Partner",
+  description: "25+ yıllık deneyimle UI/UX tasarım, SEO ve AI çözümleri. THY, BMW, Galatasaray, Sabah gibi 35+ markaya hizmet. Türkiye ve uluslararası firmalara danışmanlık.",
+  keywords: "Tonguç Karaçay, AI-Driven UX, Growth Partner, UI UX tasarımcı, SEO uzmanı",
 };
 
 const expertise = [
@@ -37,23 +37,49 @@ const expertise = [
 ];
 
 const brands = [
-  "Sabancı Holding",
-  "Borusan Otomotiv", 
-  "MNG Holding",
-  "Filli Boya",
+  "THY",
+  "BMW",
+  "Jaguar",
+  "Range Rover",
+  "Mini",
+  "Borusan Otomotiv",
+  "Galatasaray",
   "Sabah",
+  "Sabah USA",
+  "Star",
   "ATV",
-  "Star TV",
-  "24 TV",
+  "A Haber",
+  "A Spor",
+  "Güneş",
+  "Takvim",
   "Fotomaç",
   "Akşam",
-  "Lig Radyo"
+  "Yeni Asır",
+  "24 TV",
+  "360 TV",
+  "Turkuvaz Radyo",
+  "Alem FM",
+  "Aktüel",
+  "Ağaoğlu My Life",
+  "Asis",
+  "Burulaş",
+  "LiveDoctor",
+  "Callhealer",
+  "Sigorta 7",
+  "Network Hardwares",
+  "E-Wallet",
+  "Leman",
+  "Eva",
+  "Otohaber",
+  "Dr. Fatih Akova",
+  "Dr. Kemal Tuskan",
+  "Dr. Baver Samancı"
 ];
 
 const stats = [
   { value: "25+", label: "Yıl Deneyim" },
   { value: "3", label: "Ülkede Hizmet" },
-  { value: "50+", label: "Marka" },
+  { value: "35+", label: "Marka" },
 ];
 
 export default function HakkimdaPage() {
@@ -207,7 +233,7 @@ export default function HakkimdaPage() {
 
               <p>
                 2000'li yılların başında Türkiye'nin en büyük medya gruplarında çalışmaya başladım. 
-                <strong className="text-white"> Sabah, ATV, Star TV, 24 TV, Fotomaç, Akşam </strong> 
+                <strong className="text-white"> Sabah, ATV, Star, A Haber, Güneş, Takvim, Fotomaç </strong> 
                 gibi markaların dijital ürünlerini tasarladım. Bu deneyim bana yüksek trafikli, 
                 büyük ölçekli projelerde çalışma fırsatı verdi.
               </p>
@@ -220,9 +246,9 @@ export default function HakkimdaPage() {
               </p>
 
               <p>
-                Son yıllarda <strong className="text-white">Sabancı Holding, Borusan Otomotiv, 
-                MNG Holding, Filli Boya</strong> gibi Türkiye'nin önde gelen kurumsal şirketlerine 
-                danışmanlık verdim. Aynı zamanda <strong className="text-white">Amerika, Kanada ve 
+                Son yıllarda <strong className="text-white">THY, BMW, Jaguar, Range Rover, 
+                Galatasaray, Borusan Otomotiv</strong> gibi Türkiye ve uluslararasının önde gelen 
+                markalarına danışmanlık verdim. Aynı zamanda <strong className="text-white">Amerika, Kanada ve 
                 Almanya</strong>'daki firmalara uluslararası SEO hizmeti sundum.
               </p>
 
@@ -241,19 +267,19 @@ export default function HakkimdaPage() {
         <div className="container-custom">
           <div className="text-center mb-10">
             <h2 className="section-title mb-4">
-              Çalıştığım{" "}
-              <span className="text-gradient">Markalar</span>
+              Çalıştığım ve Destek Verdiğim{" "}
+              <span className="text-gradient">Firmalar</span>
             </h2>
             <p className="text-primary-300">
-              Türkiye'nin önde gelen kurumsal şirketleri ve medya kuruluşları
+              Türkiye ve uluslararası markalar
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto">
             {brands.map((brand, index) => (
               <div 
                 key={index}
-                className="px-6 py-3 bg-surface-card/50 border border-surface-border rounded-lg text-primary-300 hover:border-accent-500/50 hover:text-white transition-all"
+                className="px-4 py-2 bg-surface-card/50 border border-surface-border rounded-lg text-primary-300 text-sm hover:border-accent-500/50 hover:text-white transition-all"
               >
                 {brand}
               </div>
@@ -334,15 +360,15 @@ export default function HakkimdaPage() {
             "@context": "https://schema.org",
             "@type": "Person",
             "name": "Tonguç Karaçay",
-            "jobTitle": "UI/UX Tasarımcı & SEO Uzmanı",
-            "description": "25+ yıllık deneyimle UI/UX tasarım, SEO ve dijital pazarlama danışmanlığı",
+            "jobTitle": "AI-Driven UX & Growth Partner",
+            "description": "25+ yıllık deneyimle UI/UX tasarım, SEO ve AI çözümleri. THY, BMW, Galatasaray gibi 35+ markaya hizmet.",
             "url": "https://tonguckaracay.com/hakkimda",
             "image": "https://tonguckaracay.com/tonguc-karacay.jpg",
             "sameAs": [
               "https://linkedin.com/in/tonguckaracay",
-              "https://twitter.com/tonguckaracay"
+              "https://behance.net/tonguc"
             ],
-            "knowsAbout": ["UI/UX Design", "SEO", "Digital Marketing", "Artificial Intelligence"],
+            "knowsAbout": ["UI/UX Design", "SEO", "Growth Hacking", "Artificial Intelligence", "Digital Marketing"],
             "worksFor": {
               "@type": "Organization",
               "name": "Freelance"

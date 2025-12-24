@@ -4,9 +4,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Tonguç Karaçay | SEO ve Dijital Pazarlama Uzmanı",
-  description: "SEO, UI/UX Tasarım, Online Reklamcılık ve Yapay Zeka çözümleriyle işletmenizi dijitalde büyütüyorum. 10+ yıl deneyim, 120+ başarılı proje.",
-  keywords: ["SEO danışmanlığı", "dijital pazarlama", "UI/UX tasarım", "yapay zeka çözümleri", "online reklamcılık", "sosyal medya yönetimi"],
+  title: "Tonguç Karaçay | AI-Driven UX & Growth Partner",
+  description: "UI/UX Tasarım, SEO, Online Reklamcılık ve Yapay Zeka çözümleriyle işletmenizi dijitalde büyütüyorum. 25+ yıl deneyim, THY, BMW, Galatasaray gibi 35+ marka.",
+  keywords: ["UI/UX tasarım", "SEO danışmanlığı", "dijital pazarlama", "yapay zeka çözümleri", "online reklamcılık", "growth hacking"],
   authors: [{ name: "Tonguç Karaçay" }],
   creator: "Tonguç Karaçay",
   openGraph: {
@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://tonguckaracay.com",
     siteName: "Tonguç Karaçay",
-    title: "Tonguç Karaçay | SEO ve Dijital Pazarlama Uzmanı",
-    description: "SEO, UI/UX Tasarım, Online Reklamcılık ve Yapay Zeka çözümleriyle işletmenizi dijitalde büyütüyorum.",
+    title: "Tonguç Karaçay | AI-Driven UX & Growth Partner",
+    description: "UI/UX Tasarım, SEO ve Yapay Zeka çözümleriyle işletmenizi dijitalde büyütüyorum. 25+ yıl deneyim.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tonguç Karaçay | SEO ve Dijital Pazarlama Uzmanı",
-    description: "SEO, UI/UX Tasarım, Online Reklamcılık ve Yapay Zeka çözümleriyle işletmenizi dijitalde büyütüyorum.",
+    title: "Tonguç Karaçay | AI-Driven UX & Growth Partner",
+    description: "UI/UX Tasarım, SEO ve Yapay Zeka çözümleriyle işletmenizi dijitalde büyütüyorum. 25+ yıl deneyim.",
   },
   robots: {
     index: true,

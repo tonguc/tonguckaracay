@@ -100,13 +100,17 @@ const process = [
 ];
 
 const brands = [
-  "Sabancı Holding",
-  "Borusan Otomotiv", 
-  "MNG Holding",
-  "Filli Boya",
+  "THY",
+  "BMW",
+  "Galatasaray",
+  "Borusan Otomotiv",
   "Sabah",
+  "Sabah USA",
   "ATV",
-  "Star TV",
+  "A Haber",
+  "Star",
+  "Güneş",
+  "Takvim",
   "24 TV"
 ];
 
@@ -364,18 +368,18 @@ export default function SEODanismanligiPage() {
         <div className="container-custom">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-display font-bold text-white mb-3">
-              Çalıştığım Markalar
+              Çalıştığım ve Destek Verdiğim Firmalar
             </h2>
             <p className="text-primary-300">
-              Türkiye'nin önde gelen kurumsal şirketlerine SEO danışmanlığı verdim
+              Türkiye ve uluslararası markalara SEO danışmanlığı verdim
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-3">
             {brands.map((brand, index) => (
               <div 
                 key={index}
-                className="px-6 py-3 bg-surface-card/50 border border-surface-border rounded-lg text-primary-300 hover:border-accent-500/50 hover:text-white transition-all"
+                className="px-4 py-2 bg-surface-card/50 border border-surface-border rounded-lg text-primary-300 text-sm hover:border-accent-500/50 hover:text-white transition-all"
               >
                 {brand}
               </div>
