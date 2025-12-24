@@ -56,17 +56,17 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
             <Image
               src="/logo.png"
               alt="Tonguç Karaçay"
-              width={40}
-              height={40}
+              width={60}
+              height={60}
               className="rounded-full"
             />
             <span className="font-display text-xl font-bold text-white hidden sm:inline">
-              Tonguç<span className="text-accent-400">.</span>
+              Tonguç Karaçay
             </span>
           </Link>
 

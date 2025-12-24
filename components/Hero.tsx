@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, TrendingUp, Users, Zap } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -59,18 +59,18 @@ export default function Hero() {
           </div>
 
           {/* Social Proof */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 text-sm animate-fade-in-up animation-delay-300">
-            <div className="flex items-center gap-2 text-primary-300">
-              <Users className="w-5 h-5 text-accent-400" />
-              <span><strong className="text-white">120+</strong> İşletme</span>
-            </div>
-            <div className="flex items-center gap-2 text-primary-300">
-              <TrendingUp className="w-5 h-5 text-accent-400" />
-              <span>Ortalama <strong className="text-white">%40</strong> Organik Büyüme</span>
-            </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm animate-fade-in-up animation-delay-300">
             <div className="flex items-center gap-2 text-primary-300">
               <Zap className="w-5 h-5 text-accent-400" />
-              <span><strong className="text-white">10+</strong> Yıl Deneyim</span>
+              <span><strong className="text-white">25+</strong> Yıl Deneyim</span>
+            </div>
+            <div className="flex items-center gap-2 text-primary-300">
+              <span className="w-1.5 h-1.5 bg-accent-400 rounded-full" />
+              <span>Sonuç Odaklı</span>
+            </div>
+            <div className="flex items-center gap-2 text-primary-300">
+              <span className="w-1.5 h-1.5 bg-accent-400 rounded-full" />
+              <span>Kişiselleştirilmiş Strateji</span>
             </div>
           </div>
         </div>
