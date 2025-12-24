@@ -15,11 +15,10 @@ const services = [
 
 const blogCategories = [
   { name: "Tüm Yazılar", href: "/blog" },
-  { name: "UI/UX Tasarım", href: "/ui-ux-tasarim" },
-  { name: "SEO", href: "/seo" },
-  { name: "Online Reklamcılık", href: "/online-reklamcilik" },
-  { name: "Yapay Zeka", href: "/yapay-zeka" },
-  { name: "Sosyal Medya", href: "/sosyal-medya" },
+  { name: "SEO", href: "/blog?kategori=seo" },
+  { name: "UI/UX Tasarım", href: "/blog?kategori=ui-ux" },
+  { name: "Dijital Pazarlama", href: "/blog?kategori=dijital-pazarlama" },
+  { name: "E-Ticaret", href: "/blog?kategori=e-ticaret" },
 ];
 
 export default function Header() {

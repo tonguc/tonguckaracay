@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+// Google Analytics ID
+const GA_ID = "G-0YHTLZPKKZ";
 
 export const metadata: Metadata = {
   title: "Tonguç Karaçay | AI-Driven UX & Growth Partner",
@@ -9,6 +13,7 @@ export const metadata: Metadata = {
   keywords: ["UI/UX tasarım", "SEO danışmanlığı", "dijital pazarlama", "yapay zeka çözümleri", "online reklamcılık", "growth hacking"],
   authors: [{ name: "Tonguç Karaçay" }],
   creator: "Tonguç Karaçay",
+  metadataBase: new URL("https://tonguckaracay.com"),
   openGraph: {
     type: "website",
     locale: "tr_TR",
@@ -26,6 +31,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "GOOGLE_SITE_VERIFICATION_CODE", // Google Search Console doğrulama kodu ekle
+  },
 };
 
 export default function RootLayout({
@@ -35,6 +43,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
+      <head>
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
+      </head>
       <body className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">

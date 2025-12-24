@@ -2,39 +2,12 @@
 
 import Link from "next/link";
 import { ArrowRight, Calendar, Clock, ArrowUpRight } from "lucide-react";
-
-// Bu veri daha sonra CMS veya API'den gelecek
-const blogPosts = [
-  {
-    title: "Profesyonel SEO Uzmanı Nedir, Nasıl Olunur?",
-    excerpt: "SEO uzmanı çalışmasına başlarken, ilk olarak siteyi analiz eder. Çalışma için gerekli stratejileri belirler...",
-    slug: "profesyonel-seo-uzmani-nedir-nasil-olunur",
-    category: "SEO",
-    categorySlug: "/seo",
-    date: "13 Ekim 2020",
-    readTime: "8 dk",
-  },
-  {
-    title: "UI – UX Designer Nedir, Nasıl Çalışırlar?",
-    excerpt: "UI/UX Designer hakkında ince bir çizgi olmasına rağmen aralarında önemli teknik farklılıklar da mevcuttur...",
-    slug: "ui-ux-designer-nedir-nasil-calisirlar",
-    category: "UI/UX Tasarım",
-    categorySlug: "/ui-ux-tasarim",
-    date: "23 Eylül 2020",
-    readTime: "6 dk",
-  },
-  {
-    title: "SEO ile Organik Trafiği Artırmanın Yöntemleri",
-    excerpt: "İngilizce Search Engine Optimization kelimelerinin baş harfleri ile ifade edilen SEO, arama motoru optimizasyonu...",
-    slug: "seo-ile-organik-trafigi-artirmanin-yontemleri",
-    category: "SEO",
-    categorySlug: "/seo",
-    date: "22 Eylül 2020",
-    readTime: "10 dk",
-  },
-];
+import { getAllPosts, BlogPost } from "@/lib/blog";
 
 export default function BlogPreview() {
+  const allPosts = getAllPosts();
+  const latestPosts = allPosts.slice(0, 3);
+
   return (
     <section className="py-24 relative">
       {/* Background */}
@@ -62,7 +35,7 @@ export default function BlogPreview() {
 
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogPosts.map((post, index) => (
+          {latestPosts.map((post, index) => (
             <BlogCard key={post.slug} post={post} index={index} />
           ))}
         </div>
@@ -75,9 +48,15 @@ function BlogCard({
   post, 
   index 
 }: { 
-  post: typeof blogPosts[0]; 
+  post: BlogPost; 
   index: number;
 }) {
+  const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString('tr-TR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
   return (
     <article 
       className="card card-glow group animate-fade-in-up overflow-hidden"
@@ -99,7 +78,7 @@ function BlogCard({
         {/* Category & Meta */}
         <div className="flex items-center justify-between mb-3">
           <Link 
-            href={post.categorySlug}
+            href={`/blog?kategori=${post.category.toLowerCase()}`}
             className="text-xs font-medium text-accent-400 hover:text-accent-300 uppercase tracking-wider"
           >
             {post.category}
@@ -107,7 +86,7 @@ function BlogCard({
           <div className="flex items-center gap-3 text-xs text-primary-400">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
-              {post.date}
+              {formattedDate}
             </span>
             <span className="flex items-center gap-1">
               <Clock className="w-3 h-3" />
@@ -117,7 +96,7 @@ function BlogCard({
         </div>
 
         {/* Title */}
-        <Link href={`/${post.slug}`}>
+        <Link href={`/blog/${post.slug}`}>
           <h3 className="text-lg font-display font-semibold text-white mb-3 group-hover:text-accent-400 transition-colors line-clamp-2">
             {post.title}
           </h3>
@@ -125,12 +104,12 @@ function BlogCard({
 
         {/* Excerpt */}
         <p className="text-primary-300 text-sm leading-relaxed mb-4 line-clamp-2">
-          {post.excerpt}
+          {post.description}
         </p>
 
         {/* Read More */}
         <Link 
-          href={`/${post.slug}`}
+          href={`/blog/${post.slug}`}
           className="inline-flex items-center gap-1 text-sm font-medium text-primary-300 hover:text-accent-400 transition-colors group/link"
         >
           Devamını oku
