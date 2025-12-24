@@ -156,7 +156,7 @@ export default function IletisimPage() {
               </div>
 
               {/* Quick Info */}
-              <div className="mt-10 p-5 bg-surface-card/50 border border-surface-border rounded-xl">
+              <div className="mt-10 p-5 bg-surface-card border border-surface-border rounded-xl">
                 <h3 className="text-white font-medium mb-3">Hızlı Bilgi</h3>
                 <ul className="space-y-2 text-sm text-primary-300">
                   <li className="flex items-center gap-2">
@@ -181,7 +181,7 @@ export default function IletisimPage() {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="bg-surface-card/50 border border-surface-border rounded-2xl p-8">
+              <div className="bg-surface-card border border-surface-border rounded-2xl p-8">
                 {isSubmitted ? (
                   <div className="text-center py-12">
                     <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
@@ -358,22 +358,22 @@ export default function IletisimPage() {
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6 text-left">
-              <div className="bg-surface-darker/50 border border-surface-border rounded-xl p-5">
+              <div className="bg-surface-card border border-surface-border rounded-xl p-5">
                 <h3 className="text-white font-medium mb-2">İlk görüşme ücretli mi?</h3>
                 <p className="text-primary-300 text-sm">Hayır, ilk görüşme ve ön değerlendirme tamamen ücretsizdir.</p>
               </div>
 
-              <div className="bg-surface-darker/50 border border-surface-border rounded-xl p-5">
+              <div className="bg-surface-card border border-surface-border rounded-xl p-5">
                 <h3 className="text-white font-medium mb-2">Ne kadar sürede yanıt alırım?</h3>
                 <p className="text-primary-300 text-sm">Genellikle 24 saat içinde tüm mesajlara yanıt veriyorum.</p>
               </div>
 
-              <div className="bg-surface-darker/50 border border-surface-border rounded-xl p-5">
+              <div className="bg-surface-card border border-surface-border rounded-xl p-5">
                 <h3 className="text-white font-medium mb-2">Uzaktan çalışıyor musunuz?</h3>
                 <p className="text-primary-300 text-sm">Evet, Türkiye ve yurt dışından müşterilerle uzaktan çalışıyorum.</p>
               </div>
 
-              <div className="bg-surface-darker/50 border border-surface-border rounded-xl p-5">
+              <div className="bg-surface-card border border-surface-border rounded-xl p-5">
                 <h3 className="text-white font-medium mb-2">Minimum proje bütçesi var mı?</h3>
                 <p className="text-primary-300 text-sm">Her proje farklı, görüşmede bütçenize uygun çözümler sunarım.</p>
               </div>

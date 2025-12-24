@@ -156,7 +156,7 @@ export default function YapayZekaCozumleriPage() {
             {services.map((service, index) => (
               <div 
                 key={index}
-                className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all text-center"
+                className="bg-surface-card border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all text-center"
               >
                 <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4 mx-auto">
                   <service.icon className="w-6 h-6 text-accent-400" />
@@ -192,7 +192,7 @@ export default function YapayZekaCozumleriPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {useCases.map((useCase, index) => (
-              <div key={index} className="bg-surface-card/50 border border-surface-border rounded-xl p-5 text-center">
+              <div key={index} className="bg-surface-card border border-surface-border rounded-xl p-5 text-center">
                 <h3 className="text-lg font-semibold text-white mb-2">{useCase.title}</h3>
                 <p className="text-primary-300 text-sm">{useCase.description}</p>
               </div>
@@ -210,7 +210,7 @@ export default function YapayZekaCozumleriPage() {
 
           <div className="max-w-3xl mx-auto space-y-4">
             {faqs.map((faq, index) => (
-              <details key={index} className="group bg-surface-darker/50 border border-surface-border rounded-xl overflow-hidden">
+              <details key={index} className="group bg-surface-card border border-surface-border rounded-xl overflow-hidden">
                 <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-surface-card/80 transition-colors">
                   <h3 className="text-white font-medium pr-4">{faq.question}</h3>
                   <span className="flex-shrink-0 w-5 h-5 text-accent-400 group-open:rotate-180 transition-transform">

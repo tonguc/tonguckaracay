@@ -243,26 +243,26 @@ export default function UIUXTasarimPage() {
               İyi bir UI/UX tasarımı ile bu sorunları çözebiliriz.
             </p>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6">
-            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all">
-              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">%70</div>
-              <p className="text-primary-300 text-sm lg:text-base">Kullanıcıların kötü UX nedeniyle siteleri terk etme oranı</p>
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center hover:border-accent-500/50 transition-all">
+              <div className="text-3xl lg:text-4xl font-bold text-accent-400 mb-2">%70</div>
+              <p className="text-primary-300 text-sm">Kullanıcıların kötü UX nedeniyle siteleri terk etme oranı</p>
             </div>
-            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all">
-              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">5 sn</div>
-              <p className="text-primary-300 text-sm lg:text-base">Kullanıcıların siteniz hakkında karar vermesi için geçen süre</p>
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center hover:border-accent-500/50 transition-all">
+              <div className="text-3xl lg:text-4xl font-bold text-accent-400 mb-2">5 sn</div>
+              <p className="text-primary-300 text-sm">Kullanıcıların siteniz hakkında karar vermesi için geçen süre</p>
             </div>
-            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all">
-              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">%400</div>
-              <p className="text-primary-300 text-sm lg:text-base">İyi UX tasarımının dönüşüm oranına potansiyel etkisi</p>
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center hover:border-accent-500/50 transition-all">
+              <div className="text-3xl lg:text-4xl font-bold text-accent-400 mb-2">%400</div>
+              <p className="text-primary-300 text-sm">İyi UX tasarımının dönüşüm oranına potansiyel etkisi</p>
             </div>
-            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all">
-              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">%88</div>
-              <p className="text-primary-300 text-sm lg:text-base">Kötü deneyim sonrası siteye dönmeyen kullanıcı oranı</p>
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center hover:border-accent-500/50 transition-all">
+              <div className="text-3xl lg:text-4xl font-bold text-accent-400 mb-2">%88</div>
+              <p className="text-primary-300 text-sm">Kötü deneyim sonrası siteye dönmeyen kullanıcı oranı</p>
             </div>
-            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all col-span-2 lg:col-span-1">
-              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">$100</div>
-              <p className="text-primary-300 text-sm lg:text-base">UX'e yatırılan her 1$'ın ortalama getirisi</p>
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center hover:border-accent-500/50 transition-all col-span-2 lg:col-span-1">
+              <div className="text-3xl lg:text-4xl font-bold text-accent-400 mb-2">$100</div>
+              <p className="text-primary-300 text-sm">UX'e yatırılan her 1$'ın ortalama getirisi</p>
             </div>
           </div>
         </div>
@@ -285,7 +285,7 @@ export default function UIUXTasarimPage() {
             {services.map((service, index) => (
               <div 
                 key={index}
-                className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all duration-300 group text-center"
+                className="bg-surface-card border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all duration-300 group text-center"
               >
                 <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4 group-hover:bg-accent-500/30 transition-colors mx-auto">
                   <service.icon className="w-6 h-6 text-accent-400" />
@@ -300,7 +300,7 @@ export default function UIUXTasarimPage() {
                   {service.features.map((feature, i) => (
                     <span 
                       key={i}
-                      className="px-2 py-1 text-xs text-primary-300 bg-surface-card rounded-md"
+                      className="px-2 py-1 text-xs text-primary-300 bg-surface-darker rounded-md"
                     >
                       {feature}
                     </span>
@@ -466,7 +466,7 @@ export default function UIUXTasarimPage() {
             {brands.map((brand, index) => (
               <div 
                 key={index}
-                className="px-4 py-2 bg-surface-card/50 border border-surface-border rounded-lg text-primary-300 text-sm hover:border-accent-500/50 hover:text-white transition-all"
+                className="px-4 py-2 bg-surface-card border border-surface-border rounded-lg text-primary-300 text-sm hover:border-accent-500/50 hover:text-white transition-all"
               >
                 {brand}
               </div>
@@ -492,7 +492,7 @@ export default function UIUXTasarimPage() {
             {faqs.map((faq, index) => (
               <details 
                 key={index}
-                className="group bg-surface-card/50 border border-surface-border rounded-xl overflow-hidden"
+                className="group bg-surface-card border border-surface-border rounded-xl overflow-hidden"
               >
                 <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-surface-card/80 transition-colors">
                   <h3 className="text-white font-medium pr-4">{faq.question}</h3>

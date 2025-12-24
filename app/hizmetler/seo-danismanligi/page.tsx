@@ -240,7 +240,7 @@ export default function SEODanismanligiPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 text-center">
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center">
               <div className="w-14 h-14 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
                 <Target className="w-7 h-7 text-accent-400" />
               </div>
@@ -251,7 +251,7 @@ export default function SEODanismanligiPage() {
               </p>
             </div>
 
-            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 text-center">
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center">
               <div className="w-14 h-14 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
                 <Globe className="w-7 h-7 text-accent-400" />
               </div>
@@ -262,7 +262,7 @@ export default function SEODanismanligiPage() {
               </p>
             </div>
 
-            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 text-center">
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center">
               <div className="w-14 h-14 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-7 h-7 text-accent-400" />
               </div>
@@ -296,7 +296,7 @@ export default function SEODanismanligiPage() {
             {services.map((service, index) => (
               <div 
                 key={index}
-                className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all duration-300 group text-center"
+                className="bg-surface-card border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all duration-300 group text-center"
               >
                 <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4 group-hover:bg-accent-500/30 transition-colors mx-auto">
                   <service.icon className="w-6 h-6 text-accent-400" />
@@ -382,7 +382,7 @@ export default function SEODanismanligiPage() {
             {brands.map((brand, index) => (
               <div 
                 key={index}
-                className="px-4 py-2 bg-surface-card/50 border border-surface-border rounded-lg text-primary-300 text-sm hover:border-accent-500/50 hover:text-white transition-all"
+                className="px-4 py-2 bg-surface-card border border-surface-border rounded-lg text-primary-300 text-sm hover:border-accent-500/50 hover:text-white transition-all"
               >
                 {brand}
               </div>
@@ -408,7 +408,7 @@ export default function SEODanismanligiPage() {
             {faqs.map((faq, index) => (
               <details 
                 key={index}
-                className="group bg-surface-card/50 border border-surface-border rounded-xl overflow-hidden"
+                className="group bg-surface-card border border-surface-border rounded-xl overflow-hidden"
               >
                 <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-surface-card/80 transition-colors">
                   <h3 className="text-white font-medium pr-4">{faq.question}</h3>

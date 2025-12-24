@@ -209,7 +209,7 @@ export default function HakkimdaPage() {
             {expertise.map((item, index) => (
               <div 
                 key={index}
-                className="bg-surface-card/50 border border-surface-border rounded-2xl p-5 text-center hover:border-accent-500/50 transition-all"
+                className="bg-surface-card border border-surface-border rounded-2xl p-5 text-center hover:border-accent-500/50 transition-all"
               >
                 <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mx-auto mb-3">
                   <item.icon className="w-6 h-6 text-accent-400" />
@@ -288,7 +288,7 @@ export default function HakkimdaPage() {
             {brands.map((brand, index) => (
               <div 
                 key={index}
-                className="px-4 py-2 bg-surface-card/50 border border-surface-border rounded-lg text-primary-300 text-sm hover:border-accent-500/50 hover:text-white transition-all"
+                className="px-4 py-2 bg-surface-card border border-surface-border rounded-lg text-primary-300 text-sm hover:border-accent-500/50 hover:text-white transition-all"
               >
                 {brand}
               </div>
