@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Calendar, Clock, Tag, Share2, Linkedin, Twitter } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Clock, Share2, Linkedin, Twitter } from "lucide-react";
 import { getPostBySlug, getAllPosts } from "@/lib/blog";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -134,25 +135,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="pb-20">
           <div className="container-custom">
             <div className="max-w-3xl mx-auto">
-              <div 
-                className="prose prose-invert prose-lg max-w-none
-                  prose-headings:font-display prose-headings:font-bold prose-headings:text-white
-                  prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6
-                  prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
-                  prose-p:text-primary-300 prose-p:leading-relaxed prose-p:mb-6
-                  prose-a:text-accent-400 prose-a:no-underline hover:prose-a:underline
-                  prose-strong:text-white prose-strong:font-semibold
-                  prose-ul:text-primary-300 prose-ol:text-primary-300
-                  prose-li:mb-2
-                  prose-table:border-collapse prose-table:w-full
-                  prose-th:bg-surface-card prose-th:text-white prose-th:p-3 prose-th:text-left prose-th:border prose-th:border-surface-border
-                  prose-td:p-3 prose-td:border prose-td:border-surface-border prose-td:text-primary-300
-                  prose-code:bg-surface-card prose-code:text-accent-400 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
-                  prose-pre:bg-surface-darker prose-pre:border prose-pre:border-surface-border prose-pre:rounded-xl
-                  prose-blockquote:border-l-accent-500 prose-blockquote:bg-surface-card/50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-xl
-                "
-                dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
-              />
+              {/* Markdown Content */}
+              <div className="prose-custom">
+                <MarkdownRenderer content={post.content} />
+              </div>
 
               {/* Share */}
               <div className="mt-12 pt-8 border-t border-surface-border">
@@ -192,7 +178,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <h3 className="text-lg font-display font-semibold text-white mb-1">Tonguç Karaçay</h3>
                     <p className="text-sm text-primary-400 mb-3">AI-Driven UX & Growth Partner</p>
                     <p className="text-primary-300 text-sm">
-                      25+ yıldır Türkiye'nin önde gelen markaları için UI/UX tasarım, SEO ve dijital pazarlama 
+                      25+ yıldır Türkiye&apos;nin önde gelen markaları için UI/UX tasarım, SEO ve dijital pazarlama 
                       stratejileri geliştiriyorum.
                     </p>
                   </div>
@@ -283,45 +269,4 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </section>
     </main>
   );
-}
-
-// Simple markdown-like formatting
-function formatContent(content: string): string {
-  return content
-    // Headers
-    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-    // Bold
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    // Italic
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-    // Inline code
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    // Unordered lists
-    .replace(/^\s*-\s+(.*)$/gim, '<li>$1</li>')
-    // Ordered lists
-    .replace(/^\s*\d+\.\s+(.*)$/gim, '<li>$1</li>')
-    // Tables (basic)
-    .replace(/\|(.+)\|/g, (match) => {
-      const cells = match.split('|').filter(cell => cell.trim());
-      if (cells.every(cell => cell.trim().match(/^[-:]+$/))) {
-        return ''; // Skip separator row
-      }
-      const isHeader = !match.includes('---');
-      const tag = isHeader ? 'th' : 'td';
-      const row = cells.map(cell => `<${tag}>${cell.trim()}</${tag}>`).join('');
-      return `<tr>${row}</tr>`;
-    })
-    // Paragraphs
-    .replace(/\n\n/g, '</p><p>')
-    // Wrap in paragraph
-    .replace(/^(.+)$/gim, (match) => {
-      if (match.startsWith('<')) return match;
-      return `<p>${match}</p>`;
-    })
-    // Clean up empty paragraphs
-    .replace(/<p><\/p>/g, '')
-    .replace(/<p>\s*<\/p>/g, '');
 }
