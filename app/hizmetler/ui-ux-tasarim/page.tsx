@@ -231,38 +231,38 @@ export default function UIUXTasarimPage() {
       </section>
 
       {/* Problem Section */}
-      <section className="py-16 bg-surface-card/30">
+      <section className="py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-6">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-white mb-6">
               Web Siteniz veya Uygulamanız Dönüşüm Sağlamıyor mu?
             </h2>
-            <p className="text-primary-300 text-lg leading-relaxed mb-8">
+            <p className="text-primary-300 text-lg leading-relaxed max-w-3xl mx-auto">
               Ziyaretçiler sitenize geliyor ama hemen çıkıyor. Formlar doldurulmuyor. 
               Satış funnel'ı tamamlanmıyor. Bunların hepsi kötü kullanıcı deneyiminin belirtileri. 
               İyi bir UI/UX tasarımı ile bu sorunları çözebiliriz.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-left">
-              <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
-                <div className="text-3xl font-bold text-accent-400 mb-2">%70</div>
-                <p className="text-primary-300 text-sm">Kullanıcıların kötü UX nedeniyle siteleri terk etme oranı</p>
-              </div>
-              <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
-                <div className="text-3xl font-bold text-accent-400 mb-2">5 sn</div>
-                <p className="text-primary-300 text-sm">Kullanıcıların siteniz hakkında karar vermesi için geçen süre</p>
-              </div>
-              <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
-                <div className="text-3xl font-bold text-accent-400 mb-2">%400</div>
-                <p className="text-primary-300 text-sm">İyi UX tasarımının dönüşüm oranına potansiyel etkisi</p>
-              </div>
-              <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
-                <div className="text-3xl font-bold text-accent-400 mb-2">%88</div>
-                <p className="text-primary-300 text-sm">Kötü deneyim sonrası siteye dönmeyen kullanıcı oranı</p>
-              </div>
-              <div className="bg-surface-card/50 border border-surface-border rounded-xl p-5">
-                <div className="text-3xl font-bold text-accent-400 mb-2">$100</div>
-                <p className="text-primary-300 text-sm">UX'e yatırılan her 1$'ın ortalama getirisi</p>
-              </div>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6">
+            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all">
+              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">%70</div>
+              <p className="text-primary-300 text-sm lg:text-base">Kullanıcıların kötü UX nedeniyle siteleri terk etme oranı</p>
+            </div>
+            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all">
+              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">5 sn</div>
+              <p className="text-primary-300 text-sm lg:text-base">Kullanıcıların siteniz hakkında karar vermesi için geçen süre</p>
+            </div>
+            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all">
+              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">%400</div>
+              <p className="text-primary-300 text-sm lg:text-base">İyi UX tasarımının dönüşüm oranına potansiyel etkisi</p>
+            </div>
+            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all">
+              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">%88</div>
+              <p className="text-primary-300 text-sm lg:text-base">Kötü deneyim sonrası siteye dönmeyen kullanıcı oranı</p>
+            </div>
+            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 lg:p-8 text-center hover:border-accent-500/50 transition-all col-span-2 lg:col-span-1">
+              <div className="text-4xl lg:text-5xl font-bold text-accent-400 mb-3">$100</div>
+              <p className="text-primary-300 text-sm lg:text-base">UX'e yatırılan her 1$'ın ortalama getirisi</p>
             </div>
           </div>
         </div>
@@ -285,9 +285,9 @@ export default function UIUXTasarimPage() {
             {services.map((service, index) => (
               <div 
                 key={index}
-                className="bg-surface-card/50 border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all duration-300 group"
+                className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all duration-300 group text-center"
               >
-                <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4 group-hover:bg-accent-500/30 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4 group-hover:bg-accent-500/30 transition-colors mx-auto">
                   <service.icon className="w-6 h-6 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-display font-semibold text-white mb-3">
@@ -296,11 +296,11 @@ export default function UIUXTasarimPage() {
                 <p className="text-primary-300 text-sm leading-relaxed mb-4">
                   {service.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap justify-center gap-2">
                   {service.features.map((feature, i) => (
                     <span 
                       key={i}
-                      className="px-2 py-1 text-xs text-primary-300 bg-surface-darker rounded-md"
+                      className="px-2 py-1 text-xs text-primary-300 bg-surface-card rounded-md"
                     >
                       {feature}
                     </span>

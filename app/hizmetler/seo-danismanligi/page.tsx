@@ -239,10 +239,10 @@ export default function SEODanismanligiPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-surface-card/50 border border-surface-border rounded-2xl p-6 text-center">
-              <div className="w-16 h-16 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
-                <Target className="w-8 h-8 text-accent-400" />
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 text-center">
+              <div className="w-14 h-14 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
+                <Target className="w-7 h-7 text-accent-400" />
               </div>
               <h3 className="text-xl font-display font-semibold text-white mb-3">UX + SEO</h3>
               <p className="text-primary-300 text-sm">
@@ -251,9 +251,9 @@ export default function SEODanismanligiPage() {
               </p>
             </div>
 
-            <div className="bg-surface-card/50 border border-surface-border rounded-2xl p-6 text-center">
-              <div className="w-16 h-16 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
-                <Globe className="w-8 h-8 text-accent-400" />
+            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 text-center">
+              <div className="w-14 h-14 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
+                <Globe className="w-7 h-7 text-accent-400" />
               </div>
               <h3 className="text-xl font-display font-semibold text-white mb-3">Global Deneyim</h3>
               <p className="text-primary-300 text-sm">
@@ -262,9 +262,9 @@ export default function SEODanismanligiPage() {
               </p>
             </div>
 
-            <div className="bg-surface-card/50 border border-surface-border rounded-2xl p-6 text-center">
-              <div className="w-16 h-16 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-8 h-8 text-accent-400" />
+            <div className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 text-center">
+              <div className="w-14 h-14 rounded-full bg-accent-500/20 flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-7 h-7 text-accent-400" />
               </div>
               <h3 className="text-xl font-display font-semibold text-white mb-3">AI Destekli</h3>
               <p className="text-primary-300 text-sm">
@@ -272,6 +272,9 @@ export default function SEODanismanligiPage() {
                 Daha hızlı analiz, daha akıllı strateji.
               </p>
             </div>
+          </div> 
+                Uluslararası SEO konusunda deneyimliyim.
+              </p>
           </div>
         </div>
       </section>
@@ -293,9 +296,9 @@ export default function SEODanismanligiPage() {
             {services.map((service, index) => (
               <div 
                 key={index}
-                className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all duration-300 group"
+                className="bg-surface-darker/50 border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all duration-300 group text-center"
               >
-                <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4 group-hover:bg-accent-500/30 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4 group-hover:bg-accent-500/30 transition-colors mx-auto">
                   <service.icon className="w-6 h-6 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-display font-semibold text-white mb-3">
@@ -304,7 +307,7 @@ export default function SEODanismanligiPage() {
                 <p className="text-primary-300 text-sm leading-relaxed mb-4">
                   {service.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap justify-center gap-2">
                   {service.features.map((feature, i) => (
                     <span 
                       key={i}
