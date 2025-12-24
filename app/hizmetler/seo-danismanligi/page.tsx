@@ -272,9 +272,6 @@ export default function SEODanismanligiPage() {
                 Daha hızlı analiz, daha akıllı strateji.
               </p>
             </div>
-          </div> 
-                Uluslararası SEO konusunda deneyimliyim.
-              </p>
           </div>
         </div>
       </section>
