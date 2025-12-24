@@ -13,14 +13,6 @@ const services = [
   { name: "Sosyal Medya Yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
 ];
 
-const blogCategories = [
-  { name: "Tüm Yazılar", href: "/blog" },
-  { name: "SEO", href: "/blog?kategori=seo" },
-  { name: "UI/UX Tasarım", href: "/blog?kategori=ui-ux" },
-  { name: "Dijital Pazarlama", href: "/blog?kategori=dijital-pazarlama" },
-  { name: "E-Ticaret", href: "/blog?kategori=e-ticaret" },
-];
-
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -101,36 +93,13 @@ export default function Header() {
               )}
             </div>
 
-            {/* Blog Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleDropdownEnter("blog")}
-              onMouseLeave={handleDropdownLeave}
+            {/* Blog */}
+            <Link
+              href="/blog"
+              className="text-primary-200 hover:text-white transition-colors font-medium"
             >
-              <button className="flex items-center gap-1 text-primary-200 hover:text-white transition-colors font-medium">
-                Blog
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform ${
-                    activeDropdown === "blog" ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {activeDropdown === "blog" && (
-                <div className="absolute top-full left-0 pt-2 animate-fade-in">
-                  <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-2 min-w-[200px] shadow-2xl">
-                    {blogCategories.map((category) => (
-                      <Link
-                        key={category.href}
-                        href={category.href}
-                        className="block px-4 py-2.5 text-primary-200 hover:text-white hover:bg-surface-border/50 rounded-lg transition-colors"
-                      >
-                        {category.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+              Blog
+            </Link>
 
             {/* Hakkımda */}
             <Link
@@ -177,25 +146,15 @@ export default function Header() {
                 ))}
               </div>
 
-              {/* Mobile Blog */}
-              <div className="mb-4 pt-4 border-t border-surface-border">
-                <p className="text-xs uppercase tracking-wider text-primary-400 mb-2 px-2">
-                  Blog
-                </p>
-                {blogCategories.map((category) => (
-                  <Link
-                    key={category.href}
-                    href={category.href}
-                    className="block px-2 py-2 text-primary-200 hover:text-white transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {category.name}
-                  </Link>
-                ))}
-              </div>
-
               {/* Mobile Other Links */}
               <div className="pt-4 border-t border-surface-border space-y-2">
+                <Link
+                  href="/blog"
+                  className="block px-2 py-2 text-primary-200 hover:text-white transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Blog
+                </Link>
                 <Link
                   href="/hakkimda"
                   className="block px-2 py-2 text-primary-200 hover:text-white transition-colors"

@@ -11,1847 +11,788 @@ export interface BlogPost {
   content: string;
 }
 
-export const blogPosts: BlogPost[] = [
+const blogPosts: BlogPost[] = [
   {
     slug: "seo-nedir-nasil-yapilir",
-    title: "SEO Nedir? 2025'te SEO Çalışmaları Nasıl Yapılır?",
-    description: "SEO (Arama Motoru Optimizasyonu) nedir, nasıl çalışır? 2025 yılında Google algoritmaları, AI destekli SEO stratejileri ve organik trafik artırma yöntemleri.",
+    title: "SEO Nedir, SEO Çalışmaları Nasıl Yapılır?",
+    description: "SEO, arama motoru optimizasyonu anlamına gelir. Sitenizin ilgili aramalar için görünürlüğünü artırmak için yapılan optimizasyon sürecidir.",
     date: "2020-10-02",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["SEO", "Google", "Organik Trafik", "Arama Motoru Optimizasyonu"],
-    readTime: "12 dk",
+    tags: ["SEO", "Arama Motoru Optimizasyonu", "Google", "Dijital Pazarlama"],
+    readTime: "8 dk",
     featured: true,
     content: `
-## SEO Nedir?
+## SEO nedir?
 
-SEO (Search Engine Optimization - Arama Motoru Optimizasyonu), web sitenizin Google, Bing ve diğer arama motorlarında üst sıralarda yer almasını sağlayan teknik ve stratejik çalışmaların bütünüdür.
+SEO, "arama motoru optimizasyonu" anlamına gelir. Basit bir ifadeyle, sitenizin ilgili aramalar için görünürlüğünü artırmak için iyileştirme süreci anlamına gelir. Sayfalarınızın arama sonuçlarında daha iyi görünürlüğü ne kadar yüksek olursa, dikkat çekme ve potansiyel ve mevcut müşterileri işletmenize çekme olasılığınız o kadar artar.
 
-2025 yılında SEO artık sadece anahtar kelime yerleştirmekten ibaret değil. Google'ın yapay zeka destekli algoritmaları, **kullanıcı deneyimi**, **içerik kalitesi** ve **teknik mükemmellik** üçgeninde değerlendirme yapıyor.
+## SEO nasıl çalışır?
 
-## SEO Neden Önemli?
+Google ve Bing gibi arama motorları, web'deki sayfaları taramak, siteden siteye gitmek, bu sayfalar hakkında bilgi toplamak ve bunları bir dizine koymak için botları kullanır. Ardından, algoritmalar, belirli bir sorgu için arama sonuçlarında sıralı sayfaların görünmesi gerektiğini belirlemek için yüzlerce sıralama faktörünü veya sinyalini dikkate alarak dizindeki sayfaları analiz eder.
 
-- **Organik trafik ücretsizdir**: Reklam bütçesi harcamadan sürekli ziyaretçi
-- **Güvenilirlik sağlar**: İlk sayfa sonuçları daha güvenilir algılanır
-- **Uzun vadeli yatırım**: Doğru yapılan SEO yıllarca sonuç verir
-- **Yüksek dönüşüm oranı**: Organik trafik, reklamdan gelen trafikten 5x daha fazla dönüşüm sağlar
+Arama sıralama faktörleri, kullanıcı deneyiminin yönleri için referans olarak kabul edilebilir. Periyodik SEO Faktörleri Tablonuz, faktörleri altı ana kategoriye ayırır ve her biri SEO için genel önemine göre ağırlık verir. Örneğin, içerik kalitesi ve anahtar kelime araştırması, içerik optimizasyonunun temel faktörleridir ve taranabilirlik ve mobil uyumluluk, önemli site mimarisi faktörleridir.
 
-## 2025'te SEO'nun Temel Bileşenleri
+Arama algoritmaları, alakalı, yetkili sayfaları ortaya çıkarmak ve kullanıcılara verimli bir arama deneyimi sağlamak için tasarlanmıştır. Sitenizi ve içeriğinizi bu faktörleri göz önünde bulundurarak optimize etmek, sayfalarınızın arama sonuçlarında daha üst sıralarda yer almasına yardımcı olabilir.
 
-### 1. E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)
+Ücretli arama reklamlarının aksine, daha yüksek organik arama sıralaması elde etmek için arama motorlarına ödeme yapamazsınız.
 
-Google artık içeriğin arkasındaki **deneyimi** de değerlendiriyor:
+## SEO pazarlama için neden önemlidir?
 
-- **Experience (Deneyim)**: İçerik yazarının konuyla ilgili gerçek deneyimi
-- **Expertise (Uzmanlık)**: Alanında uzman olduğunu gösteren kanıtlar
-- **Authoritativeness (Otorite)**: Sektördeki tanınırlık ve referanslar
-- **Trustworthiness (Güvenilirlik)**: Site güvenliği, şeffaflık, doğru bilgi
+SEO, dijital pazarlamanın temel bir parçasıdır çünkü insanlar her yıl trilyonlarca arama yapar ve genellikle ticari amaçla ürünler ve hizmetler hakkında bilgi bulurlar. Arama genellikle markalar için birincil dijital trafik kaynağıdır ve diğer pazarlama kanallarını tamamlar. Arama sonuçlarında rakiplerinize göre daha fazla görünürlük ve daha yüksek sıralama, kâr hanenizde önemli bir etkiye sahip olabilir.
 
-### 2. Core Web Vitals
+Bununla birlikte, arama sonuçları, kullanıcılara daha doğrudan yanıtlar ve kullanıcıları başka web sitelerine yönlendirmek yerine sonuçlar sayfasında tutma olasılığı daha yüksek olan bilgiler sağlamak için son birkaç yılda gelişmektedir.
 
-Google'ın sayfa deneyimi metrikleri:
+Ayrıca, arama sonuçlarındaki zengin sonuçlar ve Bilgi Panelleri gibi özelliklerin görünürlüğü artırabileceğini ve kullanıcılara doğrudan sonuçlarda şirketiniz hakkında daha fazla bilgi sağlayabileceğini unutmayın.
 
-| Metrik | Açıklama | İdeal Değer |
-|--------|----------|-------------|
-| LCP | En büyük içerik yüklenme süresi | < 2.5 saniye |
-| INP | Etkileşim gecikmesi | < 200 milisaniye |
-| CLS | Görsel kararlılık | < 0.1 |
-
-### 3. AI ve İçerik Kalitesi
-
-Google'ın Helpful Content Update'i ile:
-
-- **Önce insan için** içerik üretin
-- AI ile üretilen içerik tek başına yeterli değil
-- **Özgün değer** katmayan içerikler cezalandırılıyor
-- Kullanıcı sorusuna **doğrudan cevap** veren içerikler ödüllendiriliyor
-
-### 4. Teknik SEO
-
-- **Mobil uyumluluk**: Mobile-first indexing
-- **Site hızı**: 3 saniyenin üzerinde yüklenme = %40 terk oranı
-- **Yapılandırılmış veri**: Schema markup ile zengin sonuçlar
-- **Güvenlik**: HTTPS zorunluluğu
-
-## SEO Çalışması Nasıl Yapılır?
-
-### Adım 1: Teknik Audit
-
-Sitenizin teknik durumunu analiz edin:
-- Crawl hataları
-- Kırık linkler
-- Duplicate content
-- Site haritası kontrolü
-
-### Adım 2: Anahtar Kelime Araştırması
-
-- Hedef kitlenizin arama davranışlarını anlayın
-- Long-tail anahtar kelimelere odaklanın
-- Arama amacını (search intent) belirleyin
-
-### Adım 3: İçerik Stratejisi
-
-- Pillar content + cluster model
-- Her içerik bir sorunu çözmeli
-- Düzenli güncelleme
-
-### Adım 4: Link Building
-
-- Kaliteli backlink edinme
-- İç link yapısı optimizasyonu
-- Broken link building
-
-### Adım 5: Ölçümleme
-
-- Google Search Console takibi
-- Analytics ile davranış analizi
-- Sıralama takibi
-
-## Profesyonel SEO Desteği
-
-25 yılı aşkın dijital pazarlama deneyimimle, markanızın Google'da görünürlüğünü artırıyorum. Teknik SEO'dan içerik stratejisine, UX optimizasyonundan link building'e kadar kapsamlı SEO danışmanlığı için [iletişime geçin](/iletisim).
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     `
   },
   {
-    slug: "backlink-nedir-nasil-alinir",
-    title: "Backlink Nedir? 2025'te Kaliteli Backlink Nasıl Alınır?",
-    description: "Backlink (geri bağlantı) nedir, SEO için neden önemli? 2025'te Google'ın link spam güncellemeleri sonrası güvenli ve etkili backlink stratejileri.",
-    date: "2020-09-28",
-    updatedDate: "2025-01-15",
-    category: "SEO",
-    tags: ["Backlink", "Link Building", "SEO", "Off-Page SEO"],
-    readTime: "10 dk",
-    featured: false,
-    content: `
-## Backlink Nedir?
-
-Backlink, bir web sitesinden başka bir web sitesine verilen bağlantıdır. Google'ın gözünde her backlink bir "güven oyu" gibidir - kaliteli siteler sizi referans gösteriyorsa, sizin de kaliteli olduğunuz anlamına gelir.
-
-## 2025'te Backlink'in Önemi
-
-Google'ın Link Spam Update'leri (2022-2024) sonrası oyunun kuralları değişti:
-
-### Eski Yöntemler (Artık Çalışmıyor) ❌
-
-- Toplu dizin kayıtları
-- Forum spam'i
-- PBN (Private Blog Network) linkleri
-- Satın alınan linkler
-- Link exchange şemaları
-
-### Yeni Yaklaşım (Çalışan) ✅
-
-- **Doğal link kazanımı**: Değerli içerik üretip paylaşılmasını sağlamak
-- **Digital PR**: Haber sitelerinde yer almak
-- **Broken link building**: Kırık linkleri tespit edip alternatif sunmak
-- **Guest posting**: Kaliteli sitelerde misafir yazarlık
-- **HARO/Sourcebottle**: Gazetecilere kaynak olmak
-
-## Kaliteli Backlink Kriterleri
-
-| Kriter | Açıklama | Önem |
-|--------|----------|------|
-| Domain Authority | Sitenin genel otoritesi | ⭐⭐⭐⭐⭐ |
-| Relevance | Sektör/konu uyumu | ⭐⭐⭐⭐⭐ |
-| Traffic | Sitenin gerçek trafiği | ⭐⭐⭐⭐ |
-| Dofollow/Nofollow | Link türü | ⭐⭐⭐ |
-| Anchor Text | Bağlantı metni doğallığı | ⭐⭐⭐⭐ |
-| Link Placement | Link'in konumu (içerik/footer) | ⭐⭐⭐ |
-
-## Backlink Stratejisi: Adım Adım
-
-### 1. Mevcut Profil Analizi
-
-- Ahrefs veya Semrush ile backlink profilinizi inceleyin
-- Toxic link'leri tespit edin
-- Disavow dosyası oluşturun
-
-### 2. Rakip Analizi
-
-- Rakiplerinizin backlink kaynaklarını bulun
-- Gap analizi yapın
-- Fırsat sitelerini listeleyin
-
-### 3. İçerik Varlıkları Oluşturun
-
-Link çekecek içerik türleri:
-- **Araştırma/İstatistik**: Özgün veri her zaman link çeker
-- **Rehberler**: Kapsamlı how-to içerikleri
-- **İnfografikler**: Görsel içerikler paylaşılır
-- **Araçlar**: Ücretsiz hesaplayıcılar, şablonlar
-
-### 4. Outreach Stratejisi
-
-- Kişiselleştirilmiş e-postalar
-- LinkedIn üzerinden network
-- Sosyal medya etkileşimi
-
-## Kaçınılması Gerekenler
-
-⚠️ **Google Cezası Riski Taşıyan Uygulamalar:**
-
-1. Link satın alma/satma
-2. Aşırı optimize edilmiş anchor text'ler
-3. Düşük kaliteli dizin siteleri
-4. Otomatik link building araçları
-5. Link farm'lar
-
-## Sonuç
-
-2025'te backlink hala önemli ama **kalite > miktar** prensibi her zamankinden geçerli. 10 kaliteli backlink, 1000 spam linkten daha değerli.
-
-Profesyonel link building stratejisi için [SEO danışmanlığı hizmetlerimizi](/hizmetler/seo-danismanligi) inceleyin.
-    `
-  },
-  {
-    slug: "ui-ux-designer-nedir",
-    title: "UI/UX Designer Nedir? 2025'te UI ve UX Tasarımcı Farkları",
-    description: "UI (Arayüz) ve UX (Kullanıcı Deneyimi) tasarımı nedir? UI/UX Designer ne iş yapar? AI araçları, Figma ve modern tasarım süreçleri.",
-    date: "2020-09-23",
+    slug: "ui-ux-designer-nedir-nasil-calisirlar",
+    title: "UI-UX Designer Nedir, Nasıl Çalışırlar?",
+    description: "UI ve UX tasarımcılarının ne yaptığını, nasıl çalıştıklarını ve dijital ürün geliştirme sürecindeki rollerini keşfedin.",
+    date: "2020-09-22",
     updatedDate: "2025-01-15",
     category: "UI-UX",
     tags: ["UI Design", "UX Design", "Kullanıcı Deneyimi", "Arayüz Tasarımı"],
-    readTime: "11 dk",
+    readTime: "7 dk",
     featured: true,
     content: `
-## UI ve UX Nedir?
+## UX Designer Nedir?
 
-**UX (User Experience)** = Kullanıcının bir ürünle etkileşimde yaşadığı toplam deneyim
-**UI (User Interface)** = Bu deneyimi sağlayan görsel arayüz tasarımı
+UX Designer'lar veya kullanıcı deneyimi tasarımcıları, kullanıcı deneyiminin önemi konusuyla ilgilenir. Bunun için ürün geliştirme sürecinin geliştirilmesine veya mevcut bir ürünün iyileştirilmesine odaklanır. Sürecin her bölümünde, ürünün kullanışlı olmasına ve sorunsuz şekilde kullanılabilirliğine yardımcı olur.
 
-Basit bir benzetme:
-- UX = Evin planı, odaların yerleşimi, işlevselliği
-- UI = Evin iç dekorasyonu, renkleri, mobilyaları
+Proje ekibinin tamamıyla, ürünün potansiyel kullanıcılarının çalışma yürütmesine, deneyimlerini iyileştirmeye yönelik öğeler bulmaya ve bu değişiklikleri dahil etmeye yardımcı olur. Sonuç olarak, ürün-kullanıcı etkileşimine ait deneyimlerini iyileştirmek için stratejiler ve uygulanabilir bir planlama arar.
 
-## UX Designer Ne Yapar?
+UX tasarımında veri kullanımı önemlidir. UX Designer, veri temelli değişiklikler öneren ve tasarım işbirliği için farklı ekiplerle iletişime geçen kişi olduğu için, tasarımın verilere dayandırılması gerekir. Yapılacak değişiklik veya geliştirme için veriye dayanmayan bir önerinin geçerliliği söz konusu olmaz. Her karar, düzgün bir şekilde araştırılmalı ve verilere dayandırılmalıdır.
 
-UX tasarımcısı, kullanıcının **problem**ini anlar ve **çözüm** tasarlar:
+Bir UX Designer'ın mümkün olan en iyi deneyimi sunma amacında, mevcut durumu analiz edebilmek için verileri kullanması gerekir. Bunun için Google Analytics gibi analiz araçlarından faydalanır. Bu gibi araçlarla, kullanıcı memnuniyeti ile ilgili yapılan bir yenilikten potansiyel kullanıcıların nasıl etkilenebileceğini ve hangi değişikliklerin daha yüksek bir kullanıcı memnuniyeti ile sonuçlanacağını anlayabilir.
 
-### Temel Görevler
+## UI Designer Nedir?
 
-1. **Kullanıcı Araştırması**
-   - Anketler ve mülakatlar
-   - A/B testleri
-   - Heatmap analizi
-   - Kullanıcı yolculuğu haritalama
+Aslında grafik tasarım ile UI tasarımı arasında pek bir fark yoktur. Bir web sitesi veya uygulama yapılırken yazı tipleri, simgeler, düğmeler, renkler ve duyarlı tasarım seçeneklerinin tümünü kapsayan disiplindir. Bir UI Designer, uygulama veya web sitelerinin görsel açıdan estetik olmasını sağlar.
 
-2. **Wireframing**
-   - Düşük sadakat prototipler
-   - Akış diyagramları
-   - Information architecture
+Diğer taraftan UI Designer'ın tüm görsel öğeler arasında tutarlılık sağlaması önemlidir. Bu tutarlılık hem web hem de mobil uygulama arasında devam etmelidir.
 
-3. **Prototipleme**
-   - Tıklanabilir prototipler
-   - Kullanıcı testi
-   - İterasyon
+UI Designer'lar geliştirme ekipleriyle işin mutfağında çalışır. Tasarımlarını devredilir duruma getirene kadar çalışır ve sürecin sonuna kadar ilerler. Görsel arayüz düzenleri, stillerine uygun görsel tasarımlar, yazı tipleri, renk şemaları ve düğmeleri hazırlamayı içeren iş akışlarıyla, uygulama alanlarının görsel kalitesinden sorumludur.
 
-4. **Analiz ve Optimizasyon**
-   - Dönüşüm oranı optimizasyonu
-   - Kullanılabilirlik testleri
-   - Data-driven kararlar
+Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) göz atın.
+    `
+  },
+  {
+    slug: "kaliteli-backlink-nedir-nasil-alinir",
+    title: "Kaliteli Backlink Nedir? Nasıl Alınır?",
+    description: "Kaliteli backlink stratejileri, backlink türleri ve SEO için doğru link building teknikleri hakkında kapsamlı rehber.",
+    date: "2020-09-25",
+    updatedDate: "2025-01-15",
+    category: "SEO",
+    tags: ["Backlink", "Link Building", "SEO", "Off-Page SEO"],
+    readTime: "9 dk",
+    content: `
+## Backlink Nedir?
 
-## UI Designer Ne Yapar?
+Backlink, bir web sitesinden başka bir web sitesine verilen bağlantılara denir. Bir web sitesinden başka bir web sitesine köprü verilmiş link anlamına gelir. İnternet kullanıcıları bu bağlantılara tıklayarak, bir siteden diğerine geçiş yapabilir. Arama motorları, web sayfaları arasında gezinmek için de backlinklerden faydalanır.
 
-UI tasarımcısı, UX'in belirlediği yapıyı **görsel olarak hayata geçirir**:
+Arama motoru devi Google, kaliteli olarak gördüğü web sitelerinden alınmış backlinklere, elbette diğer arama motorları da ciddi önem vermektedir. Özellikle bir web sitesinin arama motoru sonuçlarında daha üst sıralarda yer alması için backlinkler son derece önemlidir.
 
-### Temel Görevler
+## Kaliteli Backlink Özellikleri
 
-1. **Görsel Tasarım**
-   - Renk paleti
-   - Tipografi
-   - İkonografi
-   - Görsel hiyerarşi
+Aşağıda bir backlinkin kaliteli olarak değerlendirilebilmesi için sahip olması gereken bazı özellikleri yer almaktadır:
 
-2. **Design System**
-   - Komponent kütüphanesi
-   - Style guide
-   - Tutarlılık kuralları
+- Kendi site içeriğinize yakın olan sitelerden backlink almak, daha çok işe yarar.
+- Link aldığınız sitenin ziyaretçi ve içerik bakımından zengin ve aktif bir site olması çok önemlidir.
+- Link aldığınız sitenin içerik kalitesi, sizin backlinkinize değer katar.
+- Link alınan sitenin Domain Authority (DA) ve Page Authority (PA) değerleri yüksek olmalıdır.
+- Backlink alınan site, arama motorları tarafından güvenilir bulunmalıdır.
+- Backlink alınan sitenin spam içerikli olmamasına dikkat edilmelidir.
+- Dofollow ve nofollow backlink dengesine özen gösterilmelidir.
+- Backlink alınan sitenin, daha önce Google tarafından cezalandırılmamış olmasına dikkat edilmelidir.
 
-3. **Responsive Tasarım**
-   - Mobil, tablet, desktop uyumu
-   - Breakpoint yönetimi
+## Backlink Türleri
 
-4. **Micro-interactions**
-   - Animasyonlar
-   - Hover efektleri
-   - Feedback mekanizmaları
+**İçerik Backlink:** Bir makale veya blog yazısı içerisine doğal olarak yerleştirilen backlinklerdir. SEO açısından en değerli backlink türüdür.
 
-## 2025'te UI/UX Araçları
+**Banner Backlink:** Görsel reklamlar aracılığıyla alınan backlinklerdir. Genellikle tanıtım amaçlı kullanılır.
 
-| Araç | Kullanım Alanı | Popülerlik |
-|------|---------------|------------|
-| **Figma** | UI/UX tasarım, prototip | ⭐⭐⭐⭐⭐ |
-| **Framer** | İleri seviye prototip | ⭐⭐⭐⭐ |
-| **Maze** | Kullanılabilirlik testi | ⭐⭐⭐⭐ |
-| **Hotjar** | Heatmap, kayıt | ⭐⭐⭐⭐⭐ |
-| **Miro** | Whiteboard, workshop | ⭐⭐⭐⭐ |
+**Footer Backlink:** Web sitesinin alt kısmında yer alan backlinklerdir. Değeri diğer türlere göre daha düşüktür.
 
-### AI Destekli Araçlar (2025)
+**Yorum Backlink:** Blog yazıları veya forumlar üzerine yapılan yorumlarla alınan backlinklerdir. Spam olarak değerlendirilebileceği için dikkatli kullanılmalıdır.
 
-- **Galileo AI**: Text'ten UI oluşturma
-- **Uizard**: Eskizden prototip
-- **Adobe Firefly**: AI destekli görsel üretim
-- **Figma AI**: Otomatik layout önerileri
+**Profil Backlink:** Çeşitli platformlarda oluşturulan profillere eklenen backlinklerdir. Doğal bir backlink profili oluşturmak için kullanılabilir.
 
-## UI/UX ve SEO İlişkisi
+## Backlink Stratejisi
 
-Google artık kullanıcı deneyimini sıralama faktörü olarak kullanıyor:
+Kaliteli backlink almak için öncelikle kaliteli içerik üretmeniz gerekir. Diğer siteler, değerli bulduğu içeriklere doğal olarak link verir. Ayrıca sektörünüzdeki diğer sitelerle ilişkiler kurarak, guest post ve ortak içerik çalışmaları yapabilirsiniz.
 
-- **Core Web Vitals** doğrudan UX metrikleri
-- **Bounce Rate** kullanıcı memnuniyetini yansıtır
-- **Time on Site** içerik kalitesini gösterir
-- **Mobile UX** mobile-first indexing için kritik
+Backlink çalışması yaparken sabırlı olmalı ve doğal bir link profili oluşturmaya özen göstermelisiniz. Kısa sürede çok fazla backlink almak, arama motorları tarafından şüpheli bulunabilir.
 
-## 25 Yıllık Deneyimle UI/UX
+Profesyonel SEO ve backlink danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "inbound-marketing-nedir-nasil-yapilir",
+    title: "Inbound Marketing Nedir, Nasıl Yapılır?",
+    description: "Inbound marketing stratejileri, gelen pazarlama teknikleri ve müşteri çekme yöntemleri hakkında detaylı rehber.",
+    date: "2020-10-07",
+    updatedDate: "2025-01-15",
+    category: "Dijital Pazarlama",
+    tags: ["Inbound Marketing", "İçerik Pazarlaması", "Dijital Pazarlama", "Lead Generation"],
+    readTime: "8 dk",
+    content: `
+## Inbound Marketing Nedir?
 
-İlk web sitemi 1999'da tasarladım. O günden bugüne THY, BMW, Galatasaray, Sabah Gazetesi gibi Türkiye'nin en büyük markalarının arayüzlerini tasarladım.
+Inbound Marketing terimi olarak ilk kez 2006 yılında, önemli bir pazarlama yazılım şirketi olan Hubspot'un kurucu ortaklarından biri tarafından kullanılmıştır. Inbound marketing, kaliteli içerikle müşterinin bizi bulmasını sağlayan pazarlama stratejisi olarak ifade edilebilir.
 
-UI/UX tasarım danışmanlığı için [iletişime geçin](/iletisim).
+Bu yöntemde, potansiyel müşterilerin size gelmesi için onlara değerli içerikler sunarsınız. Geleneksel pazarlamanın aksine, müşteriyi rahatsız etmeden, onların ihtiyaçlarına yönelik çözümler sunarak dikkatlerini çekersiniz.
+
+## Inbound Marketing'de Dikkat Edilmesi Gerekenler
+
+Inbound marketing stratejisi oluştururken aşağıdaki noktalara dikkat etmelisiniz:
+
+- Hedef kitlenize uygun ve değerli içerikler üretin.
+- İçeriklerinizde güçlü CTA (Call to Action) kullanın.
+- Sosyal medya platformlarını aktif olarak kullanın.
+- E-posta pazarlaması ile potansiyel müşterilerle iletişimde kalın.
+- İçerik kalitenizi sürekli artırın.
+- SEO uyumlu içerikler hazırlayın.
+- Blog yazıları, videolar, infografikler gibi farklı içerik türleri kullanın.
+- Analitik araçlarla performansınızı ölçün ve optimize edin.
+
+## Inbound Marketing Aşamaları
+
+Inbound marketing stratejisi dört temel aşamadan oluşur:
+
+**1. Dikkat Çekin (Attract):** Blog yazıları, sosyal medya paylaşımları ve SEO çalışmaları ile potansiyel müşterilerin dikkatini çekin. Hedef kitlenizin aradığı içerikleri üretin.
+
+**2. Dönüştür (Convert):** Ziyaretçileri potansiyel müşterilere dönüştürün. Landing page'ler, formlar ve CTA'lar kullanarak iletişim bilgilerini toplayın.
+
+**3. İlgiyi Koru (Close):** E-posta pazarlaması ve kişiselleştirilmiş içeriklerle potansiyel müşterilerle ilişkinizi sürdürün. Satış dönüşümü için doğru zamanı bekleyin.
+
+**4. Değerlendir (Delight):** Müşterilerinizi memnun edin ve marka elçilerine dönüştürün. Müşteri sadakati oluşturun ve referans programları geliştirin.
+
+Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "dijital-pazarlama-stratejileri-ve-araclari",
+    title: "Dijital Pazarlama Stratejileri ve Araçları",
+    description: "Dijital pazarlama stratejileri, sosyal medya yönetim araçları ve SEO/SEM araçları hakkında kapsamlı rehber.",
+    date: "2019-03-15",
+    updatedDate: "2025-01-15",
+    category: "Dijital Pazarlama",
+    tags: ["Dijital Pazarlama", "Sosyal Medya", "SEO Araçları", "Marketing Tools"],
+    readTime: "7 dk",
+    content: `
+## Dijital Pazarlama Stratejileri
+
+Dijital pazarlama, hedef kitlenize ulaşmak için çeşitli online kanalları kullanan pazarlama yöntemidir. Başarılı bir dijital pazarlama stratejisi oluşturmak için farklı yaklaşımları ve araçları bilmeniz gerekir.
+
+**Pull Strategy (Çekme Stratejisi):** Müşterilerin sizin ürün veya hizmetinize gelmesini sağlayan stratejidir. SEO, içerik pazarlaması ve sosyal medya bu stratejinin temel bileşenleridir. Müşteri, ihtiyaç duyduğunda sizi bulur.
+
+**Push Strategy (İtme Stratejisi):** Ürün veya hizmetinizi aktif olarak müşterilere ulaştırdığınız stratejidir. E-posta pazarlaması, reklam kampanyaları ve display reklamlar bu kategoriye girer.
+
+## Sosyal Medya Yönetim Araçları
+
+Sosyal medya pazarlaması için kullanabileceğiniz profesyonel araçlar:
+
+**Hootsuite:** Birden fazla sosyal medya hesabını tek bir panelden yönetmenizi sağlar. İçerik planlaması ve analitik özellikleri sunar.
+
+**Sprout Social:** Gelişmiş raporlama ve analitik özellikleriyle öne çıkan bir araçtır. Müşteri ilişkileri yönetimi (CRM) entegrasyonu vardır.
+
+**Buffer:** Basit ve kullanıcı dostu arayüzüyle içerik planlaması ve paylaşımı için ideal bir araçtır.
+
+## SEO ve SEM Araçları
+
+Arama motoru optimizasyonu ve pazarlaması için kullanabileceğiniz araçlar:
+
+**Google Ads:** Arama motoru reklamcılığı için en popüler platformdur. PPC (tıklama başına ödeme) kampanyaları oluşturabilirsiniz.
+
+**Ahrefs:** Backlink analizi, anahtar kelime araştırması ve rakip analizi için güçlü bir araçtır.
+
+**SEMrush:** Kapsamlı SEO ve dijital pazarlama araç setidir. Anahtar kelime araştırması, site denetimi ve rakip analizi yapabilirsiniz.
+
+**Google Search Console:** Google'ın ücretsiz sunduğu, sitenizin arama performansını izlemenizi sağlayan araçtır.
+
+Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "kullanmaniz-gereken-seo-araclari",
+    title: "Kullanmanız Gereken SEO Araçları Nelerdir?",
+    description: "Profesyonel SEO çalışmaları için mutlaka kullanmanız gereken 10 SEO aracı ve nasıl kullanıldıkları hakkında detaylı rehber.",
+    date: "2020-10-07",
+    updatedDate: "2025-01-15",
+    category: "SEO",
+    tags: ["SEO Araçları", "Google Search Console", "Ahrefs", "SEMrush"],
+    readTime: "10 dk",
+    content: `
+## Profesyonel SEO Araçları
+
+İnternet sitesinin arama motorları tarafından dikkate alınması ve ziyaretçi sayısını artırmak için yapılacak olan SEO çalışması, oldukça geniş kapsamlı bir çalışmayı gerektirir. Bu çalışmaları yürütürken de, arama motoru tarafından dikkate alınabilecek olan kriterlerin ölçülmesi ya da varsa hataların tespit edilerek giderilmesi gerekiyor.
+
+Elbette bu aşamayı kolaylaştıran birçok basit ya da daha üst düzey tespitler yapmanızı sağlayacak mutlaka kullanmanız gereken profesyonel SEO araçlarından faydalanılıyor. Profesyonel SEO araçları ile; site sayfalarının analizinden anahtar kelime tespitine, HTML kod hatalarından backlinklerin tespit edilerek zararlıların ayıklanmasına yardımcı olacak analizlere kadar birçok işlemi yapabiliyorsunuz.
+
+Bu noktada SEO uzmanlarının da tercihi olan bilinen en iyi profesyonel SEO araçları arasında Google, Yandex, Bing gibi arama motorları tarafından sunulan webmaster araçları bulunmaktadır. Google Search Console bunların başında sayılabilir. Ayrıca ücretli ya da ücretsiz faydalanabileceğiniz seçenekleri bulunan; Ahrefs, MOZ, Majestic, SpyFu, SeoQuake, SEMRush gibi araçlardan faydalanılabilir.
+
+## En İyi 10 SEO Aracı
+
+**1. Google Search Console:** Arama motoru devi Google, site yöneticileri ve SEO çalışması yürütecek olanlara da önemli kolaylığı Google Search Console ile getiriyor. Google tarafından sunulan araç, tamamen Türkçe içeriklere sahip ve ücretsizdir. İnternet sitenizin ve sayfalarınızın arama sonuçlarındaki performansı izlenebilir, sorunlar tespit edilebilir, analizler yapılarak SEO için gerekli yönlendirmeler belirlenebilir.
+
+**2. Spyfu:** Bir ücretsiz araç olarak oldukça başarılı olan Spyfu, anahtar kelime bazlı SEO analizleri yapabileceğiniz bir araçtır. Anahtar kelimenizin tıklama performansını görmenizi sağlar. Bu araç ile anahtar kelime sıralamaları, rakiplerin kullandığı anahtar kelimeleri ve Google Ads ile oluşturdukları reklamları görme olanaklarını elde edersiniz.
+
+**3. Ahrefs:** Başarısı ile her zaman en iyi SEO araçları listesinde yer almayı hak eden Ahrefs, yeni başlayacak olanlara da profesyonellere de hitap ediyor. Ücretli versiyonda; detaylı site performansı analizlerini alabilirsiniz. Araç olarak Google'dan sonra en iyisi olarak gösterilebilir. Ahrefs, sitenizi optimize etmek, performans iyileştirmelerine gitmek için gerekli her şeyi sunmaktadır.
+
+**4. Robots.txt Tester:** Robots.txt dosyası bir internet sitesinin olmazsa olmaz dosyalarından biridir ve arama motorları tarafından dikkate alınır. Bu dosyanın doğru yapılandırılması SEO için kritik öneme sahiptir.
+
+**5. Google Keyword Planner:** Google'ın ücretsiz anahtar kelime araştırma aracıdır. Anahtar kelime fikirleri ve arama hacmi verileri sunar.
+
+**6. Google PageSpeed Insights:** İnternet sayfa hızı, arama motoru ve Google tarafından dikkate alınan önemli bir kriterdir. Google SEO araçları arasında yer alan Google PageSpeed aracı, sitenizin masaüstü ve mobil performans testlerini yapmanızı ve gerekli iyileştirmeleri yapmanıza olanak veriyor.
+
+**7. DeepCrawl:** Detaylı raporlar ile tam anlamıyla profesyonel bir araç arıyorsanız DeepCrawl aracını denemelisiniz. Web siteniz için en ufak bir hata bile gözden kaçırılmadan size raporlanmaktadır.
+
+**8. SE Ranking:** Siteniz için detaylı ve derin web site analizleri yapmak, backlink araştırmalarını gerçekleştirmek istiyorsanız SE Ranking isimli işlevsel aracı denemelisiniz.
+
+**9. SEMRush:** Kapsamlı SEO analizi ve rakip araştırması için en popüler araçlardan biridir. Anahtar kelime araştırması, site denetimi ve içerik analizi yapabilirsiniz.
+
+**10. Screaming Frog:** Teknik SEO analizi için vazgeçilmez bir araçtır. Site taraması yaparak hataları tespit eder.
+
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     `
   },
   {
     slug: "google-analytics-ile-site-optimizasyonu",
-    title: "Google Analytics 4 ile Site Optimizasyonu (2025 Rehberi)",
-    description: "GA4 ile web sitesi analizi nasıl yapılır? Bounce rate, session, conversion tracking ve UX optimizasyonu için temel metrikler.",
-    date: "2020-10-17",
+    title: "Google Analytics İle Site Optimizasyonu",
+    description: "Google Analytics kullanarak web sitenizi nasıl optimize edeceğinizi ve kullanıcı davranışlarını nasıl analiz edeceğinizi öğrenin.",
+    date: "2020-10-02",
+    updatedDate: "2025-01-15",
+    category: "UI-UX",
+    tags: ["Google Analytics", "Web Analytics", "UX", "Site Optimizasyonu"],
+    readTime: "8 dk",
+    content: `
+## Google Analytics ve UX Tasarımı
+
+Bir UX Designer'ın mümkün olan en iyi deneyimi sunma amacında, mevcut durumu analiz edebilmek için verileri kullanması gerekir. Bunun için Google Analytics gibi analiz araçlarından faydalanır. Bu gibi araçlarla, kullanıcı memnuniyeti ile ilgili yapılan bir yenilikten potansiyel kullanıcıların nasıl etkilenebileceğini ve hangi değişikliklerin daha yüksek bir kullanıcı memnuniyeti ile sonuçlanacağını anlayabilir.
+
+## Önemli Google Analytics Metrikleri
+
+Google Analytics'te UX tasarımcılarının ve site sahiplerinin dikkat etmesi gereken 7 temel metrik:
+
+**1. Event Tracking (Olay İzleme):** Kullanıcıların sitenizdeki belirli eylemleri (buton tıklamaları, form gönderimleri, video izlemeleri vb.) izlemenizi sağlar. Bu veriler, kullanıcı davranışlarını anlamak için kritik öneme sahiptir.
+
+**2. Audience (Kitle):** Sitenizi ziyaret eden kullanıcıların demografik özellikleri, ilgi alanları, kullandıkları cihazlar ve tarayıcılar hakkında bilgi verir. Hedef kitlenizi tanımanızı sağlar.
+
+**3. Pageviews (Sayfa Görüntülemeleri):** Hangi sayfaların en çok ziyaret edildiğini gösterir. Popüler içeriklerinizi belirlemenize yardımcı olur.
+
+**4. Average Session Duration (Ortalama Oturum Süresi):** Kullanıcıların sitenizde ortalama ne kadar zaman geçirdiğini gösterir. Düşük süre, içerik veya kullanıcı deneyimi sorunlarına işaret edebilir.
+
+**5. Bounce Rate (Hemen Çıkma Oranı):** Sitenize gelip hiçbir etkileşimde bulunmadan ayrılan kullanıcıların oranıdır. Yüksek bounce rate, sayfa içeriği veya tasarım sorunlarını gösterebilir.
+
+**6. Behaviour Flow (Davranış Akışı):** Kullanıcıların sitenizdeki gezinme yollarını görselleştirir. Hangi sayfalardan ayrıldıklarını ve hangi yolları izlediklerini gösterir.
+
+**7. Conversion Goal Rate (Dönüşüm Hedefi Oranı):** Belirlediğiniz hedeflere (satın alma, form doldurma, kayıt olma vb.) ulaşan kullanıcıların oranını gösterir. İş hedeflerinizi ölçmenizi sağlar.
+
+## Veri Odaklı Tasarım
+
+UX tasarımında veri kullanımı önemlidir. UX Designer, veri temelli değişiklikler öneren ve tasarım işbirliği için farklı ekiplerle iletişime geçen kişi olduğu için, tasarımın verilere dayandırılması gerekir. Yapılacak değişiklik veya geliştirme için veriye dayanmayan bir önerinin geçerliliği söz konusu olmaz. Her karar, düzgün bir şekilde araştırılmalı ve verilere dayandırılmalıdır.
+
+Google Analytics verileri, A/B testleri ve kullanıcı geri bildirimleri ile birleştirildiğinde, kullanıcı deneyimini sürekli iyileştirmek için güçlü bir temel oluşturur.
+
+Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) göz atın.
+    `
+  },
+  {
+    slug: "site-ici-seo-nasil-yapilir",
+    title: "Site İçi SEO Nasıl Yapılır? Ayrıntılı İç SEO Rehberi",
+    description: "On-Page SEO teknikleri, site içi optimizasyon stratejileri ve Google sıralamalarını yükseltmek için yapılması gerekenler.",
+    date: "2020-10-02",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["Google Analytics", "GA4", "Web Analitik", "Dönüşüm Optimizasyonu"],
-    readTime: "9 dk",
-    featured: false,
-    content: `
-## Google Analytics 4 Nedir?
-
-Google Analytics 4 (GA4), Universal Analytics'in yerini alan yeni nesil web analitik platformudur. Temmuz 2023'te Universal Analytics devre dışı kaldı ve GA4 artık tek seçenek.
-
-## GA4'ün Temel Farkları
-
-| Özellik | Universal Analytics | GA4 |
-|---------|--------------------|----|
-| Veri Modeli | Session-based | Event-based |
-| Tracking | Sayfa görüntüleme | Tüm etkileşimler |
-| Privacy | 3rd party cookies | Privacy-first |
-| AI/ML | Sınırlı | Gelişmiş tahminleme |
-| Cross-platform | Ayrı property | Unified tracking |
-
-## UX Designer için Önemli Metrikler
-
-### 1. Engagement Rate (Etkileşim Oranı)
-
-Bounce rate'in yerini aldı. Etkileşimli oturum oranını gösterir:
-- 10+ saniye site'de kalma
-- 2+ sayfa görüntüleme
-- Dönüşüm gerçekleştirme
-
-### 2. Average Engagement Time
-
-Kullanıcıların sitenizde aktif olarak geçirdiği süre. UX kalitesinin doğrudan göstergesi.
-
-### 3. Events & Conversions
-
-- Buton tıklamaları
-- Form gönderimleri
-- Scroll derinliği
-- Video izlemeleri
-
-## GA4 ile UX Optimizasyonu
-
-### Adım 1: Hedef Belirleme
-
-Sitenizin ana hedeflerini conversion olarak tanımlayın:
-- E-ticaret: Satın alma
-- Lead gen: Form gönderimi
-- Blog: Newsletter kayıt
-
-### Adım 2: Funnel Analizi
-
-Kullanıcı yolculuğundaki tıkanma noktalarını bulun:
-1. Anasayfa → Ürün sayfası (%?)
-2. Ürün → Sepet (%?)
-3. Sepet → Ödeme (%?)
-
-### Adım 3: Segment Analizi
-
-Farklı kullanıcı gruplarını karşılaştırın:
-- Mobil vs Desktop
-- Yeni vs Dönen kullanıcı
-- Organik vs Paid trafik
-
-### Adım 4: A/B Test Entegrasyonu
-
-GA4 + Google Optimize ile:
-- Farklı tasarımları test edin
-- Kazanan varyantı belirleyin
-- Data-driven kararlar alın
-
-## Explorations (Keşifler)
-
-GA4'ün en güçlü özelliği:
-
-- **Path Exploration**: Kullanıcı yolculuğu görselleştirme
-- **Funnel Exploration**: Dönüşüm hunisi analizi
-- **Segment Overlap**: Segment kesişimleri
-- **User Lifetime**: Müşteri yaşam boyu değeri
-
-## Sonuç
-
-GA4 sadece bir analitik aracı değil, UX optimizasyonunun temelidir. Doğru metriklerle ölçüm yapın, veriye dayalı kararlar alın.
-
-Profesyonel web analitik danışmanlığı için [iletişime geçin](/iletisim).
-    `
-  },
-  {
-    slug: "dijital-pazarlama-stratejileri",
-    title: "Dijital Pazarlama Stratejileri: 2025 Rehberi",
-    description: "Dijital pazarlama nedir, nasıl yapılır? SEO, SEM, sosyal medya, içerik pazarlaması ve AI destekli pazarlama stratejileri.",
-    date: "2020-09-28",
-    updatedDate: "2025-01-15",
-    category: "Dijital Pazarlama",
-    tags: ["Dijital Pazarlama", "Online Marketing", "SEM", "İçerik Pazarlaması"],
-    readTime: "13 dk",
+    tags: ["Site İçi SEO", "On-Page SEO", "SEO Optimizasyonu", "İç SEO"],
+    readTime: "12 dk",
     featured: true,
     content: `
-## Dijital Pazarlama Nedir?
+## Site İçi SEO Nedir?
 
-Dijital pazarlama, internet ve dijital kanallar üzerinden gerçekleştirilen tüm pazarlama faaliyetlerini kapsar. 2025'te dijital pazarlama, AI ve otomasyon ile yeni bir boyut kazandı.
+Günümüzde organik aramada başarılı olmak istiyorsanız site içi SEO çalışmaları yaparak arama motorlarının sizi görmesini sağlayabilirsiniz.
 
-## Dijital Pazarlama Kanalları
+Bazı kişiler sadece backlink alarak arama motorlarında daha iyi verim alacağını düşünerek büyük hata yapmaktadır. Temeli düzgün atmazsanız sağlam bir omurga kuramazsınız. Sayfa içi SEO temellerine dikkat etmezseniz sayfa dışı SEO pek bir işe yaramayacaktır.
 
-### 1. SEO (Arama Motoru Optimizasyonu)
+Günümüzün gerçek SEO uzmanları, sayfa içi optimizasyona mutlaka ve sürekli olarak öncelik verilmesi gerektiğini bilir. Google algoritmasını sürekli değiştirdiği için sayfanızdaki site içi SEO durumunuzun güncel olduğundan emin olmanız gerekmektedir.
 
-Organik arama sonuçlarında görünürlük:
-- Teknik SEO
-- İçerik SEO
-- Off-page SEO
+Site içi SEO (Sayfa içi SEO olarak da bilinir), bir web sitesinin arama motoru sıralamalarını iyileştirmek, organik trafik kazanmak ve artırmak için web sayfalarını optimize edilmesidir. Site içi SEO, alakalı, yüksek kaliteli içerik yayınlamanın yanı sıra başlıklarınızı, HTML etiketlerinizi (başlık, meta ve başlık) ve resimleri optimize etmeyi içerir. Ayrıca, web sitenizin yüksek düzeyde uzmanlığa, yeterliliğe ve güvenilirliğe sahip olduğundan emin olmak anlamına gelir.
 
-[SEO hizmetlerimiz →](/hizmetler/seo-danismanligi)
+## Sayfa İçi SEO Neden Önemlidir?
 
-### 2. SEM (Arama Motoru Pazarlaması)
+Site içi SEO, arama motorlarının web sitenizi ve içeriğini anlamasına ve aynı zamanda bir aramanın sorgusuyla alakalı olup olmadığını belirlemesine yardımcı olduğu için önemlidir. Arama motorları daha sofistike hale geldikçe, arama motoru sonuç sayfalarında (SERP'ler) alaka düzeyine ve anlam katmasına daha fazla odaklanır.
 
-Google Ads ve Bing Ads ile ücretli reklamlar:
-- Search Ads
-- Display Ads
-- Shopping Ads
-- Video Ads (YouTube)
+Google'ın arama kriterlerindeki en büyük silahı; kullanıcılar bir sorgu yazdıklarında gerçekte ne aradıklarını anlar ve kullanıcının amacını karşılayan arama sonuçlarını sunar. Backlink alırken her türlü sonuçla karşılaşabilirsiniz, ama site içi SEO'yu doğru verilere dayandırarak yaparsanız optimizasyonun tamamen sizin tarafınızdan gerçekleşecektir.
 
-[Online reklam hizmetlerimiz →](/hizmetler/online-reklamcilik)
+## Site İçi SEO İçin 10 Önemli Madde
 
-### 3. Sosyal Medya Pazarlaması
+**1. E-A-T (Uzmanlık, Yetki, Güvenilirlik):** Google, kaliteli içeriğe her zaman öncelik vermiştir. Yüksek kaliteli içerik üreten sitelerin daha iyi sıralamalarla ödüllendirilmesine karar verir. Sitenizde içerik oluştururken uzmanlık, yetki ve güvenilirlik prensiplerini kullanın.
 
-Platform bazlı stratejiler:
+**2. Başlık Etiketi:** Her web sayfasının baş bölümünde bulunan bir HTML etiketi olan başlık etiketi, sayfanın konusunun neyle ilgili olduğunu anlatan ve arama motorları tarafından indexlenen alandır. Eksik, yinelenen ve kötü yazılmış başlık etiketlerinin tümü SEO sonuçlarınızı olumsuz etkileyebilir.
 
-| Platform | Hedef Kitle | İçerik Türü |
-|----------|-------------|-------------|
-| Instagram | 18-44 yaş | Görsel, Reels |
-| LinkedIn | B2B, Profesyonel | Thought leadership |
-| TikTok | Gen Z | Kısa video |
-| YouTube | Geniş kitle | Video içerik |
-| X (Twitter) | Haber, Gündem | Metin, thread |
+**3. Meta Açıklama:** SEO'nun ilk günlerinden beri, meta açıklamalar önemli bir optimizasyon noktası olmuştur. Meta açıklamayı doğru şekilde optimize etmek tıklama oranını ve web sitenizin algılanmasını iyileştirir.
 
-[Sosyal medya hizmetlerimiz →](/hizmetler/sosyal-medya-yonetimi)
+**4. Kaliteli Başlıklar:** Web sitenizin içeriğinin aramada iyi performans göstermesini istiyorsanız ilgi çekici başlıklar yazmaya başlayın. Başlıklarınızın SERP'lerde öne çıkması için ilgiyi uyandırması gerekir.
 
-### 4. İçerik Pazarlaması
+**5. Başlık Etiketleri (H1-H6):** Başlık etiketleri, içeriğinizdeki başlıkları ve alt başlıkları diğer metin türlerinden tanımlamak için kullanılan HTML öğeleridir. İçeriğinizi ziyaretçilerin okuması için daha kolay ve daha keyifli hale getirir.
 
-Değer üreten içeriklerle müşteri çekme:
-- Blog yazıları
-- E-kitaplar
-- Webinarlar
-- Podcast'ler
-- Video içerikler
+**6. SEO Temelli Yazım Dili:** SEO yazımı, hem arama motorları hem de kullanıcılar düşünülerek içerik yazmak anlamına gelir. İnsanlar için içerik yazdığınızı unutmayın, içeriğin yüksek kaliteli, önemli ve alakalı olması gerekir.
 
-### 5. E-posta Pazarlaması
+**7. Anahtar Kelime Yanlışlığı:** Belirli bir terimi birden çok sayfada hedeflemek, "anahtar kelime yanlışlığına" neden olabilir. Aynı anahtar kelime için birden fazla sayfa sıralaması yaptığınızda, aslında kendinizle rekabet ediyorsunuz.
 
-Hala en yüksek ROI sağlayan kanal:
-- Newsletter
-- Drip kampanyaları
-- Segmentasyon
-- Otomasyon
+**8. İçerik Denetimi:** Mevcut içeriğinizi denetlemek önemlidir. İçeriğinizin hedeflerine ulaşıp ulaşmadığını değerlendirin, bilgilerin güncel olup olmadığını kontrol edin.
 
-## 2025 Dijital Pazarlama Trendleri
+**9. Görüntü Optimizasyonu:** Resimleri doğru şekilde optimize etmek, ek sıralama fırsatları, daha iyi kullanıcı deneyimi ve daha hızlı sayfa yükleme süreleri sağlar.
 
-### AI Destekli Pazarlama
+**10. Kullanıcı Katılımı:** Web sitenizin sayfa içi SEO öğelerini geliştirmek savaşın yalnızca yarısıdır. Kullanıcıların hemen çıkmayacağından emin olmak için site hızı, kullanıcı deneyimi ve içerik optimizasyonuna odaklanın.
 
-- **ChatGPT/Claude**: İçerik üretimi
-- **Midjourney/DALL-E**: Görsel üretimi
-- **Jasper**: Reklam metinleri
-- **Synthesia**: AI video
-
-### First-Party Data
-
-3rd party cookie'lerin sonu:
-- CRM entegrasyonu
-- Email listesi önemi
-- Customer Data Platform (CDP)
-
-### Short-form Video
-
-- TikTok
-- Instagram Reels
-- YouTube Shorts
-
-### Conversational Marketing
-
-- Chatbotlar
-- WhatsApp Business
-- Messenger bots
-
-## Dijital Pazarlama Stratejisi Nasıl Oluşturulur?
-
-### 1. Hedef Belirleme (SMART)
-
-- Specific (Belirli)
-- Measurable (Ölçülebilir)
-- Achievable (Ulaşılabilir)
-- Relevant (İlgili)
-- Time-bound (Zaman sınırlı)
-
-### 2. Hedef Kitle Analizi
-
-- Persona oluşturma
-- Müşteri yolculuğu haritalama
-- Pain point analizi
-
-### 3. Kanal Seçimi
-
-Bütçe ve hedef kitleye göre:
-- Organik vs Paid
-- B2B vs B2C
-- Awareness vs Conversion
-
-### 4. İçerik Planı
-
-- İçerik takvimi
-- Format çeşitliliği
-- SEO entegrasyonu
-
-### 5. Ölçümleme ve Optimizasyon
-
-- KPI belirleme
-- A/B test
-- Sürekli iyileştirme
-
-## Sonuç
-
-Dijital pazarlama artık "olsa iyi olur" değil, "olmazsa olmaz" konumunda. Profesyonel destek için [iletişime geçin](/iletisim).
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     `
   },
   {
-    slug: "inbound-marketing-nedir",
-    title: "Inbound Marketing Nedir? Gelen Pazarlama Stratejileri",
-    description: "Inbound marketing (gelen pazarlama) nedir, nasıl yapılır? İçerik pazarlaması, lead generation ve müşteri çekme stratejileri.",
+    slug: "sosyal-medya-yonetimi-ve-online-pazarlama",
+    title: "Sosyal Medya Yönetimi ve Online Pazarlama",
+    description: "Sosyal medya yönetimi stratejileri, online pazarlama teknikleri ve SEO ile sosyal medya ilişkisi hakkında kapsamlı rehber.",
     date: "2020-10-07",
     updatedDate: "2025-01-15",
     category: "Dijital Pazarlama",
-    tags: ["Inbound Marketing", "Gelen Pazarlama", "Lead Generation", "Content Marketing"],
+    tags: ["Sosyal Medya", "Online Pazarlama", "SEO", "Dijital Pazarlama"],
     readTime: "8 dk",
-    featured: false,
     content: `
-## Inbound Marketing Nedir?
+## Sosyal Medyanın Gücü
 
-Inbound Marketing (Gelen Pazarlama), potansiyel müşterilerin sizi bulmasını sağlayan pazarlama yaklaşımıdır. Geleneksel "outbound" reklamcılığın aksine, değerli içerik üreterek müşteriyi çekersiniz.
+Reklam ve tutundurma faaliyetleri ticaretin olmazsa olmaz yapı taşlarındandır. Elinizde ürettiğiniz ve insanların beğenisine sunmak istediğiniz ürün veya hizmetiniz var bunun için reklam çalışmalarını her platformda gerçekleştirmeyi hedeflersiniz. İşletmenizin ürünlerinin herkesçe tanınması size katma değeri yüksek gelir kapısını açacaktır.
 
-## Inbound vs Outbound
+Her ne kadar teknoloji ile şekil değiştirse bile üretilen ürün veya hizmeti nihai tüketiciye ulaştırma amacı değişmedi ve değişmeyecek. Bu isteği arzulayan firmaların sosyal medya kanalları ile nihai tüketiciye hitap etmeyi hedeflemesi kadar normal bir şey olamaz.
 
-| Outbound (Giden) | Inbound (Gelen) |
-|-----------------|-----------------|
-| TV/Radyo reklamı | Blog yazısı |
-| Soğuk arama | SEO |
-| Banner reklam | E-kitap |
-| Spam e-posta | Newsletter |
-| Rahatsız edici | Değer katan |
+## Sosyal Medya Ne Demektir?
 
-## Inbound Marketing Metodolojisi
+Temel anlamda bakacak olursak, kullanıcıların doğrudan paylaşım yapma olanağı elde ettiği bir yapı olarak görülebilir. Bu paylaşımlar; metin, resim, grafik ya da video gibi içeriklerle yapılabiliyor. Bu medya türü ile insanların; düşüncelerini, yaptıkları etkinlikleri, beğenilerini, hayatlarındaki farklı olayları paylaşma olanağı yakalanıyor.
 
-### 1. Attract (Çek)
+Yaygınlaşan ve giderek farklı türleriyle hayatımıza giren bu medya türü sayesinde; hem bireylerin hayatı kitlelere daha fazla hitap eder, hem de kitlelerin bireylere ulaşması daha kolay hale gelmiştir. Elbette kurum ve kuruluşlar, markalar da bu olanağı en iyi biçimde kullanarak daha fazla bireye ulaşmak için sosyal medyayı kullanmaktan geri kalmıyor.
 
-Doğru kitleyi çekmek:
-- SEO optimizeli blog
-- Sosyal medya paylaşımları
-- Podcast/Video içerik
+Yapılan paylaşım ya da etkileşimin ölçülebilir olması, iletişim şeklinin başarıya ulaşıp ulaşamadığını tespit etmeyi de kolaylaştırdı. Alınan geri dönüşe bağlı olarak yeni strateji belirlemek oldukça kolaylaştı.
 
-### 2. Convert (Dönüştür)
+## SEO ve Sosyal Medya
 
-Ziyaretçiyi lead'e çevirmek:
-- Landing page
-- Lead magnet (e-kitap, şablon)
-- Form optimizasyonu
-- CTA (Call-to-Action)
+Sosyal platformların etkisi, her yerde olduğu gibi web sitesinin arama motoru tarafından daha dikkat çekebilecek yapıya ulaşması açısından da önemli hale geldi. SEO çalışması olarak bilinen arama motoru optimizasyon çalışmaları sırasında, bu ortamlarda yapılan paylaşımlar oldukça güçlü bir etki yaratıyor.
 
-### 3. Close (Kapat)
+Sosyal medya hesapları ile SEO çalışmaları yapılırken; kullanıcı sayısı fazla olan topluluk veya gruplar, bireysel kullanıcılar ve şirketler için ayrı çalışmalar yürütülmesinde yarar olduğunu söylemek gayet mümkün.
 
-Lead'i müşteriye dönüştürmek:
-- Email nurturing
-- CRM takibi
-- Sales alignment
+## SEO Amaçlı Sosyal Medya Çalışmaları
 
-### 4. Delight (Memnun Et)
+- Bu platformlarda; site, marka veya firma adında hesap ya da grup ile çalışmalar yapın. Bu durum, bilinirlik ve markalaşma açısından büyük önem taşır.
+- Fazla sayıda backlink alma yerine SEO açısından amaçlanan, sayfalarınızın hızlı index alabilecek duruma getirmek olmalıdır. Kaliteli içerik paylaşımlarını yüksek değerlere sahip olan sosyal medya sitelerinde yapmanızla bunu sağlayabilirsiniz.
+- Topluluklara ve gruplara katılarak, yeni kullanıcıların sizi tanıması için aktif biçimde etkileşimde kalın.
+- Özenle seçilerek hazırlanmış, kullanıcı ilgisini çekecek, merak uyandıracak içerikler ve başlıklarla paylaşımlarınızı yapın.
+- Yeni kampanyaları ve önemli duyuruları bu platformlar üzerinde yaparak etkinliklerinizi artırmaya çalışın.
+- Resim ya da video içerikleriniz için marka, ürün ya da hizmeti en iyi biçimde tanıtacak içeriklere yer verin.
 
-Müşteriyi savunucuya dönüştürmek:
-- Müşteri desteği
-- Referral programı
-- Upsell/Cross-sell
+Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "serp-nedir-google-icin-neden-onemlidir",
+    title: "SERP Nedir, Google İçin Neden Önemlidir?",
+    description: "SERP (Search Engine Results Page) nedir, özellikleri nelerdir ve SEO stratejinizi nasıl etkiler?",
+    date: "2020-09-30",
+    updatedDate: "2025-01-15",
+    category: "SEO",
+    tags: ["SERP", "Google", "Arama Sonuçları", "SEO"],
+    readTime: "9 dk",
+    content: `
+## SERP Nedir?
 
-## Lead Magnet Örnekleri
+İngilizce "Search Engine Results Page" kelimelerinin baş harfleri ortaya çıkan SERP, bir Google terimidir. Dünya devi arama motoru Google tercihini herkes yapıyor ve aramak istenen kelime yazılarak bir sonuç sayfasına ulaşılıyor. Yapılan arama sonucunda ulaşılan bu sonuç listesi sayfasına SERP denmektedir.
 
-Değer karşılığı iletişim bilgisi alın:
+Bu SERP sayfasındaki listede, ilk 10 sıra içindekiler en değerli kelimeler olarak görülür. Arama için girilen anahtar kelimeye bağlı olarak oluşan listede yani SERP alanında; eşleşen web sayfalarının başlıkları, bu sayfalara olan bağlantılar ve her sayfadaki içeriğin kısa bir açıklaması görünmektedir.
 
-1. **E-kitaplar**: Kapsamlı rehberler
-2. **Şablonlar**: Excel, PPT şablonları
-3. **Checklist**: Kontrol listeleri
-4. **Webinarlar**: Canlı eğitimler
-5. **Ücretsiz araçlar**: Hesaplayıcılar
-6. **Case study**: Başarı hikayeleri
+Bir SERP; arama motoru botu tarafından otomatik olarak üretilen sonuçlar, bir moderatör tarafından eklenen sonuçlar ve belirli bir ürün veya hizmete yönelik reklamlar olarak ücretli biçimde karşımıza gelir.
 
-## Inbound Marketing Araçları
+İnternette yer almak için alan adı alıp bir web sitesi yaptıysanız, henüz denizin dibindeki bir kum tanesi sayılırsınız. Hemen her site sahibinin beklentisi arama motoru üzerinden kendi sitesine fazla sayıda ziyaretçi çekebilmektir. Belirlenen anahtar kelimede öne çıkmak isteniyorsa, SEO açısından birçok çalışmanın yürütülmesi gerekir.
 
-- **HubSpot**: All-in-one inbound platform
-- **Mailchimp**: Email marketing
-- **Semrush**: SEO araştırma
-- **Hotjar**: UX analiz
-- **Zapier**: Otomasyon
+## SERP Özellikleri
 
-## ROI Hesaplama
+SERP için kullanılan özellikler; kullanıcılar için arama deneyimini zenginleştirmek amacıyla geliştirilmiştir. Bu özellikler ülkelere, bölgelere, dillere ve hatta cihaz tiplerine göre farklılıklar gösterebildiği bilinmektedir.
 
-Inbound marketing'in geri dönüşünü ölçün:
+SERP özellikleri kullanılan bir web sitesi, arama sonuç sayfasında daha fazla yer kaplar. Bu durum sitenize veya sayfanıza tıklama oranını artırır.
 
-\`\`\`
-CAC (Müşteri Edinme Maliyeti) = Toplam Pazarlama Harcaması / Kazanılan Müşteri Sayısı
+**Ücretli SERP Özellikleri:**
+- Adwords Top: Google arama sonuçları sayfası üzerinde en başta reklam olarak yer alınmasını sağlar.
+- Adwords Bottom: Google arama sonuçları sayfası üzerinde en altta reklam olarak yer alınmasını sağlar.
+- Shopping Ads: Alışveriş sitelerinin ürün listeleme amaçlı kullanabileceği reklam özelliğidir.
+- Google Hotels: Otel işletmelerinin lokasyona bağlı olarak reklamlarla öne çıkarılmasını sağlar.
+- Google Flights: Uçuş aramalarında öne çıkılmasını sağlar.
 
-LTV (Yaşam Boyu Değer) = Ortalama Satış x Tekrar Satın Alma x Müşteri Ömrü
+**Organik SERP Özellikleri:**
+- Kullanıcılar Bunları da Sordu (People Also Ask): Sorgularda kullanıcıların sorduklarıdır.
+- En Çok Okunan Haberler (Top Stories): İnternet haber aramalarında görülen özelliktir.
+- Knowledge Graph / Knowledge Panel: Arama sayfasında sağ tarafta görebileceğimiz alandır.
+- Featured Snippet: Metin, liste veya tablo olarak arama sonuç sayfalarında görülebilecek özelliktir.
 
-ROI = (LTV - CAC) / CAC x 100
-\`\`\`
+## SERP Özelliklerini Neden Kullanmalıyız?
 
-## Sonuç
+SERP özelliklerini kullanmanın temel amacı; hem arama sonuçlarında daha fazla yer kaplamak, hem de sitenizin tıklanma oranını artırmaktır. Reklam sonuç sayfalarında, istatistikleri gözden geçirerek geleceğe yönelik planlama ve stratejileri belirleyebilirsiniz. Hangi sektörde faaliyet gösterseniz de, SERP özellikleri arasında bu planlamaları yapabileceğiniz özellik bulabilirsiniz.
 
-Inbound marketing, uzun vadeli ve sürdürülebilir büyüme sağlar. İçerik stratejisi oluşturmak için [iletişime geçin](/iletisim).
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "heading-tags-nedir-h1-etiketi-nasil-kullanilir",
+    title: "Heading Tags Nedir, H1 Etiketi Nasıl Kullanılır?",
+    description: "HTML başlık etiketleri (H1-H6) nedir, SEO için nasıl kullanılır ve doğru başlık hiyerarşisi nasıl oluşturulur?",
+    date: "2020-09-29",
+    updatedDate: "2025-01-15",
+    category: "SEO",
+    tags: ["Heading Tags", "H1 Etiketi", "HTML", "SEO"],
+    readTime: "6 dk",
+    content: `
+## Heading Tags Nedir?
+
+Günlük konuşmalar esnasında bile, vurgulamak ve öne çıkarmak istediklerimizi ifade etmek için ses tonu değişikliğine gideriz. Bunu metinlerde yaparken de koyu yazmaya ya da renk değişikliğine gideriz. Başlık ya da alt başlıkları ifade ederken yazı tipi boyut değişikliği ile koyu yazıma özen gösteririz.
+
+Web site içerikleri hazırlanırken kullanılan HTML etiketleri içerisinde de, içeriğin belirtiminde başlık düzeyleri göstermek için Heading Tags adı verilen etiketler kullanılmalıdır. H1, H2, H3, H4, H5, H6 şeklindeki farklı düzeydeki başlık ya da alt başlıkları göstermek için kod kullanımı arama motorları tarafından da dikkate alınmaktadır.
+
+## H1 Etiketi Nedir?
+
+Her sayfanın veya gönderinin birden fazla başlığı olacaktır. H1 etiketi bazen bir sayfanın veya gönderinin başlığı için kullanılır ve bir sayfada görünen birincil başlıktır. Bir H1'in veri formatlaması genellikle bir sayfada bulunan başlık etiketlerinin geri kalanından (H2, H3, H4) farklıdır.
+
+Sadece bir kere kullanılması ve içinde hedeflenen anahtar kelimelerin geçmesi SEO açısından çok önemlidir.
+
+İşin özünde basılı metinlerdeki başlık kullanımı ile web sayfalarındaki başlıklar arasında bir fark bulunmuyor. Ancak web sayfalarında başlıklar yani Heading Tags sadece görünümden ibaret olmayıp, arama motoru botlarının sayfayı bulması için yardımcı olacak olan etiketlerdir. Google gibi birçok arama motoru, sayfa içeriğinin ne anlattığını anlamak amacıyla bu Heading tags kullanımına bakar.
+
+## H Etiketi Kullanımında Dikkat Edilmesi Gerekenler
+
+- Uzun metinler için H etiketi kullanmayın. İçerikte daha çok; üst ya da alt başlık stratejilerini belirleyerek, bunlar için bu etiketi kullanın.
+- Heading yani H etiketleri kullanımı, içeriğinizin hazırlanması sonrasına bırakın. Bu içeriğinizin daha sağlıklı biçimde yerleşmesini sağladığı gibi, ziyaretçi gözünden bakmanızı sağlar.
+- İçerik içinde bulunan kısa açıklamalara H etiketi verebilirsiniz.
+- Bir içerik içerisinde bir tane H1 etiketi olmasına dikkat edin. Elbette hazırlamış olduğunuz içeriğin bütünlüğünü bozmadan içerikte birden fazla H1 etiketi kullanımı yapabilirsiniz. İçeriğe bağlı olarak 10 farklı H2 etiketi kullanabilirsiniz.
+- Kullandığınız H etiketlerinin kesinlikle hiyerarşik bir yapısı olması gerekmektedir.
+- Kaliteli içeriğe ulaşmak istediğiniz anahtar kelimeleri, bu H etiketleri içerisinde kullanmaya özen gösterin. H etiketleri içerisinde anahtar kelime kullanmanız, arama motoru sıralamalarında üstlere çıkmanıza etki edecektir.
+- Kullanacağınız başlık ya da alt başlıklarda, benzersiz olmasına özen gösterin. Daha önce arama motoru tarafından indeks almış olan başlıklara yer vermemeye çalışın.
+
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "seo-ile-organik-trafigi-artirmanin-yontemleri",
+    title: "SEO ile Organik Trafiği Artırmanın Yöntemleri",
+    description: "Web sitenizin organik trafiğini artırmak için SEO stratejileri, anahtar kelime optimizasyonu ve içerik geliştirme teknikleri.",
+    date: "2020-09-22",
+    updatedDate: "2025-01-15",
+    category: "SEO",
+    tags: ["Organik Trafik", "SEO", "Anahtar Kelime", "İçerik Optimizasyonu"],
+    readTime: "8 dk",
+    content: `
+## SEO ve Organik Trafik
+
+İngilizce Search Engine Optimization kelimelerinin baş harfleri ile ifade edilen SEO, arama motoru optimizasyonu kelimeleriyle dilimizde karşılık buluyor. SEO çalışmalarının temel amacında ise arama motoru olarak bilinen internet ortamında kullanıcıların arama maksadıyla kullandığı siteler için sitenin organik trafiğinin artması dikkate alınır.
+
+En büyük arama motoru olarak bilinen Google için yapılacak bir SEO çalışması sonucunda, siteniz daha fazla insan tarafından ulaşılabilir hale gelecektir. Firmanız daha fazla tanınacak ve müşteri kitleniz artacaktır.
+
+Kısacası yapılacak etkin bir reklam çalışması yerine var olan web siteniz için yürüteceğiniz etkili bir SEO çalışması sayesinde ciddi kazançlar elde edilecektir. Sitenizin var olan trafiğini artırmanın ilk önemli noktası da organik trafiği artırmak olmalıdır. Organik trafik, aramalar sonrasında arama motorlarından gelen ziyaretçilerdir.
+
+## Organik Trafiği Artırmanın Yöntemleri
+
+**Anahtar Kelime ve Kaliteli İçerik Hazırlamak:** Arama motorlarının çalışma mantığında, kullanıcıların arama için kullandığı kelimeler bir başka ifadeyle anahtar kelimeler büyük önem taşımaktadır. Kullanıcıların aramalar sırasında kullanabileceği anahtar kelimeleri belirleyerek buna uygun kaliteli içerik oluşturmak, bu yolla sitenizi ziyaret edecek olan organik ziyaretçi sayısını artıracaktır. Hazırladığınız içeriklerde bu anahtar kelimelerin kullanılma sıklığına dikkat edin.
+
+**Mobil Cihaz Kullanımı Artarken Responsive Tasarıma Önem Gösterin:** Kullanıcılar farklı boyutlarda ekranları kullanarak sitenizi ziyaret etmektedir. Özellikle tablet ve farklı boyutlarda olan akıllı telefonların kullanımı sonrasında, responsive tasarıma sahip olan sitelerin arama motorları tarafından daha fazla dikkate alındığı bilinmektedir.
+
+**Arama Motorlarının Dikkate Aldığı HTML Etiketlerini Kullanın:** Arama motoru yapıları, siteleri daha üstlerde gösterebilmek için çok farklı algoritmalar kullanıyor olsa bile META etiketleri olarak bilinen HTML etiketleri hala etkisini korumaktadır. Site tasarımı esnasında halen meta tanımlama (description) etiketleri etkili ve doğru kullanıldığında site ziyaretçi sayısına olumlu etki ediyor.
+
+**Organik Trafik İçin İçerik Girişine Önem Verin:** Sitenizde bir blog alanı oluşturarak, düzenli aralıklarda kaliteli ve özgün içerik girişi için kendinize bir program oluşturun. Eğer sitenize ekleyeceğiniz içerik sayısını artırıp, daha fazla uzmanlık konularına odaklanarak özgün içerikleri yayınlarsanız arama motorları tarafından fark edilirsiniz.
+
+**Doğru URL Yapısı Kullanın:** Bazı internet sayfalarında "?p=1" gibi alan adı yanında adresler görebilirsiniz. İçerik yönetim sistemi olarak bilinen sitelerde bu yapı değiştirilebilir. Site içeriklerinin adreslerinde, anahtar kelimelerine yer vermeye çalışın ve bunun için gerekli yapılandırmayı yapın.
+
+**SEO Araçları ve Google Web Yöneticisi Araçlarını Kullanın:** Web sitenizin belli aralıklarla analiz edilmesi, sorunları tespit edebilmek ve sitenizi iyileştirebilmek için önem taşımaktadır. İnternet üzerinde SEO analizi yapabileceğiniz birçok ücretsiz araç olduğu gibi, en iyi sonuçları alabileceğiniz arama motoru devi Google tarafından sunulan araçlar da bulunmaktadır.
+
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "profesyonel-seo-uzmani-nedir-nasil-olunur",
+    title: "Profesyonel SEO Uzmanı Nedir, Nasıl Olunur?",
+    description: "SEO uzmanı olmak için gereken beceriler, eğitimler ve kariyer yolu hakkında kapsamlı rehber.",
+    date: "2020-10-13",
+    updatedDate: "2025-01-15",
+    category: "SEO",
+    tags: ["SEO Uzmanı", "SEO Danışmanı", "Kariyer", "Dijital Pazarlama"],
+    readTime: "15 dk",
+    featured: true,
+    content: `
+## SEO Uzmanı, SEO Danışmanı Nedir?
+
+İnternet, hangi bilgiyi arıyorsanız arayın ilk başvuru noktası haline geldi. Google, Yandex, Bing, Yahoo gibi arama motorları sayfaları her zaman en fazla ziyaretçiyi çekiyor. Burada yapılan aramalar sonrasında istenilen sayfaya ulaşılıyor. Bu nedenle, internet ortamında yer almayı düşünen kişi, kurum ya da kuruluşların bir arama motoru optimizasyonu (Search Engine Optimization – SEO) çalışması yapması zorunludur. SEO Uzmanı için, bu çalışmaları verimli biçimde yürütecek olan uzman kişi ifadesi doğru olur.
+
+SEO Uzmanı tarafından yapılacak çalışmalar arasında; sitenizi ziyaretçi için en uygun hale getirmek, arama motorları tarafından dikkat çekecek hale gelmesi için gerekli olan iyileştirme çalışmaları yapmak vardır. Aynı zamanda siteniz için tüm analiz, değerlendirme, uygulama, takip ve raporlama periyotlarının tamamını yapar.
+
+## SEO Uzmanı Neler Yapar?
+
+SEO uzmanı çalışmasına başlarken, ilk olarak siteyi analiz eder. Çalışma için gerekli stratejileri belirlerken, sitenin hangi kelimelerde üst sıralara taşınması gerektiğini belirlemek için araştırma yürütür. Ayrıca var olan sitenin arayüzü için de gerekli düzenlemeleri yaparak var olan hataları giderir.
+
+**SEO Uzmanının görevleri:**
+
+- Çalışma yürütülecek olan web sitesinin hem içerik hem de kod yapısını analiz etmek, hataları belirlemek ve gerekli düzeltmeleri yapmak.
+- Kurumsal ya da kişisel web siteleri için optimizasyon çalışması yürütmek.
+- Arama motoru sitelerinin algoritma yapılarında var olan güncellemeleri takip etmek ve bu yeni algoritma yapısını çalışma yürütülen web sitelerine uygulamak.
+- Arama motorunda sitenin öne çıkmasına destek verecek kelimeleri belirleyerek, bu kelimelerde sitenin üst sıralara taşınması gerektiği konusunda analizler yapmak.
+- SEO açısından site arayüzünde bulunan ve hatalı olan kodları tespit ederek düzenlemek.
+- Arama motorları tarafından gerekli olan backlink, tanıtım yazısı, forum tanıtımı, link alımı gibi konularda çalışma yapmak.
+- Site içi SEO çalışması için gerekli olan kelime araştırması, site içi linkleme ve mevcut içeriğin optimizasyonunu gerçekleştirmek.
+- Rakip siteleri kontrol etmek ve onların gerçekleştirdiği SEO çalışmalarını araştırarak değerlendirmelerde bulunmak.
+- Google Analytics gibi çeşitli web analitik araçlarını kullanarak, SEO istatistiklerinin yönetimini yapmak.
+
+## SEO Uzmanı İçin Aranan Özellikler
+
+Bir SEO hizmeti alacağınızda, seçim yapacağınız profesyonel SEO uzmanın şu özelliklerin bulunmasına dikkat edin:
+
+- Sektör tecrübesinin 3 – 4 yıl olması gerekir. Kendi sitesinde SEO açısından başarıyı yakalamış olması istenir.
+- Referansların kaliteli olması ve doğrulatılması gerekir. Başarılı SEO referansları olması şarttır.
+- Kendi sitesinin güncel olması ve yapılan çalışmaları burada paylaşması istenir.
+- SEO uzmanının Google Analytics, Google Webmaster Araçları ve Yandex Metrica analizlerini iyi derecede yapabilmesi gerekir.
+- Anahtar kelime, rakip SEO analizinde profesyonel çalışmalar yürütebilmelidir.
+- Web programlama dillerine, temel grafik programlarına hakim olmalıdır. HTML, CSS, Javascript programlama dillerine hakimiyeti kesinlikle olmalıdır.
+- Black Hat SEO yerine organik SEO (White Hat SEO) yöntemlerini kullanmalıdır.
+
+## SEO Uzmanı Nasıl Olunur?
+
+Giderek yıldızı parlayan bir uzmanlık alanı olan SEO, dijital pazarlama sektörünün altın bileziği sayılıyor ve SEO uzmanlığı popüler bir meslek haline geliyor. SEO uzmanı için; temel yazılım, kullanıcı deneyimi bilgisine sahip olması, dijital pazarlamanın temel kurallarını bilmesi, Google AdWords ve Google Analytics gibi servisleri kullanabilmesi önemlidir.
+
+**Alınması gereken eğitimler:**
+
+- On-page SEO ve Off-Page SEO
+- Pagespeed Optimizasyonu
+- Search Console
+- SEO Uyumlu İçerik Yönetimi
+- Rakip ve Sektör Analizi
+- Local SEO
+- Google Cezaları
+- Backlink Risk Yönetimi
+- Google Analytics ile Kullanıcı Davranışı Analizi
+
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "dropshipping-ile-dijital-pazarlama",
+    title: "Dropshipping ile Dijital Pazarlama",
+    description: "Stoksuz e-ticaret (dropshipping) nedir, nasıl yapılır ve dijital pazarlama ile nasıl desteklenir?",
+    date: "2020-10-08",
+    updatedDate: "2025-01-15",
+    category: "Dijital Pazarlama",
+    tags: ["Dropshipping", "E-Ticaret", "Dijital Pazarlama", "Stoksuz Ticaret"],
+    readTime: "8 dk",
+    content: `
+## Dropshipping Nedir ve Nasıl Yapılır?
+
+Stoksuz e-ticaret olarak bilinen dropshipping, ülkemizde de internet üzerinden gelir elde etmenin bir yolu olarak öne çıkmaya başladı. Dünyada e-ticaret pazarında uzun süredir yer alan bu yöntem, son yıllarda ülkemizde de yeni girişimciler tarafından tercih edilmeye başlandı.
+
+Gelirleri ve ziyaretçileri artırmanın yolu olarak dijital pazarlama sayesinde, dropshipping çalışmasına daha fazla değer katabilirsiniz. Sadece dropshipping sizin için bir kurtuluş reçetesi tabii ki de olamaz. Tüm dijital pazarlama tekniklerini kullanarak güzel sonuçlar almanız mümkündür.
+
+Kısa bir biçimde; dropshipping için stoksuz e-ticaret yöntemi, dijital pazarlama için ise dijital ortamları kullanarak mal ya da hizmetleri tanıtarak kar ya da müşteri elde etme yöntemi diyebiliriz. Eğer bir dropshipping çalışması yapıyorsanız, birçok sektöre nazaran daha fazla dijital pazarlama yöntemini kullanmaya ihtiyacınız var demektir.
+
+Daha az bilgi birikimi, daha az sermaye, daha az iş yükü avantajıyla deponuz olmadan dahi e-ticaret yapma olanağı getiren dropshipping ile öne çıkmak için; zaman ve sermayenizi dijital pazarlama çalışmalarına ayırabilirsiniz.
+
+## Dropshipping ve E-ticaret
+
+E-ticaret siteleri için dijital pazarlama her zaman önde tutulması gereken bir yoldur. Daha iyi bir kullanıcı deneyimi elde edilen SEO ve optimizasyon çalışmalarına, dijital pazarlama metotları da eklendiğinde hem daha çok ziyaretçi çekilecek hem de gelen kullanıcılara yapılacak çalışmalarla daha fazla satış yapma olanağı yakalanacaktır.
+
+Daha düşük kar marjları ile yapılmakta olan stoksuz ticaret yani dropshipping içinse, bu çalışma çok daha büyük önem taşımaktadır. Bu nedenle, bu ikili için ayrılmaz biçimde çalışma yürütülmelidir.
+
+Ülkemizde bulunan girişimcilerin, Amazon gibi uluslararası platform üzerinde bile dropshipping ile ürün satışından gelir elde etme olanağı var. Tedarikçi seçimi, müşteri takibi, iade süreçleri gibi konuları iyi yönetenlerin ülkemizde de dropshipping ile önemli kazançlar elde ettiği görülebiliyor.
+
+## Dropshipping ve Dijital Pazarlama
+
+Dropshipping için yapılacak olan dijital pazarlama çalışmasında amaçlanan temel nokta, dezavantajlarını ortadan kaldırmaya çalışmaktır. Yapılacak çalışma, ilk olarak kar oranlarını artırmaya yöneliktir. Bu da yönlendirilecek olan yeni ziyaretçiler ile sağlanabilir.
+
+Bu nedenle sosyal medya pazarlaması gibi dijital pazarlama yollarının etkin biçimde kullanılması gerekiyor. Özellikle tedarikçi ile yaşanabilecek sorunlar, dropshipping çalışmasında ürünün müşteriye ulaştırılmasında sorunlar yaratabilmektedir. Dijital pazarlama çalışması ile müşteri ilişkilerinin daha etkin biçimde iyileştirilmesi de mümkün olabiliyor.
+
+Online alışveriş için güven arayan müşterilerin, bu çekindiği noktayı yapılacak dijital pazarlama çalışmasıyla aşabiliyorsunuz. Daha iyi tanıtım, daha fazla müşteri kitlesine doğru bilgilendirmelerle ulaşma olanağı elde edilebiliyor.
+
+Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "icerik-pazarlamasi-ve-seo-optimizasyonu",
+    title: "İçerik Pazarlaması ve SEO Optimizasyonu",
+    description: "SEO uyumlu içerik nasıl yazılır, içerik pazarlaması stratejileri ve kaliteli içerik üretimi hakkında kapsamlı rehber.",
+    date: "2020-10-08",
+    updatedDate: "2025-01-15",
+    category: "SEO",
+    tags: ["İçerik Pazarlaması", "SEO", "İçerik Optimizasyonu", "Kaliteli İçerik"],
+    readTime: "9 dk",
+    content: `
+## SEO Uyumlu İçerik Nasıl Yazılır?
+
+Özgün ve kaliteli içerikler, bir internet sitesinin SEO çalışmalarındaki en önemli bileşenlerinin başında gelmektedir. Web sitesi için üretilmiş olan her özgün ve kaliteli içeriğin, arama motorları tarafından bulunabilirliği artırdığı ve site değerlerinin yukarılara çıkardığı unutulmamalıdır.
+
+Sürekli artan web sitesi trafiği, daha fazla internet kullanımı ve dijital dünyada yaşanmakta olan rekabet ile internet arama motorları da farklı algoritmalar kullanarak, daha öne çıkması gereken web sitelerini belirliyor. Buradaki önemli kıstaslardan biri ise kaliteli ve özgün içerik oluyor.
+
+Web sitesini güncel tutan, ziyaretçilere daha faydalı bilgiyi veren, içerik pazarlaması ve SEO çalışmalarına gerekli önemi veren internet sitelerinin daha fazla ziyaretçi çektiği ve daha fazla müşteriye ulaştığı bir gerçektir.
+
+## İçerik Pazarlaması ile SEO İlişkisi
+
+Temelde ayrı düşünülemeyen bu ikili için bina ve çimento kavramları örnek verilebilir. SEO, içerik pazarlamasının her alanına etki etmekte ve içerik pazarlaması stratejileri oluşturulurken SEO'ya göre düzenlemeler yapılmalıdır. Bu yapıya uyulduğu takdirde, kullanıcı bazında daha çok geri dönüş sağlanabilir.
+
+SEO için kaliteli içerik tam anlamıyla en önemli faktörlerdendir. Kaliteli içerik Google gibi çoğu arama motorunun istediğidir ve anında fark edilerek öne çıkarılır. Son yıllarda bu önem çok daha arttı.
+
+SEO ve içerik pazarlaması çalışmalarını birlikte sürdürenler her zaman daha fazla kazancı elde edebiliyor. SEO çalışmaları yapılmadan oluşturulan kaliteli içerik, eğer web siteniz trafik almıyorsa pek önem taşımıyor. Bu sebeple de içerik pazarlaması stratejileri, SEO ile birlikte yönetilmesi en faydalı yöntem olur.
+
+## İçerik Analizi ve SEO Yöntemleri
+
+**İçerikleriniz İçin En Uygun Anahtar Kelimeleri Belirleyin:** Hazırlanan kaliteli içeriğin konusuna uygun ve hedef kitle tarafından arama yapılmasına uygun anahtar kelimeler taşması gerekir. Bu nedenle de hedeflenen kitlenin arama motorlarında hangi kelimeleri kullanarak arama yaptığını önceden analiz edip öğrenmelisiniz.
+
+**Hazırlanan İçerik Özgün ve Kaliteli Olmalıdır:** SEO için vazgeçmemeniz gereken altın kural, özgün içerik ve kaliteli içerik olmaktadır. Arama devi Google özgün içerik konusunda çok detaycı ve hassas davranır. Kopya içeriklerle dolu olan bir web sitesi Google tarafından değersiz görülür.
+
+**Site İçi SEO Kurallarına Uymalısınız:** Özgün içeriklerinizi orantılı biçimde anahtar kelimeler kullanarak oluşturduysanız, SEO açısından uygun kriterlerle sitenizde yayınlamalısınız. Siteye ekleme yaparken, title etiketi kullanmalısınız. Ayrıca meta description alanını oluşturmalı ve bu alanda içeriğinizi özetleyen 160 karakteri geçmeyen bir açıklamaya yer vermelisiniz.
+
+**İçeriklerde Video Kullanımı:** Video ile zenginleştirilen içeriklerin önemi her geçen gün artıyor. Bu nedenle içeriğinizi zenginleştirirken, görsel ya da grafikler yanında video kullanmaya özen gösterin.
+
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "en-etkili-dijital-pazarlama-yontemleri",
+    title: "En Etkili Dijital Pazarlama Yöntemleri",
+    description: "Dijital pazarlama stratejileri, sosyal medya pazarlaması, içerik pazarlaması ve influencer marketing hakkında kapsamlı rehber.",
+    date: "2020-10-07",
+    updatedDate: "2025-01-15",
+    category: "Dijital Pazarlama",
+    tags: ["Dijital Pazarlama", "SEM", "Sosyal Medya", "Influencer Marketing"],
+    readTime: "9 dk",
+    content: `
+## Dijital Pazarlamanın Önemi
+
+Yaşadığımız dijital çağ ile işletmelerin başarısı için, bu ortamı kullanmamak söz konusu olmuyor. Mobil cihaz ve uygulamaların her geçen gün arttığı, internet kullanım oranlarının sürekli yükseldiği bir ortamda, bir işletmenin başarılı olması ve hedeflediği kitleye ulaşması dijital pazarlama ile mümkün oluyor.
+
+Ürün ya da hizmetiniz ne kadar mükemmel olsa da yeterli düzeyde tanıtım ya da pazarlama yapamazsanız başarı elde edemezsiniz. Bunun için de çağımızın olanaklarını kullanma olanağı veren dijital pazarlama olanağından kesinlikle yararlanmalısınız.
+
+## Dijital Pazarlama Yöntemleri
+
+**Arama Motoru Pazarlaması (SEM):** Bu dijital pazarlamada hedeflenen nokta, insanların internet üzerinde arama yaptığı arama motoru sayfaları hedefe alınıyor. Kısa adıyla SEM olarak bilinen Arama Motoru Pazarlaması; yalnızca arama motorları olarak web siteniz, ürünleriniz veya hizmetleriniz Google, Yandex veya Bing gibi arama motorlarında tanıtıma açılıyor. Doğru yapılacak olan bir SEM ile %100 yeni gelir kaynağı elde edilebilir.
+
+**Sosyal Medya İle Dijital Pazarlama:** Facebook, Instagram ve Twitter gibi sosyal medya platformlarını duymayan kalmadı. Popülaritesi zaman zaman değişiklik gösterse de ülkemizde en fazla bilinen bu sosyal medya platformlarına yenileri de zamanla ekleniyor. Milyonlarca insanın gün içerisinde uzun zaman geçirdiği bu ortamlar, dijital pazarlama için de önemli bir nokta oluyor. Tüketicilerin %37'si sosyal medya ağlarında bir sonraki satın almaları için ilham alıyor.
+
+**Kaliteli İçerik Pazarlaması:** Belki de dijital pazarlama yolları arasında en ucuz olan seçenektir. Temelinde ise ziyaretçilerinize düzenli olarak yüksek kaliteli içerik oluşturmak yatmaktadır. İnternet kullanıcılarının büyük bölümü blog okurlarıdır ve onların ilgisini yakalamayı hedefler. Daha uzun vadede müşteri kazanma imkanı verir.
+
+**Satış Ortaklığı Pazarlaması:** Bu dijital pazarlama yöntemini kullanmaya başladığınızda, ürün ya da hizmetlerinizi pazarlamak ya da satmak için 7/24 çalışan bir satış ordusuna sahip olursunuz. Oluşturacağınız bir satış ortaklığı ağı (Affiliate Marketing) ile buna sahip olabilirsiniz.
+
+**Influencer Pazarlama:** Bir ürün ya da hizmeti satın almak kişilerin ilk başvuru noktaları arasında, diğer tüketiciler olduğu bir gerçektir. Influencer pazarlama bu noktaya odaklanıyor. Ürün ya da hizmeti tanıtmak ve satışla gelir elde etmek için, ilgilenecek bir kitleye sahip olan Influencer tespit ediliyor. Bu yol ile marka bilinirliği artırılıyor ve satışlarınızda artışla yeni müşteri kitleleri elde ediliyor.
+
+Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "kaliteli-ve-ozgun-icerigin-seo-icin-onemi",
+    title: "Kaliteli ve Özgün İçeriğin SEO İçin Önemi",
+    description: "Kaliteli içerik üretimi, özgün içerik stratejileri ve SEO için içerik optimizasyonu hakkında kapsamlı rehber.",
+    date: "2020-09-30",
+    updatedDate: "2025-01-15",
+    category: "SEO",
+    tags: ["Kaliteli İçerik", "Özgün İçerik", "SEO", "İçerik Stratejisi"],
+    readTime: "10 dk",
+    content: `
+## Kaliteli İçeriğin SEO'daki Önemi
+
+Arama motoru üzerinde yapılan aramalar sonrasında üst sıralarda yer almak, bir internet sitesinin en önemli hedefi haline geldi. Bu durum, siteye daha fazla ziyaretçinin gelmesinin ve beraberinde her açıdan kazanç elde etmenin önünü açıyor. Bu da özenli bir SEO çalışması ile gerçekleşiyor. SEO açısından da, arama motorlarının istediği kaliteli ve özgün içerik çalışması en önem verilen nokta oluyor.
+
+Site içeriğinde, iyi hazırlanmış bir içerik bulunmuyorsa, SEO çalışmalarıyla sağlanacak avantajların da kullanılması pek mümkün olmuyor. Eğer hazırlanan internet sitesi içerikleri, faydalı ve alakalı ise ziyaretçiler site ziyaretlerini daha uzun tutabiliyor. Daha uzun süre sitede kalan ziyaretçiler sayesinde, arama motorlarında sıralamada üst sıralara yükselme yaşanabiliyor.
+
+## Arama Motorlarının Kriterleri Nelerdir?
+
+Arama motorları ile organik ziyaretçi çekebilmek için birçok kriteri göz önünde bulundurmak gerekiyor. Site içeriğinin kaliteli ve özgün hazırlanması, giderek daha önemli hale gelen kriter haline geldi.
+
+Başka kaynaklardan alınan ve copy-paste yapılarak oluşturulan içerikler, arama motorları tarafından fark edilerek site sıralamasına etki ediyor. Site hazırlayanların içeriği ortaya çıkarırken, ziyaretçiye fayda getirecek kaliteli içeriğe yer vermesi gerekiyor.
+
+Elbette sadece özgün ve kaliteli içerik değil, hedeflenen anahtar kelime çalışmasının da bu içerikte yapılması gerekiyor. Ziyaretçinin bu anahtar kelimelere bağlı olarak site ziyareti gerçekleştirdiği unutulmamalıdır.
+
+## Kaliteli İçerik İçin Öneriler
+
+- Hazırlanan kaliteli bir içerik için henüz başta bir strateji oluşturarak anahtar kelimeleri iyi belirlemelisiniz. Bu anahtar kelimeler, içerik içine uygun biçimde yerleştirilmelidir.
+- SEO uyumlu olan ve kaliteli denebilecek içerik; kaliteli blog yazıları, backlink, iyi yazılmış anahtar kelimeler gibi çeşitli stratejileri kendi içerisinde barındırmaktadır.
+- Herkesin ilgi duyabileceği bir konu ve bu konuya uygun ilgi çekebilecek bir başlık belirleyin.
+- Hazırladığınız içerik için gelen yorumları dikkate alın ve gerekiyorsa bu içeriği geliştirmeyi ihmal etmeyin.
+- İçeriğinizi daha ilgi çekici hale getirmek için sosyal medya gücünden faydalanın.
+- Hazırladığınız içerik için internet ortamındaki rakipleri araştırın ve onları inceleyin.
+- Kaliteli içerik oluşturmak için kullandığınız verileri iyi ortaya koymalı ve diğer rakiplerden farkınızı ortaya koyacak şekilde bu verileri aktarabilmelisiniz.
+- İçeriğinize derinlik katıp konuları rakiplerden daha detaylı biçimde verebilirsiniz.
+- Kaliteli bir içeriğin temeli iyi bir araştırma yapılmasıyla başlıyor.
+- Giriş – gelişme – sonuç biçiminde bir yapıyla içeriğinizin ziyaretçinin aklında kalmasını sağlayın.
+- Hazırladığınız kaliteli içeriklerin tanıtımı için sosyal medyayı, forumları etkin biçimde kullanın.
+
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+    `
+  },
+  {
+    slug: "anahtar-kelime-analizi-yapan-seo-araclari",
+    title: "Anahtar Kelime Analizi Yapan SEO Araçları Nelerdir?",
+    description: "Anahtar kelime araştırması için kullanabileceğiniz en iyi SEO araçları: Ahrefs, SEMrush, Moz ve daha fazlası.",
+    date: "2020-09-30",
+    updatedDate: "2025-01-15",
+    category: "SEO",
+    tags: ["Anahtar Kelime", "SEO Araçları", "Ahrefs", "SEMrush"],
+    readTime: "6 dk",
+    content: `
+## Anahtar Kelime Analizi Araçları
+
+Anahtar kelime araştırması, SEO çalışmalarının temel taşlarından biridir. Doğru anahtar kelimeleri hedeflemek, arama motorlarında üst sıralarda yer almanın anahtarıdır. İşte anahtar kelime analizi için kullanabileceğiniz en iyi SEO araçları:
+
+**1. Ahrefs:** Ahrefs gerçekten güçlü bir anahtar kelime aracıdır. Backlink raporlaması yapması ve organik trafik gösterge tablolarını da sunmaktadır. Ahrefs'in ücretli aracı, tüm eşleme türleri için anahtar kelime fikirlerinin yanı sıra arama hacmi de sağlar. Aynı zamanda, kafa kafaya testte benzer bir özellik sunan diğer araçlardan biraz daha doğru olan bir anahtar kelime zorluk puanı metriğine sahiptir.
+
+**2. SEMrush:** SEMrush, 26 farklı ülkeden elde ettiği devasa arama verileri veri kümesiyle çalışan bir anahtar kelime aracına sahiptir. Anahtar kelime fikirleri, tahmini arama hacmi, tahmini TBM, anahtar kelime zorluk puanı ve mevcut sıralama alanlarını döndürür.
+
+**3. Moz:** Moz, SEO araştırma paketine ek olarak kendi özel anahtar kelime gezginini başlattı. Filtreleme seçenekleri, daha fazla fikir edinmek için belirli sorgu teriminizi hariç tutmanıza veya hatta yalnızca kelimenizi içeren soru cümlelerini seçmenize olanak tanır. Anahtar kelime sonuçları, tahmini arama hacmi ve bir anahtar kelime zorluk puanının yanı sıra ilgili sorgu fikirlerini içerir.
+
+**4. Keywordtool.io:** Bu araç, Google, YouTube, Bing ve hatta Amazon'dan anahtar kelime önerilerini alır. Her Google TLD'sinden, dilinden ve konumundan önerilen anahtar kelimeleri seçebilirsiniz; ve desteklediği diğer motorlar için de benzer seçenekler mevcuttur. Ücretsiz olarak yüzlerce önerilen kelime alacaksınız, ancak arama hacmi tahminlerine erişmek için ücretli bir plana ihtiyacınız var.
+
+**5. KWFinder:** Anahtar kelime aramaları, beş farklı ülkeye veya dünyanın en popüler dillerinin çoğuna odaklanabilir. Sonuçlar, bir anahtar kelime zorluk puanı ve anahtar kelime fikirleri içerir. Bunlar daha sonra bir dizi farklı metrikle filtrelenebilir. Bu ücretli bir araçtır, bu nedenle yalnızca sınırlı sayıda ücretsiz olarak arama yapabilirsiniz.
+
+**6. WordStream:** Arama pazarlamacılarının tıklama başına ödeme kampanyalarını yönetmelerine yardımcı olmak için öncelikle ücretli bir araç olan WordStream, sınırlı sayıda aramaya izin veren ücretsiz bir anahtar kelime aracına da sahiptir. Ücretsiz sonuçlar yalnızca ilgili kelimeleri içerir, ancak WordStream'in ücretli aboneleri de arama hacmini görebilir.
+
+Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     `
   }
 ];
 
 export function getAllPosts(): BlogPost[] {
-  return blogPosts.sort((a, b) => 
-    new Date(b.updatedDate || b.date).getTime() - new Date(a.updatedDate || a.date).getTime()
-  );
+  return blogPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find(post => post.slug === slug);
 }
 
-export function getPostsByCategory(category: string): BlogPost[] {
-  return blogPosts.filter(post => post.category === category);
-}
-
 export function getFeaturedPosts(): BlogPost[] {
   return blogPosts.filter(post => post.featured);
 }
 
+export function getPostsByCategory(category: string): BlogPost[] {
+  return blogPosts.filter(post => post.category === category);
+}
+
 export function getAllCategories(): string[] {
-  return Array.from(new Set(blogPosts.map(post => post.category)));
+  const categories = new Set(blogPosts.map(post => post.category));
+  return Array.from(categories);
 }
 
 export function getAllTags(): string[] {
-  return Array.from(new Set(blogPosts.flatMap(post => post.tags)));
+  const tags = new Set(blogPosts.flatMap(post => post.tags));
+  return Array.from(tags);
 }
 
-// Additional blog posts (continued)
-const additionalPosts: BlogPost[] = [
-  {
-    slug: "seo-araclari-rehberi",
-    title: "En İyi SEO Araçları: 2025 Kapsamlı Rehberi",
-    description: "Google Search Console'dan Ahrefs'e, Semrush'tan Screaming Frog'a kadar profesyonel SEO araçları ve nasıl kullanılacakları.",
-    date: "2020-10-17",
-    updatedDate: "2025-01-15",
-    category: "SEO",
-    tags: ["SEO Araçları", "Ahrefs", "Semrush", "Google Search Console"],
-    readTime: "14 dk",
-    featured: false,
-    content: `
-## Profesyonel SEO Araçları
-
-SEO çalışmalarınızı verimli yürütmek için doğru araçlara ihtiyacınız var. İşte 2025'te kullanmanız gereken en etkili SEO araçları.
-
-## Ücretsiz Google Araçları
-
-### Google Search Console
-
-Google'ın resmi SEO aracı:
-- İndeksleme durumu
-- Arama performansı
-- Core Web Vitals
-- Mobile usability
-- Manuel işlemler
-
-### Google Analytics 4
-
-Trafik ve kullanıcı davranışı:
-- Organic traffic takibi
-- Conversion tracking
-- User journey analizi
-
-### Google PageSpeed Insights
-
-Sayfa hızı analizi:
-- Core Web Vitals ölçümü
-- Mobil/Desktop skorları
-- Optimization önerileri
-
-## Premium SEO Araçları
-
-### Ahrefs
-
-Backlink ve anahtar kelime araştırması:
-- Site Explorer
-- Keywords Explorer
-- Content Explorer
-- Rank Tracker
-- Site Audit
-
-**Fiyat:** $99-999/ay
-
-### Semrush
-
-All-in-one SEO platformu:
-- Keyword Magic Tool
-- Position Tracking
-- Site Audit
-- Backlink Analytics
-- Content Marketing Platform
-
-**Fiyat:** $119-449/ay
-
-### Screaming Frog
-
-Teknik SEO audit:
-- Crawl analizi
-- Broken link tespiti
-- Duplicate content
-- Redirect chain'ler
-- Schema validation
-
-**Fiyat:** Ücretsiz (500 URL) / £199/yıl
-
-## Anahtar Kelime Araçları
-
-| Araç | Özellik | Fiyat |
-|------|---------|-------|
-| Ubersuggest | Başlangıç seviye | Ücretsiz/Premium |
-| KeywordTool.io | Long-tail keywords | Premium |
-| AnswerThePublic | Soru bazlı araştırma | Ücretsiz/Premium |
-| Keyword Surfer | Chrome extension | Ücretsiz |
-
-## Teknik SEO Araçları
-
-- **GTmetrix**: Sayfa hızı analizi
-- **Pingdom**: Uptime monitoring
-- **Schema.org Validator**: Structured data test
-- **Mobile-Friendly Test**: Mobil uyumluluk
-
-## Sonuç
-
-Doğru araç kombinasyonu ile SEO süreçlerinizi optimize edin. Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
-    `
-  },
-  {
-    slug: "on-page-seo-rehberi",
-    title: "Site İçi SEO Rehberi: On-Page SEO Nasıl Yapılır?",
-    description: "On-page SEO nedir? Title tag, meta description, heading yapısı, internal linking ve içerik optimizasyonu rehberi.",
-    date: "2020-10-02",
-    updatedDate: "2025-01-15",
-    category: "SEO",
-    tags: ["On-Page SEO", "Site İçi SEO", "Meta Tags", "İçerik Optimizasyonu"],
-    readTime: "11 dk",
-    featured: false,
-    content: `
-## On-Page SEO Nedir?
-
-On-Page SEO (Site İçi SEO), web sitenizin içinde yapılan tüm optimizasyon çalışmalarıdır. Arama motorlarının sayfanızı anlamasını ve kullanıcılara sunmasını kolaylaştırır.
-
-## On-Page SEO Faktörleri
-
-### 1. Title Tag (Başlık Etiketi)
-
-SEO'nun en önemli elementi:
-- 50-60 karakter ideal
-- Ana anahtar kelime başta
-- Marka adı sonda
-- Her sayfa için benzersiz
-
-**Örnek:**
-\`SEO Nedir? 2025 Rehberi | Tonguç Karaçay\`
-
-### 2. Meta Description
-
-Arama sonuçlarındaki açıklama:
-- 150-160 karakter
-- CTA (Call-to-Action) içermeli
-- Anahtar kelime doğal kullanım
-- Tıklamayı teşvik edici
-
-### 3. Heading Yapısı (H1-H6)
-
-Hiyerarşik başlık kullanımı:
-- H1: Sayfa başına 1 adet
-- H2: Ana bölümler
-- H3-H6: Alt bölümler
-- Anahtar kelime içermeli
-
-### 4. URL Yapısı
-
-SEO dostu URL'ler:
-- Kısa ve açıklayıcı
-- Anahtar kelime içeren
-- Türkçe karakter kullanmayan
-- Hiyerarşik yapı
-
-**İyi:** /blog/seo-nedir
-**Kötü:** /p?id=123&cat=5
-
-### 5. İç Linkler (Internal Links)
-
-Sayfalar arası bağlantılar:
-- İlgili içeriklere link
-- Anchor text optimizasyonu
-- Derin sayfaları güçlendirme
-- Site mimarisi oluşturma
-
-### 6. Görsel Optimizasyonu
-
-Resimler için SEO:
-- Alt text kullanımı
-- Dosya adı optimizasyonu
-- Boyut sıkıştırma (WebP)
-- Lazy loading
-
-### 7. İçerik Kalitesi
-
-E-E-A-T odaklı içerik:
-- Özgün ve değerli
-- Kapsamlı (1500+ kelime)
-- Güncel tutulmalı
-- Kullanıcı sorusuna cevap
-
-## On-Page SEO Checklist
-
-✅ Title tag optimize edildi
-✅ Meta description yazıldı
-✅ H1-H6 yapısı düzenlendi
-✅ URL SEO dostu
-✅ İç linkler eklendi
-✅ Görseller optimize edildi
-✅ İçerik kaliteli ve kapsamlı
-✅ Schema markup eklendi
-✅ Mobil uyumlu
-
-## Sonuç
-
-On-page SEO, kontrol edebildiğiniz en önemli SEO faktörüdür. Profesyonel destek için [SEO danışmanlığı](/hizmetler/seo-danismanligi) hizmetimizi inceleyin.
-    `
-  },
-  {
-    slug: "sosyal-medya-pazarlama",
-    title: "Sosyal Medya Pazarlaması: Platform Stratejileri 2025",
-    description: "Instagram, LinkedIn, TikTok, YouTube sosyal medya pazarlama stratejileri. Organik büyüme ve reklam optimizasyonu.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
-    category: "Dijital Pazarlama",
-    tags: ["Sosyal Medya", "Instagram", "LinkedIn", "TikTok"],
-    readTime: "10 dk",
-    featured: false,
-    content: `
-## Sosyal Medya Pazarlaması Nedir?
-
-Sosyal medya platformları üzerinden marka bilinirliği oluşturma, hedef kitle ile etkileşim kurma ve dönüşüm sağlama faaliyetleridir.
-
-## Platform Bazlı Stratejiler
-
-### Instagram
-
-**Hedef Kitle:** 18-44 yaş, görsel odaklı
-
-**İçerik Türleri:**
-- Reels (en yüksek erişim)
-- Stories (günlük etkileşim)
-- Carousel (eğitici içerik)
-- Live (canlı etkileşim)
-
-**Best Practices:**
-- Tutarlı görsel kimlik
-- Hashtag stratejisi (5-10 adet)
-- Optimal paylaşım saati
-- Bio optimizasyonu
-
-### LinkedIn
-
-**Hedef Kitle:** B2B, profesyoneller
-
-**İçerik Türleri:**
-- Thought leadership yazıları
-- Carousel dökümanlar
-- Native video
-- Newsletter
-
-**Best Practices:**
-- Kişisel profil > Şirket sayfası
-- Commenting strategy
-- Employee advocacy
-- LinkedIn Ads (Lead Gen Forms)
-
-### TikTok
-
-**Hedef Kitle:** Gen Z, 16-30 yaş
-
-**İçerik Türleri:**
-- Trend içerikler
-- Behind the scenes
-- Tutorial/How-to
-- User-generated content
-
-**Best Practices:**
-- İlk 3 saniye kritik
-- Trend sesler kullanın
-- Duet/Stitch fırsatları
-- Tutarlı paylaşım (1-3/gün)
-
-### YouTube
-
-**Hedef Kitle:** Geniş demografik
-
-**İçerik Türleri:**
-- Long-form video
-- Shorts (60 sn)
-- Live stream
-- Podcast formatı
-
-**Best Practices:**
-- SEO optimize başlıklar
-- Thumbnail optimizasyonu
-- İlk 30 saniyede hook
-- End screen & cards
-
-## Metrikler ve KPI'lar
-
-| Metrik | Açıklama | Hedef |
-|--------|----------|-------|
-| Reach | Ulaşılan kişi sayısı | ↑ Artış |
-| Engagement Rate | Etkileşim oranı | %3-6 |
-| Click-through Rate | Tıklama oranı | %1-3 |
-| Conversion Rate | Dönüşüm oranı | Sektöre göre |
-
-## Sonuç
-
-Her platform farklı strateji gerektirir. Profesyonel sosyal medya yönetimi için [iletişime geçin](/iletisim).
-    `
-  },
-  {
-    slug: "dropshipping-dijital-pazarlama",
-    title: "Dropshipping İşinde Dijital Pazarlama Stratejileri",
-    description: "E-ticaret ve dropshipping için SEO, Google Ads, Facebook Ads ve sosyal medya pazarlama stratejileri.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
-    category: "E-Ticaret",
-    tags: ["Dropshipping", "E-Ticaret", "Online Satış", "Digital Marketing"],
-    readTime: "9 dk",
-    featured: false,
-    content: `
-## Dropshipping Nedir?
-
-Dropshipping, stok tutmadan e-ticaret yapmanızı sağlayan bir iş modelidir. Müşteri sipariş verir, siz tedarikçiye iletirsiniz, tedarikçi doğrudan müşteriye gönderir.
-
-## Dropshipping için Dijital Pazarlama
-
-### 1. Niş Seçimi ve Araştırma
-
-Başarılı dropshipping için:
-- Düşük rekabet, yüksek talep niş
-- Kar marjı yeterli ürünler
-- Trend analizi (Google Trends)
-- Rakip analizi
-
-### 2. E-ticaret Platformu
-
-Platform seçenekleri:
-- **Shopify**: Kolay kurulum, eklenti zenginliği
-- **WooCommerce**: Esnek, düşük maliyet
-- **Trendyol/Hepsiburada**: Hazır trafik
-
-### 3. SEO Stratejisi
-
-E-ticaret SEO:
-- Ürün sayfası optimizasyonu
-- Kategori sayfaları
-- Blog içerik stratejisi
-- Technical SEO (hız, mobile)
-
-### 4. Ücretli Reklamlar
-
-**Google Ads:**
-- Shopping Ads
-- Search Ads
-- Performance Max
-
-**Meta Ads (Facebook/Instagram):**
-- Conversion campaigns
-- Retargeting
-- Lookalike audiences
-
-### 5. Sosyal Medya
-
-Organik pazarlama:
-- Ürün tanıtım videoları
-- Influencer marketing
-- UGC (User Generated Content)
-- Community building
-
-## E-ticaret Metrikleri
-
-| Metrik | Formül | Hedef |
-|--------|--------|-------|
-| ROAS | Gelir / Reklam Harcaması | 3x+ |
-| CAC | Toplam Maliyet / Müşteri | Düşük |
-| AOV | Toplam Gelir / Sipariş | Yüksek |
-| Conversion Rate | Satış / Ziyaretçi | %2-3 |
-
-## Dikkat Edilmesi Gerekenler
-
-⚠️ **Riskler:**
-- Tedarikçi güvenilirliği
-- Kargo süreleri
-- Kalite kontrolü
-- Iade yönetimi
-
-## Sonuç
-
-Dropshipping için dijital pazarlama kritik öneme sahip. E-ticaret danışmanlığı için [iletişime geçin](/iletisim).
-    `
-  },
-  {
-    slug: "icerik-pazarlamasi-seo",
-    title: "İçerik Pazarlaması ve SEO: Entegre Strateji Rehberi",
-    description: "İçerik pazarlaması nedir? SEO uyumlu içerik nasıl yazılır? Content marketing stratejisi oluşturma rehberi.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
-    category: "Dijital Pazarlama",
-    tags: ["İçerik Pazarlaması", "Content Marketing", "SEO İçerik", "Blog Yazarlığı"],
-    readTime: "12 dk",
-    featured: false,
-    content: `
-## İçerik Pazarlaması Nedir?
-
-İçerik pazarlaması, hedef kitlenize değerli, tutarlı ve ilgili içerik sunarak onları çekme, etkileşime geçirme ve dönüştürme stratejisidir.
-
-## İçerik ve SEO İlişkisi
-
-Google'ın Helpful Content Update sonrası:
-- **İnsan öncelikli içerik** ödüllendiriliyor
-- AI-only içerik cezalandırılıyor
-- **E-E-A-T** kritik önemde
-- Özgün değer şart
-
-## İçerik Stratejisi Oluşturma
-
-### 1. Hedef Kitle Analizi
-
-Persona oluşturma:
-- Demografik bilgiler
-- Pain points
-- Arama davranışları
-- İçerik tercihleri
-
-### 2. Anahtar Kelime Araştırması
-
-Keyword mapping:
-- Head terms (yüksek hacim)
-- Long-tail (düşük rekabet)
-- Question keywords
-- Commercial intent
-
-### 3. İçerik Türleri
-
-**Blog Yazıları:**
-- How-to rehberler
-- Listeleme yazıları
-- Case study
-- Karşılaştırma yazıları
-
-**Diğer Formatlar:**
-- Video içerik
-- Infografik
-- Podcast
-- E-kitap/Whitepaper
-
-### 4. Pillar-Cluster Modeli
-
-Konu otoritesi oluşturma:
-
-**Pillar Page:** Ana konu (3000+ kelime)
-**Cluster Content:** Alt konular (1500+ kelime)
-**Internal Links:** Birbirine bağlı yapı
-
-## SEO Uyumlu İçerik Yazımı
-
-### Başlık Optimizasyonu
-
-- Anahtar kelime başta
-- Sayılar dikkat çeker (10, 2025)
-- Power words (Rehber, Kapsamlı)
-- 60 karakterden kısa
-
-### İçerik Yapısı
-
-1. Hook (İlk paragraf)
-2. Table of Contents
-3. H2/H3 hiyerarşisi
-4. Bullet points
-5. Görsel/Tablo
-6. CTA (Sonuç)
-
-### On-Page Elementler
-
-- Meta description
-- Alt text
-- Internal links
-- External links (authority sites)
-
-## İçerik Takvimi
-
-Tutarlı yayın stratejisi:
-- Haftalık blog yazısı
-- Aylık long-form content
-- Seasonal içerikler
-- Evergreen güncelleme
-
-## Sonuç
-
-İçerik pazarlaması uzun vadeli yatırımdır. Profesyonel içerik stratejisi için [iletişime geçin](/iletisim).
-    `
-  }
-];
-
-// Merge additional posts
-blogPosts.push(...additionalPosts);
-
-// More blog posts
-const morePosts: BlogPost[] = [
-  {
-    slug: "serp-nedir",
-    title: "SERP Nedir? Google Arama Sonuç Sayfası Rehberi",
-    description: "SERP (Search Engine Results Page) nedir? Featured snippets, knowledge panel, local pack ve diğer SERP özellikleri nasıl kazanılır?",
-    date: "2020-09-28",
-    updatedDate: "2025-01-15",
-    category: "SEO",
-    tags: ["SERP", "Google", "Featured Snippets", "Arama Sonuçları"],
-    readTime: "8 dk",
-    featured: false,
-    content: `
-## SERP Nedir?
-
-SERP (Search Engine Results Page), bir arama motorunda sorgu yaptığınızda karşınıza çıkan sonuç sayfasıdır. Google SERP, artık sadece 10 mavi linkten ibaret değil - zengin özelliklerle dolu.
-
-## SERP Özellikleri (SERP Features)
-
-### 1. Featured Snippets (Öne Çıkan Snippet)
-
-"Position 0" olarak da bilinen, soruya doğrudan cevap veren kutu:
-
-**Türleri:**
-- Paragraf snippet
-- Liste snippet
-- Tablo snippet
-- Video snippet
-
-**Nasıl Kazanılır:**
-- Soruyu H2/H3 olarak sorun
-- Hemen altında net cevap verin
-- 40-60 kelime ideal uzunluk
-- Yapılandırılmış format kullanın
-
-### 2. Knowledge Panel
-
-Sağ tarafta görünen bilgi kutusu:
-- Markalar için
-- Kişiler için
-- Yerler için
-
-**Nasıl Elde Edilir:**
-- Google My Business
-- Wikipedia sayfası
-- Schema markup
-- Tutarlı NAP bilgisi
-
-### 3. Local Pack (Yerel Paket)
-
-Harita ile birlikte 3 yerel işletme:
-
-**Sıralama Faktörleri:**
-- Google My Business optimizasyonu
-- Yorumlar ve puanlar
-- Mesafe
-- Kategori uyumu
-
-### 4. People Also Ask (PAA)
-
-İlgili sorular kutusu:
-
-**SEO Fırsatı:**
-- Bu soruları içeriğinizde cevaplayın
-- FAQ schema ekleyin
-- İç linklerle bağlayın
-
-### 5. Image Pack
-
-Görsel sonuçlar:
-
-**Görünmek için:**
-- Alt text optimizasyonu
-- Dosya adı optimizasyonu
-- Yüksek kaliteli görseller
-- Image sitemap
-
-### 6. Video Results
-
-YouTube ve video içerikler:
-
-**Öne çıkmak için:**
-- Video schema markup
-- Optimize başlık/açıklama
-- Thumbnail kalitesi
-- Chapters (bölümler)
-
-## SERP Analizi Nasıl Yapılır?
-
-1. Hedef anahtar kelimenizi arayın
-2. SERP özelliklerini not edin
-3. Rakiplerin içerik türlerini analiz edin
-4. Search intent'i belirleyin
-5. İçerik stratejinizi buna göre oluşturun
-
-## Sonuç
-
-SERP'i anlamak, SEO stratejinizin temelidir. Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
-    `
-  },
-  {
-    slug: "heading-tags-h1-etiketi",
-    title: "Heading Tags Nedir? H1 Etiketi Nasıl Kullanılır?",
-    description: "HTML başlık etiketleri (H1-H6) nedir? SEO için doğru heading yapısı nasıl oluşturulur? H1 etiketi best practices.",
-    date: "2020-09-28",
-    updatedDate: "2025-01-15",
-    category: "SEO",
-    tags: ["Heading Tags", "H1 Etiketi", "HTML SEO", "On-Page SEO"],
-    readTime: "7 dk",
-    featured: false,
-    content: `
-## Heading Tags Nedir?
-
-Heading tags (H1-H6), HTML'de içerik hiyerarşisini belirleyen başlık etiketleridir. Hem kullanıcılar hem de arama motorları için içeriğin yapısını anlamayı kolaylaştırır.
-
-## Heading Hiyerarşisi
-
-\`\`\`
-H1 - Sayfa Ana Başlığı (1 adet)
-  └── H2 - Ana Bölümler
-        └── H3 - Alt Bölümler
-              └── H4 - Detay Bölümleri
-                    └── H5-H6 - Daha derin seviyeler
-\`\`\`
-
-## H1 Etiketi Best Practices
-
-### Kurallar
-
-✅ **Yapılması Gerekenler:**
-- Her sayfada yalnızca 1 H1
-- Ana anahtar kelimeyi içermeli
-- Sayfa içeriğini özetlemeli
-- 20-70 karakter ideal
-- Title tag ile uyumlu
-
-❌ **Yapılmaması Gerekenler:**
-- Birden fazla H1 kullanmak
-- Logo'yu H1 yapmak
-- Anahtar kelime doldurmak
-- H1'i gizlemek (CSS ile)
-
-### H1 Örnekleri
-
-**İyi H1:**
-\`\`\`html
-<h1>SEO Nedir? 2025 Kapsamlı Rehberi</h1>
-\`\`\`
-
-**Kötü H1:**
-\`\`\`html
-<h1>Ana Sayfa</h1>
-<h1>SEO, Arama Motoru Optimizasyonu, Google SEO, SEO Nedir</h1>
-\`\`\`
-
-## H2-H6 Kullanımı
-
-### H2 - Ana Bölümler
-
-- İçeriğin ana bölümlerini ayırır
-- İkincil anahtar kelimeler için ideal
-- Featured snippet şansı artırır
-
-### H3 - Alt Bölümler
-
-- H2'nin alt kategorileri
-- Detay konular için
-- Liste başlıkları için
-
-### H4-H6
-
-- Derin hiyerarşi gerektiğinde
-- Teknik dokümantasyonda
-- Uzun içeriklerde
-
-## SEO için Heading Optimizasyonu
-
-1. **Doğal anahtar kelime kullanımı**
-2. **Soru formatında başlıklar** (PAA için)
-3. **Paralel yapı** (tutarlılık)
-4. **Açıklayıcı ve özet** niteliğinde
-
-## Heading Audit Checklist
-
-- [ ] Tek H1 var mı?
-- [ ] H1 anahtar kelime içeriyor mu?
-- [ ] Hiyerarşi mantıklı mı? (H1 > H2 > H3)
-- [ ] Atlanan seviye var mı? (H1 > H3 yanlış)
-- [ ] Başlıklar açıklayıcı mı?
-
-## Sonuç
-
-Doğru heading yapısı, SEO'nun temel taşlarından biridir. [On-Page SEO rehberimize](/blog/on-page-seo-rehberi) göz atın.
-    `
-  },
-  {
-    slug: "seo-uyumlu-icerik",
-    title: "SEO Uyumlu İçerik Nasıl Yazılır? 2025 Rehberi",
-    description: "SEO uyumlu içerik yazımı teknikleri. Anahtar kelime yerleşimi, içerik uzunluğu, okunabilirlik ve E-E-A-T kriterleri.",
-    date: "2020-10-02",
-    updatedDate: "2025-01-15",
-    category: "SEO",
-    tags: ["SEO İçerik", "Content Writing", "İçerik Yazımı", "Copywriting"],
-    readTime: "10 dk",
-    featured: false,
-    content: `
-## SEO Uyumlu İçerik Nedir?
-
-SEO uyumlu içerik, hem arama motorları hem de kullanıcılar için optimize edilmiş içeriktir. 2025'te Google'ın Helpful Content sistemi, **kullanıcı odaklı** içeriği ödüllendiriyor.
-
-## İçerik Yazımı Öncesi
-
-### 1. Anahtar Kelime Araştırması
-
-- Ana anahtar kelime belirleyin
-- İlgili (LSI) kelimeler bulun
-- Search intent'i anlayın
-- Rakip içerikleri analiz edin
-
-### 2. İçerik Planı
-
-- Outline (taslak) oluşturun
-- H2/H3 yapısını belirleyin
-- Eklenecek görselleri planlayın
-- Hedef kelime sayısı belirleyin
-
-## SEO İçerik Yazım Teknikleri
-
-### Başlık Optimizasyonu
-
-**Title Tag:**
-- Anahtar kelime başta
-- 50-60 karakter
-- Dikkat çekici (sayı, soru, güç kelimeler)
-
-**H1:**
-- Title ile uyumlu
-- Tek adet
-- Anahtar kelime içermeli
-
-### İlk Paragraf (Hook)
-
-- İlk 100 kelimede anahtar kelime
-- Okuyucunun dikkatini çekin
-- İçeriğin vaadini belirtin
-- Soruyla veya istatistikle başlayın
-
-### Gövde İçeriği
-
-**Yapı:**
-- Kısa paragraflar (3-4 cümle)
-- Alt başlıklar (H2, H3)
-- Bullet points / listeler
-- Tablolar ve görsellerle destekleyin
-
-**Anahtar Kelime Kullanımı:**
-- Doğal dağılım
-- %1-2 yoğunluk (zorlama)
-- Varyasyonlar kullanın
-- LSI kelimeler ekleyin
-
-### İçerik Uzunluğu
-
-| İçerik Türü | Önerilen Uzunluk |
-|-------------|------------------|
-| Blog yazısı | 1500-2500 kelime |
-| Pillar content | 3000+ kelime |
-| Ürün sayfası | 300-500 kelime |
-| Kategori sayfası | 500-1000 kelime |
-
-### Okunabilirlik
-
-- Flesch Reading Ease: 60-70
-- Kısa cümleler
-- Aktif cümle yapısı
-- Teknik jargondan kaçının
-
-## E-E-A-T Uygulaması
-
-### Experience (Deneyim)
-- Kişisel deneyimlerinizi paylaşın
-- Case study ekleyin
-- Gerçek örnekler verin
-
-### Expertise (Uzmanlık)
-- Yazar biyografisi
-- Kimlik bilgileri
-- Yayınlar/Referanslar
-
-### Authoritativeness (Otorite)
-- Dış kaynaklara link
-- Alıntılar
-- Veri ve istatistikler
-
-### Trustworthiness (Güvenilirlik)
-- Kaynakları belirtin
-- Güncel tutun
-- Hataları düzeltin
-
-## SEO İçerik Checklist
-
-- [ ] Anahtar kelime araştırması yapıldı
-- [ ] Title tag optimize
-- [ ] Meta description yazıldı
-- [ ] H1 ve alt başlıklar düzenlendi
-- [ ] İlk paragrafta anahtar kelime var
-- [ ] İç linkler eklendi
-- [ ] Görsel alt text'leri yazıldı
-- [ ] Okunabilirlik kontrol edildi
-- [ ] CTA eklendi
-
-## Sonuç
-
-SEO uyumlu içerik = Kullanıcı odaklı + Teknik optimizasyon. Profesyonel içerik stratejisi için [iletişime geçin](/iletisim).
-    `
-  },
-  {
-    slug: "profesyonel-seo-uzmani",
-    title: "Profesyonel SEO Uzmanı Nedir? Nasıl Olunur?",
-    description: "SEO uzmanı ne iş yapar? SEO uzmanlığı için gerekli beceriler, araçlar ve kariyer yolu. Freelance vs ajans çalışması.",
-    date: "2020-10-17",
-    updatedDate: "2025-01-15",
-    category: "SEO",
-    tags: ["SEO Uzmanı", "SEO Kariyer", "Dijital Pazarlama Uzmanı"],
-    readTime: "9 dk",
-    featured: false,
-    content: `
-## SEO Uzmanı Nedir?
-
-SEO uzmanı, web sitelerinin arama motorlarında üst sıralara çıkması için teknik ve stratejik çalışmalar yürüten profesyoneldir.
-
-## SEO Uzmanının Görevleri
-
-### Teknik SEO
-- Site audit ve hata tespiti
-- Site hızı optimizasyonu
-- Mobile uyumluluk
-- Crawlability iyileştirme
-- Schema markup implementasyonu
-
-### On-Page SEO
-- Anahtar kelime araştırması
-- İçerik optimizasyonu
-- Meta tag düzenleme
-- Internal linking stratejisi
-- URL yapısı optimizasyonu
-
-### Off-Page SEO
-- Link building stratejisi
-- Digital PR
-- Brand mention takibi
-- Rakip backlink analizi
-
-### Analiz ve Raporlama
-- Google Analytics/Search Console
-- Sıralama takibi
-- Trafik analizi
-- ROI raporlama
-
-## Gerekli Beceriler
-
-### Teknik Beceriler
-- HTML/CSS temelleri
-- Google Analytics 4
-- Search Console
-- SEO araçları (Ahrefs, Semrush)
-- Excel/Google Sheets
-
-### Analitik Beceriler
-- Veri analizi
-- Problem çözme
-- Trend takibi
-- Rakip analizi
-
-### Soft Skills
-- İletişim
-- Proje yönetimi
-- Sunum
-- Sürekli öğrenme
-
-## SEO Uzmanı Nasıl Olunur?
-
-### 1. Temel Eğitim
-- Online kurslar (Coursera, Udemy)
-- Google sertifikaları
-- Moz/Semrush Academy
-
-### 2. Pratik Deneyim
-- Kendi web sitenizi optimize edin
-- Freelance projeler alın
-- Staj yapın
-
-### 3. Araç Hakimiyeti
-- Google Search Console
-- Google Analytics 4
-- Screaming Frog
-- Ahrefs/Semrush
-
-### 4. Portfolio Oluşturma
-- Case study'ler
-- Başarı metrikleri
-- Referanslar
-
-## Kariyer Yolları
-
-| Pozisyon | Deneyim | Maaş Aralığı (TR) |
-|----------|---------|-------------------|
-| Junior SEO | 0-2 yıl | 25-40K |
-| Mid-Level SEO | 2-5 yıl | 40-70K |
-| Senior SEO | 5+ yıl | 70-120K |
-| SEO Manager | 7+ yıl | 100-150K+ |
-
-### Freelance vs Ajans vs In-house
-
-**Freelance:**
-- Esneklik
-- Farklı projeler
-- Gelir potansiyeli yüksek
-
-**Ajans:**
-- Çeşitli sektör deneyimi
-- Takım çalışması
-- Hızlı öğrenme
-
-**In-house:**
-- Tek markaya odaklanma
-- Derin uzmanlık
-- İş güvencesi
-
-## 2025'te SEO Trendleri
-
-- AI ve SEO entegrasyonu
-- Voice search optimizasyonu
-- Video SEO
-- E-E-A-T önemi
-- Core Web Vitals
-
-## Sonuç
-
-SEO uzmanlığı sürekli gelişen, dinamik bir kariyer. 25 yıllık deneyimimle [SEO danışmanlığı](/hizmetler/seo-danismanligi) hizmeti veriyorum.
-    `
-  },
-  {
-    slug: "dijital-pazarlama-yontemleri",
-    title: "En Etkili Dijital Pazarlama Yöntemleri 2025",
-    description: "2025'te işe yarayan dijital pazarlama yöntemleri: SEO, SEM, sosyal medya, email marketing, influencer marketing ve daha fazlası.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
-    category: "Dijital Pazarlama",
-    tags: ["Dijital Pazarlama", "Online Marketing", "Growth Hacking"],
-    readTime: "11 dk",
-    featured: false,
-    content: `
-## 2025'te En Etkili Dijital Pazarlama Kanalları
-
-Dijital pazarlama dünyası sürekli evrim geçiriyor. İşte 2025'te en yüksek ROI sağlayan yöntemler.
-
-## 1. SEO (Arama Motoru Optimizasyonu)
-
-**Neden Etkili:**
-- Uzun vadeli organik trafik
-- Yüksek dönüşüm oranı
-- Güvenilirlik algısı
-
-**2025 Trendi:**
-- AI-assisted content
-- Voice search
-- Video SEO
-
-[SEO hizmetlerimiz →](/hizmetler/seo-danismanligi)
-
-## 2. Content Marketing (İçerik Pazarlaması)
-
-**Neden Etkili:**
-- Marka otoritesi oluşturur
-- Organik trafik çeker
-- Lead generation
-
-**Etkili Formatlar:**
-- Long-form blog
-- Video content
-- Podcast
-- Interactive content
-
-## 3. Paid Advertising (Ücretli Reklam)
-
-### Google Ads
-- Search Ads
-- Performance Max
-- YouTube Ads
-
-### Meta Ads
-- Facebook/Instagram
-- Lead Gen campaigns
-- Retargeting
-
-### LinkedIn Ads
-- B2B için ideal
-- Sponsored content
-- InMail campaigns
-
-[Online reklamcılık hizmetlerimiz →](/hizmetler/online-reklamcilik)
-
-## 4. Email Marketing
-
-**Neden Hala Etkili:**
-- En yüksek ROI ($42 her $1 için)
-- Owned channel
-- Kişiselleştirme imkanı
-
-**Best Practices:**
-- Segmentasyon
-- Otomasyon
-- A/B testing
-- Mobile optimization
-
-## 5. Social Media Marketing
-
-**Platform Öncelikleri 2025:**
-
-| Platform | Hedef Kitle | İçerik |
-|----------|-------------|--------|
-| TikTok | Gen Z | Short video |
-| Instagram | 18-44 | Reels, Stories |
-| LinkedIn | B2B | Thought leadership |
-| YouTube | Geniş | Long/Short video |
-
-[Sosyal medya hizmetlerimiz →](/hizmetler/sosyal-medya-yonetimi)
-
-## 6. Influencer Marketing
-
-**2025 Trendi:**
-- Micro-influencer'lar (10K-100K)
-- Nano-influencer'lar (<10K)
-- Long-term partnerships
-- Affiliate models
-
-## 7. Marketing Automation
-
-**Araçlar:**
-- HubSpot
-- Mailchimp
-- ActiveCampaign
-- Zapier
-
-**Kullanım Alanları:**
-- Email nurturing
-- Lead scoring
-- Social posting
-- Retargeting
-
-## 8. AI-Powered Marketing
-
-**2025'te AI Kullanımı:**
-- Personalization
-- Predictive analytics
-- Chatbots
-- Content generation
-- Ad optimization
-
-[Yapay zeka çözümlerimiz →](/hizmetler/yapay-zeka-cozumleri)
-
-## Bütçe Dağılımı Önerisi
-
-| Kanal | Yeni Marka | Büyüyen Marka |
-|-------|------------|---------------|
-| SEO | %25 | %20 |
-| Paid Ads | %35 | %25 |
-| Content | %20 | %25 |
-| Social | %15 | %20 |
-| Email | %5 | %10 |
-
-## Sonuç
-
-En etkili strateji, kanalları entegre kullanmaktır. Profesyonel dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
-    `
-  },
-  {
-    slug: "organik-trafik-artirma",
-    title: "Organik Trafik Nasıl Artırılır? 15 Kanıtlanmış Yöntem",
-    description: "Web sitenizin organik trafiğini artırmanın kanıtlanmış yolları. SEO, içerik stratejisi ve teknik optimizasyon teknikleri.",
-    date: "2020-10-17",
-    updatedDate: "2025-01-15",
-    category: "SEO",
-    tags: ["Organik Trafik", "SEO", "Web Trafiği", "Google Sıralaması"],
-    readTime: "12 dk",
-    featured: true,
-    content: `
-## Organik Trafik Nedir?
-
-Organik trafik, reklam harcaması yapmadan arama motorlarından gelen ziyaretçilerdir. En değerli trafik türüdür çünkü:
-- Ücretsiz
-- Sürdürülebilir
-- Yüksek dönüşüm oranlı
-
-## 15 Organik Trafik Artırma Yöntemi
-
-### 1. Long-Tail Anahtar Kelimelere Odaklanın
-
-Rekabeti düşük, niyet yüksek anahtar kelimeler:
-- "SEO" yerine "e-ticaret sitesi için SEO nasıl yapılır"
-- Daha az arama, daha yüksek dönüşüm
-
-### 2. İçerik Güncelleme
-
-Eski içerikleri güncelleyin:
-- Tarih güncelleyin
-- Yeni bilgiler ekleyin
-- Kırık linkleri düzeltin
-- Görselleri yenileyin
-
-### 3. Featured Snippet Hedefleyin
-
-Position 0 için:
-- Soruları H2 yapın
-- Direkt cevap verin
-- Liste/tablo formatı kullanın
-
-### 4. Internal Linking Stratejisi
-
-Site içi linkler:
-- Orphan page'leri bağlayın
-- Anchor text optimize edin
-- Hub sayfalar oluşturun
-
-### 5. Site Hızı Optimizasyonu
-
-Hız = Sıralama faktörü:
-- Image compression
-- CDN kullanımı
-- Lazy loading
-- Core Web Vitals
-
-### 6. Mobile Optimization
-
-Mobile-first indexing:
-- Responsive tasarım
-- Touch-friendly
-- Fast mobile load
-
-### 7. Quality Backlink Building
-
-Doğal link kazanımı:
-- Guest posting
-- Digital PR
-- Broken link building
-- HARO
-
-### 8. Topic Clusters Oluşturun
-
-Pillar + Cluster modeli:
-- Ana konu sayfası
-- Alt konu makaleleri
-- İç link ağı
-
-### 9. Video İçerik Ekleyin
-
-YouTube + Site:
-- Video embed
-- Video schema
-- Transkript ekleyin
-
-### 10. FAQ Schema Kullanın
-
-Sıkça sorulan sorular:
-- FAQ schema markup
-- PAA için optimize
-- Rich snippet şansı
-
-### 11. Local SEO (Yerel İşletmeler)
-
-Google My Business:
-- Profil optimizasyonu
-- Yorum toplama
-- Local citations
-
-### 12. Sosyal Sinyaller
-
-Sosyal medya paylaşımları:
-- Paylaşılabilir içerik
-- Social buttons
-- Engagement artırma
-
-### 13. User Experience İyileştirme
-
-UX = SEO:
-- Düşük bounce rate
-- Yüksek time on site
-- Kolay navigasyon
-
-### 14. Voice Search Optimization
-
-Sesli arama için:
-- Doğal dil kullanımı
-- Soru-cevap formatı
-- Local intent
-
-### 15. Düzenli İçerik Yayınlama
-
-İçerik takvimi:
-- Haftalık blog
-- Tutarlılık
-- Kalite > miktar
-
-## Organik Trafik Metrikleri
-
-| Metrik | Hedef |
-|--------|-------|
-| Organic Sessions | ↑ Aylık artış |
-| Organic CTR | %3+ |
-| Bounce Rate | <%50 |
-| Avg. Session | >2 dk |
-| Pages/Session | >2 |
-
-## Sonuç
-
-Organik trafik artışı sabır ve strateji gerektirir. Profesyonel SEO desteği için [iletişime geçin](/iletisim).
-    `
-  }
-];
-
-// Add more posts
-blogPosts.push(...morePosts);
+export function getRelatedPosts(currentSlug: string, limit: number = 3): BlogPost[] {
+  const currentPost = getPostBySlug(currentSlug);
+  if (!currentPost) return [];
+  
+  return blogPosts
+    .filter(post => post.slug !== currentSlug)
+    .filter(post => 
+      post.category === currentPost.category || 
+      post.tags.some(tag => currentPost.tags.includes(tag))
+    )
+    .slice(0, limit);
+}

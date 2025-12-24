@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
-import { getAllPosts, getAllCategories } from "@/lib/blog";
+import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog | SEO, UI/UX ve Dijital Pazarlama Yazıları | Tonguç Karaçay",
@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const posts = getAllPosts();
-  const categories = getAllCategories();
   const featuredPost = posts[0];
   const otherPosts = posts.slice(1);
 
@@ -38,25 +37,6 @@ export default function BlogPage() {
               SEO, UI/UX tasarım, dijital pazarlama ve yapay zeka hakkında güncel içerikler. 
               25 yıllık deneyimle sektörel içgörüler ve pratik rehberler.
             </p>
-          </div>
-
-          {/* Categories */}
-          <div className="flex flex-wrap gap-3 mt-8">
-            <Link
-              href="/blog"
-              className="px-4 py-2 bg-accent-500 text-white rounded-lg text-sm font-medium"
-            >
-              Tümü
-            </Link>
-            {categories.map((category) => (
-              <Link
-                key={category}
-                href={`/blog?kategori=${category.toLowerCase()}`}
-                className="px-4 py-2 bg-surface-card border border-surface-border rounded-lg text-sm text-primary-300 hover:border-accent-500/50 hover:text-white transition-all"
-              >
-                {category}
-              </Link>
-            ))}
           </div>
         </div>
       </section>
