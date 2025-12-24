@@ -63,7 +63,6 @@ export default function Header() {
               alt="Tonguç Karaçay"
               width={60}
               height={60}
-              className="rounded-full"
             />
             <span className="font-display text-xl font-bold text-white hidden sm:inline">
               Tonguç Karaçay

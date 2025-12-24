@@ -55,10 +55,15 @@ export default function About() {
             <div className="space-y-4 text-primary-300 leading-relaxed mb-8">
               <p>
                 25 yılı aşkın deneyimimle SEO, dijital pazarlama, UI/UX tasarım ve 
-                yapay zeka alanlarında işletmelere danışmanlık veriyorum.
+                yapay zeka alanlarında işletmelere stratejik danışmanlık veriyorum.
               </p>
               <p>
-                Teknik SEO uzmanlığımı, kullanıcı deneyimi odaklı tasarım anlayışıyla birleştirerek 
+                Türkiye'nin önde gelen kurumsal şirketlerine dijital dönüşüm süreçlerinde 
+                destek verdim. Aynı zamanda Amerika, Kanada ve Almanya'daki firmalara 
+                uluslararası SEO ve dijital pazarlama hizmetleri sunuyorum.
+              </p>
+              <p>
+                Teknik uzmanlığımı, kullanıcı deneyimi odaklı tasarım anlayışıyla birleştirerek 
                 sadece trafik değil, gerçek dönüşüm sağlayan stratejiler geliştiriyorum.
               </p>
             </div>
