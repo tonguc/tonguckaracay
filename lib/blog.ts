@@ -319,7 +319,7 @@ Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) g
     tags: ["Site İçi SEO", "On-Page SEO", "SEO Optimizasyonu", "İç SEO"],
     readTime: "12 dk",
     featured: true,
-    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Site İçi SEO Nedir?
 
@@ -499,7 +499,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["Organik Trafik", "SEO", "Anahtar Kelime", "İçerik Optimizasyonu"],
     readTime: "8 dk",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## SEO ve Organik Trafik
 
@@ -754,7 +754,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["Anahtar Kelime", "SEO Araçları", "Ahrefs", "SEMrush"],
     readTime: "6 dk",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Anahtar Kelime Analizi Araçları
 

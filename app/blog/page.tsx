@@ -43,53 +43,55 @@ export default function BlogPage() {
 
       {/* Featured Post */}
       {featuredPost && (
-        <section className="py-12">
+        <section className="py-8">
           <div className="container-custom">
             <Link href={`/blog/${featuredPost.slug}`} className="group block">
               <div className="bg-surface-card border border-surface-border rounded-2xl overflow-hidden hover:border-accent-500/50 transition-all">
-                {/* Featured Image */}
-                <div className="aspect-video relative overflow-hidden">
-                  <img 
-                    src={featuredPost.image} 
-                    alt={featuredPost.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-surface-darker/90 to-transparent" />
-                </div>
-                
-                {/* Content */}
-                <div className="p-8 md:p-12">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm font-medium">
-                      Öne Çıkan
-                    </span>
-                    <span className="px-3 py-1 bg-surface-darker text-primary-300 rounded-full text-sm">
-                      {featuredPost.category}
-                    </span>
+                <div className="grid md:grid-cols-2 gap-0">
+                  {/* Left - Image */}
+                  <div className="relative overflow-hidden md:h-full min-h-[280px]">
+                    <img 
+                      src={featuredPost.image} 
+                      alt={featuredPost.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-surface-darker/20" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 group-hover:text-accent-400 transition-colors">
-                    {featuredPost.title}
-                  </h2>
-                  <p className="text-primary-300 text-lg mb-6 line-clamp-2">
-                    {featuredPost.description}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-4 text-sm text-primary-400">
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="w-4 h-4" />
-                      {new Date(featuredPost.updatedDate || featuredPost.date).toLocaleDateString('tr-TR', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4" />
-                      {featuredPost.readTime}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 mt-6 text-accent-400 font-medium">
-                    Devamını Oku
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  
+                  {/* Right - Content */}
+                  <div className="p-6 md:p-8 flex flex-col justify-center">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm font-medium">
+                        Öne Çıkan
+                      </span>
+                      <span className="px-3 py-1 bg-surface-darker text-primary-300 rounded-full text-sm">
+                        {featuredPost.category}
+                      </span>
+                    </div>
+                    <h2 className="text-xl md:text-2xl font-display font-bold text-white mb-3 group-hover:text-accent-400 transition-colors line-clamp-2">
+                      {featuredPost.title}
+                    </h2>
+                    <p className="text-primary-300 text-sm md:text-base mb-4 line-clamp-2">
+                      {featuredPost.description}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-primary-400 mb-4">
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="w-4 h-4" />
+                        {new Date(featuredPost.updatedDate || featuredPost.date).toLocaleDateString('tr-TR', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <Clock className="w-4 h-4" />
+                        {featuredPost.readTime}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-accent-400 font-medium">
+                      Devamını Oku
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
                 </div>
               </div>
