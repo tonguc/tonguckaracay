@@ -1,12 +1,10 @@
 # https://www.robotstxt.org/robotstxt.html
-
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://tonguckaracay.com/sitemap.xml
-
-# Disallow admin/private paths (if any)
+# Disallow admin areas
 Disallow: /api/
 Disallow: /_next/
-Disallow: /admin/
+
+# Sitemap
+Sitemap: https://tonguckaracay.com/sitemap.xml

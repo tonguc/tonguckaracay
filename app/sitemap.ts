@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllPosts } from '@/lib/blog';
+import { blogPosts } from '@/lib/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://tonguckaracay.com';
@@ -9,8 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 1,
+      changeFrequency: 'daily' as const,
+      priority: 1.0,
     },
     {
       url: `${baseUrl}/hakkimda`,
@@ -27,19 +27,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
+      changeFrequency: 'daily' as const,
       priority: 0.9,
     },
   ];
 
   // Service pages
-  const servicePages = [
+  const services = [
     'ui-ux-tasarim',
     'seo-danismanligi',
-    'online-reklamcilik',
-    'yapay-zeka-cozumleri',
-    'sosyal-medya-yonetimi',
-  ].map((service) => ({
+    'dijital-pazarlama',
+    'ai-cozumleri',
+    'sosyal-medya-yonetimi'
+  ];
+
+  const servicePages = services.map(service => ({
     url: `${baseUrl}/hizmetler/${service}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
@@ -47,10 +49,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Blog posts
-  const posts = getAllPosts();
-  const blogPages = posts.map((post) => ({
+  const blogPages = blogPosts.map(post => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.updatedDate || post.date),
+    lastModified: new Date(post.publishDate),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));

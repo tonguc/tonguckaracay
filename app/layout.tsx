@@ -1,38 +1,62 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-// Google Analytics ID
-const GA_ID = "G-0YHTLZPKKZ";
-
 export const metadata: Metadata = {
-  title: "Tonguç Karaçay | AI-Driven UX & Growth Partner",
-  description: "UI/UX Tasarım, SEO, Online Reklamcılık ve Yapay Zeka çözümleriyle işletmenizi dijitalde büyütüyorum. 25+ yıl deneyim, THY, BMW, Galatasaray gibi 35+ marka.",
-  keywords: ["UI/UX tasarım", "SEO danışmanlığı", "dijital pazarlama", "yapay zeka çözümleri", "online reklamcılık", "growth hacking"],
+  metadataBase: new URL('https://tonguckaracay.com'),
+  title: {
+    default: "Tonguç Karaçay | UI/UX Tasarım, SEO, Dijital Pazarlama Uzmanı",
+    template: "%s | Tonguç Karaçay"
+  },
+  description: "Profesyonel UI/UX tasarım, SEO danışmanlığı, dijital pazarlama ve AI çözümleri. 25+ yıl deneyim.",
+  keywords: [
+    "UI/UX tasarım",
+    "SEO danışmanlığı",
+    "dijital pazarlama",
+    "web tasarım",
+    "kullanıcı deneyimi",
+    "arama motoru optimizasyonu",
+    "AI çözümleri",
+    "sosyal medya yönetimi"
+  ],
   authors: [{ name: "Tonguç Karaçay" }],
   creator: "Tonguç Karaçay",
-  metadataBase: new URL("https://tonguckaracay.com"),
   openGraph: {
     type: "website",
     locale: "tr_TR",
     url: "https://tonguckaracay.com",
     siteName: "Tonguç Karaçay",
-    title: "Tonguç Karaçay | AI-Driven UX & Growth Partner",
-    description: "UI/UX Tasarım, SEO ve Yapay Zeka çözümleriyle işletmenizi dijitalde büyütüyorum. 25+ yıl deneyim.",
+    title: "Tonguç Karaçay | UI/UX Tasarım, SEO, Dijital Pazarlama",
+    description: "Profesyonel UI/UX tasarım, SEO danışmanlığı ve dijital pazarlama hizmetleri",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Tonguç Karaçay - Dijital Çözümler"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tonguç Karaçay | AI-Driven UX & Growth Partner",
-    description: "UI/UX Tasarım, SEO ve Yapay Zeka çözümleriyle işletmenizi dijitalde büyütüyorum. 25+ yıl deneyim.",
+    title: "Tonguç Karaçay | Dijital Çözümler",
+    description: "UI/UX Tasarım, SEO, Dijital Pazarlama Uzmanı",
+    images: ["/og-image.jpg"]
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   verification: {
-    google: "GOOGLE_SITE_VERIFICATION_CODE", // Google Search Console doğrulama kodu ekle
+    google: "G-0YHTLZPKKZ",
   },
 };
 
@@ -43,23 +67,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <head>
-        {/* Google Analytics */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_ID}', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
-      </head>
       <body className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">
