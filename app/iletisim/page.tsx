@@ -47,25 +47,28 @@ export default function IletisimPage() {
     setIsSubmitting(true);
     
     try {
-      // Send form data to Formspree
-      const response = await fetch('https://formspree.io/f/xanyybqn', {
+      // Send form data to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          access_key: '4c8e8f3a-a5e5-4f6b-8d9c-2e1f7a6b5c4d', // BURAYA KENDI ACCESS KEY'INI YAZ
           name: formData.name,
           email: formData.email,
-          phone: formData.phone,
-          company: formData.company,
-          service: formData.service,
+          phone: formData.phone || 'Belirtilmedi',
+          company: formData.company || 'Belirtilmedi',
+          service: formData.service || 'Belirtilmedi',
           message: formData.message,
-          _replyto: formData.email,
-          _subject: `Yeni İletişim Formu - ${formData.name}`,
+          subject: `İletişim Formu - ${formData.name}`,
+          from_name: formData.name,
         }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (data.success) {
         setIsSubmitted(true);
       } else {
         alert('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
