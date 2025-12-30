@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { 
   Mail,
@@ -8,10 +9,22 @@ import {
   Linkedin,
   Twitter,
   Send,
-  CheckCircle2
+  CheckCircle2,
+  Loader2
 } from "lucide-react";
 
 export default function IletisimPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    service: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const services = [
     "UI/UX Tasarım",
     "SEO Danışmanlığı",
@@ -20,6 +33,54 @@ export default function IletisimPage() {
     "Sosyal Medya Yönetimi",
     "Diğer"
   ];
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const form = new FormData();
+      form.append('name', formData.name);
+      form.append('email', formData.email);
+      form.append('phone', formData.phone || 'Belirtilmedi');
+      form.append('company', formData.company || 'Belirtilmedi');
+      form.append('service', formData.service || 'Belirtilmedi');
+      form.append('message', formData.message);
+      form.append('_subject', 'İletişim Formu - Yeni Mesaj');
+      form.append('_captcha', 'false');
+      form.append('_template', 'table');
+
+      const response = await fetch('https://formsubmit.co/tonguckaracay@gmail.com', {
+        method: 'POST',
+        body: form
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          service: "",
+          message: ""
+        });
+      } else {
+        alert('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+      }
+    } catch (error) {
+      alert('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <main className="pt-20">
@@ -149,122 +210,157 @@ export default function IletisimPage() {
             {/* Contact Form */}
             <div className="lg:col-span-2">
               <div className="bg-surface-card border border-surface-border rounded-2xl p-8">
-                <h2 className="text-2xl font-display font-bold text-white mb-6">
-                  Proje Detaylarınızı Paylaşın
-                </h2>
-
-                <form 
-                  action="https://formsubmit.co/tonguckaracay@gmail.com" 
-                  method="POST"
-                  className="space-y-6"
-                >
-                  {/* FormSubmit.co ayarları */}
-                  <input type="hidden" name="_subject" value="İletişim Formu - Yeni Mesaj" />
-                  <input type="hidden" name="_captcha" value="false" />
-                  <input type="hidden" name="_template" value="table" />
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-primary-300 mb-2">
-                        Ad Soyad *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors"
-                        placeholder="Adınız Soyadınız"
-                      />
+                {isSubmitted ? (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle2 className="w-8 h-8 text-green-400" />
                     </div>
-
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-primary-300 mb-2">
-                        E-posta *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors"
-                        placeholder="ornek@email.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-primary-300 mb-2">
-                        Telefon
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors"
-                        placeholder="05XX XXX XX XX"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-primary-300 mb-2">
-                        Şirket
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors"
-                        placeholder="Şirket adı (opsiyonel)"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-primary-300 mb-2">
-                      İlgilendiğiniz Hizmet
-                    </label>
-                    <select
-                      id="service"
-                      name="service"
-                      className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white focus:outline-none focus:border-accent-500 transition-colors"
+                    <h3 className="text-2xl font-display font-bold text-white mb-3">
+                      Mesajınız Gönderildi!
+                    </h3>
+                    <p className="text-primary-300 mb-6">
+                      En kısa sürede size geri dönüş yapacağım. Teşekkür ederim!
+                    </p>
+                    <button
+                      onClick={() => setIsSubmitted(false)}
+                      className="text-accent-400 hover:text-accent-300 font-medium transition-colors"
                     >
-                      <option value="">Seçiniz</option>
-                      {services.map((service) => (
-                        <option key={service} value={service}>
-                          {service}
-                        </option>
-                      ))}
-                    </select>
+                      Yeni mesaj gönder
+                    </button>
                   </div>
+                ) : (
+                  <>
+                    <h2 className="text-2xl font-display font-bold text-white mb-6">
+                      Proje Detaylarınızı Paylaşın
+                    </h2>
 
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-primary-300 mb-2">
-                      Mesajınız *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={5}
-                      className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors resize-none"
-                      placeholder="Projeniz hakkında kısaca bilgi verin..."
-                    />
-                  </div>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                          <label htmlFor="name" className="block text-sm font-medium text-primary-300 mb-2">
+                            Ad Soyad *
+                          </label>
+                          <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors"
+                            placeholder="Adınız Soyadınız"
+                          />
+                        </div>
 
-                  <button
-                    type="submit"
-                    className="w-full btn-primary py-4 text-lg flex items-center justify-center"
-                  >
-                    <Send className="w-5 h-5 mr-2" />
-                    Mesaj Gönder
-                  </button>
+                        <div>
+                          <label htmlFor="email" className="block text-sm font-medium text-primary-300 mb-2">
+                            E-posta *
+                          </label>
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors"
+                            placeholder="ornek@email.com"
+                          />
+                        </div>
+                      </div>
 
-                  <p className="text-sm text-primary-400 text-center">
-                    * ile işaretli alanlar zorunludur
-                  </p>
-                </form>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                          <label htmlFor="phone" className="block text-sm font-medium text-primary-300 mb-2">
+                            Telefon
+                          </label>
+                          <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors"
+                            placeholder="05XX XXX XX XX"
+                          />
+                        </div>
+
+                        <div>
+                          <label htmlFor="company" className="block text-sm font-medium text-primary-300 mb-2">
+                            Şirket
+                          </label>
+                          <input
+                            type="text"
+                            id="company"
+                            name="company"
+                            value={formData.company}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors"
+                            placeholder="Şirket adı (opsiyonel)"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label htmlFor="service" className="block text-sm font-medium text-primary-300 mb-2">
+                          İlgilendiğiniz Hizmet
+                        </label>
+                        <select
+                          id="service"
+                          name="service"
+                          value={formData.service}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white focus:outline-none focus:border-accent-500 transition-colors"
+                        >
+                          <option value="">Seçiniz</option>
+                          {services.map((service) => (
+                            <option key={service} value={service}>
+                              {service}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label htmlFor="message" className="block text-sm font-medium text-primary-300 mb-2">
+                          Mesajınız *
+                        </label>
+                        <textarea
+                          id="message"
+                          name="message"
+                          required
+                          rows={5}
+                          value={formData.message}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors resize-none"
+                          placeholder="Projeniz hakkında kısaca bilgi verin..."
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full btn-primary py-4 text-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                            Gönderiliyor...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-5 h-5 mr-2" />
+                            Mesaj Gönder
+                          </>
+                        )}
+                      </button>
+
+                      <p className="text-sm text-primary-400 text-center">
+                        * ile işaretli alanlar zorunludur
+                      </p>
+                    </form>
+                  </>
+                )}
               </div>
             </div>
           </div>
