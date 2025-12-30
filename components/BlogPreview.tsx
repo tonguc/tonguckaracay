@@ -58,64 +58,58 @@ function BlogCard({
   });
 
   return (
-    <article 
-      className="card card-glow group animate-fade-in-up overflow-hidden"
-      style={{ animationDelay: `${index * 100}ms` }}
-    >
-      {/* Image */}
-      <div className="aspect-video bg-gradient-to-br from-surface-border to-surface-dark relative overflow-hidden">
-        <img 
-          src={post.image} 
-          alt={post.title}
-          className="w-full h-full object-cover"
-        />
-        {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-accent-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        {/* Category & Meta */}
-        <div className="flex items-center justify-between mb-3">
-          <Link 
-            href={`/blog?kategori=${post.category.toLowerCase()}`}
-            className="text-xs font-medium text-accent-400 hover:text-accent-300 uppercase tracking-wider"
-          >
-            {post.category}
-          </Link>
-          <div className="flex items-center gap-3 text-xs text-primary-400">
-            <span className="flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              {formattedDate}
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              {post.readTime}
-            </span>
-          </div>
+    <Link href={`/blog/${post.slug}`}>
+      <article 
+        className="card card-glow group animate-fade-in-up overflow-hidden h-full"
+        style={{ animationDelay: `${index * 100}ms` }}
+      >
+        {/* Image */}
+        <div className="aspect-video bg-gradient-to-br from-surface-border to-surface-dark relative overflow-hidden">
+          <img 
+            src={post.image} 
+            alt={post.title}
+            className="w-full h-full object-cover"
+          />
+          {/* Hover Overlay */}
+          <div className="absolute inset-0 bg-accent-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        {/* Title */}
-        <Link href={`/blog/${post.slug}`}>
+        {/* Content */}
+        <div className="p-6">
+          {/* Category & Meta */}
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-medium text-accent-400 uppercase tracking-wider">
+              {post.category}
+            </span>
+            <div className="flex items-center gap-3 text-xs text-primary-400">
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3 h-3" />
+                {formattedDate}
+              </span>
+              <span className="flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                {post.readTime}
+              </span>
+            </div>
+          </div>
+
+          {/* Title */}
           <h3 className="text-lg font-display font-semibold text-white mb-3 group-hover:text-accent-400 transition-colors line-clamp-2">
             {post.title}
           </h3>
-        </Link>
 
-        {/* Excerpt */}
-        <p className="text-primary-300 text-sm leading-relaxed mb-4 line-clamp-2">
-          {post.description}
-        </p>
+          {/* Excerpt */}
+          <p className="text-primary-300 text-sm leading-relaxed mb-4 line-clamp-2">
+            {post.description}
+          </p>
 
-        {/* Read More */}
-        <Link 
-          href={`/blog/${post.slug}`}
-          className="inline-flex items-center gap-1 text-sm font-medium text-primary-300 hover:text-accent-400 transition-colors group/link"
-        >
-          Devamını oku
-          <ArrowUpRight className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-        </Link>
-      </div>
-    </article>
+          {/* Read More */}
+          <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-300 group-hover:text-accent-400 transition-colors">
+            Devamını oku
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </span>
+        </div>
+      </article>
+    </Link>
   );
 }

@@ -46,12 +46,35 @@ export default function IletisimPage() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    // Replace with actual form handling (e.g., API route, Formspree, etc.)
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      // Send form data to Formspree
+      const response = await fetch('https://formspree.io/f/xanyybqn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          service: formData.service,
+          message: formData.message,
+          _replyto: formData.email,
+          _subject: `Yeni İletişim Formu - ${formData.name}`,
+        }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        alert('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+      }
+    } catch (error) {
+      alert('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -101,10 +124,10 @@ export default function IletisimPage() {
                   <div>
                     <h3 className="text-white font-medium mb-1">E-posta</h3>
                     <a 
-                      href="mailto:info@tonguckaracay.com" 
+                      href="mailto:tonguckaracay@gmail.com" 
                       className="text-primary-300 hover:text-accent-400 transition-colors"
                     >
-                      info@tonguckaracay.com
+                      tonguckaracay@gmail.com
                     </a>
                   </div>
                 </div>

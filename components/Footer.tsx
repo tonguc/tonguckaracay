@@ -97,11 +97,11 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:info@tonguckaracay.com"
+                  href="mailto:tonguckaracay@gmail.com"
                   className="flex items-center gap-2 text-primary-400 hover:text-accent-400 transition-colors"
                 >
                   <Mail className="w-4 h-4" />
-                  info@tonguckaracay.com
+                  tonguckaracay@gmail.com
                 </a>
               </li>
               <li>
