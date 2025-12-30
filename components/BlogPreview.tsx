@@ -1,88 +1,121 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
-import { getFeaturedPosts } from "@/lib/blog";
+import { ArrowRight, Calendar, Clock, ArrowUpRight } from "lucide-react";
+import { getAllPosts, BlogPost } from "@/lib/blog";
 
 export default function BlogPreview() {
-  const featuredPosts = getFeaturedPosts(3);
+  const allPosts = getAllPosts();
+  const latestPosts = allPosts.slice(0, 3);
 
   return (
-    <section className="section bg-navy-light">
-      <div className="container">
+    <section className="py-24 relative">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-dark/30 to-transparent pointer-events-none" />
+      
+      <div className="container-custom relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <h2 className="text-3xl md:text-4xl font-display font-bold">
-            Son <span className="text-gradient">Blog Yazıları</span>
-          </h2>
-          <p className="text-gray-400 text-lg">
-            Dijital pazarlama, SEO ve tasarım hakkında güncel içerikler
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
+          <div>
+            <h2 className="section-title mb-2">
+              Son <span className="text-gradient">Yazılar</span>
+            </h2>
+            <p className="section-subtitle">
+              SEO, dijital pazarlama ve yapay zeka hakkında güncel içerikler.
+            </p>
+          </div>
+          <Link 
+            href="/blog" 
+            className="inline-flex items-center gap-2 text-accent-400 hover:text-accent-300 font-medium mt-4 sm:mt-0 group"
+          >
+            Tüm yazılar
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
         {/* Blog Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredPosts.map((post, index) => (
-            <Link
-              key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="card glow group overflow-hidden p-0"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={post.featuredImage}
-                  alt={post.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4 px-3 py-1 bg-amber text-navy text-sm font-semibold rounded-full">
-                  {post.category}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 space-y-4">
-                {/* Meta */}
-                <div className="flex items-center gap-4 text-sm text-gray-400">
-                  <span>{new Date(post.publishDate).toLocaleDateString('tr-TR', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}</span>
-                  <span>•</span>
-                  <span>{post.readTime}</span>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-display font-bold group-hover:text-amber transition-colors line-clamp-2">
-                  {post.title}
-                </h3>
-
-                {/* Excerpt */}
-                <p className="text-gray-400 line-clamp-3">
-                  {post.excerpt}
-                </p>
-
-                {/* Read More */}
-                <div className="flex items-center gap-2 text-amber font-semibold pt-2 group-hover:gap-4 transition-all">
-                  Devamını Oku
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
-            </Link>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {latestPosts.map((post, index) => (
+            <BlogCard key={post.slug} post={post} index={index} />
           ))}
-        </div>
-
-        {/* View All CTA */}
-        <div className="text-center mt-12">
-          <Link href="/blog" className="btn btn-secondary">
-            Tüm Yazılar
-          </Link>
         </div>
       </div>
     </section>
+  );
+}
+
+function BlogCard({ 
+  post, 
+  index 
+}: { 
+  post: BlogPost; 
+  index: number;
+}) {
+  const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString('tr-TR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  return (
+    <article 
+      className="card card-glow group animate-fade-in-up overflow-hidden"
+      style={{ animationDelay: `${index * 100}ms` }}
+    >
+      {/* Image Placeholder */}
+      <div className="aspect-video bg-gradient-to-br from-surface-border to-surface-dark relative overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-16 h-16 rounded-xl bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
+            <span className="font-display text-xl font-bold text-accent-400">TK</span>
+          </div>
+        </div>
+        {/* Hover Overlay */}
+        <div className="absolute inset-0 bg-accent-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        {/* Category & Meta */}
+        <div className="flex items-center justify-between mb-3">
+          <Link 
+            href={`/blog?kategori=${post.category.toLowerCase()}`}
+            className="text-xs font-medium text-accent-400 hover:text-accent-300 uppercase tracking-wider"
+          >
+            {post.category}
+          </Link>
+          <div className="flex items-center gap-3 text-xs text-primary-400">
+            <span className="flex items-center gap-1">
+              <Calendar className="w-3 h-3" />
+              {formattedDate}
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              {post.readTime}
+            </span>
+          </div>
+        </div>
+
+        {/* Title */}
+        <Link href={`/blog/${post.slug}`}>
+          <h3 className="text-lg font-display font-semibold text-white mb-3 group-hover:text-accent-400 transition-colors line-clamp-2">
+            {post.title}
+          </h3>
+        </Link>
+
+        {/* Excerpt */}
+        <p className="text-primary-300 text-sm leading-relaxed mb-4 line-clamp-2">
+          {post.description}
+        </p>
+
+        {/* Read More */}
+        <Link 
+          href={`/blog/${post.slug}`}
+          className="inline-flex items-center gap-1 text-sm font-medium text-primary-300 hover:text-accent-400 transition-colors group/link"
+        >
+          Devamını oku
+          <ArrowUpRight className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+        </Link>
+      </div>
+    </article>
   );
 }

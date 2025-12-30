@@ -1,65 +1,80 @@
+"use client";
+
 import Link from "next/link";
+import { ArrowRight, Zap } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative section py-20 md:py-32 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-radial opacity-50" />
-      
-      <div className="container relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
+    <section className="relative pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Gradient Orbs */}
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-float animation-delay-300" />
+        
+        {/* Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px'
+          }}
+        />
+      </div>
+
+      <div className="container-custom relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-block px-4 py-2 bg-amber/10 border border-amber/20 rounded-full text-amber text-sm font-semibold">
-            25+ Yıl Deneyim
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-surface-card/50 border border-surface-border rounded-full mb-6 animate-fade-in">
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <span className="text-sm text-primary-300">
+              Yeni projeler için müsaitim
+            </span>
           </div>
 
-          {/* Headline */}
-          <h1 className="heading">
-            Dijital Dönüşümünüzün
-            <br />
-            <span className="text-gradient">Stratejik Ortağı</span>
+          {/* Main Headline */}
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight animate-fade-in-up">
+            UI/UX, SEO ve Yapay Zeka ile{" "}
+            <span className="text-gradient">Dijitalde Gerçek Büyüme</span>{" "}
+            Sağlıyorum
           </h1>
 
           {/* Subheadline */}
-          <p className="subheading max-w-2xl mx-auto">
-            UI/UX tasarım, SEO danışmanlığı ve dijital pazarlama ile markanızı dijital dünyada öne çıkarıyorum.
+          <p className="text-base md:text-lg text-primary-300 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-100">
+            Trafik, dönüşüm ve marka algısını birlikte artıran uçtan uca dijital çözümler.
+            İşletmenizi bir sonraki seviyeye taşıyalım.
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link href="/iletisim" className="btn btn-primary px-8 py-4 text-lg">
-              Ücretsiz Danışmanlık
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 animate-fade-in-up animation-delay-200">
+            <Link href="/iletisim" className="btn-primary group">
+              Ücretsiz Görüşme
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link href="/hakkimda" className="btn btn-secondary px-8 py-4 text-lg">
-              Hakkımda
+            <Link href="#hizmetler" className="btn-secondary group">
+              Hizmetleri Gör
+              <ArrowRight className="ml-2 w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
             </Link>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 max-w-3xl mx-auto">
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-amber">25+</div>
-              <div className="text-gray-400">Yıl Deneyim</div>
+          {/* Social Proof */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm animate-fade-in-up animation-delay-300">
+            <div className="flex items-center gap-2 text-primary-300">
+              <Zap className="w-5 h-5 text-accent-400" />
+              <span><strong className="text-white">25+</strong> Yıl Deneyim</span>
             </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-amber">500+</div>
-              <div className="text-gray-400">Proje</div>
+            <div className="flex items-center gap-2 text-primary-300">
+              <span className="w-1.5 h-1.5 bg-accent-400 rounded-full" />
+              <span>Sonuç Odaklı</span>
             </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-amber">100+</div>
-              <div className="text-gray-400">Mutlu Müşteri</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-amber">%95</div>
-              <div className="text-gray-400">Başarı Oranı</div>
+            <div className="flex items-center gap-2 text-primary-300">
+              <span className="w-1.5 h-1.5 bg-accent-400 rounded-full" />
+              <span>Kişiselleştirilmiş Strateji</span>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Floating elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-amber/5 rounded-full blur-2xl animate-float" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-amber/5 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }} />
     </section>
   );
 }
