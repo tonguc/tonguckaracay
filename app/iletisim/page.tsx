@@ -47,34 +47,38 @@ export default function IletisimPage() {
     setIsSubmitting(true);
     
     try {
-      // Send form data to Web3Forms
-      const response = await fetch('https://api.web3forms.com/submit', {
+      // Kendi API route'umuzu kullan
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          access_key: '4c8e8f3a-a5e5-4f6b-8d9c-2e1f7a6b5c4d', // BURAYA KENDI ACCESS KEY'INI YAZ
           name: formData.name,
           email: formData.email,
-          phone: formData.phone || 'Belirtilmedi',
-          company: formData.company || 'Belirtilmedi',
-          service: formData.service || 'Belirtilmedi',
+          phone: formData.phone,
+          company: formData.company,
+          service: formData.service,
           message: formData.message,
-          subject: `İletişim Formu - ${formData.name}`,
-          from_name: formData.name,
         }),
       });
 
       const data = await response.json();
+      
+      // Hatayı console'a yazdır
+      console.log('API Response:', { status: response.status, data });
 
-      if (data.success) {
+      if (response.ok && data.success) {
         setIsSubmitted(true);
       } else {
-        alert('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+        // Detaylı hata mesajı göster
+        const errorMessage = data.error || data.message || 'Form gönderilirken bir hata oluştu.';
+        console.error('Form Error:', errorMessage);
+        alert(`Hata: ${errorMessage}\n\nLütfen Resend API key'inin Vercel'de tanımlı olduğundan emin olun.`);
       }
     } catch (error) {
-      alert('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+      console.error('Network Error:', error);
+      alert('Form gönderilirken bir hata oluştu. Lütfen internet bağlantınızı kontrol edin.');
     } finally {
       setIsSubmitting(false);
     }
