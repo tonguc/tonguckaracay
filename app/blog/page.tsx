@@ -46,38 +46,51 @@ export default function BlogPage() {
         <section className="py-12">
           <div className="container-custom">
             <Link href={`/blog/${featuredPost.slug}`} className="group block">
-              <div className="bg-surface-card border border-surface-border rounded-2xl p-8 md:p-12 hover:border-accent-500/50 transition-all">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm font-medium">
-                    Öne Çıkan
-                  </span>
-                  <span className="px-3 py-1 bg-surface-darker text-primary-300 rounded-full text-sm">
-                    {featuredPost.category}
-                  </span>
+              <div className="bg-surface-card border border-surface-border rounded-2xl overflow-hidden hover:border-accent-500/50 transition-all">
+                {/* Featured Image */}
+                <div className="aspect-video relative overflow-hidden">
+                  <img 
+                    src={featuredPost.image} 
+                    alt={featuredPost.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-surface-darker/90 to-transparent" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 group-hover:text-accent-400 transition-colors">
-                  {featuredPost.title}
-                </h2>
-                <p className="text-primary-300 text-lg mb-6 line-clamp-2">
-                  {featuredPost.description}
-                </p>
-                <div className="flex flex-wrap items-center gap-4 text-sm text-primary-400">
-                  <span className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4" />
-                    {new Date(featuredPost.updatedDate || featuredPost.date).toLocaleDateString('tr-TR', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4" />
-                    {featuredPost.readTime}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 mt-6 text-accent-400 font-medium">
-                  Devamını Oku
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                
+                {/* Content */}
+                <div className="p-8 md:p-12">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm font-medium">
+                      Öne Çıkan
+                    </span>
+                    <span className="px-3 py-1 bg-surface-darker text-primary-300 rounded-full text-sm">
+                      {featuredPost.category}
+                    </span>
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 group-hover:text-accent-400 transition-colors">
+                    {featuredPost.title}
+                  </h2>
+                  <p className="text-primary-300 text-lg mb-6 line-clamp-2">
+                    {featuredPost.description}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-primary-400">
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-4 h-4" />
+                      {new Date(featuredPost.updatedDate || featuredPost.date).toLocaleDateString('tr-TR', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-4 h-4" />
+                      {featuredPost.readTime}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-6 text-accent-400 font-medium">
+                    Devamını Oku
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
               </div>
             </Link>
@@ -93,35 +106,47 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group bg-surface-card border border-surface-border rounded-2xl p-6 hover:border-accent-500/50 transition-all"
+                className="group bg-surface-card border border-surface-border rounded-2xl overflow-hidden hover:border-accent-500/50 transition-all"
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="px-2.5 py-1 bg-surface-darker text-primary-300 rounded-full text-xs">
-                    {post.category}
-                  </span>
-                  <span className="text-xs text-primary-400 flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {post.readTime}
-                  </span>
+                {/* Image */}
+                <div className="aspect-video relative overflow-hidden">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
-                <h3 className="text-lg font-display font-semibold text-white mb-3 group-hover:text-accent-400 transition-colors line-clamp-2">
-                  {post.title}
-                </h3>
-                <p className="text-primary-300 text-sm mb-4 line-clamp-3">
-                  {post.description}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-primary-400">
-                    {new Date(post.updatedDate || post.date).toLocaleDateString('tr-TR', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric'
-                    })}
-                  </span>
-                  <span className="text-accent-400 text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                    Oku
-                    <ArrowRight className="w-3 h-3" />
-                  </span>
+                
+                {/* Content */}
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="px-2.5 py-1 bg-surface-darker text-primary-300 rounded-full text-xs">
+                      {post.category}
+                    </span>
+                    <span className="text-xs text-primary-400 flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {post.readTime}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-display font-semibold text-white mb-3 group-hover:text-accent-400 transition-colors line-clamp-2">
+                    {post.title}
+                  </h3>
+                  <p className="text-primary-300 text-sm mb-4 line-clamp-3">
+                    {post.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-primary-400">
+                      {new Date(post.updatedDate || post.date).toLocaleDateString('tr-TR', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </span>
+                    <span className="text-accent-400 text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                      Oku
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
                 </div>
               </Link>
             ))}

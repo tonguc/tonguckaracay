@@ -8,6 +8,7 @@ export interface BlogPost {
   tags: string[];
   readTime: string;
   featured?: boolean;
+  image: string;
   content: string;
 }
 
@@ -22,6 +23,7 @@ const blogPosts: BlogPost[] = [
     tags: ["SEO", "Arama Motoru Optimizasyonu", "Google", "Dijital Pazarlama"],
     readTime: "8 dk",
     featured: true,
+    image: "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## SEO nedir?
 
@@ -58,6 +60,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     tags: ["UI Design", "UX Design", "Kullanıcı Deneyimi", "Arayüz Tasarımı"],
     readTime: "7 dk",
     featured: true,
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## UX Designer Nedir?
 
@@ -89,6 +92,7 @@ Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) g
     category: "SEO",
     tags: ["Backlink", "Link Building", "SEO", "Off-Page SEO"],
     readTime: "9 dk",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Backlink Nedir?
 
@@ -139,6 +143,7 @@ Profesyonel SEO ve backlink danışmanlığı için [iletişime geçin](/iletisi
     category: "Dijital Pazarlama",
     tags: ["Inbound Marketing", "İçerik Pazarlaması", "Dijital Pazarlama", "Lead Generation"],
     readTime: "8 dk",
+    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Inbound Marketing Nedir?
 
@@ -183,6 +188,7 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
     category: "Dijital Pazarlama",
     tags: ["Dijital Pazarlama", "Sosyal Medya", "SEO Araçları", "Marketing Tools"],
     readTime: "7 dk",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Dijital Pazarlama Stratejileri
 
@@ -226,6 +232,7 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["SEO Araçları", "Google Search Console", "Ahrefs", "SEMrush"],
     readTime: "10 dk",
+    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Profesyonel SEO Araçları
 
@@ -269,6 +276,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "UI-UX",
     tags: ["Google Analytics", "Web Analytics", "UX", "Site Optimizasyonu"],
     readTime: "8 dk",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Google Analytics ve UX Tasarımı
 
@@ -311,6 +319,7 @@ Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) g
     tags: ["Site İçi SEO", "On-Page SEO", "SEO Optimizasyonu", "İç SEO"],
     readTime: "12 dk",
     featured: true,
+    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Site İçi SEO Nedir?
 
@@ -362,6 +371,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "Dijital Pazarlama",
     tags: ["Sosyal Medya", "Online Pazarlama", "SEO", "Dijital Pazarlama"],
     readTime: "8 dk",
+    image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Sosyal Medyanın Gücü
 
@@ -404,6 +414,7 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["SERP", "Google", "Arama Sonuçları", "SEO"],
     readTime: "9 dk",
+    image: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## SERP Nedir?
 
@@ -450,6 +461,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["Heading Tags", "H1 Etiketi", "HTML", "SEO"],
     readTime: "6 dk",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Heading Tags Nedir?
 
@@ -487,6 +499,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["Organik Trafik", "SEO", "Anahtar Kelime", "İçerik Optimizasyonu"],
     readTime: "8 dk",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## SEO ve Organik Trafik
 
@@ -523,6 +536,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     tags: ["SEO Uzmanı", "SEO Danışmanı", "Kariyer", "Dijital Pazarlama"],
     readTime: "15 dk",
     featured: true,
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## SEO Uzmanı, SEO Danışmanı Nedir?
 
@@ -586,6 +600,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "Dijital Pazarlama",
     tags: ["Dropshipping", "E-Ticaret", "Dijital Pazarlama", "Stoksuz Ticaret"],
     readTime: "8 dk",
+    image: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Dropshipping Nedir ve Nasıl Yapılır?
 
@@ -625,6 +640,7 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["İçerik Pazarlaması", "SEO", "İçerik Optimizasyonu", "Kaliteli İçerik"],
     readTime: "9 dk",
+    image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## SEO Uyumlu İçerik Nasıl Yazılır?
 
@@ -664,6 +680,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "Dijital Pazarlama",
     tags: ["Dijital Pazarlama", "SEM", "Sosyal Medya", "Influencer Marketing"],
     readTime: "9 dk",
+    image: "https://images.unsplash.com/photo-1557838923-2985c318be48?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Dijital Pazarlamanın Önemi
 
@@ -695,6 +712,7 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["Kaliteli İçerik", "Özgün İçerik", "SEO", "İçerik Stratejisi"],
     readTime: "10 dk",
+    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Kaliteli İçeriğin SEO'daki Önemi
 
@@ -736,6 +754,7 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["Anahtar Kelime", "SEO Araçları", "Ahrefs", "SEMrush"],
     readTime: "6 dk",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Anahtar Kelime Analizi Araçları
 

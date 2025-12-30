@@ -36,11 +36,20 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       modifiedTime: post.updatedDate,
       authors: ["Tonguç Karaçay"],
       tags: post.tags,
+      images: [
+        {
+          url: post.image,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        }
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: [post.image],
     },
   };
 }
@@ -126,6 +135,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     {tag}
                   </span>
                 ))}
+              </div>
+
+              {/* Featured Image */}
+              <div className="mt-8 -mx-4 md:-mx-8 lg:mx-0">
+                <div className="aspect-video relative overflow-hidden rounded-2xl">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>

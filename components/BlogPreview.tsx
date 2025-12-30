@@ -62,13 +62,13 @@ function BlogCard({
       className="card card-glow group animate-fade-in-up overflow-hidden"
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      {/* Image Placeholder */}
+      {/* Image */}
       <div className="aspect-video bg-gradient-to-br from-surface-border to-surface-dark relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 rounded-xl bg-accent-500/10 border border-accent-500/20 flex items-center justify-center">
-            <span className="font-display text-xl font-bold text-accent-400">TK</span>
-          </div>
-        </div>
+        <img 
+          src={post.image} 
+          alt={post.title}
+          className="w-full h-full object-cover"
+        />
         {/* Hover Overlay */}
         <div className="absolute inset-0 bg-accent-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
