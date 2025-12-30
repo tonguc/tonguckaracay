@@ -23,7 +23,7 @@ const blogPosts: BlogPost[] = [
     tags: ["SEO", "Arama Motoru Optimizasyonu", "Google", "Dijital Pazarlama"],
     readTime: "8 dk",
     featured: true,
-    image: "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=1200&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## SEO nedir?
 

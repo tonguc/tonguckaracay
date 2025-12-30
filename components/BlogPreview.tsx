@@ -21,7 +21,7 @@ export default function BlogPreview() {
               Son <span className="text-gradient">Yazılar</span>
             </h2>
             <p className="section-subtitle">
-              SEO, dijital pazarlama ve yapay zeka hakkında güncel içerikler.
+              SEO, growth marketing ve yapay zeka hakkında güncel içerikler.
             </p>
           </div>
           <Link 

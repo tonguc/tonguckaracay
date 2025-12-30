@@ -119,7 +119,7 @@ export default function HakkimdaPage() {
               </h1>
 
               <p className="text-xl text-primary-300 mb-6 leading-relaxed">
-                25 yılı aşkın süredir UI/UX tasarım, SEO ve dijital pazarlama alanlarında 
+                25 yılı aşkın süredir UI/UX tasarım, SEO ve growth marketing alanlarında 
                 çalışıyorum. Türkiye'nin önde gelen kurumsal şirketlerinin yanı sıra 
                 Amerika, Kanada ve Almanya'daki firmalara da hizmet veriyorum.
               </p>
@@ -263,9 +263,12 @@ export default function HakkimdaPage() {
               </p>
 
               <p>
-                Bugün UI/UX tasarım, SEO ve yapay zeka çözümlerini bir arada sunarak müşterilerime 
-                uçtan uca dijital danışmanlık hizmeti veriyorum. 25+ yıllık deneyimimi her projede 
-                kullanıyorum.
+                Bugün UI/UX tasarım, SEO, AI design ve yapay zeka çözümlerini bir arada sunarak müşterilerime 
+                uçtan uca dijital danışmanlık hizmeti veriyorum. 
+                <strong className="text-white"> AIO (AI Optimization), GEO (Generative Engine Optimization) 
+                ve AEO (Answer Engine Optimization)</strong> gibi yeni nesil arama stratejilerini uygulayarak, 
+                markaların sadece Google'da değil, ChatGPT ve Perplexity gibi yapay zeka motorlarında da 
+                görünür olmasını sağlıyorum. 25+ yıllık deneyimimi her projede kullanıyorum.
               </p>
             </div>
         </div>

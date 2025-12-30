@@ -55,7 +55,7 @@ export default function Header() {
               width={60}
               height={60}
             />
-            <span className="font-display text-xl font-bold text-white hidden sm:inline">
+            <span className="logo-text text-xl font-bold text-white hidden sm:inline">
               Tonguç Karaçay
             </span>
           </Link>

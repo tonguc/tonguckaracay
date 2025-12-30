@@ -4,12 +4,12 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Blog | SEO, UI/UX ve Dijital Pazarlama Yazıları | Tonguç Karaçay",
-  description: "SEO, UI/UX tasarım, dijital pazarlama ve yapay zeka hakkında güncel blog yazıları. 25 yıllık deneyimle sektörel içgörüler ve pratik rehberler.",
+  title: "Blog | SEO, UI/UX ve Growth Marketing Yazıları | Tonguç Karaçay",
+  description: "SEO, UI/UX tasarım, growth marketing ve yapay zeka hakkında güncel blog yazıları. 25 yıllık deneyimle sektörel içgörüler ve pratik rehberler.",
   keywords: "SEO blog, UI UX blog, dijital pazarlama yazıları, web tasarım blog",
   openGraph: {
-    title: "Blog | SEO, UI/UX ve Dijital Pazarlama Yazıları",
-    description: "25 yıllık deneyimle SEO, UI/UX ve dijital pazarlama hakkında güncel içerikler.",
+    title: "Blog | SEO, UI/UX ve Growth Marketing Yazıları",
+    description: "25 yıllık deneyimle SEO, UI/UX ve growth marketing hakkında güncel içerikler.",
     type: "website",
   },
 };

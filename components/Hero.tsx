@@ -29,7 +29,7 @@ export default function Hero() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-surface-card/50 border border-surface-border rounded-full mb-6 animate-fade-in">
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
             <span className="text-sm text-primary-300">
-              Yeni projeler için müsaitim
+              İşbirliğine açık
             </span>
           </div>
 

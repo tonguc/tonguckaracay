@@ -11,7 +11,7 @@ export default function About() {
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent-500/5 to-transparent pointer-events-none" />
       
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-9 lg:gap-12 items-center">
           {/* Image Side */}
           <div className="relative">
             <div className="relative max-w-md mx-auto lg:mx-0">
@@ -54,13 +54,13 @@ export default function About() {
             
             <div className="space-y-4 text-primary-300 leading-relaxed mb-8">
               <p>
-                25 yılı aşkın deneyimimle UI/UX tasarım, SEO, dijital pazarlama ve 
+                25 yılı aşkın deneyimimle UI/UX tasarım, SEO, growth marketing ve 
                 yapay zeka alanlarında işletmelere stratejik danışmanlık veriyorum.
               </p>
               <p>
                 Türkiye'nin önde gelen kurumsal şirketlerine dijital dönüşüm süreçlerinde 
                 destek verdim. Aynı zamanda Amerika, Kanada ve Almanya'daki firmalara 
-                uluslararası SEO ve dijital pazarlama hizmetleri sunuyorum.
+                uluslararası SEO ve growth marketing hizmetleri sunuyorum.
               </p>
               <p>
                 Teknik uzmanlığımı, kullanıcı deneyimi odaklı tasarım anlayışıyla birleştirerek 
