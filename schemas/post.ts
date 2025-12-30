@@ -131,19 +131,6 @@ export default defineType({
             },
           ],
         },
-        {
-          type: 'code',
-          options: {
-            language: 'javascript',
-            languageAlternatives: [
-              { title: 'JavaScript', value: 'javascript' },
-              { title: 'TypeScript', value: 'typescript' },
-              { title: 'HTML', value: 'html' },
-              { title: 'CSS', value: 'css' },
-              { title: 'Python', value: 'python' },
-            ],
-          },
-        },
       ],
     }),
     defineField({
