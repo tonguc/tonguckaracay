@@ -46,23 +46,24 @@ export default function IletisimPage() {
     setIsSubmitting(true);
 
     try {
-      const form = new FormData();
-      form.append('name', formData.name);
-      form.append('email', formData.email);
-      form.append('phone', formData.phone || 'Belirtilmedi');
-      form.append('company', formData.company || 'Belirtilmedi');
-      form.append('service', formData.service || 'Belirtilmedi');
-      form.append('message', formData.message);
-      form.append('_subject', 'İletişim Formu - Yeni Mesaj');
-      form.append('_captcha', 'false');
-      form.append('_template', 'table');
-
-      const response = await fetch('https://formsubmit.co/tonguckaracay@gmail.com', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        body: form
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          service: formData.service,
+          message: formData.message,
+        }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         setIsSubmitted(true);
         setFormData({
           name: "",
@@ -73,10 +74,11 @@ export default function IletisimPage() {
           message: ""
         });
       } else {
-        alert('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+        alert(data.error || 'Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
       }
     } catch (error) {
-      alert('Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+      console.error('Form hatası:', error);
+      alert('Form gönderilirken bir hata oluştu. Lütfen internet bağlantınızı kontrol edin.');
     } finally {
       setIsSubmitting(false);
     }
