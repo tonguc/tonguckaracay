@@ -140,9 +140,11 @@ export default function Header() {
               )}
             </div>
 
-            <Link href={navLinks.blog} className="text-primary-200 hover:text-white transition-colors font-medium">
-              {t('blog')}
-            </Link>
+            {locale === 'tr' && (
+              <Link href={navLinks.blog} className="text-primary-200 hover:text-white transition-colors font-medium">
+                {t('blog')}
+              </Link>
+            )}
 
             <Link href={navLinks.about} className="text-primary-200 hover:text-white transition-colors font-medium">
               {t('about')}
@@ -199,7 +201,9 @@ export default function Header() {
                 ))}
               </div>
               <div className="pt-4 border-t border-surface-border space-y-2">
-                <Link href={navLinks.blog} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('blog')}</Link>
+                {locale === 'tr' && (
+                  <Link href={navLinks.blog} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('blog')}</Link>
+                )}
                 <Link href={navLinks.about} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('about')}</Link>
                 
                 <div className="flex items-center gap-2 px-2 py-2">

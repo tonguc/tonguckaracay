@@ -777,36 +777,34 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   }
 ];
 
-// Locale parameter is accepted for future multilingual support
-// Currently returns Turkish content for all locales
-export function getAllPosts(locale?: string): BlogPost[] {
+export function getAllPosts(): BlogPost[] {
   return blogPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getPostBySlug(slug: string, locale?: string): BlogPost | undefined {
+export function getPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find(post => post.slug === slug);
 }
 
-export function getFeaturedPosts(locale?: string): BlogPost[] {
+export function getFeaturedPosts(): BlogPost[] {
   return blogPosts.filter(post => post.featured);
 }
 
-export function getPostsByCategory(category: string, locale?: string): BlogPost[] {
+export function getPostsByCategory(category: string): BlogPost[] {
   return blogPosts.filter(post => post.category === category);
 }
 
-export function getAllCategories(locale?: string): string[] {
+export function getAllCategories(): string[] {
   const categories = new Set(blogPosts.map(post => post.category));
   return Array.from(categories);
 }
 
-export function getAllTags(locale?: string): string[] {
+export function getAllTags(): string[] {
   const tags = new Set(blogPosts.flatMap(post => post.tags));
   return Array.from(tags);
 }
 
-export function getRelatedPosts(currentSlug: string, locale?: string, limit: number = 3): BlogPost[] {
-  const currentPost = getPostBySlug(currentSlug, locale);
+export function getRelatedPosts(currentSlug: string, limit: number = 3): BlogPost[] {
+  const currentPost = getPostBySlug(currentSlug);
   if (!currentPost) return [];
   
   return blogPosts
@@ -816,8 +814,4 @@ export function getRelatedPosts(currentSlug: string, locale?: string, limit: num
       post.tags.some(tag => currentPost.tags.includes(tag))
     )
     .slice(0, limit);
-}
-
-export function getAllSlugs(locale?: string): string[] {
-  return blogPosts.map(post => post.slug);
 }

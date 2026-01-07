@@ -82,16 +82,18 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          <div>
-            <h3 className="font-display font-semibold text-white mb-4">{t('blog')}</h3>
-            <ul className="space-y-3">
-              {blogCategories.map((category) => (
-                <li key={category.href}>
-                  <Link href={category.href} className="text-primary-400 hover:text-accent-500 transition-colors">{category.name}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {locale === 'tr' && (
+            <div>
+              <h3 className="font-display font-semibold text-white mb-4">{t('blog')}</h3>
+              <ul className="space-y-3">
+                {blogCategories.map((category) => (
+                  <li key={category.href}>
+                    <Link href={category.href} className="text-primary-400 hover:text-accent-500 transition-colors">{category.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <div>
             <h3 className="font-display font-semibold text-white mb-4">{t('contact')}</h3>
             <ul className="space-y-3">
