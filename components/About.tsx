@@ -12,7 +12,7 @@ export default function About() {
 
   const stats = [
     { value: "25+", label: locale === 'tr' ? "Yıl Deneyim" : "Years Experience" },
-    { value: "150+", label: locale === 'tr' ? "Mutlu Müşteri" : "Happy Clients" },
+    { value: "100+", label: locale === 'tr' ? "Marka" : "Brands" },
     { value: "500+", label: locale === 'tr' ? "Tamamlanan Proje" : "Completed Projects" },
     { value: "12+", label: locale === 'tr' ? "Ülke" : "Countries" },
   ];
