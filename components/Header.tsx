@@ -5,8 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-import { Menu, X, ChevronDown, Globe } from "lucide-react";
-import { locales, localeNames, localeFlags, type Locale } from '@/i18n.config';
+import { Menu, X, ChevronDown } from "lucide-react";
+import { type Locale } from '@/i18n.config';
 
 export default function Header() {
   const t = useTranslations('nav');
@@ -17,7 +17,6 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
 
   // Services links based on locale
   const services = locale === 'tr' ? [
@@ -63,57 +62,85 @@ export default function Header() {
     setActiveDropdown(null);
   };
 
-  // Language switch function
+  // Language switch function - improved path detection
   const switchLocale = (newLocale: Locale) => {
-    // Map current path to new locale
-    let newPath = pathname;
+    if (newLocale === locale) return;
     
-    if (locale === 'tr' && newLocale === 'en') {
+    // Get the path without locale prefix
+    let cleanPath = pathname;
+    if (pathname.startsWith('/tr/')) {
+      cleanPath = pathname.substring(3);
+    } else if (pathname.startsWith('/en/')) {
+      cleanPath = pathname.substring(3);
+    } else if (pathname === '/tr') {
+      cleanPath = '/';
+    } else if (pathname === '/en') {
+      cleanPath = '/';
+    }
+    
+    let newPath = '/';
+    
+    // Service pages mapping
+    const trToEnServices: Record<string, string> = {
+      '/hizmetler/ui-ux-tasarim': '/en/services/ui-ux-design',
+      '/hizmetler/seo-danismanligi': '/en/services/seo-consulting',
+      '/hizmetler/online-reklamcilik': '/en/services/online-advertising',
+      '/hizmetler/yapay-zeka-cozumleri': '/en/services/ai-solutions',
+      '/hizmetler/sosyal-medya-yonetimi': '/en/services/social-media-management',
+    };
+    
+    const enToTrServices: Record<string, string> = {
+      '/services/ui-ux-design': '/hizmetler/ui-ux-tasarim',
+      '/services/seo-consulting': '/hizmetler/seo-danismanligi',
+      '/services/online-advertising': '/hizmetler/online-reklamcilik',
+      '/services/ai-solutions': '/hizmetler/yapay-zeka-cozumleri',
+      '/services/social-media-management': '/hizmetler/sosyal-medya-yonetimi',
+    };
+    
+    // Other pages mapping
+    const trToEnPages: Record<string, string> = {
+      '/': '/en',
+      '/hakkimda': '/en/about',
+      '/iletisim': '/en/contact',
+      '/blog': '/en/blog',
+    };
+    
+    const enToTrPages: Record<string, string> = {
+      '/': '/',
+      '/about': '/hakkimda',
+      '/contact': '/iletisim',
+      '/blog': '/blog',
+    };
+    
+    if (newLocale === 'en') {
       // TR -> EN
-      if (pathname === '/') newPath = '/en';
-      else if (pathname === '/hakkimda') newPath = '/en/about';
-      else if (pathname === '/iletisim') newPath = '/en/contact';
-      else if (pathname === '/blog') newPath = '/en/blog';
-      else if (pathname.startsWith('/blog/')) newPath = `/en${pathname}`;
-      else if (pathname.startsWith('/hizmetler/')) {
-        const slug = pathname.replace('/hizmetler/', '');
-        const slugMap: Record<string, string> = {
-          'ui-ux-tasarim': 'ui-ux-design',
-          'seo-danismanligi': 'seo-consulting',
-          'online-reklamcilik': 'online-advertising',
-          'yapay-zeka-cozumleri': 'ai-solutions',
-          'sosyal-medya-yonetimi': 'social-media-management'
-        };
-        newPath = `/en/services/${slugMap[slug] || slug}`;
+      if (trToEnServices[cleanPath]) {
+        newPath = trToEnServices[cleanPath];
+      } else if (trToEnPages[cleanPath]) {
+        newPath = trToEnPages[cleanPath];
+      } else if (cleanPath.startsWith('/blog/')) {
+        // Blog posts - keep same slug, add /en prefix
+        newPath = `/en${cleanPath}`;
       } else {
-        newPath = `/en${pathname}`;
+        newPath = '/en';
       }
-    } else if (locale === 'en' && newLocale === 'tr') {
+    } else {
       // EN -> TR
-      if (pathname === '/en' || pathname === '/en/') newPath = '/';
-      else if (pathname === '/en/about') newPath = '/hakkimda';
-      else if (pathname === '/en/contact') newPath = '/iletisim';
-      else if (pathname === '/en/blog') newPath = '/blog';
-      else if (pathname.startsWith('/en/blog/')) newPath = pathname.replace('/en', '');
-      else if (pathname.startsWith('/en/services/')) {
-        const slug = pathname.replace('/en/services/', '');
-        const slugMap: Record<string, string> = {
-          'ui-ux-design': 'ui-ux-tasarim',
-          'seo-consulting': 'seo-danismanligi',
-          'online-advertising': 'online-reklamcilik',
-          'ai-solutions': 'yapay-zeka-cozumleri',
-          'social-media-management': 'sosyal-medya-yonetimi'
-        };
-        newPath = `/hizmetler/${slugMap[slug] || slug}`;
+      if (enToTrServices[cleanPath]) {
+        newPath = enToTrServices[cleanPath];
+      } else if (enToTrPages[cleanPath]) {
+        newPath = enToTrPages[cleanPath];
+      } else if (cleanPath.startsWith('/blog/')) {
+        // Blog posts - remove /en prefix if present
+        newPath = cleanPath;
       } else {
-        newPath = pathname.replace('/en', '') || '/';
+        newPath = '/';
       }
     }
     
     // Set cookie for locale preference
     document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
     router.push(newPath);
-    setLangDropdownOpen(false);
   };
 
   return (
@@ -191,35 +218,28 @@ export default function Header() {
               {t('about')}
             </Link>
 
-            {/* Language Switcher */}
-            <div className="relative">
-              <button 
-                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="flex items-center gap-2 text-primary-200 hover:text-white transition-colors"
+            {/* Language Switcher - Inline TR | EN */}
+            <div className="flex items-center gap-1 bg-surface-card/50 rounded-full px-1 py-1">
+              <button
+                onClick={() => switchLocale('tr')}
+                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
+                  locale === 'tr'
+                    ? 'bg-accent-500 text-white'
+                    : 'text-primary-300 hover:text-white hover:bg-surface-border/50'
+                }`}
               >
-                <Globe className="w-4 h-4" />
-                <span className="text-sm">{localeFlags[locale as Locale]}</span>
-                <ChevronDown className={`w-3 h-3 transition-transform ${langDropdownOpen ? 'rotate-180' : ''}`} />
+                TR
               </button>
-              
-              {langDropdownOpen && (
-                <div className="absolute top-full right-0 mt-2 bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-lg p-1 min-w-[120px] shadow-2xl animate-fade-in">
-                  {locales.map((loc) => (
-                    <button
-                      key={loc}
-                      onClick={() => switchLocale(loc)}
-                      className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors ${
-                        locale === loc 
-                          ? 'bg-accent-500/20 text-accent-400' 
-                          : 'text-primary-200 hover:text-white hover:bg-surface-border/50'
-                      }`}
-                    >
-                      <span>{localeFlags[loc]}</span>
-                      <span>{localeNames[loc]}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
+              <button
+                onClick={() => switchLocale('en')}
+                className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
+                  locale === 'en'
+                    ? 'bg-accent-500 text-white'
+                    : 'text-primary-300 hover:text-white hover:bg-surface-border/50'
+                }`}
+              >
+                EN
+              </button>
             </div>
 
             {/* CTA Button */}
@@ -276,25 +296,37 @@ export default function Header() {
                   {t('about')}
                 </Link>
                 
-                {/* Mobile Language Switcher */}
+                {/* Mobile Language Switcher - Inline TR | EN */}
                 <div className="flex items-center gap-2 px-2 py-2">
-                  <Globe className="w-4 h-4 text-primary-400" />
-                  {locales.map((loc) => (
+                  <span className="text-primary-400 text-sm">Dil:</span>
+                  <div className="flex items-center gap-1 bg-surface-border/30 rounded-full px-1 py-1">
                     <button
-                      key={loc}
                       onClick={() => {
-                        switchLocale(loc);
+                        switchLocale('tr');
                         setIsMobileMenuOpen(false);
                       }}
-                      className={`px-3 py-1 text-sm rounded-md transition-colors ${
-                        locale === loc 
-                          ? 'bg-accent-500/20 text-accent-400' 
+                      className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
+                        locale === 'tr'
+                          ? 'bg-accent-500 text-white'
                           : 'text-primary-300 hover:text-white'
                       }`}
                     >
-                      {localeFlags[loc]} {localeNames[loc]}
+                      TR
                     </button>
-                  ))}
+                    <button
+                      onClick={() => {
+                        switchLocale('en');
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
+                        locale === 'en'
+                          ? 'bg-accent-500 text-white'
+                          : 'text-primary-300 hover:text-white'
+                      }`}
+                    >
+                      EN
+                    </button>
+                  </div>
                 </div>
                 
                 <Link
