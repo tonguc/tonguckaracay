@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
   return (
     <article className="pt-28 pb-20">
       <div className="container-custom">
-        <Link href={blogPath} className="inline-flex items-center gap-2 text-slate-500 dark:text-primary-400 hover:text-accent-500 transition-colors mb-8">
+        <Link href={blogPath} className="inline-flex items-center gap-2 text-primary-400 hover:text-accent-500 transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
           {t('allPosts')}
         </Link>
@@ -61,15 +61,15 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
         <header className="max-w-3xl mx-auto text-center mb-12">
           <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
             <span className="px-3 py-1 bg-accent-500/10 text-accent-500 text-sm font-medium rounded-full">{post.category}</span>
-            <span className="flex items-center gap-1 text-sm text-slate-500 dark:text-primary-400"><Calendar className="w-4 h-4" />{formattedDate}</span>
-            <span className="flex items-center gap-1 text-sm text-slate-500 dark:text-primary-400"><Clock className="w-4 h-4" />{post.readTime}</span>
+            <span className="flex items-center gap-1 text-sm text-primary-400"><Calendar className="w-4 h-4" />{formattedDate}</span>
+            <span className="flex items-center gap-1 text-sm text-primary-400"><Clock className="w-4 h-4" />{post.readTime}</span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">{post.title}</h1>
-          <p className="text-lg text-slate-600 dark:text-primary-300">{post.description}</p>
+          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">{post.title}</h1>
+          <p className="text-lg text-primary-300">{post.description}</p>
         </header>
 
         <div className="max-w-4xl mx-auto mb-12">
-          <div className="aspect-video rounded-2xl overflow-hidden border border-slate-200 dark:border-surface-border">
+          <div className="aspect-video rounded-2xl overflow-hidden border border-surface-border">
             <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
           </div>
         </div>
@@ -79,21 +79,21 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
             <MarkdownRenderer content={post.content} />
           </div>
 
-          <div className="mt-12 pt-8 border-t border-slate-200 dark:border-surface-border">
+          <div className="mt-12 pt-8 border-t border-surface-border">
             <div className="flex items-center gap-2 flex-wrap">
-              <Tag className="w-4 h-4 text-slate-500 dark:text-primary-400" />
+              <Tag className="w-4 h-4 text-primary-400" />
               {post.tags.map((tag) => (
-                <span key={tag} className="px-3 py-1 bg-slate-100 dark:bg-surface-card border border-slate-200 dark:border-surface-border rounded-full text-sm text-slate-600 dark:text-primary-300">{tag}</span>
+                <span key={tag} className="px-3 py-1 bg-surface-card border border-surface-border rounded-full text-sm text-primary-300">{tag}</span>
               ))}
             </div>
           </div>
 
-          <div className="mt-12 p-6 bg-slate-50 dark:bg-surface-card border border-slate-200 dark:border-surface-border rounded-2xl">
+          <div className="mt-12 p-6 bg-surface-card border border-surface-border rounded-2xl">
             <div className="flex items-center gap-4">
               <img src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" className="w-16 h-16 rounded-full object-cover" />
               <div>
-                <h3 className="font-display font-semibold text-slate-900 dark:text-white">Tonguç Karaçay</h3>
-                <p className="text-sm text-slate-500 dark:text-primary-400">{locale === 'tr' ? 'AI-Driven UX & Growth Partner | 25+ Yıl Deneyim' : 'AI-Driven UX & Growth Partner | 25+ Years Experience'}</p>
+                <h3 className="font-display font-semibold text-white">Tonguç Karaçay</h3>
+                <p className="text-sm text-primary-400">{locale === 'tr' ? 'AI-Driven UX & Growth Partner | 25+ Yıl Deneyim' : 'AI-Driven UX & Growth Partner | 25+ Years Experience'}</p>
               </div>
             </div>
           </div>
@@ -101,16 +101,16 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
         {relatedPosts.length > 0 && (
           <div className="max-w-5xl mx-auto mt-20">
-            <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-8 text-center">{t('relatedPosts')}</h2>
+            <h2 className="font-display text-2xl font-bold text-white mb-8 text-center">{t('relatedPosts')}</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {relatedPosts.map((relatedPost) => (
-                <Link key={relatedPost.slug} href={locale === 'tr' ? `/blog/${relatedPost.slug}` : `/en/blog/${relatedPost.slug}`} className="group bg-white dark:bg-surface-card/50 border border-slate-200 dark:border-surface-border rounded-2xl overflow-hidden hover:shadow-lg dark:hover:border-accent-500/30 transition-all">
+                <Link key={relatedPost.slug} href={locale === 'tr' ? `/blog/${relatedPost.slug}` : `/en/blog/${relatedPost.slug}`} className="group bg-surface-card/50 border border-surface-border rounded-2xl overflow-hidden hover:border-accent-500/30 transition-all">
                   <div className="aspect-video overflow-hidden">
                     <img src={relatedPost.image} alt={relatedPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   <div className="p-4">
                     <span className="text-xs text-accent-500 uppercase tracking-wider">{relatedPost.category}</span>
-                    <h3 className="font-display font-semibold text-slate-900 dark:text-white mt-2 group-hover:text-accent-500 transition-colors line-clamp-2">{relatedPost.title}</h3>
+                    <h3 className="font-display font-semibold text-white mt-2 group-hover:text-accent-500 transition-colors line-clamp-2">{relatedPost.title}</h3>
                   </div>
                 </Link>
               ))}

@@ -18,7 +18,7 @@ const nextConfig = {
   },
   trailingSlash: true,
   
-  // 301 Redirects - Eski URL'lerden yeni URL'lere
+  // 301 Redirects - Eski URL'lerden yeni URL'lere (gerçek slug'larla eşleştirildi)
   async redirects() {
     return [
       // Blog yazıları redirect'leri
@@ -28,93 +28,93 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/kaliteli-backlink-nedir-nasil-alinir',
-        destination: '/blog/backlink-nedir-nasil-alinir',
+        source: '/kaliteli-backlink-nedir-nasil-alinir-old',
+        destination: '/blog/kaliteli-backlink-nedir-nasil-alinir',
         permanent: true,
       },
       {
-        source: '/ui-ux-designer-nedir-nasil-calisirlar',
-        destination: '/blog/ui-ux-designer-nedir',
+        source: '/ui-ux-designer-nedir-nasil-calisirlar-old',
+        destination: '/blog/ui-ux-designer-nedir-nasil-calisirlar',
         permanent: true,
       },
       {
-        source: '/google-analytics-ile-site-optimizasyonu',
+        source: '/google-analytics-ile-site-optimizasyonu-old',
         destination: '/blog/google-analytics-ile-site-optimizasyonu',
         permanent: true,
       },
       {
-        source: '/dijital-pazarlama-stratejileri-ve-araclari',
-        destination: '/blog/dijital-pazarlama-stratejileri',
+        source: '/dijital-pazarlama-stratejileri-ve-araclari-old',
+        destination: '/blog/dijital-pazarlama-stratejileri-ve-araclari',
         permanent: true,
       },
       {
-        source: '/inbound-marketing-nedir-nasil-yapilir',
-        destination: '/blog/inbound-marketing-nedir',
+        source: '/inbound-marketing-nedir-nasil-yapilir-old',
+        destination: '/blog/inbound-marketing-nedir-nasil-yapilir',
         permanent: true,
       },
       {
         source: '/kullanmaniz-gereken-seo-araclari-nelerdir-nasil-kullanilir',
-        destination: '/blog/seo-araclari-rehberi',
+        destination: '/blog/kullanmaniz-gereken-seo-araclari',
         permanent: true,
       },
       {
-        source: '/seo-ile-organik-trafigi-artirmanin-yontemleri',
-        destination: '/blog/organik-trafik-artirma',
+        source: '/seo-ile-organik-trafigi-artirmanin-yontemleri-old',
+        destination: '/blog/seo-ile-organik-trafigi-artirmanin-yontemleri',
         permanent: true,
       },
       {
         source: '/seoda-organik-trafigi-arttirmanin-yontemleri',
-        destination: '/blog/organik-trafik-artirma',
+        destination: '/blog/seo-ile-organik-trafigi-artirmanin-yontemleri',
         permanent: true,
       },
       {
-        source: '/serp-nedir',
-        destination: '/blog/serp-nedir',
+        source: '/serp-nedir-old',
+        destination: '/blog/serp-nedir-google-icin-neden-onemlidir',
         permanent: true,
       },
       {
         source: '/heading-tags-nedir',
-        destination: '/blog/heading-tags-h1-etiketi',
+        destination: '/blog/heading-tags-nedir-h1-etiketi-nasil-kullanilir',
         permanent: true,
       },
       {
-        source: '/seo-uyumlu-icerik-nasil-yazilir',
-        destination: '/blog/seo-uyumlu-icerik',
+        source: '/kaliteli-ve-ozgun-icerigin-seo-icin-onemi-old',
+        destination: '/blog/kaliteli-ve-ozgun-icerigin-seo-icin-onemi',
         permanent: true,
       },
       {
-        source: '/profesyonel-seo-uzmani-nedir-nasil-olunur',
-        destination: '/blog/profesyonel-seo-uzmani',
+        source: '/profesyonel-seo-uzmani-nedir-nasil-olunur-old',
+        destination: '/blog/profesyonel-seo-uzmani-nedir-nasil-olunur',
         permanent: true,
       },
       {
-        source: '/dropshipping-ile-dijital-pazarlama',
-        destination: '/blog/dropshipping-dijital-pazarlama',
+        source: '/dropshipping-ile-dijital-pazarlama-old',
+        destination: '/blog/dropshipping-ile-dijital-pazarlama',
         permanent: true,
       },
       {
         source: '/icerik-pazarlamasinda-kalite-ozgunluk-ve-seo-optimizasyonu',
-        destination: '/blog/icerik-pazarlamasi-seo',
+        destination: '/blog/icerik-pazarlamasi-ve-seo-optimizasyonu',
         permanent: true,
       },
       {
-        source: '/icerik-pazarlamasi-ve-seo-optimizasyonu',
-        destination: '/blog/icerik-pazarlamasi-seo',
+        source: '/icerik-pazarlamasi-ve-seo-optimizasyonu-old',
+        destination: '/blog/icerik-pazarlamasi-ve-seo-optimizasyonu',
         permanent: true,
       },
       {
-        source: '/sosyal-medya-yonetimi-ve-online-pazarlama',
-        destination: '/blog/sosyal-medya-pazarlama',
+        source: '/sosyal-medya-yonetimi-ve-online-pazarlama-old',
+        destination: '/blog/sosyal-medya-yonetimi-ve-online-pazarlama',
         permanent: true,
       },
       {
-        source: '/en-etkili-dijital-pazarlama-yontemleri',
-        destination: '/blog/dijital-pazarlama-yontemleri',
+        source: '/en-etkili-dijital-pazarlama-yontemleri-old',
+        destination: '/blog/en-etkili-dijital-pazarlama-yontemleri',
         permanent: true,
       },
       {
-        source: '/site-ici-seo-nasil-yapilir',
-        destination: '/blog/on-page-seo-rehberi',
+        source: '/site-ici-seo-nasil-yapilir-old',
+        destination: '/blog/site-ici-seo-nasil-yapilir',
         permanent: true,
       },
       // Kategori sayfaları

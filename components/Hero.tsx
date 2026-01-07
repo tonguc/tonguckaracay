@@ -4,14 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
 import { ArrowRight } from "lucide-react";
-import { useTheme } from './ThemeProvider';
 
 export default function Hero() {
   const t = useTranslations('hero');
   const locale = useLocale();
   const contactPath = locale === 'tr' ? '/iletisim' : '/en/contact';
-  const { theme } = useTheme();
-  const isLight = theme === 'light';
   
   return (
     <section className="pt-28 pb-16 md:pt-32 md:pb-20">
@@ -19,22 +16,22 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left - Text Content */}
           <div>
-            <p className={`text-sm ${isLight ? 'text-slate-500' : 'text-slate-400'} mb-2`}>
+            <p className="text-sm text-primary-400 mb-2">
               {locale === 'tr' ? 'Ana Sayfa' : 'Home'} /
             </p>
             
-            <h1 className={`font-display text-4xl md:text-5xl lg:text-6xl font-bold ${isLight ? 'text-slate-900' : 'text-white'} mb-6 leading-tight`}>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               {locale === 'tr' ? 'Merhaba, ben ' : "Hi, I'm "}
               <span className="text-gradient">Tonguç Karaçay</span>
             </h1>
 
-            <p className={`text-lg ${isLight ? 'text-slate-600' : 'text-slate-300'} mb-6 leading-relaxed`}>
+            <p className="text-lg text-primary-300 mb-6 leading-relaxed">
               {locale === 'tr' 
                 ? '25 yılı aşkın süredir UI/UX tasarım, SEO ve growth marketing alanlarında çalışıyorum. Türkiye\'nin önde gelen kurumsal şirketlerinin yanı sıra Amerika, Kanada ve Almanya\'daki firmalara da hizmet veriyorum.'
                 : "With over 25 years of experience in UI/UX design, SEO, and growth marketing. I serve leading corporate companies in Turkey as well as firms in the USA, Canada, and Germany."}
             </p>
 
-            <p className={`text-base ${isLight ? 'text-slate-500' : 'text-slate-400'} mb-8`}>
+            <p className="text-base text-primary-400 mb-8">
               {locale === 'tr'
                 ? 'Kariyerime Türkiye\'nin en büyük medya gruplarında başladım. Sabah, ATV, Star TV gibi markaların dijital ürünlerini tasarladım.'
                 : 'I started my career in Turkey\'s largest media groups. I designed digital products for brands like Sabah, ATV, and Star TV.'}
@@ -44,11 +41,11 @@ export default function Hero() {
             <div className="flex items-center gap-4 mb-8">
               <span className="flex items-center gap-2 text-sm">
                 <span className="text-green-500">📍</span>
-                <span className={isLight ? 'text-slate-600' : 'text-slate-300'}>İstanbul, Türkiye</span>
+                <span className="text-primary-300">İstanbul, Türkiye</span>
               </span>
               <span className="flex items-center gap-2 text-sm">
                 <span className="text-blue-500">🌐</span>
-                <span className={isLight ? 'text-slate-600' : 'text-slate-300'}>{locale === 'tr' ? 'Uzaktan Çalışma' : 'Remote Work'}</span>
+                <span className="text-primary-300">{locale === 'tr' ? 'Uzaktan Çalışma' : 'Remote Work'}</span>
               </span>
             </div>
 

@@ -1,70 +1,67 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
-import { ArrowRight, Award } from "lucide-react";
-import { useTheme } from './ThemeProvider';
-
-const brands = ["THY", "BMW", "Jaguar", "Galatasaray", "Sabah", "ATV", "A Haber", "Borusan Otomotiv"];
+import { Award, Users, Globe, Zap } from "lucide-react";
 
 export default function About() {
   const t = useTranslations('about');
   const locale = useLocale();
-  const aboutPath = locale === 'tr' ? '/hakkimda' : '/en/about';
-  const { theme } = useTheme();
-  const isLight = theme === 'light';
-  
+
+  const highlights = [
+    { icon: Award, titleKey: 'experience', valueKey: 'experienceValue' },
+    { icon: Users, titleKey: 'clients', valueKey: 'clientsValue' },
+    { icon: Globe, titleKey: 'countries', valueKey: 'countriesValue' },
+    { icon: Zap, titleKey: 'projects', valueKey: 'projectsValue' },
+  ];
+
   return (
-    <section className="py-20 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent-500/5 to-transparent pointer-events-none" />
-      
-      <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-2 gap-9 lg:gap-12 items-center">
-          <div className="relative">
-            <div className="relative max-w-md mx-auto lg:mx-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-500/20 to-indigo-500/20 rounded-2xl transform rotate-3" />
-              <div className={`absolute inset-0 ${isLight ? 'bg-white border-slate-200' : 'bg-surface-card border-surface-border'} border rounded-2xl transform -rotate-3`} />
-              <div className={`relative rounded-2xl overflow-hidden border ${isLight ? 'border-slate-200' : 'border-surface-border'}`}>
-                <Image src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" width={500} height={500} className="w-full h-auto object-cover" />
-              </div>
-              <div className={`absolute -bottom-6 -right-6 ${isLight ? 'bg-white/90 border-slate-200' : 'bg-surface-card/90 border-surface-border'} backdrop-blur-lg border rounded-xl p-4 shadow-2xl animate-float`}>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-accent-500/20 flex items-center justify-center">
-                    <Award className="w-5 h-5 text-accent-500" />
+    <section id="hakkimda" className="py-20 bg-surface-card/30">
+      <div className="container-custom">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="section-title">
+              {t('title')} <span className="text-gradient">{t('highlight')}</span>
+            </h2>
+            <p className="section-subtitle mb-6">
+              {t('description')}
+            </p>
+            <p className="text-primary-400 mb-8">
+              {t('subdescription')}
+            </p>
+            
+            <div className="grid grid-cols-2 gap-4">
+              {highlights.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.titleKey} className="card p-4">
+                    <Icon className="w-8 h-8 text-accent-500 mb-2" />
+                    <div className="text-2xl font-bold text-white">{t(item.valueKey)}</div>
+                    <div className="text-sm text-primary-400">{t(item.titleKey)}</div>
                   </div>
-                  <div>
-                    <p className={`text-2xl font-display font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>25+</p>
-                    <p className={`text-xs ${isLight ? 'text-slate-500' : 'text-primary-400'}`}>{t('yearsExperience')}</p>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
-
-          <div>
-            <h2 className="section-title mb-6">
-              {t('title')} <span className="text-gradient">{t('name')}</span>
-            </h2>
-            <div className={`space-y-4 ${isLight ? 'text-slate-600' : 'text-primary-300'} leading-relaxed mb-8`}>
-              <p>{t('description1')}</p>
-              <p>{t('description2')}</p>
-              <p>{t('description3')}</p>
-            </div>
-            <div className="mb-8">
-              <p className={`text-sm ${isLight ? 'text-slate-500' : 'text-primary-400'} mb-3`}>{t('brandsTitle')}</p>
+          
+          <div className="space-y-4">
+            <div className="card p-6">
+              <h3 className="text-xl font-semibold text-white mb-3">{locale === 'tr' ? 'Uzmanlık Alanları' : 'Expertise'}</h3>
               <div className="flex flex-wrap gap-2">
-                {brands.map((brand) => (
-                  <span key={brand} className={`px-3 py-1.5 text-sm ${isLight ? 'text-slate-600 bg-slate-100 border-slate-200' : 'text-primary-300 bg-surface-card/50 border-surface-border/50'} border rounded-lg`}>
-                    {brand}
+                {['UI/UX Design', 'SEO', 'Growth Marketing', 'AI Solutions', 'Digital Strategy'].map((skill) => (
+                  <span key={skill} className="px-3 py-1 bg-accent-500/10 text-accent-400 rounded-full text-sm">
+                    {skill}
                   </span>
                 ))}
               </div>
             </div>
-            <Link href={aboutPath} className="inline-flex items-center gap-2 text-accent-500 hover:text-accent-400 font-medium group">
-              {t('moreInfo')}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            <div className="card p-6">
+              <h3 className="text-xl font-semibold text-white mb-3">{locale === 'tr' ? 'Çalışma Yaklaşımı' : 'Work Approach'}</h3>
+              <p className="text-primary-300">
+                {locale === 'tr' 
+                  ? 'Veri odaklı, kullanıcı merkezli ve sonuç getiren stratejiler geliştiriyorum. Her projeye özel çözümler sunuyorum.'
+                  : 'I develop data-driven, user-centered strategies that deliver results. I offer customized solutions for each project.'}
+              </p>
+            </div>
           </div>
         </div>
       </div>
