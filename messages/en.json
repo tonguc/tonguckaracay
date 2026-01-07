@@ -54,18 +54,23 @@
   },
   "about": {
     "title": "Hello, I'm",
-    "name": "Tonguç Karaçay",
-    "description1": "With over 25 years of experience, I provide strategic consulting to businesses in UI/UX design, SEO, growth marketing, and artificial intelligence.",
-    "description2": "I've supported digital transformation processes for Turkey's leading corporate companies. I also provide international SEO and growth marketing services to companies in the USA, Canada, and Germany.",
-    "description3": "By combining my technical expertise with a user experience-focused design approach, I develop strategies that deliver not just traffic, but real conversions.",
+    "highlight": "Tonguç Karaçay",
+    "description": "With over 25 years of experience, I provide strategic consulting to businesses in UI/UX design, SEO, growth marketing, and artificial intelligence.",
+    "subdescription": "I serve leading corporate companies in Turkey as well as companies in the USA, Canada, and Germany.",
+    "experience": "Years Experience",
+    "experienceValue": "25+",
+    "clients": "Clients",
+    "clientsValue": "150+",
+    "countries": "Countries",
+    "countriesValue": "12+",
+    "projects": "Projects",
+    "projectsValue": "500+",
     "brandsTitle": "Some of the companies I've worked with and supported:",
-    "moreInfo": "Learn more",
-    "yearsExperience": "Years Experience"
+    "moreInfo": "Learn more"
   },
   "cta": {
-    "title": "Let's Talk About",
-    "titleHighlight": "Your Project",
-    "subtitle": "Let's work together to achieve your digital goals. Get in touch now for a free consultation.",
+    "title": "Let's Talk About Your Project",
+    "description": "Let's work together to achieve your digital goals. Get in touch now for a free consultation.",
     "button": "Schedule a Meeting",
     "availability": "I usually respond within 24 hours"
   },
@@ -84,7 +89,9 @@
   },
   "blog": {
     "title": "Blog",
+    "highlight": "Posts",
     "subtitle": "Up-to-date content about UI/UX design, SEO, digital marketing, and artificial intelligence.",
+    "viewAll": "View All",
     "readMore": "Read More",
     "readTime": "min read",
     "relatedPosts": "Related Posts",

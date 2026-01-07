@@ -54,18 +54,23 @@
   },
   "about": {
     "title": "Merhaba, ben",
-    "name": "Tonguç Karaçay",
-    "description1": "25 yılı aşkın deneyimimle UI/UX tasarım, SEO, growth marketing ve yapay zeka alanlarında işletmelere stratejik danışmanlık veriyorum.",
-    "description2": "Türkiye'nin önde gelen kurumsal şirketlerine dijital dönüşüm süreçlerinde destek verdim. Aynı zamanda Amerika, Kanada ve Almanya'daki firmalara uluslararası SEO ve growth marketing hizmetleri sunuyorum.",
-    "description3": "Teknik uzmanlığımı, kullanıcı deneyimi odaklı tasarım anlayışıyla birleştirerek sadece trafik değil, gerçek dönüşüm sağlayan stratejiler geliştiriyorum.",
+    "highlight": "Tonguç Karaçay",
+    "description": "25 yılı aşkın deneyimimle UI/UX tasarım, SEO, growth marketing ve yapay zeka alanlarında işletmelere stratejik danışmanlık veriyorum.",
+    "subdescription": "Türkiye'nin önde gelen kurumsal şirketlerinin yanı sıra Amerika, Kanada ve Almanya'daki firmalara da hizmet veriyorum.",
+    "experience": "Yıl Deneyim",
+    "experienceValue": "25+",
+    "clients": "Müşteri",
+    "clientsValue": "150+",
+    "countries": "Ülke",
+    "countriesValue": "12+",
+    "projects": "Proje",
+    "projectsValue": "500+",
     "brandsTitle": "Çalıştığım ve destek verdiğim firmalardan bazıları:",
-    "moreInfo": "Daha fazla bilgi",
-    "yearsExperience": "Yıl Deneyim"
+    "moreInfo": "Daha fazla bilgi"
   },
   "cta": {
-    "title": "Projenizi",
-    "titleHighlight": "Konuşalım",
-    "subtitle": "Dijital hedeflerinizi gerçekleştirmek için birlikte çalışalım. Ücretsiz danışmanlık görüşmesi için hemen iletişime geçin.",
+    "title": "Projenizi Konuşalım",
+    "description": "Dijital hedeflerinizi gerçekleştirmek için birlikte çalışalım. Ücretsiz danışmanlık görüşmesi için hemen iletişime geçin.",
     "button": "Görüşme Planla",
     "availability": "Genellikle 24 saat içinde yanıt veriyorum"
   },
@@ -84,7 +89,9 @@
   },
   "blog": {
     "title": "Blog",
+    "highlight": "Yazıları",
     "subtitle": "UI/UX tasarım, SEO, dijital pazarlama ve yapay zeka hakkında güncel içerikler.",
+    "viewAll": "Tümünü Gör",
     "readMore": "Devamını Oku",
     "readTime": "dk okuma",
     "relatedPosts": "İlgili Yazılar",
