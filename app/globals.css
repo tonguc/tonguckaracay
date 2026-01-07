@@ -15,28 +15,28 @@
     scroll-behavior: smooth;
   }
   
-  /* Dark mode - default */
   body {
-    @apply bg-surface-darker text-primary-100 font-body antialiased;
+    @apply font-body antialiased transition-colors duration-200;
+  }
+
+  /* Dark mode body - default when .dark class on html */
+  html.dark body {
+    @apply bg-surface-darker text-primary-100;
     background-image: 
       radial-gradient(ellipse 80% 50% at 50% -20%, rgba(251, 191, 36, 0.08), transparent),
       radial-gradient(ellipse 60% 40% at 100% 0%, rgba(99, 102, 241, 0.05), transparent);
   }
 
-  /* Light mode */
-  .light body {
+  /* Light mode body - when .light class on html */
+  html.light body {
     @apply bg-slate-50 text-slate-800;
     background-image: 
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(251, 191, 36, 0.05), transparent),
-      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(99, 102, 241, 0.03), transparent);
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(251, 191, 36, 0.03), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(99, 102, 241, 0.02), transparent);
   }
 
   ::selection {
-    @apply bg-accent-500/30 text-white;
-  }
-  
-  .light ::selection {
-    @apply text-slate-900;
+    @apply bg-accent-500/30;
   }
 }
 
@@ -65,55 +65,56 @@
   
   .btn-secondary {
     @apply inline-flex items-center justify-center px-6 py-3 
-           bg-surface-card border border-surface-border
-           text-primary-100 font-medium rounded-lg
-           hover:bg-surface-border hover:border-primary-500/30
+           font-medium rounded-lg
            transform hover:scale-[1.02] active:scale-[0.98]
            transition-all duration-200 ease-out;
   }
   
-  .light .btn-secondary {
-    @apply bg-white border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300;
+  html.dark .btn-secondary {
+    @apply bg-surface-card border border-surface-border text-primary-100 hover:bg-surface-border;
+  }
+  
+  html.light .btn-secondary {
+    @apply bg-white border border-slate-200 text-slate-700 hover:bg-slate-100;
   }
   
   .card {
-    @apply bg-surface-card/50 backdrop-blur-sm 
-           border border-surface-border/50 rounded-2xl
-           hover:border-accent-500/30 hover:bg-surface-card/80
-           transition-all duration-300 ease-out;
+    @apply backdrop-blur-sm rounded-2xl transition-all duration-300 ease-out;
   }
   
-  .light .card {
-    @apply bg-white/80 border-slate-200 hover:border-accent-500/50 hover:bg-white shadow-sm hover:shadow-md;
+  html.dark .card {
+    @apply bg-surface-card/50 border border-surface-border/50 hover:border-accent-500/30 hover:bg-surface-card/80;
+  }
+  
+  html.light .card {
+    @apply bg-white/90 border border-slate-200 hover:border-accent-500/40 hover:shadow-lg;
   }
   
   .card-glow {
     @apply relative overflow-hidden;
   }
-  
-  .card-glow::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
-    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(251, 191, 36, 0.06), transparent 40%);
-  }
-  
-  .card-glow:hover::before {
-    @apply opacity-100;
-  }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-display font-bold text-white mb-4;
+    @apply text-3xl md:text-4xl font-display font-bold mb-4;
   }
   
-  .light .section-title {
+  html.dark .section-title {
+    @apply text-white;
+  }
+  
+  html.light .section-title {
     @apply text-slate-900;
   }
   
   .section-subtitle {
-    @apply text-lg text-primary-300 max-w-2xl;
+    @apply text-lg max-w-2xl;
   }
   
-  .light .section-subtitle {
+  html.dark .section-subtitle {
+    @apply text-primary-300;
+  }
+  
+  html.light .section-subtitle {
     @apply text-slate-600;
   }
 
@@ -140,33 +141,29 @@
   .animation-delay-600 { animation-delay: 600ms; }
 }
 
-/* Custom scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-::-webkit-scrollbar-track {
+html.dark ::-webkit-scrollbar-track {
   @apply bg-surface-darker;
 }
 
-::-webkit-scrollbar-thumb {
+html.dark ::-webkit-scrollbar-thumb {
   @apply bg-surface-border rounded-full hover:bg-primary-600;
 }
 
-.light ::-webkit-scrollbar-track {
+html.light ::-webkit-scrollbar-track {
   @apply bg-slate-100;
 }
 
-.light ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 hover:bg-slate-400;
+html.light ::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full hover:bg-slate-400;
 }
 
-/* Focus styles */
+/* Focus */
 *:focus-visible {
-  @apply outline-none ring-2 ring-accent-500/50 ring-offset-2 ring-offset-surface-darker;
-}
-
-.light *:focus-visible {
-  @apply ring-offset-white;
+  @apply outline-none ring-2 ring-accent-500/50 ring-offset-2;
 }

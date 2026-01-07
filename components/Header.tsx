@@ -4,23 +4,20 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
-import { type Locale } from '@/i18n.config';
 import { useTheme } from './ThemeProvider';
 
 export default function Header() {
   const t = useTranslations('nav');
   const locale = useLocale();
   const pathname = usePathname();
-  const router = useRouter();
   const { theme, toggleTheme } = useTheme();
   
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  // Services links based on locale
   const services = locale === 'tr' ? [
     { name: "UI/UX Tasarım", href: "/hizmetler/ui-ux-tasarim" },
     { name: "SEO Danışmanlığı", href: "/hizmetler/seo-danismanligi" },
@@ -35,7 +32,6 @@ export default function Header() {
     { name: "Social Media Management", href: "/en/services/social-media-management" },
   ];
 
-  // Navigation links based on locale
   const navLinks = locale === 'tr' ? {
     blog: '/blog',
     about: '/hakkimda',
@@ -49,28 +45,16 @@ export default function Header() {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleDropdownEnter = (dropdown: string) => {
-    setActiveDropdown(dropdown);
-  };
-
-  const handleDropdownLeave = () => {
-    setActiveDropdown(null);
-  };
-
-  // Language switch function
-  const switchLocale = (newLocale: Locale) => {
+  // Language switch - window.location for hard navigation
+  const switchLocale = (newLocale: 'tr' | 'en') => {
     if (newLocale === locale) return;
     
-    // Get current path and determine new path
     let currentPath = pathname;
-    let newPath = '/';
     
     // Remove /en prefix if exists
     if (currentPath.startsWith('/en/')) {
@@ -79,8 +63,8 @@ export default function Header() {
       currentPath = '/';
     }
     
-    // Define path mappings
-    const pathMappings: Record<string, { tr: string; en: string }> = {
+    // Path mappings
+    const mappings: Record<string, { tr: string; en: string }> = {
       '/': { tr: '/', en: '/en' },
       '/hakkimda': { tr: '/hakkimda', en: '/en/about' },
       '/about': { tr: '/hakkimda', en: '/en/about' },
@@ -99,70 +83,58 @@ export default function Header() {
       '/services/social-media-management': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
     };
     
-    // Check direct mapping
-    if (pathMappings[currentPath]) {
-      newPath = pathMappings[currentPath][newLocale];
-    } 
-    // Handle blog posts
-    else if (currentPath.startsWith('/blog/')) {
+    let newPath: string;
+    
+    if (mappings[currentPath]) {
+      newPath = mappings[currentPath][newLocale];
+    } else if (currentPath.startsWith('/blog/')) {
       const slug = currentPath.replace('/blog/', '');
       newPath = newLocale === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`;
-    }
-    // Default fallback
-    else {
+    } else {
       newPath = newLocale === 'en' ? '/en' : '/';
     }
     
-    // Set cookie
+    // Set cookie and navigate with hard refresh
     document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
-    router.push(newPath);
+    window.location.href = newPath;
   };
 
   const isLight = theme === 'light';
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? `${isLight ? 'bg-white/90' : 'bg-surface-darker/90'} backdrop-blur-lg border-b ${isLight ? 'border-slate-200' : 'border-surface-border/50'} py-3`
-          : "bg-transparent py-5"
-      }`}
-    >
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled
+        ? `${isLight ? 'bg-white/95 border-slate-200' : 'bg-surface-darker/95 border-surface-border/50'} backdrop-blur-lg border-b py-3`
+        : "bg-transparent py-5"
+    }`}>
       <div className="container-custom">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Link
-            href={navLinks.home}
-            className="flex items-center hover:opacity-80 transition-opacity"
-          >
+          <Link href={navLinks.home} className="flex items-center hover:opacity-80 transition-opacity">
             <Image
               src="/logo.png"
               alt="Tonguç Karaçay"
               width={50}
               height={50}
-              className={isLight ? 'invert' : ''}
+              className={isLight ? 'brightness-0' : ''}
             />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            {/* Hizmetler Dropdown */}
+            {/* Services Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => handleDropdownEnter("services")}
-              onMouseLeave={handleDropdownLeave}
+              onMouseEnter={() => setActiveDropdown("services")}
+              onMouseLeave={() => setActiveDropdown(null)}
             >
-              <button className={`flex items-center gap-1 ${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors font-medium`}>
+              <button className={`flex items-center gap-1 ${isLight ? 'text-slate-700 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors font-medium`}>
                 {t('services')}
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform ${
-                    activeDropdown === "services" ? "rotate-180" : ""
-                  }`}
-                />
+                <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "services" ? "rotate-180" : ""}`} />
               </button>
               {activeDropdown === "services" && (
                 <div className="absolute top-full left-0 pt-2 animate-fade-in">
-                  <div className={`${isLight ? 'bg-white/95 border-slate-200' : 'bg-surface-card/95 border-surface-border'} backdrop-blur-lg border rounded-xl p-2 min-w-[220px] shadow-2xl`}>
+                  <div className={`${isLight ? 'bg-white border-slate-200' : 'bg-surface-card border-surface-border'} backdrop-blur-lg border rounded-xl p-2 min-w-[220px] shadow-2xl`}>
                     {services.map((service) => (
                       <Link
                         key={service.href}
@@ -177,43 +149,31 @@ export default function Header() {
               )}
             </div>
 
-            {/* Blog */}
-            <Link
-              href={navLinks.blog}
-              className={`${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors font-medium`}
-            >
+            <Link href={navLinks.blog} className={`${isLight ? 'text-slate-700 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors font-medium`}>
               {t('blog')}
             </Link>
 
-            {/* About */}
-            <Link
-              href={navLinks.about}
-              className={`${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors font-medium`}
-            >
+            <Link href={navLinks.about} className={`${isLight ? 'text-slate-700 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors font-medium`}>
               {t('about')}
             </Link>
 
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-full ${isLight ? 'bg-slate-100 hover:bg-slate-200' : 'bg-surface-card/50 hover:bg-surface-card'} transition-colors`}
+              className={`p-2 rounded-full ${isLight ? 'bg-slate-100 hover:bg-slate-200' : 'bg-surface-card hover:bg-surface-border'} transition-colors`}
               aria-label="Toggle theme"
             >
-              {isLight ? (
-                <Moon className="w-5 h-5 text-slate-600" />
-              ) : (
-                <Sun className="w-5 h-5 text-amber-400" />
-              )}
+              {isLight ? <Moon className="w-5 h-5 text-slate-600" /> : <Sun className="w-5 h-5 text-amber-400" />}
             </button>
 
             {/* Language Switcher */}
-            <div className={`flex items-center gap-1 ${isLight ? 'bg-slate-100' : 'bg-surface-card/50'} rounded-full px-1 py-1`}>
+            <div className={`flex items-center gap-1 ${isLight ? 'bg-slate-100' : 'bg-surface-card'} rounded-full px-1 py-1`}>
               <button
                 onClick={() => switchLocale('tr')}
                 className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                   locale === 'tr'
                     ? 'bg-accent-500 text-white'
-                    : `${isLight ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-200' : 'text-primary-300 hover:text-white hover:bg-surface-border/50'}`
+                    : `${isLight ? 'text-slate-600 hover:bg-slate-200' : 'text-primary-300 hover:bg-surface-border'}`
                 }`}
               >
                 TR
@@ -223,38 +183,26 @@ export default function Header() {
                 className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                   locale === 'en'
                     ? 'bg-accent-500 text-white'
-                    : `${isLight ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-200' : 'text-primary-300 hover:text-white hover:bg-surface-border/50'}`
+                    : `${isLight ? 'text-slate-600 hover:bg-slate-200' : 'text-primary-300 hover:bg-surface-border'}`
                 }`}
               >
                 EN
               </button>
             </div>
 
-            {/* CTA Button */}
             <Link href={navLinks.contact} className="btn-primary">
               {t('contact')}
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile */}
           <div className="md:hidden flex items-center gap-2">
-            {/* Mobile Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-full ${isLight ? 'bg-slate-100' : 'bg-surface-card/50'}`}
-              aria-label="Toggle theme"
-            >
-              {isLight ? (
-                <Moon className="w-5 h-5 text-slate-600" />
-              ) : (
-                <Sun className="w-5 h-5 text-amber-400" />
-              )}
+            <button onClick={toggleTheme} className={`p-2 rounded-full ${isLight ? 'bg-slate-100' : 'bg-surface-card'}`}>
+              {isLight ? <Moon className="w-5 h-5 text-slate-600" /> : <Sun className="w-5 h-5 text-amber-400" />}
             </button>
-            
             <button
               className={`${isLight ? 'text-slate-800' : 'text-white'} p-2`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -264,81 +212,28 @@ export default function Header() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 animate-fade-in">
-            <div className={`${isLight ? 'bg-white/95 border-slate-200' : 'bg-surface-card/95 border-surface-border'} backdrop-blur-lg border rounded-xl p-4`}>
-              {/* Mobile Services */}
+            <div className={`${isLight ? 'bg-white border-slate-200' : 'bg-surface-card border-surface-border'} border rounded-xl p-4`}>
               <div className="mb-4">
-                <p className={`text-xs uppercase tracking-wider ${isLight ? 'text-slate-500' : 'text-primary-400'} mb-2 px-2`}>
-                  {t('services')}
-                </p>
+                <p className={`text-xs uppercase tracking-wider ${isLight ? 'text-slate-500' : 'text-primary-400'} mb-2 px-2`}>{t('services')}</p>
                 {services.map((service) => (
-                  <Link
-                    key={service.href}
-                    href={service.href}
-                    className={`block px-2 py-2 ${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
+                  <Link key={service.href} href={service.href} className={`block px-2 py-2 ${isLight ? 'text-slate-600' : 'text-primary-200'}`} onClick={() => setIsMobileMenuOpen(false)}>
                     {service.name}
                   </Link>
                 ))}
               </div>
-
-              {/* Mobile Other Links */}
               <div className={`pt-4 border-t ${isLight ? 'border-slate-200' : 'border-surface-border'} space-y-2`}>
-                <Link
-                  href={navLinks.blog}
-                  className={`block px-2 py-2 ${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('blog')}
-                </Link>
-                <Link
-                  href={navLinks.about}
-                  className={`block px-2 py-2 ${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('about')}
-                </Link>
+                <Link href={navLinks.blog} className={`block px-2 py-2 ${isLight ? 'text-slate-600' : 'text-primary-200'}`} onClick={() => setIsMobileMenuOpen(false)}>{t('blog')}</Link>
+                <Link href={navLinks.about} className={`block px-2 py-2 ${isLight ? 'text-slate-600' : 'text-primary-200'}`} onClick={() => setIsMobileMenuOpen(false)}>{t('about')}</Link>
                 
-                {/* Mobile Language Switcher */}
                 <div className="flex items-center gap-2 px-2 py-2">
                   <span className={`${isLight ? 'text-slate-500' : 'text-primary-400'} text-sm`}>{locale === 'tr' ? 'Dil:' : 'Lang:'}</span>
                   <div className={`flex items-center gap-1 ${isLight ? 'bg-slate-100' : 'bg-surface-border/30'} rounded-full px-1 py-1`}>
-                    <button
-                      onClick={() => {
-                        switchLocale('tr');
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
-                        locale === 'tr'
-                          ? 'bg-accent-500 text-white'
-                          : `${isLight ? 'text-slate-500 hover:text-slate-900' : 'text-primary-300 hover:text-white'}`
-                      }`}
-                    >
-                      TR
-                    </button>
-                    <button
-                      onClick={() => {
-                        switchLocale('en');
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
-                        locale === 'en'
-                          ? 'bg-accent-500 text-white'
-                          : `${isLight ? 'text-slate-500 hover:text-slate-900' : 'text-primary-300 hover:text-white'}`
-                      }`}
-                    >
-                      EN
-                    </button>
+                    <button onClick={() => { switchLocale('tr'); setIsMobileMenuOpen(false); }} className={`px-3 py-1.5 text-sm font-medium rounded-full ${locale === 'tr' ? 'bg-accent-500 text-white' : `${isLight ? 'text-slate-500' : 'text-primary-300'}`}`}>TR</button>
+                    <button onClick={() => { switchLocale('en'); setIsMobileMenuOpen(false); }} className={`px-3 py-1.5 text-sm font-medium rounded-full ${locale === 'en' ? 'bg-accent-500 text-white' : `${isLight ? 'text-slate-500' : 'text-primary-300'}`}`}>EN</button>
                   </div>
                 </div>
                 
-                <Link
-                  href={navLinks.contact}
-                  className="btn-primary w-full text-center mt-4"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('contact')}
-                </Link>
+                <Link href={navLinks.contact} className="btn-primary w-full text-center mt-4" onClick={() => setIsMobileMenuOpen(false)}>{t('contact')}</Link>
               </div>
             </div>
           </div>
