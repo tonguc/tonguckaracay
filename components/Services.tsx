@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale, useTranslations } from 'next-intl';
 import { 
   Search, 
   Megaphone, 
@@ -10,45 +11,38 @@ import {
   ArrowUpRight 
 } from "lucide-react";
 
-const services = [
-  {
-    icon: Palette,
-    title: "UI/UX Tasarım",
-    description: "Kullanıcı odaklı, dönüşüm optimizasyonlu tasarımlar. Web sitesi ve uygulama arayüz tasarımı.",
-    href: "/hizmetler/ui-ux-tasarim",
-    features: ["Kullanıcı Araştırması", "Wireframe & Prototip", "Dönüşüm Optimizasyonu"],
-  },
-  {
-    icon: Search,
-    title: "SEO Danışmanlığı",
-    description: "Google'da üst sıralara çıkın. Teknik SEO, içerik stratejisi ve link building ile organik trafiğinizi artırın.",
-    href: "/hizmetler/seo-danismanligi",
-    features: ["Teknik SEO Analizi", "Anahtar Kelime Stratejisi", "Link Building"],
-  },
-  {
-    icon: Megaphone,
-    title: "Online Reklamcılık",
-    description: "Google Ads ve Meta Ads ile hedef kitlenize ulaşın. ROI odaklı kampanya yönetimi ve optimizasyon.",
-    href: "/hizmetler/online-reklamcilik",
-    features: ["Google Ads", "Meta Ads", "Remarketing"],
-  },
-  {
-    icon: Bot,
-    title: "Yapay Zeka Çözümleri",
-    description: "AI ile iş süreçlerinizi otomatize edin. Chatbot, içerik üretimi ve veri analizi çözümleri.",
-    href: "/hizmetler/yapay-zeka-cozumleri",
-    features: ["AI Otomasyon", "Chatbot Geliştirme", "Veri Analizi"],
-  },
-  {
-    icon: Share2,
-    title: "Sosyal Medya Yönetimi",
-    description: "Organik büyüme ve topluluk yönetimi. Strateji, içerik planlaması ve etkileşim artırma.",
-    href: "/hizmetler/sosyal-medya-yonetimi",
-    features: ["İçerik Stratejisi", "Topluluk Yönetimi", "Analitik & Raporlama"],
-  },
-];
-
 export default function Services() {
+  const t = useTranslations('services');
+  const locale = useLocale();
+  
+  const services = [
+    {
+      icon: Palette,
+      titleKey: 'uiux',
+      href: locale === 'tr' ? '/hizmetler/ui-ux-tasarim' : '/en/services/ui-ux-design',
+    },
+    {
+      icon: Search,
+      titleKey: 'seo',
+      href: locale === 'tr' ? '/hizmetler/seo-danismanligi' : '/en/services/seo-consulting',
+    },
+    {
+      icon: Megaphone,
+      titleKey: 'ads',
+      href: locale === 'tr' ? '/hizmetler/online-reklamcilik' : '/en/services/online-advertising',
+    },
+    {
+      icon: Bot,
+      titleKey: 'ai',
+      href: locale === 'tr' ? '/hizmetler/yapay-zeka-cozumleri' : '/en/services/ai-solutions',
+    },
+    {
+      icon: Share2,
+      titleKey: 'social',
+      href: locale === 'tr' ? '/hizmetler/sosyal-medya-yonetimi' : '/en/services/social-media-management',
+    },
+  ];
+
   return (
     <section id="hizmetler" className="py-24 relative">
       {/* Section Background */}
@@ -58,17 +52,22 @@ export default function Services() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="section-title">
-            Nasıl Yardımcı <span className="text-gradient">Olabilirim?</span>
+            {t('sectionTitle')} <span className="text-gradient">{t('sectionTitleHighlight')}</span>
           </h2>
           <p className="section-subtitle mx-auto">
-            İşletmenizin dijital varlığını güçlendirmek için kapsamlı çözümler sunuyorum.
+            {t('sectionSubtitle')}
           </p>
         </div>
 
         {/* Services Grid - Eşit genişlikte */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
           {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index} />
+            <ServiceCard 
+              key={service.titleKey} 
+              service={service} 
+              index={index}
+              t={t}
+            />
           ))}
         </div>
       </div>
@@ -78,12 +77,21 @@ export default function Services() {
 
 function ServiceCard({ 
   service, 
-  index 
+  index,
+  t
 }: { 
-  service: typeof services[0]; 
+  service: {
+    icon: any;
+    titleKey: string;
+    href: string;
+  }; 
   index: number;
+  t: any;
 }) {
   const Icon = service.icon;
+  const title = t(`${service.titleKey}.title`);
+  const description = t(`${service.titleKey}.description`);
+  const features = t.raw(`${service.titleKey}.features`) as string[];
   
   return (
     <Link 
@@ -99,19 +107,19 @@ function ServiceCard({
       {/* Title with Arrow */}
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="text-base font-display font-semibold text-white group-hover:text-accent-400 transition-colors leading-tight">
-          {service.title}
+          {title}
         </h3>
         <ArrowUpRight className="w-4 h-4 text-primary-500 group-hover:text-accent-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0" />
       </div>
 
       {/* Description */}
       <p className="text-primary-300 text-sm mb-4 leading-relaxed line-clamp-3">
-        {service.description}
+        {description}
       </p>
 
       {/* Features */}
       <div className="flex flex-wrap gap-1.5">
-        {service.features.map((feature) => (
+        {features.map((feature: string) => (
           <span 
             key={feature}
             className="px-2 py-0.5 text-xs font-medium text-primary-400 bg-surface-border/30 rounded-full"

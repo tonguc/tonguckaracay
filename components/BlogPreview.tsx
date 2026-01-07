@@ -1,12 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale, useTranslations } from 'next-intl';
 import { ArrowRight, Calendar, Clock, ArrowUpRight } from "lucide-react";
 import { getAllPosts, BlogPost } from "@/lib/blog";
 
 export default function BlogPreview() {
-  const allPosts = getAllPosts();
+  const t = useTranslations('blog');
+  const locale = useLocale();
+  
+  const allPosts = getAllPosts(locale);
   const latestPosts = allPosts.slice(0, 3);
+  
+  const blogPath = locale === 'tr' ? '/blog' : '/en/blog';
 
   return (
     <section className="py-24 relative">
@@ -18,17 +24,17 @@ export default function BlogPreview() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
           <div>
             <h2 className="section-title mb-2">
-              Son <span className="text-gradient">Yazılar</span>
+              {locale === 'tr' ? 'Son ' : 'Latest '}<span className="text-gradient">{locale === 'tr' ? 'Yazılar' : 'Posts'}</span>
             </h2>
             <p className="section-subtitle">
-              SEO, growth marketing ve yapay zeka hakkında güncel içerikler.
+              {t('subtitle')}
             </p>
           </div>
           <Link 
-            href="/blog" 
+            href={blogPath} 
             className="inline-flex items-center gap-2 text-accent-400 hover:text-accent-300 font-medium mt-4 sm:mt-0 group"
           >
-            Tüm yazılar
+            {t('allPosts')}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -36,7 +42,7 @@ export default function BlogPreview() {
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {latestPosts.map((post, index) => (
-            <BlogCard key={post.slug} post={post} index={index} />
+            <BlogCard key={post.slug} post={post} index={index} locale={locale} t={t} />
           ))}
         </div>
       </div>
@@ -46,19 +52,28 @@ export default function BlogPreview() {
 
 function BlogCard({ 
   post, 
-  index 
+  index,
+  locale,
+  t
 }: { 
   post: BlogPost; 
   index: number;
+  locale: string;
+  t: any;
 }) {
-  const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString('tr-TR', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+  const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
+    locale === 'tr' ? 'tr-TR' : 'en-US', 
+    {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }
+  );
+  
+  const blogPath = locale === 'tr' ? `/blog/${post.slug}` : `/en/blog/${post.slug}`;
 
   return (
-    <Link href={`/blog/${post.slug}`}>
+    <Link href={blogPath}>
       <article 
         className="card card-glow group animate-fade-in-up overflow-hidden h-full"
         style={{ animationDelay: `${index * 100}ms` }}
@@ -105,7 +120,7 @@ function BlogCard({
 
           {/* Read More */}
           <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-300 group-hover:text-accent-400 transition-colors">
-            Devamını oku
+            {t('readMore')}
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </span>
         </div>

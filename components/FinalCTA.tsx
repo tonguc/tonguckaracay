@@ -1,9 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale, useTranslations } from 'next-intl';
 import { ArrowRight, MessageCircle, Calendar, Sparkles } from "lucide-react";
 
 export default function FinalCTA() {
+  const t = useTranslations('cta');
+  const locale = useLocale();
+  const contactPath = locale === 'tr' ? '/iletisim' : '/en/contact';
+  
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background Effects */}
@@ -33,21 +38,20 @@ export default function FinalCTA() {
 
           {/* Headline */}
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Projenizi Birlikte{" "}
-            <span className="text-gradient">Büyütelim</span>
+            {t('title')}{" "}
+            <span className="text-gradient">{t('titleHighlight')}</span>
           </h2>
 
           {/* Description */}
           <p className="text-lg text-primary-300 mb-10 max-w-xl mx-auto">
-            Ücretsiz 30 dakikalık strateji görüşmesiyle işletmenizin dijital potansiyelini keşfedelim. 
-            Hedeflerinizi dinleyip, size özel bir yol haritası çıkaralım.
+            {t('subtitle')}
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Link href="/iletisim" className="btn-primary group text-lg px-8 py-4">
+            <Link href={contactPath} className="btn-primary group text-lg px-8 py-4">
               <MessageCircle className="mr-2 w-5 h-5" />
-              İletişime Geç
+              {t('button')}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -56,20 +60,7 @@ export default function FinalCTA() {
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-primary-400">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-accent-400" />
-              <span>Hızlı yanıt</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-accent-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-              <span>Gizlilik garantisi</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-accent-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 6v6l4 2"/>
-              </svg>
-              <span>30 dk ücretsiz görüşme</span>
+              <span>{t('availability')}</span>
             </div>
           </div>
         </div>

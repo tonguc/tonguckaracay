@@ -2,9 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Award, Briefcase, GraduationCap } from "lucide-react";
+import { useLocale, useTranslations } from 'next-intl';
+import { ArrowRight, Award } from "lucide-react";
+
+const brands = ["THY", "BMW", "Jaguar", "Galatasaray", "Sabah", "ATV", "A Haber", "Borusan Otomotiv"];
 
 export default function About() {
+  const t = useTranslations('about');
+  const locale = useLocale();
+  const aboutPath = locale === 'tr' ? '/hakkimda' : '/en/about';
+  
   return (
     <section className="py-20 relative overflow-hidden">
       {/* Background Accent */}
@@ -38,7 +45,7 @@ export default function About() {
                   </div>
                   <div>
                     <p className="text-2xl font-display font-bold text-white">25+</p>
-                    <p className="text-xs text-primary-400">Yıl Deneyim</p>
+                    <p className="text-xs text-primary-400">{t('yearsExperience')}</p>
                   </div>
                 </div>
               </div>
@@ -48,31 +55,21 @@ export default function About() {
           {/* Content Side */}
           <div>
             <h2 className="section-title mb-6">
-              Merhaba, ben{" "}
-              <span className="text-gradient">Tonguç Karaçay</span>
+              {t('title')}{" "}
+              <span className="text-gradient">{t('name')}</span>
             </h2>
             
             <div className="space-y-4 text-primary-300 leading-relaxed mb-8">
-              <p>
-                25 yılı aşkın deneyimimle UI/UX tasarım, SEO, growth marketing ve 
-                yapay zeka alanlarında işletmelere stratejik danışmanlık veriyorum.
-              </p>
-              <p>
-                Türkiye'nin önde gelen kurumsal şirketlerine dijital dönüşüm süreçlerinde 
-                destek verdim. Aynı zamanda Amerika, Kanada ve Almanya'daki firmalara 
-                uluslararası SEO ve growth marketing hizmetleri sunuyorum.
-              </p>
-              <p>
-                Teknik uzmanlığımı, kullanıcı deneyimi odaklı tasarım anlayışıyla birleştirerek 
-                sadece trafik değil, gerçek dönüşüm sağlayan stratejiler geliştiriyorum.
-              </p>
+              <p>{t('description1')}</p>
+              <p>{t('description2')}</p>
+              <p>{t('description3')}</p>
             </div>
 
             {/* Referans Markalar */}
             <div className="mb-8">
-              <p className="text-sm text-primary-400 mb-3">Çalıştığım ve destek verdiğim firmalardan bazıları:</p>
+              <p className="text-sm text-primary-400 mb-3">{t('brandsTitle')}</p>
               <div className="flex flex-wrap gap-2">
-                {["THY", "BMW", "Jaguar", "Galatasaray", "Sabah", "ATV", "A Haber", "Borusan Otomotiv"].map((brand) => (
+                {brands.map((brand) => (
                   <span 
                     key={brand}
                     className="px-3 py-1.5 text-sm text-primary-300 bg-surface-card/50 border border-surface-border/50 rounded-lg"
@@ -85,10 +82,10 @@ export default function About() {
 
             {/* CTA */}
             <Link 
-              href="/hakkimda" 
+              href={aboutPath} 
               className="inline-flex items-center gap-2 text-accent-400 hover:text-accent-300 font-medium group"
             >
-              Daha fazla bilgi
+              {t('moreInfo')}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
