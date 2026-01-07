@@ -64,68 +64,48 @@ export default function Header() {
     setActiveDropdown(null);
   };
 
-  // Language switch function - robust path detection
+  // Language switch function
   const switchLocale = (newLocale: Locale) => {
     if (newLocale === locale) return;
     
-    // Full bidirectional path mapping
-    const pathMap: Record<string, Record<string, string>> = {
-      // Home pages
+    // Get current path and determine new path
+    let currentPath = pathname;
+    let newPath = '/';
+    
+    // Remove /en prefix if exists
+    if (currentPath.startsWith('/en/')) {
+      currentPath = currentPath.substring(3);
+    } else if (currentPath === '/en') {
+      currentPath = '/';
+    }
+    
+    // Define path mappings
+    const pathMappings: Record<string, { tr: string; en: string }> = {
       '/': { tr: '/', en: '/en' },
-      '/tr': { tr: '/', en: '/en' },
-      '/en': { tr: '/', en: '/en' },
-      
-      // About pages
       '/hakkimda': { tr: '/hakkimda', en: '/en/about' },
-      '/tr/hakkimda': { tr: '/hakkimda', en: '/en/about' },
       '/about': { tr: '/hakkimda', en: '/en/about' },
-      '/en/about': { tr: '/hakkimda', en: '/en/about' },
-      
-      // Contact pages
       '/iletisim': { tr: '/iletisim', en: '/en/contact' },
-      '/tr/iletisim': { tr: '/iletisim', en: '/en/contact' },
       '/contact': { tr: '/iletisim', en: '/en/contact' },
-      '/en/contact': { tr: '/iletisim', en: '/en/contact' },
-      
-      // Blog pages
       '/blog': { tr: '/blog', en: '/en/blog' },
-      '/tr/blog': { tr: '/blog', en: '/en/blog' },
-      '/en/blog': { tr: '/blog', en: '/en/blog' },
-      
-      // Service pages - TR variants
       '/hizmetler/ui-ux-tasarim': { tr: '/hizmetler/ui-ux-tasarim', en: '/en/services/ui-ux-design' },
-      '/tr/hizmetler/ui-ux-tasarim': { tr: '/hizmetler/ui-ux-tasarim', en: '/en/services/ui-ux-design' },
-      '/hizmetler/seo-danismanligi': { tr: '/hizmetler/seo-danismanligi', en: '/en/services/seo-consulting' },
-      '/tr/hizmetler/seo-danismanligi': { tr: '/hizmetler/seo-danismanligi', en: '/en/services/seo-consulting' },
-      '/hizmetler/online-reklamcilik': { tr: '/hizmetler/online-reklamcilik', en: '/en/services/online-advertising' },
-      '/tr/hizmetler/online-reklamcilik': { tr: '/hizmetler/online-reklamcilik', en: '/en/services/online-advertising' },
-      '/hizmetler/yapay-zeka-cozumleri': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
-      '/tr/hizmetler/yapay-zeka-cozumleri': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
-      '/hizmetler/sosyal-medya-yonetimi': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
-      '/tr/hizmetler/sosyal-medya-yonetimi': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
-      
-      // Service pages - EN variants
       '/services/ui-ux-design': { tr: '/hizmetler/ui-ux-tasarim', en: '/en/services/ui-ux-design' },
-      '/en/services/ui-ux-design': { tr: '/hizmetler/ui-ux-tasarim', en: '/en/services/ui-ux-design' },
+      '/hizmetler/seo-danismanligi': { tr: '/hizmetler/seo-danismanligi', en: '/en/services/seo-consulting' },
       '/services/seo-consulting': { tr: '/hizmetler/seo-danismanligi', en: '/en/services/seo-consulting' },
-      '/en/services/seo-consulting': { tr: '/hizmetler/seo-danismanligi', en: '/en/services/seo-consulting' },
+      '/hizmetler/online-reklamcilik': { tr: '/hizmetler/online-reklamcilik', en: '/en/services/online-advertising' },
       '/services/online-advertising': { tr: '/hizmetler/online-reklamcilik', en: '/en/services/online-advertising' },
-      '/en/services/online-advertising': { tr: '/hizmetler/online-reklamcilik', en: '/en/services/online-advertising' },
+      '/hizmetler/yapay-zeka-cozumleri': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
       '/services/ai-solutions': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
-      '/en/services/ai-solutions': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
+      '/hizmetler/sosyal-medya-yonetimi': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
       '/services/social-media-management': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
-      '/en/services/social-media-management': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
     };
     
-    let newPath: string;
-    
-    // Check if current pathname is in the map
-    if (pathMap[pathname]) {
-      newPath = pathMap[pathname][newLocale];
+    // Check direct mapping
+    if (pathMappings[currentPath]) {
+      newPath = pathMappings[currentPath][newLocale];
     } 
-    // Handle blog post pages
-    else if (pathname.includes('/blog/')) {
-      const slug = pathname.split('/blog/')[1];
+    // Handle blog posts
+    else if (currentPath.startsWith('/blog/')) {
+      const slug = currentPath.replace('/blog/', '');
       newPath = newLocale === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`;
     }
     // Default fallback
@@ -133,22 +113,24 @@ export default function Header() {
       newPath = newLocale === 'en' ? '/en' : '/';
     }
     
-    // Set cookie for locale preference
+    // Set cookie
     document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
     router.push(newPath);
   };
+
+  const isLight = theme === 'light';
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "dark:bg-surface-darker/90 bg-white/90 backdrop-blur-lg border-b dark:border-surface-border/50 border-slate-200 py-3"
+          ? `${isLight ? 'bg-white/90' : 'bg-surface-darker/90'} backdrop-blur-lg border-b ${isLight ? 'border-slate-200' : 'border-surface-border/50'} py-3`
           : "bg-transparent py-5"
       }`}
     >
       <div className="container-custom">
         <nav className="flex items-center justify-between">
-          {/* Logo - Only Image, No Text */}
+          {/* Logo */}
           <Link
             href={navLinks.home}
             className="flex items-center hover:opacity-80 transition-opacity"
@@ -158,6 +140,7 @@ export default function Header() {
               alt="Tonguç Karaçay"
               width={50}
               height={50}
+              className={isLight ? 'invert' : ''}
             />
           </Link>
 
@@ -169,7 +152,7 @@ export default function Header() {
               onMouseEnter={() => handleDropdownEnter("services")}
               onMouseLeave={handleDropdownLeave}
             >
-              <button className="flex items-center gap-1 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors font-medium">
+              <button className={`flex items-center gap-1 ${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors font-medium`}>
                 {t('services')}
                 <ChevronDown
                   className={`w-4 h-4 transition-transform ${
@@ -179,12 +162,12 @@ export default function Header() {
               </button>
               {activeDropdown === "services" && (
                 <div className="absolute top-full left-0 pt-2 animate-fade-in">
-                  <div className="dark:bg-surface-card/95 bg-white/95 backdrop-blur-lg border dark:border-surface-border border-slate-200 rounded-xl p-2 min-w-[220px] shadow-2xl">
+                  <div className={`${isLight ? 'bg-white/95 border-slate-200' : 'bg-surface-card/95 border-surface-border'} backdrop-blur-lg border rounded-xl p-2 min-w-[220px] shadow-2xl`}>
                     {services.map((service) => (
                       <Link
                         key={service.href}
                         href={service.href}
-                        className="block px-4 py-2.5 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 dark:hover:bg-surface-border/50 hover:bg-slate-100 rounded-lg transition-colors"
+                        className={`block px-4 py-2.5 ${isLight ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' : 'text-primary-200 hover:text-white hover:bg-surface-border/50'} rounded-lg transition-colors`}
                       >
                         {service.name}
                       </Link>
@@ -197,7 +180,7 @@ export default function Header() {
             {/* Blog */}
             <Link
               href={navLinks.blog}
-              className="dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors font-medium"
+              className={`${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors font-medium`}
             >
               {t('blog')}
             </Link>
@@ -205,7 +188,7 @@ export default function Header() {
             {/* About */}
             <Link
               href={navLinks.about}
-              className="dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors font-medium"
+              className={`${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors font-medium`}
             >
               {t('about')}
             </Link>
@@ -213,24 +196,24 @@ export default function Header() {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full dark:bg-surface-card/50 bg-slate-100 dark:hover:bg-surface-card hover:bg-slate-200 transition-colors"
+              className={`p-2 rounded-full ${isLight ? 'bg-slate-100 hover:bg-slate-200' : 'bg-surface-card/50 hover:bg-surface-card'} transition-colors`}
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? (
-                <Sun className="w-5 h-5 text-amber-400" />
-              ) : (
+              {isLight ? (
                 <Moon className="w-5 h-5 text-slate-600" />
+              ) : (
+                <Sun className="w-5 h-5 text-amber-400" />
               )}
             </button>
 
-            {/* Language Switcher - Inline TR | EN */}
-            <div className="flex items-center gap-1 dark:bg-surface-card/50 bg-slate-100 rounded-full px-1 py-1">
+            {/* Language Switcher */}
+            <div className={`flex items-center gap-1 ${isLight ? 'bg-slate-100' : 'bg-surface-card/50'} rounded-full px-1 py-1`}>
               <button
                 onClick={() => switchLocale('tr')}
                 className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                   locale === 'tr'
                     ? 'bg-accent-500 text-white'
-                    : 'dark:text-primary-300 text-slate-500 dark:hover:text-white hover:text-slate-900 dark:hover:bg-surface-border/50 hover:bg-slate-200'
+                    : `${isLight ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-200' : 'text-primary-300 hover:text-white hover:bg-surface-border/50'}`
                 }`}
               >
                 TR
@@ -240,7 +223,7 @@ export default function Header() {
                 className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                   locale === 'en'
                     ? 'bg-accent-500 text-white'
-                    : 'dark:text-primary-300 text-slate-500 dark:hover:text-white hover:text-slate-900 dark:hover:bg-surface-border/50 hover:bg-slate-200'
+                    : `${isLight ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-200' : 'text-primary-300 hover:text-white hover:bg-surface-border/50'}`
                 }`}
               >
                 EN
@@ -258,18 +241,18 @@ export default function Header() {
             {/* Mobile Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full dark:bg-surface-card/50 bg-slate-100"
+              className={`p-2 rounded-full ${isLight ? 'bg-slate-100' : 'bg-surface-card/50'}`}
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? (
-                <Sun className="w-5 h-5 text-amber-400" />
-              ) : (
+              {isLight ? (
                 <Moon className="w-5 h-5 text-slate-600" />
+              ) : (
+                <Sun className="w-5 h-5 text-amber-400" />
               )}
             </button>
             
             <button
-              className="dark:text-white text-slate-800 p-2"
+              className={`${isLight ? 'text-slate-800' : 'text-white'} p-2`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -281,17 +264,17 @@ export default function Header() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 animate-fade-in">
-            <div className="dark:bg-surface-card/95 bg-white/95 backdrop-blur-lg border dark:border-surface-border border-slate-200 rounded-xl p-4">
+            <div className={`${isLight ? 'bg-white/95 border-slate-200' : 'bg-surface-card/95 border-surface-border'} backdrop-blur-lg border rounded-xl p-4`}>
               {/* Mobile Services */}
               <div className="mb-4">
-                <p className="text-xs uppercase tracking-wider dark:text-primary-400 text-slate-500 mb-2 px-2">
+                <p className={`text-xs uppercase tracking-wider ${isLight ? 'text-slate-500' : 'text-primary-400'} mb-2 px-2`}>
                   {t('services')}
                 </p>
                 {services.map((service) => (
                   <Link
                     key={service.href}
                     href={service.href}
-                    className="block px-2 py-2 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors"
+                    className={`block px-2 py-2 ${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {service.name}
@@ -300,17 +283,17 @@ export default function Header() {
               </div>
 
               {/* Mobile Other Links */}
-              <div className="pt-4 border-t dark:border-surface-border border-slate-200 space-y-2">
+              <div className={`pt-4 border-t ${isLight ? 'border-slate-200' : 'border-surface-border'} space-y-2`}>
                 <Link
                   href={navLinks.blog}
-                  className="block px-2 py-2 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors"
+                  className={`block px-2 py-2 ${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('blog')}
                 </Link>
                 <Link
                   href={navLinks.about}
-                  className="block px-2 py-2 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors"
+                  className={`block px-2 py-2 ${isLight ? 'text-slate-600 hover:text-slate-900' : 'text-primary-200 hover:text-white'} transition-colors`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('about')}
@@ -318,8 +301,8 @@ export default function Header() {
                 
                 {/* Mobile Language Switcher */}
                 <div className="flex items-center gap-2 px-2 py-2">
-                  <span className="dark:text-primary-400 text-slate-500 text-sm">{locale === 'tr' ? 'Dil:' : 'Lang:'}</span>
-                  <div className="flex items-center gap-1 dark:bg-surface-border/30 bg-slate-100 rounded-full px-1 py-1">
+                  <span className={`${isLight ? 'text-slate-500' : 'text-primary-400'} text-sm`}>{locale === 'tr' ? 'Dil:' : 'Lang:'}</span>
+                  <div className={`flex items-center gap-1 ${isLight ? 'bg-slate-100' : 'bg-surface-border/30'} rounded-full px-1 py-1`}>
                     <button
                       onClick={() => {
                         switchLocale('tr');
@@ -328,7 +311,7 @@ export default function Header() {
                       className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                         locale === 'tr'
                           ? 'bg-accent-500 text-white'
-                          : 'dark:text-primary-300 text-slate-500 dark:hover:text-white hover:text-slate-900'
+                          : `${isLight ? 'text-slate-500 hover:text-slate-900' : 'text-primary-300 hover:text-white'}`
                       }`}
                     >
                       TR
@@ -341,7 +324,7 @@ export default function Header() {
                       className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                         locale === 'en'
                           ? 'bg-accent-500 text-white'
-                          : 'dark:text-primary-300 text-slate-500 dark:hover:text-white hover:text-slate-900'
+                          : `${isLight ? 'text-slate-500 hover:text-slate-900' : 'text-primary-300 hover:text-white'}`
                       }`}
                     >
                       EN
