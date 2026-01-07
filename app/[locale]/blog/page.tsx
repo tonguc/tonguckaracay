@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowUpRight } from 'lucide-react';
@@ -22,7 +22,7 @@ export async function generateMetadata({ params: { locale } }: Props): Promise<M
 }
 
 export default async function BlogPage({ params: { locale }, searchParams }: Props) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = await getTranslations('blog');
   
   const allPosts = getAllPosts(locale);

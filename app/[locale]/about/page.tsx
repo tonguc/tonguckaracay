@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { 
   ArrowRight, 
   Award,
@@ -54,7 +54,7 @@ type Props = {
 };
 
 export default function AboutPage({ params: { locale } }: Props) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   
   return (
     <main className="pt-20">

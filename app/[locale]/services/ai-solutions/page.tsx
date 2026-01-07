@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, Bot, Brain, Zap, MessageSquare, Database, Cpu } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ const services = [
 type Props = { params: { locale: string } };
 
 export default function AISolutionsPage({ params: { locale } }: Props) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   
   return (
     <main className="pt-20">

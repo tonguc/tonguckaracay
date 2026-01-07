@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, Users, Layers, MousePointer2, BarChart3, Sparkles, Target } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ const services = [
 type Props = { params: { locale: string } };
 
 export default function UIUXDesignPage({ params: { locale } }: Props) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   
   return (
     <main className="pt-20">
