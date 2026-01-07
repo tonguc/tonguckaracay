@@ -21,9 +21,9 @@ export default function FinalCTA() {
         
         {/* Grid Pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 dark:opacity-[0.03] opacity-[0.05]"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(100,100,100,0.3) 1px, transparent 0)`,
             backgroundSize: '40px 40px'
           }}
         />
@@ -33,17 +33,17 @@ export default function FinalCTA() {
         <div className="max-w-3xl mx-auto text-center">
           {/* Icon */}
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent-500/10 border border-accent-500/20 mb-8 animate-glow">
-            <Sparkles className="w-8 h-8 text-accent-400" />
+            <Sparkles className="w-8 h-8 text-accent-500" />
           </div>
 
           {/* Headline */}
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold dark:text-white text-slate-900 mb-6">
             {t('title')}{" "}
             <span className="text-gradient">{t('titleHighlight')}</span>
           </h2>
 
           {/* Description */}
-          <p className="text-lg text-primary-300 mb-10 max-w-xl mx-auto">
+          <p className="text-lg dark:text-primary-300 text-slate-600 mb-10 max-w-xl mx-auto">
             {t('subtitle')}
           </p>
 
@@ -57,9 +57,9 @@ export default function FinalCTA() {
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-primary-400">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm dark:text-primary-400 text-slate-500">
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-accent-400" />
+              <Calendar className="w-4 h-4 text-accent-500" />
               <span>{t('availability')}</span>
             </div>
           </div>

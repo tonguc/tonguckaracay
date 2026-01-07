@@ -5,14 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import { type Locale } from '@/i18n.config';
+import { useTheme } from './ThemeProvider';
 
 export default function Header() {
   const t = useTranslations('nav');
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
+  const { theme, toggleTheme } = useTheme();
   
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -62,80 +64,73 @@ export default function Header() {
     setActiveDropdown(null);
   };
 
-  // Language switch function - improved path detection
+  // Language switch function - robust path detection
   const switchLocale = (newLocale: Locale) => {
     if (newLocale === locale) return;
     
-    // Get the path without locale prefix
-    let cleanPath = pathname;
-    if (pathname.startsWith('/tr/')) {
-      cleanPath = pathname.substring(3);
-    } else if (pathname.startsWith('/en/')) {
-      cleanPath = pathname.substring(3);
-    } else if (pathname === '/tr') {
-      cleanPath = '/';
-    } else if (pathname === '/en') {
-      cleanPath = '/';
+    // Full bidirectional path mapping
+    const pathMap: Record<string, Record<string, string>> = {
+      // Home pages
+      '/': { tr: '/', en: '/en' },
+      '/tr': { tr: '/', en: '/en' },
+      '/en': { tr: '/', en: '/en' },
+      
+      // About pages
+      '/hakkimda': { tr: '/hakkimda', en: '/en/about' },
+      '/tr/hakkimda': { tr: '/hakkimda', en: '/en/about' },
+      '/about': { tr: '/hakkimda', en: '/en/about' },
+      '/en/about': { tr: '/hakkimda', en: '/en/about' },
+      
+      // Contact pages
+      '/iletisim': { tr: '/iletisim', en: '/en/contact' },
+      '/tr/iletisim': { tr: '/iletisim', en: '/en/contact' },
+      '/contact': { tr: '/iletisim', en: '/en/contact' },
+      '/en/contact': { tr: '/iletisim', en: '/en/contact' },
+      
+      // Blog pages
+      '/blog': { tr: '/blog', en: '/en/blog' },
+      '/tr/blog': { tr: '/blog', en: '/en/blog' },
+      '/en/blog': { tr: '/blog', en: '/en/blog' },
+      
+      // Service pages - TR variants
+      '/hizmetler/ui-ux-tasarim': { tr: '/hizmetler/ui-ux-tasarim', en: '/en/services/ui-ux-design' },
+      '/tr/hizmetler/ui-ux-tasarim': { tr: '/hizmetler/ui-ux-tasarim', en: '/en/services/ui-ux-design' },
+      '/hizmetler/seo-danismanligi': { tr: '/hizmetler/seo-danismanligi', en: '/en/services/seo-consulting' },
+      '/tr/hizmetler/seo-danismanligi': { tr: '/hizmetler/seo-danismanligi', en: '/en/services/seo-consulting' },
+      '/hizmetler/online-reklamcilik': { tr: '/hizmetler/online-reklamcilik', en: '/en/services/online-advertising' },
+      '/tr/hizmetler/online-reklamcilik': { tr: '/hizmetler/online-reklamcilik', en: '/en/services/online-advertising' },
+      '/hizmetler/yapay-zeka-cozumleri': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
+      '/tr/hizmetler/yapay-zeka-cozumleri': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
+      '/hizmetler/sosyal-medya-yonetimi': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
+      '/tr/hizmetler/sosyal-medya-yonetimi': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
+      
+      // Service pages - EN variants
+      '/services/ui-ux-design': { tr: '/hizmetler/ui-ux-tasarim', en: '/en/services/ui-ux-design' },
+      '/en/services/ui-ux-design': { tr: '/hizmetler/ui-ux-tasarim', en: '/en/services/ui-ux-design' },
+      '/services/seo-consulting': { tr: '/hizmetler/seo-danismanligi', en: '/en/services/seo-consulting' },
+      '/en/services/seo-consulting': { tr: '/hizmetler/seo-danismanligi', en: '/en/services/seo-consulting' },
+      '/services/online-advertising': { tr: '/hizmetler/online-reklamcilik', en: '/en/services/online-advertising' },
+      '/en/services/online-advertising': { tr: '/hizmetler/online-reklamcilik', en: '/en/services/online-advertising' },
+      '/services/ai-solutions': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
+      '/en/services/ai-solutions': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
+      '/services/social-media-management': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
+      '/en/services/social-media-management': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
+    };
+    
+    let newPath: string;
+    
+    // Check if current pathname is in the map
+    if (pathMap[pathname]) {
+      newPath = pathMap[pathname][newLocale];
+    } 
+    // Handle blog post pages
+    else if (pathname.includes('/blog/')) {
+      const slug = pathname.split('/blog/')[1];
+      newPath = newLocale === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`;
     }
-    
-    let newPath = '/';
-    
-    // Service pages mapping
-    const trToEnServices: Record<string, string> = {
-      '/hizmetler/ui-ux-tasarim': '/en/services/ui-ux-design',
-      '/hizmetler/seo-danismanligi': '/en/services/seo-consulting',
-      '/hizmetler/online-reklamcilik': '/en/services/online-advertising',
-      '/hizmetler/yapay-zeka-cozumleri': '/en/services/ai-solutions',
-      '/hizmetler/sosyal-medya-yonetimi': '/en/services/social-media-management',
-    };
-    
-    const enToTrServices: Record<string, string> = {
-      '/services/ui-ux-design': '/hizmetler/ui-ux-tasarim',
-      '/services/seo-consulting': '/hizmetler/seo-danismanligi',
-      '/services/online-advertising': '/hizmetler/online-reklamcilik',
-      '/services/ai-solutions': '/hizmetler/yapay-zeka-cozumleri',
-      '/services/social-media-management': '/hizmetler/sosyal-medya-yonetimi',
-    };
-    
-    // Other pages mapping
-    const trToEnPages: Record<string, string> = {
-      '/': '/en',
-      '/hakkimda': '/en/about',
-      '/iletisim': '/en/contact',
-      '/blog': '/en/blog',
-    };
-    
-    const enToTrPages: Record<string, string> = {
-      '/': '/',
-      '/about': '/hakkimda',
-      '/contact': '/iletisim',
-      '/blog': '/blog',
-    };
-    
-    if (newLocale === 'en') {
-      // TR -> EN
-      if (trToEnServices[cleanPath]) {
-        newPath = trToEnServices[cleanPath];
-      } else if (trToEnPages[cleanPath]) {
-        newPath = trToEnPages[cleanPath];
-      } else if (cleanPath.startsWith('/blog/')) {
-        // Blog posts - keep same slug, add /en prefix
-        newPath = `/en${cleanPath}`;
-      } else {
-        newPath = '/en';
-      }
-    } else {
-      // EN -> TR
-      if (enToTrServices[cleanPath]) {
-        newPath = enToTrServices[cleanPath];
-      } else if (enToTrPages[cleanPath]) {
-        newPath = enToTrPages[cleanPath];
-      } else if (cleanPath.startsWith('/blog/')) {
-        // Blog posts - remove /en prefix if present
-        newPath = cleanPath;
-      } else {
-        newPath = '/';
-      }
+    // Default fallback
+    else {
+      newPath = newLocale === 'en' ? '/en' : '/';
     }
     
     // Set cookie for locale preference
@@ -147,37 +142,34 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-surface-darker/90 backdrop-blur-lg border-b border-surface-border/50 py-3"
+          ? "dark:bg-surface-darker/90 bg-white/90 backdrop-blur-lg border-b dark:border-surface-border/50 border-slate-200 py-3"
           : "bg-transparent py-5"
       }`}
     >
       <div className="container-custom">
         <nav className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - Only Image, No Text */}
           <Link
             href={navLinks.home}
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+            className="flex items-center hover:opacity-80 transition-opacity"
           >
             <Image
               src="/logo.png"
               alt="Tonguç Karaçay"
-              width={60}
-              height={60}
+              width={50}
+              height={50}
             />
-            <span className="logo-text text-xl font-bold text-white hidden sm:inline">
-              Tonguç Karaçay
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {/* Hizmetler Dropdown */}
             <div
               className="relative"
               onMouseEnter={() => handleDropdownEnter("services")}
               onMouseLeave={handleDropdownLeave}
             >
-              <button className="flex items-center gap-1 text-primary-200 hover:text-white transition-colors font-medium">
+              <button className="flex items-center gap-1 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors font-medium">
                 {t('services')}
                 <ChevronDown
                   className={`w-4 h-4 transition-transform ${
@@ -187,12 +179,12 @@ export default function Header() {
               </button>
               {activeDropdown === "services" && (
                 <div className="absolute top-full left-0 pt-2 animate-fade-in">
-                  <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-2 min-w-[220px] shadow-2xl">
+                  <div className="dark:bg-surface-card/95 bg-white/95 backdrop-blur-lg border dark:border-surface-border border-slate-200 rounded-xl p-2 min-w-[220px] shadow-2xl">
                     {services.map((service) => (
                       <Link
                         key={service.href}
                         href={service.href}
-                        className="block px-4 py-2.5 text-primary-200 hover:text-white hover:bg-surface-border/50 rounded-lg transition-colors"
+                        className="block px-4 py-2.5 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 dark:hover:bg-surface-border/50 hover:bg-slate-100 rounded-lg transition-colors"
                       >
                         {service.name}
                       </Link>
@@ -205,7 +197,7 @@ export default function Header() {
             {/* Blog */}
             <Link
               href={navLinks.blog}
-              className="text-primary-200 hover:text-white transition-colors font-medium"
+              className="dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors font-medium"
             >
               {t('blog')}
             </Link>
@@ -213,19 +205,32 @@ export default function Header() {
             {/* About */}
             <Link
               href={navLinks.about}
-              className="text-primary-200 hover:text-white transition-colors font-medium"
+              className="dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors font-medium"
             >
               {t('about')}
             </Link>
 
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full dark:bg-surface-card/50 bg-slate-100 dark:hover:bg-surface-card hover:bg-slate-200 transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5 text-amber-400" />
+              ) : (
+                <Moon className="w-5 h-5 text-slate-600" />
+              )}
+            </button>
+
             {/* Language Switcher - Inline TR | EN */}
-            <div className="flex items-center gap-1 bg-surface-card/50 rounded-full px-1 py-1">
+            <div className="flex items-center gap-1 dark:bg-surface-card/50 bg-slate-100 rounded-full px-1 py-1">
               <button
                 onClick={() => switchLocale('tr')}
                 className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                   locale === 'tr'
                     ? 'bg-accent-500 text-white'
-                    : 'text-primary-300 hover:text-white hover:bg-surface-border/50'
+                    : 'dark:text-primary-300 text-slate-500 dark:hover:text-white hover:text-slate-900 dark:hover:bg-surface-border/50 hover:bg-slate-200'
                 }`}
               >
                 TR
@@ -235,7 +240,7 @@ export default function Header() {
                 className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                   locale === 'en'
                     ? 'bg-accent-500 text-white'
-                    : 'text-primary-300 hover:text-white hover:bg-surface-border/50'
+                    : 'dark:text-primary-300 text-slate-500 dark:hover:text-white hover:text-slate-900 dark:hover:bg-surface-border/50 hover:bg-slate-200'
                 }`}
               >
                 EN
@@ -249,29 +254,44 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            {/* Mobile Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full dark:bg-surface-card/50 bg-slate-100"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5 text-amber-400" />
+              ) : (
+                <Moon className="w-5 h-5 text-slate-600" />
+              )}
+            </button>
+            
+            <button
+              className="dark:text-white text-slate-800 p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 animate-fade-in">
-            <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-4">
+            <div className="dark:bg-surface-card/95 bg-white/95 backdrop-blur-lg border dark:border-surface-border border-slate-200 rounded-xl p-4">
               {/* Mobile Services */}
               <div className="mb-4">
-                <p className="text-xs uppercase tracking-wider text-primary-400 mb-2 px-2">
+                <p className="text-xs uppercase tracking-wider dark:text-primary-400 text-slate-500 mb-2 px-2">
                   {t('services')}
                 </p>
                 {services.map((service) => (
                   <Link
                     key={service.href}
                     href={service.href}
-                    className="block px-2 py-2 text-primary-200 hover:text-white transition-colors"
+                    className="block px-2 py-2 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {service.name}
@@ -280,26 +300,26 @@ export default function Header() {
               </div>
 
               {/* Mobile Other Links */}
-              <div className="pt-4 border-t border-surface-border space-y-2">
+              <div className="pt-4 border-t dark:border-surface-border border-slate-200 space-y-2">
                 <Link
                   href={navLinks.blog}
-                  className="block px-2 py-2 text-primary-200 hover:text-white transition-colors"
+                  className="block px-2 py-2 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('blog')}
                 </Link>
                 <Link
                   href={navLinks.about}
-                  className="block px-2 py-2 text-primary-200 hover:text-white transition-colors"
+                  className="block px-2 py-2 dark:text-primary-200 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('about')}
                 </Link>
                 
-                {/* Mobile Language Switcher - Inline TR | EN */}
+                {/* Mobile Language Switcher */}
                 <div className="flex items-center gap-2 px-2 py-2">
-                  <span className="text-primary-400 text-sm">Dil:</span>
-                  <div className="flex items-center gap-1 bg-surface-border/30 rounded-full px-1 py-1">
+                  <span className="dark:text-primary-400 text-slate-500 text-sm">{locale === 'tr' ? 'Dil:' : 'Lang:'}</span>
+                  <div className="flex items-center gap-1 dark:bg-surface-border/30 bg-slate-100 rounded-full px-1 py-1">
                     <button
                       onClick={() => {
                         switchLocale('tr');
@@ -308,7 +328,7 @@ export default function Header() {
                       className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                         locale === 'tr'
                           ? 'bg-accent-500 text-white'
-                          : 'text-primary-300 hover:text-white'
+                          : 'dark:text-primary-300 text-slate-500 dark:hover:text-white hover:text-slate-900'
                       }`}
                     >
                       TR
@@ -321,7 +341,7 @@ export default function Header() {
                       className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                         locale === 'en'
                           ? 'bg-accent-500 text-white'
-                          : 'text-primary-300 hover:text-white'
+                          : 'dark:text-primary-300 text-slate-500 dark:hover:text-white hover:text-slate-900'
                       }`}
                     >
                       EN

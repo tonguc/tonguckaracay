@@ -7,6 +7,7 @@ import { locales, type Locale } from '@/i18n.config';
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 // Google Analytics ID
 const GA_ID = "G-0YHTLZPKKZ";
@@ -73,8 +74,25 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className="dark" suppressHydrationWarning>
       <head>
+        {/* Theme script - prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  if (theme === 'light') {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+        
         {/* hreflang tags */}
         <link rel="alternate" hrefLang="tr" href="https://tonguckaracay.com" />
         <link rel="alternate" hrefLang="en" href="https://tonguckaracay.com/en" />
@@ -97,13 +115,15 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
         </Script>
       </head>
       <body className="min-h-screen flex flex-col">
-        <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </NextIntlClientProvider>
+        <ThemeProvider>
+          <NextIntlClientProvider messages={messages}>
+            <Header />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

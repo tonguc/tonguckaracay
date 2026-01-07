@@ -19,10 +19,10 @@ export default function Hero() {
         
         {/* Grid Pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 dark:opacity-[0.02] opacity-[0.05]"
           style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(100,100,100,0.3) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(100,100,100,0.3) 1px, transparent 1px)`,
             backgroundSize: '60px 60px'
           }}
         />
@@ -31,22 +31,22 @@ export default function Hero() {
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-surface-card/50 border border-surface-border rounded-full mb-6 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 dark:bg-surface-card/50 bg-white/80 border dark:border-surface-border border-slate-200 rounded-full mb-6 animate-fade-in shadow-sm">
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-sm text-primary-300">
+            <span className="text-sm dark:text-primary-300 text-slate-600">
               {t('badge')}
             </span>
           </div>
 
           {/* Main Headline */}
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight animate-fade-in-up">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white text-slate-900 mb-4 leading-tight animate-fade-in-up">
             {t('title')}{" "}
             <span className="text-gradient">{t('titleHighlight')}</span>{" "}
             {t('titleEnd')}
           </h1>
 
           {/* Subheadline */}
-          <p className="text-base md:text-lg text-primary-300 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-100">
+          <p className="text-base md:text-lg dark:text-primary-300 text-slate-600 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-100">
             {t('subtitle')}
           </p>
 
@@ -64,16 +64,16 @@ export default function Hero() {
 
           {/* Social Proof */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm animate-fade-in-up animation-delay-300">
-            <div className="flex items-center gap-2 text-primary-300">
-              <Zap className="w-5 h-5 text-accent-400" />
-              <span><strong className="text-white">25+</strong> {t('experience')}</span>
+            <div className="flex items-center gap-2 dark:text-primary-300 text-slate-600">
+              <Zap className="w-5 h-5 text-accent-500" />
+              <span><strong className="dark:text-white text-slate-900">25+</strong> {t('experience')}</span>
             </div>
-            <div className="flex items-center gap-2 text-primary-300">
-              <span className="w-1.5 h-1.5 bg-accent-400 rounded-full" />
+            <div className="flex items-center gap-2 dark:text-primary-300 text-slate-600">
+              <span className="w-1.5 h-1.5 bg-accent-500 rounded-full" />
               <span>{t('resultOriented')}</span>
             </div>
-            <div className="flex items-center gap-2 text-primary-300">
-              <span className="w-1.5 h-1.5 bg-accent-400 rounded-full" />
+            <div className="flex items-center gap-2 dark:text-primary-300 text-slate-600">
+              <span className="w-1.5 h-1.5 bg-accent-500 rounded-full" />
               <span>{t('personalizedStrategy')}</span>
             </div>
           </div>

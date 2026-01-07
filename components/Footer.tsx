@@ -55,16 +55,16 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-surface-dark border-t border-surface-border">
+    <footer className="dark:bg-surface-dark bg-slate-100 border-t dark:border-surface-border border-slate-200">
       {/* Main Footer */}
       <div className="container-custom py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <Link href={navLinks.home} className="font-display text-2xl font-bold text-white inline-block mb-4">
-              Tonguç<span className="text-accent-400">.</span>
+            <Link href={navLinks.home} className="font-display text-2xl font-bold dark:text-white text-slate-900 inline-block mb-4">
+              Tonguç<span className="text-accent-500">.</span>
             </Link>
-            <p className="text-primary-400 mb-6 leading-relaxed">
+            <p className="dark:text-primary-400 text-slate-600 mb-6 leading-relaxed">
               {t('tagline')}
             </p>
             {/* Social Links */}
@@ -77,7 +77,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-surface-card border border-surface-border flex items-center justify-center text-primary-400 hover:text-accent-400 hover:border-accent-500/30 transition-all"
+                    className="w-10 h-10 rounded-lg dark:bg-surface-card bg-white border dark:border-surface-border border-slate-200 flex items-center justify-center dark:text-primary-400 text-slate-500 hover:text-accent-500 dark:hover:border-accent-500/30 hover:border-accent-500/50 transition-all"
                     aria-label={social.name}
                   >
                     <Icon className="w-5 h-5" />
@@ -89,13 +89,13 @@ export default function Footer() {
 
           {/* Services Column */}
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">{t('services')}</h3>
+            <h3 className="font-display font-semibold dark:text-white text-slate-900 mb-4">{t('services')}</h3>
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service.href}>
                   <Link
                     href={service.href}
-                    className="text-primary-400 hover:text-accent-400 transition-colors"
+                    className="dark:text-primary-400 text-slate-600 hover:text-accent-500 transition-colors"
                   >
                     {service.name}
                   </Link>
@@ -106,13 +106,13 @@ export default function Footer() {
 
           {/* Blog Column */}
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">{t('blog')}</h3>
+            <h3 className="font-display font-semibold dark:text-white text-slate-900 mb-4">{t('blog')}</h3>
             <ul className="space-y-3">
               {blogCategories.map((category) => (
                 <li key={category.href}>
                   <Link
                     href={category.href}
-                    className="text-primary-400 hover:text-accent-400 transition-colors"
+                    className="dark:text-primary-400 text-slate-600 hover:text-accent-500 transition-colors"
                   >
                     {category.name}
                   </Link>
@@ -123,12 +123,12 @@ export default function Footer() {
 
           {/* Contact Column */}
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">{t('contact')}</h3>
+            <h3 className="font-display font-semibold dark:text-white text-slate-900 mb-4">{t('contact')}</h3>
             <ul className="space-y-3">
               <li>
                 <a
                   href="mailto:tonguckaracay@gmail.com"
-                  className="flex items-center gap-2 text-primary-400 hover:text-accent-400 transition-colors"
+                  className="flex items-center gap-2 dark:text-primary-400 text-slate-600 hover:text-accent-500 transition-colors"
                 >
                   <Mail className="w-4 h-4" />
                   tonguckaracay@gmail.com
@@ -137,7 +137,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={navLinks.about}
-                  className="text-primary-400 hover:text-accent-400 transition-colors"
+                  className="dark:text-primary-400 text-slate-600 hover:text-accent-500 transition-colors"
                 >
                   {locale === 'tr' ? 'Hakkımda' : 'About'}
                 </Link>
@@ -145,7 +145,7 @@ export default function Footer() {
               <li>
                 <Link
                   href={navLinks.contact}
-                  className="text-primary-400 hover:text-accent-400 transition-colors"
+                  className="dark:text-primary-400 text-slate-600 hover:text-accent-500 transition-colors"
                 >
                   {t('contactForm')}
                 </Link>
@@ -154,18 +154,18 @@ export default function Footer() {
 
             {/* Newsletter */}
             <div className="mt-6">
-              <p className="text-sm text-primary-400 mb-3">
+              <p className="text-sm dark:text-primary-400 text-slate-600 mb-3">
                 {t('newsletter')}
               </p>
               <form className="flex gap-2">
                 <input
                   type="email"
                   placeholder={t('emailPlaceholder')}
-                  className="flex-1 px-4 py-2 bg-surface-card border border-surface-border rounded-lg text-sm text-primary-200 placeholder:text-primary-500 focus:outline-none focus:border-accent-500/50"
+                  className="flex-1 px-4 py-2 dark:bg-surface-card bg-white border dark:border-surface-border border-slate-200 rounded-lg text-sm dark:text-primary-200 text-slate-700 dark:placeholder:text-primary-500 placeholder:text-slate-400 focus:outline-none focus:border-accent-500/50"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-accent-500 hover:bg-accent-600 text-primary-950 font-medium text-sm rounded-lg transition-colors"
+                  className="px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white font-medium text-sm rounded-lg transition-colors"
                 >
                   {t('subscribe')}
                 </button>
@@ -176,15 +176,15 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-surface-border">
+      <div className="border-t dark:border-surface-border border-slate-200">
         <div className="container-custom py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-primary-500">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm dark:text-primary-500 text-slate-500">
             <p>© {new Date().getFullYear()} Tonguç Karaçay. {t('copyright')}</p>
             <div className="flex items-center gap-6">
-              <Link href={navLinks.privacy} className="hover:text-primary-300 transition-colors">
+              <Link href={navLinks.privacy} className="dark:hover:text-primary-300 hover:text-slate-700 transition-colors">
                 {t('privacy')}
               </Link>
-              <Link href={navLinks.terms} className="hover:text-primary-300 transition-colors">
+              <Link href={navLinks.terms} className="dark:hover:text-primary-300 hover:text-slate-700 transition-colors">
                 {t('terms')}
               </Link>
             </div>

@@ -10,20 +10,81 @@
   --font-body: 'Poppins', system-ui, sans-serif;
 }
 
+/* Dark Theme (Default) */
+.dark {
+  --color-surface-darker: 15 23 42;
+  --color-surface-dark: 30 41 59;
+  --color-surface-card: 51 65 85;
+  --color-surface-border: 71 85 105;
+  --color-primary-50: 248 250 252;
+  --color-primary-100: 241 245 249;
+  --color-primary-200: 226 232 240;
+  --color-primary-300: 203 213 225;
+  --color-primary-400: 148 163 184;
+  --color-primary-500: 100 116 139;
+  --color-primary-600: 71 85 105;
+  --color-primary-700: 51 65 85;
+  --color-primary-800: 30 41 59;
+  --color-primary-900: 15 23 42;
+  --color-primary-950: 2 6 23;
+  --color-text-main: 255 255 255;
+  --color-bg-main: 15 23 42;
+}
+
+/* Light Theme */
+.light {
+  --color-surface-darker: 241 245 249;
+  --color-surface-dark: 226 232 240;
+  --color-surface-card: 255 255 255;
+  --color-surface-border: 203 213 225;
+  --color-primary-50: 15 23 42;
+  --color-primary-100: 30 41 59;
+  --color-primary-200: 51 65 85;
+  --color-primary-300: 71 85 105;
+  --color-primary-400: 100 116 139;
+  --color-primary-500: 148 163 184;
+  --color-primary-600: 203 213 225;
+  --color-primary-700: 226 232 240;
+  --color-primary-800: 241 245 249;
+  --color-primary-900: 248 250 252;
+  --color-primary-950: 255 255 255;
+  --color-text-main: 15 23 42;
+  --color-bg-main: 248 250 252;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
   
   body {
-    @apply bg-surface-darker text-primary-100 font-body antialiased;
+    @apply font-body antialiased transition-colors duration-300;
+  }
+
+  .dark body {
+    @apply bg-surface-darker text-primary-100;
     background-image: 
       radial-gradient(ellipse 80% 50% at 50% -20%, rgba(251, 191, 36, 0.08), transparent),
       radial-gradient(ellipse 60% 40% at 100% 0%, rgba(99, 102, 241, 0.05), transparent);
   }
 
+  .light body {
+    @apply bg-slate-50 text-slate-800;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(251, 191, 36, 0.05), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(99, 102, 241, 0.03), transparent);
+  }
+
   ::selection {
-    @apply bg-accent-500/30 text-white;
+    @apply bg-accent-500/30;
+  }
+  
+  .dark ::selection {
+    @apply text-white;
+  }
+  
+  .light ::selection {
+    @apply text-slate-900;
   }
 }
 
@@ -57,17 +118,30 @@
   .btn-secondary {
     @apply inline-flex items-center justify-center px-6 py-3 
            bg-surface-card border border-surface-border
-           text-primary-100 font-medium rounded-lg
+           font-medium rounded-lg
            hover:bg-surface-border hover:border-primary-500/30
            transform hover:scale-[1.02] active:scale-[0.98]
            transition-all duration-200 ease-out;
   }
   
+  .dark .btn-secondary {
+    @apply text-primary-100;
+  }
+  
+  .light .btn-secondary {
+    @apply text-slate-700;
+  }
+  
   .card {
-    @apply bg-surface-card/50 backdrop-blur-sm 
-           border border-surface-border/50 rounded-2xl
-           hover:border-accent-500/30 hover:bg-surface-card/80
-           transition-all duration-300 ease-out;
+    @apply backdrop-blur-sm rounded-2xl transition-all duration-300 ease-out;
+  }
+  
+  .dark .card {
+    @apply bg-surface-card/50 border border-surface-border/50 hover:border-accent-500/30 hover:bg-surface-card/80;
+  }
+  
+  .light .card {
+    @apply bg-white/80 border border-slate-200 hover:border-accent-500/50 hover:bg-white shadow-sm hover:shadow-md;
   }
   
   .card-glow {
@@ -85,11 +159,27 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-display font-bold text-white mb-4;
+    @apply text-3xl md:text-4xl font-display font-bold mb-4;
+  }
+  
+  .dark .section-title {
+    @apply text-white;
+  }
+  
+  .light .section-title {
+    @apply text-slate-900;
   }
   
   .section-subtitle {
-    @apply text-lg text-primary-300 max-w-2xl;
+    @apply text-lg max-w-2xl;
+  }
+  
+  .dark .section-subtitle {
+    @apply text-primary-300;
+  }
+  
+  .light .section-subtitle {
+    @apply text-slate-600;
   }
 
   /* Animated underline for links */
@@ -105,6 +195,19 @@
   .link-underline:hover::after {
     @apply w-full;
   }
+  
+  /* Theme-aware text colors */
+  .text-heading {
+    @apply dark:text-white text-slate-900;
+  }
+  
+  .text-body {
+    @apply dark:text-primary-300 text-slate-600;
+  }
+  
+  .text-muted {
+    @apply dark:text-primary-400 text-slate-500;
+  }
 }
 
 @layer utilities {
@@ -117,20 +220,41 @@
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
+.dark ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-::-webkit-scrollbar-track {
+.dark ::-webkit-scrollbar-track {
   @apply bg-surface-darker;
 }
 
-::-webkit-scrollbar-thumb {
+.dark ::-webkit-scrollbar-thumb {
   @apply bg-surface-border rounded-full hover:bg-primary-600;
+}
+
+.light ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.light ::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full hover:bg-slate-400;
 }
 
 /* Focus styles */
 *:focus-visible {
-  @apply outline-none ring-2 ring-accent-500/50 ring-offset-2 ring-offset-surface-darker;
+  @apply outline-none ring-2 ring-accent-500/50 ring-offset-2;
+}
+
+.dark *:focus-visible {
+  @apply ring-offset-surface-darker;
+}
+
+.light *:focus-visible {
+  @apply ring-offset-white;
 }

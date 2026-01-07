@@ -46,7 +46,7 @@ export default function Services() {
   return (
     <section id="hizmetler" className="py-24 relative">
       {/* Section Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-dark/50 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 dark:bg-gradient-to-b dark:from-transparent dark:via-surface-dark/50 dark:to-transparent bg-gradient-to-b from-transparent via-slate-100/50 to-transparent pointer-events-none" />
       
       <div className="container-custom relative z-10">
         {/* Section Header */}
@@ -101,19 +101,19 @@ function ServiceCard({
     >
       {/* Icon */}
       <div className="w-10 h-10 rounded-lg bg-accent-500/10 border border-accent-500/20 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-accent-500/20 transition-all duration-300">
-        <Icon className="w-5 h-5 text-accent-400" />
+        <Icon className="w-5 h-5 text-accent-500" />
       </div>
 
       {/* Title with Arrow */}
       <div className="flex items-start justify-between gap-2 mb-2">
-        <h3 className="text-base font-display font-semibold text-white group-hover:text-accent-400 transition-colors leading-tight">
+        <h3 className="text-base font-display font-semibold dark:text-white text-slate-900 group-hover:text-accent-500 transition-colors leading-tight">
           {title}
         </h3>
-        <ArrowUpRight className="w-4 h-4 text-primary-500 group-hover:text-accent-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0" />
+        <ArrowUpRight className="w-4 h-4 dark:text-primary-500 text-slate-400 group-hover:text-accent-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0" />
       </div>
 
       {/* Description */}
-      <p className="text-primary-300 text-sm mb-4 leading-relaxed line-clamp-3">
+      <p className="dark:text-primary-300 text-slate-600 text-sm mb-4 leading-relaxed line-clamp-3">
         {description}
       </p>
 
@@ -122,7 +122,7 @@ function ServiceCard({
         {features.map((feature: string) => (
           <span 
             key={feature}
-            className="px-2 py-0.5 text-xs font-medium text-primary-400 bg-surface-border/30 rounded-full"
+            className="px-2 py-0.5 text-xs font-medium dark:text-primary-400 text-slate-500 dark:bg-surface-border/30 bg-slate-200/50 rounded-full"
           >
             {feature}
           </span>

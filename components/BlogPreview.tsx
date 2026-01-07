@@ -17,7 +17,7 @@ export default function BlogPreview() {
   return (
     <section className="py-24 relative">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-dark/30 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 dark:bg-gradient-to-b dark:from-transparent dark:via-surface-dark/30 dark:to-transparent bg-gradient-to-b from-transparent via-slate-100/30 to-transparent pointer-events-none" />
       
       <div className="container-custom relative z-10">
         {/* Section Header */}
@@ -32,7 +32,7 @@ export default function BlogPreview() {
           </div>
           <Link 
             href={blogPath} 
-            className="inline-flex items-center gap-2 text-accent-400 hover:text-accent-300 font-medium mt-4 sm:mt-0 group"
+            className="inline-flex items-center gap-2 text-accent-500 hover:text-accent-400 font-medium mt-4 sm:mt-0 group"
           >
             {t('allPosts')}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -79,7 +79,7 @@ function BlogCard({
         style={{ animationDelay: `${index * 100}ms` }}
       >
         {/* Image */}
-        <div className="aspect-video bg-gradient-to-br from-surface-border to-surface-dark relative overflow-hidden">
+        <div className="aspect-video dark:bg-gradient-to-br dark:from-surface-border dark:to-surface-dark bg-slate-200 relative overflow-hidden">
           <img 
             src={post.image} 
             alt={post.title}
@@ -93,10 +93,10 @@ function BlogCard({
         <div className="p-6">
           {/* Category & Meta */}
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-medium text-accent-400 uppercase tracking-wider">
+            <span className="text-xs font-medium text-accent-500 uppercase tracking-wider">
               {post.category}
             </span>
-            <div className="flex items-center gap-3 text-xs text-primary-400">
+            <div className="flex items-center gap-3 text-xs dark:text-primary-400 text-slate-500">
               <span className="flex items-center gap-1">
                 <Calendar className="w-3 h-3" />
                 {formattedDate}
@@ -109,17 +109,17 @@ function BlogCard({
           </div>
 
           {/* Title */}
-          <h3 className="text-lg font-display font-semibold text-white mb-3 group-hover:text-accent-400 transition-colors line-clamp-2">
+          <h3 className="text-lg font-display font-semibold dark:text-white text-slate-900 mb-3 group-hover:text-accent-500 transition-colors line-clamp-2">
             {post.title}
           </h3>
 
           {/* Excerpt */}
-          <p className="text-primary-300 text-sm leading-relaxed mb-4 line-clamp-2">
+          <p className="dark:text-primary-300 text-slate-600 text-sm leading-relaxed mb-4 line-clamp-2">
             {post.description}
           </p>
 
           {/* Read More */}
-          <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-300 group-hover:text-accent-400 transition-colors">
+          <span className="inline-flex items-center gap-1 text-sm font-medium dark:text-primary-300 text-slate-500 group-hover:text-accent-500 transition-colors">
             {t('readMore')}
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </span>
