@@ -770,7 +770,7 @@ Anahtar kelime stratejisi için [iletişime geçin](/iletisim).`
 
 const blogPostsEN: BlogPost[] = [
   {
-    slug: "what-is-seo-how-to-do-it",
+    slug: "seo-nedir-nasil-yapilir",
     title: "What is SEO? How to Do SEO?",
     description: "SEO stands for Search Engine Optimization. Learn how to improve your website visibility.",
     date: "2020-10-02",
@@ -807,7 +807,7 @@ Search engines use bots to crawl pages, collecting information and putting them 
 For professional SEO consulting, [contact us](/en/contact).`
   },
   {
-    slug: "what-is-ui-ux-designer",
+    slug: "ui-ux-designer-nedir-nasil-calisirlar",
     title: "What is a UI/UX Designer?",
     description: "Discover what UI and UX designers do and their role in product development.",
     date: "2020-09-22",
@@ -836,7 +836,7 @@ UI Design focuses on visual aspects - colors, typography, icons, and layouts.
 Learn more about our [UI/UX design services](/en/services/ui-ux-design).`
   },
   {
-    slug: "what-is-quality-backlink",
+    slug: "kaliteli-backlink-nedir-nasil-alinir",
     title: "What is a Quality Backlink?",
     description: "Quality backlink strategies and link building techniques for SEO.",
     date: "2020-09-25",
@@ -866,7 +866,7 @@ A backlink is a link from one website to another. Search engines view backlinks 
 For link building help, [contact us](/en/contact).`
   },
   {
-    slug: "what-is-inbound-marketing",
+    slug: "inbound-marketing-nedir-nasil-yapilir",
     title: "What is Inbound Marketing?",
     description: "Inbound marketing strategies and customer attraction techniques.",
     date: "2020-10-07",
@@ -888,7 +888,7 @@ Inbound marketing attracts customers through valuable content. Instead of interr
 For inbound strategy, [contact us](/en/contact).`
   },
   {
-    slug: "what-is-seo-specialist",
+    slug: "profesyonel-seo-uzmani-nedir-nasil-olunur",
     title: "What is an SEO Specialist?",
     description: "SEO specialist career path and required skills.",
     date: "2020-10-13",
@@ -920,7 +920,7 @@ An SEO Specialist optimizes websites to rank higher in search results.
 For SEO guidance, [contact us](/en/contact).`
   },
   {
-    slug: "digital-marketing-strategies-and-tools",
+    slug: "dijital-pazarlama-stratejileri-ve-araclari",
     title: "Digital Marketing Strategies and Tools",
     description: "Effective digital marketing strategies and essential tools.",
     date: "2020-10-20",
@@ -947,7 +947,7 @@ For SEO guidance, [contact us](/en/contact).`
 For digital marketing consulting, [contact us](/en/contact).`
   },
   {
-    slug: "seo-tools-you-should-use",
+    slug: "kullanmaniz-gereken-seo-araclari",
     title: "SEO Tools You Should Use",
     description: "Best SEO tools and comprehensive usage guide.",
     date: "2020-10-27",
@@ -972,7 +972,7 @@ For digital marketing consulting, [contact us](/en/contact).`
 For SEO tools training, [contact us](/en/contact).`
   },
   {
-    slug: "site-optimization-with-google-analytics",
+    slug: "google-analytics-ile-site-optimizasyonu",
     title: "Site Optimization with Google Analytics",
     description: "Learn how to analyze and optimize your website using GA4.",
     date: "2020-11-03",
@@ -995,7 +995,7 @@ Google Analytics is a free tool for tracking website traffic and user behavior.
 For analytics training, [contact us](/en/contact).`
   },
   {
-    slug: "how-to-do-on-page-seo",
+    slug: "site-ici-seo-nasil-yapilir",
     title: "How to Do On-Page SEO",
     description: "On-page SEO techniques and content optimization strategies.",
     date: "2020-11-10",
@@ -1018,7 +1018,7 @@ For analytics training, [contact us](/en/contact).`
 For on-page SEO help, [contact us](/en/contact).`
   },
   {
-    slug: "social-media-management-and-online-marketing",
+    slug: "sosyal-medya-yonetimi-ve-online-pazarlama",
     title: "Social Media Management and Marketing",
     description: "Effective social media strategies and platform management.",
     date: "2020-11-17",
@@ -1045,7 +1045,7 @@ For on-page SEO help, [contact us](/en/contact).`
 For social media consulting, [contact us](/en/contact).`
   },
   {
-    slug: "what-is-serp-why-important-for-google",
+    slug: "serp-nedir-google-icin-neden-onemlidir",
     title: "What is SERP? Why Is It Important?",
     description: "SERP explained and SEO strategies for SERP features.",
     date: "2020-11-21",
@@ -1069,7 +1069,7 @@ SERP stands for Search Engine Results Page - the page you see after searching.
 For SERP optimization, [contact us](/en/contact).`
   },
   {
-    slug: "what-are-heading-tags-how-to-use-h1",
+    slug: "heading-tags-nedir-h1-etiketi-nasil-kullanilir",
     title: "What Are Heading Tags? How to Use H1",
     description: "HTML heading tags and their importance for SEO.",
     date: "2020-11-24",
@@ -1097,7 +1097,7 @@ H1-H6 tags define content structure and hierarchy.
 For technical SEO help, [contact us](/en/contact).`
   },
   {
-    slug: "how-to-increase-organic-traffic-with-seo",
+    slug: "seo-ile-organik-trafigi-artirmanin-yontemleri",
     title: "How to Increase Organic Traffic with SEO",
     description: "Proven strategies to increase organic traffic.",
     date: "2020-11-28",
@@ -1122,7 +1122,7 @@ Visitors from unpaid search results.
 For traffic growth strategies, [contact us](/en/contact).`
   },
   {
-    slug: "dropshipping-and-digital-marketing",
+    slug: "dropshipping-ile-dijital-pazarlama",
     title: "Dropshipping and Digital Marketing",
     description: "Dropshipping business model and e-commerce marketing.",
     date: "2020-12-05",
@@ -1145,7 +1145,7 @@ Retail without inventory - products ship directly from suppliers.
 For e-commerce consulting, [contact us](/en/contact).`
   },
   {
-    slug: "content-marketing-and-seo-optimization",
+    slug: "icerik-pazarlamasi-ve-seo-optimizasyonu",
     title: "Content Marketing and SEO Optimization",
     description: "Content marketing strategies and SEO-friendly content creation.",
     date: "2020-12-12",
@@ -1170,7 +1170,7 @@ Creating valuable content to attract and convert your audience.
 For content strategy, [contact us](/en/contact).`
   },
   {
-    slug: "most-effective-digital-marketing-methods",
+    slug: "en-etkili-dijital-pazarlama-yontemleri",
     title: "Most Effective Digital Marketing Methods",
     description: "Most effective digital marketing methods in 2025.",
     date: "2020-12-18",
@@ -1191,7 +1191,7 @@ For content strategy, [contact us](/en/contact).`
 For marketing strategy, [contact us](/en/contact).`
   },
   {
-    slug: "importance-of-quality-original-content-for-seo",
+    slug: "kaliteli-ve-ozgun-icerigin-seo-icin-onemi",
     title: "Importance of Quality Content for SEO",
     description: "Why quality content is the foundation of SEO.",
     date: "2020-12-25",
@@ -1222,7 +1222,7 @@ Google's mission is to provide valuable results. Quality content is essential.
 For content strategy, [contact us](/en/contact).`
   },
   {
-    slug: "seo-tools-for-keyword-analysis",
+    slug: "anahtar-kelime-analizi-yapan-seo-araclari",
     title: "SEO Tools for Keyword Analysis",
     description: "Best keyword research tools and usage guide.",
     date: "2021-01-02",
