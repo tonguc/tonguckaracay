@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { Calendar, Clock, ArrowUpRight } from 'lucide-react';
 import { getAllPosts, getAllCategories, BlogPost } from '@/lib/blog';
 
+type Locale = 'tr' | 'en';
+
 type Props = {
-  params: { locale: string };
+  params: { locale: Locale };
   searchParams: { kategori?: string; category?: string };
 };
 
@@ -107,7 +109,7 @@ function BlogCard({
 }: { 
   post: BlogPost; 
   index: number;
-  locale: string;
+  locale: Locale;
   t: any;
 }) {
   const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(

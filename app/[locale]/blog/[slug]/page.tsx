@@ -7,8 +7,10 @@ import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
 import { getPostBySlug, getRelatedPosts, getAllSlugs } from '@/lib/blog';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
+type Locale = 'tr' | 'en';
+
 type Props = {
-  params: { locale: string; slug: string };
+  params: { locale: Locale; slug: string };
 };
 
 export async function generateStaticParams() {
