@@ -7,6 +7,7 @@ import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
 import { getPostBySlug, getRelatedPosts, getAllSlugs } from '@/lib/blog-utils';
 import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/slug-mappings';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import FAQ from '@/components/FAQ';
 
 type Locale = 'tr' | 'en';
 type Props = { params: { locale: Locale; slug: string } };
@@ -174,6 +175,14 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
               </div>
             </div>
           </div>
+
+          {/* FAQ Section */}
+          {post.faq && post.faq.length > 0 && (
+            <FAQ 
+              items={post.faq} 
+              title={locale === 'tr' ? 'Sıkça Sorulan Sorular' : 'Frequently Asked Questions'} 
+            />
+          )}
         </div>
 
         {relatedPosts.length > 0 && (
