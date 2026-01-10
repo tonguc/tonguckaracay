@@ -1,8 +1,8 @@
 ---
-title: "What Is GEO and How to Do It? AI SEO Guide 2025"
+title: "What Is GEO and How to Do It? AI SEO Guide 2026"
 slug: "what-is-geo-generative-engine-optimization"
 description: "What is GEO (Generative Engine Optimization) and how to implement it? Step-by-step GEO strategies to get cited in ChatGPT, Perplexity, and Google SGE responses."
-date: "2025-01-11"
+date: "2026-01-11"
 category: "SEO"
 tags: ["GEO", "Generative Engine Optimization", "AI SEO", "ChatGPT", "Perplexity", "SGE", "Artificial Intelligence", "LLM Optimization"]
 readTime: "15 min"
@@ -40,8 +40,8 @@ AI search engines are fundamentally changing how users access information. Here 
 
 **Usage statistics:**
 - ChatGPT reached 800 million active users by late 2024 (doubled in 6 months)
-- Perplexity AI received 153 million web visits in May 2025 (191.9% YoY growth)
-- AI-referred web sessions jumped 527% in the first half of 2025
+- Perplexity AI received 153 million web visits in May 2026 (191.9% YoY growth)
+- AI-referred web sessions jumped 527% in the first half of 2026
 - 43% of professionals use ChatGPT for work-related tasks
 
 **Economic value:**
@@ -179,8 +179,8 @@ Structured data helps AI better understand your content. Key schema types:
     "@type": "Person",
     "name": "Tonguç Karaçay"
   },
-  "datePublished": "2025-01-11",
-  "dateModified": "2025-01-11"
+  "datePublished": "2026-01-11",
+  "dateModified": "2026-01-11"
 }
 ```
 
@@ -289,6 +289,6 @@ For GEO consulting and AI-focused digital marketing strategies, [get in touch](/
 **Sources:**
 - Princeton University GEO Research, Aggarwal et al. (2023)
 - ACM SIGKDD Conference on Knowledge Discovery and Data Mining (2024)
-- Previsible AI Traffic Report (2025)
-- Bain & Company Zero-Click Research (2025)
+- Previsible AI Traffic Report (2026)
+- Bain & Company Zero-Click Research (2026)
 - Valuates Reports GEO Market Analysis (2024)

@@ -1,8 +1,8 @@
 ---
-title: "GEO Nedir ve Nasıl Yapılır? Yapay Zeka SEO Rehberi 2025"
+title: "GEO Nedir ve Nasıl Yapılır? Yapay Zeka SEO Rehberi 2026"
 slug: "geo-nedir-nasil-yapilir"
 description: "GEO (Generative Engine Optimization) nedir, nasıl yapılır? ChatGPT, Perplexity ve Google SGE'de görünür olmak için adım adım GEO stratejileri ve uygulama rehberi."
-date: "2025-01-11"
+date: "2026-01-11"
 category: "SEO"
 tags: ["GEO", "Generative Engine Optimization", "AI SEO", "ChatGPT", "Perplexity", "SGE", "Yapay Zeka", "LLM Optimizasyonu"]
 readTime: "15 dk"
@@ -40,8 +40,8 @@ Yapay zeka arama motorları, kullanıcıların bilgiye erişim şeklini kökten 
 
 **Kullanım istatistikleri:**
 - ChatGPT, 2024 sonunda 800 milyon aktif kullanıcıya ulaştı (6 ayda 2 katına çıktı)
-- Perplexity AI, Mayıs 2025'te 153 milyon web ziyareti aldı (yıllık %191.9 büyüme)
-- 2025'in ilk yarısında AI kaynaklı web trafiği %527 arttı
+- Perplexity AI, Mayıs 2026'te 153 milyon web ziyareti aldı (yıllık %191.9 büyüme)
+- 2026'in ilk yarısında AI kaynaklı web trafiği %527 arttı
 - Profesyonellerin %43'ü iş için ChatGPT kullanıyor
 
 **Ekonomik değer:**
@@ -178,8 +178,8 @@ Yapılandırılmış veri, AI'ın içeriğinizi daha iyi anlamasını sağlar. T
     "@type": "Person",
     "name": "Tonguç Karaçay"
   },
-  "datePublished": "2025-01-11",
-  "dateModified": "2025-01-11"
+  "datePublished": "2026-01-11",
+  "dateModified": "2026-01-11"
 }
 ```
 
@@ -288,6 +288,6 @@ GEO danışmanlığı ve yapay zeka odaklı dijital pazarlama stratejileri için
 **Kaynaklar:**
 - Princeton University GEO Research, Aggarwal et al. (2023)
 - ACM SIGKDD Conference on Knowledge Discovery and Data Mining (2024)
-- Previsible AI Traffic Report (2025)
-- Bain & Company Zero-Click Research (2025)
+- Previsible AI Traffic Report (2026)
+- Bain & Company Zero-Click Research (2026)
 - Valuates Reports GEO Market Analysis (2024)
