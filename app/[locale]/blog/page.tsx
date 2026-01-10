@@ -2,14 +2,16 @@ import { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import { Calendar, Clock, ArrowUpRight } from 'lucide-react';
-import { getAllPosts, getAllCategories, BlogPost } from '@/lib/blog-utils';
+import { Calendar, Clock, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { getAllPosts, BlogPost } from '@/lib/blog-utils';
 
 type Locale = 'tr' | 'en';
 
+const POSTS_PER_PAGE = 12;
+
 type Props = {
   params: { locale: Locale };
-  searchParams: { kategori?: string; category?: string };
+  searchParams: { page?: string };
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
@@ -25,15 +27,13 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
   setRequestLocale(locale);
   const t = await getTranslations('blog');
   
-  // Get posts and categories based on locale
   const allPosts = getAllPosts(locale);
-  const categories = getAllCategories(locale);
   
-  // Filter by category if provided
-  const categoryParam = locale === 'tr' ? searchParams.kategori : searchParams.category;
-  const filteredPosts = categoryParam 
-    ? allPosts.filter(post => post.category.toLowerCase().replace(/\s+/g, '-') === categoryParam.toLowerCase())
-    : allPosts;
+  // Pagination
+  const currentPage = Math.max(1, parseInt(searchParams.page || '1', 10));
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const paginatedPosts = allPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
   return (
     <div className="pt-28 pb-20">
@@ -48,54 +48,28 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          <Link
-            href={locale === 'tr' ? '/blog' : '/en/blog'}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              !categoryParam
-                ? 'bg-accent-500 text-primary-950'
-                : 'bg-surface-card border border-surface-border text-primary-300 hover:text-white'
-            }`}
-          >
-            {t('categories.all')}
-          </Link>
-          {categories.map((category) => {
-            const categorySlug = category.toLowerCase().replace(/\s+/g, '-');
-            const isActive = categoryParam === categorySlug;
-            const href = locale === 'tr' 
-              ? `/blog?kategori=${categorySlug}` 
-              : `/en/blog?category=${categorySlug}`;
-            
-            return (
-              <Link
-                key={category}
-                href={href}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-accent-500 text-primary-950'
-                    : 'bg-surface-card border border-surface-border text-primary-300 hover:text-white'
-                }`}
-              >
-                {category}
-              </Link>
-            );
-          })}
-        </div>
-
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredPosts.map((post, index) => (
+          {paginatedPosts.map((post, index) => (
             <BlogCard key={post.slug} post={post} index={index} locale={locale} t={t} />
           ))}
         </div>
 
-        {filteredPosts.length === 0 && (
+        {paginatedPosts.length === 0 && (
           <div className="text-center py-12">
             <p className="text-primary-400">
-              {locale === 'tr' ? 'Bu kategoride henüz yazı bulunmuyor.' : 'No posts found in this category.'}
+              {locale === 'tr' ? 'Henüz yazı bulunmuyor.' : 'No posts found.'}
             </p>
           </div>
+        )}
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <Pagination 
+            currentPage={currentPage} 
+            totalPages={totalPages} 
+            locale={locale} 
+          />
         )}
       </div>
     </div>
@@ -147,20 +121,15 @@ function BlogCard({
 
         {/* Content */}
         <div className="p-6">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-medium text-accent-400 uppercase tracking-wider">
-              {post.category}
+          <div className="flex items-center gap-3 text-xs text-primary-400 mb-3">
+            <span className="flex items-center gap-1">
+              <Calendar className="w-3 h-3" />
+              {formattedDate}
             </span>
-            <div className="flex items-center gap-3 text-xs text-primary-400">
-              <span className="flex items-center gap-1">
-                <Calendar className="w-3 h-3" />
-                {formattedDate}
-              </span>
-              <span className="flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                {post.readTime}
-              </span>
-            </div>
+            <span className="flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              {post.readTime}
+            </span>
           </div>
 
           <h2 className="text-lg font-display font-semibold text-white mb-3 group-hover:text-accent-400 transition-colors line-clamp-2">
@@ -178,5 +147,80 @@ function BlogCard({
         </div>
       </article>
     </Link>
+  );
+}
+
+function Pagination({ 
+  currentPage, 
+  totalPages, 
+  locale 
+}: { 
+  currentPage: number; 
+  totalPages: number; 
+  locale: Locale;
+}) {
+  const basePath = locale === 'tr' ? '/blog' : '/en/blog';
+  
+  const getPageUrl = (page: number) => {
+    if (page === 1) return basePath;
+    return `${basePath}?page=${page}`;
+  };
+
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(i);
+  }
+
+  return (
+    <nav className="flex items-center justify-center gap-2 mt-12" aria-label="Pagination">
+      {/* Previous */}
+      {currentPage > 1 ? (
+        <Link
+          href={getPageUrl(currentPage - 1)}
+          className="flex items-center gap-1 px-3 py-2 text-sm text-primary-300 hover:text-white transition-colors"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span className="hidden sm:inline">{locale === 'tr' ? 'Önceki' : 'Previous'}</span>
+        </Link>
+      ) : (
+        <span className="flex items-center gap-1 px-3 py-2 text-sm text-primary-500 cursor-not-allowed">
+          <ChevronLeft className="w-4 h-4" />
+          <span className="hidden sm:inline">{locale === 'tr' ? 'Önceki' : 'Previous'}</span>
+        </span>
+      )}
+
+      {/* Page Numbers */}
+      <div className="flex items-center gap-1">
+        {pages.map((page) => (
+          <Link
+            key={page}
+            href={getPageUrl(page)}
+            className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+              page === currentPage
+                ? 'bg-accent-500 text-primary-950'
+                : 'text-primary-300 hover:text-white hover:bg-surface-card'
+            }`}
+          >
+            {page}
+          </Link>
+        ))}
+      </div>
+
+      {/* Next */}
+      {currentPage < totalPages ? (
+        <Link
+          href={getPageUrl(currentPage + 1)}
+          className="flex items-center gap-1 px-3 py-2 text-sm text-primary-300 hover:text-white transition-colors"
+        >
+          <span className="hidden sm:inline">{locale === 'tr' ? 'Sonraki' : 'Next'}</span>
+          <ChevronRight className="w-4 h-4" />
+        </Link>
+      ) : (
+        <span className="flex items-center gap-1 px-3 py-2 text-sm text-primary-500 cursor-not-allowed">
+          <span className="hidden sm:inline">{locale === 'tr' ? 'Sonraki' : 'Next'}</span>
+          <ChevronRight className="w-4 h-4" />
+        </span>
+      )}
+    </nav>
   );
 }
