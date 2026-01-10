@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
-import { getPostBySlug as getPostBySlugEn, getRelatedPosts as getRelatedPostsEn, getAllSlugs as getAllSlugsEn } from '@/lib/blog';
+import { getPostBySlug as getPostBySlugEn, getRelatedPosts as getRelatedPostsEn, getAllSlugs as getAllSlugsEn, slugMappingTrToEn, slugMappingEnToTr } from '@/lib/blog';
 import { getPostBySlug as getPostBySlugTr, getRelatedPosts as getRelatedPostsTr, getAllSlugs as getAllSlugsTr } from '@/lib/blog-tr';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
@@ -21,7 +21,17 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale, slug } }: Props): Promise<Metadata> {
-  const post = locale === 'tr' ? getPostBySlugTr(slug) : getPostBySlugEn(slug);
+  let post = locale === 'tr' ? getPostBySlugTr(slug) : getPostBySlugEn(slug);
+  
+  // If post not found, try to find with translated slug
+  if (!post) {
+    if (locale === 'en' && slugMappingTrToEn[slug]) {
+      post = getPostBySlugEn(slugMappingTrToEn[slug]);
+    } else if (locale === 'tr' && slugMappingEnToTr[slug]) {
+      post = getPostBySlugTr(slugMappingEnToTr[slug]);
+    }
+  }
+  
   if (!post) return { title: 'Post Not Found' };
 
   const baseUrl = 'https://tonguckaracay.com';
@@ -40,9 +50,19 @@ export async function generateMetadata({ params: { locale, slug } }: Props): Pro
 export default async function BlogPostPage({ params: { locale, slug } }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('blog');
-  const post = locale === 'tr' ? getPostBySlugTr(slug) : getPostBySlugEn(slug);
+  let post = locale === 'tr' ? getPostBySlugTr(slug) : getPostBySlugEn(slug);
   
-  if (!post) notFound();
+  // If post not found, check if it's a slug from the other language and redirect
+  if (!post) {
+    if (locale === 'en' && slugMappingTrToEn[slug]) {
+      // Turkish slug on English page - redirect to correct English slug
+      redirect(`/en/blog/${slugMappingTrToEn[slug]}`);
+    } else if (locale === 'tr' && slugMappingEnToTr[slug]) {
+      // English slug on Turkish page - redirect to correct Turkish slug
+      redirect(`/blog/${slugMappingEnToTr[slug]}`);
+    }
+    notFound();
+  }
 
   const relatedPosts = locale === 'tr' ? getRelatedPostsTr(slug, 3) : getRelatedPostsEn(slug, undefined, 3);
   const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
