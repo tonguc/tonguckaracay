@@ -9,6 +9,17 @@ readTime: "15 dk"
 featured: true
 image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "what-is-geo-generative-engine-optimization"
+faq:
+  - question: "GEO nedir?"
+    answer: "GEO (Generative Engine Optimization), yapay zeka destekli arama motorlarında içeriğinizin görünür olmasını ve kaynak olarak alıntılanmasını sağlayan optimizasyon sürecidir. ChatGPT, Perplexity, Google Gemini ve Claude gibi LLM tabanlı platformlarda markanızın referans gösterilmesini hedefler."
+  - question: "GEO, SEO'nun yerini mi alacak?"
+    answer: "Hayır. GEO, SEO'yu tamamlayan yeni bir katmandır. Güçlü SEO temeli olan siteler, GEO'da da avantajlıdır. Her iki stratejiyi birlikte uygulamak en iyi sonuçları verir."
+  - question: "GEO nasıl yapılır?"
+    answer: "GEO için içerik yapısını optimize edin, semantik bütünlük sağlayın, istatistik ve veri ekleyin, güvenilir kaynaklara atıf yapın, E-E-A-T sinyallerini güçlendirin, Schema markup uygulayın ve içeriği güncel tutun."
+  - question: "ChatGPT içeriğimi nasıl bulacak?"
+    answer: "ChatGPT ve diğer LLM'ler, web tarama (crawling) yaparak içerik toplar. Sitenizin teknik olarak erişilebilir olması, içeriğinizin kaliteli ve güvenilir olması, yapılandırılmış veri kullanmanız şansınızı artırır."
+  - question: "GEO ne kadar sürede sonuç verir?"
+    answer: "GEO, SEO gibi uzun vadeli bir stratejidir. AI motorlarının içeriğinizi indekslemesi ve güvenilir kaynak olarak değerlendirmesi zaman alır. Genellikle 3-6 ay içinde ilk sonuçlar görülmeye başlar."
 ---
 
 GEO (Generative Engine Optimization), yapay zeka destekli arama motorlarında içeriğinizin görünür olmasını ve kaynak olarak alıntılanmasını sağlayan optimizasyon sürecidir. ChatGPT, Perplexity, Google Gemini ve Claude gibi LLM tabanlı platformlarda markanızın referans gösterilmesi için uygulanan stratejilerin tümünü kapsar.

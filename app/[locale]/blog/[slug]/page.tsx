@@ -73,6 +73,62 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
   return (
     <article className="pt-28 pb-20">
+      {/* Article Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": post.title,
+            "description": post.description,
+            "image": post.image,
+            "author": {
+              "@type": "Person",
+              "name": "Tonguç Karaçay",
+              "url": "https://tonguckaracay.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Tonguç Karaçay",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://tonguckaracay.com/logo.png"
+              }
+            },
+            "datePublished": post.date,
+            "dateModified": post.updatedDate || post.date,
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": locale === 'tr' 
+                ? `https://tonguckaracay.com/blog/${post.slug}` 
+                : `https://tonguckaracay.com/en/blog/${post.slug}`
+            }
+          })
+        }}
+      />
+      
+      {/* FAQ Schema - only if post has FAQ */}
+      {post.faq && post.faq.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": post.faq.map(item => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": item.answer
+                }
+              }))
+            })
+          }}
+        />
+      )}
+
       <div className="container-custom">
         <Link href={blogPath} className="inline-flex items-center gap-2 text-primary-400 hover:text-accent-500 transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />

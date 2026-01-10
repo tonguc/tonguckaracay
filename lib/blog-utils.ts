@@ -2,6 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -15,6 +20,7 @@ export interface BlogPost {
   image: string;
   content: string;
   translationSlug?: string;
+  faq?: FAQItem[];
 }
 
 const contentDirectory = path.join(process.cwd(), 'content/blog');
@@ -52,6 +58,7 @@ export function getAllPosts(locale: 'tr' | 'en' = 'tr'): BlogPost[] {
         image: data.image || '',
         content: content,
         translationSlug: data.translationSlug,
+        faq: data.faq || undefined,
       } as BlogPost;
     });
   

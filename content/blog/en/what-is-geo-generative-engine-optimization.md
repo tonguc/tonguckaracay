@@ -9,6 +9,17 @@ readTime: "15 min"
 featured: true
 image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "geo-nedir-nasil-yapilir"
+faq:
+  - question: "What is GEO?"
+    answer: "GEO (Generative Engine Optimization) is the practice of optimizing your content to be visible and cited as a source in AI-powered search engines like ChatGPT, Perplexity, Google Gemini, and Claude."
+  - question: "Will GEO replace SEO?"
+    answer: "No. GEO is a new layer that complements SEO. Sites with strong SEO foundations also have advantages in GEO. Applying both strategies together yields the best results."
+  - question: "How to do GEO?"
+    answer: "To implement GEO, optimize content structure, ensure semantic coherence, add statistics and data, cite credible sources, strengthen E-E-A-T signals, implement Schema markup, and keep content fresh."
+  - question: "How will ChatGPT find my content?"
+    answer: "ChatGPT and other LLMs collect content through web crawling. Having your site technically accessible, your content high-quality and trustworthy, and using structured data increases your chances of being cited."
+  - question: "How long does GEO take to show results?"
+    answer: "GEO, like SEO, is a long-term strategy. It takes time for AI engines to index your content and evaluate it as a trusted source. Generally, initial results appear within 3-6 months."
 ---
 
 GEO (Generative Engine Optimization) is the practice of optimizing your content to be visible and cited as a source in AI-powered search engines. It encompasses all strategies for getting your brand referenced in LLM-based platforms like ChatGPT, Perplexity, Google Gemini, and Claude.
