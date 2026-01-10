@@ -20,6 +20,7 @@ export const slugMappingTrToEn: Record<string, string> = {
   "en-etkili-dijital-pazarlama-yontemleri": "most-effective-digital-marketing-methods",
   "kaliteli-ve-ozgun-icerigin-seo-icin-onemi": "importance-of-quality-original-content-for-seo",
   "anahtar-kelime-analizi-yapan-seo-araclari": "best-keyword-research-seo-tools",
+  "geo-nedir-nasil-yapilir": "what-is-geo-generative-engine-optimization",
 };
 
 export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
