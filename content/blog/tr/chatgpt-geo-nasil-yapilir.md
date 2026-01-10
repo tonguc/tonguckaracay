@@ -8,7 +8,7 @@ tags: ["ChatGPT GEO", "LLM Optimizasyonu", "ChatGPT SEO", "Yapay Zeka Optimizasy
 readTime: "18 dk"
 featured: true
 image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&auto=format&fit=crop&q=80"
-translationSlug: "chatgpt-geo-how-to-optimize"
+translationSlug: "how-to-get-cited-in-chatgpt"
 faq:
   - question: "ChatGPT GEO nedir?"
     answer: "ChatGPT GEO, içeriğinizin ChatGPT yanıtlarında kaynak olarak alıntılanmasını ve görünür olmasını sağlayan optimizasyon stratejileridir. Geleneksel SEO'dan farklı olarak, LLM'lerin içeriği nasıl işlediğine odaklanır."
