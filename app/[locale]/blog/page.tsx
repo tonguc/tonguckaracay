@@ -3,7 +3,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowUpRight } from 'lucide-react';
-import { getAllPosts, getAllCategories, BlogPost } from '@/lib/blog';
+import { getAllPosts as getAllPostsEn, getAllCategories as getAllCategoriesEn, BlogPost } from '@/lib/blog';
+import { getAllPosts as getAllPostsTr, getAllCategories as getAllCategoriesTr } from '@/lib/blog-tr';
 
 type Locale = 'tr' | 'en';
 
@@ -25,8 +26,9 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
   setRequestLocale(locale);
   const t = await getTranslations('blog');
   
-  const allPosts = getAllPosts(locale);
-  const categories = getAllCategories(locale);
+  // Get posts and categories based on locale
+  const allPosts = locale === 'tr' ? getAllPostsTr() : getAllPostsEn();
+  const categories = locale === 'tr' ? getAllCategoriesTr() : getAllCategoriesEn();
   
   // Filter by category if provided
   const categoryParam = locale === 'tr' ? searchParams.kategori : searchParams.category;

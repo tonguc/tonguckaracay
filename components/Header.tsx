@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from "lucide-react";
+import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/blog';
 
 export default function Header() {
   const t = useTranslations('nav');
@@ -83,8 +84,17 @@ export default function Header() {
     if (mappings[currentPath]) {
       newPath = mappings[currentPath][newLocale];
     } else if (currentPath.startsWith('/blog/')) {
+      // Handle blog detail pages with slug translation
       const slug = currentPath.replace('/blog/', '');
-      newPath = newLocale === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`;
+      if (newLocale === 'en') {
+        // TR -> EN: translate slug
+        const translatedSlug = slugMappingTrToEn[slug] || slug;
+        newPath = `/en/blog/${translatedSlug}`;
+      } else {
+        // EN -> TR: translate slug back
+        const translatedSlug = slugMappingEnToTr[slug] || slug;
+        newPath = `/blog/${translatedSlug}`;
+      }
     } else {
       newPath = newLocale === 'en' ? '/en' : '/';
     }
@@ -140,11 +150,9 @@ export default function Header() {
               )}
             </div>
 
-            {locale === 'tr' && (
-              <Link href={navLinks.blog} className="text-primary-200 hover:text-white transition-colors font-medium">
-                {t('blog')}
-              </Link>
-            )}
+            <Link href={navLinks.blog} className="text-primary-200 hover:text-white transition-colors font-medium">
+              {t('blog')}
+            </Link>
 
             <Link href={navLinks.about} className="text-primary-200 hover:text-white transition-colors font-medium">
               {t('about')}
@@ -201,9 +209,7 @@ export default function Header() {
                 ))}
               </div>
               <div className="pt-4 border-t border-surface-border space-y-2">
-                {locale === 'tr' && (
-                  <Link href={navLinks.blog} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('blog')}</Link>
-                )}
+                <Link href={navLinks.blog} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('blog')}</Link>
                 <Link href={navLinks.about} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('about')}</Link>
                 
                 <div className="flex items-center gap-2 px-2 py-2">

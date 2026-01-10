@@ -4,15 +4,16 @@ import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
-import { getPostBySlug, getRelatedPosts, getAllSlugs } from '@/lib/blog';
+import { getPostBySlug as getPostBySlugEn, getRelatedPosts as getRelatedPostsEn, getAllSlugs as getAllSlugsEn } from '@/lib/blog';
+import { getPostBySlug as getPostBySlugTr, getRelatedPosts as getRelatedPostsTr, getAllSlugs as getAllSlugsTr } from '@/lib/blog-tr';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 type Locale = 'tr' | 'en';
 type Props = { params: { locale: Locale; slug: string } };
 
 export async function generateStaticParams() {
-  const trSlugs = getAllSlugs('tr');
-  const enSlugs = getAllSlugs('en');
+  const trSlugs = getAllSlugsTr();
+  const enSlugs = getAllSlugsEn();
   return [
     ...trSlugs.map(slug => ({ locale: 'tr', slug })),
     ...enSlugs.map(slug => ({ locale: 'en', slug })),
@@ -20,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale, slug } }: Props): Promise<Metadata> {
-  const post = getPostBySlug(slug, locale);
+  const post = locale === 'tr' ? getPostBySlugTr(slug) : getPostBySlugEn(slug);
   if (!post) return { title: 'Post Not Found' };
 
   const baseUrl = 'https://tonguckaracay.com';
@@ -39,11 +40,11 @@ export async function generateMetadata({ params: { locale, slug } }: Props): Pro
 export default async function BlogPostPage({ params: { locale, slug } }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('blog');
-  const post = getPostBySlug(slug, locale);
+  const post = locale === 'tr' ? getPostBySlugTr(slug) : getPostBySlugEn(slug);
   
   if (!post) notFound();
 
-  const relatedPosts = getRelatedPosts(slug, locale, 3);
+  const relatedPosts = locale === 'tr' ? getRelatedPostsTr(slug, 3) : getRelatedPostsEn(slug, undefined, 3);
   const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
     locale === 'tr' ? 'tr-TR' : 'en-US',
     { day: 'numeric', month: 'long', year: 'numeric' }

@@ -12,796 +12,822 @@ export interface BlogPost {
   content: string;
 }
 
-const blogPosts: BlogPost[] = [
+// Slug mapping for language switching (TR slug -> EN slug)
+export const slugMappingTrToEn: Record<string, string> = {
+  "seo-nedir-nasil-yapilir": "what-is-seo-how-does-it-work",
+  "ui-ux-designer-nedir-nasil-calisirlar": "what-is-ui-ux-designer-how-do-they-work",
+  "kaliteli-backlink-nedir-nasil-alinir": "what-are-quality-backlinks-how-to-get-them",
+  "inbound-marketing-nedir-nasil-yapilir": "what-is-inbound-marketing-how-to-do-it",
+  "dijital-pazarlama-stratejileri-ve-araclari": "digital-marketing-strategies-and-tools",
+  "kullanmaniz-gereken-seo-araclari": "essential-seo-tools-you-should-use",
+  "google-analytics-ile-site-optimizasyonu": "website-optimization-with-google-analytics",
+  "site-ici-seo-nasil-yapilir": "on-page-seo-complete-guide",
+  "sosyal-medya-yonetimi-ve-online-pazarlama": "social-media-management-and-online-marketing",
+  "serp-nedir-google-icin-neden-onemlidir": "what-is-serp-why-it-matters-for-google",
+  "heading-tags-nedir-h1-etiketi-nasil-kullanilir": "what-are-heading-tags-how-to-use-h1",
+  "seo-ile-organik-trafigi-artirmanin-yontemleri": "how-to-increase-organic-traffic-with-seo",
+  "profesyonel-seo-uzmani-nedir-nasil-olunur": "what-is-seo-specialist-how-to-become-one",
+  "dropshipping-ile-dijital-pazarlama": "dropshipping-and-digital-marketing",
+  "icerik-pazarlamasi-ve-seo-optimizasyonu": "content-marketing-and-seo-optimization",
+  "en-etkili-dijital-pazarlama-yontemleri": "most-effective-digital-marketing-methods",
+  "kaliteli-ve-ozgun-icerigin-seo-icin-onemi": "importance-of-quality-original-content-for-seo",
+  "anahtar-kelime-analizi-yapan-seo-araclari": "best-keyword-research-seo-tools",
+};
+
+// Reverse mapping (EN slug -> TR slug)
+export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
+  Object.entries(slugMappingTrToEn).map(([tr, en]) => [en, tr])
+);
+
+const blogPostsEn: BlogPost[] = [
   {
-    slug: "seo-nedir-nasil-yapilir",
-    title: "SEO Nedir, SEO Çalışmaları Nasıl Yapılır?",
-    description: "SEO, arama motoru optimizasyonu anlamına gelir. Sitenizin ilgili aramalar için görünürlüğünü artırmak için yapılan optimizasyon sürecidir.",
+    slug: "what-is-seo-how-does-it-work",
+    title: "What Is SEO and How Does It Work?",
+    description: "SEO stands for Search Engine Optimization. It's the process of improving your site's visibility for relevant searches to attract more traffic.",
     date: "2020-10-02",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["SEO", "Arama Motoru Optimizasyonu", "Google", "Dijital Pazarlama"],
-    readTime: "8 dk",
+    tags: ["SEO", "Search Engine Optimization", "Google", "Digital Marketing"],
+    readTime: "8 min",
     featured: true,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
     content: `
-## SEO nedir?
+## What Is SEO?
 
-SEO, "arama motoru optimizasyonu" anlamına gelir. Basit bir ifadeyle, sitenizin ilgili aramalar için görünürlüğünü artırmak için iyileştirme süreci anlamına gelir. Sayfalarınızın arama sonuçlarında daha iyi görünürlüğü ne kadar yüksek olursa, dikkat çekme ve potansiyel ve mevcut müşterileri işletmenize çekme olasılığınız o kadar artar.
+SEO stands for "search engine optimization." Simply put, it's the process of improving your website to increase its visibility when people search for products or services related to your business on Google, Bing, and other search engines. The better visibility your pages have in search results, the more likely you are to attract attention and draw prospective and existing customers to your business.
 
-## SEO nasıl çalışır?
+## How Does SEO Work?
 
-Google ve Bing gibi arama motorları, web'deki sayfaları taramak, siteden siteye gitmek, bu sayfalar hakkında bilgi toplamak ve bunları bir dizine koymak için botları kullanır. Ardından, algoritmalar, belirli bir sorgu için arama sonuçlarında sıralı sayfaların görünmesi gerektiğini belirlemek için yüzlerce sıralama faktörünü veya sinyalini dikkate alarak dizindeki sayfaları analiz eder.
+Search engines like Google and Bing use bots to crawl pages on the web, going from site to site, collecting information about those pages, and putting them in an index. Then algorithms analyze pages in the index, taking into account hundreds of ranking factors or signals, to determine the order pages should appear in search results for a given query.
 
-Arama sıralama faktörleri, kullanıcı deneyiminin yönleri için referans olarak kabul edilebilir. Periyodik SEO Faktörleri Tablonuz, faktörleri altı ana kategoriye ayırır ve her biri SEO için genel önemine göre ağırlık verir. Örneğin, içerik kalitesi ve anahtar kelime araştırması, içerik optimizasyonunun temel faktörleridir ve taranabilirlik ve mobil uyumluluk, önemli site mimarisi faktörleridir.
+Search ranking factors can be considered proxies for aspects of user experience. Our SEO Factors Table organizes factors into six main categories, each weighted based on its overall importance to SEO. For example, content quality and keyword research are key content optimization factors, while crawlability and mobile-friendliness are important site architecture factors.
 
-Arama algoritmaları, alakalı, yetkili sayfaları ortaya çıkarmak ve kullanıcılara verimli bir arama deneyimi sağlamak için tasarlanmıştır. Sitenizi ve içeriğinizi bu faktörleri göz önünde bulundurarak optimize etmek, sayfalarınızın arama sonuçlarında daha üst sıralarda yer almasına yardımcı olabilir.
+Search algorithms are designed to surface relevant, authoritative pages and provide users with an efficient search experience. Optimizing your site and content with these factors in mind can help your pages rank higher in search results.
 
-Ücretli arama reklamlarının aksine, daha yüksek organik arama sıralaması elde etmek için arama motorlarına ödeme yapamazsınız.
+Unlike paid search ads, you can't pay search engines to get higher organic search rankings.
 
-## SEO pazarlama için neden önemlidir?
+## Why Is SEO Important for Marketing?
 
-SEO, dijital pazarlamanın temel bir parçasıdır çünkü insanlar her yıl trilyonlarca arama yapar ve genellikle ticari amaçla ürünler ve hizmetler hakkında bilgi bulurlar. Arama genellikle markalar için birincil dijital trafik kaynağıdır ve diğer pazarlama kanallarını tamamlar. Arama sonuçlarında rakiplerinize göre daha fazla görünürlük ve daha yüksek sıralama, kâr hanenizde önemli bir etkiye sahip olabilir.
+SEO is a fundamental part of digital marketing because people conduct trillions of searches every year, often with commercial intent to find information about products and services. Search is often the primary source of digital traffic for brands and complements other marketing channels. Greater visibility and higher ranking in search results than your competition can have a material impact on your bottom line.
 
-Bununla birlikte, arama sonuçları, kullanıcılara daha doğrudan yanıtlar ve kullanıcıları başka web sitelerine yönlendirmek yerine sonuçlar sayfasında tutma olasılığı daha yüksek olan bilgiler sağlamak için son birkaç yılda gelişmektedir.
+However, search results have been evolving over the past several years to give users more direct answers and information that keeps users on the results page rather than directing them to other websites.
 
-Ayrıca, arama sonuçlarındaki zengin sonuçlar ve Bilgi Panelleri gibi özelliklerin görünürlüğü artırabileceğini ve kullanıcılara doğrudan sonuçlarda şirketiniz hakkında daha fazla bilgi sağlayabileceğini unutmayın.
+Also note that features like rich results and Knowledge Panels in search results can increase visibility and provide users with more information about your company directly in results.
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "ui-ux-designer-nedir-nasil-calisirlar",
-    title: "UI-UX Designer Nedir, Nasıl Çalışırlar?",
-    description: "UI ve UX tasarımcılarının ne yaptığını, nasıl çalıştıklarını ve dijital ürün geliştirme sürecindeki rollerini keşfedin.",
+    slug: "what-is-ui-ux-designer-how-do-they-work",
+    title: "What Is a UI/UX Designer and How Do They Work?",
+    description: "Discover what UI and UX designers do, how they work, and their role in the digital product development process.",
     date: "2020-09-22",
     updatedDate: "2025-01-15",
     category: "UI-UX",
-    tags: ["UI Design", "UX Design", "Kullanıcı Deneyimi", "Arayüz Tasarımı"],
-    readTime: "7 dk",
+    tags: ["UI Design", "UX Design", "User Experience", "Interface Design"],
+    readTime: "7 min",
     featured: true,
     image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&auto=format&fit=crop&q=80",
     content: `
-## UX Designer Nedir?
+## What Is a UX Designer?
 
-UX Designer'lar veya kullanıcı deneyimi tasarımcıları, kullanıcı deneyiminin önemi konusuyla ilgilenir. Bunun için ürün geliştirme sürecinin geliştirilmesine veya mevcut bir ürünün iyileştirilmesine odaklanır. Sürecin her bölümünde, ürünün kullanışlı olmasına ve sorunsuz şekilde kullanılabilirliğine yardımcı olur.
+UX Designers, or user experience designers, focus on the importance of user experience. They work on improving the product development process or enhancing existing products. At every stage of the process, they help ensure the product is useful and provides a seamless user experience.
 
-Proje ekibinin tamamıyla, ürünün potansiyel kullanıcılarının çalışma yürütmesine, deneyimlerini iyileştirmeye yönelik öğeler bulmaya ve bu değişiklikleri dahil etmeye yardımcı olur. Sonuç olarak, ürün-kullanıcı etkileşimine ait deneyimlerini iyileştirmek için stratejiler ve uygulanabilir bir planlama arar.
+Working with the entire project team, they help conduct research on potential users, find elements to improve their experience, and incorporate these changes. Ultimately, they seek strategies and actionable plans to enhance the product-user interaction experience.
 
-UX tasarımında veri kullanımı önemlidir. UX Designer, veri temelli değişiklikler öneren ve tasarım işbirliği için farklı ekiplerle iletişime geçen kişi olduğu için, tasarımın verilere dayandırılması gerekir. Yapılacak değişiklik veya geliştirme için veriye dayanmayan bir önerinin geçerliliği söz konusu olmaz. Her karar, düzgün bir şekilde araştırılmalı ve verilere dayandırılmalıdır.
+Data usage is crucial in UX design. Since UX Designers propose data-driven changes and communicate with different teams for design collaboration, designs must be grounded in data. Any suggestion for change or improvement without data backing lacks validity. Every decision should be properly researched and data-driven.
 
-Bir UX Designer'ın mümkün olan en iyi deneyimi sunma amacında, mevcut durumu analiz edebilmek için verileri kullanması gerekir. Bunun için Google Analytics gibi analiz araçlarından faydalanır. Bu gibi araçlarla, kullanıcı memnuniyeti ile ilgili yapılan bir yenilikten potansiyel kullanıcıların nasıl etkilenebileceğini ve hangi değişikliklerin daha yüksek bir kullanıcı memnuniyeti ile sonuçlanacağını anlayabilir.
+To deliver the best possible experience, UX Designers must use data to analyze the current situation. They leverage analytics tools like Google Analytics. With such tools, they can understand how potential users might be affected by innovations related to user satisfaction and which changes will result in higher user satisfaction.
 
-## UI Designer Nedir?
+## What Is a UI Designer?
 
-Aslında grafik tasarım ile UI tasarımı arasında pek bir fark yoktur. Bir web sitesi veya uygulama yapılırken yazı tipleri, simgeler, düğmeler, renkler ve duyarlı tasarım seçeneklerinin tümünü kapsayan disiplindir. Bir UI Designer, uygulama veya web sitelerinin görsel açıdan estetik olmasını sağlar.
+There isn't much difference between graphic design and UI design. It's the discipline that encompasses typography, icons, buttons, colors, and responsive design options when building a website or application. A UI Designer ensures applications or websites are visually aesthetic.
 
-Diğer taraftan UI Designer'ın tüm görsel öğeler arasında tutarlılık sağlaması önemlidir. Bu tutarlılık hem web hem de mobil uygulama arasında devam etmelidir.
+On the other hand, UI Designers must maintain consistency across all visual elements. This consistency should extend across both web and mobile applications.
 
-UI Designer'lar geliştirme ekipleriyle işin mutfağında çalışır. Tasarımlarını devredilir duruma getirene kadar çalışır ve sürecin sonuna kadar ilerler. Görsel arayüz düzenleri, stillerine uygun görsel tasarımlar, yazı tipleri, renk şemaları ve düğmeleri hazırlamayı içeren iş akışlarıyla, uygulama alanlarının görsel kalitesinden sorumludur.
+UI Designers work in the trenches with development teams. They work until their designs are ready for handoff and progress to the end of the process. With workflows that include preparing visual interface layouts, style-appropriate visual designs, typography, color schemes, and buttons, they're responsible for the visual quality of application areas.
 
-Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) göz atın.
+For more information, check out our [UI-UX design services](/services/ui-ux-design).
     `
   },
   {
-    slug: "kaliteli-backlink-nedir-nasil-alinir",
-    title: "Kaliteli Backlink Nedir? Nasıl Alınır?",
-    description: "Kaliteli backlink stratejileri, backlink türleri ve SEO için doğru link building teknikleri hakkında kapsamlı rehber.",
+    slug: "what-are-quality-backlinks-how-to-get-them",
+    title: "What Are Quality Backlinks and How to Get Them?",
+    description: "A comprehensive guide on quality backlink strategies, backlink types, and proper link building techniques for SEO.",
     date: "2020-09-25",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["Backlink", "Link Building", "SEO", "Off-Page SEO"],
-    readTime: "9 dk",
+    tags: ["Backlinks", "Link Building", "SEO", "Off-Page SEO"],
+    readTime: "9 min",
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Backlink Nedir?
+## What Is a Backlink?
 
-Backlink, bir web sitesinden başka bir web sitesine verilen bağlantılara denir. Bir web sitesinden başka bir web sitesine köprü verilmiş link anlamına gelir. İnternet kullanıcıları bu bağlantılara tıklayarak, bir siteden diğerine geçiş yapabilir. Arama motorları, web sayfaları arasında gezinmek için de backlinklerden faydalanır.
+A backlink is a link from one website to another. It's a hyperlink connecting one site to a different site. Internet users can click these links to navigate from one site to another. Search engines also use backlinks to crawl between web pages.
 
-Arama motoru devi Google, kaliteli olarak gördüğü web sitelerinden alınmış backlinklere, elbette diğer arama motorları da ciddi önem vermektedir. Özellikle bir web sitesinin arama motoru sonuçlarında daha üst sıralarda yer alması için backlinkler son derece önemlidir.
+Google and other major search engines place significant importance on backlinks from websites they consider high-quality. Backlinks are extremely important for a website to rank higher in search engine results.
 
-## Kaliteli Backlink Özellikleri
+## Characteristics of Quality Backlinks
 
-Aşağıda bir backlinkin kaliteli olarak değerlendirilebilmesi için sahip olması gereken bazı özellikleri yer almaktadır:
+Here are some characteristics a backlink should have to be considered high-quality:
 
-- Kendi site içeriğinize yakın olan sitelerden backlink almak, daha çok işe yarar.
-- Link aldığınız sitenin ziyaretçi ve içerik bakımından zengin ve aktif bir site olması çok önemlidir.
-- Link aldığınız sitenin içerik kalitesi, sizin backlinkinize değer katar.
-- Link alınan sitenin Domain Authority (DA) ve Page Authority (PA) değerleri yüksek olmalıdır.
-- Backlink alınan site, arama motorları tarafından güvenilir bulunmalıdır.
-- Backlink alınan sitenin spam içerikli olmamasına dikkat edilmelidir.
-- Dofollow ve nofollow backlink dengesine özen gösterilmelidir.
-- Backlink alınan sitenin, daha önce Google tarafından cezalandırılmamış olmasına dikkat edilmelidir.
+- Getting backlinks from sites related to your content is more effective.
+- The site giving you the link should be rich in visitors and content and actively maintained.
+- The content quality of the linking site adds value to your backlink.
+- The linking site should have high Domain Authority (DA) and Page Authority (PA) values.
+- The backlink source should be considered trustworthy by search engines.
+- Make sure the backlink source doesn't contain spam content.
+- Maintain a balance between dofollow and nofollow backlinks.
+- Ensure the backlink source hasn't been penalized by Google previously.
 
-## Backlink Türleri
+## Types of Backlinks
 
-**İçerik Backlink:** Bir makale veya blog yazısı içerisine doğal olarak yerleştirilen backlinklerdir. SEO açısından en değerli backlink türüdür.
+**Content Backlinks:** Backlinks naturally placed within an article or blog post. This is the most valuable type of backlink for SEO.
 
-**Banner Backlink:** Görsel reklamlar aracılığıyla alınan backlinklerdir. Genellikle tanıtım amaçlı kullanılır.
+**Banner Backlinks:** Backlinks obtained through visual advertisements. Generally used for promotional purposes.
 
-**Footer Backlink:** Web sitesinin alt kısmında yer alan backlinklerdir. Değeri diğer türlere göre daha düşüktür.
+**Footer Backlinks:** Backlinks located in the footer section of a website. Their value is lower compared to other types.
 
-**Yorum Backlink:** Blog yazıları veya forumlar üzerine yapılan yorumlarla alınan backlinklerdir. Spam olarak değerlendirilebileceği için dikkatli kullanılmalıdır.
+**Comment Backlinks:** Backlinks obtained through comments on blog posts or forums. Should be used carefully as they can be considered spam.
 
-**Profil Backlink:** Çeşitli platformlarda oluşturulan profillere eklenen backlinklerdir. Doğal bir backlink profili oluşturmak için kullanılabilir.
+**Profile Backlinks:** Backlinks added to profiles created on various platforms. Can be used to create a natural backlink profile.
 
-## Backlink Stratejisi
+## Backlink Strategy
 
-Kaliteli backlink almak için öncelikle kaliteli içerik üretmeniz gerekir. Diğer siteler, değerli bulduğu içeriklere doğal olarak link verir. Ayrıca sektörünüzdeki diğer sitelerle ilişkiler kurarak, guest post ve ortak içerik çalışmaları yapabilirsiniz.
+To get quality backlinks, you first need to produce quality content. Other sites naturally link to content they find valuable. You can also build relationships with other sites in your industry and work on guest posts and collaborative content.
 
-Backlink çalışması yaparken sabırlı olmalı ve doğal bir link profili oluşturmaya özen göstermelisiniz. Kısa sürede çok fazla backlink almak, arama motorları tarafından şüpheli bulunabilir.
+When working on backlinks, be patient and focus on building a natural link profile. Getting too many backlinks in a short time can be seen as suspicious by search engines.
 
-Profesyonel SEO ve backlink danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO and backlink consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "inbound-marketing-nedir-nasil-yapilir",
-    title: "Inbound Marketing Nedir, Nasıl Yapılır?",
-    description: "Inbound marketing stratejileri, gelen pazarlama teknikleri ve müşteri çekme yöntemleri hakkında detaylı rehber.",
+    slug: "what-is-inbound-marketing-how-to-do-it",
+    title: "What Is Inbound Marketing and How to Do It?",
+    description: "A detailed guide on inbound marketing strategies, techniques, and methods for attracting customers.",
     date: "2020-10-07",
     updatedDate: "2025-01-15",
-    category: "Dijital Pazarlama",
-    tags: ["Inbound Marketing", "İçerik Pazarlaması", "Dijital Pazarlama", "Lead Generation"],
-    readTime: "8 dk",
+    category: "Digital Marketing",
+    tags: ["Inbound Marketing", "Content Marketing", "Digital Marketing", "Lead Generation"],
+    readTime: "8 min",
     image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Inbound Marketing Nedir?
+## What Is Inbound Marketing?
 
-Inbound Marketing terimi olarak ilk kez 2006 yılında, önemli bir pazarlama yazılım şirketi olan Hubspot'un kurucu ortaklarından biri tarafından kullanılmıştır. Inbound marketing, kaliteli içerikle müşterinin bizi bulmasını sağlayan pazarlama stratejisi olarak ifade edilebilir.
+The term Inbound Marketing was first used in 2006 by one of the co-founders of HubSpot, a major marketing software company. Inbound marketing can be described as a marketing strategy that attracts customers to find you through quality content.
 
-Bu yöntemde, potansiyel müşterilerin size gelmesi için onlara değerli içerikler sunarsınız. Geleneksel pazarlamanın aksine, müşteriyi rahatsız etmeden, onların ihtiyaçlarına yönelik çözümler sunarak dikkatlerini çekersiniz.
+In this method, you provide valuable content to potential customers to get them to come to you. Unlike traditional marketing, you capture their attention by offering solutions to their needs without disturbing them.
 
-## Inbound Marketing'de Dikkat Edilmesi Gerekenler
+## Key Considerations for Inbound Marketing
 
-Inbound marketing stratejisi oluştururken aşağıdaki noktalara dikkat etmelisiniz:
+When creating an inbound marketing strategy, pay attention to the following points:
 
-- Hedef kitlenize uygun ve değerli içerikler üretin.
-- İçeriklerinizde güçlü CTA (Call to Action) kullanın.
-- Sosyal medya platformlarını aktif olarak kullanın.
-- E-posta pazarlaması ile potansiyel müşterilerle iletişimde kalın.
-- İçerik kalitenizi sürekli artırın.
-- SEO uyumlu içerikler hazırlayın.
-- Blog yazıları, videolar, infografikler gibi farklı içerik türleri kullanın.
-- Analitik araçlarla performansınızı ölçün ve optimize edin.
+- Create content that's valuable and relevant to your target audience.
+- Use strong CTAs (Call to Action) in your content.
+- Actively use social media platforms.
+- Stay in touch with potential customers through email marketing.
+- Continuously improve your content quality.
+- Prepare SEO-optimized content.
+- Use different content types like blog posts, videos, and infographics.
+- Measure and optimize your performance with analytics tools.
 
-## Inbound Marketing Aşamaları
+## Stages of Inbound Marketing
 
-Inbound marketing stratejisi dört temel aşamadan oluşur:
+An inbound marketing strategy consists of four main stages:
 
-**1. Dikkat Çekin (Attract):** Blog yazıları, sosyal medya paylaşımları ve SEO çalışmaları ile potansiyel müşterilerin dikkatini çekin. Hedef kitlenizin aradığı içerikleri üretin.
+**1. Attract:** Capture the attention of potential customers with blog posts, social media shares, and SEO efforts. Produce the content your target audience is searching for.
 
-**2. Dönüştür (Convert):** Ziyaretçileri potansiyel müşterilere dönüştürün. Landing page'ler, formlar ve CTA'lar kullanarak iletişim bilgilerini toplayın.
+**2. Convert:** Convert visitors into leads. Collect contact information using landing pages, forms, and CTAs.
 
-**3. İlgiyi Koru (Close):** E-posta pazarlaması ve kişiselleştirilmiş içeriklerle potansiyel müşterilerle ilişkinizi sürdürün. Satış dönüşümü için doğru zamanı bekleyin.
+**3. Close:** Maintain your relationship with leads through email marketing and personalized content. Wait for the right time for sales conversion.
 
-**4. Değerlendir (Delight):** Müşterilerinizi memnun edin ve marka elçilerine dönüştürün. Müşteri sadakati oluşturun ve referans programları geliştirin.
+**4. Delight:** Satisfy your customers and turn them into brand advocates. Build customer loyalty and develop referral programs.
 
-Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+For digital marketing consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "dijital-pazarlama-stratejileri-ve-araclari",
-    title: "Dijital Pazarlama Stratejileri ve Araçları",
-    description: "Dijital pazarlama stratejileri, sosyal medya yönetim araçları ve SEO/SEM araçları hakkında kapsamlı rehber.",
+    slug: "digital-marketing-strategies-and-tools",
+    title: "Digital Marketing Strategies and Tools",
+    description: "A comprehensive guide on digital marketing strategies, social media management tools, and SEO/SEM tools.",
     date: "2019-03-15",
     updatedDate: "2025-01-15",
-    category: "Dijital Pazarlama",
-    tags: ["Dijital Pazarlama", "Sosyal Medya", "SEO Araçları", "Marketing Tools"],
-    readTime: "7 dk",
+    category: "Digital Marketing",
+    tags: ["Digital Marketing", "Social Media", "SEO Tools", "Marketing Tools"],
+    readTime: "7 min",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Dijital Pazarlama Stratejileri
+## Digital Marketing Strategies
 
-Dijital pazarlama, hedef kitlenize ulaşmak için çeşitli online kanalları kullanan pazarlama yöntemidir. Başarılı bir dijital pazarlama stratejisi oluşturmak için farklı yaklaşımları ve araçları bilmeniz gerekir.
+Digital marketing is a marketing method that uses various online channels to reach your target audience. To create a successful digital marketing strategy, you need to know different approaches and tools.
 
-**Pull Strategy (Çekme Stratejisi):** Müşterilerin sizin ürün veya hizmetinize gelmesini sağlayan stratejidir. SEO, içerik pazarlaması ve sosyal medya bu stratejinin temel bileşenleridir. Müşteri, ihtiyaç duyduğunda sizi bulur.
+**Pull Strategy:** A strategy that gets customers to come to your product or service. SEO, content marketing, and social media are the main components of this strategy. The customer finds you when they need you.
 
-**Push Strategy (İtme Stratejisi):** Ürün veya hizmetinizi aktif olarak müşterilere ulaştırdığınız stratejidir. E-posta pazarlaması, reklam kampanyaları ve display reklamlar bu kategoriye girer.
+**Push Strategy:** A strategy where you actively deliver your product or service to customers. Email marketing, ad campaigns, and display ads fall into this category.
 
-## Sosyal Medya Yönetim Araçları
+## Social Media Management Tools
 
-Sosyal medya pazarlaması için kullanabileceğiniz profesyonel araçlar:
+Professional tools you can use for social media marketing:
 
-**Hootsuite:** Birden fazla sosyal medya hesabını tek bir panelden yönetmenizi sağlar. İçerik planlaması ve analitik özellikleri sunar.
+**Hootsuite:** Allows you to manage multiple social media accounts from a single dashboard. Offers content scheduling and analytics features.
 
-**Sprout Social:** Gelişmiş raporlama ve analitik özellikleriyle öne çıkan bir araçtır. Müşteri ilişkileri yönetimi (CRM) entegrasyonu vardır.
+**Sprout Social:** Stands out with advanced reporting and analytics features. Has customer relationship management (CRM) integration.
 
-**Buffer:** Basit ve kullanıcı dostu arayüzüyle içerik planlaması ve paylaşımı için ideal bir araçtır.
+**Buffer:** An ideal tool for content planning and sharing with its simple and user-friendly interface.
 
-## SEO ve SEM Araçları
+## SEO and SEM Tools
 
-Arama motoru optimizasyonu ve pazarlaması için kullanabileceğiniz araçlar:
+Tools you can use for search engine optimization and marketing:
 
-**Google Ads:** Arama motoru reklamcılığı için en popüler platformdur. PPC (tıklama başına ödeme) kampanyaları oluşturabilirsiniz.
+**Google Ads:** The most popular platform for search engine advertising. You can create PPC (pay-per-click) campaigns.
 
-**Ahrefs:** Backlink analizi, anahtar kelime araştırması ve rakip analizi için güçlü bir araçtır.
+**Ahrefs:** A powerful tool for backlink analysis, keyword research, and competitor analysis.
 
-**SEMrush:** Kapsamlı SEO ve dijital pazarlama araç setidir. Anahtar kelime araştırması, site denetimi ve rakip analizi yapabilirsiniz.
+**SEMrush:** A comprehensive SEO and digital marketing toolset. You can do keyword research, site audits, and competitor analysis.
 
-**Google Search Console:** Google'ın ücretsiz sunduğu, sitenizin arama performansını izlemenizi sağlayan araçtır.
+**Google Search Console:** A free tool from Google that allows you to monitor your site's search performance.
 
-Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+For digital marketing consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "kullanmaniz-gereken-seo-araclari",
-    title: "Kullanmanız Gereken SEO Araçları Nelerdir?",
-    description: "Profesyonel SEO çalışmaları için mutlaka kullanmanız gereken 10 SEO aracı ve nasıl kullanıldıkları hakkında detaylı rehber.",
+    slug: "essential-seo-tools-you-should-use",
+    title: "Essential SEO Tools You Should Use",
+    description: "A detailed guide on 10 must-have SEO tools for professional SEO work and how to use them.",
     date: "2020-10-07",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["SEO Araçları", "Google Search Console", "Ahrefs", "SEMrush"],
-    readTime: "10 dk",
+    tags: ["SEO Tools", "Google Search Console", "Ahrefs", "SEMrush"],
+    readTime: "10 min",
     image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Profesyonel SEO Araçları
+## Professional SEO Tools
 
-İnternet sitesinin arama motorları tarafından dikkate alınması ve ziyaretçi sayısını artırmak için yapılacak olan SEO çalışması, oldukça geniş kapsamlı bir çalışmayı gerektirir. Bu çalışmaları yürütürken de, arama motoru tarafından dikkate alınabilecek olan kriterlerin ölçülmesi ya da varsa hataların tespit edilerek giderilmesi gerekiyor.
+SEO work to get your website noticed by search engines and increase visitor count requires comprehensive effort. When conducting this work, you need to measure criteria considered by search engines or identify and fix any errors.
 
-Elbette bu aşamayı kolaylaştıran birçok basit ya da daha üst düzey tespitler yapmanızı sağlayacak mutlaka kullanmanız gereken profesyonel SEO araçlarından faydalanılıyor. Profesyonel SEO araçları ile; site sayfalarının analizinden anahtar kelime tespitine, HTML kod hatalarından backlinklerin tespit edilerek zararlıların ayıklanmasına yardımcı olacak analizlere kadar birçok işlemi yapabiliyorsunuz.
+There are many simple and advanced professional SEO tools that make this process easier. With professional SEO tools, you can perform many operations from page analysis to keyword identification, from HTML code errors to identifying and filtering harmful backlinks.
 
-Bu noktada SEO uzmanlarının da tercihi olan bilinen en iyi profesyonel SEO araçları arasında Google, Yandex, Bing gibi arama motorları tarafından sunulan webmaster araçları bulunmaktadır. Google Search Console bunların başında sayılabilir. Ayrıca ücretli ya da ücretsiz faydalanabileceğiniz seçenekleri bulunan; Ahrefs, MOZ, Majestic, SpyFu, SeoQuake, SEMRush gibi araçlardan faydalanılabilir.
+Among the most well-known professional SEO tools favored by SEO experts are webmaster tools offered by search engines like Google, Yandex, and Bing. Google Search Console is at the top of these. You can also benefit from tools like Ahrefs, MOZ, Majestic, SpyFu, SeoQuake, and SEMRush, which have paid or free options.
 
-## En İyi 10 SEO Aracı
+## Top 10 SEO Tools
 
-**1. Google Search Console:** Arama motoru devi Google, site yöneticileri ve SEO çalışması yürütecek olanlara da önemli kolaylığı Google Search Console ile getiriyor. Google tarafından sunulan araç, tamamen Türkçe içeriklere sahip ve ücretsizdir. İnternet sitenizin ve sayfalarınızın arama sonuçlarındaki performansı izlenebilir, sorunlar tespit edilebilir, analizler yapılarak SEO için gerekli yönlendirmeler belirlenebilir.
+**1. Google Search Console:** Google provides a significant convenience to site administrators and SEO professionals with Google Search Console. This free tool from Google is completely available with full documentation. You can monitor your website's and pages' performance in search results, identify issues, and determine the necessary SEO directions through analysis.
 
-**2. Spyfu:** Bir ücretsiz araç olarak oldukça başarılı olan Spyfu, anahtar kelime bazlı SEO analizleri yapabileceğiniz bir araçtır. Anahtar kelimenizin tıklama performansını görmenizi sağlar. Bu araç ile anahtar kelime sıralamaları, rakiplerin kullandığı anahtar kelimeleri ve Google Ads ile oluşturdukları reklamları görme olanaklarını elde edersiniz.
+**2. SpyFu:** A quite successful free tool, SpyFu is a tool for keyword-based SEO analysis. It shows you the click performance of your keywords. With this tool, you get keyword rankings, competitors' keywords, and the ability to see the ads they create with Google Ads.
 
-**3. Ahrefs:** Başarısı ile her zaman en iyi SEO araçları listesinde yer almayı hak eden Ahrefs, yeni başlayacak olanlara da profesyonellere de hitap ediyor. Ücretli versiyonda; detaylı site performansı analizlerini alabilirsiniz. Araç olarak Google'dan sonra en iyisi olarak gösterilebilir. Ahrefs, sitenizi optimize etmek, performans iyileştirmelerine gitmek için gerekli her şeyi sunmaktadır.
+**3. Ahrefs:** Deservedly on every best SEO tools list, Ahrefs appeals to both beginners and professionals. In the paid version, you can get detailed site performance analyses. It can be shown as the best after Google. Ahrefs provides everything you need to optimize your site and make performance improvements.
 
-**4. Robots.txt Tester:** Robots.txt dosyası bir internet sitesinin olmazsa olmaz dosyalarından biridir ve arama motorları tarafından dikkate alınır. Bu dosyanın doğru yapılandırılması SEO için kritik öneme sahiptir.
+**4. Robots.txt Tester:** The robots.txt file is one of the essential files for a website and is considered by search engines. Proper configuration of this file is critical for SEO.
 
-**5. Google Keyword Planner:** Google'ın ücretsiz anahtar kelime araştırma aracıdır. Anahtar kelime fikirleri ve arama hacmi verileri sunar.
+**5. Google Keyword Planner:** Google's free keyword research tool. Provides keyword ideas and search volume data.
 
-**6. Google PageSpeed Insights:** İnternet sayfa hızı, arama motoru ve Google tarafından dikkate alınan önemli bir kriterdir. Google SEO araçları arasında yer alan Google PageSpeed aracı, sitenizin masaüstü ve mobil performans testlerini yapmanızı ve gerekli iyileştirmeleri yapmanıza olanak veriyor.
+**6. Google PageSpeed Insights:** Page speed is an important criterion considered by search engines and Google. Google PageSpeed, among Google's SEO tools, allows you to test your site's desktop and mobile performance and make necessary improvements.
 
-**7. DeepCrawl:** Detaylı raporlar ile tam anlamıyla profesyonel bir araç arıyorsanız DeepCrawl aracını denemelisiniz. Web siteniz için en ufak bir hata bile gözden kaçırılmadan size raporlanmaktadır.
+**7. DeepCrawl:** If you're looking for a truly professional tool with detailed reports, try DeepCrawl. Even the smallest error on your website is reported to you without being overlooked.
 
-**8. SE Ranking:** Siteniz için detaylı ve derin web site analizleri yapmak, backlink araştırmalarını gerçekleştirmek istiyorsanız SE Ranking isimli işlevsel aracı denemelisiniz.
+**8. SE Ranking:** If you want to do detailed and deep website analyses and conduct backlink research, try the functional tool called SE Ranking.
 
-**9. SEMRush:** Kapsamlı SEO analizi ve rakip araştırması için en popüler araçlardan biridir. Anahtar kelime araştırması, site denetimi ve içerik analizi yapabilirsiniz.
+**9. SEMRush:** One of the most popular tools for comprehensive SEO analysis and competitor research. You can do keyword research, site audits, and content analysis.
 
-**10. Screaming Frog:** Teknik SEO analizi için vazgeçilmez bir araçtır. Site taraması yaparak hataları tespit eder.
+**10. Screaming Frog:** An indispensable tool for technical SEO analysis. It crawls your site to identify errors.
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "google-analytics-ile-site-optimizasyonu",
-    title: "Google Analytics İle Site Optimizasyonu",
-    description: "Google Analytics kullanarak web sitenizi nasıl optimize edeceğinizi ve kullanıcı davranışlarını nasıl analiz edeceğinizi öğrenin.",
+    slug: "website-optimization-with-google-analytics",
+    title: "Website Optimization with Google Analytics",
+    description: "Learn how to optimize your website using Google Analytics and analyze user behavior effectively.",
     date: "2020-10-02",
     updatedDate: "2025-01-15",
     category: "UI-UX",
-    tags: ["Google Analytics", "Web Analytics", "UX", "Site Optimizasyonu"],
-    readTime: "8 dk",
+    tags: ["Google Analytics", "Web Analytics", "UX", "Site Optimization"],
+    readTime: "8 min",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Google Analytics ve UX Tasarımı
+## Google Analytics and UX Design
 
-Bir UX Designer'ın mümkün olan en iyi deneyimi sunma amacında, mevcut durumu analiz edebilmek için verileri kullanması gerekir. Bunun için Google Analytics gibi analiz araçlarından faydalanır. Bu gibi araçlarla, kullanıcı memnuniyeti ile ilgili yapılan bir yenilikten potansiyel kullanıcıların nasıl etkilenebileceğini ve hangi değişikliklerin daha yüksek bir kullanıcı memnuniyeti ile sonuçlanacağını anlayabilir.
+To deliver the best possible experience, UX Designers must use data to analyze the current situation. They leverage analytics tools like Google Analytics. With such tools, they can understand how potential users might be affected by innovations related to user satisfaction and which changes will result in higher user satisfaction.
 
-## Önemli Google Analytics Metrikleri
+## Important Google Analytics Metrics
 
-Google Analytics'te UX tasarımcılarının ve site sahiplerinin dikkat etmesi gereken 7 temel metrik:
+Seven key metrics that UX designers and site owners should pay attention to in Google Analytics:
 
-**1. Event Tracking (Olay İzleme):** Kullanıcıların sitenizdeki belirli eylemleri (buton tıklamaları, form gönderimleri, video izlemeleri vb.) izlemenizi sağlar. Bu veriler, kullanıcı davranışlarını anlamak için kritik öneme sahiptir.
+**1. Event Tracking:** Allows you to track specific user actions on your site (button clicks, form submissions, video views, etc.). This data is critical for understanding user behavior.
 
-**2. Audience (Kitle):** Sitenizi ziyaret eden kullanıcıların demografik özellikleri, ilgi alanları, kullandıkları cihazlar ve tarayıcılar hakkında bilgi verir. Hedef kitlenizi tanımanızı sağlar.
+**2. Audience:** Provides information about the demographics, interests, devices, and browsers of visitors to your site. Helps you understand your target audience.
 
-**3. Pageviews (Sayfa Görüntülemeleri):** Hangi sayfaların en çok ziyaret edildiğini gösterir. Popüler içeriklerinizi belirlemenize yardımcı olur.
+**3. Pageviews:** Shows which pages are visited most. Helps you identify your popular content.
 
-**4. Average Session Duration (Ortalama Oturum Süresi):** Kullanıcıların sitenizde ortalama ne kadar zaman geçirdiğini gösterir. Düşük süre, içerik veya kullanıcı deneyimi sorunlarına işaret edebilir.
+**4. Average Session Duration:** Shows how long users spend on your site on average. Low duration may indicate content or user experience issues.
 
-**5. Bounce Rate (Hemen Çıkma Oranı):** Sitenize gelip hiçbir etkileşimde bulunmadan ayrılan kullanıcıların oranıdır. Yüksek bounce rate, sayfa içeriği veya tasarım sorunlarını gösterebilir.
+**5. Bounce Rate:** The percentage of users who leave your site without any interaction. A high bounce rate may indicate page content or design problems.
 
-**6. Behaviour Flow (Davranış Akışı):** Kullanıcıların sitenizdeki gezinme yollarını görselleştirir. Hangi sayfalardan ayrıldıklarını ve hangi yolları izlediklerini gösterir.
+**6. Behavior Flow:** Visualizes user navigation paths on your site. Shows which pages they leave from and which paths they follow.
 
-**7. Conversion Goal Rate (Dönüşüm Hedefi Oranı):** Belirlediğiniz hedeflere (satın alma, form doldurma, kayıt olma vb.) ulaşan kullanıcıların oranını gösterir. İş hedeflerinizi ölçmenizi sağlar.
+**7. Conversion Goal Rate:** Shows the percentage of users who reach your set goals (purchases, form fills, registrations, etc.). Allows you to measure your business objectives.
 
-## Veri Odaklı Tasarım
+## Data-Driven Design
 
-UX tasarımında veri kullanımı önemlidir. UX Designer, veri temelli değişiklikler öneren ve tasarım işbirliği için farklı ekiplerle iletişime geçen kişi olduğu için, tasarımın verilere dayandırılması gerekir. Yapılacak değişiklik veya geliştirme için veriye dayanmayan bir önerinin geçerliliği söz konusu olmaz. Her karar, düzgün bir şekilde araştırılmalı ve verilere dayandırılmalıdır.
+Data usage is crucial in UX design. Since UX Designers propose data-driven changes and communicate with different teams for design collaboration, designs must be grounded in data. Any suggestion for change or improvement without data backing lacks validity. Every decision should be properly researched and data-driven.
 
-Google Analytics verileri, A/B testleri ve kullanıcı geri bildirimleri ile birleştirildiğinde, kullanıcı deneyimini sürekli iyileştirmek için güçlü bir temel oluşturur.
+When combined with Google Analytics data, A/B tests, and user feedback, it creates a powerful foundation for continuously improving user experience.
 
-Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) göz atın.
+For more information, check out our [UI-UX design services](/services/ui-ux-design).
     `
   },
   {
-    slug: "site-ici-seo-nasil-yapilir",
-    title: "Site İçi SEO Nasıl Yapılır? Ayrıntılı İç SEO Rehberi",
-    description: "On-Page SEO teknikleri, site içi optimizasyon stratejileri ve Google sıralamalarını yükseltmek için yapılması gerekenler.",
+    slug: "on-page-seo-complete-guide",
+    title: "On-Page SEO: A Complete Guide",
+    description: "On-page SEO techniques, site optimization strategies, and what you need to do to improve Google rankings.",
     date: "2020-10-02",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["Site İçi SEO", "On-Page SEO", "SEO Optimizasyonu", "İç SEO"],
-    readTime: "12 dk",
+    tags: ["On-Page SEO", "Site Optimization", "SEO Optimization", "Internal SEO"],
+    readTime: "12 min",
     featured: true,
     image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Site İçi SEO Nedir?
+## What Is On-Page SEO?
 
-Günümüzde organik aramada başarılı olmak istiyorsanız site içi SEO çalışmaları yaparak arama motorlarının sizi görmesini sağlayabilirsiniz.
+If you want to succeed in organic search today, you can get search engines to notice you by doing on-page SEO work.
 
-Bazı kişiler sadece backlink alarak arama motorlarında daha iyi verim alacağını düşünerek büyük hata yapmaktadır. Temeli düzgün atmazsanız sağlam bir omurga kuramazsınız. Sayfa içi SEO temellerine dikkat etmezseniz sayfa dışı SEO pek bir işe yaramayacaktır.
+Some people make a big mistake thinking they'll get better results from search engines just by getting backlinks. If you don't lay the foundation properly, you can't build a solid backbone. If you don't pay attention to on-page SEO basics, off-page SEO won't be very effective.
 
-Günümüzün gerçek SEO uzmanları, sayfa içi optimizasyona mutlaka ve sürekli olarak öncelik verilmesi gerektiğini bilir. Google algoritmasını sürekli değiştirdiği için sayfanızdaki site içi SEO durumunuzun güncel olduğundan emin olmanız gerekmektedir.
+Today's real SEO experts know that on-page optimization must always and continuously be prioritized. Since Google constantly changes its algorithm, you need to make sure your on-page SEO is up to date.
 
-Site içi SEO (Sayfa içi SEO olarak da bilinir), bir web sitesinin arama motoru sıralamalarını iyileştirmek, organik trafik kazanmak ve artırmak için web sayfalarını optimize edilmesidir. Site içi SEO, alakalı, yüksek kaliteli içerik yayınlamanın yanı sıra başlıklarınızı, HTML etiketlerinizi (başlık, meta ve başlık) ve resimleri optimize etmeyi içerir. Ayrıca, web sitenizin yüksek düzeyde uzmanlığa, yeterliliğe ve güvenilirliğe sahip olduğundan emin olmak anlamına gelir.
+On-page SEO (also known as on-site SEO) is optimizing web pages to improve a website's search engine rankings and earn organic traffic. On-page SEO includes publishing relevant, high-quality content as well as optimizing your headlines, HTML tags (title, meta, and header), and images. It also means making sure your website has a high level of expertise, authoritativeness, and trustworthiness.
 
-## Sayfa İçi SEO Neden Önemlidir?
+## Why Is On-Page SEO Important?
 
-Site içi SEO, arama motorlarının web sitenizi ve içeriğini anlamasına ve aynı zamanda bir aramanın sorgusuyla alakalı olup olmadığını belirlemesine yardımcı olduğu için önemlidir. Arama motorları daha sofistike hale geldikçe, arama motoru sonuç sayfalarında (SERP'ler) alaka düzeyine ve anlam katmasına daha fazla odaklanır.
+On-page SEO is important because it helps search engines understand your website and its content, as well as identify whether it's relevant to a searcher's query. As search engines become more sophisticated, there's a greater focus on relevance and semantics in search engine results pages (SERPs).
 
-Google'ın arama kriterlerindeki en büyük silahı; kullanıcılar bir sorgu yazdıklarında gerçekte ne aradıklarını anlar ve kullanıcının amacını karşılayan arama sonuçlarını sunar. Backlink alırken her türlü sonuçla karşılaşabilirsiniz, ama site içi SEO'yu doğru verilere dayandırarak yaparsanız optimizasyonun tamamen sizin tarafınızdan gerçekleşecektir.
+Google's biggest weapon in search criteria is understanding what users are actually looking for when they type a query and serving search results that meet user intent. While you may encounter all sorts of results when getting backlinks, if you do on-page SEO based on correct data, the optimization will be entirely in your control.
 
-## Site İçi SEO İçin 10 Önemli Madde
+## 10 Important Points for On-Page SEO
 
-**1. E-A-T (Uzmanlık, Yetki, Güvenilirlik):** Google, kaliteli içeriğe her zaman öncelik vermiştir. Yüksek kaliteli içerik üreten sitelerin daha iyi sıralamalarla ödüllendirilmesine karar verir. Sitenizde içerik oluştururken uzmanlık, yetki ve güvenilirlik prensiplerini kullanın.
+**1. E-A-T (Expertise, Authoritativeness, Trustworthiness):** Google has always prioritized quality content. It decides to reward sites that produce high-quality content with better rankings. Use expertise, authoritativeness, and trustworthiness principles when creating content on your site.
 
-**2. Başlık Etiketi:** Her web sayfasının baş bölümünde bulunan bir HTML etiketi olan başlık etiketi, sayfanın konusunun neyle ilgili olduğunu anlatan ve arama motorları tarafından indexlenen alandır. Eksik, yinelenen ve kötü yazılmış başlık etiketlerinin tümü SEO sonuçlarınızı olumsuz etkileyebilir.
+**2. Title Tag:** A title tag is an HTML tag in the head section of each web page that describes what the page is about and is indexed by search engines. Missing, duplicate, and poorly written title tags can all negatively impact your SEO results.
 
-**3. Meta Açıklama:** SEO'nun ilk günlerinden beri, meta açıklamalar önemli bir optimizasyon noktası olmuştur. Meta açıklamayı doğru şekilde optimize etmek tıklama oranını ve web sitenizin algılanmasını iyileştirir.
+**3. Meta Description:** Since the early days of SEO, meta descriptions have been an important optimization point. Properly optimizing your meta description improves click-through rate and your website's perception.
 
-**4. Kaliteli Başlıklar:** Web sitenizin içeriğinin aramada iyi performans göstermesini istiyorsanız ilgi çekici başlıklar yazmaya başlayın. Başlıklarınızın SERP'lerde öne çıkması için ilgiyi uyandırması gerekir.
+**4. Quality Headlines:** If you want your website's content to perform well in search, start writing compelling headlines. Your headlines need to spark interest to stand out in SERPs.
 
-**5. Başlık Etiketleri (H1-H6):** Başlık etiketleri, içeriğinizdeki başlıkları ve alt başlıkları diğer metin türlerinden tanımlamak için kullanılan HTML öğeleridir. İçeriğinizi ziyaretçilerin okuması için daha kolay ve daha keyifli hale getirir.
+**5. Header Tags (H1-H6):** Header tags are HTML elements used to identify headings and subheadings in your content from other types of text. They make your content easier and more enjoyable for visitors to read.
 
-**6. SEO Temelli Yazım Dili:** SEO yazımı, hem arama motorları hem de kullanıcılar düşünülerek içerik yazmak anlamına gelir. İnsanlar için içerik yazdığınızı unutmayın, içeriğin yüksek kaliteli, önemli ve alakalı olması gerekir.
+**6. SEO-Focused Writing:** SEO writing means creating content with both search engines and users in mind. Remember that you're writing content for people—it needs to be high-quality, important, and relevant.
 
-**7. Anahtar Kelime Yanlışlığı:** Belirli bir terimi birden çok sayfada hedeflemek, "anahtar kelime yanlışlığına" neden olabilir. Aynı anahtar kelime için birden fazla sayfa sıralaması yaptığınızda, aslında kendinizle rekabet ediyorsunuz.
+**7. Keyword Cannibalization:** Targeting a specific term on multiple pages can cause "keyword cannibalization." When you rank multiple pages for the same keyword, you're actually competing with yourself.
 
-**8. İçerik Denetimi:** Mevcut içeriğinizi denetlemek önemlidir. İçeriğinizin hedeflerine ulaşıp ulaşmadığını değerlendirin, bilgilerin güncel olup olmadığını kontrol edin.
+**8. Content Audit:** It's important to audit your existing content. Evaluate whether your content is meeting its goals and check if the information is up to date.
 
-**9. Görüntü Optimizasyonu:** Resimleri doğru şekilde optimize etmek, ek sıralama fırsatları, daha iyi kullanıcı deneyimi ve daha hızlı sayfa yükleme süreleri sağlar.
+**9. Image Optimization:** Properly optimizing images provides additional ranking opportunities, better user experience, and faster page load times.
 
-**10. Kullanıcı Katılımı:** Web sitenizin sayfa içi SEO öğelerini geliştirmek savaşın yalnızca yarısıdır. Kullanıcıların hemen çıkmayacağından emin olmak için site hızı, kullanıcı deneyimi ve içerik optimizasyonuna odaklanın.
+**10. User Engagement:** Improving your website's on-page SEO elements is only half the battle. Focus on site speed, user experience, and content optimization to ensure users don't bounce immediately.
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "sosyal-medya-yonetimi-ve-online-pazarlama",
-    title: "Sosyal Medya Yönetimi ve Online Pazarlama",
-    description: "Sosyal medya yönetimi stratejileri, online pazarlama teknikleri ve SEO ile sosyal medya ilişkisi hakkında kapsamlı rehber.",
+    slug: "social-media-management-and-online-marketing",
+    title: "Social Media Management and Online Marketing",
+    description: "A comprehensive guide on social media management strategies, online marketing techniques, and the relationship between SEO and social media.",
     date: "2020-10-07",
     updatedDate: "2025-01-15",
-    category: "Dijital Pazarlama",
-    tags: ["Sosyal Medya", "Online Pazarlama", "SEO", "Dijital Pazarlama"],
-    readTime: "8 dk",
+    category: "Digital Marketing",
+    tags: ["Social Media", "Online Marketing", "SEO", "Digital Marketing"],
+    readTime: "8 min",
     image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Sosyal Medyanın Gücü
+## The Power of Social Media
 
-Reklam ve tutundurma faaliyetleri ticaretin olmazsa olmaz yapı taşlarındandır. Elinizde ürettiğiniz ve insanların beğenisine sunmak istediğiniz ürün veya hizmetiniz var bunun için reklam çalışmalarını her platformda gerçekleştirmeyi hedeflersiniz. İşletmenizin ürünlerinin herkesçe tanınması size katma değeri yüksek gelir kapısını açacaktır.
+Advertising and promotional activities are essential building blocks of commerce. You have a product or service that you've produced and want to present to people, and you aim to carry out advertising activities on every platform. Having your business's products recognized by everyone will open the door to high-value revenue.
 
-Her ne kadar teknoloji ile şekil değiştirse bile üretilen ürün veya hizmeti nihai tüketiciye ulaştırma amacı değişmedi ve değişmeyecek. Bu isteği arzulayan firmaların sosyal medya kanalları ile nihai tüketiciye hitap etmeyi hedeflemesi kadar normal bir şey olamaz.
+Although it has changed shape with technology, the goal of delivering products or services to end consumers hasn't changed and won't change. It's perfectly normal for companies aspiring to this goal to target reaching end consumers through social media channels.
 
-## Sosyal Medya Ne Demektir?
+## What Is Social Media?
 
-Temel anlamda bakacak olursak, kullanıcıların doğrudan paylaşım yapma olanağı elde ettiği bir yapı olarak görülebilir. Bu paylaşımlar; metin, resim, grafik ya da video gibi içeriklerle yapılabiliyor. Bu medya türü ile insanların; düşüncelerini, yaptıkları etkinlikleri, beğenilerini, hayatlarındaki farklı olayları paylaşma olanağı yakalanıyor.
+Looking at it fundamentally, it can be seen as a structure where users have the opportunity to share directly. These shares can be made with content like text, images, graphics, or video. Through this type of media, people can share their thoughts, activities, preferences, and different events in their lives.
 
-Yaygınlaşan ve giderek farklı türleriyle hayatımıza giren bu medya türü sayesinde; hem bireylerin hayatı kitlelere daha fazla hitap eder, hem de kitlelerin bireylere ulaşması daha kolay hale gelmiştir. Elbette kurum ve kuruluşlar, markalar da bu olanağı en iyi biçimde kullanarak daha fazla bireye ulaşmak için sosyal medyayı kullanmaktan geri kalmıyor.
+This type of media, which is becoming more widespread and entering our lives in different forms, allows both individuals to appeal more to the masses and makes it easier for the masses to reach individuals. Of course, institutions, organizations, and brands don't hold back from using social media to reach more individuals using this opportunity most effectively.
 
-Yapılan paylaşım ya da etkileşimin ölçülebilir olması, iletişim şeklinin başarıya ulaşıp ulaşamadığını tespit etmeyi de kolaylaştırdı. Alınan geri dönüşe bağlı olarak yeni strateji belirlemek oldukça kolaylaştı.
+The measurability of shares and interactions has also made it easier to determine whether the communication method has succeeded. Based on the feedback received, it has become much easier to determine new strategies.
 
-## SEO ve Sosyal Medya
+## SEO and Social Media
 
-Sosyal platformların etkisi, her yerde olduğu gibi web sitesinin arama motoru tarafından daha dikkat çekebilecek yapıya ulaşması açısından da önemli hale geldi. SEO çalışması olarak bilinen arama motoru optimizasyon çalışmaları sırasında, bu ortamlarda yapılan paylaşımlar oldukça güçlü bir etki yaratıyor.
+The influence of social platforms has also become important in terms of making websites more noticeable to search engines, as everywhere else. During SEO work, shares made on these platforms create a quite powerful effect.
 
-Sosyal medya hesapları ile SEO çalışmaları yapılırken; kullanıcı sayısı fazla olan topluluk veya gruplar, bireysel kullanıcılar ve şirketler için ayrı çalışmalar yürütülmesinde yarar olduğunu söylemek gayet mümkün.
+When conducting SEO work with social media accounts, it's quite possible to say that separate efforts should be made for communities or groups with high user counts, individual users, and companies.
 
-## SEO Amaçlı Sosyal Medya Çalışmaları
+## Social Media Activities for SEO Purposes
 
-- Bu platformlarda; site, marka veya firma adında hesap ya da grup ile çalışmalar yapın. Bu durum, bilinirlik ve markalaşma açısından büyük önem taşır.
-- Fazla sayıda backlink alma yerine SEO açısından amaçlanan, sayfalarınızın hızlı index alabilecek duruma getirmek olmalıdır. Kaliteli içerik paylaşımlarını yüksek değerlere sahip olan sosyal medya sitelerinde yapmanızla bunu sağlayabilirsiniz.
-- Topluluklara ve gruplara katılarak, yeni kullanıcıların sizi tanıması için aktif biçimde etkileşimde kalın.
-- Özenle seçilerek hazırlanmış, kullanıcı ilgisini çekecek, merak uyandıracak içerikler ve başlıklarla paylaşımlarınızı yapın.
-- Yeni kampanyaları ve önemli duyuruları bu platformlar üzerinde yaparak etkinliklerinizi artırmaya çalışın.
-- Resim ya da video içerikleriniz için marka, ürün ya da hizmeti en iyi biçimde tanıtacak içeriklere yer verin.
+- Work with accounts or groups in the name of the site, brand, or company on these platforms. This is of great importance for awareness and branding.
+- Instead of getting large numbers of backlinks, the SEO goal should be to make your pages able to get quick indexing. You can achieve this by sharing quality content on high-value social media sites.
+- By joining communities and groups, stay actively engaged so new users can get to know you.
+- Make your shares with carefully selected content and titles that will attract user interest and spark curiosity.
+- Try to increase your activities by making new campaigns and important announcements on these platforms.
+- For image or video content, include content that best promotes the brand, product, or service.
 
-Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+For digital marketing consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "serp-nedir-google-icin-neden-onemlidir",
-    title: "SERP Nedir, Google İçin Neden Önemlidir?",
-    description: "SERP (Search Engine Results Page) nedir, özellikleri nelerdir ve SEO stratejinizi nasıl etkiler?",
+    slug: "what-is-serp-why-it-matters-for-google",
+    title: "What Is SERP and Why Does It Matter for Google?",
+    description: "What is SERP (Search Engine Results Page), what are its features, and how does it affect your SEO strategy?",
     date: "2020-09-30",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["SERP", "Google", "Arama Sonuçları", "SEO"],
-    readTime: "9 dk",
+    tags: ["SERP", "Google", "Search Results", "SEO"],
+    readTime: "9 min",
     image: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=1200&auto=format&fit=crop&q=80",
     content: `
-## SERP Nedir?
+## What Is SERP?
 
-İngilizce "Search Engine Results Page" kelimelerinin baş harfleri ortaya çıkan SERP, bir Google terimidir. Dünya devi arama motoru Google tercihini herkes yapıyor ve aramak istenen kelime yazılarak bir sonuç sayfasına ulaşılıyor. Yapılan arama sonucunda ulaşılan bu sonuç listesi sayfasına SERP denmektedir.
+SERP is a Google term that stands for "Search Engine Results Page." Everyone uses the search engine giant Google, typing in a keyword and reaching a results page. This results list page that appears after a search is called SERP.
 
-Bu SERP sayfasındaki listede, ilk 10 sıra içindekiler en değerli kelimeler olarak görülür. Arama için girilen anahtar kelimeye bağlı olarak oluşan listede yani SERP alanında; eşleşen web sayfalarının başlıkları, bu sayfalara olan bağlantılar ve her sayfadaki içeriğin kısa bir açıklaması görünmektedir.
+In this SERP page list, those in the top 10 positions are seen as the most valuable keywords. In the list formed based on the searched keyword, the SERP area shows the titles of matching web pages, links to these pages, and a brief description of the content on each page.
 
-Bir SERP; arama motoru botu tarafından otomatik olarak üretilen sonuçlar, bir moderatör tarafından eklenen sonuçlar ve belirli bir ürün veya hizmete yönelik reklamlar olarak ücretli biçimde karşımıza gelir.
+A SERP comes to us in three forms: results automatically generated by search engine bots, results added by a moderator, and paid advertisements for a specific product or service.
 
-İnternette yer almak için alan adı alıp bir web sitesi yaptıysanız, henüz denizin dibindeki bir kum tanesi sayılırsınız. Hemen her site sahibinin beklentisi arama motoru üzerinden kendi sitesine fazla sayıda ziyaretçi çekebilmektir. Belirlenen anahtar kelimede öne çıkmak isteniyorsa, SEO açısından birçok çalışmanın yürütülmesi gerekir.
+If you've purchased a domain and created a website to be on the internet, you're still considered a grain of sand at the bottom of the ocean. Almost every site owner's expectation is to attract many visitors to their site from search engines. If you want to stand out for a targeted keyword, many SEO efforts must be conducted.
 
-## SERP Özellikleri
+## SERP Features
 
-SERP için kullanılan özellikler; kullanıcılar için arama deneyimini zenginleştirmek amacıyla geliştirilmiştir. Bu özellikler ülkelere, bölgelere, dillere ve hatta cihaz tiplerine göre farklılıklar gösterebildiği bilinmektedir.
+Features used for SERP have been developed to enrich the search experience for users. These features are known to vary by country, region, language, and even device type.
 
-SERP özellikleri kullanılan bir web sitesi, arama sonuç sayfasında daha fazla yer kaplar. Bu durum sitenize veya sayfanıza tıklama oranını artırır.
+A website that uses SERP features takes up more space on the search results page. This increases the click-through rate to your site or page.
 
-**Ücretli SERP Özellikleri:**
-- Adwords Top: Google arama sonuçları sayfası üzerinde en başta reklam olarak yer alınmasını sağlar.
-- Adwords Bottom: Google arama sonuçları sayfası üzerinde en altta reklam olarak yer alınmasını sağlar.
-- Shopping Ads: Alışveriş sitelerinin ürün listeleme amaçlı kullanabileceği reklam özelliğidir.
-- Google Hotels: Otel işletmelerinin lokasyona bağlı olarak reklamlarla öne çıkarılmasını sağlar.
-- Google Flights: Uçuş aramalarında öne çıkılmasını sağlar.
+**Paid SERP Features:**
+- Adwords Top: Allows you to appear as an ad at the very top of the Google search results page.
+- Adwords Bottom: Allows you to appear as an ad at the very bottom of the Google search results page.
+- Shopping Ads: An ad feature that e-commerce sites can use for product listing purposes.
+- Google Hotels: Allows hotel businesses to be featured with ads based on location.
+- Google Flights: Allows you to stand out in flight searches.
 
-**Organik SERP Özellikleri:**
-- Kullanıcılar Bunları da Sordu (People Also Ask): Sorgularda kullanıcıların sorduklarıdır.
-- En Çok Okunan Haberler (Top Stories): İnternet haber aramalarında görülen özelliktir.
-- Knowledge Graph / Knowledge Panel: Arama sayfasında sağ tarafta görebileceğimiz alandır.
-- Featured Snippet: Metin, liste veya tablo olarak arama sonuç sayfalarında görülebilecek özelliktir.
+**Organic SERP Features:**
+- People Also Ask: Questions that users ask in queries.
+- Top Stories: A feature seen in internet news searches.
+- Knowledge Graph / Knowledge Panel: The area you can see on the right side of the search page.
+- Featured Snippet: A feature that can be seen on search results pages as text, list, or table.
 
-## SERP Özelliklerini Neden Kullanmalıyız?
+## Why Should We Use SERP Features?
 
-SERP özelliklerini kullanmanın temel amacı; hem arama sonuçlarında daha fazla yer kaplamak, hem de sitenizin tıklanma oranını artırmaktır. Reklam sonuç sayfalarında, istatistikleri gözden geçirerek geleceğe yönelik planlama ve stratejileri belirleyebilirsiniz. Hangi sektörde faaliyet gösterseniz de, SERP özellikleri arasında bu planlamaları yapabileceğiniz özellik bulabilirsiniz.
+The main purpose of using SERP features is both to take up more space in search results and to increase your site's click-through rate. On ad results pages, you can determine future planning and strategies by reviewing statistics. Whatever industry you operate in, you can find a feature among SERP features to make these plans.
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "heading-tags-nedir-h1-etiketi-nasil-kullanilir",
-    title: "Heading Tags Nedir, H1 Etiketi Nasıl Kullanılır?",
-    description: "HTML başlık etiketleri (H1-H6) nedir, SEO için nasıl kullanılır ve doğru başlık hiyerarşisi nasıl oluşturulur?",
+    slug: "what-are-heading-tags-how-to-use-h1",
+    title: "What Are Heading Tags and How to Use H1?",
+    description: "What are HTML heading tags (H1-H6), how to use them for SEO, and how to create proper heading hierarchy?",
     date: "2020-09-29",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["Heading Tags", "H1 Etiketi", "HTML", "SEO"],
-    readTime: "6 dk",
+    tags: ["Heading Tags", "H1 Tag", "HTML", "SEO"],
+    readTime: "6 min",
     image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Heading Tags Nedir?
+## What Are Heading Tags?
 
-Günlük konuşmalar esnasında bile, vurgulamak ve öne çıkarmak istediklerimizi ifade etmek için ses tonu değişikliğine gideriz. Bunu metinlerde yaparken de koyu yazmaya ya da renk değişikliğine gideriz. Başlık ya da alt başlıkları ifade ederken yazı tipi boyut değişikliği ile koyu yazıma özen gösteririz.
+Even during everyday conversations, we change our tone of voice to express what we want to emphasize and highlight. When doing this in text, we use bold text or color changes. When expressing titles or subtitles, we pay attention to font size changes and bold writing.
 
-Web site içerikleri hazırlanırken kullanılan HTML etiketleri içerisinde de, içeriğin belirtiminde başlık düzeyleri göstermek için Heading Tags adı verilen etiketler kullanılmalıdır. H1, H2, H3, H4, H5, H6 şeklindeki farklı düzeydeki başlık ya da alt başlıkları göstermek için kod kullanımı arama motorları tarafından da dikkate alınmaktadır.
+When preparing website content, tags called Heading Tags should be used among the HTML tags to show heading levels in the content. The use of code to show different level headings or subheadings like H1, H2, H3, H4, H5, H6 is also considered by search engines.
 
-## H1 Etiketi Nedir?
+## What Is the H1 Tag?
 
-Her sayfanın veya gönderinin birden fazla başlığı olacaktır. H1 etiketi bazen bir sayfanın veya gönderinin başlığı için kullanılır ve bir sayfada görünen birincil başlıktır. Bir H1'in veri formatlaması genellikle bir sayfada bulunan başlık etiketlerinin geri kalanından (H2, H3, H4) farklıdır.
+Every page or post will have multiple headings. The H1 tag is sometimes used for the title of a page or post and is the primary heading that appears on a page. The data formatting of an H1 is usually different from the rest of the heading tags (H2, H3, H4) found on a page.
 
-Sadece bir kere kullanılması ve içinde hedeflenen anahtar kelimelerin geçmesi SEO açısından çok önemlidir.
+It's very important for SEO that it's used only once and contains targeted keywords.
 
-İşin özünde basılı metinlerdeki başlık kullanımı ile web sayfalarındaki başlıklar arasında bir fark bulunmuyor. Ancak web sayfalarında başlıklar yani Heading Tags sadece görünümden ibaret olmayıp, arama motoru botlarının sayfayı bulması için yardımcı olacak olan etiketlerdir. Google gibi birçok arama motoru, sayfa içeriğinin ne anlattığını anlamak amacıyla bu Heading tags kullanımına bakar.
+In essence, there's no difference between the use of headings in printed texts and headings on web pages. However, headings on web pages, or Heading Tags, are not just about appearance—they're tags that will help search engine bots find the page. Many search engines like Google look at this Heading Tags usage to understand what the page content is about.
 
-## H Etiketi Kullanımında Dikkat Edilmesi Gerekenler
+## Things to Consider When Using H Tags
 
-- Uzun metinler için H etiketi kullanmayın. İçerikte daha çok; üst ya da alt başlık stratejilerini belirleyerek, bunlar için bu etiketi kullanın.
-- Heading yani H etiketleri kullanımı, içeriğinizin hazırlanması sonrasına bırakın. Bu içeriğinizin daha sağlıklı biçimde yerleşmesini sağladığı gibi, ziyaretçi gözünden bakmanızı sağlar.
-- İçerik içinde bulunan kısa açıklamalara H etiketi verebilirsiniz.
-- Bir içerik içerisinde bir tane H1 etiketi olmasına dikkat edin. Elbette hazırlamış olduğunuz içeriğin bütünlüğünü bozmadan içerikte birden fazla H1 etiketi kullanımı yapabilirsiniz. İçeriğe bağlı olarak 10 farklı H2 etiketi kullanabilirsiniz.
-- Kullandığınız H etiketlerinin kesinlikle hiyerarşik bir yapısı olması gerekmektedir.
-- Kaliteli içeriğe ulaşmak istediğiniz anahtar kelimeleri, bu H etiketleri içerisinde kullanmaya özen gösterin. H etiketleri içerisinde anahtar kelime kullanmanız, arama motoru sıralamalarında üstlere çıkmanıza etki edecektir.
-- Kullanacağınız başlık ya da alt başlıklarda, benzersiz olmasına özen gösterin. Daha önce arama motoru tarafından indeks almış olan başlıklara yer vermemeye çalışın.
+- Don't use H tags for long texts. In content, use this tag more for determining upper or subheading strategies.
+- Leave Heading or H tag usage until after your content is prepared. This allows your content to be placed more healthily and lets you look from a visitor's perspective.
+- You can give H tags to short descriptions within the content.
+- Make sure there's only one H1 tag in a piece of content. Of course, you can use multiple H1 tags in content without breaking its integrity. Depending on the content, you can use 10 different H2 tags.
+- The H tags you use must definitely have a hierarchical structure.
+- Pay attention to using the keywords you want to reach with quality content within these H tags. Using keywords within H tags will affect your rise to the top in search engine rankings.
+- Make sure the titles or subtitles you use are unique. Try not to include titles that have already been indexed by search engines.
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "seo-ile-organik-trafigi-artirmanin-yontemleri",
-    title: "SEO ile Organik Trafiği Artırmanın Yöntemleri",
-    description: "Web sitenizin organik trafiğini artırmak için SEO stratejileri, anahtar kelime optimizasyonu ve içerik geliştirme teknikleri.",
+    slug: "how-to-increase-organic-traffic-with-seo",
+    title: "How to Increase Organic Traffic with SEO",
+    description: "SEO strategies, keyword optimization, and content development techniques to increase your website's organic traffic.",
     date: "2020-09-22",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["Organik Trafik", "SEO", "Anahtar Kelime", "İçerik Optimizasyonu"],
-    readTime: "8 dk",
+    tags: ["Organic Traffic", "SEO", "Keywords", "Content Optimization"],
+    readTime: "8 min",
     image: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=1200&auto=format&fit=crop&q=80",
     content: `
-## SEO ve Organik Trafik
+## SEO and Organic Traffic
 
-İngilizce Search Engine Optimization kelimelerinin baş harfleri ile ifade edilen SEO, arama motoru optimizasyonu kelimeleriyle dilimizde karşılık buluyor. SEO çalışmalarının temel amacında ise arama motoru olarak bilinen internet ortamında kullanıcıların arama maksadıyla kullandığı siteler için sitenin organik trafiğinin artması dikkate alınır.
+SEO, expressed with the initial letters of the English words Search Engine Optimization, is reflected in our language with the words search engine optimization. The main goal of SEO work is to increase the site's organic traffic, taking into account the search engine sites that users use for searching on the internet.
 
-En büyük arama motoru olarak bilinen Google için yapılacak bir SEO çalışması sonucunda, siteniz daha fazla insan tarafından ulaşılabilir hale gelecektir. Firmanız daha fazla tanınacak ve müşteri kitleniz artacaktır.
+As a result of SEO work done for Google, known as the largest search engine, your site will become accessible to more people. Your company will be better known and your customer base will grow.
 
-Kısacası yapılacak etkin bir reklam çalışması yerine var olan web siteniz için yürüteceğiniz etkili bir SEO çalışması sayesinde ciddi kazançlar elde edilecektir. Sitenizin var olan trafiğini artırmanın ilk önemli noktası da organik trafiği artırmak olmalıdır. Organik trafik, aramalar sonrasında arama motorlarından gelen ziyaretçilerdir.
+In short, instead of effective advertising work, through effective SEO work you conduct for your existing website, significant gains will be achieved. The first important point in increasing your site's existing traffic should be to increase organic traffic. Organic traffic is visitors coming from search engines after searches.
 
-## Organik Trafiği Artırmanın Yöntemleri
+## Methods to Increase Organic Traffic
 
-**Anahtar Kelime ve Kaliteli İçerik Hazırlamak:** Arama motorlarının çalışma mantığında, kullanıcıların arama için kullandığı kelimeler bir başka ifadeyle anahtar kelimeler büyük önem taşımaktadır. Kullanıcıların aramalar sırasında kullanabileceği anahtar kelimeleri belirleyerek buna uygun kaliteli içerik oluşturmak, bu yolla sitenizi ziyaret edecek olan organik ziyaretçi sayısını artıracaktır. Hazırladığınız içeriklerde bu anahtar kelimelerin kullanılma sıklığına dikkat edin.
+**Prepare Keywords and Quality Content:** In the working logic of search engines, the words users use for searching—in other words, keywords—are of great importance. Determining the keywords that users might use during searches and creating quality content accordingly will increase the number of organic visitors who will visit your site this way. Pay attention to the frequency of using these keywords in the content you prepare.
 
-**Mobil Cihaz Kullanımı Artarken Responsive Tasarıma Önem Gösterin:** Kullanıcılar farklı boyutlarda ekranları kullanarak sitenizi ziyaret etmektedir. Özellikle tablet ve farklı boyutlarda olan akıllı telefonların kullanımı sonrasında, responsive tasarıma sahip olan sitelerin arama motorları tarafından daha fazla dikkate alındığı bilinmektedir.
+**Pay Attention to Responsive Design as Mobile Device Usage Increases:** Users visit your site using screens of different sizes. Especially after the use of tablets and smartphones of different sizes, sites with responsive design are known to be more considered by search engines.
 
-**Arama Motorlarının Dikkate Aldığı HTML Etiketlerini Kullanın:** Arama motoru yapıları, siteleri daha üstlerde gösterebilmek için çok farklı algoritmalar kullanıyor olsa bile META etiketleri olarak bilinen HTML etiketleri hala etkisini korumaktadır. Site tasarımı esnasında halen meta tanımlama (description) etiketleri etkili ve doğru kullanıldığında site ziyaretçi sayısına olumlu etki ediyor.
+**Use HTML Tags Considered by Search Engines:** Although search engine structures use very different algorithms to show sites higher up, META tags known as HTML tags still maintain their effect. During site design, meta description tags, when used effectively and correctly, still positively impact site visitor numbers.
 
-**Organik Trafik İçin İçerik Girişine Önem Verin:** Sitenizde bir blog alanı oluşturarak, düzenli aralıklarda kaliteli ve özgün içerik girişi için kendinize bir program oluşturun. Eğer sitenize ekleyeceğiniz içerik sayısını artırıp, daha fazla uzmanlık konularına odaklanarak özgün içerikleri yayınlarsanız arama motorları tarafından fark edilirsiniz.
+**Focus on Content Input for Organic Traffic:** Create a blog area on your site and set up a program for yourself for regular quality and original content input at regular intervals. If you increase the content you add to your site and publish original content focusing on more specialized topics, you'll be noticed by search engines.
 
-**Doğru URL Yapısı Kullanın:** Bazı internet sayfalarında "?p=1" gibi alan adı yanında adresler görebilirsiniz. İçerik yönetim sistemi olarak bilinen sitelerde bu yapı değiştirilebilir. Site içeriklerinin adreslerinde, anahtar kelimelerine yer vermeye çalışın ve bunun için gerekli yapılandırmayı yapın.
+**Use Correct URL Structure:** On some web pages, you can see addresses like "?p=1" next to the domain name. This structure can be changed in sites known as content management systems. Try to include keywords in the addresses of your site content and make the necessary configuration for this.
 
-**SEO Araçları ve Google Web Yöneticisi Araçlarını Kullanın:** Web sitenizin belli aralıklarla analiz edilmesi, sorunları tespit edebilmek ve sitenizi iyileştirebilmek için önem taşımaktadır. İnternet üzerinde SEO analizi yapabileceğiniz birçok ücretsiz araç olduğu gibi, en iyi sonuçları alabileceğiniz arama motoru devi Google tarafından sunulan araçlar da bulunmaktadır.
+**Use SEO Tools and Google Webmaster Tools:** Analyzing your website at regular intervals is important for identifying problems and improving your site. There are many free tools on the internet for SEO analysis, as well as tools offered by search engine giant Google that give the best results.
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "profesyonel-seo-uzmani-nedir-nasil-olunur",
-    title: "Profesyonel SEO Uzmanı Nedir, Nasıl Olunur?",
-    description: "SEO uzmanı olmak için gereken beceriler, eğitimler ve kariyer yolu hakkında kapsamlı rehber.",
+    slug: "what-is-seo-specialist-how-to-become-one",
+    title: "What Is an SEO Specialist and How to Become One?",
+    description: "A comprehensive guide on the skills, training, and career path needed to become an SEO specialist.",
     date: "2020-10-13",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["SEO Uzmanı", "SEO Danışmanı", "Kariyer", "Dijital Pazarlama"],
-    readTime: "15 dk",
+    tags: ["SEO Specialist", "SEO Consultant", "Career", "Digital Marketing"],
+    readTime: "15 min",
     featured: true,
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&auto=format&fit=crop&q=80",
     content: `
-## SEO Uzmanı, SEO Danışmanı Nedir?
+## What Is an SEO Specialist/Consultant?
 
-İnternet, hangi bilgiyi arıyorsanız arayın ilk başvuru noktası haline geldi. Google, Yandex, Bing, Yahoo gibi arama motorları sayfaları her zaman en fazla ziyaretçiyi çekiyor. Burada yapılan aramalar sonrasında istenilen sayfaya ulaşılıyor. Bu nedenle, internet ortamında yer almayı düşünen kişi, kurum ya da kuruluşların bir arama motoru optimizasyonu (Search Engine Optimization – SEO) çalışması yapması zorunludur. SEO Uzmanı için, bu çalışmaları verimli biçimde yürütecek olan uzman kişi ifadesi doğru olur.
+The internet has become the first point of reference for whatever information you're looking for. Search engine pages like Google, Yandex, Bing, and Yahoo always attract the most visitors. After searches made here, you reach the desired page. Therefore, individuals, institutions, or organizations thinking of being on the internet must do search engine optimization (SEO) work. For SEO Specialist, the expression of an expert person who will conduct this work efficiently is correct.
 
-SEO Uzmanı tarafından yapılacak çalışmalar arasında; sitenizi ziyaretçi için en uygun hale getirmek, arama motorları tarafından dikkat çekecek hale gelmesi için gerekli olan iyileştirme çalışmaları yapmak vardır. Aynı zamanda siteniz için tüm analiz, değerlendirme, uygulama, takip ve raporlama periyotlarının tamamını yapar.
+The work to be done by an SEO Specialist includes making your site most suitable for visitors, doing the necessary improvement work to make it noticeable by search engines. They also perform the entire analysis, evaluation, implementation, follow-up, and reporting periods for your site.
 
-## SEO Uzmanı Neler Yapar?
+## What Does an SEO Specialist Do?
 
-SEO uzmanı çalışmasına başlarken, ilk olarak siteyi analiz eder. Çalışma için gerekli stratejileri belirlerken, sitenin hangi kelimelerde üst sıralara taşınması gerektiğini belirlemek için araştırma yürütür. Ayrıca var olan sitenin arayüzü için de gerekli düzenlemeleri yaparak var olan hataları giderir.
+When starting work, an SEO specialist first analyzes the site. While determining the strategies needed for the work, they conduct research to determine which keywords the site should be moved to the top for. They also make necessary arrangements for the existing site's interface and fix existing errors.
 
-**SEO Uzmanının görevleri:**
+**SEO Specialist responsibilities:**
 
-- Çalışma yürütülecek olan web sitesinin hem içerik hem de kod yapısını analiz etmek, hataları belirlemek ve gerekli düzeltmeleri yapmak.
-- Kurumsal ya da kişisel web siteleri için optimizasyon çalışması yürütmek.
-- Arama motoru sitelerinin algoritma yapılarında var olan güncellemeleri takip etmek ve bu yeni algoritma yapısını çalışma yürütülen web sitelerine uygulamak.
-- Arama motorunda sitenin öne çıkmasına destek verecek kelimeleri belirleyerek, bu kelimelerde sitenin üst sıralara taşınması gerektiği konusunda analizler yapmak.
-- SEO açısından site arayüzünde bulunan ve hatalı olan kodları tespit ederek düzenlemek.
-- Arama motorları tarafından gerekli olan backlink, tanıtım yazısı, forum tanıtımı, link alımı gibi konularda çalışma yapmak.
-- Site içi SEO çalışması için gerekli olan kelime araştırması, site içi linkleme ve mevcut içeriğin optimizasyonunu gerçekleştirmek.
-- Rakip siteleri kontrol etmek ve onların gerçekleştirdiği SEO çalışmalarını araştırarak değerlendirmelerde bulunmak.
-- Google Analytics gibi çeşitli web analitik araçlarını kullanarak, SEO istatistiklerinin yönetimini yapmak.
+- Analyze both the content and code structure of the website to be worked on, identify errors, and make necessary corrections.
+- Conduct optimization work for corporate or personal websites.
+- Follow updates in the algorithm structures of search engine sites and apply this new algorithm structure to the websites being worked on.
+- Determine keywords that will support the site's prominence in search engines and analyze how the site should be moved to the top for these keywords.
+- Identify and edit erroneous codes in the site interface from an SEO perspective.
+- Work on backlinks, promotional articles, forum promotion, and link acquisition required by search engines.
+- Perform keyword research, internal linking, and optimization of existing content required for on-site SEO work.
+- Check competitor sites and evaluate the SEO work they do.
+- Manage SEO statistics using various web analytics tools like Google Analytics.
 
-## SEO Uzmanı İçin Aranan Özellikler
+## Required Qualities for an SEO Specialist
 
-Bir SEO hizmeti alacağınızda, seçim yapacağınız profesyonel SEO uzmanın şu özelliklerin bulunmasına dikkat edin:
+When getting SEO service, pay attention to the following qualities in the professional SEO specialist you choose:
 
-- Sektör tecrübesinin 3 – 4 yıl olması gerekir. Kendi sitesinde SEO açısından başarıyı yakalamış olması istenir.
-- Referansların kaliteli olması ve doğrulatılması gerekir. Başarılı SEO referansları olması şarttır.
-- Kendi sitesinin güncel olması ve yapılan çalışmaları burada paylaşması istenir.
-- SEO uzmanının Google Analytics, Google Webmaster Araçları ve Yandex Metrica analizlerini iyi derecede yapabilmesi gerekir.
-- Anahtar kelime, rakip SEO analizinde profesyonel çalışmalar yürütebilmelidir.
-- Web programlama dillerine, temel grafik programlarına hakim olmalıdır. HTML, CSS, Javascript programlama dillerine hakimiyeti kesinlikle olmalıdır.
-- Black Hat SEO yerine organik SEO (White Hat SEO) yöntemlerini kullanmalıdır.
+- Industry experience should be 3-4 years. They should have achieved SEO success on their own site.
+- References should be quality and verifiable. Successful SEO references are a must.
+- Their own site should be up to date and they should share the work done there.
+- The SEO specialist should be able to do Google Analytics, Google Webmaster Tools, and Yandex Metrica analyses well.
+- They should be able to conduct professional work in keyword and competitor SEO analysis.
+- They should be proficient in web programming languages and basic graphic programs. Proficiency in HTML, CSS, and JavaScript programming languages is absolutely necessary.
+- They should use organic SEO (White Hat SEO) methods instead of Black Hat SEO.
 
-## SEO Uzmanı Nasıl Olunur?
+## How to Become an SEO Specialist?
 
-Giderek yıldızı parlayan bir uzmanlık alanı olan SEO, dijital pazarlama sektörünün altın bileziği sayılıyor ve SEO uzmanlığı popüler bir meslek haline geliyor. SEO uzmanı için; temel yazılım, kullanıcı deneyimi bilgisine sahip olması, dijital pazarlamanın temel kurallarını bilmesi, Google AdWords ve Google Analytics gibi servisleri kullanabilmesi önemlidir.
+SEO, a rising star expertise area, is considered the golden bracelet of the digital marketing sector, and SEO expertise is becoming a popular profession. For an SEO specialist, it's important to have basic software and user experience knowledge, know the basic rules of digital marketing, and be able to use services like Google AdWords and Google Analytics.
 
-**Alınması gereken eğitimler:**
+**Training to be taken:**
 
-- On-page SEO ve Off-Page SEO
-- Pagespeed Optimizasyonu
+- On-page SEO and Off-Page SEO
+- Pagespeed Optimization
 - Search Console
-- SEO Uyumlu İçerik Yönetimi
-- Rakip ve Sektör Analizi
+- SEO-Compliant Content Management
+- Competitor and Industry Analysis
 - Local SEO
-- Google Cezaları
-- Backlink Risk Yönetimi
-- Google Analytics ile Kullanıcı Davranışı Analizi
+- Google Penalties
+- Backlink Risk Management
+- User Behavior Analysis with Google Analytics
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "dropshipping-ile-dijital-pazarlama",
-    title: "Dropshipping ile Dijital Pazarlama",
-    description: "Stoksuz e-ticaret (dropshipping) nedir, nasıl yapılır ve dijital pazarlama ile nasıl desteklenir?",
+    slug: "dropshipping-and-digital-marketing",
+    title: "Dropshipping and Digital Marketing",
+    description: "What is dropshipping (stock-free e-commerce), how to do it, and how to support it with digital marketing?",
     date: "2020-10-08",
     updatedDate: "2025-01-15",
-    category: "Dijital Pazarlama",
-    tags: ["Dropshipping", "E-Ticaret", "Dijital Pazarlama", "Stoksuz Ticaret"],
-    readTime: "8 dk",
+    category: "Digital Marketing",
+    tags: ["Dropshipping", "E-Commerce", "Digital Marketing", "Stock-Free Commerce"],
+    readTime: "8 min",
     image: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Dropshipping Nedir ve Nasıl Yapılır?
+## What Is Dropshipping and How to Do It?
 
-Stoksuz e-ticaret olarak bilinen dropshipping, ülkemizde de internet üzerinden gelir elde etmenin bir yolu olarak öne çıkmaya başladı. Dünyada e-ticaret pazarında uzun süredir yer alan bu yöntem, son yıllarda ülkemizde de yeni girişimciler tarafından tercih edilmeye başlandı.
+Dropshipping, known as stock-free e-commerce, has started to stand out as a way to earn income online in our country as well. This method, which has been in the e-commerce market worldwide for a long time, has also started to be preferred by new entrepreneurs in our country in recent years.
 
-Gelirleri ve ziyaretçileri artırmanın yolu olarak dijital pazarlama sayesinde, dropshipping çalışmasına daha fazla değer katabilirsiniz. Sadece dropshipping sizin için bir kurtuluş reçetesi tabii ki de olamaz. Tüm dijital pazarlama tekniklerini kullanarak güzel sonuçlar almanız mümkündür.
+Through digital marketing, a way to increase revenue and visitors, you can add more value to your dropshipping work. Dropshipping alone, of course, cannot be a salvation prescription for you. It's possible to get good results by using all digital marketing techniques.
 
-Kısa bir biçimde; dropshipping için stoksuz e-ticaret yöntemi, dijital pazarlama için ise dijital ortamları kullanarak mal ya da hizmetleri tanıtarak kar ya da müşteri elde etme yöntemi diyebiliriz. Eğer bir dropshipping çalışması yapıyorsanız, birçok sektöre nazaran daha fazla dijital pazarlama yöntemini kullanmaya ihtiyacınız var demektir.
+Briefly, for dropshipping we can say stock-free e-commerce method, and for digital marketing we can say the method of gaining profit or customers by promoting goods or services using digital environments. If you're doing dropshipping work, it means you need to use more digital marketing methods compared to many sectors.
 
-Daha az bilgi birikimi, daha az sermaye, daha az iş yükü avantajıyla deponuz olmadan dahi e-ticaret yapma olanağı getiren dropshipping ile öne çıkmak için; zaman ve sermayenizi dijital pazarlama çalışmalarına ayırabilirsiniz.
+With the advantage of less knowledge accumulation, less capital, and less workload, and the opportunity to do e-commerce without even having a warehouse, you can allocate your time and capital to digital marketing efforts to stand out with dropshipping.
 
-## Dropshipping ve E-ticaret
+## Dropshipping and E-Commerce
 
-E-ticaret siteleri için dijital pazarlama her zaman önde tutulması gereken bir yoldur. Daha iyi bir kullanıcı deneyimi elde edilen SEO ve optimizasyon çalışmalarına, dijital pazarlama metotları da eklendiğinde hem daha çok ziyaretçi çekilecek hem de gelen kullanıcılara yapılacak çalışmalarla daha fazla satış yapma olanağı yakalanacaktır.
+For e-commerce sites, digital marketing is a path that should always be kept in the forefront. When digital marketing methods are added to SEO and optimization work that provides a better user experience, more visitors will be attracted and more sales opportunities will be captured through work done with incoming users.
 
-Daha düşük kar marjları ile yapılmakta olan stoksuz ticaret yani dropshipping içinse, bu çalışma çok daha büyük önem taşımaktadır. Bu nedenle, bu ikili için ayrılmaz biçimde çalışma yürütülmelidir.
+For stock-free commerce, that is dropshipping, which is done with lower profit margins, this work is even more important. Therefore, these two should work together inseparably.
 
-Ülkemizde bulunan girişimcilerin, Amazon gibi uluslararası platform üzerinde bile dropshipping ile ürün satışından gelir elde etme olanağı var. Tedarikçi seçimi, müşteri takibi, iade süreçleri gibi konuları iyi yönetenlerin ülkemizde de dropshipping ile önemli kazançlar elde ettiği görülebiliyor.
+Entrepreneurs in our country have the opportunity to earn income from product sales through dropshipping even on international platforms like Amazon. It can be seen that those who manage issues like supplier selection, customer tracking, and return processes well in our country also achieve significant gains with dropshipping.
 
-## Dropshipping ve Dijital Pazarlama
+## Dropshipping and Digital Marketing
 
-Dropshipping için yapılacak olan dijital pazarlama çalışmasında amaçlanan temel nokta, dezavantajlarını ortadan kaldırmaya çalışmaktır. Yapılacak çalışma, ilk olarak kar oranlarını artırmaya yöneliktir. Bu da yönlendirilecek olan yeni ziyaretçiler ile sağlanabilir.
+The fundamental point aimed at in digital marketing work for dropshipping is trying to eliminate its disadvantages. The work to be done is first aimed at increasing profit rates. This can be achieved with new visitors to be directed.
 
-Bu nedenle sosyal medya pazarlaması gibi dijital pazarlama yollarının etkin biçimde kullanılması gerekiyor. Özellikle tedarikçi ile yaşanabilecek sorunlar, dropshipping çalışmasında ürünün müşteriye ulaştırılmasında sorunlar yaratabilmektedir. Dijital pazarlama çalışması ile müşteri ilişkilerinin daha etkin biçimde iyileştirilmesi de mümkün olabiliyor.
+Therefore, digital marketing paths like social media marketing need to be used effectively. Especially problems that can be experienced with suppliers can create problems in delivering the product to the customer in dropshipping work. With digital marketing work, it's also possible to improve customer relationships more effectively.
 
-Online alışveriş için güven arayan müşterilerin, bu çekindiği noktayı yapılacak dijital pazarlama çalışmasıyla aşabiliyorsunuz. Daha iyi tanıtım, daha fazla müşteri kitlesine doğru bilgilendirmelerle ulaşma olanağı elde edilebiliyor.
+You can overcome this hesitation point of customers looking for trust for online shopping with digital marketing work. You get the opportunity to reach a larger customer base with better promotion and correct information.
 
-Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+For digital marketing consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "icerik-pazarlamasi-ve-seo-optimizasyonu",
-    title: "İçerik Pazarlaması ve SEO Optimizasyonu",
-    description: "SEO uyumlu içerik nasıl yazılır, içerik pazarlaması stratejileri ve kaliteli içerik üretimi hakkında kapsamlı rehber.",
+    slug: "content-marketing-and-seo-optimization",
+    title: "Content Marketing and SEO Optimization",
+    description: "A comprehensive guide on how to write SEO-friendly content, content marketing strategies, and quality content production.",
     date: "2020-10-08",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["İçerik Pazarlaması", "SEO", "İçerik Optimizasyonu", "Kaliteli İçerik"],
-    readTime: "9 dk",
+    tags: ["Content Marketing", "SEO", "Content Optimization", "Quality Content"],
+    readTime: "9 min",
     image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&auto=format&fit=crop&q=80",
     content: `
-## SEO Uyumlu İçerik Nasıl Yazılır?
+## How to Write SEO-Friendly Content?
 
-Özgün ve kaliteli içerikler, bir internet sitesinin SEO çalışmalarındaki en önemli bileşenlerinin başında gelmektedir. Web sitesi için üretilmiş olan her özgün ve kaliteli içeriğin, arama motorları tarafından bulunabilirliği artırdığı ve site değerlerinin yukarılara çıkardığı unutulmamalıdır.
+Original and quality content is one of the most important components of a website's SEO work. It should not be forgotten that every original and quality content produced for a website increases findability by search engines and raises site values.
 
-Sürekli artan web sitesi trafiği, daha fazla internet kullanımı ve dijital dünyada yaşanmakta olan rekabet ile internet arama motorları da farklı algoritmalar kullanarak, daha öne çıkması gereken web sitelerini belirliyor. Buradaki önemli kıstaslardan biri ise kaliteli ve özgün içerik oluyor.
+With continuously increasing website traffic, more internet usage, and competition in the digital world, search engines also use different algorithms to determine which websites should stand out more. One of the important criteria here is quality and original content.
 
-Web sitesini güncel tutan, ziyaretçilere daha faydalı bilgiyi veren, içerik pazarlaması ve SEO çalışmalarına gerekli önemi veren internet sitelerinin daha fazla ziyaretçi çektiği ve daha fazla müşteriye ulaştığı bir gerçektir.
+It's a fact that websites that keep their site up to date, provide more useful information to visitors, and give necessary importance to content marketing and SEO work attract more visitors and reach more customers.
 
-## İçerik Pazarlaması ile SEO İlişkisi
+## The Relationship Between Content Marketing and SEO
 
-Temelde ayrı düşünülemeyen bu ikili için bina ve çimento kavramları örnek verilebilir. SEO, içerik pazarlamasının her alanına etki etmekte ve içerik pazarlaması stratejileri oluşturulurken SEO'ya göre düzenlemeler yapılmalıdır. Bu yapıya uyulduğu takdirde, kullanıcı bazında daha çok geri dönüş sağlanabilir.
+The building and cement concepts can be given as examples for these two that cannot be thought of separately at their core. SEO affects every area of content marketing, and adjustments according to SEO should be made when creating content marketing strategies. When this structure is followed, more user-based returns can be achieved.
 
-SEO için kaliteli içerik tam anlamıyla en önemli faktörlerdendir. Kaliteli içerik Google gibi çoğu arama motorunun istediğidir ve anında fark edilerek öne çıkarılır. Son yıllarda bu önem çok daha arttı.
+Quality content is absolutely one of the most important factors for SEO. Quality content is what most search engines like Google want and is immediately noticed and highlighted. This importance has increased much more in recent years.
 
-SEO ve içerik pazarlaması çalışmalarını birlikte sürdürenler her zaman daha fazla kazancı elde edebiliyor. SEO çalışmaları yapılmadan oluşturulan kaliteli içerik, eğer web siteniz trafik almıyorsa pek önem taşımıyor. Bu sebeple de içerik pazarlaması stratejileri, SEO ile birlikte yönetilmesi en faydalı yöntem olur.
+Those who continue SEO and content marketing work together can always achieve more gains. Quality content created without SEO work doesn't matter much if your website isn't getting traffic. For this reason, managing content marketing strategies together with SEO is the most beneficial method.
 
-## İçerik Analizi ve SEO Yöntemleri
+## Content Analysis and SEO Methods
 
-**İçerikleriniz İçin En Uygun Anahtar Kelimeleri Belirleyin:** Hazırlanan kaliteli içeriğin konusuna uygun ve hedef kitle tarafından arama yapılmasına uygun anahtar kelimeler taşması gerekir. Bu nedenle de hedeflenen kitlenin arama motorlarında hangi kelimeleri kullanarak arama yaptığını önceden analiz edip öğrenmelisiniz.
+**Determine the Most Suitable Keywords for Your Content:** Quality prepared content should carry keywords appropriate to its topic and suitable for searches by the target audience. Therefore, you should analyze and learn in advance which words the target audience uses when searching in search engines.
 
-**Hazırlanan İçerik Özgün ve Kaliteli Olmalıdır:** SEO için vazgeçmemeniz gereken altın kural, özgün içerik ve kaliteli içerik olmaktadır. Arama devi Google özgün içerik konusunda çok detaycı ve hassas davranır. Kopya içeriklerle dolu olan bir web sitesi Google tarafından değersiz görülür.
+**Prepared Content Should Be Original and Quality:** The golden rule you shouldn't give up for SEO is original content and quality content. Search giant Google is very detailed and sensitive about original content. A website full of copied content is seen as worthless by Google.
 
-**Site İçi SEO Kurallarına Uymalısınız:** Özgün içeriklerinizi orantılı biçimde anahtar kelimeler kullanarak oluşturduysanız, SEO açısından uygun kriterlerle sitenizde yayınlamalısınız. Siteye ekleme yaparken, title etiketi kullanmalısınız. Ayrıca meta description alanını oluşturmalı ve bu alanda içeriğinizi özetleyen 160 karakteri geçmeyen bir açıklamaya yer vermelisiniz.
+**You Must Follow On-Site SEO Rules:** If you've created your original content using keywords proportionally, you should publish it on your site with appropriate criteria for SEO. When adding to the site, you should use a title tag. You should also create a meta description area and include a description not exceeding 160 characters that summarizes your content in this area.
 
-**İçeriklerde Video Kullanımı:** Video ile zenginleştirilen içeriklerin önemi her geçen gün artıyor. Bu nedenle içeriğinizi zenginleştirirken, görsel ya da grafikler yanında video kullanmaya özen gösterin.
+**Video Usage in Content:** The importance of content enriched with video is increasing every day. Therefore, when enriching your content, pay attention to using video in addition to visuals or graphics.
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "en-etkili-dijital-pazarlama-yontemleri",
-    title: "En Etkili Dijital Pazarlama Yöntemleri",
-    description: "Dijital pazarlama stratejileri, sosyal medya pazarlaması, içerik pazarlaması ve influencer marketing hakkında kapsamlı rehber.",
+    slug: "most-effective-digital-marketing-methods",
+    title: "Most Effective Digital Marketing Methods",
+    description: "A comprehensive guide on digital marketing strategies, social media marketing, content marketing, and influencer marketing.",
     date: "2020-10-07",
     updatedDate: "2025-01-15",
-    category: "Dijital Pazarlama",
-    tags: ["Dijital Pazarlama", "SEM", "Sosyal Medya", "Influencer Marketing"],
-    readTime: "9 dk",
+    category: "Digital Marketing",
+    tags: ["Digital Marketing", "SEM", "Social Media", "Influencer Marketing"],
+    readTime: "9 min",
     image: "https://images.unsplash.com/photo-1557838923-2985c318be48?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Dijital Pazarlamanın Önemi
+## The Importance of Digital Marketing
 
-Yaşadığımız dijital çağ ile işletmelerin başarısı için, bu ortamı kullanmamak söz konusu olmuyor. Mobil cihaz ve uygulamaların her geçen gün arttığı, internet kullanım oranlarının sürekli yükseldiği bir ortamda, bir işletmenin başarılı olması ve hedeflediği kitleye ulaşması dijital pazarlama ile mümkün oluyor.
+With the digital age we live in, not using this environment for business success is out of the question. In an environment where mobile devices and applications are increasing every day and internet usage rates are constantly rising, a business's success and reaching its targeted audience is possible through digital marketing.
 
-Ürün ya da hizmetiniz ne kadar mükemmel olsa da yeterli düzeyde tanıtım ya da pazarlama yapamazsanız başarı elde edemezsiniz. Bunun için de çağımızın olanaklarını kullanma olanağı veren dijital pazarlama olanağından kesinlikle yararlanmalısınız.
+No matter how perfect your product or service is, you can't achieve success if you don't do sufficient promotion or marketing. For this, you should definitely benefit from digital marketing opportunities that allow you to use the possibilities of our era.
 
-## Dijital Pazarlama Yöntemleri
+## Digital Marketing Methods
 
-**Arama Motoru Pazarlaması (SEM):** Bu dijital pazarlamada hedeflenen nokta, insanların internet üzerinde arama yaptığı arama motoru sayfaları hedefe alınıyor. Kısa adıyla SEM olarak bilinen Arama Motoru Pazarlaması; yalnızca arama motorları olarak web siteniz, ürünleriniz veya hizmetleriniz Google, Yandex veya Bing gibi arama motorlarında tanıtıma açılıyor. Doğru yapılacak olan bir SEM ile %100 yeni gelir kaynağı elde edilebilir.
+**Search Engine Marketing (SEM):** In this digital marketing, the targeted point is search engine pages where people search on the internet. Known briefly as SEM, Search Engine Marketing promotes your website, products, or services on search engines like Google, Yandex, or Bing only as search engines. With properly done SEM, a 100% new revenue source can be achieved.
 
-**Sosyal Medya İle Dijital Pazarlama:** Facebook, Instagram ve Twitter gibi sosyal medya platformlarını duymayan kalmadı. Popülaritesi zaman zaman değişiklik gösterse de ülkemizde en fazla bilinen bu sosyal medya platformlarına yenileri de zamanla ekleniyor. Milyonlarca insanın gün içerisinde uzun zaman geçirdiği bu ortamlar, dijital pazarlama için de önemli bir nokta oluyor. Tüketicilerin %37'si sosyal medya ağlarında bir sonraki satın almaları için ilham alıyor.
+**Digital Marketing with Social Media:** Everyone has heard of social media platforms like Facebook, Instagram, and Twitter. Although their popularity changes from time to time, new ones are being added over time to these most known social media platforms in our country. These environments where millions of people spend a long time during the day are also an important point for digital marketing. 37% of consumers get inspiration for their next purchase on social media networks.
 
-**Kaliteli İçerik Pazarlaması:** Belki de dijital pazarlama yolları arasında en ucuz olan seçenektir. Temelinde ise ziyaretçilerinize düzenli olarak yüksek kaliteli içerik oluşturmak yatmaktadır. İnternet kullanıcılarının büyük bölümü blog okurlarıdır ve onların ilgisini yakalamayı hedefler. Daha uzun vadede müşteri kazanma imkanı verir.
+**Quality Content Marketing:** Perhaps it's the cheapest option among digital marketing paths. At its core lies regularly creating high-quality content for your visitors. Most internet users are blog readers, and it targets capturing their interest. It provides the opportunity to gain customers in the longer term.
 
-**Satış Ortaklığı Pazarlaması:** Bu dijital pazarlama yöntemini kullanmaya başladığınızda, ürün ya da hizmetlerinizi pazarlamak ya da satmak için 7/24 çalışan bir satış ordusuna sahip olursunuz. Oluşturacağınız bir satış ortaklığı ağı (Affiliate Marketing) ile buna sahip olabilirsiniz.
+**Affiliate Marketing:** When you start using this digital marketing method, you have a sales army working 24/7 to market or sell your products or services. You can have this with an affiliate marketing network you create.
 
-**Influencer Pazarlama:** Bir ürün ya da hizmeti satın almak kişilerin ilk başvuru noktaları arasında, diğer tüketiciler olduğu bir gerçektir. Influencer pazarlama bu noktaya odaklanıyor. Ürün ya da hizmeti tanıtmak ve satışla gelir elde etmek için, ilgilenecek bir kitleye sahip olan Influencer tespit ediliyor. Bu yol ile marka bilinirliği artırılıyor ve satışlarınızda artışla yeni müşteri kitleleri elde ediliyor.
+**Influencer Marketing:** It's a fact that among the first points of reference for people wanting to buy a product or service are other consumers. Influencer marketing focuses on this point. To promote and sell products or services, an Influencer with an audience that will be interested is identified. Through this path, brand awareness is increased and new customer segments are gained with increases in sales.
 
-Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
+For digital marketing consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "kaliteli-ve-ozgun-icerigin-seo-icin-onemi",
-    title: "Kaliteli ve Özgün İçeriğin SEO İçin Önemi",
-    description: "Kaliteli içerik üretimi, özgün içerik stratejileri ve SEO için içerik optimizasyonu hakkında kapsamlı rehber.",
+    slug: "importance-of-quality-original-content-for-seo",
+    title: "The Importance of Quality and Original Content for SEO",
+    description: "A comprehensive guide on quality content production, original content strategies, and content optimization for SEO.",
     date: "2020-09-30",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["Kaliteli İçerik", "Özgün İçerik", "SEO", "İçerik Stratejisi"],
-    readTime: "10 dk",
+    tags: ["Quality Content", "Original Content", "SEO", "Content Strategy"],
+    readTime: "10 min",
     image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Kaliteli İçeriğin SEO'daki Önemi
+## The Importance of Quality Content in SEO
 
-Arama motoru üzerinde yapılan aramalar sonrasında üst sıralarda yer almak, bir internet sitesinin en önemli hedefi haline geldi. Bu durum, siteye daha fazla ziyaretçinin gelmesinin ve beraberinde her açıdan kazanç elde etmenin önünü açıyor. Bu da özenli bir SEO çalışması ile gerçekleşiyor. SEO açısından da, arama motorlarının istediği kaliteli ve özgün içerik çalışması en önem verilen nokta oluyor.
+Ranking at the top after searches made on search engines has become the most important goal of a website. This situation opens the way for more visitors to come to the site and gaining benefits from every angle. This is achieved with careful SEO work. In terms of SEO, quality and original content work desired by search engines is the most important point.
 
-Site içeriğinde, iyi hazırlanmış bir içerik bulunmuyorsa, SEO çalışmalarıyla sağlanacak avantajların da kullanılması pek mümkün olmuyor. Eğer hazırlanan internet sitesi içerikleri, faydalı ve alakalı ise ziyaretçiler site ziyaretlerini daha uzun tutabiliyor. Daha uzun süre sitede kalan ziyaretçiler sayesinde, arama motorlarında sıralamada üst sıralara yükselme yaşanabiliyor.
+If there isn't well-prepared content in the site's content, it's not very possible to use the advantages that will be provided by SEO work. If the prepared website content is useful and relevant, visitors can keep their site visits longer. Thanks to visitors staying on the site longer, climbing to the top in search engine rankings can occur.
 
-## Arama Motorlarının Kriterleri Nelerdir?
+## What Are Search Engine Criteria?
 
-Arama motorları ile organik ziyaretçi çekebilmek için birçok kriteri göz önünde bulundurmak gerekiyor. Site içeriğinin kaliteli ve özgün hazırlanması, giderek daha önemli hale gelen kriter haline geldi.
+Many criteria need to be considered to attract organic visitors with search engines. Quality and original preparation of site content has become an increasingly important criterion.
 
-Başka kaynaklardan alınan ve copy-paste yapılarak oluşturulan içerikler, arama motorları tarafından fark edilerek site sıralamasına etki ediyor. Site hazırlayanların içeriği ortaya çıkarırken, ziyaretçiye fayda getirecek kaliteli içeriğe yer vermesi gerekiyor.
+Content taken from other sources and created by copy-paste is noticed by search engines and affects site ranking. Those preparing sites need to include quality content that will benefit visitors when creating content.
 
-Elbette sadece özgün ve kaliteli içerik değil, hedeflenen anahtar kelime çalışmasının da bu içerikte yapılması gerekiyor. Ziyaretçinin bu anahtar kelimelere bağlı olarak site ziyareti gerçekleştirdiği unutulmamalıdır.
+Of course, not only original and quality content but also targeted keyword work needs to be done in this content. It should not be forgotten that visitors make site visits based on these keywords.
 
-## Kaliteli İçerik İçin Öneriler
+## Tips for Quality Content
 
-- Hazırlanan kaliteli bir içerik için henüz başta bir strateji oluşturarak anahtar kelimeleri iyi belirlemelisiniz. Bu anahtar kelimeler, içerik içine uygun biçimde yerleştirilmelidir.
-- SEO uyumlu olan ve kaliteli denebilecek içerik; kaliteli blog yazıları, backlink, iyi yazılmış anahtar kelimeler gibi çeşitli stratejileri kendi içerisinde barındırmaktadır.
-- Herkesin ilgi duyabileceği bir konu ve bu konuya uygun ilgi çekebilecek bir başlık belirleyin.
-- Hazırladığınız içerik için gelen yorumları dikkate alın ve gerekiyorsa bu içeriği geliştirmeyi ihmal etmeyin.
-- İçeriğinizi daha ilgi çekici hale getirmek için sosyal medya gücünden faydalanın.
-- Hazırladığınız içerik için internet ortamındaki rakipleri araştırın ve onları inceleyin.
-- Kaliteli içerik oluşturmak için kullandığınız verileri iyi ortaya koymalı ve diğer rakiplerden farkınızı ortaya koyacak şekilde bu verileri aktarabilmelisiniz.
-- İçeriğinize derinlik katıp konuları rakiplerden daha detaylı biçimde verebilirsiniz.
-- Kaliteli bir içeriğin temeli iyi bir araştırma yapılmasıyla başlıyor.
-- Giriş – gelişme – sonuç biçiminde bir yapıyla içeriğinizin ziyaretçinin aklında kalmasını sağlayın.
-- Hazırladığınız kaliteli içeriklerin tanıtımı için sosyal medyayı, forumları etkin biçimde kullanın.
+- For quality content prepared, you should determine keywords well by creating a strategy at the very beginning. These keywords should be placed appropriately within the content.
+- Content that is SEO compatible and can be called quality contains various strategies within itself such as quality blog posts, backlinks, and well-written keywords.
+- Determine a topic that everyone might be interested in and an interesting title appropriate to this topic.
+- Take into account the comments coming for the content you've prepared and don't neglect to improve this content if necessary.
+- Benefit from social media power to make your content more interesting.
+- Research competitors on the internet for the content you've prepared and examine them.
+- To create quality content, you should present the data you use well and be able to convey this data in a way that shows your difference from other competitors.
+- You can add depth to your content and provide topics in more detail than competitors.
+- The foundation of quality content starts with good research.
+- Ensure your content stays in visitors' minds with an introduction-development-conclusion structure.
+- Use social media and forums effectively to promote the quality content you've prepared.
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   },
   {
-    slug: "anahtar-kelime-analizi-yapan-seo-araclari",
-    title: "Anahtar Kelime Analizi Yapan SEO Araçları Nelerdir?",
-    description: "Anahtar kelime araştırması için kullanabileceğiniz en iyi SEO araçları: Ahrefs, SEMrush, Moz ve daha fazlası.",
+    slug: "best-keyword-research-seo-tools",
+    title: "Best Keyword Research SEO Tools",
+    description: "The best SEO tools you can use for keyword research: Ahrefs, SEMrush, Moz, and more.",
     date: "2020-09-30",
     updatedDate: "2025-01-15",
     category: "SEO",
-    tags: ["Anahtar Kelime", "SEO Araçları", "Ahrefs", "SEMrush"],
-    readTime: "6 dk",
+    tags: ["Keyword Research", "SEO Tools", "Ahrefs", "SEMrush"],
+    readTime: "6 min",
     image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&auto=format&fit=crop&q=80",
     content: `
-## Anahtar Kelime Analizi Araçları
+## Keyword Analysis Tools
 
-Anahtar kelime araştırması, SEO çalışmalarının temel taşlarından biridir. Doğru anahtar kelimeleri hedeflemek, arama motorlarında üst sıralarda yer almanın anahtarıdır. İşte anahtar kelime analizi için kullanabileceğiniz en iyi SEO araçları:
+Keyword research is one of the cornerstones of SEO work. Targeting the right keywords is the key to ranking high in search engines. Here are the best SEO tools you can use for keyword analysis:
 
-**1. Ahrefs:** Ahrefs gerçekten güçlü bir anahtar kelime aracıdır. Backlink raporlaması yapması ve organik trafik gösterge tablolarını da sunmaktadır. Ahrefs'in ücretli aracı, tüm eşleme türleri için anahtar kelime fikirlerinin yanı sıra arama hacmi de sağlar. Aynı zamanda, kafa kafaya testte benzer bir özellik sunan diğer araçlardan biraz daha doğru olan bir anahtar kelime zorluk puanı metriğine sahiptir.
+**1. Ahrefs:** Ahrefs is a really powerful keyword tool. It also does backlink reporting and provides organic traffic dashboards. Ahrefs' paid tool provides keyword ideas for all match types as well as search volume. It also has a keyword difficulty score metric that's slightly more accurate than other tools that offer a similar feature in head-to-head testing.
 
-**2. SEMrush:** SEMrush, 26 farklı ülkeden elde ettiği devasa arama verileri veri kümesiyle çalışan bir anahtar kelime aracına sahiptir. Anahtar kelime fikirleri, tahmini arama hacmi, tahmini TBM, anahtar kelime zorluk puanı ve mevcut sıralama alanlarını döndürür.
+**2. SEMrush:** SEMrush has a keyword tool that works with a massive search data dataset from 26 different countries. It returns keyword ideas, estimated search volume, estimated CPC, keyword difficulty score, and current ranking areas.
 
-**3. Moz:** Moz, SEO araştırma paketine ek olarak kendi özel anahtar kelime gezginini başlattı. Filtreleme seçenekleri, daha fazla fikir edinmek için belirli sorgu teriminizi hariç tutmanıza veya hatta yalnızca kelimenizi içeren soru cümlelerini seçmenize olanak tanır. Anahtar kelime sonuçları, tahmini arama hacmi ve bir anahtar kelime zorluk puanının yanı sıra ilgili sorgu fikirlerini içerir.
+**3. Moz:** Moz has launched its own custom keyword explorer in addition to its SEO research suite. Filtering options allow you to exclude your specific query term to get more ideas or even select only question phrases containing your word. Keyword results include estimated search volume and a keyword difficulty score as well as related query ideas.
 
-**4. Keywordtool.io:** Bu araç, Google, YouTube, Bing ve hatta Amazon'dan anahtar kelime önerilerini alır. Her Google TLD'sinden, dilinden ve konumundan önerilen anahtar kelimeleri seçebilirsiniz; ve desteklediği diğer motorlar için de benzer seçenekler mevcuttur. Ücretsiz olarak yüzlerce önerilen kelime alacaksınız, ancak arama hacmi tahminlerine erişmek için ücretli bir plana ihtiyacınız var.
+**4. Keywordtool.io:** This tool pulls keyword suggestions from Google, YouTube, Bing, and even Amazon. You can select suggested keywords from every Google TLD, language, and location; and similar options are available for other engines it supports. You'll get hundreds of suggested words for free, but you need a paid plan to access search volume estimates.
 
-**5. KWFinder:** Anahtar kelime aramaları, beş farklı ülkeye veya dünyanın en popüler dillerinin çoğuna odaklanabilir. Sonuçlar, bir anahtar kelime zorluk puanı ve anahtar kelime fikirleri içerir. Bunlar daha sonra bir dizi farklı metrikle filtrelenebilir. Bu ücretli bir araçtır, bu nedenle yalnızca sınırlı sayıda ücretsiz olarak arama yapabilirsiniz.
+**5. KWFinder:** Keyword searches can focus on five different countries or most of the world's most popular languages. Results include a keyword difficulty score and keyword ideas. These can then be filtered with a number of different metrics. This is a paid tool, so you can only search a limited number for free.
 
-**6. WordStream:** Arama pazarlamacılarının tıklama başına ödeme kampanyalarını yönetmelerine yardımcı olmak için öncelikle ücretli bir araç olan WordStream, sınırlı sayıda aramaya izin veren ücretsiz bir anahtar kelime aracına da sahiptir. Ücretsiz sonuçlar yalnızca ilgili kelimeleri içerir, ancak WordStream'in ücretli aboneleri de arama hacmini görebilir.
+**6. WordStream:** Primarily a paid tool to help search marketers manage their pay-per-click campaigns, WordStream also has a free keyword tool that allows a limited number of searches. Free results include only related words, but WordStream's paid subscribers can also see search volume.
 
-Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
+For professional SEO consulting, [get in touch](/contact).
     `
   }
 ];
 
-// Locale parameter is accepted for future multilingual support
-// Currently returns Turkish content for all locales
+// Get the appropriate posts based on locale
 export function getAllPosts(locale?: string): BlogPost[] {
-  return blogPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return blogPostsEn.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getPostBySlug(slug: string, locale?: string): BlogPost | undefined {
-  return blogPosts.find(post => post.slug === slug);
+  return blogPostsEn.find(post => post.slug === slug);
 }
 
 export function getFeaturedPosts(locale?: string): BlogPost[] {
-  return blogPosts.filter(post => post.featured);
+  return blogPostsEn.filter(post => post.featured);
 }
 
 export function getPostsByCategory(category: string, locale?: string): BlogPost[] {
-  return blogPosts.filter(post => post.category === category);
+  return blogPostsEn.filter(post => post.category === category);
 }
 
 export function getAllCategories(locale?: string): string[] {
-  const categories = new Set(blogPosts.map(post => post.category));
+  const categories = new Set(blogPostsEn.map(post => post.category));
   return Array.from(categories);
 }
 
 export function getAllTags(locale?: string): string[] {
-  const tags = new Set(blogPosts.flatMap(post => post.tags));
+  const tags = new Set(blogPostsEn.flatMap(post => post.tags));
   return Array.from(tags);
 }
 
@@ -809,7 +835,7 @@ export function getRelatedPosts(currentSlug: string, locale?: string, limit: num
   const currentPost = getPostBySlug(currentSlug, locale);
   if (!currentPost) return [];
   
-  return blogPosts
+  return blogPostsEn
     .filter(post => post.slug !== currentSlug)
     .filter(post => 
       post.category === currentPost.category || 
@@ -819,5 +845,20 @@ export function getRelatedPosts(currentSlug: string, locale?: string, limit: num
 }
 
 export function getAllSlugs(locale?: string): string[] {
-  return blogPosts.map(post => post.slug);
+  return blogPostsEn.map(post => post.slug);
+}
+
+// Helper function to get translated slug
+export function getTranslatedSlug(slug: string, fromLocale: 'tr' | 'en', toLocale: 'tr' | 'en'): string {
+  if (fromLocale === toLocale) return slug;
+  
+  if (fromLocale === 'tr' && toLocale === 'en') {
+    return slugMappingTrToEn[slug] || slug;
+  }
+  
+  if (fromLocale === 'en' && toLocale === 'tr') {
+    return slugMappingEnToTr[slug] || slug;
+  }
+  
+  return slug;
 }
