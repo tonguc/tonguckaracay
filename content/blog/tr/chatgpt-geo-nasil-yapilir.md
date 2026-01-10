@@ -7,7 +7,7 @@ category: "SEO"
 tags: ["ChatGPT GEO", "LLM Optimizasyonu", "ChatGPT SEO", "Yapay Zeka Optimizasyonu", "GEO", "AI Visibility", "ChatGPT Görünürlük"]
 readTime: "18 dk"
 featured: true
-image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1676299081847-824916de030a?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "how-to-get-cited-in-chatgpt"
 faq:
   - question: "ChatGPT GEO nedir?"

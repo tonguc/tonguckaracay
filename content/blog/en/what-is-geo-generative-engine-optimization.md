@@ -7,7 +7,7 @@ category: "SEO"
 tags: ["GEO", "Generative Engine Optimization", "AI SEO", "ChatGPT", "Perplexity", "SGE", "Artificial Intelligence", "LLM Optimization"]
 readTime: "15 min"
 featured: true
-image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "geo-nedir-nasil-yapilir"
 faq:
   - question: "What is GEO?"

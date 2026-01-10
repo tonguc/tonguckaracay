@@ -7,7 +7,7 @@ category: "SEO"
 tags: ["ChatGPT GEO", "LLM Optimization", "ChatGPT SEO", "AI Optimization", "GEO", "AI Visibility", "ChatGPT Visibility"]
 readTime: "18 min"
 featured: true
-image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1676299081847-824916de030a?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "chatgpt-geo-nasil-yapilir"
 faq:
   - question: "What is ChatGPT GEO?"
