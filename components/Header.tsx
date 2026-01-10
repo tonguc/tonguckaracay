@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from "lucide-react";
-import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/blog';
+import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/slug-mappings';
 
 export default function Header() {
   const t = useTranslations('nav');

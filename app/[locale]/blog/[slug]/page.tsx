@@ -4,16 +4,16 @@ import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
-import { getPostBySlug as getPostBySlugEn, getRelatedPosts as getRelatedPostsEn, getAllSlugs as getAllSlugsEn, slugMappingTrToEn, slugMappingEnToTr } from '@/lib/blog';
-import { getPostBySlug as getPostBySlugTr, getRelatedPosts as getRelatedPostsTr, getAllSlugs as getAllSlugsTr } from '@/lib/blog-tr';
+import { getPostBySlug, getRelatedPosts, getAllSlugs } from '@/lib/blog-utils';
+import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/slug-mappings';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 type Locale = 'tr' | 'en';
 type Props = { params: { locale: Locale; slug: string } };
 
 export async function generateStaticParams() {
-  const trSlugs = getAllSlugsTr();
-  const enSlugs = getAllSlugsEn();
+  const trSlugs = getAllSlugs('tr');
+  const enSlugs = getAllSlugs('en');
   return [
     ...trSlugs.map(slug => ({ locale: 'tr', slug })),
     ...enSlugs.map(slug => ({ locale: 'en', slug })),
@@ -21,14 +21,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { locale, slug } }: Props): Promise<Metadata> {
-  let post = locale === 'tr' ? getPostBySlugTr(slug) : getPostBySlugEn(slug);
+  let post = getPostBySlug(slug, locale);
   
   // If post not found, try to find with translated slug
   if (!post) {
     if (locale === 'en' && slugMappingTrToEn[slug]) {
-      post = getPostBySlugEn(slugMappingTrToEn[slug]);
+      post = getPostBySlug(slugMappingTrToEn[slug], locale);
     } else if (locale === 'tr' && slugMappingEnToTr[slug]) {
-      post = getPostBySlugTr(slugMappingEnToTr[slug]);
+      post = getPostBySlug(slugMappingEnToTr[slug], locale);
     }
   }
   
@@ -50,7 +50,7 @@ export async function generateMetadata({ params: { locale, slug } }: Props): Pro
 export default async function BlogPostPage({ params: { locale, slug } }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('blog');
-  let post = locale === 'tr' ? getPostBySlugTr(slug) : getPostBySlugEn(slug);
+  let post = getPostBySlug(slug, locale);
   
   // If post not found, check if it's a slug from the other language and redirect
   if (!post) {
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
     notFound();
   }
 
-  const relatedPosts = locale === 'tr' ? getRelatedPostsTr(slug, 3) : getRelatedPostsEn(slug, undefined, 3);
+  const relatedPosts = getRelatedPosts(slug, locale, 3);
   const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
     locale === 'tr' ? 'tr-TR' : 'en-US',
     { day: 'numeric', month: 'long', year: 'numeric' }
