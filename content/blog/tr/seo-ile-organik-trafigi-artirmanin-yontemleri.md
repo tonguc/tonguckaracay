@@ -2,7 +2,7 @@
 title: "SEO ile Organik Trafiği Artırmanın Yöntemleri"
 slug: "seo-ile-organik-trafigi-artirmanin-yontemleri"
 description: "Web sitenizin organik trafiğini artırmak için SEO stratejileri, anahtar kelime optimizasyonu ve içerik geliştirme teknikleri."
-date: "2020-09-22"
+date: "2022-02-14"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Organik Trafik", "SEO", "Anahtar Kelime", "İçerik Optimizasyonu"]

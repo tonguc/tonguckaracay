@@ -2,7 +2,7 @@
 title: "Best Keyword Research SEO Tools"
 slug: "best-keyword-research-seo-tools"
 description: "The best SEO tools you can use for keyword research: Ahrefs, SEMrush, Moz, and more."
-date: "2020-09-30"
+date: "2022-05-20"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Keyword Research", "SEO Tools", "Ahrefs", "SEMrush"]

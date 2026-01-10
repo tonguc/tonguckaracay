@@ -2,7 +2,7 @@
 title: "Inbound Marketing Nedir, Nasıl Yapılır?"
 slug: "inbound-marketing-nedir-nasil-yapilir"
 description: "Inbound marketing stratejileri, gelen pazarlama teknikleri ve müşteri çekme yöntemleri hakkında detaylı rehber."
-date: "2020-10-07"
+date: "2024-03-18"
 updatedDate: "2025-01-15"
 category: "Dijital Pazarlama"
 tags: ["Inbound Marketing", "İçerik Pazarlaması", "Dijital Pazarlama", "Lead Generation"]

@@ -2,7 +2,7 @@
 title: "What Is Inbound Marketing and How to Do It?"
 slug: "what-is-inbound-marketing-how-to-do-it"
 description: "A detailed guide on inbound marketing strategies, techniques, and methods for attracting customers."
-date: "2020-10-07"
+date: "2024-03-18"
 updatedDate: "2025-01-15"
 category: "Digital Marketing"
 tags: ["Inbound Marketing", "Content Marketing", "Digital Marketing", "Lead Generation"]

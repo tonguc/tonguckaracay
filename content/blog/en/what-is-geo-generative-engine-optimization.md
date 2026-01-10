@@ -2,7 +2,7 @@
 title: "What Is GEO and How to Do It? AI SEO Guide 2026"
 slug: "what-is-geo-generative-engine-optimization"
 description: "What is GEO (Generative Engine Optimization) and how to implement it? Step-by-step GEO strategies to get cited in ChatGPT, Perplexity, and Google SGE responses."
-date: "2026-01-11"
+date: "2026-01-06"
 category: "SEO"
 tags: ["GEO", "Generative Engine Optimization", "AI SEO", "ChatGPT", "Perplexity", "SGE", "Artificial Intelligence", "LLM Optimization"]
 readTime: "15 min"

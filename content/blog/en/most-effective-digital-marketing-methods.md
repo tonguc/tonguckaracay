@@ -2,7 +2,7 @@
 title: "Most Effective Digital Marketing Methods"
 slug: "most-effective-digital-marketing-methods"
 description: "A comprehensive guide on digital marketing strategies, social media marketing, content marketing, and influencer marketing."
-date: "2020-10-07"
+date: "2023-11-05"
 updatedDate: "2025-01-15"
 category: "Digital Marketing"
 tags: ["Digital Marketing", "SEM", "Social Media", "Influencer Marketing"]

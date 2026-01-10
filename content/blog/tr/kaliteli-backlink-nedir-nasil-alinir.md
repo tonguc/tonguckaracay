@@ -2,7 +2,7 @@
 title: "Kaliteli Backlink Nedir? Nasıl Alınır?"
 slug: "kaliteli-backlink-nedir-nasil-alinir"
 description: "Kaliteli backlink stratejileri, backlink türleri ve SEO için doğru link building teknikleri hakkında kapsamlı rehber."
-date: "2020-09-25"
+date: "2021-02-18"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Backlink", "Link Building", "SEO", "Off-Page SEO"]

@@ -2,7 +2,7 @@
 title: "İçerik Pazarlaması ve SEO Optimizasyonu"
 slug: "icerik-pazarlamasi-ve-seo-optimizasyonu"
 description: "SEO uyumlu içerik nasıl yazılır, içerik pazarlaması stratejileri ve kaliteli içerik üretimi hakkında kapsamlı rehber."
-date: "2020-10-08"
+date: "2023-03-22"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["İçerik Pazarlaması", "SEO", "İçerik Optimizasyonu", "Kaliteli İçerik"]

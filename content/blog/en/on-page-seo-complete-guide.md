@@ -2,7 +2,7 @@
 title: "On-Page SEO: A Complete Guide"
 slug: "on-page-seo-complete-guide"
 description: "On-page SEO techniques, site optimization strategies, and what you need to do to improve Google rankings."
-date: "2020-10-02"
+date: "2021-11-30"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["On-Page SEO", "Site Optimization", "SEO Optimization", "Internal SEO"]

@@ -3,7 +3,7 @@ import { notFound, redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Hash } from 'lucide-react';
 import { getPostBySlug, getRelatedPosts, getAllSlugs } from '@/lib/blog-utils';
 import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/slug-mappings';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
@@ -138,7 +138,6 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
         <header className="max-w-3xl mx-auto text-center mb-12">
           <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
-            <span className="px-3 py-1 bg-accent-500/10 text-accent-500 text-sm font-medium rounded-full">{post.category}</span>
             <span className="flex items-center gap-1 text-sm text-primary-400"><Calendar className="w-4 h-4" />{formattedDate}</span>
             <span className="flex items-center gap-1 text-sm text-primary-400"><Clock className="w-4 h-4" />{post.readTime}</span>
           </div>
@@ -159,7 +158,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
           <div className="mt-12 pt-8 border-t border-surface-border">
             <div className="flex items-center gap-2 flex-wrap">
-              <Tag className="w-4 h-4 text-primary-400" />
+              <Hash className="w-4 h-4 text-primary-400" />
               {post.tags.map((tag) => (
                 <span key={tag} className="px-3 py-1 bg-surface-card border border-surface-border rounded-full text-sm text-primary-300">{tag}</span>
               ))}

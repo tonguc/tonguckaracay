@@ -2,7 +2,7 @@
 title: "Sosyal Medya Yönetimi ve Online Pazarlama"
 slug: "sosyal-medya-yonetimi-ve-online-pazarlama"
 description: "Sosyal medya yönetimi stratejileri, online pazarlama teknikleri ve SEO ile sosyal medya ilişkisi hakkında kapsamlı rehber."
-date: "2020-10-07"
+date: "2023-07-10"
 updatedDate: "2025-01-15"
 category: "Dijital Pazarlama"
 tags: ["Sosyal Medya", "Online Pazarlama", "SEO", "Dijital Pazarlama"]

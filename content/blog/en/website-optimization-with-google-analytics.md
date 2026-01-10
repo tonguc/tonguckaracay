@@ -2,7 +2,7 @@
 title: "Website Optimization with Google Analytics"
 slug: "website-optimization-with-google-analytics"
 description: "Learn how to optimize your website using Google Analytics and analyze user behavior effectively."
-date: "2020-10-02"
+date: "2022-11-15"
 updatedDate: "2025-01-15"
 category: "UI-UX"
 tags: ["Google Analytics", "Web Analytics", "UX", "Site Optimization"]

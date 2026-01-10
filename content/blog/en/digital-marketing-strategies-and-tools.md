@@ -2,7 +2,7 @@
 title: "Digital Marketing Strategies and Tools"
 slug: "digital-marketing-strategies-and-tools"
 description: "A comprehensive guide on digital marketing strategies, social media management tools, and SEO/SEM tools."
-date: "2019-03-15"
+date: "2020-06-22"
 updatedDate: "2025-01-15"
 category: "Digital Marketing"
 tags: ["Digital Marketing", "Social Media", "SEO Tools", "Marketing Tools"]
