@@ -54,6 +54,11 @@ export default function Header() {
     
     let currentPath = pathname;
     
+    // Remove trailing slash
+    if (currentPath.endsWith('/') && currentPath.length > 1) {
+      currentPath = currentPath.slice(0, -1);
+    }
+    
     if (currentPath.startsWith('/en/')) {
       currentPath = currentPath.substring(3);
     } else if (currentPath === '/en') {
@@ -85,7 +90,12 @@ export default function Header() {
       newPath = mappings[currentPath][newLocale];
     } else if (currentPath.startsWith('/blog/')) {
       // Handle blog detail pages with slug translation
-      const slug = currentPath.replace('/blog/', '');
+      let slug = currentPath.replace('/blog/', '');
+      // Remove any remaining trailing slash from slug
+      if (slug.endsWith('/')) {
+        slug = slug.slice(0, -1);
+      }
+      
       if (newLocale === 'en') {
         // TR -> EN: translate slug
         const translatedSlug = slugMappingTrToEn[slug] || slug;
