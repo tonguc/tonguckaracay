@@ -114,11 +114,15 @@ export default function Header() {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isScrolled
-        ? "bg-surface-darker/80 backdrop-blur-xl border-b border-white/5 py-3 shadow-lg shadow-black/20"
-        : "bg-gradient-to-b from-surface-darker/50 to-transparent py-5"
-    }`}>
+    <>
+      {/* Top Accent Line */}
+      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 via-accent-400 to-accent-500 z-50" />
+      
+      <header className={`fixed top-1 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-surface-darker/95 backdrop-blur-xl border-b border-surface-border/50 py-3"
+          : "bg-transparent py-5"
+      }`}>
       <div className="container-custom">
         <nav className="flex items-center justify-between">
           {/* Logo */}
@@ -237,5 +241,6 @@ export default function Header() {
         )}
       </div>
     </header>
+    </>
   );
 }
