@@ -1,14 +1,14 @@
 ---
-title: "AI Tools for UI Design: The Complete 2025 Guide"
-slug: "ai-ui-design-tools-2025"
-description: "Discover AI tools transforming UI design in 2025. Figma AI, Uizard, Google Stitch features, practical strategies, and the latest industry statistics."
+title: "AI Tools for UI Design: Complete Guide"
+slug: "ai-ui-design-tools"
+description: "Discover AI tools transforming UI design. Figma AI, Uizard, Google Stitch features, practical strategies, and the latest industry statistics."
 date: "2026-01-12"
 category: "UI/UX Design"
 tags: ["Artificial Intelligence", "UI Design", "Figma AI", "Uizard", "UX Tools", "Prompt-to-UI", "Design Automation", "AI Design Tools"]
 readTime: "12 min"
 featured: true
 image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&auto=format&fit=crop&q=80"
-translationSlug: "yapay-zeka-ui-tasarim-araclari-2025"
+translationSlug: "yapay-zeka-ui-tasarim-araclari"
 faq:
   - question: "Are AI design tools free?"
     answer: "Most tools offer freemium models. Figma AI features are in paid plans, Uizard's free plan is limited to 5 screens. For professional use, budget $12-50 monthly."
