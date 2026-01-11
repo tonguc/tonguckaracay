@@ -10,16 +10,16 @@ export default function FinalCTA() {
   const contactPath = locale === 'tr' ? '/iletisim' : '/en/contact';
 
   return (
-    <section className="py-20">
+    <section className="py-12 md:py-20">
       <div className="container-custom">
-        <div className="card p-8 md:p-12 text-center relative overflow-hidden">
+        <div className="card p-6 md:p-12 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-accent-500/10 via-transparent to-accent-500/10" />
           <div className="relative z-10">
-            <Mail className="w-12 h-12 text-accent-500 mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <Mail className="w-10 h-10 md:w-12 md:h-12 text-accent-500 mx-auto mb-4 md:mb-6" />
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-3 md:mb-4">
               {t('title')}
             </h2>
-            <p className="text-primary-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-sm md:text-base text-primary-300 mb-6 md:mb-8 max-w-2xl mx-auto">
               {t('description')}
             </p>
             <Link href={contactPath} className="btn-primary group">

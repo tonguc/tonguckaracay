@@ -11,47 +11,47 @@ export default function Hero() {
   const servicesPath = locale === 'tr' ? '/#hizmetler' : '/en/#services';
   
   return (
-    <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
-      {/* Background Effects */}
+    <section className="pt-28 pb-12 md:pt-40 md:pb-28 relative overflow-hidden">
+      {/* Animated Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-72 md:w-96 h-72 md:h-96 bg-accent-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-72 md:w-96 h-72 md:h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-accent-500/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent-500/10 border border-accent-500/20 rounded-full mb-8">
+          <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-accent-500/10 border border-accent-500/20 rounded-full mb-6 md:mb-8">
             <Sparkles className="w-4 h-4 text-accent-500" />
-            <span className="text-sm text-accent-400 font-medium">{t('badge')}</span>
+            <span className="text-xs md:text-sm text-accent-400 font-medium">{t('badge')}</span>
           </div>
           
           {/* Main Heading */}
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
+          <h1 className="font-display text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight">
             {t('title')}{' '}
             <span className="text-gradient">{t('titleHighlight')}</span>{' '}
             {t('titleEnd')}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-primary-300 mb-10 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-primary-300 mb-8 md:mb-10 leading-relaxed max-w-2xl mx-auto px-4 md:px-0">
             {t('subtitle')}
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Link href={contactPath} className="btn-primary group text-lg px-8 py-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 mb-6 md:mb-8 px-4 md:px-0">
+            <Link href={contactPath} className="btn-primary group text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
               {t('cta')}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link href={servicesPath} className="btn-secondary text-lg px-8 py-4">
+            <Link href={servicesPath} className="btn-secondary text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
               {t('ctaSecondary')}
             </Link>
           </div>
 
           {/* Social Links */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12">
             <a 
               href="https://www.linkedin.com/in/tongu%C3%A7-kara%C3%A7ay-36311040/" 
               target="_blank" 
@@ -73,22 +73,22 @@ export default function Hero() {
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-wrap justify-center items-center gap-8 pt-8 border-t border-primary-800">
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 pt-6 md:pt-8 border-t border-primary-800">
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-accent-500" />
-              <span className="text-primary-300">25+ {t('experience')}</span>
+              <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent-500" />
+              <span className="text-sm md:text-base text-primary-300">25+ {t('experience')}</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-accent-500" />
-              <span className="text-primary-300">100+ {locale === 'tr' ? 'Marka' : 'Brands'}</span>
+              <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent-500" />
+              <span className="text-sm md:text-base text-primary-300">100+ {locale === 'tr' ? 'Marka' : 'Brands'}</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-accent-500" />
-              <span className="text-primary-300">{t('resultOriented')}</span>
+              <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent-500" />
+              <span className="text-sm md:text-base text-primary-300">{t('resultOriented')}</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-accent-500" />
-              <span className="text-primary-300">{t('personalizedStrategy')}</span>
+              <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent-500" />
+              <span className="text-sm md:text-base text-primary-300">{t('personalizedStrategy')}</span>
             </div>
           </div>
         </div>

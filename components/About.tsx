@@ -30,9 +30,9 @@ export default function About() {
   ];
 
   return (
-    <section id="hakkimda" className="py-20 bg-surface-card/30">
+    <section id="hakkimda" className="py-12 md:py-20 bg-surface-card/30">
       <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Sol - Fotoğraf ve İstatistikler */}
           <div className="relative">
             <div className="relative">
@@ -47,12 +47,12 @@ export default function About() {
               </div>
               
               {/* Floating Stats Card */}
-              <div className="absolute -bottom-6 -right-6 bg-surface-card border border-primary-800 rounded-xl p-4 shadow-xl">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="absolute -bottom-4 right-2 md:-bottom-6 md:-right-6 bg-surface-card border border-primary-800 rounded-xl p-3 md:p-4 shadow-xl">
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
                   {stats.map((stat, index) => (
                     <div key={index} className="text-center">
-                      <div className="text-2xl font-bold text-accent-500">{stat.value}</div>
-                      <div className="text-xs text-primary-400">{stat.label}</div>
+                      <div className="text-xl md:text-2xl font-bold text-accent-500">{stat.value}</div>
+                      <div className="text-[10px] md:text-xs text-primary-400">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -61,31 +61,31 @@ export default function About() {
           </div>
 
           {/* Sağ - İçerik */}
-          <div>
+          <div className="mt-8 lg:mt-0">
             <h2 className="section-title">
               {t('title')} <span className="text-gradient">{t('highlight')}</span>
             </h2>
             
-            <p className="text-lg text-primary-300 mb-4 leading-relaxed">
+            <p className="text-base md:text-lg text-primary-300 mb-3 md:mb-4 leading-relaxed">
               {t('description')}
             </p>
             
-            <p className="text-primary-400 mb-6">
+            <p className="text-sm md:text-base text-primary-400 mb-4 md:mb-6">
               {t('subdescription')}
             </p>
 
             {/* Highlights */}
-            <div className="space-y-3 mb-8">
+            <div className="space-y-2 md:space-y-3 mb-6 md:mb-8">
               {highlights.map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent-500 flex-shrink-0" />
-                  <span className="text-primary-300">{item}</span>
+                <div key={index} className="flex items-center gap-2 md:gap-3">
+                  <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-accent-500 flex-shrink-0" />
+                  <span className="text-sm md:text-base text-primary-300">{item}</span>
                 </div>
               ))}
             </div>
 
             {/* Çalıştığım Markalar */}
-            <div className="mb-8">
+            <div className="mb-6 md:mb-8">
               <h3 className="text-sm font-semibold text-primary-400 mb-3 uppercase tracking-wider">
                 {locale === 'tr' ? 'Çalıştığım Markalardan Bazıları' : 'Some Brands I Worked With'}
               </h3>
