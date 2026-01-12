@@ -11,7 +11,7 @@ image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&auto=fo
 translationSlug: "ai-ui-design-tools"
 faq:
   - question: "AI tasarım araçları ücretsiz mi?"
-    answer: "Çoğu araç freemium model sunuyor. Figma AI özellikleri ücretli planlarda, Uizard'ın ücretsiz planı 5 ekranla sınırlı. Profesyonel kullanım için aylık 12-50 dolar arası bütçe ayırmanız gerekebilir."
+    answer: "Çoğu araç freemium model sunuyor. Figma AI özellikleri ücretli planlarda, Uizard ücretsiz planı 5 ekranla sınırlı. Profesyonel kullanım için aylık 12-50 dolar arası bütçe ayırmanız gerekebilir."
   - question: "Hangi AI aracı wireframe için en iyi?"
     answer: "Figma içinde çalışanlar için Wireframe Designer ve UX Pilot eklentileri ideal. Bağımsız araç arayanlar için Uizard, hızlı prototipleme için Google Stitch önerilir."
   - question: "AI tasarımcıların işini alacak mı?"
@@ -22,7 +22,7 @@ faq:
     answer: "Figma AI özellikleri Organization ve Enterprise planlarında tam erişimle sunuluyor. Starter planlar sınırlı kullanım hakkına sahip."
 ---
 
-UI tasarım süreçlerinde yapay zeka araçları, tasarımcıların wireframe'den prototipe kadar tüm aşamalarda daha hızlı ve verimli çalışmasını sağlayan teknolojilerdir. 2025 yılında AI destekli tasarım araçları pazarı 6.77 milyar dolara ulaştı ve tasarımcıların %69'u bu araçları aktif olarak kullanıyor.
+UI tasarım süreçlerinde yapay zeka araçları, tasarımcıların wireframe'den prototipe kadar tüm aşamalarda daha hızlı ve verimli çalışmasını sağlayan teknolojilerdir. 2025 yılında AI destekli tasarım araçları pazarı 6.77 milyar dolara ulaştı ve tasarımcıların yüzde 69'u bu araçları aktif olarak kullanıyor.
 
 Bu yazıda, UI tasarım iş akışınızı dönüştürecek en etkili AI araçlarını, pratik kullanım stratejilerini ve verimlilik artırma yöntemlerini inceleyeceğiz.
 
@@ -32,7 +32,7 @@ UI tasarımda yapay zeka, kullanıcı arayüzü oluşturma süreçlerini otomati
 
 **Machine Learning (ML):** Tasarım kalıplarını öğrenerek layout önerileri, renk kombinasyonları ve tipografi eşleştirmeleri sunar. Örneğin, Khroma gibi araçlar kullanıcının renk tercihlerini öğrenerek kişiselleştirilmiş paletler oluşturur.
 
-**Natural Language Processing (NLP):** Metin promptlarını görsel tasarımlara dönüştürür. "E-ticaret uygulaması için minimalist checkout sayfası" gibi bir açıklamadan tam ekran tasarımı üretebilir.
+**Natural Language Processing (NLP):** Metin promptlarını görsel tasarımlara dönüştürür. E-ticaret uygulaması için minimalist checkout sayfası gibi bir açıklamadan tam ekran tasarımı üretebilir.
 
 **Generative AI:** Sıfırdan wireframe, mockup ve hatta interaktif prototip oluşturur. Figma Make ve Uizard gibi araçlar bu kategorinin öncüleridir.
 
@@ -40,9 +40,9 @@ UI tasarımda yapay zeka, kullanıcı arayüzü oluşturma süreçlerini otomati
 
 AI tasarım araçları, geleneksel tasarım sürecinin farklı aşamalarında devreye girer:
 
-### İdeation ve Wireframing
+### Ideation ve Wireframing
 
-Metin veya eskiz girişinden wireframe oluşturur. UX Pilot ve Wireframe Designer gibi Figma eklentileri, "kullanıcı profil sayfası" gibi basit bir prompttan düşük sadakatli wireframe'ler üretir.
+Metin veya eskiz girişinden wireframe oluşturur. UX Pilot ve Wireframe Designer gibi Figma eklentileri, kullanıcı profil sayfası gibi basit bir prompttan düşük sadakatli wireframe'ler üretir.
 
 ### Prompt-to-UI Dönüşümü
 
@@ -55,25 +55,25 @@ Galileo AI (artık Google Stitch), Uizard ve Figma Make gibi araçlar, doğal di
 
 ### Görsel Düzenleme ve İyileştirme
 
-Figma AI'ın yeni özellikleri arasında arka plan kaldırma, nesne silme, görsel genişletme ve AI destekli görsel üretimi yer alır. Bu araçlar Photoshop'a geçmeden hızlı düzenlemeler yapmanızı sağlar.
+Figma AI yeni özellikleri arasında arka plan kaldırma, nesne silme, görsel genişletme ve AI destekli görsel üretimi yer alır. Bu araçlar Photoshop'a geçmeden hızlı düzenlemeler yapmanızı sağlar.
 
 ## UI Tasarımda Yapay Zeka Neden Önemli?
 
 ### Verimlilik ve Zaman Tasarrufu
 
-Figma'nın 2025 AI Raporu'na göre:
+Figma 2025 AI Raporuna göre:
 
-- Kullanıcıların %78'i AI'ın iş verimliliğini önemli ölçüde artırdığını düşünüyor
-- Ortalama %40 verimlilik artışı raporlanıyor
-- Tasarım ekipleri rutin görevlerde %50'ye varan zaman tasarrufu sağlıyor
+- Kullanıcıların yüzde 78'i AI'ın iş verimliliğini önemli ölçüde artırdığını düşünüyor
+- Ortalama yüzde 40 verimlilik artışı raporlanıyor
+- Tasarım ekipleri rutin görevlerde yüzde 50'ye varan zaman tasarrufu sağlıyor
 
 ### Erişilebilirlik
 
-Kod bilgisi gerektirmeyen araçlar, teknik olmayan ekip üyelerinin de tasarım sürecine katkıda bulunmasını sağlar. Figma'nın verilerine göre aylık aktif kullanıcıların yaklaşık üçte ikisi geleneksel tasarımcı rolü dışından geliyor.
+Kod bilgisi gerektirmeyen araçlar, teknik olmayan ekip üyelerinin de tasarım sürecine katkıda bulunmasını sağlar. Figma verilerine göre aylık aktif kullanıcıların yaklaşık üçte ikisi geleneksel tasarımcı rolü dışından geliyor.
 
 ### Kalite Standartları
 
-AI araçları, design system kurallarına uyumu otomatik olarak kontrol eder. Figma'nın yeni MCP (Model Context Protocol) sunucusu, AI modellerinin tasarım sistemi kurallarına nasıl uyması gerektiğini belirleyen yönergeler eklemenizi sağlar.
+AI araçları, design system kurallarına uyumu otomatik olarak kontrol eder. Figma yeni MCP (Model Context Protocol) sunucusu, AI modellerinin tasarım sistemi kurallarına nasıl uyması gerektiğini belirleyen yönergeler eklemenizi sağlar.
 
 ## 2025'te Öne Çıkan UI Tasarım AI Araçları
 
@@ -89,10 +89,10 @@ Figma, Config 2025'te kapsamlı AI güncellemeleri duyurdu:
 
 **Öne Çıkan Figma AI Eklentileri:**
 
-- **Magician:** UX copy, ikon ve görsel üretimi
-- **Attention Insight:** AI destekli göz izleme simülasyonu
-- **QoQo.ai:** UX araştırma ve persona oluşturma
-- **Content Reel:** Gerçekçi placeholder içerik
+- Magician: UX copy, ikon ve görsel üretimi
+- Attention Insight: AI destekli göz izleme simülasyonu
+- QoQo.ai: UX araştırma ve persona oluşturma
+- Content Reel: Gerçekçi placeholder içerik
 
 ### Prompt-to-UI Platformları
 
@@ -104,25 +104,25 @@ Figma, Config 2025'te kapsamlı AI güncellemeleri duyurdu:
 
 ### Renk ve Görsel Araçları
 
-- **Khroma:** Kişiselleştirilmiş renk paleti önerileri
-- **Colormind:** AI destekli renk şemaları
-- **Midjourney:** Konsept görsel ve illüstrasyon üretimi
-- **Adobe Firefly:** Photoshop entegrasyonlu görsel düzenleme
+- Khroma: Kişiselleştirilmiş renk paleti önerileri
+- Colormind: AI destekli renk şemaları
+- Midjourney: Konsept görsel ve illüstrasyon üretimi
+- Adobe Firefly: Photoshop entegrasyonlu görsel düzenleme
 
 ## Tasarımcılar vs Geliştiriciler: AI Deneyimi Farkı
 
-Figma'nın 2025 raporundaki en çarpıcı bulgu, tasarımcılar ve geliştiriciler arasındaki AI memnuniyet farkı:
+Figma 2025 raporundaki en çarpıcı bulgu, tasarımcılar ve geliştiriciler arasındaki AI memnuniyet farkı:
 
 | Metrik | Geliştiriciler | Tasarımcılar |
 |--------|---------------|--------------|
-| AI memnuniyeti | %82 | %69 |
-| Kalite artışı hissedilen | %68 | %54 |
-| Temel işlerde AI kullanımı | %59 | %31 |
-| Pozitif ROI bildiren | %78 | %45 |
+| AI memnuniyeti | yüzde 82 | yüzde 69 |
+| Kalite artışı hissedilen | yüzde 68 | yüzde 54 |
+| Temel işlerde AI kullanımı | yüzde 59 | yüzde 31 |
+| Pozitif ROI bildiren | yüzde 78 | yüzde 45 |
 
 Bu fark nereden kaynaklanıyor?
 
-**Kod üretimi daha somut:** Geliştiricilerin %68'i kod üretimi için AI kullanıyor ve çıktılar direkt uygulanabilir durumda.
+**Kod üretimi daha somut:** Geliştiricilerin yüzde 68'i kod üretimi için AI kullanıyor ve çıktılar direkt uygulanabilir durumda.
 
 **Tasarım daha sübjektif:** Görsel tasarım kararları genellikle bağlama, markaya ve kullanıcı beklentilerine göre değişir. AI çıktıları genellikle rafine edilmeyi gerektirir.
 
@@ -139,11 +139,11 @@ Bu fark nereden kaynaklanıyor?
 
 ### Aşama 2: İteratif Süreç Benimseyin
 
-AI çıktısı → İnsan değerlendirmesi → Rafine etme → Tekrar AI desteği
+AI çıktısı, insan değerlendirmesi, rafine etme ve tekrar AI desteği şeklinde ilerler.
 
 ### Aşama 3: Design System Entegrasyonu
 
-Figma'nın Code Connect ve MCP özellikleri, design system'ınızı AI araçlarıyla senkronize eder. AI modelleri, bileşenlerinizi ve stil kurallarınızı anlayarak daha tutarlı çıktılar üretir.
+Figma Code Connect ve MCP özellikleri, design system'ınızı AI araçlarıyla senkronize eder. AI modelleri, bileşenlerinizi ve stil kurallarınızı anlayarak daha tutarlı çıktılar üretir.
 
 ### Aşama 4: Ölçüm ve İyileştirme
 
@@ -156,7 +156,7 @@ Figma'nın Code Connect ve MCP özellikleri, design system'ınızı AI araçlar�
 
 ### Hata 1: AI Çıktısını Sorgulamadan Kullanmak
 
-AI, %100 doğru çıktı üretmez. Figma'nın raporuna göre kullanıcıların sadece %32'si AI çıktısına güvenebileceğini söylüyor. Her zaman insan değerlendirmesi yapın.
+AI, yüzde 100 doğru çıktı üretmez. Figma raporuna göre kullanıcıların sadece yüzde 32'si AI çıktısına güvenebileceğini söylüyor. Her zaman insan değerlendirmesi yapın.
 
 **Çözüm:** AI'ı fikir üreteci olarak kullanın, son karar verici olarak değil.
 
@@ -168,7 +168,7 @@ Her araç farklı güçlere sahip. Wireframe için UX Pilot, görsel üretim iç
 
 ### Hata 3: Bağlam Vermeden Prompt Yazmak
 
-"Güzel bir login sayfası yap" yerine "iOS, koyu tema, sosyal medya girişi olan, minimalist login sayfası" gibi detaylı promptlar çok daha iyi sonuç verir.
+Güzel bir login sayfası yap yerine iOS, koyu tema, sosyal medya girişi olan, minimalist login sayfası gibi detaylı promptlar çok daha iyi sonuç verir.
 
 **Çözüm:** Platform, stil, işlev ve kısıtlamaları belirtin.
 
@@ -186,17 +186,17 @@ Bir startup, Uizard kullanarak 3 günde 15 ekranlık MVP prototipi oluşturdu. G
 
 ### Örnek 2: Design System Tutarlılığı
 
-Kurumsal bir ekip, Figma MCP ile AI kod editörlerini (Cursor, VS Code) design system'a bağladı. AI üretilen kodun %90'ı design system bileşenlerini doğru kullanıyordu.
+Kurumsal bir ekip, Figma MCP ile AI kod editörlerini (Cursor, VS Code) design system'a bağladı. AI üretilen kodun yüzde 90'ı design system bileşenlerini doğru kullanıyordu.
 
 ### Örnek 3: Kullanıcı Araştırması Sentezi
 
-UX Pilot'un araştırma sentez özelliği, 20 kullanıcı mülakatından ana temaları 10 dakikada çıkardı.
+UX Pilot araştırma sentez özelliği, 20 kullanıcı mülakatından ana temaları 10 dakikada çıkardı.
 
 ## 2025 ve Sonrası: AI Tasarım Trendleri
 
 ### Agentic AI Yükselişi
 
-Figma kullanıcılarının %51'i agentic AI ürünleri geliştiriyor (geçen yıl %21'di). Çok adımlı, otonom görev tamamlama özellikli araçlar artıyor.
+Figma kullanıcılarının yüzde 51'i agentic AI ürünleri geliştiriyor (geçen yıl yüzde 21'di). Çok adımlı, otonom görev tamamlama özellikli araçlar artıyor.
 
 ### Design-to-Code Entegrasyonu
 
@@ -208,7 +208,7 @@ Figma Sites gibi araçlar, tasarımdan canlı web sitesine geçişi mümkün kı
 
 ## Sonuç
 
-AI araçları, UI tasarım süreçlerini dönüştürüyor ancak tasarımcının yerini almıyor. Figma'nın raporundaki en önemli bulgu: Verimlilik artışı net (%78) ama güvenilirlik henüz düşük (%32). Başarılı entegrasyon için düşük riskli görevlerle başlayın, iş akışınıza kademeli olarak entegre edin ve insan değerlendirmesini asla atlamayın.
+AI araçları, UI tasarım süreçlerini dönüştürüyor ancak tasarımcının yerini almıyor. Figma raporundaki en önemli bulgu: Verimlilik artışı net (yüzde 78) ama güvenilirlik henüz düşük (yüzde 32). Başarılı entegrasyon için düşük riskli görevlerle başlayın, iş akışınıza kademeli olarak entegre edin ve insan değerlendirmesini asla atlamayın.
 
 ---
 
@@ -216,6 +216,6 @@ Profesyonel UI/UX tasarım desteği ve AI entegrasyon stratejileri için [ileti�
 
 **Kaynaklar:**
 - Figma 2025 AI Report
-- Figma Config 2025 & Schema 2025 Announcements
-- Lenny's Newsletter AI Productivity Survey (2025)
+- Figma Config 2025 ve Schema 2025 Announcements
+- Lenny Newsletter AI Productivity Survey (2025)
 - AI Design Tools Market Report, Bay Tech Consulting (2025)
