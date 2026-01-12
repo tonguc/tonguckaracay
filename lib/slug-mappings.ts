@@ -22,6 +22,7 @@ export const slugMappingTrToEn: Record<string, string> = {
   "anahtar-kelime-analizi-yapan-seo-araclari": "best-keyword-research-seo-tools",
   "geo-nedir-nasil-yapilir": "what-is-geo-generative-engine-optimization",
   "chatgpt-geo-nasil-yapilir": "how-to-get-cited-in-chatgpt",
+  "yapay-zeka-ui-tasarim-araclari": "ai-ui-design-tools",
 };
 
 export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
