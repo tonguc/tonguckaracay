@@ -7,7 +7,6 @@ export interface BlogPost {
   category: string;
   tags: string[];
   readTime: string;
-  featured?: boolean;
   image: string;
   content: string;
 }
@@ -49,7 +48,6 @@ const blogPosts: BlogPost[] = [
     category: "SEO",
     tags: ["SEO", "Arama Motoru Optimizasyonu", "Google", "Dijital Pazarlama"],
     readTime: "8 dk",
-    featured: true,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## SEO nedir?
@@ -86,7 +84,6 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "UI-UX",
     tags: ["UI Design", "UX Design", "Kullanıcı Deneyimi", "Arayüz Tasarımı"],
     readTime: "7 dk",
-    featured: true,
     image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## UX Designer Nedir?
@@ -345,7 +342,6 @@ Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) g
     category: "SEO",
     tags: ["Site İçi SEO", "On-Page SEO", "SEO Optimizasyonu", "İç SEO"],
     readTime: "12 dk",
-    featured: true,
     image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## Site İçi SEO Nedir?
@@ -562,7 +558,6 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
     category: "SEO",
     tags: ["SEO Uzmanı", "SEO Danışmanı", "Kariyer", "Dijital Pazarlama"],
     readTime: "15 dk",
-    featured: true,
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## SEO Uzmanı, SEO Danışmanı Nedir?
@@ -813,7 +808,7 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 }
 
 export function getFeaturedPosts(): BlogPost[] {
-  return blogPosts.filter(post => post.featured);
+  return blogPosts.slice(0, 6);
 }
 
 export function getPostsByCategory(category: string): BlogPost[] {

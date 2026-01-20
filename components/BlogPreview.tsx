@@ -4,17 +4,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import { getFeaturedPosts as getFeaturedPostsEn } from "@/lib/blog";
-import { getFeaturedPosts as getFeaturedPostsTr } from "@/lib/blog-tr";
+import { getAllPosts as getAllPostsEn } from "@/lib/blog";
+import { getAllPosts as getAllPostsTr } from "@/lib/blog-tr";
 
 export default function BlogPreview() {
   const t = useTranslations('blog');
   const locale = useLocale();
   
-  // Locale'e göre doğru blog verilerini al
+  // Locale'e göre doğru blog verilerini al (son 6 yazı)
   const posts = locale === 'tr' 
-    ? getFeaturedPostsTr().slice(0, 3)
-    : getFeaturedPostsEn().slice(0, 3);
+    ? getAllPostsTr().slice(0, 6)
+    : getAllPostsEn().slice(0, 6);
   
   // Locale'e göre doğru blog path'i
   const blogPath = locale === 'tr' ? '/blog' : '/en/blog';

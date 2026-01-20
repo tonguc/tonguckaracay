@@ -7,7 +7,6 @@ export interface BlogPost {
   category: string;
   tags: string[];
   readTime: string;
-  featured?: boolean;
   image: string;
   content: string;
 }
@@ -49,7 +48,6 @@ const blogPostsEn: BlogPost[] = [
     category: "SEO",
     tags: ["SEO", "Search Engine Optimization", "Google", "Digital Marketing"],
     readTime: "8 min",
-    featured: true,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## What Is SEO?
@@ -86,7 +84,6 @@ For professional SEO consulting, [get in touch](/contact).
     category: "UI-UX",
     tags: ["UI Design", "UX Design", "User Experience", "Interface Design"],
     readTime: "7 min",
-    featured: true,
     image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## What Is a UX Designer?
@@ -345,7 +342,6 @@ For more information, check out our [UI-UX design services](/services/ui-ux-desi
     category: "SEO",
     tags: ["On-Page SEO", "Site Optimization", "SEO Optimization", "Internal SEO"],
     readTime: "12 min",
-    featured: true,
     image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## What Is On-Page SEO?
@@ -562,7 +558,6 @@ For professional SEO consulting, [get in touch](/contact).
     category: "SEO",
     tags: ["SEO Specialist", "SEO Consultant", "Career", "Digital Marketing"],
     readTime: "15 min",
-    featured: true,
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&auto=format&fit=crop&q=80",
     content: `
 ## What Is an SEO Specialist/Consultant?
@@ -814,7 +809,7 @@ export function getPostBySlug(slug: string, locale?: string): BlogPost | undefin
 }
 
 export function getFeaturedPosts(locale?: string): BlogPost[] {
-  return blogPostsEn.filter(post => post.featured);
+  return blogPostsEn.slice(0, 6);
 }
 
 export function getPostsByCategory(category: string, locale?: string): BlogPost[] {
