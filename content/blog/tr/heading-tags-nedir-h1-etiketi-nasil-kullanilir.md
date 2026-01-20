@@ -2,12 +2,11 @@
 title: "Heading Tags Nedir, H1 Etiketi Nasıl Kullanılır?"
 slug: "heading-tags-nedir-h1-etiketi-nasil-kullanilir"
 description: "HTML başlık etiketleri (H1-H6) nedir, SEO için nasıl kullanılır ve doğru başlık hiyerarşisi nasıl oluşturulur?"
-date: "2020-12-05"
+date: "2023-05-03"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Heading Tags", "H1 Etiketi", "HTML", "SEO"]
 readTime: "6 dk"
-featured: false
 image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "what-are-heading-tags-how-to-use-h1"
 ---

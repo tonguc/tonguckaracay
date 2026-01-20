@@ -2,12 +2,11 @@
 title: "What Is SERP and Why Does It Matter for Google?"
 slug: "what-is-serp-why-it-matters-for-google"
 description: "What is SERP (Search Engine Results Page), what are its features, and how does it affect your SEO strategy?"
-date: "2021-05-25"
+date: "2023-01-25"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["SERP", "Google", "Search Results", "SEO"]
 readTime: "9 min"
-featured: false
 image: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "serp-nedir-google-icin-neden-onemlidir"
 ---

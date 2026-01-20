@@ -6,7 +6,6 @@ date: "2026-01-12"
 category: "UI/UX Design"
 tags: ["Artificial Intelligence", "UI Design", "Figma AI", "Uizard", "UX Tools", "Prompt-to-UI", "Design Automation", "AI Design Tools"]
 readTime: "12 min"
-featured: true
 image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "yapay-zeka-ui-tasarim-araclari"
 faq:

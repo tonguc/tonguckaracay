@@ -2,12 +2,11 @@
 title: "Anahtar Kelime Analizi Yapan SEO Araçları Nelerdir?"
 slug: "anahtar-kelime-analizi-yapan-seo-araclari"
 description: "Anahtar kelime araştırması için kullanabileceğiniz en iyi SEO araçları: Ahrefs, SEMrush, Moz ve daha fazlası."
-date: "2022-05-20"
+date: "2025-09-12"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Anahtar Kelime", "SEO Araçları", "Ahrefs", "SEMrush"]
 readTime: "6 dk"
-featured: false
 image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "best-keyword-research-seo-tools"
 ---

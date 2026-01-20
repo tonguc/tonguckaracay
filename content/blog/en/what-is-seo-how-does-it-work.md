@@ -7,7 +7,6 @@ updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["SEO", "Search Engine Optimization", "Google", "Digital Marketing"]
 readTime: "8 min"
-featured: true
 image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "seo-nedir-nasil-yapilir"
 ---

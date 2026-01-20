@@ -2,12 +2,11 @@
 title: "Google Analytics İle Site Optimizasyonu"
 slug: "google-analytics-ile-site-optimizasyonu"
 description: "Google Analytics kullanarak web sitenizi nasıl optimize edeceğinizi ve kullanıcı davranışlarını nasıl analiz edeceğinizi öğrenin."
-date: "2022-11-15"
+date: "2022-01-20"
 updatedDate: "2025-01-15"
 category: "UI-UX"
 tags: ["Google Analytics", "Web Analytics", "UX", "Site Optimizasyonu"]
 readTime: "8 dk"
-featured: false
 image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "website-optimization-with-google-analytics"
 ---

@@ -2,12 +2,11 @@
 title: "Essential SEO Tools You Should Use"
 slug: "essential-seo-tools-you-should-use"
 description: "A detailed guide on 10 must-have SEO tools for professional SEO work and how to use them."
-date: "2022-08-08"
+date: "2021-10-12"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["SEO Tools", "Google Search Console", "Ahrefs", "SEMrush"]
 readTime: "10 min"
-featured: false
 image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "kullanmaniz-gereken-seo-araclari"
 ---

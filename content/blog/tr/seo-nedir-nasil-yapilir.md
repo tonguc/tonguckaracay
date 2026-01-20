@@ -7,7 +7,6 @@ updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["SEO", "Arama Motoru Optimizasyonu", "Google", "Dijital Pazarlama"]
 readTime: "8 dk"
-featured: true
 image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "what-is-seo-how-does-it-work"
 ---

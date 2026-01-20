@@ -112,11 +112,6 @@ function BlogCard({
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-accent-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          {post.featured && (
-            <span className="absolute top-3 left-3 px-2 py-1 bg-accent-500 text-primary-950 text-xs font-semibold rounded">
-              {locale === 'tr' ? 'Öne Çıkan' : 'Featured'}
-            </span>
-          )}
         </div>
 
         {/* Content */}

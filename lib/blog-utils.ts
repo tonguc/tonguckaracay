@@ -16,7 +16,6 @@ export interface BlogPost {
   category: string;
   tags: string[];
   readTime: string;
-  featured?: boolean;
   image: string;
   content: string;
   translationSlug?: string;
@@ -54,7 +53,6 @@ export function getAllPosts(locale: 'tr' | 'en' = 'tr'): BlogPost[] {
         category: data.category || '',
         tags: data.tags || [],
         readTime: data.readTime || '',
-        featured: data.featured || false,
         image: data.image || '',
         content: content,
         translationSlug: data.translationSlug,
@@ -75,10 +73,10 @@ export function getPostBySlug(slug: string, locale: 'tr' | 'en' = 'tr'): BlogPos
 }
 
 /**
- * Get featured posts
+ * Get featured posts (returns first 6 posts by date)
  */
 export function getFeaturedPosts(locale: 'tr' | 'en' = 'tr'): BlogPost[] {
-  return getAllPosts(locale).filter(post => post.featured);
+  return getAllPosts(locale).slice(0, 6);
 }
 
 /**

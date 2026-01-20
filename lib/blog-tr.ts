@@ -41,10 +41,10 @@ export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
 const blogPosts: BlogPost[] = [
   {
     slug: "seo-nedir-nasil-yapilir",
+    date: "2020-03-15",
     title: "SEO Nedir, SEO Çalışmaları Nasıl Yapılır?",
     description: "SEO, arama motoru optimizasyonu anlamına gelir. Sitenizin ilgili aramalar için görünürlüğünü artırmak için yapılan optimizasyon sürecidir.",
-    date: "2020-10-02",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["SEO", "Arama Motoru Optimizasyonu", "Google", "Dijital Pazarlama"],
     readTime: "8 dk",
@@ -77,10 +77,10 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "ui-ux-designer-nedir-nasil-calisirlar",
+    date: "2020-07-22",
     title: "UI-UX Designer Nedir, Nasıl Çalışırlar?",
     description: "UI ve UX tasarımcılarının ne yaptığını, nasıl çalıştıklarını ve dijital ürün geliştirme sürecindeki rollerini keşfedin.",
-    date: "2020-09-22",
-    updatedDate: "2025-01-15",
+    
     category: "UI-UX",
     tags: ["UI Design", "UX Design", "Kullanıcı Deneyimi", "Arayüz Tasarımı"],
     readTime: "7 dk",
@@ -109,10 +109,10 @@ Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) g
   },
   {
     slug: "kaliteli-backlink-nedir-nasil-alinir",
+    date: "2020-11-10",
     title: "Kaliteli Backlink Nedir? Nasıl Alınır?",
     description: "Kaliteli backlink stratejileri, backlink türleri ve SEO için doğru link building teknikleri hakkında kapsamlı rehber.",
-    date: "2020-09-25",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Backlink", "Link Building", "SEO", "Off-Page SEO"],
     readTime: "9 dk",
@@ -160,10 +160,10 @@ Profesyonel SEO ve backlink danışmanlığı için [iletişime geçin](/iletisi
   },
   {
     slug: "inbound-marketing-nedir-nasil-yapilir",
+    date: "2021-02-18",
     title: "Inbound Marketing Nedir, Nasıl Yapılır?",
     description: "Inbound marketing stratejileri, gelen pazarlama teknikleri ve müşteri çekme yöntemleri hakkında detaylı rehber.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
+    
     category: "Dijital Pazarlama",
     tags: ["Inbound Marketing", "İçerik Pazarlaması", "Dijital Pazarlama", "Lead Generation"],
     readTime: "8 dk",
@@ -205,10 +205,10 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "dijital-pazarlama-stratejileri-ve-araclari",
+    date: "2021-06-05",
     title: "Dijital Pazarlama Stratejileri ve Araçları",
     description: "Dijital pazarlama stratejileri, sosyal medya yönetim araçları ve SEO/SEM araçları hakkında kapsamlı rehber.",
-    date: "2019-03-15",
-    updatedDate: "2025-01-15",
+    
     category: "Dijital Pazarlama",
     tags: ["Dijital Pazarlama", "Sosyal Medya", "SEO Araçları", "Marketing Tools"],
     readTime: "7 dk",
@@ -249,10 +249,10 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "kullanmaniz-gereken-seo-araclari",
+    date: "2021-10-12",
     title: "Kullanmanız Gereken SEO Araçları Nelerdir?",
     description: "Profesyonel SEO çalışmaları için mutlaka kullanmanız gereken 10 SEO aracı ve nasıl kullanıldıkları hakkında detaylı rehber.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["SEO Araçları", "Google Search Console", "Ahrefs", "SEMrush"],
     readTime: "10 dk",
@@ -293,10 +293,10 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "google-analytics-ile-site-optimizasyonu",
+    date: "2022-01-20",
     title: "Google Analytics İle Site Optimizasyonu",
     description: "Google Analytics kullanarak web sitenizi nasıl optimize edeceğinizi ve kullanıcı davranışlarını nasıl analiz edeceğinizi öğrenin.",
-    date: "2020-10-02",
-    updatedDate: "2025-01-15",
+    
     category: "UI-UX",
     tags: ["Google Analytics", "Web Analytics", "UX", "Site Optimizasyonu"],
     readTime: "8 dk",
@@ -335,10 +335,10 @@ Detaylı bilgi için [UI-UX tasarım hizmetlerimize](/hizmetler/ui-ux-tasarim) g
   },
   {
     slug: "site-ici-seo-nasil-yapilir",
+    date: "2022-05-08",
     title: "Site İçi SEO Nasıl Yapılır? Ayrıntılı İç SEO Rehberi",
     description: "On-Page SEO teknikleri, site içi optimizasyon stratejileri ve Google sıralamalarını yükseltmek için yapılması gerekenler.",
-    date: "2020-10-02",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Site İçi SEO", "On-Page SEO", "SEO Optimizasyonu", "İç SEO"],
     readTime: "12 dk",
@@ -387,10 +387,10 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "sosyal-medya-yonetimi-ve-online-pazarlama",
+    date: "2022-09-14",
     title: "Sosyal Medya Yönetimi ve Online Pazarlama",
     description: "Sosyal medya yönetimi stratejileri, online pazarlama teknikleri ve SEO ile sosyal medya ilişkisi hakkında kapsamlı rehber.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
+    
     category: "Dijital Pazarlama",
     tags: ["Sosyal Medya", "Online Pazarlama", "SEO", "Dijital Pazarlama"],
     readTime: "8 dk",
@@ -430,10 +430,10 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "serp-nedir-google-icin-neden-onemlidir",
+    date: "2023-01-25",
     title: "SERP Nedir, Google İçin Neden Önemlidir?",
     description: "SERP (Search Engine Results Page) nedir, özellikleri nelerdir ve SEO stratejinizi nasıl etkiler?",
-    date: "2020-09-30",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["SERP", "Google", "Arama Sonuçları", "SEO"],
     readTime: "9 dk",
@@ -477,10 +477,10 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "heading-tags-nedir-h1-etiketi-nasil-kullanilir",
+    date: "2023-05-03",
     title: "Heading Tags Nedir, H1 Etiketi Nasıl Kullanılır?",
     description: "HTML başlık etiketleri (H1-H6) nedir, SEO için nasıl kullanılır ve doğru başlık hiyerarşisi nasıl oluşturulur?",
-    date: "2020-09-29",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Heading Tags", "H1 Etiketi", "HTML", "SEO"],
     readTime: "6 dk",
@@ -515,10 +515,10 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "seo-ile-organik-trafigi-artirmanin-yontemleri",
+    date: "2023-09-18",
     title: "SEO ile Organik Trafiği Artırmanın Yöntemleri",
     description: "Web sitenizin organik trafiğini artırmak için SEO stratejileri, anahtar kelime optimizasyonu ve içerik geliştirme teknikleri.",
-    date: "2020-09-22",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Organik Trafik", "SEO", "Anahtar Kelime", "İçerik Optimizasyonu"],
     readTime: "8 dk",
@@ -551,10 +551,10 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "profesyonel-seo-uzmani-nedir-nasil-olunur",
+    date: "2024-01-10",
     title: "Profesyonel SEO Uzmanı Nedir, Nasıl Olunur?",
     description: "SEO uzmanı olmak için gereken beceriler, eğitimler ve kariyer yolu hakkında kapsamlı rehber.",
-    date: "2020-10-13",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["SEO Uzmanı", "SEO Danışmanı", "Kariyer", "Dijital Pazarlama"],
     readTime: "15 dk",
@@ -615,10 +615,10 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "dropshipping-ile-dijital-pazarlama",
+    date: "2024-05-22",
     title: "Dropshipping ile Dijital Pazarlama",
     description: "Stoksuz e-ticaret (dropshipping) nedir, nasıl yapılır ve dijital pazarlama ile nasıl desteklenir?",
-    date: "2020-10-08",
-    updatedDate: "2025-01-15",
+    
     category: "Dijital Pazarlama",
     tags: ["Dropshipping", "E-Ticaret", "Dijital Pazarlama", "Stoksuz Ticaret"],
     readTime: "8 dk",
@@ -655,10 +655,10 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "icerik-pazarlamasi-ve-seo-optimizasyonu",
+    date: "2024-09-15",
     title: "İçerik Pazarlaması ve SEO Optimizasyonu",
     description: "SEO uyumlu içerik nasıl yazılır, içerik pazarlaması stratejileri ve kaliteli içerik üretimi hakkında kapsamlı rehber.",
-    date: "2020-10-08",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["İçerik Pazarlaması", "SEO", "İçerik Optimizasyonu", "Kaliteli İçerik"],
     readTime: "9 dk",
@@ -695,10 +695,10 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "en-etkili-dijital-pazarlama-yontemleri",
+    date: "2025-01-08",
     title: "En Etkili Dijital Pazarlama Yöntemleri",
     description: "Dijital pazarlama stratejileri, sosyal medya pazarlaması, içerik pazarlaması ve influencer marketing hakkında kapsamlı rehber.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
+    
     category: "Dijital Pazarlama",
     tags: ["Dijital Pazarlama", "SEM", "Sosyal Medya", "Influencer Marketing"],
     readTime: "9 dk",
@@ -727,10 +727,10 @@ Dijital pazarlama danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "kaliteli-ve-ozgun-icerigin-seo-icin-onemi",
+    date: "2025-05-20",
     title: "Kaliteli ve Özgün İçeriğin SEO İçin Önemi",
     description: "Kaliteli içerik üretimi, özgün içerik stratejileri ve SEO için içerik optimizasyonu hakkında kapsamlı rehber.",
-    date: "2020-09-30",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Kaliteli İçerik", "Özgün İçerik", "SEO", "İçerik Stratejisi"],
     readTime: "10 dk",
@@ -769,10 +769,10 @@ Profesyonel SEO danışmanlığı için [iletişime geçin](/iletisim).
   },
   {
     slug: "anahtar-kelime-analizi-yapan-seo-araclari",
+    date: "2025-09-12",
     title: "Anahtar Kelime Analizi Yapan SEO Araçları Nelerdir?",
     description: "Anahtar kelime araştırması için kullanabileceğiniz en iyi SEO araçları: Ahrefs, SEMrush, Moz ve daha fazlası.",
-    date: "2020-09-30",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Anahtar Kelime", "SEO Araçları", "Ahrefs", "SEMrush"],
     readTime: "6 dk",

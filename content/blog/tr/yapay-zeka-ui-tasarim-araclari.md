@@ -6,7 +6,6 @@ date: "2026-01-12"
 category: "UI/UX Tasarım"
 tags: ["Yapay Zeka", "UI Tasarım", "Figma AI", "Uizard", "UX Araçları", "Prompt-to-UI", "Tasarım Otomasyonu", "AI Design Tools"]
 readTime: "12 dk"
-featured: true
 image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "ai-ui-design-tools"
 faq:

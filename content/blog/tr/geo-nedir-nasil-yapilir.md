@@ -6,7 +6,6 @@ date: "2026-01-06"
 category: "SEO"
 tags: ["GEO", "Generative Engine Optimization", "AI SEO", "ChatGPT", "Perplexity", "SGE", "Yapay Zeka", "LLM Optimizasyonu"]
 readTime: "15 dk"
-featured: true
 image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "what-is-geo-generative-engine-optimization"
 faq:

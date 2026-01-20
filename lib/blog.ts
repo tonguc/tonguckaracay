@@ -41,10 +41,10 @@ export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
 const blogPostsEn: BlogPost[] = [
   {
     slug: "what-is-seo-how-does-it-work",
+    date: "2020-03-15",
     title: "What Is SEO and How Does It Work?",
     description: "SEO stands for Search Engine Optimization. It's the process of improving your site's visibility for relevant searches to attract more traffic.",
-    date: "2020-10-02",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["SEO", "Search Engine Optimization", "Google", "Digital Marketing"],
     readTime: "8 min",
@@ -77,10 +77,10 @@ For professional SEO consulting, [get in touch](/contact).
   },
   {
     slug: "what-is-ui-ux-designer-how-do-they-work",
+    date: "2020-07-22",
     title: "What Is a UI/UX Designer and How Do They Work?",
     description: "Discover what UI and UX designers do, how they work, and their role in the digital product development process.",
-    date: "2020-09-22",
-    updatedDate: "2025-01-15",
+    
     category: "UI-UX",
     tags: ["UI Design", "UX Design", "User Experience", "Interface Design"],
     readTime: "7 min",
@@ -109,10 +109,10 @@ For more information, check out our [UI-UX design services](/services/ui-ux-desi
   },
   {
     slug: "what-are-quality-backlinks-how-to-get-them",
+    date: "2020-11-10",
     title: "What Are Quality Backlinks and How to Get Them?",
     description: "A comprehensive guide on quality backlink strategies, backlink types, and proper link building techniques for SEO.",
-    date: "2020-09-25",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Backlinks", "Link Building", "SEO", "Off-Page SEO"],
     readTime: "9 min",
@@ -160,10 +160,10 @@ For professional SEO and backlink consulting, [get in touch](/contact).
   },
   {
     slug: "what-is-inbound-marketing-how-to-do-it",
+    date: "2021-02-18",
     title: "What Is Inbound Marketing and How to Do It?",
     description: "A detailed guide on inbound marketing strategies, techniques, and methods for attracting customers.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
+    
     category: "Digital Marketing",
     tags: ["Inbound Marketing", "Content Marketing", "Digital Marketing", "Lead Generation"],
     readTime: "8 min",
@@ -205,10 +205,10 @@ For digital marketing consulting, [get in touch](/contact).
   },
   {
     slug: "digital-marketing-strategies-and-tools",
+    date: "2021-06-05",
     title: "Digital Marketing Strategies and Tools",
     description: "A comprehensive guide on digital marketing strategies, social media management tools, and SEO/SEM tools.",
-    date: "2019-03-15",
-    updatedDate: "2025-01-15",
+    
     category: "Digital Marketing",
     tags: ["Digital Marketing", "Social Media", "SEO Tools", "Marketing Tools"],
     readTime: "7 min",
@@ -249,10 +249,10 @@ For digital marketing consulting, [get in touch](/contact).
   },
   {
     slug: "essential-seo-tools-you-should-use",
+    date: "2021-10-12",
     title: "Essential SEO Tools You Should Use",
     description: "A detailed guide on 10 must-have SEO tools for professional SEO work and how to use them.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["SEO Tools", "Google Search Console", "Ahrefs", "SEMrush"],
     readTime: "10 min",
@@ -293,10 +293,10 @@ For professional SEO consulting, [get in touch](/contact).
   },
   {
     slug: "website-optimization-with-google-analytics",
+    date: "2022-01-20",
     title: "Website Optimization with Google Analytics",
     description: "Learn how to optimize your website using Google Analytics and analyze user behavior effectively.",
-    date: "2020-10-02",
-    updatedDate: "2025-01-15",
+    
     category: "UI-UX",
     tags: ["Google Analytics", "Web Analytics", "UX", "Site Optimization"],
     readTime: "8 min",
@@ -335,10 +335,10 @@ For more information, check out our [UI-UX design services](/services/ui-ux-desi
   },
   {
     slug: "on-page-seo-complete-guide",
+    date: "2022-05-08",
     title: "On-Page SEO: A Complete Guide",
     description: "On-page SEO techniques, site optimization strategies, and what you need to do to improve Google rankings.",
-    date: "2020-10-02",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["On-Page SEO", "Site Optimization", "SEO Optimization", "Internal SEO"],
     readTime: "12 min",
@@ -387,10 +387,10 @@ For professional SEO consulting, [get in touch](/contact).
   },
   {
     slug: "social-media-management-and-online-marketing",
+    date: "2022-09-14",
     title: "Social Media Management and Online Marketing",
     description: "A comprehensive guide on social media management strategies, online marketing techniques, and the relationship between SEO and social media.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
+    
     category: "Digital Marketing",
     tags: ["Social Media", "Online Marketing", "SEO", "Digital Marketing"],
     readTime: "8 min",
@@ -430,10 +430,10 @@ For digital marketing consulting, [get in touch](/contact).
   },
   {
     slug: "what-is-serp-why-it-matters-for-google",
+    date: "2023-01-25",
     title: "What Is SERP and Why Does It Matter for Google?",
     description: "What is SERP (Search Engine Results Page), what are its features, and how does it affect your SEO strategy?",
-    date: "2020-09-30",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["SERP", "Google", "Search Results", "SEO"],
     readTime: "9 min",
@@ -477,10 +477,10 @@ For professional SEO consulting, [get in touch](/contact).
   },
   {
     slug: "what-are-heading-tags-how-to-use-h1",
+    date: "2023-05-03",
     title: "What Are Heading Tags and How to Use H1?",
     description: "What are HTML heading tags (H1-H6), how to use them for SEO, and how to create proper heading hierarchy?",
-    date: "2020-09-29",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Heading Tags", "H1 Tag", "HTML", "SEO"],
     readTime: "6 min",
@@ -515,10 +515,10 @@ For professional SEO consulting, [get in touch](/contact).
   },
   {
     slug: "how-to-increase-organic-traffic-with-seo",
+    date: "2023-09-18",
     title: "How to Increase Organic Traffic with SEO",
     description: "SEO strategies, keyword optimization, and content development techniques to increase your website's organic traffic.",
-    date: "2020-09-22",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Organic Traffic", "SEO", "Keywords", "Content Optimization"],
     readTime: "8 min",
@@ -551,10 +551,10 @@ For professional SEO consulting, [get in touch](/contact).
   },
   {
     slug: "what-is-seo-specialist-how-to-become-one",
+    date: "2024-01-10",
     title: "What Is an SEO Specialist and How to Become One?",
     description: "A comprehensive guide on the skills, training, and career path needed to become an SEO specialist.",
-    date: "2020-10-13",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["SEO Specialist", "SEO Consultant", "Career", "Digital Marketing"],
     readTime: "15 min",
@@ -615,10 +615,10 @@ For professional SEO consulting, [get in touch](/contact).
   },
   {
     slug: "dropshipping-and-digital-marketing",
+    date: "2024-05-22",
     title: "Dropshipping and Digital Marketing",
     description: "What is dropshipping (stock-free e-commerce), how to do it, and how to support it with digital marketing?",
-    date: "2020-10-08",
-    updatedDate: "2025-01-15",
+    
     category: "Digital Marketing",
     tags: ["Dropshipping", "E-Commerce", "Digital Marketing", "Stock-Free Commerce"],
     readTime: "8 min",
@@ -655,10 +655,10 @@ For digital marketing consulting, [get in touch](/contact).
   },
   {
     slug: "content-marketing-and-seo-optimization",
+    date: "2024-09-15",
     title: "Content Marketing and SEO Optimization",
     description: "A comprehensive guide on how to write SEO-friendly content, content marketing strategies, and quality content production.",
-    date: "2020-10-08",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Content Marketing", "SEO", "Content Optimization", "Quality Content"],
     readTime: "9 min",
@@ -695,10 +695,10 @@ For professional SEO consulting, [get in touch](/contact).
   },
   {
     slug: "most-effective-digital-marketing-methods",
+    date: "2025-01-08",
     title: "Most Effective Digital Marketing Methods",
     description: "A comprehensive guide on digital marketing strategies, social media marketing, content marketing, and influencer marketing.",
-    date: "2020-10-07",
-    updatedDate: "2025-01-15",
+    
     category: "Digital Marketing",
     tags: ["Digital Marketing", "SEM", "Social Media", "Influencer Marketing"],
     readTime: "9 min",
@@ -727,10 +727,10 @@ For digital marketing consulting, [get in touch](/contact).
   },
   {
     slug: "importance-of-quality-original-content-for-seo",
+    date: "2025-05-20",
     title: "The Importance of Quality and Original Content for SEO",
     description: "A comprehensive guide on quality content production, original content strategies, and content optimization for SEO.",
-    date: "2020-09-30",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Quality Content", "Original Content", "SEO", "Content Strategy"],
     readTime: "10 min",
@@ -769,10 +769,10 @@ For professional SEO consulting, [get in touch](/contact).
   },
   {
     slug: "best-keyword-research-seo-tools",
+    date: "2025-09-12",
     title: "Best Keyword Research SEO Tools",
     description: "The best SEO tools you can use for keyword research: Ahrefs, SEMrush, Moz, and more.",
-    date: "2020-09-30",
-    updatedDate: "2025-01-15",
+    
     category: "SEO",
     tags: ["Keyword Research", "SEO Tools", "Ahrefs", "SEMrush"],
     readTime: "6 min",

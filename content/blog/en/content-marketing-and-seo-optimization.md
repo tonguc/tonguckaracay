@@ -2,12 +2,11 @@
 title: "Content Marketing and SEO Optimization"
 slug: "content-marketing-and-seo-optimization"
 description: "A comprehensive guide on how to write SEO-friendly content, content marketing strategies, and quality content production."
-date: "2023-03-22"
+date: "2024-09-15"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Content Marketing", "SEO", "Content Optimization", "Quality Content"]
 readTime: "9 min"
-featured: false
 image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "icerik-pazarlamasi-ve-seo-optimizasyonu"
 ---

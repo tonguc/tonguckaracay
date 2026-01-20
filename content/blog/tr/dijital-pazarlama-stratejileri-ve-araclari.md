@@ -2,12 +2,11 @@
 title: "Dijital Pazarlama Stratejileri ve Araçları"
 slug: "dijital-pazarlama-stratejileri-ve-araclari"
 description: "Dijital pazarlama stratejileri, sosyal medya yönetim araçları ve SEO/SEM araçları hakkında kapsamlı rehber."
-date: "2020-06-22"
+date: "2021-06-05"
 updatedDate: "2025-01-15"
 category: "Dijital Pazarlama"
 tags: ["Dijital Pazarlama", "Sosyal Medya", "SEO Araçları", "Marketing Tools"]
 readTime: "7 dk"
-featured: false
 image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "digital-marketing-strategies-and-tools"
 ---

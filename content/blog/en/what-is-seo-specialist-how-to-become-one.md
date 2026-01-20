@@ -2,12 +2,11 @@
 title: "What Is an SEO Specialist and How to Become One?"
 slug: "what-is-seo-specialist-how-to-become-one"
 description: "A comprehensive guide on the skills, training, and career path needed to become an SEO specialist."
-date: "2024-11-12"
+date: "2024-01-10"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["SEO Specialist", "SEO Consultant", "Career", "Digital Marketing"]
 readTime: "15 min"
-featured: true
 image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "profesyonel-seo-uzmani-nedir-nasil-olunur"
 ---

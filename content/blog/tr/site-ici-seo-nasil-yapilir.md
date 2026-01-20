@@ -2,12 +2,11 @@
 title: "Site İçi SEO Nasıl Yapılır? Ayrıntılı İç SEO Rehberi"
 slug: "site-ici-seo-nasil-yapilir"
 description: "On-Page SEO teknikleri, site içi optimizasyon stratejileri ve Google sıralamalarını yükseltmek için yapılması gerekenler."
-date: "2021-11-30"
+date: "2022-05-08"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Site İçi SEO", "On-Page SEO", "SEO Optimizasyonu", "İç SEO"]
 readTime: "12 dk"
-featured: true
 image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "on-page-seo-complete-guide"
 ---

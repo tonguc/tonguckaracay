@@ -2,12 +2,11 @@
 title: "What Are Heading Tags and How to Use H1?"
 slug: "what-are-heading-tags-how-to-use-h1"
 description: "What are HTML heading tags (H1-H6), how to use them for SEO, and how to create proper heading hierarchy?"
-date: "2020-12-05"
+date: "2023-05-03"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Heading Tags", "H1 Tag", "HTML", "SEO"]
 readTime: "6 min"
-featured: false
 image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "heading-tags-nedir-h1-etiketi-nasil-kullanilir"
 ---

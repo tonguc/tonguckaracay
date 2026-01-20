@@ -2,12 +2,11 @@
 title: "Digital Marketing Strategies and Tools"
 slug: "digital-marketing-strategies-and-tools"
 description: "A comprehensive guide on digital marketing strategies, social media management tools, and SEO/SEM tools."
-date: "2020-06-22"
+date: "2021-06-05"
 updatedDate: "2025-01-15"
 category: "Digital Marketing"
 tags: ["Digital Marketing", "Social Media", "SEO Tools", "Marketing Tools"]
 readTime: "7 min"
-featured: false
 image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "dijital-pazarlama-stratejileri-ve-araclari"
 ---

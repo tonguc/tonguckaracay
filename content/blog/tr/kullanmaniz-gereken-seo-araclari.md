@@ -2,12 +2,11 @@
 title: "Kullanmanız Gereken SEO Araçları Nelerdir?"
 slug: "kullanmaniz-gereken-seo-araclari"
 description: "Profesyonel SEO çalışmaları için mutlaka kullanmanız gereken 10 SEO aracı ve nasıl kullanıldıkları hakkında detaylı rehber."
-date: "2022-08-08"
+date: "2021-10-12"
 updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["SEO Araçları", "Google Search Console", "Ahrefs", "SEMrush"]
 readTime: "10 dk"
-featured: false
 image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "essential-seo-tools-you-should-use"
 ---

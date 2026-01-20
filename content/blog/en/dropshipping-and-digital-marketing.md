@@ -2,12 +2,11 @@
 title: "Dropshipping and Digital Marketing"
 slug: "dropshipping-and-digital-marketing"
 description: "What is dropshipping (stock-free e-commerce), how to do it, and how to support it with digital marketing?"
-date: "2024-07-25"
+date: "2024-05-22"
 updatedDate: "2025-01-15"
 category: "Digital Marketing"
 tags: ["Dropshipping", "E-Commerce", "Digital Marketing", "Stock-Free Commerce"]
 readTime: "8 min"
-featured: false
 image: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "dropshipping-ile-dijital-pazarlama"
 ---
