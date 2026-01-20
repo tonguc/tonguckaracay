@@ -3,7 +3,6 @@ title: "SEO Nedir, SEO Çalışmaları Nasıl Yapılır?"
 slug: "seo-nedir-nasil-yapilir"
 description: "SEO, arama motoru optimizasyonu anlamına gelir. Sitenizin ilgili aramalar için görünürlüğünü artırmak için yapılan optimizasyon sürecidir."
 date: "2020-03-15"
-updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["SEO", "Arama Motoru Optimizasyonu", "Google", "Dijital Pazarlama"]
 readTime: "8 dk"

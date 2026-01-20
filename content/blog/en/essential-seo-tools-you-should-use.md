@@ -3,7 +3,6 @@ title: "Essential SEO Tools You Should Use"
 slug: "essential-seo-tools-you-should-use"
 description: "A detailed guide on 10 must-have SEO tools for professional SEO work and how to use them."
 date: "2021-10-12"
-updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["SEO Tools", "Google Search Console", "Ahrefs", "SEMrush"]
 readTime: "10 min"

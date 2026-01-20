@@ -3,7 +3,6 @@ title: "How to Increase Organic Traffic with SEO"
 slug: "how-to-increase-organic-traffic-with-seo"
 description: "SEO strategies, keyword optimization, and content development techniques to increase your website's organic traffic."
 date: "2023-09-18"
-updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Organic Traffic", "SEO", "Keywords", "Content Optimization"]
 readTime: "8 min"

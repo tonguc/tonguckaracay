@@ -3,7 +3,6 @@ title: "Profesyonel SEO Uzmanı Nedir, Nasıl Olunur?"
 slug: "profesyonel-seo-uzmani-nedir-nasil-olunur"
 description: "SEO uzmanı olmak için gereken beceriler, eğitimler ve kariyer yolu hakkında kapsamlı rehber."
 date: "2024-01-10"
-updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["SEO Uzmanı", "SEO Danışmanı", "Kariyer", "Dijital Pazarlama"]
 readTime: "15 dk"

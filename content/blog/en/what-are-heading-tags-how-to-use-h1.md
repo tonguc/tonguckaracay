@@ -3,7 +3,6 @@ title: "What Are Heading Tags and How to Use H1?"
 slug: "what-are-heading-tags-how-to-use-h1"
 description: "What are HTML heading tags (H1-H6), how to use them for SEO, and how to create proper heading hierarchy?"
 date: "2023-05-03"
-updatedDate: "2025-01-15"
 category: "SEO"
 tags: ["Heading Tags", "H1 Tag", "HTML", "SEO"]
 readTime: "6 min"

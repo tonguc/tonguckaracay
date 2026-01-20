@@ -3,7 +3,6 @@ title: "UI-UX Designer Nedir, Nasıl Çalışırlar?"
 slug: "ui-ux-designer-nedir-nasil-calisirlar"
 description: "UI ve UX tasarımcılarının ne yaptığını, nasıl çalıştıklarını ve dijital ürün geliştirme sürecindeki rollerini keşfedin."
 date: "2020-07-22"
-updatedDate: "2025-01-15"
 category: "UI-UX"
 tags: ["UI Design", "UX Design", "Kullanıcı Deneyimi", "Arayüz Tasarımı"]
 readTime: "7 dk"
