@@ -9,14 +9,14 @@ type Props = {
   params: { locale: string };
 };
 
-export default function Home({ params: { locale } }: Props) {
+export default async function Home({ params: { locale } }: Props) {
   setRequestLocale(locale);
   
   return (
     <>
       <Hero />
       <Services />
-      <BlogPreview />
+      <BlogPreview locale={locale} />
       <About />
       <FinalCTA />
     </>

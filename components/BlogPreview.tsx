@@ -1,20 +1,18 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useLocale, useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import { getAllPosts as getAllPostsEn } from "@/lib/blog";
-import { getAllPosts as getAllPostsTr } from "@/lib/blog-tr";
+import { getAllPosts } from "@/lib/blog-utils";
 
-export default function BlogPreview() {
-  const t = useTranslations('blog');
-  const locale = useLocale();
+interface BlogPreviewProps {
+  locale: string;
+}
+
+export default async function BlogPreview({ locale }: BlogPreviewProps) {
+  const t = await getTranslations('blog');
   
-  // Locale'e göre doğru blog verilerini al (son 6 yazı)
-  const posts = locale === 'tr' 
-    ? getAllPostsTr().slice(0, 6)
-    : getAllPostsEn().slice(0, 6);
+  // Locale'e göre doğru blog verilerini al (son 6 yazı - zaten tarihe göre sıralı)
+  const posts = getAllPosts(locale as 'tr' | 'en').slice(0, 6);
   
   // Locale'e göre doğru blog path'i
   const blogPath = locale === 'tr' ? '/blog' : '/en/blog';
