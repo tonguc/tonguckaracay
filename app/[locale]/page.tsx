@@ -17,7 +17,7 @@ export default function Home({ params: { locale } }: Props) {
       <Hero />
       <Services />
       <About />
-      {locale === 'tr' && <BlogPreview />}
+      <BlogPreview />
       <FinalCTA />
     </>
   );
