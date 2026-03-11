@@ -15,6 +15,10 @@ export default function middleware(request: NextRequest) {
   if (pathname.startsWith('/api')) {
     return NextResponse.next();
   }
+// Audit app'i atla
+  if (pathname.startsWith('/audit')) {
+    return NextResponse.next();
+  }
   
   // Static files'ı atla
   if (
