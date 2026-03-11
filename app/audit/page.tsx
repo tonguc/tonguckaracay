@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { AUDIT_CATEGORIES } from '@/lib/audit-data'
 import { calculateScore, getTopIssues, type AuditScore, type AuditResults } from '@/lib/scoring'
 
@@ -407,12 +407,12 @@ export default function AuditPage() {
   const [issues, setIssues]     = useState<ReturnType<typeof getTopIssues>>([])
   const [auditUrl, setAuditUrl] = useState('')
 
-  const handleAuditComplete = useCallback((url: string, results: AuditResults, sc: AuditScore) => {
+  const handleAuditComplete = (url: string, results: AuditResults, sc: AuditScore) => {
     setAuditUrl(url)
     setScore(sc)
     setIssues(getTopIssues(results))
     setPage('dashboard')
-  }, [])
+  }
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: C.bg, color: C.text }}>
