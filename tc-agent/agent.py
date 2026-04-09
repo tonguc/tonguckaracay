@@ -151,10 +151,10 @@ def github_push_file(file_path: str, content: str, commit_message: str) -> bool:
     logger.error(f"GitHub push HATA {r.status_code}: {r.text[:200]}")
     return False
 
-def github_list_blog_slugs() -> list[str]:
-    """Mevcut TR blog yazılarının slug listesini döner."""
+def github_list_blog_slugs(lang: str = "tr") -> list[str]:
+    """Mevcut blog yazılarının slug listesini döner."""
     r = requests.get(
-        f"https://api.github.com/repos/{GITHUB_REPO}/contents/content/blog/tr?ref={GITHUB_BRANCH}",
+        f"https://api.github.com/repos/{GITHUB_REPO}/contents/content/blog/{lang}?ref={GITHUB_BRANCH}",
         headers=_gh_headers(), timeout=10
     )
     if r.status_code == 200:
@@ -352,12 +352,14 @@ async def cmd_yardim(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 
 async def cmd_durum(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if not auth(update): return await deny(update)
-    slugs = github_list_blog_slugs()
+    tr_slugs = github_list_blog_slugs("tr")
+    en_slugs = github_list_blog_slugs("en")
     await update.message.reply_text(
         f"📊 *Agent Durumu*\n\n"
         f"🌐 Repo: `{GITHUB_REPO}`\n"
         f"🌿 Branch: `{GITHUB_BRANCH}`\n"
-        f"📝 TR yazı sayısı: `{len(slugs)}`\n"
+        f"🇹🇷 TR yazı sayısı: `{len(tr_slugs)}`\n"
+        f"🇬🇧 EN yazı sayısı: `{len(en_slugs)}`\n"
         f"🕐 Saat (UTC): `{datetime.utcnow().strftime('%H:%M')}`\n",
         parse_mode="Markdown"
     )
