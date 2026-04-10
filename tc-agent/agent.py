@@ -477,40 +477,45 @@ MEVCUT TR YAZI:
 
 Frontmatter'ı (--- ile --- arası) koru, sadece içeriği düzenle.
 YIL KURALI: Başlık ve slug'da asla yıl rakamı kullanma.
-JSON formatında döndür:
-{{
-  "tr": {{"slug": "mevcut-slug", "content": "düzenlenmiş tam markdown (frontmatter dahil)"}},
-  "en": {{"slug": "mevcut-en-slug", "content": "düzenlenmiş tam markdown (frontmatter dahil)"}}
-}}"""
+
+Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
+===TR_START===
+(düzenlenmiş TR markdown, frontmatter dahil)
+===TR_END===
+===EN_START===
+(düzenlenmiş EN markdown, frontmatter dahil)
+===EN_END==="""
 
         resp = claude.messages.create(
-            model="claude-opus-4-5", max_tokens=5000,
+            model="claude-opus-4-5", max_tokens=6000,
             system=SYSTEM,
             messages=[{"role": "user", "content": prompt}]
         )
         raw = resp.content[0].text.strip()
-        raw = re.sub(r"^```(?:json)?\n?", "", raw)
-        raw = re.sub(r"\n?```$", "", raw)
-        data = json.loads(raw)
+
+        tr_match = re.search(r"===TR_START===\n(.*?)===TR_END===", raw, re.DOTALL)
+        en_match = re.search(r"===EN_START===\n(.*?)===EN_END===", raw, re.DOTALL)
+
+        if not tr_match:
+            return await msg.edit_text("❌ Claude beklenen formatta yanıt vermedi. Tekrar dene.")
+
+        new_tr = tr_match.group(1).strip()
+        new_en = en_match.group(1).strip() if en_match else None
 
         await msg.edit_text("📦 Revize edilmiş yazı GitHub'a yükleniyor...", parse_mode="Markdown")
 
         ok_tr = await loop.run_in_executor(None, gh_push,
-            f"content/blog/tr/{data['tr']['slug']}.md",
-            data["tr"]["content"],
-            f"revize: {data['tr']['slug']}")
+            f"content/blog/tr/{slug}.md", new_tr, f"revize: {slug}")
 
         ok_en = False
-        if en_content and "en" in data:
+        if new_en and en_content:
             ok_en = await loop.run_in_executor(None, gh_push,
-                f"content/blog/en/{data['en']['slug']}.md",
-                data["en"]["content"],
-                f"revize: {data['en']['slug']}")
+                f"content/blog/en/{en_slug}.md", new_en, f"revize: {en_slug}")
 
         status = "✅ TR + EN" if (ok_tr and ok_en) else "✅ TR" if ok_tr else "⚠️ Başarısız"
         await msg.edit_text(
             f"{status} revize tamamlandı!\n\n"
-            f"🇹🇷 `{data['tr']['slug']}`\n"
+            f"🇹🇷 `{slug}`\n"
             f"_Vercel deploy ~1-2 dk içinde._",
             parse_mode="Markdown")
 
