@@ -1,5 +1,5 @@
 ---
-title: "Google Ads Campaign Optimization: Complete 2024 Guide"
+title: "Google Ads Campaign Optimization: Complete Guide"
 slug: "google-ads-campaign-optimization-guide"
 description: "Google Ads campaign optimization with 12 proven strategies. Improve optimization score, targeting, and budget management to increase your ROAS."
 date: "2026-04-10"
@@ -10,7 +10,7 @@ image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&auto
 translationSlug: "google-ads-kampanya-optimizasyonu-rehberi"
 ---
 
-# Google Ads Campaign Optimization: Complete 2024 Guide
+# Google Ads Campaign Optimization: Complete Guide
 
 Google Ads campaign optimization is the systematic process of improving bid strategies, targeting settings, ad copy, and landing pages to maximize conversions from your existing ad spend. Properly implemented optimization can deliver 30-50% more conversions with the same budget.
 
