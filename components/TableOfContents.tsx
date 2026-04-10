@@ -12,11 +12,12 @@ export interface Heading {
 interface Props {
   headings: Heading[];
   locale: 'tr' | 'en';
+  variant?: 'mobile' | 'desktop';
 }
 
-export default function TableOfContents({ headings, locale }: Props) {
+export default function TableOfContents({ headings, locale, variant }: Props) {
   const [activeId, setActiveId] = useState('');
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,7 +50,7 @@ export default function TableOfContents({ headings, locale }: Props) {
           href={`#${h.id}`}
           onClick={(e) => {
             e.preventDefault();
-            setMobileOpen(false);
+            setOpen(false);
             document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth' });
           }}
           className={`block py-1 text-sm transition-all duration-150 border-l-2 -ml-px
@@ -65,23 +66,39 @@ export default function TableOfContents({ headings, locale }: Props) {
     </nav>
   );
 
+  // Mobil: katlanabilir accordion
+  if (variant === 'mobile') {
+    return (
+      <div className="mb-8 bg-surface-card/50 border border-surface-border rounded-xl overflow-hidden">
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold text-primary-300 hover:text-white transition-colors"
+        >
+          <span className="flex items-center gap-2">
+            <List className="w-4 h-4 text-accent-500" />
+            {label}
+          </span>
+          <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        </button>
+        {open && (
+          <div className="px-5 pb-4">
+            <NavLinks />
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Desktop: sticky sidebar
   return (
-    <div className="mb-8 bg-surface-card/50 border border-surface-border rounded-xl overflow-hidden">
-      <button
-        onClick={() => setMobileOpen(!mobileOpen)}
-        className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold text-primary-300 hover:text-white transition-colors"
-      >
-        <span className="flex items-center gap-2">
-          <List className="w-4 h-4 text-accent-500" />
+    <aside className="w-64 shrink-0">
+      <div className="sticky top-32">
+        <p className="text-xs font-semibold uppercase tracking-widest text-primary-400 mb-4 flex items-center gap-2">
+          <List className="w-3.5 h-3.5 text-accent-500" />
           {label}
-        </span>
-        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileOpen ? 'rotate-180' : ''}`} />
-      </button>
-      {mobileOpen && (
-        <div className="px-5 pb-4">
-          <NavLinks />
-        </div>
-      )}
-    </div>
+        </p>
+        <NavLinks />
+      </div>
+    </aside>
   );
 }

@@ -170,39 +170,50 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
           </div>
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          <TableOfContents headings={headings} locale={locale} />
-
-          <div className="prose prose-lg max-w-none">
-            <MarkdownRenderer content={post.content} />
-          </div>
-
-          <div className="mt-12 pt-8 border-t border-surface-border">
-            <div className="flex items-center gap-2 flex-wrap">
-              <Hash className="w-4 h-4 text-primary-400" />
-              {post.tags.map((tag) => (
-                <span key={tag} className="px-3 py-1 bg-surface-card border border-surface-border rounded-full text-sm text-primary-300">{tag}</span>
-              ))}
+        <div className="flex gap-12 justify-center items-start">
+          {/* İçerik kolonu */}
+          <div className="w-full max-w-3xl min-w-0">
+            {/* Mobil: içerik üstünde collapsible (xl ve üstünde gizli) */}
+            <div className="xl:hidden">
+              <TableOfContents headings={headings} locale={locale} variant="mobile" />
             </div>
-          </div>
 
-          <div className="mt-12 p-6 bg-surface-card border border-surface-border rounded-2xl">
-            <div className="flex items-center gap-4">
-              <img src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" className="w-16 h-16 rounded-full object-cover" />
-              <div>
-                <h3 className="font-display font-semibold text-white">Tonguç Karaçay</h3>
-                <p className="text-sm text-primary-400">{locale === 'tr' ? 'AI-Driven UX & Growth Partner | 25+ Yıl Deneyim' : 'AI-Driven UX & Growth Partner | 25+ Years Experience'}</p>
+            <div className="prose prose-lg max-w-none">
+              <MarkdownRenderer content={post.content} />
+            </div>
+
+            <div className="mt-12 pt-8 border-t border-surface-border">
+              <div className="flex items-center gap-2 flex-wrap">
+                <Hash className="w-4 h-4 text-primary-400" />
+                {post.tags.map((tag) => (
+                  <span key={tag} className="px-3 py-1 bg-surface-card border border-surface-border rounded-full text-sm text-primary-300">{tag}</span>
+                ))}
               </div>
             </div>
+
+            <div className="mt-12 p-6 bg-surface-card border border-surface-border rounded-2xl">
+              <div className="flex items-center gap-4">
+                <img src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" className="w-16 h-16 rounded-full object-cover" />
+                <div>
+                  <h3 className="font-display font-semibold text-white">Tonguç Karaçay</h3>
+                  <p className="text-sm text-primary-400">{locale === 'tr' ? 'AI-Driven UX & Growth Partner | 25+ Yıl Deneyim' : 'AI-Driven UX & Growth Partner | 25+ Years Experience'}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* FAQ Section */}
+            {post.faq && post.faq.length > 0 && (
+              <FAQ
+                items={post.faq}
+                title={locale === 'tr' ? 'Sıkça Sorulan Sorular' : 'Frequently Asked Questions'}
+              />
+            )}
           </div>
 
-          {/* FAQ Section */}
-          {post.faq && post.faq.length > 0 && (
-            <FAQ
-              items={post.faq}
-              title={locale === 'tr' ? 'Sıkça Sorulan Sorular' : 'Frequently Asked Questions'}
-            />
-          )}
+          {/* Desktop: sağ taraf sticky sidebar (xl altında gizli) */}
+          <div className="hidden xl:block">
+            <TableOfContents headings={headings} locale={locale} variant="desktop" />
+          </div>
         </div>
 
         {relatedPosts.length > 0 && (
