@@ -436,23 +436,31 @@ JSON formatında döndür (başka hiçbir şey ekleme):
     )
     raw = resp.content[0].text.strip()
 
-    # Metadata JSON parse
-    json_match = re.search(r'\{[\s\S]*?"en"[\s\S]*?\}(?=\s*===TR_CONTENT===)', raw)
-    if not json_match:
-        # Fallback: tüm raw'ı JSON olarak dene
-        json_str = re.sub(r"===.*", "", raw, flags=re.DOTALL).strip()
-        json_str = re.sub(r"^```(?:json)?\n?", "", json_str)
-        json_str = re.sub(r"\n?```$", "", json_str)
+    # JSON kısmını ayır: ===TR_CONTENT=== öncesi her şey
+    if "===TR_CONTENT===" in raw:
+        json_str = raw.split("===TR_CONTENT===")[0].strip()
     else:
-        json_str = json_match.group(0)
+        json_str = raw
+    json_str = re.sub(r"^```(?:json)?\n?", "", json_str).strip()
+    json_str = re.sub(r"\n?```$", "", json_str).strip()
+
+    # JSON'daki trailing virgül gibi yaygın sorunları gider
+    json_str = re.sub(r",\s*([}\]])", r"\1", json_str)
+
     data = json.loads(json_str)
     tr, en = data["tr"], data["en"]
 
-    # İçerik delimiter parse
-    tr_content_match = re.search(r"===TR_CONTENT===\n(.*?)===TR_END===", raw, re.DOTALL)
-    en_content_match = re.search(r"===EN_CONTENT===\n(.*?)===EN_END===", raw, re.DOTALL)
-    tr["content"] = tr_content_match.group(1).strip() if tr_content_match else ""
-    en["content"] = en_content_match.group(1).strip() if en_content_match else ""
+    # İçerik delimiter parse — \s* ile esnek
+    tr_content_match = re.search(r"===TR_CONTENT===\s*(.*?)\s*===TR_END===", raw, re.DOTALL)
+    en_content_match = re.search(r"===EN_CONTENT===\s*(.*?)\s*===EN_END===", raw, re.DOTALL)
+
+    if not tr_content_match:
+        raise ValueError("TR içerik bulunamadı (===TR_CONTENT=== delimiter eksik)")
+    if not en_content_match:
+        raise ValueError("EN içerik bulunamadı (===EN_CONTENT=== delimiter eksik)")
+
+    tr["content"] = tr_content_match.group(1).strip()
+    en["content"] = en_content_match.group(1).strip()
 
     def fm(d, translation_slug):
         faq_yaml = ""
