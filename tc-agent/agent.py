@@ -151,8 +151,8 @@ def serp_analyze(keyword: str, lang: str = "tr") -> dict:
         logger.warning(f"SerpAPI hatası ({lang}): {e}")
         return {}
 
-def fetch_competitor(url: str, max_chars: int = 3000) -> str:
-    """Rakip sayfanın ana içeriğini çeker."""
+def fetch_competitor(url: str, max_chars: int = 4000) -> tuple[str, int]:
+    """Rakip sayfanın içeriğini + kelime sayısını döner."""
     try:
         headers = {"User-Agent": "Mozilla/5.0 (compatible; research-bot/1.0)"}
         r = requests.get(url, headers=headers, timeout=10)
@@ -161,46 +161,74 @@ def fetch_competitor(url: str, max_chars: int = 3000) -> str:
             tag.decompose()
         text = soup.get_text(separator=" ", strip=True)
         text = re.sub(r'\s+', ' ', text)
-        return text[:max_chars]
+        word_count = len(text.split())
+        return text[:max_chars], word_count
     except Exception as e:
         logger.warning(f"Rakip fetch hatası {url}: {e}")
-        return ""
+        return "", 0
 
-def build_serp_context(keyword: str, lang: str = "tr") -> str:
-    """SERP + rakip içerik analizini metin olarak döner."""
+def _classify_intent(titles: list[str], related: list[str]) -> str:
+    """SERP başlık ve sorgulardan search intent çıkarır."""
+    all_text = " ".join(titles + related).lower()
+    scores = {
+        "informational": sum(all_text.count(s) for s in [
+            "nedir","nasil","what is","how to","guide","rehber","neden","why","anlam","tanim","what are","açıklama"]),
+        "commercial": sum(all_text.count(s) for s in [
+            "en iyi","best","karsilastirma","comparison","review","alternative","vs ","top ","önerilen","recommended","hangi"]),
+        "transactional": sum(all_text.count(s) for s in [
+            "buy","satin","fiyat","price","download","free","ucretsiz","siparis","hizmet","teklif"]),
+    }
+    return max(scores, key=scores.get) if max(scores.values()) > 0 else "informational"
+
+def build_serp_context(keyword: str, lang: str = "tr") -> dict:
+    """SERP + rakip analizi. {context, intent, target_words} döner."""
     serp = serp_analyze(keyword, lang)
     if not serp:
-        return ""
+        return {"context": "", "intent": "informational", "target_words": 1200}
 
     label = "Türkiye" if lang == "tr" else "US/Global"
-    lines = [f"SERP ANALİZİ — '{keyword}' ({label})\n"]
-    lines.append("İlk 5 Rakip:")
+    lines = [f"SERP ANALİZİ — '{keyword}' ({label})\n", "İlk 10 Rakip:"]
     competitor_contents = []
+    word_counts = []
+    all_titles = []
+
     for i, res in enumerate(serp.get("results", []), 1):
         lines.append(f"{i}. {res['title']}\n   URL: {res['url']}\n   Snippet: {res['snippet']}")
-        if i <= 3:
-            content = fetch_competitor(res["url"])
+        all_titles.append(res["title"])
+        if i <= 5:  # top 3 → top 5
+            content, wc = fetch_competitor(res["url"])
             if content:
                 competitor_contents.append(f"--- Rakip {i}: {res['title']} ---\n{content}")
+            if wc > 300:
+                word_counts.append(wc)
+
+    intent = _classify_intent(all_titles, serp.get("related", []))
+    avg_wc = sum(word_counts) / len(word_counts) if word_counts else 1200
+    target_words = max(1000, min(2500, int(avg_wc * 1.2)))
 
     if serp.get("related"):
         lines.append("\nİlgili Sorular ve Aramalar:")
         for q in serp["related"]:
             lines.append(f"  • {q}")
-
     if competitor_contents:
-        lines.append("\nRakip İçerik Özeti (Content Gap için):")
+        lines.append("\nRakip İçerik Özeti (Content Gap / Depth için):")
         lines.extend(competitor_contents)
 
-    return "\n".join(lines)
+    return {"context": "\n".join(lines), "intent": intent, "target_words": target_words}
 
-def build_dual_serp_context(topic_tr: str) -> tuple[str, str]:
-    """TR ve EN için ayrı ayrı SERP analizi yapar. (tr_ctx, en_ctx) döner."""
+def build_dual_serp_context(topic_tr: str) -> dict:
+    """TR ve EN için SERP analizi + meta. Dict döner."""
     topic_en = translate_topic(topic_tr)
     logger.info(f"EN konu çevirisi: {topic_en}")
-    tr_ctx = build_serp_context(topic_tr, lang="tr")
-    en_ctx = build_serp_context(topic_en, lang="en")
-    return tr_ctx, en_ctx
+    tr = build_serp_context(topic_tr, lang="tr")
+    en = build_serp_context(topic_en, lang="en")
+    target = (tr["target_words"] + en["target_words"]) // 2 if (tr["context"] and en["context"]) \
+             else tr["target_words"] or en["target_words"] or 1200
+    return {
+        "tr_ctx": tr["context"], "en_ctx": en["context"],
+        "tr_intent": tr["intent"], "en_intent": en["intent"],
+        "target_words": target,
+    }
 
 # ── GITHUB API ───────────────────────────────────────────────────────────────
 
@@ -268,6 +296,23 @@ def gh_slugs(lang="tr"):
                      headers=_gh_h(), timeout=10)
     return [f["name"][:-3] for f in r.json() if f["name"].endswith(".md")] if r.status_code == 200 else []
 
+def get_internal_links(lang="tr") -> str:
+    """Mevcut blog yazılarının URL listesini döner (iç link için Claude'a verilir)."""
+    try:
+        slugs = gh_slugs(lang)
+        if not slugs:
+            return ""
+        base = "" if lang == "tr" else "/en"
+        label = "MEVCUT TR YAZILARI — 3-5 tanesine doğal anchor text ile iç link ver:" \
+                if lang == "tr" else \
+                "EXISTING EN POSTS — add 3-5 internal links with natural anchor text:"
+        lines = [label]
+        for slug in slugs[:25]:
+            lines.append(f"  {base}/blog/{slug}")
+        return "\n".join(lines)
+    except Exception:
+        return ""
+
 # ── BLOG ÜRETİCİ ─────────────────────────────────────────────────────────────
 
 IMAGES = {
@@ -300,7 +345,10 @@ def extract_paa(serp_data: str) -> list[str]:
                 questions.append(q)
     return questions[:8]
 
-def generate_post(topic: str, tr_serp: str = "", en_serp: str = "") -> dict:
+def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
+                  tr_intent: str = "informational", en_intent: str = "informational",
+                  target_words: int = 1200,
+                  tr_links: str = "", en_links: str = "") -> dict:
     today = datetime.now().strftime("%Y-%m-%d")
 
     tr_paa = extract_paa(tr_serp)
@@ -308,27 +356,47 @@ def generate_post(topic: str, tr_serp: str = "", en_serp: str = "") -> dict:
 
     tr_block = f"\n\nTR SERP & RAKİP ANALİZİ (Türkiye):\n{tr_serp}" if tr_serp else ""
     en_block = f"\n\nEN SERP & RAKİP ANALİZİ (US/Global):\n{en_serp}" if en_serp else ""
+    tr_paa_block = ("\nTR PAA SORULARI (bunları FAQ olarak kullan):\n" + "\n".join(f"- {q}" for q in tr_paa)) if tr_paa else ""
+    en_paa_block = ("\nEN PAA SORULARI (use these as FAQ):\n" + "\n".join(f"- {q}" for q in en_paa)) if en_paa else ""
 
-    tr_paa_block = f"\nTR PAA SORULARI (bunları FAQ olarak kullan):\n" + "\n".join(f"- {q}" for q in tr_paa) if tr_paa else ""
-    en_paa_block = f"\nEN PAA SORULARI (use these as FAQ):\n" + "\n".join(f"- {q}" for q in en_paa) if en_paa else ""
+    intent_map = {
+        "informational": "Eğitici, satış yok. Soru-cevap formatı, detaylı açıklama.",
+        "commercial": "Karşılaştırma, avantaj/dezavantaj, öneriler. Karar vermeye yardım.",
+        "transactional": "Dönüşüm odaklı. Net CTA, somut adımlar, güven sinyalleri.",
+    }
+    tr_intent_desc = intent_map.get(tr_intent, intent_map["informational"])
+    en_intent_desc = intent_map.get(en_intent, intent_map["informational"])
+
+    tr_links_block = f"\n\n{tr_links}" if tr_links else ""
+    en_links_block = f"\n\n{en_links}" if en_links else ""
 
     prompt = f""""{topic}" konusunda TR + EN blog yazısı üret.
 
 KRİTİK KURAL: title ve slug alanlarına asla yıl (2024, 2025, 2026 vb.) ekleme. Evergreen başlık yaz.
 
-TR yazısı için:{tr_block}{tr_paa_block}
+HEDEF KELİME SAYISI: {target_words} kelime (rakip ortalaması × 1.2). Her iki dil için de bu hedefe ulaş.
 
-EN yazısı için:{en_block}{en_paa_block}
+TR yazısı için:
+SEARCH INTENT (TR): {tr_intent} — {tr_intent_desc}{tr_block}{tr_paa_block}{tr_links_block}
+
+EN yazısı için:
+SEARCH INTENT (EN): {en_intent} — {en_intent_desc}{en_block}{en_paa_block}{en_links_block}
 
 Her dil için kendi SERP analizini kullan:
 - TR yazısı: Türkiye rakiplerinin eksik bıraktığı açıları doldur, TR anahtar kelimelerine odaklan
 - EN yazısı: Global rakiplerin eksik bıraktığı açıları doldur, EN anahtar kelimelerine odaklan
 - PAA sorularını H2/H3 başlık olarak içeriğe entegre et
 
+İÇ LİNK KURALLARI:
+- Verilen URL listesinden 3-5 tanesine paragraf içinde doğal anchor text ile link ver
+- Exact-match spam yapma: [Google Ads nedir](/blog/...) değil, [kampanya performansını artırmak için](/blog/...) gibi
+- İçerikle bağlantılı sayfalara link ver
+
+DIŞ LİNK: Her yazıda 2-3 güvenilir dış kaynak ekle (Google resmi blog, Moz, HubSpot, Statista vb.)
+
 FAQ KURALLARI (AEO + AI SEO):
 - 6-8 soru üret (PAA + ilgili aramalardan)
-- Her cevap: önce direkt cevap (1 cümle), sonra 2-3 cümle bağlam
-- Toplam her cevap 60-80 kelime
+- Her cevap: önce direkt cevap (1 cümle), sonra 2-3 cümle bağlam (60-80 kelime)
 - Sorular: gerçek arama sorgularını yansıtsın (Nasıl? Ne? Neden? Ne zaman?)
 
 JSON formatında döndür (başka hiçbir şey ekleme):
@@ -341,7 +409,7 @@ JSON formatında döndür (başka hiçbir şey ekleme):
     "tags": ["tag1", "tag2", "tag3", "tag4"],
     "readTime": "X dk",
     "image_keyword": "seo veya google veya social veya marketing veya design veya ai veya content veya analytics veya email veya ads",
-    "content": "Tam markdown (frontmatter yok, 1000-1200 kelime, AEO+GEO+EEAT). Sonunda ## Sıkça Sorulan Sorular bölümü olsun.",
+    "content": "Tam markdown (frontmatter yok, {target_words} kelime hedefi, AEO+GEO+EEAT, iç+dış linkler dahil). Sonunda ## Sıkça Sorulan Sorular bölümü olsun.",
     "faq": [{{"question": "...", "answer": "..."}}, ...]
   }},
   "en": {{
@@ -352,7 +420,7 @@ JSON formatında döndür (başka hiçbir şey ekleme):
     "tags": ["tag1", "tag2", "tag3", "tag4"],
     "readTime": "X min",
     "image_keyword": "seo or google or social or marketing or design or ai or content or analytics or email or ads",
-    "content": "Full markdown (no frontmatter, 1000-1200 words, AEO+GEO+EEAT). End with ## Frequently Asked Questions section.",
+    "content": "Full markdown (no frontmatter, {target_words} word target, AEO+GEO+EEAT, internal+external links included). End with ## Frequently Asked Questions section.",
     "faq": [{{"question": "...", "answer": "..."}}, ...]
   }}
 }}"""
@@ -622,18 +690,24 @@ async def _run(u, topic):
         f"🔍 *'{topic}'* — SERP analizi yapılıyor...", parse_mode="Markdown")
     loop = asyncio.get_event_loop()
 
-    tr_ctx, en_ctx = await loop.run_in_executor(None, build_dual_serp_context, topic)
+    serp = await loop.run_in_executor(None, build_dual_serp_context, topic)
+    tr_links = await loop.run_in_executor(None, get_internal_links, "tr")
+    en_links = await loop.run_in_executor(None, get_internal_links, "en")
 
     if _cancel:
         await msg.edit_text("🛑 İptal edildi (SERP sonrası).")
         return
 
-    serp_info = "✅ TR + EN SERP analizi tamamlandı" if (tr_ctx or en_ctx) else "⚠️ SerpAPI yok, genel yazı üretilecek"
+    tr_ctx, en_ctx = serp["tr_ctx"], serp["en_ctx"]
+    serp_info = (f"✅ TR + EN SERP | Intent: TR={serp['tr_intent']} EN={serp['en_intent']} | Hedef: ~{serp['target_words']} kelime"
+                 if (tr_ctx or en_ctx) else "⚠️ SerpAPI yok, genel yazı üretilecek")
     await msg.edit_text(
         f"{serp_info}\n✍️ Yazı üretiliyor _(1-2 dk)_...", parse_mode="Markdown")
 
     try:
-        post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx)
+        post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx,
+                                          serp["tr_intent"], serp["en_intent"],
+                                          serp["target_words"], tr_links, en_links)
 
         if _cancel:
             await msg.edit_text("🛑 İptal edildi (yazı üretildi ama GitHub'a yüklenmedi).")
@@ -681,8 +755,12 @@ async def scheduler(app):
                 try: await app.bot.send_message(uid, f"🕐 *Günlük yazı:* _{topic}_", parse_mode="Markdown")
                 except: pass
             loop = asyncio.get_event_loop()
-            tr_ctx, en_ctx = await loop.run_in_executor(None, build_dual_serp_context, topic)
-            post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx)
+            serp = await loop.run_in_executor(None, build_dual_serp_context, topic)
+            tr_links = await loop.run_in_executor(None, get_internal_links, "tr")
+            en_links = await loop.run_in_executor(None, get_internal_links, "en")
+            post = await loop.run_in_executor(None, generate_post, topic,
+                serp["tr_ctx"], serp["en_ctx"], serp["tr_intent"], serp["en_intent"],
+                serp["target_words"], tr_links, en_links)
             ok_tr = await loop.run_in_executor(None, gh_push, post["tr"]["file"], post["tr"]["content"], f"blog: {post['tr']['slug']}")
             ok_en = await loop.run_in_executor(None, gh_push, post["en"]["file"], post["en"]["content"], f"blog: {post['en']['slug']}")
             result = (f"✅ *Günlük yazı yayınlandı!*\n🇹🇷 `{post['tr']['slug']}`\n🇬🇧 `{post['en']['slug']}`"
