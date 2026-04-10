@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import { Calendar, Clock, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, Clock, ArrowUpRight, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 import { getAllPosts, BlogPost } from '@/lib/blog-utils';
 
 type Locale = 'tr' | 'en';
@@ -48,9 +48,14 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
           </p>
         </div>
 
+        {/* Featured Post — sadece 1. sayfada */}
+        {currentPage === 1 && paginatedPosts.length > 0 && (
+          <FeaturedPost post={paginatedPosts[0]} locale={locale} t={t} />
+        )}
+
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {paginatedPosts.map((post, index) => (
+          {(currentPage === 1 ? paginatedPosts.slice(1) : paginatedPosts).map((post, index) => (
             <BlogCard key={post.slug} post={post} index={index} locale={locale} t={t} />
           ))}
         </div>
@@ -76,13 +81,63 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
   );
 }
 
-function BlogCard({ 
-  post, 
+function FeaturedPost({ post, locale, t }: { post: BlogPost; locale: Locale; t: any }) {
+  const blogPath = locale === 'tr' ? `/blog/${post.slug}` : `/en/blog/${post.slug}`;
+  const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
+    locale === 'tr' ? 'tr-TR' : 'en-US',
+    { day: 'numeric', month: 'long', year: 'numeric' }
+  );
+
+  return (
+    <Link href={blogPath} className="group block mb-10">
+      <article className="relative rounded-2xl overflow-hidden border border-surface-border hover:border-accent-500/40 transition-all duration-300 bg-surface-card/30">
+        <div className="grid md:grid-cols-2 gap-0">
+          {/* Image */}
+          <div className="aspect-video md:aspect-auto md:h-80 overflow-hidden">
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          {/* Content */}
+          <div className="p-8 md:p-10 flex flex-col justify-center">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="px-3 py-1 bg-accent-500/20 text-accent-400 text-xs font-semibold rounded-full uppercase tracking-wider">
+                {post.category}
+              </span>
+              <span className="text-xs text-primary-500 flex items-center gap-1">
+                <BookOpen className="w-3 h-3" /> {post.readTime}
+              </span>
+            </div>
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-accent-400 transition-colors leading-tight">
+              {post.title}
+            </h2>
+            <p className="text-primary-300 leading-relaxed mb-6 line-clamp-3">
+              {post.description}
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-primary-500 flex items-center gap-1">
+                <Calendar className="w-3 h-3" /> {formattedDate}
+              </span>
+              <span className="inline-flex items-center gap-1 text-sm font-medium text-accent-400 group-hover:gap-2 transition-all">
+                {t('readMore')} <ArrowUpRight className="w-4 h-4" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
+function BlogCard({
+  post,
   index,
   locale,
   t
-}: { 
-  post: BlogPost; 
+}: {
+  post: BlogPost;
   index: number;
   locale: Locale;
   t: any;

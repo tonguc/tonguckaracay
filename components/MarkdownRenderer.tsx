@@ -2,9 +2,19 @@
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import type { ReactNode } from 'react';
 
 interface MarkdownRendererProps {
   content: string;
+}
+
+function toId(children: ReactNode): string {
+  const text = typeof children === 'string'
+    ? children
+    : Array.isArray(children)
+      ? children.map(c => (typeof c === 'string' ? c : '')).join('')
+      : '';
+  return text.toLowerCase().replace(/[^a-z0-9\s]/gi, '').trim().replace(/\s+/g, '-');
 }
 
 export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
@@ -12,8 +22,16 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
-        h2: ({ children }) => <h2 className="text-2xl font-display font-bold text-white mt-12 mb-6">{children}</h2>,
-        h3: ({ children }) => <h3 className="text-xl font-display font-semibold text-white mt-8 mb-4">{children}</h3>,
+        h2: ({ children }) => (
+          <h2 id={toId(children)} className="text-2xl font-display font-bold text-white mt-12 mb-6 scroll-mt-28">
+            {children}
+          </h2>
+        ),
+        h3: ({ children }) => (
+          <h3 id={toId(children)} className="text-xl font-display font-semibold text-white mt-8 mb-4 scroll-mt-28">
+            {children}
+          </h3>
+        ),
         h4: ({ children }) => <h4 className="text-lg font-display font-semibold text-white mt-6 mb-3">{children}</h4>,
         p: ({ children }) => <p className="text-primary-300 leading-relaxed mb-6">{children}</p>,
         a: ({ href, children }) => <a href={href} className="text-accent-500 hover:text-accent-400 hover:underline transition-colors">{children}</a>,
@@ -22,7 +40,11 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         ul: ({ children }) => <ul className="list-disc list-inside space-y-2 mb-6 text-primary-300">{children}</ul>,
         ol: ({ children }) => <ol className="list-decimal list-inside space-y-2 mb-6 text-primary-300">{children}</ol>,
         li: ({ children }) => <li className="text-primary-300 pl-2">{children}</li>,
-        blockquote: ({ children }) => <blockquote className="border-l-4 border-accent-500 bg-surface-card/50 text-primary-200 py-4 px-6 rounded-r-xl my-6 italic">{children}</blockquote>,
+        blockquote: ({ children }) => (
+          <blockquote className="border-l-4 border-accent-500 bg-surface-card/50 text-primary-200 py-4 px-6 rounded-r-xl my-6 italic">
+            {children}
+          </blockquote>
+        ),
         code: ({ className, children }) => {
           const isInline = !className;
           if (isInline) return <code className="bg-surface-card text-accent-500 px-1.5 py-0.5 rounded text-sm">{children}</code>;
