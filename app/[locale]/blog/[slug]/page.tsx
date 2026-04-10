@@ -170,11 +170,11 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
           </div>
         </div>
 
-        <div className="flex gap-12 justify-center items-start">
+        <div className="flex gap-12 justify-center">
           {/* İçerik kolonu */}
           <div className="w-full max-w-3xl min-w-0">
-            {/* Mobil: içerik üstünde collapsible (xl ve üstünde gizli) */}
-            <div className="xl:hidden">
+            {/* Mobil: sticky collapsible (xl ve üstünde gizli) */}
+            <div className="xl:hidden sticky top-20 z-40">
               <TableOfContents headings={headings} locale={locale} variant="mobile" />
             </div>
 

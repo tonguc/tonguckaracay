@@ -91,7 +91,7 @@ export default function TableOfContents({ headings, locale, variant }: Props) {
 
   // Desktop: sticky sidebar
   return (
-    <aside className="w-64 shrink-0">
+    <aside className="w-64 shrink-0 h-full">
       <div className="sticky top-32">
         <p className="text-xs font-semibold uppercase tracking-widest text-primary-400 mb-4 flex items-center gap-2">
           <List className="w-3.5 h-3.5 text-accent-500" />
