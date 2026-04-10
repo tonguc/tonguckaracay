@@ -53,8 +53,13 @@ DAILY_M    = int(config.get("DAILY_POST_MINUTE","0"))
 
 SYSTEM = f"""Sen Tonguç Karaçay'ın dijital pazarlama ve SEO danışmanlığı blogu için içerik üreten kıdemli bir SEO stratejisti ve içerik uzmanısın.
 
-BUGÜNÜN TARİHİ: {datetime.now().strftime('%d %B %Y')} — İçeriklerde bu yılı baz al.
-BAŞLIK KURALI: Başlıklara asla yıl (2024, 2025, 2026 vb.) ekleme. Yıl bağımsız, evergreen başlıklar yaz.
+BUGÜNÜN TARİHİ: {datetime.now().strftime('%d %B %Y')}
+
+YIL KURALI — KESİNLİKLE UYULMASI ZORUNLU:
+- Başlık, slug, açıklama ve içerikte asla "2024", "2025", "2026" veya herhangi bir yıl rakamı kullanma
+- "2024 Rehberi", "2025 İpuçları" gibi ifadeler yasak
+- Bunların yerine: "Kapsamlı Rehber", "Pratik İpuçları", "Adım Adım" gibi evergreen ifadeler kullan
+- Gerçek istatistiklerde yıl zorunluysa sadece içerik metninde kullanabilirsin, başlıkta asla
 
 TONGUÇ KARAÇAY KİMDİR:
 - Türkiye merkezli kıdemli dijital pazarlama ve SEO danışmanı
@@ -217,6 +222,16 @@ def gh_push(path, content, msg):
         logger.error(f"gh_push HATA {r.status_code}: {r.text[:200]}")
     return ok
 
+def gh_read(path: str) -> str:
+    """GitHub'dan dosya içeriğini okur."""
+    r = requests.get(
+        f"https://api.github.com/repos/{GH_REPO}/contents/{path}?ref={GH_BRANCH}",
+        headers=_gh_h(), timeout=10
+    )
+    if r.status_code == 200:
+        return base64.b64decode(r.json()["content"]).decode("utf-8")
+    return ""
+
 def gh_slugs(lang="tr"):
     r = requests.get(f"https://api.github.com/repos/{GH_REPO}/contents/content/blog/{lang}?ref={GH_BRANCH}",
                      headers=_gh_h(), timeout=10)
@@ -369,6 +384,7 @@ async def cmd_start(u, _):
     await u.message.reply_text(
         "👋 *tonguckaracay.com Growth Agent v2*\n\n"
         "📝 `/yazi [konu]` — SERP analizi yapıp yazı üret\n"
+        "✏️ `/revize [slug] [istek]` — Mevcut yazıyı düzenle\n"
         "🤖 `/gunluk` — Otomatik konu seç ve yaz\n"
         "📋 `/brief [konu]` — Sadece içerik brief göster\n"
         "📋 `/liste` — Blog yazılarını listele\n"
@@ -406,6 +422,88 @@ async def cmd_brief(u, ctx):
         return await msg.edit_text("❌ SerpAPI yanıt vermedi. SERPAPI_KEY'i kontrol et.")
     brief = serp_ctx[:3500]
     await msg.edit_text(f"📋 *Brief — {topic}*\n\n```\n{brief}\n```", parse_mode="Markdown")
+
+async def cmd_revize(u, ctx):
+    if not auth(u): return await deny(u)
+    args = ctx.args if ctx.args else []
+    if not args:
+        return await u.message.reply_text(
+            "❌ Kullanım: `/revize [slug] [istek]`\n"
+            "Örnek: `/revize google-ads-kampanya-optimizasyonu yıl ifadelerini kaldır, daha pratik yap`",
+            parse_mode="Markdown")
+
+    slug = args[0]
+    talimat = " ".join(args[1:]) if len(args) > 1 else "Genel kalite iyileştirmesi yap"
+
+    msg = await u.message.reply_text(
+        f"🔍 `{slug}` GitHub'dan okunuyor...", parse_mode="Markdown")
+
+    loop = asyncio.get_event_loop()
+
+    # TR ve EN dosyaları oku
+    tr_content = await loop.run_in_executor(None, gh_read, f"content/blog/tr/{slug}.md")
+    if not tr_content:
+        return await msg.edit_text(f"❌ `content/blog/tr/{slug}.md` bulunamadı.", parse_mode="Markdown")
+
+    # EN slug'ını frontmatter'dan bul
+    en_slug_match = re.search(r'translationSlug:\s*"([^"]+)"', tr_content)
+    en_slug = en_slug_match.group(1) if en_slug_match else slug
+    en_content = await loop.run_in_executor(None, gh_read, f"content/blog/en/{en_slug}.md")
+
+    await msg.edit_text(f"✍️ Revize ediliyor: _{talimat}_", parse_mode="Markdown")
+
+    try:
+        prompt = f"""Şu blog yazısını revize et.
+
+TALİMAT: {talimat}
+
+MEVCUT TR YAZI:
+{tr_content}
+
+{"MEVCUT EN YAZI:" + chr(10) + en_content if en_content else ""}
+
+Frontmatter'ı (--- ile --- arası) koru, sadece içeriği düzenle.
+YIL KURALI: Başlık ve slug'da asla yıl rakamı kullanma.
+JSON formatında döndür:
+{{
+  "tr": {{"slug": "mevcut-slug", "content": "düzenlenmiş tam markdown (frontmatter dahil)"}},
+  "en": {{"slug": "mevcut-en-slug", "content": "düzenlenmiş tam markdown (frontmatter dahil)"}}
+}}"""
+
+        resp = claude.messages.create(
+            model="claude-opus-4-5", max_tokens=5000,
+            system=SYSTEM,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        raw = resp.content[0].text.strip()
+        raw = re.sub(r"^```(?:json)?\n?", "", raw)
+        raw = re.sub(r"\n?```$", "", raw)
+        data = json.loads(raw)
+
+        await msg.edit_text("📦 Revize edilmiş yazı GitHub'a yükleniyor...", parse_mode="Markdown")
+
+        ok_tr = await loop.run_in_executor(None, gh_push,
+            f"content/blog/tr/{data['tr']['slug']}.md",
+            data["tr"]["content"],
+            f"revize: {data['tr']['slug']}")
+
+        ok_en = False
+        if en_content and "en" in data:
+            ok_en = await loop.run_in_executor(None, gh_push,
+                f"content/blog/en/{data['en']['slug']}.md",
+                data["en"]["content"],
+                f"revize: {data['en']['slug']}")
+
+        status = "✅ TR + EN" if (ok_tr and ok_en) else "✅ TR" if ok_tr else "⚠️ Başarısız"
+        await msg.edit_text(
+            f"{status} revize tamamlandı!\n\n"
+            f"🇹🇷 `{data['tr']['slug']}`\n"
+            f"_Vercel deploy ~1-2 dk içinde._",
+            parse_mode="Markdown")
+
+    except Exception as e:
+        logger.exception("Revize hatası")
+        await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:400]}\n```", parse_mode="Markdown")
 
 async def cmd_yazi(u, ctx):
     if not auth(u): return await deny(u)
@@ -492,7 +590,8 @@ def main():
     if not token: raise ValueError("TELEGRAM_BOT_TOKEN eksik")
     app = Application.builder().token(token).post_init(post_init).build()
     for cmd, fn in [("start",cmd_start),("yardim",cmd_start),("durum",cmd_durum),
-                    ("liste",cmd_liste),("brief",cmd_brief),("yazi",cmd_yazi),("gunluk",cmd_gunluk)]:
+                    ("liste",cmd_liste),("brief",cmd_brief),("revize",cmd_revize),
+                    ("yazi",cmd_yazi),("gunluk",cmd_gunluk)]:
         app.add_handler(CommandHandler(cmd, fn))
     logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH}")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
