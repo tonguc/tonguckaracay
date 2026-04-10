@@ -51,7 +51,10 @@ DAILY_M    = int(config.get("DAILY_POST_MINUTE","0"))
 
 # ── SYSTEM PROMPT ────────────────────────────────────────────────────────────
 
-SYSTEM = """Sen Tonguç Karaçay'ın dijital pazarlama ve SEO danışmanlığı blogu için içerik üreten kıdemli bir SEO stratejisti ve içerik uzmanısın.
+SYSTEM = f"""Sen Tonguç Karaçay'ın dijital pazarlama ve SEO danışmanlığı blogu için içerik üreten kıdemli bir SEO stratejisti ve içerik uzmanısın.
+
+BUGÜNÜN TARİHİ: {datetime.now().strftime('%d %B %Y')} — İçeriklerde bu yılı baz al.
+BAŞLIK KURALI: Başlıklara asla yıl (2024, 2025, 2026 vb.) ekleme. Yıl bağımsız, evergreen başlıklar yaz.
 
 TONGUÇ KARAÇAY KİMDİR:
 - Türkiye merkezli kıdemli dijital pazarlama ve SEO danışmanı
