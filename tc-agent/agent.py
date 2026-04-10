@@ -228,6 +228,8 @@ def generate_post(topic: str, serp_ctx: str = "") -> dict:
 
     prompt = f""""{topic}" konusunda TR + EN blog yazısı üret.{serp_block}
 
+KRİTİK KURAL: title ve slug alanlarına asla yıl (2024, 2025, 2026 vb.) ekleme. Evergreen başlık yaz.
+
 SERP analizini şu şekilde kullan:
 - Rakiplerin eksik bıraktığı konuları doldur
 - İlgili soruları H2/H3 başlık olarak entegre et
@@ -293,7 +295,7 @@ translationSlug: "{translation_slug}"
 # ── KONU SEÇİMİ ──────────────────────────────────────────────────────────────
 
 TOPICS = [
-    "Google Ads kampanya optimizasyonu 2025",
+    "Google Ads kampanya optimizasyonu",
     "Meta reklamlarında hedefleme stratejileri",
     "E-ticaret için yerel SEO rehberi",
     "Core Web Vitals ve SEO ilişkisi",
@@ -307,7 +309,7 @@ TOPICS = [
     "Dijital pazarlamada A/B testi",
     "Remarketing ve retargeting stratejileri",
     "Teknik SEO denetimi nasıl yapılır",
-    "Backlink kazanma stratejileri 2025",
+    "Backlink kazanma stratejileri",
     "Conversion Rate Optimization rehberi",
     "Influencer marketing ROI ölçümü",
     "E-ticaret ürün sayfası SEO optimizasyonu",
