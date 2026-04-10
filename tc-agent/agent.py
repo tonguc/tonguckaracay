@@ -356,8 +356,8 @@ def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
 
     tr_block = f"\n\nTR SERP & RAKİP ANALİZİ (Türkiye):\n{tr_serp}" if tr_serp else ""
     en_block = f"\n\nEN SERP & RAKİP ANALİZİ (US/Global):\n{en_serp}" if en_serp else ""
-    tr_paa_block = ("\nTR PAA SORULARI (bunları FAQ olarak kullan):\n" + "\n".join(f"- {q}" for q in tr_paa)) if tr_paa else ""
-    en_paa_block = ("\nEN PAA SORULARI (use these as FAQ):\n" + "\n".join(f"- {q}" for q in en_paa)) if en_paa else ""
+    tr_paa_block = ("\nTR PAA SORULARI:\n" + "\n".join(f"- {q}" for q in tr_paa)) if tr_paa else ""
+    en_paa_block = ("\nEN PAA QUESTIONS:\n" + "\n".join(f"- {q}" for q in en_paa)) if en_paa else ""
 
     intent_map = {
         "informational": "Eğitici, satış yok. Soru-cevap formatı, detaylı açıklama.",
@@ -370,63 +370,63 @@ def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
     tr_links_block = f"\n\n{tr_links}" if tr_links else ""
     en_links_block = f"\n\n{en_links}" if en_links else ""
 
-    prompt = f""""{topic}" konusunda TR + EN blog yazısı üret.
+    prompt = f""""{topic}" konusunda TR ve EN blog yazısı yaz.
 
-KRİTİK KURAL: title ve slug alanlarına asla yıl (2024, 2025, 2026 vb.) ekleme. Evergreen başlık yaz.
+KURALLAR:
+- Başlık ve slug'da asla yıl (2024/2025/2026) kullanma — evergreen yaz
+- Hedef kelime sayısı: {target_words} (her iki dil için)
+- TR intent: {tr_intent} — {tr_intent_desc}
+- EN intent: {en_intent} — {en_intent_desc}
+- İç link: verilen URL listesinden 3-5 tanesine doğal anchor text ile link ver
+- Dış link: 2-3 güvenilir kaynak (Google, Moz, HubSpot, Statista vb.)
+- FAQ: 6-8 soru, her cevap 60-80 kelime, PAA sorgularından üret
 
-HEDEF KELİME SAYISI: {target_words} kelime (rakip ortalaması × 1.2). Her iki dil için de bu hedefe ulaş.
+TR için:{tr_block}{tr_paa_block}{tr_links_block}
 
-TR yazısı için:
-SEARCH INTENT (TR): {tr_intent} — {tr_intent_desc}{tr_block}{tr_paa_block}{tr_links_block}
+EN için:{en_block}{en_paa_block}{en_links_block}
 
-EN yazısı için:
-SEARCH INTENT (EN): {en_intent} — {en_intent_desc}{en_block}{en_paa_block}{en_links_block}
+TAM OLARAK ŞU FORMATTA DÖN (başka hiçbir şey ekleme):
+===TR_START===
+---
+title: "TR başlık (50-60 karakter, yıl yok)"
+slug: "tr-url-slug"
+description: "Meta açıklama (150-160 karakter)"
+date: "{today}"
+category: "SEO veya Dijital Pazarlama veya Sosyal Medya veya UI/UX veya Yapay Zeka"
+tags: ["tag1", "tag2", "tag3", "tag4"]
+readTime: "X dk"
+image_keyword: "seo veya google veya social veya marketing veya design veya ai veya content veya analytics"
+translationSlug: "(EN slug)"
+faq:
+  - question: "Soru 1?"
+    answer: "Cevap 1 (60-80 kelime)."
+  - question: "Soru 2?"
+    answer: "Cevap 2."
+---
 
-Her dil için kendi SERP analizini kullan:
-- TR yazısı: Türkiye rakiplerinin eksik bıraktığı açıları doldur, TR anahtar kelimelerine odaklan
-- EN yazısı: Global rakiplerin eksik bıraktığı açıları doldur, EN anahtar kelimelerine odaklan
-- PAA sorularını H2/H3 başlık olarak içeriğe entegre et
+(TR markdown içerik — {target_words} kelime, AEO+GEO+EEAT, iç+dış linkler, sonunda ## Sıkça Sorulan Sorular bölümü)
 
-İÇ LİNK KURALLARI:
-- Verilen URL listesinden 3-5 tanesine paragraf içinde doğal anchor text ile link ver
-- Exact-match spam yapma: [Google Ads nedir](/blog/...) değil, [kampanya performansını artırmak için](/blog/...) gibi
-- İçerikle bağlantılı sayfalara link ver
-
-DIŞ LİNK: Her yazıda 2-3 güvenilir dış kaynak ekle (Google resmi blog, Moz, HubSpot, Statista vb.)
-
-FAQ KURALLARI (AEO + AI SEO):
-- 6-8 soru üret (PAA + ilgili aramalardan)
-- Her cevap: önce direkt cevap (1 cümle), sonra 2-3 cümle bağlam (60-80 kelime)
-- Sorular: gerçek arama sorgularını yansıtsın (Nasıl? Ne? Neden? Ne zaman?)
-
-JSON formatında döndür (başka hiçbir şey ekleme):
-{{
-  "tr": {{
-    "title": "SEO dostu Türkçe başlık (50-60 karakter)",
-    "slug": "url-dostu-turkce-slug",
-    "description": "Meta açıklama (150-160 karakter, ana anahtar kelime başta)",
-    "category": "SEO veya Dijital Pazarlama veya Sosyal Medya veya UI/UX veya Yapay Zeka",
-    "tags": ["tag1", "tag2", "tag3", "tag4"],
-    "readTime": "X dk",
-    "image_keyword": "seo veya google veya social veya marketing veya design veya ai",
-    "faq": [{{"question": "...", "answer": "..."}}]
-  }},
-  "en": {{
-    "title": "SEO friendly English title (50-60 chars)",
-    "slug": "url-friendly-english-slug",
-    "description": "Meta description (150-160 chars, keyword first)",
-    "category": "SEO or Digital Marketing or Social Media or UI/UX or Artificial Intelligence",
-    "tags": ["tag1", "tag2", "tag3", "tag4"],
-    "readTime": "X min",
-    "image_keyword": "seo or google or social or marketing or design or ai",
-    "faq": [{{"question": "...", "answer": "..."}}]
-  }}
-}}
-===TR_CONTENT===
-(TR markdown içerik buraya — frontmatter yok, {target_words} kelime hedefi, AEO+GEO+EEAT, iç+dış linkler, sonunda ## Sıkça Sorulan Sorular)
 ===TR_END===
-===EN_CONTENT===
-(EN markdown content here — no frontmatter, {target_words} word target, AEO+GEO+EEAT, internal+external links, end with ## Frequently Asked Questions)
+===EN_START===
+---
+title: "EN title (50-60 chars, no year)"
+slug: "en-url-slug"
+description: "Meta description (150-160 chars)"
+date: "{today}"
+category: "SEO or Digital Marketing or Social Media or UI/UX or Artificial Intelligence"
+tags: ["tag1", "tag2", "tag3", "tag4"]
+readTime: "X min"
+image_keyword: "seo or google or social or marketing or design or ai or content or analytics"
+translationSlug: "(TR slug)"
+faq:
+  - question: "Question 1?"
+    answer: "Answer 1 (60-80 words)."
+  - question: "Question 2?"
+    answer: "Answer 2."
+---
+
+(EN markdown content — {target_words} words, AEO+GEO+EEAT, internal+external links, end with ## Frequently Asked Questions)
+
 ===EN_END==="""
 
     resp = claude.messages.create(
@@ -436,61 +436,40 @@ JSON formatında döndür (başka hiçbir şey ekleme):
     )
     raw = resp.content[0].text.strip()
 
-    # JSON kısmını ayır: ===TR_CONTENT=== öncesi her şey
-    if "===TR_CONTENT===" in raw:
-        json_str = raw.split("===TR_CONTENT===")[0].strip()
-    else:
-        json_str = raw
-    json_str = re.sub(r"^```(?:json)?\n?", "", json_str).strip()
-    json_str = re.sub(r"\n?```$", "", json_str).strip()
+    tr_match = re.search(r"===TR_START===\s*(.*?)\s*===TR_END===", raw, re.DOTALL)
+    en_match = re.search(r"===EN_START===\s*(.*?)\s*===EN_END===", raw, re.DOTALL)
 
-    # JSON'daki trailing virgül gibi yaygın sorunları gider
-    json_str = re.sub(r",\s*([}\]])", r"\1", json_str)
+    if not tr_match:
+        raise ValueError("TR yazı üretilemedi. Lütfen tekrar deneyin.")
+    if not en_match:
+        raise ValueError("EN yazı üretilemedi. Lütfen tekrar deneyin.")
 
-    data = json.loads(json_str)
-    tr, en = data["tr"], data["en"]
+    tr_file = tr_match.group(1).strip()
+    en_file = en_match.group(1).strip()
 
-    # İçerik delimiter parse — \s* ile esnek
-    tr_content_match = re.search(r"===TR_CONTENT===\s*(.*?)\s*===TR_END===", raw, re.DOTALL)
-    en_content_match = re.search(r"===EN_CONTENT===\s*(.*?)\s*===EN_END===", raw, re.DOTALL)
+    def fm_field(content, key):
+        m = re.search(rf'^{key}:\s*"([^"]+)"', content, re.MULTILINE)
+        return m.group(1) if m else ""
 
-    if not tr_content_match:
-        raise ValueError("TR içerik bulunamadı (===TR_CONTENT=== delimiter eksik)")
-    if not en_content_match:
-        raise ValueError("EN içerik bulunamadı (===EN_CONTENT=== delimiter eksik)")
+    tr_slug  = fm_field(tr_file, "slug")
+    tr_title = fm_field(tr_file, "title")
+    en_slug  = fm_field(en_file, "slug")
+    en_title = fm_field(en_file, "title")
 
-    tr["content"] = tr_content_match.group(1).strip()
-    en["content"] = en_content_match.group(1).strip()
-
-    def fm(d, translation_slug):
-        faq_yaml = ""
-        if d.get("faq"):
-            faq_lines = ["faq:"]
-            for item in d["faq"]:
-                q = item["question"].replace('"', '\\"')
-                a = item["answer"].replace('"', '\\"')
-                faq_lines.append(f'  - question: "{q}"')
-                faq_lines.append(f'    answer: "{a}"')
-            faq_yaml = "\n" + "\n".join(faq_lines)
-        return f"""---
-title: "{d['title']}"
-slug: "{d['slug']}"
-description: "{d['description']}"
-date: "{today}"
-category: "{d['category']}"
-tags: {json.dumps(d['tags'], ensure_ascii=False)}
-readTime: "{d['readTime']}"
-image: "{img_url(d['image_keyword'])}"
-translationSlug: "{translation_slug}"{faq_yaml}
----"""
+    # image_keyword → gerçek Unsplash URL ile değiştir
+    for kw_field in ["image_keyword"]:
+        tr_kw = fm_field(tr_file, kw_field)
+        en_kw = fm_field(en_file, kw_field)
+        tr_file = re.sub(r'^image_keyword:.*$', f'image: "{img_url(tr_kw)}"', tr_file, flags=re.MULTILINE)
+        en_file = re.sub(r'^image_keyword:.*$', f'image: "{img_url(en_kw)}"', en_file, flags=re.MULTILINE)
 
     return {
-        "tr": {"slug": tr["slug"], "title": tr["title"],
-               "file": f"content/blog/tr/{tr['slug']}.md",
-               "content": fm(tr, en["slug"]) + "\n\n" + tr["content"]},
-        "en": {"slug": en["slug"], "title": en["title"],
-               "file": f"content/blog/en/{en['slug']}.md",
-               "content": fm(en, tr["slug"]) + "\n\n" + en["content"]},
+        "tr": {"slug": tr_slug, "title": tr_title,
+               "file": f"content/blog/tr/{tr_slug}.md",
+               "content": tr_file},
+        "en": {"slug": en_slug, "title": en_title,
+               "file": f"content/blog/en/{en_slug}.md",
+               "content": en_file},
     }
 
 # ── KONU SEÇİMİ ──────────────────────────────────────────────────────────────
