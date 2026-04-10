@@ -66,36 +66,22 @@ export default function TableOfContents({ headings, locale }: Props) {
   );
 
   return (
-    <>
-      {/* Mobil: katlanabilir, içerik üstünde */}
-      <div className="xl:hidden mb-8 bg-surface-card/50 border border-surface-border rounded-xl overflow-hidden">
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold text-primary-300 hover:text-white transition-colors"
-        >
-          <span className="flex items-center gap-2">
-            <List className="w-4 h-4 text-accent-500" />
-            {label}
-          </span>
-          <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileOpen ? 'rotate-180' : ''}`} />
-        </button>
-        {mobileOpen && (
-          <div className="px-5 pb-4">
-            <NavLinks />
-          </div>
-        )}
-      </div>
-
-      {/* Desktop: sticky sidebar */}
-      <aside className="hidden xl:block w-64 shrink-0">
-        <div className="sticky top-32">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary-400 mb-4 flex items-center gap-2">
-            <List className="w-3.5 h-3.5 text-accent-500" />
-            {label}
-          </p>
+    <div className="mb-8 bg-surface-card/50 border border-surface-border rounded-xl overflow-hidden">
+      <button
+        onClick={() => setMobileOpen(!mobileOpen)}
+        className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold text-primary-300 hover:text-white transition-colors"
+      >
+        <span className="flex items-center gap-2">
+          <List className="w-4 h-4 text-accent-500" />
+          {label}
+        </span>
+        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileOpen ? 'rotate-180' : ''}`} />
+      </button>
+      {mobileOpen && (
+        <div className="px-5 pb-4">
           <NavLinks />
         </div>
-      </aside>
-    </>
+      )}
+    </div>
   );
 }

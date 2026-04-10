@@ -170,8 +170,9 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
           </div>
         </div>
 
-        <div className="flex gap-12 justify-center">
-          <div className="w-full max-w-3xl min-w-0">
+        <div className="max-w-3xl mx-auto">
+          <TableOfContents headings={headings} locale={locale} />
+
           <div className="prose prose-lg max-w-none">
             <MarkdownRenderer content={post.content} />
           </div>
@@ -202,8 +203,6 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
               title={locale === 'tr' ? 'Sıkça Sorulan Sorular' : 'Frequently Asked Questions'}
             />
           )}
-          </div>
-          <TableOfContents headings={headings} locale={locale} />
         </div>
 
         {relatedPosts.length > 0 && (
