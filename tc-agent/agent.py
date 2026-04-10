@@ -49,6 +49,8 @@ SERP_KEY   = config.get("SERPAPI_KEY","")
 DAILY_H    = int(config.get("DAILY_POST_HOUR","7"))
 DAILY_M    = int(config.get("DAILY_POST_MINUTE","0"))
 
+_cancel = False   # /stop komutu bunu True yapar
+
 # ── SYSTEM PROMPT ────────────────────────────────────────────────────────────
 
 SYSTEM = f"""Sen Tonguç Karaçay'ın dijital pazarlama ve SEO danışmanlığı blogu için içerik üreten kıdemli bir SEO stratejisti ve içerik uzmanısın.
@@ -570,19 +572,36 @@ async def cmd_gunluk(u, _):
     topic = pick_topic(used)
     await _run(u, topic)
 
+async def cmd_stop(u, _):
+    global _cancel
+    if not auth(u): return await deny(u)
+    _cancel = True
+    await u.message.reply_text("🛑 İptal sinyali gönderildi. Mevcut aşama bitince durur.")
+
 async def _run(u, topic):
+    global _cancel
+    _cancel = False
     msg = await u.message.reply_text(
         f"🔍 *'{topic}'* — SERP analizi yapılıyor...", parse_mode="Markdown")
     loop = asyncio.get_event_loop()
 
     tr_ctx, en_ctx = await loop.run_in_executor(None, build_dual_serp_context, topic)
-    serp_info = "✅ TR + EN SERP analizi tamamlandı" if (tr_ctx or en_ctx) else "⚠️ SerpAPI yok, genel yazı üretilecek"
 
+    if _cancel:
+        await msg.edit_text("🛑 İptal edildi (SERP sonrası).")
+        return
+
+    serp_info = "✅ TR + EN SERP analizi tamamlandı" if (tr_ctx or en_ctx) else "⚠️ SerpAPI yok, genel yazı üretilecek"
     await msg.edit_text(
         f"{serp_info}\n✍️ Yazı üretiliyor _(1-2 dk)_...", parse_mode="Markdown")
 
     try:
         post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx)
+
+        if _cancel:
+            await msg.edit_text("🛑 İptal edildi (yazı üretildi ama GitHub'a yüklenmedi).")
+            return
+
         await msg.edit_text(
             f"📦 GitHub'a yükleniyor...\n"
             f"🇹🇷 `{post['tr']['slug']}`\n🇬🇧 `{post['en']['slug']}`",
@@ -643,7 +662,7 @@ def main():
     app = Application.builder().token(token).post_init(post_init).build()
     for cmd, fn in [("start",cmd_start),("yardim",cmd_start),("durum",cmd_durum),
                     ("liste",cmd_liste),("brief",cmd_brief),("revize",cmd_revize),
-                    ("yazi",cmd_yazi),("gunluk",cmd_gunluk)]:
+                    ("yazi",cmd_yazi),("gunluk",cmd_gunluk),("stop",cmd_stop)]:
         app.add_handler(CommandHandler(cmd, fn))
     logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH}")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
