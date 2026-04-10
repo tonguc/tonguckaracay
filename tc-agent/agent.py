@@ -403,12 +403,25 @@ async def cmd_durum(u, _):
         f"🕐 UTC: `{datetime.utcnow().strftime('%H:%M')}`\n",
         parse_mode="Markdown")
 
-async def cmd_liste(u, _):
+async def cmd_liste(u, ctx):
     if not auth(u): return await deny(u)
-    slugs = gh_slugs("tr")
-    if not slugs: return await u.message.reply_text("Yazı yok.")
-    lines = "\n".join(f"• `{s}`" for s in sorted(slugs)[-12:])
-    await u.message.reply_text(f"📋 *Son TR yazılar:*\n{lines}", parse_mode="Markdown")
+    tr_slugs = sorted(gh_slugs("tr"))
+    en_slugs = gh_slugs("en")
+    if not tr_slugs: return await u.message.reply_text("Yazı yok.")
+
+    # Sayfa parametresi: /liste 2 → ikinci sayfa
+    page = int(ctx.args[0]) if ctx.args and ctx.args[0].isdigit() else 1
+    per_page = 20
+    total = len(tr_slugs)
+    pages = (total + per_page - 1) // per_page
+    chunk = tr_slugs[(page-1)*per_page : page*per_page]
+
+    lines = "\n".join(f"• `{s}`" for s in chunk)
+    nav = f"Sayfa {page}/{pages} — " if pages > 1 else ""
+    await u.message.reply_text(
+        f"📋 *TR: {total} yazı | EN: {len(en_slugs)} yazı*\n"
+        f"_{nav}/liste {page+1} ile devam_\n\n{lines}",
+        parse_mode="Markdown")
 
 async def cmd_brief(u, ctx):
     if not auth(u): return await deny(u)
