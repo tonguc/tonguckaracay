@@ -435,14 +435,17 @@ faq:
         messages=[{"role": "user", "content": prompt}]
     )
     raw = resp.content[0].text.strip()
+    logger.info(f"Claude raw yanıt ({len(raw)} karakter): {raw[:500]}")
 
     tr_match = re.search(r"===TR_START===\s*(.*?)\s*===TR_END===", raw, re.DOTALL)
     en_match = re.search(r"===EN_START===\s*(.*?)\s*===EN_END===", raw, re.DOTALL)
 
     if not tr_match:
-        raise ValueError("TR yazı üretilemedi. Lütfen tekrar deneyin.")
+        logger.error(f"TR_START bulunamadı. İlk 1000 karakter:\n{raw[:1000]}")
+        raise ValueError(f"TR yazı üretilemedi. Claude yanıtı: {raw[:200]}")
     if not en_match:
-        raise ValueError("EN yazı üretilemedi. Lütfen tekrar deneyin.")
+        logger.error(f"EN_START bulunamadı. İlk 1000 karakter:\n{raw[:1000]}")
+        raise ValueError(f"EN yazı üretilemedi. Claude yanıtı: {raw[:200]}")
 
     tr_file = tr_match.group(1).strip()
     en_file = en_match.group(1).strip()
