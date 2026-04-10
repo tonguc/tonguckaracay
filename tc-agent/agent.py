@@ -511,8 +511,16 @@ MEVCUT TR YAZI:
 
 {"MEVCUT EN YAZI:" + chr(10) + en_content if en_content else ""}
 
-Frontmatter'ı (--- ile --- arası) koru, sadece içeriği düzenle.
-YIL KURALI: Başlık ve slug'da asla yıl rakamı kullanma.
+KURALLAR:
+- slug ve translationSlug alanlarını kesinlikle değiştirme.
+- YIL KURALI: Başlık ve slug'da asla yıl rakamı kullanma.
+- Eğer talimat "faq ekle" veya "faq güncelle" içeriyorsa, frontmatter'a faq alanı ekle/güncelle:
+  faq:
+    - question: "Soru?"
+      answer: "Cevap (2-3 cümle)."
+  En az 5, en fazla 8 soru-cevap. Sorular içerikten veya PAA mantığıyla üret.
+  TR yazı için Türkçe, EN yazı için İngilizce soru-cevap yaz.
+- Diğer durumlarda frontmatter'ı olduğu gibi koru, sadece içeriği düzenle.
 
 Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
 ===TR_START===
