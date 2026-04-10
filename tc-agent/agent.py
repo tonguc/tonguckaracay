@@ -258,24 +258,47 @@ def img_url(kw):
             return f"https://images.unsplash.com/photo-{pid}?w=1200&auto=format&fit=crop&q=80"
     return f"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
 
+def extract_paa(serp_data: str) -> list[str]:
+    """SERP verisinden PAA (People Also Ask) sorularını çeker."""
+    questions = []
+    for line in serp_data.split('\n'):
+        line = line.strip()
+        if line.startswith('•') and '?' in line:
+            q = line.lstrip('• ').strip()
+            if q:
+                questions.append(q)
+    return questions[:8]
+
 def generate_post(topic: str, tr_serp: str = "", en_serp: str = "") -> dict:
     today = datetime.now().strftime("%Y-%m-%d")
 
+    tr_paa = extract_paa(tr_serp)
+    en_paa = extract_paa(en_serp)
+
     tr_block = f"\n\nTR SERP & RAKİP ANALİZİ (Türkiye):\n{tr_serp}" if tr_serp else ""
     en_block = f"\n\nEN SERP & RAKİP ANALİZİ (US/Global):\n{en_serp}" if en_serp else ""
+
+    tr_paa_block = f"\nTR PAA SORULARI (bunları FAQ olarak kullan):\n" + "\n".join(f"- {q}" for q in tr_paa) if tr_paa else ""
+    en_paa_block = f"\nEN PAA SORULARI (use these as FAQ):\n" + "\n".join(f"- {q}" for q in en_paa) if en_paa else ""
 
     prompt = f""""{topic}" konusunda TR + EN blog yazısı üret.
 
 KRİTİK KURAL: title ve slug alanlarına asla yıl (2024, 2025, 2026 vb.) ekleme. Evergreen başlık yaz.
 
-TR yazısı için şu SERP verisini kullan (Türkiye'deki rakipler):{tr_block}
+TR yazısı için:{tr_block}{tr_paa_block}
 
-EN yazısı için şu SERP verisini kullan (US/Global rakipler):{en_block}
+EN yazısı için:{en_block}{en_paa_block}
 
 Her dil için kendi SERP analizini kullan:
 - TR yazısı: Türkiye rakiplerinin eksik bıraktığı açıları doldur, TR anahtar kelimelerine odaklan
 - EN yazısı: Global rakiplerin eksik bıraktığı açıları doldur, EN anahtar kelimelerine odaklan
-- İlgili soruları her dilin kendi H2/H3 başlığına entegre et
+- PAA sorularını H2/H3 başlık olarak içeriğe entegre et
+
+FAQ KURALLARI (AEO + AI SEO):
+- 6-8 soru üret (PAA + ilgili aramalardan)
+- Her cevap: önce direkt cevap (1 cümle), sonra 2-3 cümle bağlam
+- Toplam her cevap 60-80 kelime
+- Sorular: gerçek arama sorgularını yansıtsın (Nasıl? Ne? Neden? Ne zaman?)
 
 JSON formatında döndür (başka hiçbir şey ekleme):
 {{
@@ -287,7 +310,8 @@ JSON formatında döndür (başka hiçbir şey ekleme):
     "tags": ["tag1", "tag2", "tag3", "tag4"],
     "readTime": "X dk",
     "image_keyword": "seo veya google veya social veya marketing veya design veya ai veya content veya analytics veya email veya ads",
-    "content": "Tam markdown (frontmatter yok, 1000-1200 kelime, AEO+GEO+EEAT kriterleri)"
+    "content": "Tam markdown (frontmatter yok, 1000-1200 kelime, AEO+GEO+EEAT). Sonunda ## Sıkça Sorulan Sorular bölümü olsun.",
+    "faq": [{{"question": "...", "answer": "..."}}, ...]
   }},
   "en": {{
     "title": "SEO friendly English title (50-60 chars)",
@@ -297,12 +321,13 @@ JSON formatında döndür (başka hiçbir şey ekleme):
     "tags": ["tag1", "tag2", "tag3", "tag4"],
     "readTime": "X min",
     "image_keyword": "seo or google or social or marketing or design or ai or content or analytics or email or ads",
-    "content": "Full markdown (no frontmatter, 1000-1200 words, AEO+GEO+EEAT criteria)"
+    "content": "Full markdown (no frontmatter, 1000-1200 words, AEO+GEO+EEAT). End with ## Frequently Asked Questions section.",
+    "faq": [{{"question": "...", "answer": "..."}}, ...]
   }}
 }}"""
 
     resp = claude.messages.create(
-        model="claude-opus-4-5", max_tokens=5000,
+        model="claude-opus-4-5", max_tokens=6000,
         system=SYSTEM,
         messages=[{"role": "user", "content": prompt}]
     )
@@ -313,6 +338,15 @@ JSON formatında döndür (başka hiçbir şey ekleme):
     tr, en = data["tr"], data["en"]
 
     def fm(d, translation_slug):
+        faq_yaml = ""
+        if d.get("faq"):
+            faq_lines = ["faq:"]
+            for item in d["faq"]:
+                q = item["question"].replace('"', '\\"')
+                a = item["answer"].replace('"', '\\"')
+                faq_lines.append(f'  - question: "{q}"')
+                faq_lines.append(f'    answer: "{a}"')
+            faq_yaml = "\n" + "\n".join(faq_lines)
         return f"""---
 title: "{d['title']}"
 slug: "{d['slug']}"
@@ -322,7 +356,7 @@ category: "{d['category']}"
 tags: {json.dumps(d['tags'], ensure_ascii=False)}
 readTime: "{d['readTime']}"
 image: "{img_url(d['image_keyword'])}"
-translationSlug: "{translation_slug}"
+translationSlug: "{translation_slug}"{faq_yaml}
 ---"""
 
     return {
