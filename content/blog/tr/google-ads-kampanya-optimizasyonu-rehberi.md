@@ -1,5 +1,5 @@
 ---
-title: "Google Ads Kampanya Optimizasyonu: 2024 Rehberi"
+title: "Google Ads Kampanya Optimizasyonu: Kapsamlı Rehber"
 slug: "google-ads-kampanya-optimizasyonu-rehberi"
 description: "Google Ads kampanya optimizasyonu için 12 kanıtlanmış strateji. Optimizasyon puanı, hedefleme ve bütçe yönetimi adımlarıyla ROAS'ınızı artırın."
 date: "2026-04-10"
@@ -10,7 +10,7 @@ image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&auto
 translationSlug: "google-ads-campaign-optimization-guide"
 ---
 
-# Google Ads Kampanya Optimizasyonu: 2024 Rehberi
+# Google Ads Kampanya Optimizasyonu: Kapsamlı Rehber
 
 Google Ads kampanya optimizasyonu, mevcut reklam harcamanızdan maksimum dönüşüm elde etmek için teklif stratejileri, hedefleme ayarları, reklam metinleri ve açılış sayfalarını sistematik olarak iyileştirme sürecidir. Doğru uygulanan optimizasyon, aynı bütçeyle %30-50 daha fazla dönüşüm sağlayabilir.
 
