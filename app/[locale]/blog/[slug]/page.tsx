@@ -8,6 +8,23 @@ import { getPostBySlug, getRelatedPosts, getAllSlugs } from '@/lib/blog-utils';
 import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/slug-mappings';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import FAQ from '@/components/FAQ';
+import ReadingProgress from '@/components/ReadingProgress';
+import TableOfContents, { type Heading } from '@/components/TableOfContents';
+
+function extractHeadings(content: string): Heading[] {
+  const regex = /^(#{2,3})\s+(.+)$/gm;
+  const headings: Heading[] = [];
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    const text = match[2].trim();
+    headings.push({
+      level: match[1].length,
+      text,
+      id: text.toLowerCase().replace(/[^a-z0-9\s]/gi, '').trim().replace(/\s+/g, '-'),
+    });
+  }
+  return headings;
+}
 
 type Locale = 'tr' | 'en';
 type Props = { params: { locale: Locale; slug: string } };
@@ -66,6 +83,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
   }
 
   const relatedPosts = getRelatedPosts(slug, locale, 3);
+  const headings = extractHeadings(post.content);
   const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
     locale === 'tr' ? 'tr-TR' : 'en-US',
     { day: 'numeric', month: 'long', year: 'numeric' }
@@ -74,6 +92,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
   return (
     <article className="pt-28 pb-20">
+      <ReadingProgress />
       {/* Article Schema */}
       <script
         type="application/ld+json"
@@ -151,7 +170,8 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
           </div>
         </div>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="flex gap-12 justify-center">
+          <div className="w-full max-w-3xl min-w-0">
           <div className="prose prose-lg max-w-none">
             <MarkdownRenderer content={post.content} />
           </div>
@@ -177,11 +197,13 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
           {/* FAQ Section */}
           {post.faq && post.faq.length > 0 && (
-            <FAQ 
-              items={post.faq} 
-              title={locale === 'tr' ? 'Sıkça Sorulan Sorular' : 'Frequently Asked Questions'} 
+            <FAQ
+              items={post.faq}
+              title={locale === 'tr' ? 'Sıkça Sorulan Sorular' : 'Frequently Asked Questions'}
             />
           )}
+          </div>
+          <TableOfContents headings={headings} locale={locale} />
         </div>
 
         {relatedPosts.length > 0 && (
