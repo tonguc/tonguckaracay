@@ -234,6 +234,35 @@ def gh_read(path: str) -> str:
         return base64.b64decode(r.json()["content"]).decode("utf-8")
     return ""
 
+def gh_update_slug_mappings(tr_slug: str, en_slug: str) -> bool:
+    """lib/slug-mappings.ts dosyasına yeni TR->EN mapping ekler."""
+    try:
+        content = gh_read("lib/slug-mappings.ts")
+        if not content or f'"{tr_slug}"' in content:
+            return True  # Zaten var veya dosya okunamadı
+        new_entry = f'  "{tr_slug}": "{en_slug}",'
+        # slugMappingTrToEn objesinin kapanış }; den önce ekle
+        updated = content.replace(
+            '  "yapay-zeka-ui-tasarim-araclari": "ai-ui-design-tools",\n};',
+            f'  "yapay-zeka-ui-tasarim-araclari": "ai-ui-design-tools",\n{new_entry}\n}};'
+        )
+        # Eğer tam string bulunamazsa sondan ekle (yeni yazılar eklendikçe son entry değişir)
+        if updated == content:
+            # };  ile biten satırı bul ve önüne ekle
+            import re as _re
+            updated = _re.sub(
+                r'(\n\};)\s*\n(export const slugMappingEnToTr)',
+                f'\n{new_entry}\n}};\n\\2',
+                content,
+                count=1
+            )
+        if updated != content:
+            return gh_push("lib/slug-mappings.ts", updated, f"feat: add slug mapping {tr_slug}")
+        return False
+    except Exception:
+        logger.exception("Slug mapping güncelleme hatası")
+        return False
+
 def gh_slugs(lang="tr"):
     r = requests.get(f"https://api.github.com/repos/{GH_REPO}/contents/content/blog/{lang}?ref={GH_BRANCH}",
                      headers=_gh_h(), timeout=10)
@@ -621,6 +650,9 @@ async def _run(u, topic):
             post["en"]["file"], post["en"]["content"], f"blog: {post['en']['slug']}")
 
         if ok_tr and ok_en:
+            # Slug mapping dosyasını güncelle
+            await loop.run_in_executor(None, gh_update_slug_mappings,
+                post["tr"]["slug"], post["en"]["slug"])
             await msg.edit_text(
                 f"✅ *Yayınlandı!*\n\n"
                 f"🇹🇷 [{post['tr']['title']}](https://tonguckaracay.com/blog/{post['tr']['slug']})\n"
