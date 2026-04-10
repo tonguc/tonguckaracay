@@ -408,9 +408,8 @@ JSON formatında döndür (başka hiçbir şey ekleme):
     "category": "SEO veya Dijital Pazarlama veya Sosyal Medya veya UI/UX veya Yapay Zeka",
     "tags": ["tag1", "tag2", "tag3", "tag4"],
     "readTime": "X dk",
-    "image_keyword": "seo veya google veya social veya marketing veya design veya ai veya content veya analytics veya email veya ads",
-    "content": "Tam markdown (frontmatter yok, {target_words} kelime hedefi, AEO+GEO+EEAT, iç+dış linkler dahil). Sonunda ## Sıkça Sorulan Sorular bölümü olsun.",
-    "faq": [{{"question": "...", "answer": "..."}}, ...]
+    "image_keyword": "seo veya google veya social veya marketing veya design veya ai",
+    "faq": [{{"question": "...", "answer": "..."}}]
   }},
   "en": {{
     "title": "SEO friendly English title (50-60 chars)",
@@ -419,22 +418,41 @@ JSON formatında döndür (başka hiçbir şey ekleme):
     "category": "SEO or Digital Marketing or Social Media or UI/UX or Artificial Intelligence",
     "tags": ["tag1", "tag2", "tag3", "tag4"],
     "readTime": "X min",
-    "image_keyword": "seo or google or social or marketing or design or ai or content or analytics or email or ads",
-    "content": "Full markdown (no frontmatter, {target_words} word target, AEO+GEO+EEAT, internal+external links included). End with ## Frequently Asked Questions section.",
-    "faq": [{{"question": "...", "answer": "..."}}, ...]
+    "image_keyword": "seo or google or social or marketing or design or ai",
+    "faq": [{{"question": "...", "answer": "..."}}]
   }}
-}}"""
+}}
+===TR_CONTENT===
+(TR markdown içerik buraya — frontmatter yok, {target_words} kelime hedefi, AEO+GEO+EEAT, iç+dış linkler, sonunda ## Sıkça Sorulan Sorular)
+===TR_END===
+===EN_CONTENT===
+(EN markdown content here — no frontmatter, {target_words} word target, AEO+GEO+EEAT, internal+external links, end with ## Frequently Asked Questions)
+===EN_END==="""
 
     resp = claude.messages.create(
-        model="claude-opus-4-5", max_tokens=6000,
+        model="claude-opus-4-5", max_tokens=8000,
         system=SYSTEM,
         messages=[{"role": "user", "content": prompt}]
     )
     raw = resp.content[0].text.strip()
-    raw = re.sub(r"^```(?:json)?\n?", "", raw)
-    raw = re.sub(r"\n?```$", "", raw)
-    data = json.loads(raw)
+
+    # Metadata JSON parse
+    json_match = re.search(r'\{[\s\S]*?"en"[\s\S]*?\}(?=\s*===TR_CONTENT===)', raw)
+    if not json_match:
+        # Fallback: tüm raw'ı JSON olarak dene
+        json_str = re.sub(r"===.*", "", raw, flags=re.DOTALL).strip()
+        json_str = re.sub(r"^```(?:json)?\n?", "", json_str)
+        json_str = re.sub(r"\n?```$", "", json_str)
+    else:
+        json_str = json_match.group(0)
+    data = json.loads(json_str)
     tr, en = data["tr"], data["en"]
+
+    # İçerik delimiter parse
+    tr_content_match = re.search(r"===TR_CONTENT===\n(.*?)===TR_END===", raw, re.DOTALL)
+    en_content_match = re.search(r"===EN_CONTENT===\n(.*?)===EN_END===", raw, re.DOTALL)
+    tr["content"] = tr_content_match.group(1).strip() if tr_content_match else ""
+    en["content"] = en_content_match.group(1).strip() if en_content_match else ""
 
     def fm(d, translation_slug):
         faq_yaml = ""
