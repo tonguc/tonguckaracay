@@ -106,28 +106,42 @@ KESİNLİKLE YASAK:
 
 # ── SERP ANALİZİ ─────────────────────────────────────────────────────────────
 
-def serp_analyze(keyword: str) -> dict:
-    """SerpAPI ile Türkiye SERP'ini analiz eder."""
+def translate_topic(topic: str) -> str:
+    """Konuyu Türkçe'den İngilizce'ye çevirir (EN SERP için)."""
+    try:
+        r = claude.messages.create(
+            model="claude-haiku-4-5-20251001", max_tokens=60,
+            messages=[{"role": "user", "content":
+                f"Translate this Turkish SEO topic to English. Return only the translation, nothing else: '{topic}'"}]
+        )
+        return r.content[0].text.strip()
+    except Exception:
+        return topic
+
+def serp_analyze(keyword: str, lang: str = "tr") -> dict:
+    """SerpAPI ile SERP analizi yapar. lang='tr' veya 'en'."""
     if not SERP_KEY:
         return {}
+    params = {
+        "q": keyword, "num": "10", "api_key": SERP_KEY,
+        "gl": "tr" if lang == "tr" else "us",
+        "hl": "tr" if lang == "tr" else "en",
+    }
     try:
-        r = requests.get("https://serpapi.com/search.json", params={
-            "q": keyword, "gl": "tr", "hl": "tr",
-            "num": "10", "api_key": SERP_KEY
-        }, timeout=15)
+        r = requests.get("https://serpapi.com/search.json", params=params, timeout=15)
         data = r.json()
         results = []
         for item in data.get("organic_results", [])[:5]:
             results.append({
-                "title": item.get("title",""),
-                "url":   item.get("link",""),
-                "snippet": item.get("snippet",""),
+                "title":   item.get("title", ""),
+                "url":     item.get("link", ""),
+                "snippet": item.get("snippet", ""),
             })
-        related = [q.get("query","") for q in data.get("related_questions", [])[:6]]
-        related += [s.get("query","") for s in data.get("related_searches", [])[:4]]
+        related = [q.get("query", "") for q in data.get("related_questions", [])[:6]]
+        related += [s.get("query", "") for s in data.get("related_searches", [])[:4]]
         return {"results": results, "related": related}
     except Exception as e:
-        logger.warning(f"SerpAPI hatası: {e}")
+        logger.warning(f"SerpAPI hatası ({lang}): {e}")
         return {}
 
 def fetch_competitor(url: str, max_chars: int = 3000) -> str:
@@ -145,14 +159,14 @@ def fetch_competitor(url: str, max_chars: int = 3000) -> str:
         logger.warning(f"Rakip fetch hatası {url}: {e}")
         return ""
 
-def build_serp_context(keyword: str) -> str:
+def build_serp_context(keyword: str, lang: str = "tr") -> str:
     """SERP + rakip içerik analizini metin olarak döner."""
-    serp = serp_analyze(keyword)
+    serp = serp_analyze(keyword, lang)
     if not serp:
         return ""
 
-    lines = [f"SERP ANALİZİ — '{keyword}' (Türkiye)\n"]
-
+    label = "Türkiye" if lang == "tr" else "US/Global"
+    lines = [f"SERP ANALİZİ — '{keyword}' ({label})\n"]
     lines.append("İlk 5 Rakip:")
     competitor_contents = []
     for i, res in enumerate(serp.get("results", []), 1):
@@ -172,6 +186,14 @@ def build_serp_context(keyword: str) -> str:
         lines.extend(competitor_contents)
 
     return "\n".join(lines)
+
+def build_dual_serp_context(topic_tr: str) -> tuple[str, str]:
+    """TR ve EN için ayrı ayrı SERP analizi yapar. (tr_ctx, en_ctx) döner."""
+    topic_en = translate_topic(topic_tr)
+    logger.info(f"EN konu çevirisi: {topic_en}")
+    tr_ctx = build_serp_context(topic_tr, lang="tr")
+    en_ctx = build_serp_context(topic_en, lang="en")
+    return tr_ctx, en_ctx
 
 # ── GITHUB API ───────────────────────────────────────────────────────────────
 
@@ -221,19 +243,24 @@ def img_url(kw):
             return f"https://images.unsplash.com/photo-{pid}?w=1200&auto=format&fit=crop&q=80"
     return f"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
 
-def generate_post(topic: str, serp_ctx: str = "") -> dict:
+def generate_post(topic: str, tr_serp: str = "", en_serp: str = "") -> dict:
     today = datetime.now().strftime("%Y-%m-%d")
 
-    serp_block = f"\n\nKULLAN — SERP & RAKİP ANALİZİ:\n{serp_ctx}" if serp_ctx else ""
+    tr_block = f"\n\nTR SERP & RAKİP ANALİZİ (Türkiye):\n{tr_serp}" if tr_serp else ""
+    en_block = f"\n\nEN SERP & RAKİP ANALİZİ (US/Global):\n{en_serp}" if en_serp else ""
 
-    prompt = f""""{topic}" konusunda TR + EN blog yazısı üret.{serp_block}
+    prompt = f""""{topic}" konusunda TR + EN blog yazısı üret.
 
 KRİTİK KURAL: title ve slug alanlarına asla yıl (2024, 2025, 2026 vb.) ekleme. Evergreen başlık yaz.
 
-SERP analizini şu şekilde kullan:
-- Rakiplerin eksik bıraktığı konuları doldur
-- İlgili soruları H2/H3 başlık olarak entegre et
-- Rakiplerden daha özgün ve derin yaz
+TR yazısı için şu SERP verisini kullan (Türkiye'deki rakipler):{tr_block}
+
+EN yazısı için şu SERP verisini kullan (US/Global rakipler):{en_block}
+
+Her dil için kendi SERP analizini kullan:
+- TR yazısı: Türkiye rakiplerinin eksik bıraktığı açıları doldur, TR anahtar kelimelerine odaklan
+- EN yazısı: Global rakiplerin eksik bıraktığı açıları doldur, EN anahtar kelimelerine odaklan
+- İlgili soruları her dilin kendi H2/H3 başlığına entegre et
 
 JSON formatında döndür (başka hiçbir şey ekleme):
 {{
@@ -398,14 +425,14 @@ async def _run(u, topic):
         f"🔍 *'{topic}'* — SERP analizi yapılıyor...", parse_mode="Markdown")
     loop = asyncio.get_event_loop()
 
-    serp_ctx = await loop.run_in_executor(None, build_serp_context, topic)
-    serp_info = "✅ SERP analizi tamamlandı" if serp_ctx else "⚠️ SerpAPI yok, genel yazı üretilecek"
+    tr_ctx, en_ctx = await loop.run_in_executor(None, build_dual_serp_context, topic)
+    serp_info = "✅ TR + EN SERP analizi tamamlandı" if (tr_ctx or en_ctx) else "⚠️ SerpAPI yok, genel yazı üretilecek"
 
     await msg.edit_text(
         f"{serp_info}\n✍️ Yazı üretiliyor _(1-2 dk)_...", parse_mode="Markdown")
 
     try:
-        post = await loop.run_in_executor(None, generate_post, topic, serp_ctx)
+        post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx)
         await msg.edit_text(
             f"📦 GitHub'a yükleniyor...\n"
             f"🇹🇷 `{post['tr']['slug']}`\n🇬🇧 `{post['en']['slug']}`",
@@ -445,8 +472,8 @@ async def scheduler(app):
                 try: await app.bot.send_message(uid, f"🕐 *Günlük yazı:* _{topic}_", parse_mode="Markdown")
                 except: pass
             loop = asyncio.get_event_loop()
-            serp_ctx = await loop.run_in_executor(None, build_serp_context, topic)
-            post = await loop.run_in_executor(None, generate_post, topic, serp_ctx)
+            tr_ctx, en_ctx = await loop.run_in_executor(None, build_dual_serp_context, topic)
+            post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx)
             ok_tr = await loop.run_in_executor(None, gh_push, post["tr"]["file"], post["tr"]["content"], f"blog: {post['tr']['slug']}")
             ok_en = await loop.run_in_executor(None, gh_push, post["en"]["file"], post["en"]["content"], f"blog: {post['en']['slug']}")
             result = (f"✅ *Günlük yazı yayınlandı!*\n🇹🇷 `{post['tr']['slug']}`\n🇬🇧 `{post['en']['slug']}`"
