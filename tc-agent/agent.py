@@ -314,109 +314,57 @@ def get_internal_links(lang="tr") -> str:
         return ""
 
 # ── BLOG ÜRETİCİ ─────────────────────────────────────────────────────────────
-
-IMAGES: dict[str, list[str]] = {
-    "seo": [
-        "1573804633927-bfcbcd909acd",
-        "1432888498266-38ffec3eaf0a",
-        "1519389950473-47ba0277781c",
-        "1571721795195-a2ca2d3370e9",
-    ],
-    "google": [
-        "1611162617213-7d7a39e9b1d7",
-        "1549924231-f129b911d442",
-        "1516116216624-53ad697a8648",
-        "1497366811353-6870744d04b2",
-    ],
-    "social": [
-        "1563986768609-322da13575f3",
-        "1516251193007-45ef944ab0c6",
-        "1520333789090-1afc82db536a",
-        "1611162616476-53ad697a8648",
-    ],
-    "marketing": [
-        "1533750349088-cd871a92f312",
-        "1454165804606-c3d57bc86b40",
-        "1552664730-d307ca884978",
-        "1556761175-b413da4baf72",
-    ],
-    "design": [
-        "1561070791-2526d30994b5",
-        "1558655702-b1a49a557e15",
-        "1541462608143-67571c6738dd",
-        "1507238691740-187a5b1d37b7",
-    ],
-    "ai": [
-        "1677442136019-21780ecad995",
-        "1620712943543-bcc4688e7485",
-        "1485827404703-89b55fcc595e",
-        "1555255707-c07966088b7b",
-    ],
-    "content": [
-        "1542744094-3a31f272c490",
-        "1499750310-25496d3e5ed6",
-        "1486312338219-ce68d2c6f44d",
-        "1504711434969-e33886168f5c",
-    ],
-    "analytics": [
-        "1551288049-bebda4e38f71",
-        "1460925895917-afdab827c52f",
-        "1553877522-43269d4ea984",
-        "1551434678-e076c223a692",
-    ],
-    "email": [
-        "1596526131083-e8c633360a4c",
-        "1517976487492-5750f3195933",
-        "1563237819-2aefb2a12e56",
-        "1526178613658-3f1622045557",
-    ],
-    "ads": [
-        "1611974789855-9c2a0a7236a3",
-        "1562577309-4f401e5e5b31",
-        "1553484771-047a44eab61a",
-        "1504711434969-e33886168f5c",
-    ],
-}
-
-_FALLBACK_IMAGES = [
-    "1460925895917-afdab827c52f",
-    "1486312338219-ce68d2c6f44d",
-    "1497366216548-37526070297c",
-    "1504711434969-e33886168f5c",
-    "1519389950473-47ba0277781c",
-    "1552664730-d307ca884978",
+# Sıralı görsel havuzu — her yeni yazı sıradaki ID'yi alır, tekrar etmez.
+# Yeni ID eklenecekse listenin SONUNA ekle, sırası değiştirme.
+IMAGE_POOL = [
+    "1573804633927-bfcbcd909acd",
+    "1533750349088-cd871a92f312",
+    "1561070791-2526d30994b5",
+    "1677442136019-21780ecad995",
     "1542744094-3a31f272c490",
+    "1551288049-bebda4e38f71",
+    "1596526131083-e8c633360a4c",
+    "1611974789855-9c2a0a7236a3",
+    "1460925895917-afdab827c52f",
+    "1454165804606-c3d57bc86b40",
+    "1485827404703-89b55fcc595e",
+    "1555255707-c07966088b7b",
+    "1676299081847-824916de030a",
+    "1633356122544-f134324a6cee",
+    "1611162617213-7d7a39e9b1d7",
+    "1549924231-f129b911d442",
+    "1552664730-d307ca884978",
+    "1556761175-b413da4baf72",
+    "1558655702-b1a49a557e15",
+    "1432888498266-38ffec3eaf0a",
+    "1519389950473-47ba0277781c",
+    "1516116216624-53ad697a8648",
+    "1563986768609-322da13575f3",
+    "1516251193007-45ef944ab0c6",
+    "1520333789090-1afc82db536a",
+    "1541462608143-67571c6738dd",
+    "1507238691740-187a5b1d37b7",
+    "1499750310-25496d3e5ed6",
+    "1486312338219-ce68d2c6f44d",
+    "1553877522-43269d4ea984",
+    "1551434678-e076c223a692",
+    "1517976487492-5750f3195933",
+    "1562577309-4f401e5e5b31",
+    "1497366216548-37526070297c",
+    "1497366811353-6870744d04b2",
+    "1553484771-047a44eab61a",
+    "1526178613658-3f1622045557",
+    "1563237819-2aefb2a12e56",
+    "1571721795195-a2ca2d3370e9",
+    "1504711434969-e33886168f5c",
 ]
 
 
-def get_used_image_ids() -> set:
-    """GitHub'daki mevcut tüm yazılardan kullanılan Unsplash foto ID'lerini toplar."""
-    used = set()
-    for lang in ("tr", "en"):
-        for slug in gh_slugs(lang):
-            content = gh_read(f"content/blog/{lang}/{slug}.md")
-            if content:
-                m = re.search(r'photo-([a-z0-9]+-[a-f0-9]+)\?', content)
-                if m:
-                    used.add(m.group(1))
-    return used
+def pick_image(index: int) -> str:
+    """Havuzdan sıradaki görseli döner. index = mevcut TR post sayısı."""
+    pid = IMAGE_POOL[index % len(IMAGE_POOL)]
+    return f"https://images.unsplash.com/photo-{pid}?w=1200&auto=format&fit=crop&q=80"
 
-
-def img_url(kw: str, slug: str = "", used_ids: set = None) -> str:
-    """Kullanılmayan Unsplash görseli seçer. Tüm seçenekler doluysa seed ile seçer."""
-    import hashlib
-    if used_ids is None:
-        used_ids = set()
-    seed = int(hashlib.md5((kw + slug).encode()).hexdigest(), 16)
-    kw_lower = kw.lower()
-    for k, pids in IMAGES.items():
-        if k in kw_lower:
-            available = [p for p in pids if p not in used_ids]
-            pool = available if available else pids
-            return f"https://images.unsplash.com/photo-{pool[seed % len(pool)]}?w=1200&auto=format&fit=crop&q=80"
-    available = [p for p in _FALLBACK_IMAGES if p not in used_ids]
-    pool = available if available else _FALLBACK_IMAGES
-    return f"https://images.unsplash.com/photo-{pool[seed % len(pool)]}?w=1200&auto=format&fit=crop&q=80"
 
 def extract_paa(serp_data: str) -> list[str]:
     """SERP verisinden PAA (People Also Ask) sorularını çeker."""
@@ -566,14 +514,11 @@ faq:
     # TR'deki PLACEHOLDER_EN_SLUG → gerçek EN slug ile değiştir
     tr_file = tr_file.replace("PLACEHOLDER_EN_SLUG", en_slug)
 
-    # image_keyword → gerçek Unsplash URL ile değiştir (kullanılanları exclude et)
-    used_ids = get_used_image_ids()
-    tr_kw = fm_field(tr_file, "image_keyword")
-    en_kw = fm_field(en_file, "image_keyword")
-    tr_img = img_url(tr_kw, tr_slug, used_ids)
-    # EN görseli seçerken TR'nin seçtiğini de exclude et
-    tr_img_id = re.search(r'photo-([^?]+)', tr_img).group(1)
-    en_img = img_url(en_kw, en_slug, used_ids | {tr_img_id})
+    # Görsel seçimi: mevcut TR post sayısını index olarak kullan
+    # TR = index N, EN = index N+1 → asla aynı görsel alamazlar
+    post_index = len(gh_slugs("tr"))
+    tr_img = pick_image(post_index)
+    en_img = pick_image(post_index + 1)
     tr_file = re.sub(r'^image_keyword:.*$', f'image: "{tr_img}"', tr_file, flags=re.MULTILINE)
     en_file = re.sub(r'^image_keyword:.*$', f'image: "{en_img}"', en_file, flags=re.MULTILINE)
 
