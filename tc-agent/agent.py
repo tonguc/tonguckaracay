@@ -319,7 +319,7 @@ def get_internal_links(lang="tr") -> str:
 # verir → aynı kategoride bile farklı yazılar farklı görsel alır.
 CATEGORY_IMAGES: dict[str, list[str]] = {
     "seo": [
-        "1573804633927-bfcbcd909acd",
+        "1504868584819-f8e8b4b6d7e3",
         "1432888498266-38ffec3eaf0a",
         "1519389950473-47ba0277781c",
         "1571721795195-a2ca2d3370e9",

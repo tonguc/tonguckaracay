@@ -6,7 +6,7 @@ date: "2026-04-11"
 category: "Artificial Intelligence"
 tags: ["AI Agents", "Customer Service Automation", "Digital Marketing", "Chatbots"]
 readTime: "12 min"
-image: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1560250097-89f7c5f00a30?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "ai-agent-musteri-hizmetleri-otomasyonu"
 faq:
   - question: "What is an AI agent in customer service?"

@@ -6,7 +6,7 @@ date: "2026-04-11"
 category: "Yapay Zeka"
 tags: ["ai agent", "müşteri hizmetleri", "chatbot", "otomasyon", "yapay zeka"]
 readTime: "12 dk"
-image: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1560250097-89f7c5f00a30?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "ai-agent-customer-service-automation"
 faq:
   - question: "AI agent müşteri hizmetlerinde ne işe yarar?"
