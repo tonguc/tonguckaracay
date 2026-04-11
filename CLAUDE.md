@@ -82,3 +82,24 @@ npm run lint
 - `app/[locale]/blog/` — Blog sayfaları
 - `messages/tr.json` + `messages/en.json` — UI çevirileri
 - `middleware.ts` — Geo-tabanlı locale yönlendirme
+
+## KRİTİK: Slug Mapping Zorunluluğu
+
+Her yeni blog yazısı eklendiğinde `lib/slug-mappings.ts` dosyası MUTLAKA güncellenmeli.
+Aksi hâlde TR↔EN dil geçişi ve ilgili yazı linkleri 500 hatası verir.
+
+### Kural
+`lib/slug-mappings.ts` içindeki `slugMappingTrToEn` nesnesine şu format ile ekle:
+```ts
+"tr-slug": "en-slug",
+```
+
+### Doğrulama
+Mapping'teki EN slug değeri, `content/blog/en/` klasöründeki dosyanın frontmatter'ındaki
+`slug:` alanıyla **birebir** aynı olmalı. Dosya adıyla değil, frontmatter slug'ıyla eşleşmeli.
+
+Örnek kontrol:
+```bash
+grep "slug:" content/blog/en/DOSYAADI.md
+```
+Bu çıktıdaki değer slug-mappings.ts'e yazılmalı.
