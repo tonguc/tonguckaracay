@@ -6,7 +6,7 @@ date: "2026-04-11"
 category: "Yapay Zeka"
 tags: ["prompt mühendisliği", "yapay zeka", "para kazanma", "freelance"]
 readTime: "11 dk"
-image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "ai-prompt-engineering-ways-to-make-money"
 faq:
   - question: "Prompt mühendisliği ile ayda ne kadar kazanılır?"
