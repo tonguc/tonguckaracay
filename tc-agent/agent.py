@@ -547,6 +547,7 @@ async def cmd_start(u, _):
     await u.message.reply_text(
         "👋 *tonguckaracay.com Growth Agent v2*\n\n"
         "📝 `/yazi [konu]` — SERP analizi yapıp yazı üret\n"
+        "💡 `/fikir [konu]` — Trafik getirecek 7 konu önerisi\n"
         "✏️ `/revize [slug] [istek]` — Mevcut yazıyı düzenle\n"
         "🤖 `/gunluk` — Otomatik konu seç ve yaz\n"
         "📋 `/brief [konu]` — Sadece içerik brief göster\n"
@@ -694,6 +695,63 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
         logger.exception("Revize hatası")
         await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:400]}\n```", parse_mode="Markdown")
 
+async def cmd_fikir(u, ctx):
+    if not auth(u): return await deny(u)
+    konu = " ".join(ctx.args).strip() if ctx.args else ""
+
+    konu_label = f"*'{konu}'* için" if konu else "Genel niş için"
+    msg = await u.message.reply_text(
+        f"🔍 {konu_label} trafik fırsatları analiz ediliyor...", parse_mode="Markdown")
+
+    loop = asyncio.get_event_loop()
+
+    # SERP verisi — konu varsa ona göre, yoksa genel nişe göre
+    arama = konu if konu else "dijital pazarlama SEO stratejisi"
+    serp = await loop.run_in_executor(None, build_serp_context, arama, "tr")
+    serp_block = f"\nSERP VERİSİ:\n{serp['context'][:2000]}" if serp.get("context") else ""
+
+    # Zaten yazılmış sluglar — tekrar önermemek için
+    used_slugs = gh_slugs("tr")
+    used_block = ("\nZATEN YAZILMIŞ KONULAR (bunları ve benzerlerini önerme):\n"
+                  + "\n".join(f"- {s}" for s in used_slugs[:40])) if used_slugs else ""
+
+    konu_block = f'"{konu}" konusuna odaklanarak' if konu else \
+        "dijital pazarlama, SEO, UI/UX, yapay zeka, Google Ads, içerik pazarlaması konularında"
+
+    prompt = f"""tonguckaracay.com için {konu_block} trafik getirecek 7 blog yazısı öner.
+
+Site: Tonguç Karaçay — dijital pazarlama ve SEO danışmanlığı (tonguckaracay.com)
+Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, girişimciler
+{serp_block}
+{used_block}
+
+Her öneri için TAM OLARAK şu formatı kullan:
+
+**1. Başlık buraya (50-60 karakter, yıl yok)**
+📌 Format: how-to / listicle / comparison / what-is / case-study
+🎯 Intent: informational / commercial / transactional
+📈 Arama potansiyeli: yüksek / orta / düşük
+💡 Neden trafik getirir: (tek cümle)
+
+Sadece 7 öneriyi listele, başka açıklama ekleme."""
+
+    try:
+        resp = await loop.run_in_executor(None, lambda: claude.messages.create(
+            model="claude-sonnet-4-5", max_tokens=1500,
+            messages=[{"role": "user", "content": prompt}]
+        ))
+        ideas = resp.content[0].text.strip()
+        baslik = f"💡 *{konu_label} İçerik Fikirleri*\n\n"
+        # Telegram 4096 karakter limiti
+        text = baslik + ideas
+        if len(text) > 4000:
+            text = text[:4000] + "\n..."
+        await msg.edit_text(text, parse_mode="Markdown")
+    except Exception as e:
+        logger.exception("Fikir hatası")
+        await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:300]}\n```", parse_mode="Markdown")
+
+
 async def cmd_yazi(u, ctx):
     if not auth(u): return await deny(u)
     topic = " ".join(ctx.args).strip() if ctx.args else ""
@@ -810,7 +868,7 @@ def main():
     app = Application.builder().token(token).post_init(post_init).build()
     for cmd, fn in [("start",cmd_start),("yardim",cmd_start),("durum",cmd_durum),
                     ("liste",cmd_liste),("brief",cmd_brief),("revize",cmd_revize),
-                    ("yazi",cmd_yazi),("gunluk",cmd_gunluk),("stop",cmd_stop)]:
+                    ("yazi",cmd_yazi),("fikir",cmd_fikir),("gunluk",cmd_gunluk),("stop",cmd_stop)]:
         app.add_handler(CommandHandler(cmd, fn))
     logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH}")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
