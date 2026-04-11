@@ -25,6 +25,7 @@ export const slugMappingTrToEn: Record<string, string> = {
   "yapay-zeka-ui-tasarim-araclari": "ai-ui-design-tools",
   "google-ads-kampanya-optimizasyonu-rehberi": "google-ads-campaign-optimization-guide",
   "yapay-zeka-araclari-ve-kullanim-alanlari": "ai-tools-and-use-cases-complete-guide",
+  "prompt-muhendisligi-ile-para-kazanma": "ai-prompt-engineering-ways-to-make-money",
 };
 export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
   Object.entries(slugMappingTrToEn).map(([tr, en]) => [en, tr])
