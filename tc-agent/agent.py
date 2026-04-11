@@ -345,6 +345,27 @@ def extract_paa(serp_data: str) -> list[str]:
                 questions.append(q)
     return questions[:8]
 
+def _call_claude(prompt: str, max_tokens: int = 8000) -> str:
+    """Claude API çağrısı yapar, raw metni döner."""
+    resp = claude.messages.create(
+        model="claude-opus-4-5", max_tokens=max_tokens,
+        system=SYSTEM,
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return resp.content[0].text.strip()
+
+
+def _parse_block(raw: str, start_tag: str, end_tag: str, lang: str) -> str:
+    """Delimiter arasındaki içeriği çıkarır. Kapanış eksikse sona kadar alır."""
+    m = re.search(rf"{re.escape(start_tag)}\s*(.*?)\s*{re.escape(end_tag)}", raw, re.DOTALL)
+    if not m:
+        m = re.search(rf"{re.escape(start_tag)}\s*(.*)", raw, re.DOTALL)
+    if not m:
+        logger.error(f"{lang} bloğu bulunamadı. Raw:\n{raw[:500]}")
+        raise ValueError(f"{lang} yazı üretilemedi. Claude yanıtı: {raw[:300]}")
+    return m.group(1).strip()
+
+
 def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
                   tr_intent: str = "informational", en_intent: str = "informational",
                   target_words: int = 1200,
@@ -370,20 +391,20 @@ def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
     tr_links_block = f"\n\n{tr_links}" if tr_links else ""
     en_links_block = f"\n\n{en_links}" if en_links else ""
 
-    prompt = f""""{topic}" konusunda TR ve EN blog yazısı yaz.
+    def fm_field(content, key):
+        m = re.search(rf'^{key}:\s*"([^"]+)"', content, re.MULTILINE)
+        return m.group(1) if m else ""
+
+    # ── 1. ÇAĞRI: Türkçe yazı ────────────────────────────────────────────────
+    tr_prompt = f""""{topic}" konusunda Türkçe blog yazısı yaz.
 
 KURALLAR:
 - Başlık ve slug'da asla yıl (2024/2025/2026) kullanma — evergreen yaz
-- Hedef kelime sayısı: {target_words} (her iki dil için)
-- TR intent: {tr_intent} — {tr_intent_desc}
-- EN intent: {en_intent} — {en_intent_desc}
+- Hedef kelime sayısı: {target_words}
+- Intent: {tr_intent} — {tr_intent_desc}
 - İç link: verilen URL listesinden 3-5 tanesine doğal anchor text ile link ver
 - Dış link: 2-3 güvenilir kaynak (Google, Moz, HubSpot, Statista vb.)
-- FAQ: 6-8 soru, her cevap 60-80 kelime, PAA sorgularından üret
-
-TR için:{tr_block}{tr_paa_block}{tr_links_block}
-
-EN için:{en_block}{en_paa_block}{en_links_block}
+- FAQ: 6-8 soru, her cevap 60-80 kelime, PAA sorgularından üret{tr_block}{tr_paa_block}{tr_links_block}
 
 TAM OLARAK ŞU FORMATTA DÖN (başka hiçbir şey ekleme):
 ===TR_START===
@@ -396,7 +417,7 @@ category: "SEO veya Dijital Pazarlama veya Sosyal Medya veya UI/UX veya Yapay Ze
 tags: ["tag1", "tag2", "tag3", "tag4"]
 readTime: "X dk"
 image_keyword: "seo veya google veya social veya marketing veya design veya ai veya content veya analytics"
-translationSlug: "(EN slug)"
+translationSlug: "PLACEHOLDER_EN_SLUG"
 faq:
   - question: "Soru 1?"
     answer: "Cevap 1 (60-80 kelime)."
@@ -406,7 +427,29 @@ faq:
 
 (TR markdown içerik — {target_words} kelime, AEO+GEO+EEAT, iç+dış linkler, sonunda ## Sıkça Sorulan Sorular bölümü)
 
-===TR_END===
+===TR_END==="""
+
+    logger.info("TR yazı üretiliyor...")
+    tr_raw = _call_claude(tr_prompt)
+    logger.info(f"TR yanıt ({len(tr_raw)} karakter): {tr_raw[:300]}")
+    tr_file = _parse_block(tr_raw, "===TR_START===", "===TR_END===", "TR")
+    tr_slug  = fm_field(tr_file, "slug")
+    tr_title = fm_field(tr_file, "title")
+
+    # ── 2. ÇAĞRI: İngilizce yazı ─────────────────────────────────────────────
+    en_prompt = f""""{topic}" konusunda İngilizce blog yazısı yaz.
+
+RULES:
+- Never use years (2024/2025/2026) in title or slug — write evergreen
+- Target word count: {target_words}
+- Intent: {en_intent} — {en_intent_desc}
+- Internal links: naturally link 3-5 URLs from the list below
+- External links: 2-3 authoritative sources (Google, Moz, HubSpot, Statista etc.)
+- FAQ: 6-8 questions, each answer 60-80 words, based on PAA queries{en_block}{en_paa_block}{en_links_block}
+
+The Turkish version of this post has slug: "{tr_slug}"
+
+RESPOND IN EXACTLY THIS FORMAT (nothing else):
 ===EN_START===
 ---
 title: "EN title (50-60 chars, no year)"
@@ -417,7 +460,7 @@ category: "SEO or Digital Marketing or Social Media or UI/UX or Artificial Intel
 tags: ["tag1", "tag2", "tag3", "tag4"]
 readTime: "X min"
 image_keyword: "seo or google or social or marketing or design or ai or content or analytics"
-translationSlug: "(TR slug)"
+translationSlug: "{tr_slug}"
 faq:
   - question: "Question 1?"
     answer: "Answer 1 (60-80 words)."
@@ -429,45 +472,21 @@ faq:
 
 ===EN_END==="""
 
-    resp = claude.messages.create(
-        model="claude-opus-4-5", max_tokens=8000,
-        system=SYSTEM,
-        messages=[{"role": "user", "content": prompt}]
-    )
-    raw = resp.content[0].text.strip()
-    logger.info(f"Claude raw yanıt ({len(raw)} karakter): {raw[:500]}")
-
-    # Önce tam delimiter, olmadığında bir sonraki bölüme veya sona kadar al
-    tr_match = re.search(r"===TR_START===\s*(.*?)\s*===TR_END===", raw, re.DOTALL) or \
-               re.search(r"===TR_START===\s*(.*?)(?=\s*===EN_START===|\Z)", raw, re.DOTALL)
-    en_match = re.search(r"===EN_START===\s*(.*?)\s*===EN_END===", raw, re.DOTALL) or \
-               re.search(r"===EN_START===\s*(.*?)(?=\s*\Z)", raw, re.DOTALL)
-
-    if not tr_match:
-        logger.error(f"TR_START bulunamadı. Raw:\n{raw[:500]}")
-        raise ValueError(f"TR yazı üretilemedi. Claude yanıtı: {raw[:300]}")
-    if not en_match:
-        logger.error(f"EN_START bulunamadı. Raw:\n{raw[-500:]}")
-        raise ValueError(f"EN yazı üretilemedi. Claude yanıtı: {raw[-300:]}")
-
-    tr_file = tr_match.group(1).strip()
-    en_file = en_match.group(1).strip()
-
-    def fm_field(content, key):
-        m = re.search(rf'^{key}:\s*"([^"]+)"', content, re.MULTILINE)
-        return m.group(1) if m else ""
-
-    tr_slug  = fm_field(tr_file, "slug")
-    tr_title = fm_field(tr_file, "title")
+    logger.info("EN yazı üretiliyor...")
+    en_raw = _call_claude(en_prompt)
+    logger.info(f"EN yanıt ({len(en_raw)} karakter): {en_raw[:300]}")
+    en_file = _parse_block(en_raw, "===EN_START===", "===EN_END===", "EN")
     en_slug  = fm_field(en_file, "slug")
     en_title = fm_field(en_file, "title")
 
+    # TR'deki PLACEHOLDER_EN_SLUG → gerçek EN slug ile değiştir
+    tr_file = tr_file.replace("PLACEHOLDER_EN_SLUG", en_slug)
+
     # image_keyword → gerçek Unsplash URL ile değiştir
-    for kw_field in ["image_keyword"]:
-        tr_kw = fm_field(tr_file, kw_field)
-        en_kw = fm_field(en_file, kw_field)
-        tr_file = re.sub(r'^image_keyword:.*$', f'image: "{img_url(tr_kw)}"', tr_file, flags=re.MULTILINE)
-        en_file = re.sub(r'^image_keyword:.*$', f'image: "{img_url(en_kw)}"', en_file, flags=re.MULTILINE)
+    tr_kw = fm_field(tr_file, "image_keyword")
+    en_kw = fm_field(en_file, "image_keyword")
+    tr_file = re.sub(r'^image_keyword:.*$', f'image: "{img_url(tr_kw)}"', tr_file, flags=re.MULTILINE)
+    en_file = re.sub(r'^image_keyword:.*$', f'image: "{img_url(en_kw)}"', en_file, flags=re.MULTILINE)
 
     return {
         "tr": {"slug": tr_slug, "title": tr_title,
