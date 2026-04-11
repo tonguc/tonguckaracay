@@ -661,52 +661,74 @@ async def cmd_revize(u, ctx):
     en_slug = en_slug_match.group(1) if en_slug_match else slug
     en_content = await loop.run_in_executor(None, gh_read, f"content/blog/en/{en_slug}.md")
 
-    await msg.edit_text(f"✍️ Revize ediliyor: _{talimat}_", parse_mode="Markdown")
+    await msg.edit_text(f"✍️ TR revize ediliyor: _{talimat}_", parse_mode="Markdown")
 
-    try:
-        prompt = f"""Şu blog yazısını revize et.
-
-TALİMAT: {talimat}
-
-MEVCUT TR YAZI:
-{tr_content}
-
-{"MEVCUT EN YAZI:" + chr(10) + en_content if en_content else ""}
-
-KURALLAR:
+    kurallar = """KURALLAR:
 - slug ve translationSlug alanlarını kesinlikle değiştirme.
 - YIL KURALI: Başlık ve slug'da asla yıl rakamı kullanma.
 - Eğer talimat "faq ekle" veya "faq güncelle" içeriyorsa, frontmatter'a faq alanı ekle/güncelle:
   faq:
     - question: "Soru?"
       answer: "Cevap (2-3 cümle)."
-  En az 5, en fazla 8 soru-cevap. Sorular içerikten veya PAA mantığıyla üret.
-  TR yazı için Türkçe, EN yazı için İngilizce soru-cevap yaz.
-- Diğer durumlarda frontmatter'ı olduğu gibi koru, sadece içeriği düzenle.
+  En az 5, en fazla 8 soru-cevap. TR yazı için Türkçe, EN için İngilizce yaz.
+- Diğer durumlarda frontmatter'ı olduğu gibi koru, sadece içeriği düzenle."""
+
+    try:
+        # ── 1. ÇAĞRI: TR revize ──────────────────────────────────────────────
+        tr_prompt = f"""Şu Türkçe blog yazısını revize et.
+
+TALİMAT: {talimat}
+
+MEVCUT TR YAZI:
+{tr_content}
+
+{kurallar}
 
 Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
 ===TR_START===
 (düzenlenmiş TR markdown, frontmatter dahil)
-===TR_END===
+===TR_END==="""
+
+        tr_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+            model="claude-sonnet-4-5", max_tokens=8000,
+            system=SYSTEM,
+            messages=[{"role": "user", "content": tr_prompt}]
+        ).content[0].text.strip())
+
+        tr_match = re.search(r"===TR_START===\s*(.*?)\s*===TR_END===", tr_raw, re.DOTALL) or \
+                   re.search(r"===TR_START===\s*(.*)", tr_raw, re.DOTALL)
+        if not tr_match:
+            return await msg.edit_text("❌ TR revize başarısız: Claude beklenen formatta yanıt vermedi.")
+        new_tr = tr_match.group(1).strip()
+
+        # ── 2. ÇAĞRI: EN revize (EN içerik varsa) ───────────────────────────
+        new_en = None
+        if en_content:
+            await msg.edit_text(f"✍️ EN revize ediliyor: _{talimat}_", parse_mode="Markdown")
+            en_prompt = f"""Revise this English blog post.
+
+INSTRUCTION: {talimat}
+
+CURRENT EN POST:
+{en_content}
+
+{kurallar}
+
+Respond in exactly this format (nothing else):
 ===EN_START===
-(düzenlenmiş EN markdown, frontmatter dahil)
+(revised EN markdown, including frontmatter)
 ===EN_END==="""
 
-        resp = claude.messages.create(
-            model="claude-sonnet-4-5", max_tokens=6000,
-            system=SYSTEM,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        raw = resp.content[0].text.strip()
+            en_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+                model="claude-sonnet-4-5", max_tokens=8000,
+                system=SYSTEM,
+                messages=[{"role": "user", "content": en_prompt}]
+            ).content[0].text.strip())
 
-        tr_match = re.search(r"===TR_START===\n(.*?)===TR_END===", raw, re.DOTALL)
-        en_match = re.search(r"===EN_START===\n(.*?)===EN_END===", raw, re.DOTALL)
-
-        if not tr_match:
-            return await msg.edit_text("❌ Claude beklenen formatta yanıt vermedi. Tekrar dene.")
-
-        new_tr = tr_match.group(1).strip()
-        new_en = en_match.group(1).strip() if en_match else None
+            en_match = re.search(r"===EN_START===\s*(.*?)\s*===EN_END===", en_raw, re.DOTALL) or \
+                       re.search(r"===EN_START===\s*(.*)", en_raw, re.DOTALL)
+            if en_match:
+                new_en = en_match.group(1).strip()
 
         await msg.edit_text("📦 Revize edilmiş yazı GitHub'a yükleniyor...", parse_mode="Markdown")
 
@@ -714,7 +736,7 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
             f"content/blog/tr/{slug}.md", new_tr, f"revize: {slug}")
 
         ok_en = False
-        if new_en and en_content:
+        if new_en:
             ok_en = await loop.run_in_executor(None, gh_push,
                 f"content/blog/en/{en_slug}.md", new_en, f"revize: {en_slug}")
 
