@@ -3,7 +3,7 @@ title: "AI Tools for UI Design: Complete Guide"
 slug: "ai-ui-design-tools"
 description: "Discover AI tools transforming UI design. Figma AI, Uizard, Google Stitch features, practical strategies, and the latest industry statistics."
 date: "2026-01-12"
-category: "UI/UX Design"
+category: "UI/UX"
 tags: ["Artificial Intelligence", "UI Design", "Figma AI", "Uizard", "UX Tools", "Prompt-to-UI", "Design Automation", "AI Design Tools"]
 readTime: "12 min"
 image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&auto=format&fit=crop&q=80"

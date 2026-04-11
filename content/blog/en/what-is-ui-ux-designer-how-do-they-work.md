@@ -3,7 +3,7 @@ title: "What Is a UI/UX Designer and How Do They Work?"
 slug: "what-is-ui-ux-designer-how-do-they-work"
 description: "Discover what UI and UX designers do, how they work, and their role in the digital product development process."
 date: "2020-07-22"
-category: "UI-UX"
+category: "UI/UX"
 tags: ["UI Design", "UX Design", "User Experience", "Interface Design"]
 readTime: "7 min"
 image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&auto=format&fit=crop&q=80"

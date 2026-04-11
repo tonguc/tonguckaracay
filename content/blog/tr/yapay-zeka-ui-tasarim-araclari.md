@@ -3,7 +3,7 @@ title: "UI Tasarım Süreçlerinde Yapay Zeka Araçları Rehberi"
 slug: "yapay-zeka-ui-tasarim-araclari"
 description: "UI tasarım süreçlerini dönüştüren AI araçlarını keşfedin. Figma AI, Uizard, Google Stitch özellikleri, pratik stratejiler ve güncel istatistikler."
 date: "2026-01-12"
-category: "UI/UX Tasarım"
+category: "UI/UX"
 tags: ["Yapay Zeka", "UI Tasarım", "Figma AI", "Uizard", "UX Araçları", "Prompt-to-UI", "Tasarım Otomasyonu", "AI Design Tools"]
 readTime: "12 dk"
 image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&auto=format&fit=crop&q=80"

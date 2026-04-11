@@ -4,7 +4,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowLeft, Hash } from 'lucide-react';
-import { getPostBySlug, getRelatedPosts, getAllSlugs } from '@/lib/blog-utils';
+import { getPostBySlug, getRelatedPosts, getAllSlugs, getAllPosts } from '@/lib/blog-utils';
 import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/slug-mappings';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import FAQ from '@/components/FAQ';
@@ -79,6 +79,10 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
   }
 
   const relatedPosts = getRelatedPosts(slug, locale, 3);
+  const relatedSlugs = new Set([slug, ...relatedPosts.map(p => p.slug)]);
+  const latestPosts = getAllPosts(locale)
+    .filter(p => !relatedSlugs.has(p.slug))
+    .slice(0, 6);
   const headings = extractHeadings(post.content);
   const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
     locale === 'tr' ? 'tr-TR' : 'en-US',
@@ -227,6 +231,27 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
                 </Link>
               ))}
             </div>
+
+            {latestPosts.length > 0 && (
+              <div className="mt-10 pt-8 border-t border-surface-border">
+                <h3 className="text-xs font-semibold uppercase tracking-widest text-primary-400 mb-4">
+                  {locale === 'tr' ? 'Son Yazılar' : 'Latest Posts'}
+                </h3>
+                <ul className="space-y-2">
+                  {latestPosts.map((p) => (
+                    <li key={p.slug}>
+                      <Link
+                        href={locale === 'tr' ? `/${p.slug}` : `/en/${p.slug}`}
+                        className="flex items-center justify-between gap-4 py-2 border-b border-surface-border/50 group"
+                      >
+                        <span className="text-sm text-primary-300 group-hover:text-white transition-colors line-clamp-1">{p.title}</span>
+                        <span className="text-xs text-primary-500 shrink-0">{p.category}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -5,7 +5,7 @@ description: "Discover practical monetization strategies for prompt engineering 
 date: "2026-04-11"
 category: "Artificial Intelligence"
 readTime: "9 min"
-image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&auto=format&fit=crop&q=80"auto=formatimage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&auto=format&fit=crop&q=80"fit=cropimage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&auto=format&fit=crop&q=80"q=80"
 translationSlug: "prompt-muhendisligi-ile-para-kazanma"
 faq:
   - question: "Can you actually make money with prompt engineering?"
