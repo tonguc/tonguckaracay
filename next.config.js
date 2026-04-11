@@ -146,13 +146,13 @@ const nextConfig = {
       },
       // Blog URL yapısı değişikliği: /blog/[slug] → /[slug]
       {
-        source: '/blog/:slug*',
-        destination: '/:slug*',
+        source: '/blog/:slug+',
+        destination: '/:slug+',
         permanent: true,
       },
       {
-        source: '/en/blog/:slug*',
-        destination: '/en/:slug*',
+        source: '/en/blog/:slug+',
+        destination: '/en/:slug+',
         permanent: true,
       },
     ];
