@@ -57,7 +57,9 @@ export default function TableOfContents({ headings, locale, variant }: Props) {
             ${h.level === 3 ? 'pl-5' : 'pl-2'}
             ${activeId === h.id
               ? 'border-accent-500 text-accent-400 font-medium'
-              : 'border-transparent text-primary-400 hover:text-primary-200 hover:border-primary-500'
+              : h.level === 3
+                ? 'border-transparent text-primary-500 hover:text-primary-300 hover:border-primary-500'
+                : 'border-transparent text-primary-300 font-medium hover:text-white hover:border-primary-400'
             }`}
         >
           {h.text}
