@@ -60,8 +60,11 @@ export function getAllPosts(locale: 'tr' | 'en' = 'tr'): BlogPost[] {
       } as BlogPost;
     });
   
-  // Sort by date (newest first)
-  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  // Sort by date (newest first), same date → alphabetical slug
+  return posts.sort((a, b) => {
+    const diff = new Date(b.date).getTime() - new Date(a.date).getTime();
+    return diff !== 0 ? diff : a.slug.localeCompare(b.slug);
+  });
 }
 
 /**

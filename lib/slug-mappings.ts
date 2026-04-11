@@ -24,8 +24,11 @@ export const slugMappingTrToEn: Record<string, string> = {
   "chatgpt-geo-nasil-yapilir": "how-to-get-cited-in-chatgpt",
   "yapay-zeka-ui-tasarim-araclari": "ai-ui-design-tools",
   "google-ads-kampanya-optimizasyonu-rehberi": "google-ads-campaign-optimization-guide",
+  "yapay-zeka-araclari-ve-kullanim-alanlari": "ai-tools-and-use-cases-complete-guide",
+  "prompt-muhendisligi-ile-para-kazanma": "ai-prompt-engineering-ways-to-make-money",
+  "ai-agent-nedir-dijital-pazarlamada-nasil-kullanilir": "what-is-ai-agent-digital-marketing-guide",
+  "ai-agent-musteri-hizmetleri-otomasyonu": "ai-agent-customer-service-automation",
 };
-
 export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
   Object.entries(slugMappingTrToEn).map(([tr, en]) => [en, tr])
 );

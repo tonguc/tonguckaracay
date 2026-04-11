@@ -6,7 +6,7 @@ date: "2021-06-05"
 category: "Dijital Pazarlama"
 tags: ["Dijital Pazarlama", "Sosyal Medya", "SEO Araçları", "Marketing Tools"]
 readTime: "7 dk"
-image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "digital-marketing-strategies-and-tools"
 ---
 

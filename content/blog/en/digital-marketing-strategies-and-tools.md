@@ -6,7 +6,7 @@ date: "2021-06-05"
 category: "Digital Marketing"
 tags: ["Digital Marketing", "Social Media", "SEO Tools", "Marketing Tools"]
 readTime: "7 min"
-image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "dijital-pazarlama-stratejileri-ve-araclari"
 ---
 

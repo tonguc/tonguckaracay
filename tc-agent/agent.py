@@ -49,6 +49,8 @@ SERP_KEY   = config.get("SERPAPI_KEY","")
 DAILY_H    = int(config.get("DAILY_POST_HOUR","7"))
 DAILY_M    = int(config.get("DAILY_POST_MINUTE","0"))
 
+_cancel = False   # /stop komutu bunu True yapar
+
 # ── SYSTEM PROMPT ────────────────────────────────────────────────────────────
 
 SYSTEM = f"""Sen Tonguç Karaçay'ın dijital pazarlama ve SEO danışmanlığı blogu için içerik üreten kıdemli bir SEO stratejisti ve içerik uzmanısın.
@@ -149,8 +151,8 @@ def serp_analyze(keyword: str, lang: str = "tr") -> dict:
         logger.warning(f"SerpAPI hatası ({lang}): {e}")
         return {}
 
-def fetch_competitor(url: str, max_chars: int = 3000) -> str:
-    """Rakip sayfanın ana içeriğini çeker."""
+def fetch_competitor(url: str, max_chars: int = 4000) -> tuple[str, int]:
+    """Rakip sayfanın içeriğini + kelime sayısını döner."""
     try:
         headers = {"User-Agent": "Mozilla/5.0 (compatible; research-bot/1.0)"}
         r = requests.get(url, headers=headers, timeout=10)
@@ -159,46 +161,74 @@ def fetch_competitor(url: str, max_chars: int = 3000) -> str:
             tag.decompose()
         text = soup.get_text(separator=" ", strip=True)
         text = re.sub(r'\s+', ' ', text)
-        return text[:max_chars]
+        word_count = len(text.split())
+        return text[:max_chars], word_count
     except Exception as e:
         logger.warning(f"Rakip fetch hatası {url}: {e}")
-        return ""
+        return "", 0
 
-def build_serp_context(keyword: str, lang: str = "tr") -> str:
-    """SERP + rakip içerik analizini metin olarak döner."""
+def _classify_intent(titles: list[str], related: list[str]) -> str:
+    """SERP başlık ve sorgulardan search intent çıkarır."""
+    all_text = " ".join(titles + related).lower()
+    scores = {
+        "informational": sum(all_text.count(s) for s in [
+            "nedir","nasil","what is","how to","guide","rehber","neden","why","anlam","tanim","what are","açıklama"]),
+        "commercial": sum(all_text.count(s) for s in [
+            "en iyi","best","karsilastirma","comparison","review","alternative","vs ","top ","önerilen","recommended","hangi"]),
+        "transactional": sum(all_text.count(s) for s in [
+            "buy","satin","fiyat","price","download","free","ucretsiz","siparis","hizmet","teklif"]),
+    }
+    return max(scores, key=scores.get) if max(scores.values()) > 0 else "informational"
+
+def build_serp_context(keyword: str, lang: str = "tr") -> dict:
+    """SERP + rakip analizi. {context, intent, target_words} döner."""
     serp = serp_analyze(keyword, lang)
     if not serp:
-        return ""
+        return {"context": "", "intent": "informational", "target_words": 1200}
 
     label = "Türkiye" if lang == "tr" else "US/Global"
-    lines = [f"SERP ANALİZİ — '{keyword}' ({label})\n"]
-    lines.append("İlk 5 Rakip:")
+    lines = [f"SERP ANALİZİ — '{keyword}' ({label})\n", "İlk 10 Rakip:"]
     competitor_contents = []
+    word_counts = []
+    all_titles = []
+
     for i, res in enumerate(serp.get("results", []), 1):
         lines.append(f"{i}. {res['title']}\n   URL: {res['url']}\n   Snippet: {res['snippet']}")
-        if i <= 3:
-            content = fetch_competitor(res["url"])
+        all_titles.append(res["title"])
+        if i <= 5:  # top 3 → top 5
+            content, wc = fetch_competitor(res["url"])
             if content:
                 competitor_contents.append(f"--- Rakip {i}: {res['title']} ---\n{content}")
+            if wc > 300:
+                word_counts.append(wc)
+
+    intent = _classify_intent(all_titles, serp.get("related", []))
+    avg_wc = sum(word_counts) / len(word_counts) if word_counts else 1200
+    target_words = max(1000, min(2500, int(avg_wc * 1.2)))
 
     if serp.get("related"):
         lines.append("\nİlgili Sorular ve Aramalar:")
         for q in serp["related"]:
             lines.append(f"  • {q}")
-
     if competitor_contents:
-        lines.append("\nRakip İçerik Özeti (Content Gap için):")
+        lines.append("\nRakip İçerik Özeti (Content Gap / Depth için):")
         lines.extend(competitor_contents)
 
-    return "\n".join(lines)
+    return {"context": "\n".join(lines), "intent": intent, "target_words": target_words}
 
-def build_dual_serp_context(topic_tr: str) -> tuple[str, str]:
-    """TR ve EN için ayrı ayrı SERP analizi yapar. (tr_ctx, en_ctx) döner."""
+def build_dual_serp_context(topic_tr: str) -> dict:
+    """TR ve EN için SERP analizi + meta. Dict döner."""
     topic_en = translate_topic(topic_tr)
     logger.info(f"EN konu çevirisi: {topic_en}")
-    tr_ctx = build_serp_context(topic_tr, lang="tr")
-    en_ctx = build_serp_context(topic_en, lang="en")
-    return tr_ctx, en_ctx
+    tr = build_serp_context(topic_tr, lang="tr")
+    en = build_serp_context(topic_en, lang="en")
+    target = (tr["target_words"] + en["target_words"]) // 2 if (tr["context"] and en["context"]) \
+             else tr["target_words"] or en["target_words"] or 1200
+    return {
+        "tr_ctx": tr["context"], "en_ctx": en["context"],
+        "tr_intent": tr["intent"], "en_intent": en["intent"],
+        "target_words": target,
+    }
 
 # ── GITHUB API ───────────────────────────────────────────────────────────────
 
@@ -232,31 +262,162 @@ def gh_read(path: str) -> str:
         return base64.b64decode(r.json()["content"]).decode("utf-8")
     return ""
 
+def gh_update_slug_mappings(tr_slug: str, en_slug: str) -> bool:
+    """lib/slug-mappings.ts dosyasına yeni TR->EN mapping ekler."""
+    try:
+        content = gh_read("lib/slug-mappings.ts")
+        if not content or f'"{tr_slug}"' in content:
+            return True  # Zaten var veya dosya okunamadı
+        new_entry = f'  "{tr_slug}": "{en_slug}",'
+        # slugMappingTrToEn objesinin kapanış }; den önce ekle
+        updated = content.replace(
+            '  "yapay-zeka-ui-tasarim-araclari": "ai-ui-design-tools",\n};',
+            f'  "yapay-zeka-ui-tasarim-araclari": "ai-ui-design-tools",\n{new_entry}\n}};'
+        )
+        # Eğer tam string bulunamazsa sondan ekle (yeni yazılar eklendikçe son entry değişir)
+        if updated == content:
+            # };  ile biten satırı bul ve önüne ekle
+            import re as _re
+            updated = _re.sub(
+                r'(\n\};)\s*\n(export const slugMappingEnToTr)',
+                f'\n{new_entry}\n}};\n\\2',
+                content,
+                count=1
+            )
+        if updated != content:
+            return gh_push("lib/slug-mappings.ts", updated, f"feat: add slug mapping {tr_slug}")
+        return False
+    except Exception:
+        logger.exception("Slug mapping güncelleme hatası")
+        return False
+
 def gh_slugs(lang="tr"):
     r = requests.get(f"https://api.github.com/repos/{GH_REPO}/contents/content/blog/{lang}?ref={GH_BRANCH}",
                      headers=_gh_h(), timeout=10)
     return [f["name"][:-3] for f in r.json() if f["name"].endswith(".md")] if r.status_code == 200 else []
 
-# ── BLOG ÜRETİCİ ─────────────────────────────────────────────────────────────
+def get_internal_links(lang="tr") -> str:
+    """Mevcut blog yazılarının URL listesini döner (iç link için Claude'a verilir)."""
+    try:
+        slugs = gh_slugs(lang)
+        if not slugs:
+            return ""
+        base = "" if lang == "tr" else "/en"
+        label = "MEVCUT TR YAZILARI — 3-5 tanesine doğal anchor text ile iç link ver:" \
+                if lang == "tr" else \
+                "EXISTING EN POSTS — add 3-5 internal links with natural anchor text:"
+        lines = [label]
+        for slug in slugs[:25]:
+            lines.append(f"  {base}/blog/{slug}")
+        return "\n".join(lines)
+    except Exception:
+        return ""
 
-IMAGES = {
-    "seo":       "1460925895917-afdab827c52f",
-    "google":    "1573804633927-bfcbcd909acd",
-    "social":    "1611162617213-7d7a39e9b1d7",
-    "marketing": "1533750349088-cd871a92f312",
-    "design":    "1561070791-2526d30994b5",
-    "ai":        "1677442136019-21780ecad995",
-    "content":   "1542744094-3a31f272c490",
-    "analytics": "1551288049-bebda4e38f71",
-    "email":     "1596526131083-e8c633360a4c",
-    "ads":       "1611974789855-9c2a0a7236a3",
+# ── BLOG ÜRETİCİ ─────────────────────────────────────────────────────────────
+# Kategori bazlı görsel havuzu. Her kategoride 6 ID var.
+# pick_image(topic, index): kategoriye uygun görsel seçer, index ile offset
+# verir → aynı kategoride bile farklı yazılar farklı görsel alır.
+CATEGORY_IMAGES: dict[str, list[str]] = {
+    "seo": [
+        "1573804633927-bfcbcd909acd",
+        "1432888498266-38ffec3eaf0a",
+        "1519389950473-47ba0277781c",
+        "1571721795195-a2ca2d3370e9",
+        "1553877522-43269d4ea984",
+        "1516116216624-53ad697a8648",
+    ],
+    "google": [
+        "1611162617213-7d7a39e9b1d7",
+        "1549924231-f129b911d442",
+        "1497366811353-6870744d04b2",
+        "1516251193007-45ef944ab0c6",
+        "1520333789090-1afc82db536a",
+        "1563986768609-322da13575f3",
+    ],
+    "social": [
+        "1563986768609-322da13575f3",
+        "1516251193007-45ef944ab0c6",
+        "1520333789090-1afc82db536a",
+        "1526178613658-3f1622045557",
+        "1562577309-4f401e5e5b31",
+        "1553484771-047a44eab61a",
+    ],
+    "market": [
+        "1533750349088-cd871a92f312",
+        "1454165804606-c3d57bc86b40",
+        "1552664730-d307ca884978",
+        "1556761175-b413da4baf72",
+        "1497366216548-37526070297c",
+        "1551434678-e076c223a692",
+    ],
+    "design": [
+        "1561070791-2526d30994b5",
+        "1558655702-b1a49a557e15",
+        "1541462608143-67571c6738dd",
+        "1507238691740-187a5b1d37b7",
+        "1517976487492-5750f3195933",
+        "1563237819-2aefb2a12e56",
+    ],
+    "ai": [
+        "1677442136019-21780ecad995",
+        "1485827404703-89b55fcc595e",
+        "1555255707-c07966088b7b",
+        "1633356122544-f134324a6cee",
+        "1676299081847-824916de030a",
+        "1611162617213-7d7a39e9b1d7",
+    ],
+    "content": [
+        "1542744094-3a31f272c490",
+        "1499750310-25496d3e5ed6",
+        "1486312338219-ce68d2c6f44d",
+        "1504711434969-e33886168f5c",
+        "1432888498266-38ffec3eaf0a",
+        "1571721795195-a2ca2d3370e9",
+    ],
+    "analytic": [
+        "1551288049-bebda4e38f71",
+        "1460925895917-afdab827c52f",
+        "1553877522-43269d4ea984",
+        "1551434678-e076c223a692",
+        "1497366216548-37526070297c",
+        "1516116216624-53ad697a8648",
+    ],
+    "email": [
+        "1596526131083-e8c633360a4c",
+        "1517976487492-5750f3195933",
+        "1526178613658-3f1622045557",
+        "1563237819-2aefb2a12e56",
+        "1499750310-25496d3e5ed6",
+        "1486312338219-ce68d2c6f44d",
+    ],
+    "ads": [
+        "1611974789855-9c2a0a7236a3",
+        "1562577309-4f401e5e5b31",
+        "1553484771-047a44eab61a",
+        "1556761175-b413da4baf72",
+        "1552664730-d307ca884978",
+        "1454165804606-c3d57bc86b40",
+    ],
 }
 
-def img_url(kw):
-    for k, pid in IMAGES.items():
-        if k in kw.lower():
-            return f"https://images.unsplash.com/photo-{pid}?w=1200&auto=format&fit=crop&q=80"
-    return f"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
+_FALLBACK_POOL = [
+    "1460925895917-afdab827c52f", "1486312338219-ce68d2c6f44d",
+    "1504711434969-e33886168f5c", "1519389950473-47ba0277781c",
+    "1542744094-3a31f272c490",   "1551288049-bebda4e38f71",
+]
+
+
+def pick_image(topic: str, post_index: int) -> str:
+    """Konuya uygun kategoriden, post_index ile offset'li görsel seçer."""
+    t = topic.lower()
+    pool = _FALLBACK_POOL
+    for cat, ids in CATEGORY_IMAGES.items():
+        if cat in t:
+            pool = ids
+            break
+    pid = pool[post_index % len(pool)]
+    return f"https://images.unsplash.com/photo-{pid}?w=1200&auto=format&fit=crop&q=80"
+
 
 def extract_paa(serp_data: str) -> list[str]:
     """SERP verisinden PAA (People Also Ask) sorularını çeker."""
@@ -269,7 +430,31 @@ def extract_paa(serp_data: str) -> list[str]:
                 questions.append(q)
     return questions[:8]
 
-def generate_post(topic: str, tr_serp: str = "", en_serp: str = "") -> dict:
+def _call_claude(prompt: str, max_tokens: int = 8000) -> str:
+    """Claude API çağrısı yapar, raw metni döner."""
+    resp = claude.messages.create(
+        model="claude-sonnet-4-5", max_tokens=max_tokens,
+        system=SYSTEM,
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return resp.content[0].text.strip()
+
+
+def _parse_block(raw: str, start_tag: str, end_tag: str, lang: str) -> str:
+    """Delimiter arasındaki içeriği çıkarır. Kapanış eksikse sona kadar alır."""
+    m = re.search(rf"{re.escape(start_tag)}\s*(.*?)\s*{re.escape(end_tag)}", raw, re.DOTALL)
+    if not m:
+        m = re.search(rf"{re.escape(start_tag)}\s*(.*)", raw, re.DOTALL)
+    if not m:
+        logger.error(f"{lang} bloğu bulunamadı. Raw:\n{raw[:500]}")
+        raise ValueError(f"{lang} yazı üretilemedi. Claude yanıtı: {raw[:300]}")
+    return m.group(1).strip()
+
+
+def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
+                  tr_intent: str = "informational", en_intent: str = "informational",
+                  target_words: int = 1200,
+                  tr_links: str = "", en_links: str = "") -> dict:
     today = datetime.now().strftime("%Y-%m-%d")
 
     tr_paa = extract_paa(tr_serp)
@@ -277,95 +462,126 @@ def generate_post(topic: str, tr_serp: str = "", en_serp: str = "") -> dict:
 
     tr_block = f"\n\nTR SERP & RAKİP ANALİZİ (Türkiye):\n{tr_serp}" if tr_serp else ""
     en_block = f"\n\nEN SERP & RAKİP ANALİZİ (US/Global):\n{en_serp}" if en_serp else ""
+    tr_paa_block = ("\nTR PAA SORULARI:\n" + "\n".join(f"- {q}" for q in tr_paa)) if tr_paa else ""
+    en_paa_block = ("\nEN PAA QUESTIONS:\n" + "\n".join(f"- {q}" for q in en_paa)) if en_paa else ""
 
-    tr_paa_block = f"\nTR PAA SORULARI (bunları FAQ olarak kullan):\n" + "\n".join(f"- {q}" for q in tr_paa) if tr_paa else ""
-    en_paa_block = f"\nEN PAA SORULARI (use these as FAQ):\n" + "\n".join(f"- {q}" for q in en_paa) if en_paa else ""
+    intent_map = {
+        "informational": "Eğitici, satış yok. Soru-cevap formatı, detaylı açıklama.",
+        "commercial": "Karşılaştırma, avantaj/dezavantaj, öneriler. Karar vermeye yardım.",
+        "transactional": "Dönüşüm odaklı. Net CTA, somut adımlar, güven sinyalleri.",
+    }
+    tr_intent_desc = intent_map.get(tr_intent, intent_map["informational"])
+    en_intent_desc = intent_map.get(en_intent, intent_map["informational"])
 
-    prompt = f""""{topic}" konusunda TR + EN blog yazısı üret.
+    tr_links_block = f"\n\n{tr_links}" if tr_links else ""
+    en_links_block = f"\n\n{en_links}" if en_links else ""
 
-KRİTİK KURAL: title ve slug alanlarına asla yıl (2024, 2025, 2026 vb.) ekleme. Evergreen başlık yaz.
+    def fm_field(content, key):
+        m = re.search(rf'^{key}:\s*"([^"]+)"', content, re.MULTILINE)
+        return m.group(1) if m else ""
 
-TR yazısı için:{tr_block}{tr_paa_block}
+    # ── 1. ÇAĞRI: Türkçe yazı ────────────────────────────────────────────────
+    tr_prompt = f""""{topic}" konusunda Türkçe blog yazısı yaz.
 
-EN yazısı için:{en_block}{en_paa_block}
+KURALLAR:
+- Başlık ve slug'da asla yıl (2024/2025/2026) kullanma — evergreen yaz
+- Hedef kelime sayısı: {target_words}
+- Intent: {tr_intent} — {tr_intent_desc}
+- İç link: verilen URL listesinden 3-5 tanesine doğal anchor text ile link ver
+- Dış link: 2-3 güvenilir kaynak (Google, Moz, HubSpot, Statista vb.)
+- FAQ: 6-8 soru, her cevap 60-80 kelime, PAA sorgularından üret{tr_block}{tr_paa_block}{tr_links_block}
 
-Her dil için kendi SERP analizini kullan:
-- TR yazısı: Türkiye rakiplerinin eksik bıraktığı açıları doldur, TR anahtar kelimelerine odaklan
-- EN yazısı: Global rakiplerin eksik bıraktığı açıları doldur, EN anahtar kelimelerine odaklan
-- PAA sorularını H2/H3 başlık olarak içeriğe entegre et
-
-FAQ KURALLARI (AEO + AI SEO):
-- 6-8 soru üret (PAA + ilgili aramalardan)
-- Her cevap: önce direkt cevap (1 cümle), sonra 2-3 cümle bağlam
-- Toplam her cevap 60-80 kelime
-- Sorular: gerçek arama sorgularını yansıtsın (Nasıl? Ne? Neden? Ne zaman?)
-
-JSON formatında döndür (başka hiçbir şey ekleme):
-{{
-  "tr": {{
-    "title": "SEO dostu Türkçe başlık (50-60 karakter)",
-    "slug": "url-dostu-turkce-slug",
-    "description": "Meta açıklama (150-160 karakter, ana anahtar kelime başta)",
-    "category": "SEO veya Dijital Pazarlama veya Sosyal Medya veya UI/UX veya Yapay Zeka",
-    "tags": ["tag1", "tag2", "tag3", "tag4"],
-    "readTime": "X dk",
-    "image_keyword": "seo veya google veya social veya marketing veya design veya ai veya content veya analytics veya email veya ads",
-    "content": "Tam markdown (frontmatter yok, 1000-1200 kelime, AEO+GEO+EEAT). Sonunda ## Sıkça Sorulan Sorular bölümü olsun.",
-    "faq": [{{"question": "...", "answer": "..."}}, ...]
-  }},
-  "en": {{
-    "title": "SEO friendly English title (50-60 chars)",
-    "slug": "url-friendly-english-slug",
-    "description": "Meta description (150-160 chars, keyword first)",
-    "category": "SEO or Digital Marketing or Social Media or UI/UX or Artificial Intelligence",
-    "tags": ["tag1", "tag2", "tag3", "tag4"],
-    "readTime": "X min",
-    "image_keyword": "seo or google or social or marketing or design or ai or content or analytics or email or ads",
-    "content": "Full markdown (no frontmatter, 1000-1200 words, AEO+GEO+EEAT). End with ## Frequently Asked Questions section.",
-    "faq": [{{"question": "...", "answer": "..."}}, ...]
-  }}
-}}"""
-
-    resp = claude.messages.create(
-        model="claude-opus-4-5", max_tokens=6000,
-        system=SYSTEM,
-        messages=[{"role": "user", "content": prompt}]
-    )
-    raw = resp.content[0].text.strip()
-    raw = re.sub(r"^```(?:json)?\n?", "", raw)
-    raw = re.sub(r"\n?```$", "", raw)
-    data = json.loads(raw)
-    tr, en = data["tr"], data["en"]
-
-    def fm(d, translation_slug):
-        faq_yaml = ""
-        if d.get("faq"):
-            faq_lines = ["faq:"]
-            for item in d["faq"]:
-                q = item["question"].replace('"', '\\"')
-                a = item["answer"].replace('"', '\\"')
-                faq_lines.append(f'  - question: "{q}"')
-                faq_lines.append(f'    answer: "{a}"')
-            faq_yaml = "\n" + "\n".join(faq_lines)
-        return f"""---
-title: "{d['title']}"
-slug: "{d['slug']}"
-description: "{d['description']}"
+TAM OLARAK ŞU FORMATTA DÖN (başka hiçbir şey ekleme):
+===TR_START===
+---
+title: "TR başlık (50-60 karakter, yıl yok)"
+slug: "tr-url-slug"
+description: "Meta açıklama (150-160 karakter)"
 date: "{today}"
-category: "{d['category']}"
-tags: {json.dumps(d['tags'], ensure_ascii=False)}
-readTime: "{d['readTime']}"
-image: "{img_url(d['image_keyword'])}"
-translationSlug: "{translation_slug}"{faq_yaml}
----"""
+category: "SEO veya Dijital Pazarlama veya Sosyal Medya veya UI/UX veya Yapay Zeka"
+tags: ["tag1", "tag2", "tag3", "tag4"]
+readTime: "X dk"
+image_keyword: "seo veya google veya social veya marketing veya design veya ai veya content veya analytics"
+translationSlug: "PLACEHOLDER_EN_SLUG"
+faq:
+  - question: "Soru 1?"
+    answer: "Cevap 1 (60-80 kelime)."
+  - question: "Soru 2?"
+    answer: "Cevap 2."
+---
+
+(TR markdown içerik — {target_words} kelime, AEO+GEO+EEAT, iç+dış linkler, sonunda ## Sıkça Sorulan Sorular bölümü)
+
+===TR_END==="""
+
+    logger.info("TR yazı üretiliyor...")
+    tr_raw = _call_claude(tr_prompt)
+    logger.info(f"TR yanıt ({len(tr_raw)} karakter): {tr_raw[:300]}")
+    tr_file = _parse_block(tr_raw, "===TR_START===", "===TR_END===", "TR")
+    tr_slug  = fm_field(tr_file, "slug")
+    tr_title = fm_field(tr_file, "title")
+
+    # ── 2. ÇAĞRI: İngilizce yazı ─────────────────────────────────────────────
+    en_prompt = f""""{topic}" konusunda İngilizce blog yazısı yaz.
+
+RULES:
+- Never use years (2024/2025/2026) in title or slug — write evergreen
+- Target word count: {target_words}
+- Intent: {en_intent} — {en_intent_desc}
+- Internal links: naturally link 3-5 URLs from the list below
+- External links: 2-3 authoritative sources (Google, Moz, HubSpot, Statista etc.)
+- FAQ: 6-8 questions, each answer 60-80 words, based on PAA queries{en_block}{en_paa_block}{en_links_block}
+
+The Turkish version of this post has slug: "{tr_slug}"
+
+RESPOND IN EXACTLY THIS FORMAT (nothing else):
+===EN_START===
+---
+title: "EN title (50-60 chars, no year)"
+slug: "en-url-slug"
+description: "Meta description (150-160 chars)"
+date: "{today}"
+category: "SEO or Digital Marketing or Social Media or UI/UX or Artificial Intelligence"
+tags: ["tag1", "tag2", "tag3", "tag4"]
+readTime: "X min"
+image_keyword: "seo or google or social or marketing or design or ai or content or analytics"
+translationSlug: "{tr_slug}"
+faq:
+  - question: "Question 1?"
+    answer: "Answer 1 (60-80 words)."
+  - question: "Question 2?"
+    answer: "Answer 2."
+---
+
+(EN markdown content — {target_words} words, AEO+GEO+EEAT, internal+external links, end with ## Frequently Asked Questions)
+
+===EN_END==="""
+
+    logger.info("EN yazı üretiliyor...")
+    en_raw = _call_claude(en_prompt)
+    logger.info(f"EN yanıt ({len(en_raw)} karakter): {en_raw[:300]}")
+    en_file = _parse_block(en_raw, "===EN_START===", "===EN_END===", "EN")
+    en_slug  = fm_field(en_file, "slug")
+    en_title = fm_field(en_file, "title")
+
+    # TR'deki PLACEHOLDER_EN_SLUG → gerçek EN slug ile değiştir
+    tr_file = tr_file.replace("PLACEHOLDER_EN_SLUG", en_slug)
+
+    # Görsel seçimi: konuya uygun kategoriden, post sayısı ile offset
+    # TR ve EN farklı index aldığından asla aynı görseli alamazlar
+    post_index = len(gh_slugs("tr"))
+    tr_img = pick_image(topic, post_index)
+    en_img = pick_image(topic, post_index + 1)
+    tr_file = re.sub(r'^image_keyword:.*$', f'image: "{tr_img}"', tr_file, flags=re.MULTILINE)
+    en_file = re.sub(r'^image_keyword:.*$', f'image: "{en_img}"', en_file, flags=re.MULTILINE)
 
     return {
-        "tr": {"slug": tr["slug"], "title": tr["title"],
-               "file": f"content/blog/tr/{tr['slug']}.md",
-               "content": fm(tr, en["slug"]) + "\n\n" + tr["content"]},
-        "en": {"slug": en["slug"], "title": en["title"],
-               "file": f"content/blog/en/{en['slug']}.md",
-               "content": fm(en, tr["slug"]) + "\n\n" + en["content"]},
+        "tr": {"slug": tr_slug, "title": tr_title,
+               "file": f"content/blog/tr/{tr_slug}.md",
+               "content": tr_file},
+        "en": {"slug": en_slug, "title": en_title,
+               "file": f"content/blog/en/{en_slug}.md",
+               "content": en_file},
     }
 
 # ── KONU SEÇİMİ ──────────────────────────────────────────────────────────────
@@ -404,7 +620,7 @@ def pick_topic(used: list[str]) -> str:
         slug = t.lower().replace(" ", "-")
         if not any(SequenceMatcher(None, slug, u).ratio() > 0.5 for u in used):
             return t
-    r = claude.messages.create(model="claude-opus-4-5", max_tokens=80,
+    r = claude.messages.create(model="claude-sonnet-4-5", max_tokens=80,
         messages=[{"role":"user","content":"Dijital pazarlama ve SEO blogu için özgün bir yazı konusu öner. Sadece başlık."}])
     return r.content[0].text.strip()
 
@@ -418,6 +634,8 @@ async def cmd_start(u, _):
     await u.message.reply_text(
         "👋 *tonguckaracay.com Growth Agent v2*\n\n"
         "📝 `/yazi [konu]` — SERP analizi yapıp yazı üret\n"
+        "💡 `/fikir [konu]` — Trafik getirecek 7 konu önerisi\n"
+        "🌐 `/site hero [talimat]` — Ana sayfa slider metnini güncelle\n"
         "✏️ `/revize [slug] [istek]` — Mevcut yazıyı düzenle\n"
         "🤖 `/gunluk` — Otomatik konu seç ve yaz\n"
         "📋 `/brief [konu]` — Sadece içerik brief göster\n"
@@ -497,44 +715,74 @@ async def cmd_revize(u, ctx):
     en_slug = en_slug_match.group(1) if en_slug_match else slug
     en_content = await loop.run_in_executor(None, gh_read, f"content/blog/en/{en_slug}.md")
 
-    await msg.edit_text(f"✍️ Revize ediliyor: _{talimat}_", parse_mode="Markdown")
+    await msg.edit_text(f"✍️ TR revize ediliyor: _{talimat}_", parse_mode="Markdown")
+
+    kurallar = """KURALLAR:
+- slug ve translationSlug alanlarını kesinlikle değiştirme.
+- YIL KURALI: Başlık ve slug'da asla yıl rakamı kullanma.
+- Eğer talimat "faq ekle" veya "faq güncelle" içeriyorsa, frontmatter'a faq alanı ekle/güncelle:
+  faq:
+    - question: "Soru?"
+      answer: "Cevap (2-3 cümle)."
+  En az 5, en fazla 8 soru-cevap. TR yazı için Türkçe, EN için İngilizce yaz.
+- Diğer durumlarda frontmatter'ı olduğu gibi koru, sadece içeriği düzenle."""
 
     try:
-        prompt = f"""Şu blog yazısını revize et.
+        # ── 1. ÇAĞRI: TR revize ──────────────────────────────────────────────
+        tr_prompt = f"""Şu Türkçe blog yazısını revize et.
 
 TALİMAT: {talimat}
 
 MEVCUT TR YAZI:
 {tr_content}
 
-{"MEVCUT EN YAZI:" + chr(10) + en_content if en_content else ""}
-
-Frontmatter'ı (--- ile --- arası) koru, sadece içeriği düzenle.
-YIL KURALI: Başlık ve slug'da asla yıl rakamı kullanma.
+{kurallar}
 
 Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
 ===TR_START===
 (düzenlenmiş TR markdown, frontmatter dahil)
-===TR_END===
+===TR_END==="""
+
+        tr_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+            model="claude-sonnet-4-5", max_tokens=8000,
+            system=SYSTEM,
+            messages=[{"role": "user", "content": tr_prompt}]
+        ).content[0].text.strip())
+
+        tr_match = re.search(r"===TR_START===\s*(.*?)\s*===TR_END===", tr_raw, re.DOTALL) or \
+                   re.search(r"===TR_START===\s*(.*)", tr_raw, re.DOTALL)
+        if not tr_match:
+            return await msg.edit_text("❌ TR revize başarısız: Claude beklenen formatta yanıt vermedi.")
+        new_tr = tr_match.group(1).strip()
+
+        # ── 2. ÇAĞRI: EN revize (EN içerik varsa) ───────────────────────────
+        new_en = None
+        if en_content:
+            await msg.edit_text(f"✍️ EN revize ediliyor: _{talimat}_", parse_mode="Markdown")
+            en_prompt = f"""Revise this English blog post.
+
+INSTRUCTION: {talimat}
+
+CURRENT EN POST:
+{en_content}
+
+{kurallar}
+
+Respond in exactly this format (nothing else):
 ===EN_START===
-(düzenlenmiş EN markdown, frontmatter dahil)
+(revised EN markdown, including frontmatter)
 ===EN_END==="""
 
-        resp = claude.messages.create(
-            model="claude-opus-4-5", max_tokens=6000,
-            system=SYSTEM,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        raw = resp.content[0].text.strip()
+            en_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+                model="claude-sonnet-4-5", max_tokens=8000,
+                system=SYSTEM,
+                messages=[{"role": "user", "content": en_prompt}]
+            ).content[0].text.strip())
 
-        tr_match = re.search(r"===TR_START===\n(.*?)===TR_END===", raw, re.DOTALL)
-        en_match = re.search(r"===EN_START===\n(.*?)===EN_END===", raw, re.DOTALL)
-
-        if not tr_match:
-            return await msg.edit_text("❌ Claude beklenen formatta yanıt vermedi. Tekrar dene.")
-
-        new_tr = tr_match.group(1).strip()
-        new_en = en_match.group(1).strip() if en_match else None
+            en_match = re.search(r"===EN_START===\s*(.*?)\s*===EN_END===", en_raw, re.DOTALL) or \
+                       re.search(r"===EN_START===\s*(.*)", en_raw, re.DOTALL)
+            if en_match:
+                new_en = en_match.group(1).strip()
 
         await msg.edit_text("📦 Revize edilmiş yazı GitHub'a yükleniyor...", parse_mode="Markdown")
 
@@ -542,7 +790,7 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
             f"content/blog/tr/{slug}.md", new_tr, f"revize: {slug}")
 
         ok_en = False
-        if new_en and en_content:
+        if new_en:
             ok_en = await loop.run_in_executor(None, gh_push,
                 f"content/blog/en/{en_slug}.md", new_en, f"revize: {en_slug}")
 
@@ -756,19 +1004,42 @@ async def cmd_gunluk(u, _):
     topic = pick_topic(used)
     await _run(u, topic)
 
+async def cmd_stop(u, _):
+    global _cancel
+    if not auth(u): return await deny(u)
+    _cancel = True
+    await u.message.reply_text("🛑 İptal sinyali gönderildi. Mevcut aşama bitince durur.")
+
 async def _run(u, topic):
+    global _cancel
+    _cancel = False
     msg = await u.message.reply_text(
         f"🔍 *'{topic}'* — SERP analizi yapılıyor...", parse_mode="Markdown")
     loop = asyncio.get_event_loop()
 
-    tr_ctx, en_ctx = await loop.run_in_executor(None, build_dual_serp_context, topic)
-    serp_info = "✅ TR + EN SERP analizi tamamlandı" if (tr_ctx or en_ctx) else "⚠️ SerpAPI yok, genel yazı üretilecek"
+    serp = await loop.run_in_executor(None, build_dual_serp_context, topic)
+    tr_links = await loop.run_in_executor(None, get_internal_links, "tr")
+    en_links = await loop.run_in_executor(None, get_internal_links, "en")
 
+    if _cancel:
+        await msg.edit_text("🛑 İptal edildi (SERP sonrası).")
+        return
+
+    tr_ctx, en_ctx = serp["tr_ctx"], serp["en_ctx"]
+    serp_info = (f"✅ TR + EN SERP | Intent: TR={serp['tr_intent']} EN={serp['en_intent']} | Hedef: ~{serp['target_words']} kelime"
+                 if (tr_ctx or en_ctx) else "⚠️ SerpAPI yok, genel yazı üretilecek")
     await msg.edit_text(
         f"{serp_info}\n✍️ Yazı üretiliyor _(1-2 dk)_...", parse_mode="Markdown")
 
     try:
-        post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx)
+        post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx,
+                                          serp["tr_intent"], serp["en_intent"],
+                                          serp["target_words"], tr_links, en_links)
+
+        if _cancel:
+            await msg.edit_text("🛑 İptal edildi (yazı üretildi ama GitHub'a yüklenmedi).")
+            return
+
         await msg.edit_text(
             f"📦 GitHub'a yükleniyor...\n"
             f"🇹🇷 `{post['tr']['slug']}`\n🇬🇧 `{post['en']['slug']}`",
@@ -780,6 +1051,9 @@ async def _run(u, topic):
             post["en"]["file"], post["en"]["content"], f"blog: {post['en']['slug']}")
 
         if ok_tr and ok_en:
+            # Slug mapping dosyasını güncelle
+            await loop.run_in_executor(None, gh_update_slug_mappings,
+                post["tr"]["slug"], post["en"]["slug"])
             await msg.edit_text(
                 f"✅ *Yayınlandı!*\n\n"
                 f"🇹🇷 [{post['tr']['title']}](https://tonguckaracay.com/{post['tr']['slug']})\n"
@@ -808,8 +1082,12 @@ async def scheduler(app):
                 try: await app.bot.send_message(uid, f"🕐 *Günlük yazı:* _{topic}_", parse_mode="Markdown")
                 except: pass
             loop = asyncio.get_event_loop()
-            tr_ctx, en_ctx = await loop.run_in_executor(None, build_dual_serp_context, topic)
-            post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx)
+            serp = await loop.run_in_executor(None, build_dual_serp_context, topic)
+            tr_links = await loop.run_in_executor(None, get_internal_links, "tr")
+            en_links = await loop.run_in_executor(None, get_internal_links, "en")
+            post = await loop.run_in_executor(None, generate_post, topic,
+                serp["tr_ctx"], serp["en_ctx"], serp["tr_intent"], serp["en_intent"],
+                serp["target_words"], tr_links, en_links)
             ok_tr = await loop.run_in_executor(None, gh_push, post["tr"]["file"], post["tr"]["content"], f"blog: {post['tr']['slug']}")
             ok_en = await loop.run_in_executor(None, gh_push, post["en"]["file"], post["en"]["content"], f"blog: {post['en']['slug']}")
             result = (f"✅ *Günlük yazı yayınlandı!*\n🇹🇷 `{post['tr']['slug']}`\n🇬🇧 `{post['en']['slug']}`"
@@ -829,7 +1107,8 @@ def main():
     app = Application.builder().token(token).post_init(post_init).build()
     for cmd, fn in [("start",cmd_start),("yardim",cmd_start),("durum",cmd_durum),
                     ("liste",cmd_liste),("brief",cmd_brief),("revize",cmd_revize),
-                    ("yazi",cmd_yazi),("gunluk",cmd_gunluk)]:
+                    ("yazi",cmd_yazi),("fikir",cmd_fikir),("site",cmd_site),
+                    ("gunluk",cmd_gunluk),("stop",cmd_stop)]:
         app.add_handler(CommandHandler(cmd, fn))
     logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH}")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
