@@ -315,24 +315,83 @@ def get_internal_links(lang="tr") -> str:
 
 # ── BLOG ÜRETİCİ ─────────────────────────────────────────────────────────────
 
-IMAGES = {
-    "seo":       "1460925895917-afdab827c52f",
-    "google":    "1573804633927-bfcbcd909acd",
-    "social":    "1611162617213-7d7a39e9b1d7",
-    "marketing": "1533750349088-cd871a92f312",
-    "design":    "1561070791-2526d30994b5",
-    "ai":        "1677442136019-21780ecad995",
-    "content":   "1542744094-3a31f272c490",
-    "analytics": "1551288049-bebda4e38f71",
-    "email":     "1596526131083-e8c633360a4c",
-    "ads":       "1611974789855-9c2a0a7236a3",
+IMAGES: dict[str, list[str]] = {
+    "seo": [
+        "1573804633927-bfcbcd909acd",
+        "1432888498266-38ffec3eaf0a",
+        "1519389950473-47ba0277781c",
+        "1571721795195-a2ca2d3370e9",
+    ],
+    "google": [
+        "1611162617213-7d7a39e9b1d7",
+        "1549924231-f129b911d442",
+        "1516116216624-53ad697a8648",
+        "1611162616607-7d7a39e9b1d7",
+    ],
+    "social": [
+        "1563986768609-322da13575f3",
+        "1516251193007-45ef944ab0c6",
+        "1611162617213-7d7a39e9b1d7",
+        "1520333789090-1afc82db536a",
+    ],
+    "marketing": [
+        "1533750349088-cd871a92f312",
+        "1454165804606-c3d57bc86b40",
+        "1552664730-d307ca884978",
+        "1556761175-b413da4baf72",
+    ],
+    "design": [
+        "1561070791-2526d30994b5",
+        "1558655702-b1a49a557e15",
+        "1541462608143-67571c6738dd",
+        "1507238691740-187a5b1d37b7",
+    ],
+    "ai": [
+        "1677442136019-21780ecad995",
+        "1620712943543-bcc4688e7485",
+        "1485827404703-89b55fcc595e",
+        "1555255707-c07966088b7b",
+    ],
+    "content": [
+        "1542744094-3a31f272c490",
+        "1499750310-25496d3e5ed6",
+        "1486312338219-ce68d2c6f44d",
+        "1504711434969-e33886168f5c",
+    ],
+    "analytics": [
+        "1551288049-bebda4e38f71",
+        "1460925895917-afdab827c52f",
+        "1553877522-43269d4ea984",
+        "1551288049-bebda4e38f71",
+    ],
+    "email": [
+        "1596526131083-e8c633360a4c",
+        "1517976487492-5750f3195933",
+        "1563237819-2aefb2a12e56",
+    ],
+    "ads": [
+        "1611974789855-9c2a0a7236a3",
+        "1562577309-4f401e5e5b31",
+        "1497366811353-6870744d04b2",
+        "1553484771-047a44eab61a",
+    ],
 }
 
+_FALLBACK_IMAGES = [
+    "1460925895917-afdab827c52f",
+    "1486312338219-ce68d2c6f44d",
+    "1497366216548-37526070297c",
+    "1504711434969-e33886168f5c",
+    "1519389950473-47ba0277781c",
+]
+
 def img_url(kw):
-    for k, pid in IMAGES.items():
-        if k in kw.lower():
-            return f"https://images.unsplash.com/photo-{pid}?w=1200&auto=format&fit=crop&q=80"
-    return f"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80"
+    import random
+    kw_lower = kw.lower()
+    for k, pids in IMAGES.items():
+        if k in kw_lower:
+            return f"https://images.unsplash.com/photo-{random.choice(pids)}?w=1200&auto=format&fit=crop&q=80"
+    return f"https://images.unsplash.com/photo-{random.choice(_FALLBACK_IMAGES)}?w=1200&auto=format&fit=crop&q=80"
 
 def extract_paa(serp_data: str) -> list[str]:
     """SERP verisinden PAA (People Also Ask) sorularını çeker."""
