@@ -103,3 +103,21 @@ Mapping'teki EN slug değeri, `content/blog/en/` klasöründeki dosyanın frontm
 grep "slug:" content/blog/en/DOSYAADI.md
 ```
 Bu çıktıdaki değer slug-mappings.ts'e yazılmalı.
+
+## KRİTİK: Blog Görsel Tekrarı Yasak
+
+Her blog yazısının görseli birbirinden farklı olmalı. Aynı Unsplash foto ID'si birden fazla yazıda kullanılamaz.
+
+### Kural
+- `tc-agent/agent.py` içindeki `img_url(kw, slug)` fonksiyonu slug'ı seed olarak kullanır.
+  Aynı `image_keyword` kullanan iki yazı, farklı slug'ları sayesinde farklı görseller alır.
+- Elle görsel atarken önce mevcut görselleri kontrol et:
+  ```bash
+  grep -h "^image:" content/blog/tr/*.md | sort | uniq -d
+  ```
+  Çıktı boşsa tekrar yok demektir.
+- Tekrar varsa ilgili dosyalarda `image:` satırını farklı Unsplash ID ile güncelle.
+
+### Görsel Havuzu
+Görseller `tc-agent/agent.py` içindeki `IMAGES` dict'inde tutulur.
+Her kategori için 4 farklı ID bulunur. Yeni kategori eklenecekse buraya eklenmeli.
