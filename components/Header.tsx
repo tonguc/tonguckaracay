@@ -88,27 +88,20 @@ export default function Header() {
     
     if (mappings[currentPath]) {
       newPath = mappings[currentPath][newLocale];
-    } else if (currentPath.startsWith('/blog/')) {
-      // Handle blog detail pages with slug translation
-      let slug = currentPath.replace('/blog/', '');
-      // Remove any remaining trailing slash from slug
-      if (slug.endsWith('/')) {
-        slug = slug.slice(0, -1);
-      }
-      
-      if (newLocale === 'en') {
-        // TR -> EN: translate slug
-        const translatedSlug = slugMappingTrToEn[slug] || slug;
-        newPath = `/en/blog/${translatedSlug}`;
-      } else {
-        // EN -> TR: translate slug back
-        const translatedSlug = slugMappingEnToTr[slug] || slug;
-        newPath = `/blog/${translatedSlug}`;
-      }
     } else {
-      newPath = newLocale === 'en' ? '/en' : '/';
+      // Check for blog post pages (slugs at root level, no /blog/ prefix)
+      const slug = currentPath.substring(1); // remove leading /
+      if (slugMappingTrToEn[slug]) {
+        // Currently on a TR blog post
+        newPath = newLocale === 'en' ? `/en/${slugMappingTrToEn[slug]}` : `/${slug}`;
+      } else if (slugMappingEnToTr[slug]) {
+        // Currently on an EN blog post (after /en/ was stripped)
+        newPath = newLocale === 'tr' ? `/${slugMappingEnToTr[slug]}` : `/en/${slug}`;
+      } else {
+        newPath = newLocale === 'en' ? '/en' : '/';
+      }
     }
-    
+
     document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
     window.location.href = newPath;
   };

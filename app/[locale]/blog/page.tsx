@@ -82,7 +82,7 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
 }
 
 function FeaturedPost({ post, locale, t }: { post: BlogPost; locale: Locale; t: any }) {
-  const blogPath = locale === 'tr' ? `/blog/${post.slug}` : `/en/blog/${post.slug}`;
+  const blogPath = locale === 'tr' ? `/${post.slug}` : `/en/${post.slug}`;
   const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
     locale === 'tr' ? 'tr-TR' : 'en-US',
     { day: 'numeric', month: 'long', year: 'numeric' }
@@ -151,11 +151,11 @@ function BlogCard({
     }
   );
   
-  const blogPath = locale === 'tr' ? `/blog/${post.slug}` : `/en/blog/${post.slug}`;
+  const blogPath = locale === 'tr' ? `/${post.slug}` : `/en/${post.slug}`;
 
   return (
     <Link href={blogPath}>
-      <article 
+      <article
         className="card card-glow group animate-fade-in-up overflow-hidden h-full"
         style={{ animationDelay: `${index * 50}ms` }}
       >

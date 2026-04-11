@@ -35,7 +35,7 @@ export default async function BlogPreview({ locale }: BlogPreviewProps) {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {posts.map((post) => (
-            <Link key={post.slug} href={`${blogPath}/${post.slug}`} className="card group overflow-hidden hover:shadow-xl hover:shadow-accent-500/10 hover:-translate-y-1 transition-all duration-300">
+            <Link key={post.slug} href={locale === 'tr' ? `/${post.slug}` : `/en/${post.slug}`} className="card group overflow-hidden hover:shadow-xl hover:shadow-accent-500/10 hover:-translate-y-1 transition-all duration-300">
               <div className="relative h-40 md:h-48 overflow-hidden">
                 <Image
                   src={post.image}

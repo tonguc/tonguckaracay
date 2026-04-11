@@ -557,6 +557,192 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
         logger.exception("Revize hatası")
         await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:400]}\n```", parse_mode="Markdown")
 
+async def cmd_site(u, ctx):
+    """Site içerik alanlarını Telegram'dan günceller.
+    Kullanım: /site hero [talimat]
+    """
+    if not auth(u): return await deny(u)
+    args = ctx.args if ctx.args else []
+
+    AREAS = {
+        "hero": {
+            "tr": "messages/tr.json",
+            "en": "messages/en.json",
+            "key": "hero",
+            "label": "Ana Sayfa Hero / Slider",
+        }
+    }
+
+    if not args or args[0] not in AREAS:
+        bolumler = "\n".join(f"• `{k}` — {v['label']}" for k, v in AREAS.items())
+        return await u.message.reply_text(
+            f"🌐 *Site İçerik Editörü*\n\n"
+            f"Kullanım: `/site [bölüm] [talimat]`\n\n"
+            f"Mevcut bölümler:\n{bolumler}\n\n"
+            f"Örnek: `/site hero Başlığı daha güçlü yap, dönüşüme odaklan`",
+            parse_mode="Markdown")
+
+    alan = AREAS[args[0]]
+    talimat = " ".join(args[1:]).strip() if len(args) > 1 else ""
+
+    if not talimat:
+        # Mevcut içeriği göster
+        loop = asyncio.get_event_loop()
+        tr_raw = await loop.run_in_executor(None, gh_read, alan["tr"])
+        if not tr_raw:
+            return await u.message.reply_text("❌ Dosya okunamadı.")
+        import json as _json
+        tr_data = _json.loads(tr_raw)
+        current = _json.dumps(tr_data.get(alan["key"], {}), ensure_ascii=False, indent=2)
+        return await u.message.reply_text(
+            f"📄 *{alan['label']} — Mevcut İçerik*\n\n```json\n{current[:2000]}\n```\n\n"
+            f"Düzenlemek için: `/site {args[0]} [talimat]`",
+            parse_mode="Markdown")
+
+    msg = await u.message.reply_text(
+        f"✍️ *{alan['label']}* revize ediliyor...", parse_mode="Markdown")
+
+    loop = asyncio.get_event_loop()
+    import json as _json
+
+    tr_raw = await loop.run_in_executor(None, gh_read, alan["tr"])
+    en_raw = await loop.run_in_executor(None, gh_read, alan["en"])
+    if not tr_raw or not en_raw:
+        return await msg.edit_text("❌ Dosyalar okunamadı.")
+
+    tr_data = _json.loads(tr_raw)
+    en_data = _json.loads(en_raw)
+    tr_section = _json.dumps(tr_data.get(alan["key"], {}), ensure_ascii=False, indent=2)
+    en_section = _json.dumps(en_data.get(alan["key"], {}), ensure_ascii=False, indent=2)
+
+    prompt = f"""Bir web sitesinin "{alan['label']}" bölümünü revize et.
+
+TALİMAT: {talimat}
+
+MEVCUT TR İÇERİK (JSON):
+{tr_section}
+
+MEVCUT EN İÇERİK (JSON):
+{en_section}
+
+KURALLAR:
+- JSON key'lerini değiştirme, sadece value'ları güncelle
+- TR için Türkçe, EN için İngilizce yaz
+- Kısa, güçlü, dönüşüm odaklı metinler
+
+TAM OLARAK ŞU FORMATTA DÖN:
+===TR_JSON===
+{{düzenlenmiş TR JSON objesi}}
+===TR_JSON_END===
+===EN_JSON===
+{{düzenlenmiş EN JSON objesi}}
+===EN_JSON_END==="""
+
+    try:
+        resp = await loop.run_in_executor(None, lambda: claude.messages.create(
+            model="claude-sonnet-4-5", max_tokens=2000,
+            messages=[{"role": "user", "content": prompt}]
+        ).content[0].text.strip())
+
+        tr_m = re.search(r"===TR_JSON===\s*(.*?)\s*===TR_JSON_END===", resp, re.DOTALL)
+        en_m = re.search(r"===EN_JSON===\s*(.*?)\s*===EN_JSON_END===", resp, re.DOTALL)
+
+        if not tr_m or not en_m:
+            return await msg.edit_text("❌ Claude beklenen formatta yanıt vermedi.")
+
+        new_tr_section = _json.loads(tr_m.group(1).strip())
+        new_en_section = _json.loads(en_m.group(1).strip())
+
+        tr_data[alan["key"]] = new_tr_section
+        en_data[alan["key"]] = new_en_section
+
+        new_tr_raw = _json.dumps(tr_data, ensure_ascii=False, indent=2)
+        new_en_raw = _json.dumps(en_data, ensure_ascii=False, indent=2)
+
+        await msg.edit_text("📦 GitHub'a yükleniyor...", parse_mode="Markdown")
+        ok_tr = await loop.run_in_executor(None, gh_push, alan["tr"], new_tr_raw, f"site: {alan['key']} TR güncellendi")
+        ok_en = await loop.run_in_executor(None, gh_push, alan["en"], new_en_raw, f"site: {alan['key']} EN güncellendi")
+
+        if ok_tr and ok_en:
+            preview = _json.dumps(new_tr_section, ensure_ascii=False, indent=2)
+            await msg.edit_text(
+                f"✅ *{alan['label']}* güncellendi!\n\n"
+                f"```json\n{preview[:800]}\n```\n\n"
+                f"_Vercel deploy ~1-2 dk içinde._",
+                parse_mode="Markdown")
+        else:
+            await msg.edit_text("⚠️ Push başarısız. `agent.log` kontrol et.")
+
+    except _json.JSONDecodeError as e:
+        await msg.edit_text(f"❌ JSON parse hatası: `{str(e)[:200]}`", parse_mode="Markdown")
+    except Exception as e:
+        logger.exception("Site komutu hatası")
+        await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:400]}\n```", parse_mode="Markdown")
+
+
+async def cmd_fikir(u, ctx):
+    if not auth(u): return await deny(u)
+    konu = " ".join(ctx.args).strip() if ctx.args else ""
+
+    konu_label = f"*'{konu}'* için" if konu else "Genel niş için"
+    msg = await u.message.reply_text(
+        f"🔍 {konu_label} trafik fırsatları analiz ediliyor...", parse_mode="Markdown")
+
+    loop = asyncio.get_event_loop()
+
+    # SERP verisi — konu varsa ona göre, yoksa genel nişe göre
+    arama = konu if konu else "dijital pazarlama SEO stratejisi"
+    serp = await loop.run_in_executor(None, build_serp_context, arama, "tr")
+    serp_block = f"\nSERP VERİSİ:\n{serp['context'][:2000]}" if serp.get("context") else ""
+
+    # Zaten yazılmış sluglar — tekrar önermemek için
+    used_slugs = gh_slugs("tr")
+    used_block = ("\nZATEN YAZILMIŞ KONULAR (bunları ve benzerlerini önerme):\n"
+                  + "\n".join(f"- {s}" for s in used_slugs[:40])) if used_slugs else ""
+
+    konu_block = f'"{konu}" konusuna odaklanarak' if konu else \
+        "dijital pazarlama, SEO, UI/UX, yapay zeka, Google Ads, içerik pazarlaması konularında"
+
+    prompt = f"""tonguckaracay.com için {konu_block} trafik getirecek 7 blog yazısı öner.
+
+Site: Tonguç Karaçay — dijital pazarlama ve SEO danışmanlığı (tonguckaracay.com)
+Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, girişimciler
+{serp_block}
+{used_block}
+
+KRİTİK KURAL — ÖNCELIK SIRASI:
+1. UZUN KUYRUK keyword seç: 4+ kelimeli, çok spesifik sorgular ("Google Ads için hedefleme nasıl yapılır" değil "Shopify mağazası için Google Ads hedefleme stratejileri")
+2. DÜŞÜK REKABETLİ konular tercih et: büyük markalar ve medya sitelerinin yazmadığı nişler
+3. Arama hacmi düşük ama dönüşümü yüksek olsun: arayanın satın alma / danışmanlık alma niyeti yüksek
+
+Her öneri için TAM OLARAK şu formatı kullan:
+
+**1. Başlık buraya (uzun kuyruk, spesifik, yıl yok)**
+📌 Format: how-to / listicle / comparison / what-is / case-study
+🎯 Intent: informational / commercial / transactional
+🔑 Hedef keyword: (tam olarak bu kelime öbeğini hedefle)
+📊 Rekabet: düşük / orta / yüksek
+💡 Neden kazanılabilir: (tek cümle — rakip eksikliği veya niş)
+
+Sadece 7 öneriyi listele, başka açıklama ekleme."""
+
+    try:
+        resp = await loop.run_in_executor(None, lambda: claude.messages.create(
+            model="claude-sonnet-4-5", max_tokens=1500,
+            messages=[{"role": "user", "content": prompt}]
+        ))
+        ideas = resp.content[0].text.strip()
+        baslik = f"💡 *{konu_label} İçerik Fikirleri*\n\n"
+        # Telegram 4096 karakter limiti
+        text = baslik + ideas
+        if len(text) > 4000:
+            text = text[:4000] + "\n..."
+        await msg.edit_text(text, parse_mode="Markdown")
+    except Exception as e:
+        logger.exception("Fikir hatası")
+        await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:300]}\n```", parse_mode="Markdown")
+
+
 async def cmd_yazi(u, ctx):
     if not auth(u): return await deny(u)
     topic = " ".join(ctx.args).strip() if ctx.args else ""
@@ -596,8 +782,8 @@ async def _run(u, topic):
         if ok_tr and ok_en:
             await msg.edit_text(
                 f"✅ *Yayınlandı!*\n\n"
-                f"🇹🇷 [{post['tr']['title']}](https://tonguckaracay.com/blog/{post['tr']['slug']})\n"
-                f"🇬🇧 [{post['en']['title']}](https://tonguckaracay.com/en/blog/{post['en']['slug']})\n\n"
+                f"🇹🇷 [{post['tr']['title']}](https://tonguckaracay.com/{post['tr']['slug']})\n"
+                f"🇬🇧 [{post['en']['title']}](https://tonguckaracay.com/en/{post['en']['slug']})\n\n"
                 f"_Vercel deploy ~1-2 dk içinde tamamlanır._",
                 parse_mode="Markdown")
         else:
