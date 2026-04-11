@@ -389,16 +389,34 @@ _FALLBACK_IMAGES = [
 ]
 
 
-def img_url(kw: str, slug: str = "") -> str:
-    """Slug'ı seed olarak kullanarak deterministik görsel seçer.
-    Aynı slug her zaman aynı görseli alır; farklı sluglar farklı görseller alır."""
+def get_used_image_ids() -> set:
+    """GitHub'daki mevcut tüm yazılardan kullanılan Unsplash foto ID'lerini toplar."""
+    used = set()
+    for lang in ("tr", "en"):
+        for slug in gh_slugs(lang):
+            content = gh_read(f"content/blog/{lang}/{slug}.md")
+            if content:
+                m = re.search(r'photo-([a-z0-9]+-[a-f0-9]+)\?', content)
+                if m:
+                    used.add(m.group(1))
+    return used
+
+
+def img_url(kw: str, slug: str = "", used_ids: set = None) -> str:
+    """Kullanılmayan Unsplash görseli seçer. Tüm seçenekler doluysa seed ile seçer."""
     import hashlib
+    if used_ids is None:
+        used_ids = set()
     seed = int(hashlib.md5((kw + slug).encode()).hexdigest(), 16)
     kw_lower = kw.lower()
     for k, pids in IMAGES.items():
         if k in kw_lower:
-            return f"https://images.unsplash.com/photo-{pids[seed % len(pids)]}?w=1200&auto=format&fit=crop&q=80"
-    return f"https://images.unsplash.com/photo-{_FALLBACK_IMAGES[seed % len(_FALLBACK_IMAGES)]}?w=1200&auto=format&fit=crop&q=80"
+            available = [p for p in pids if p not in used_ids]
+            pool = available if available else pids
+            return f"https://images.unsplash.com/photo-{pool[seed % len(pool)]}?w=1200&auto=format&fit=crop&q=80"
+    available = [p for p in _FALLBACK_IMAGES if p not in used_ids]
+    pool = available if available else _FALLBACK_IMAGES
+    return f"https://images.unsplash.com/photo-{pool[seed % len(pool)]}?w=1200&auto=format&fit=crop&q=80"
 
 def extract_paa(serp_data: str) -> list[str]:
     """SERP verisinden PAA (People Also Ask) sorularını çeker."""
@@ -548,11 +566,16 @@ faq:
     # TR'deki PLACEHOLDER_EN_SLUG → gerçek EN slug ile değiştir
     tr_file = tr_file.replace("PLACEHOLDER_EN_SLUG", en_slug)
 
-    # image_keyword → gerçek Unsplash URL ile değiştir
+    # image_keyword → gerçek Unsplash URL ile değiştir (kullanılanları exclude et)
+    used_ids = get_used_image_ids()
     tr_kw = fm_field(tr_file, "image_keyword")
     en_kw = fm_field(en_file, "image_keyword")
-    tr_file = re.sub(r'^image_keyword:.*$', f'image: "{img_url(tr_kw, tr_slug)}"', tr_file, flags=re.MULTILINE)
-    en_file = re.sub(r'^image_keyword:.*$', f'image: "{img_url(en_kw, en_slug)}"', en_file, flags=re.MULTILINE)
+    tr_img = img_url(tr_kw, tr_slug, used_ids)
+    # EN görseli seçerken TR'nin seçtiğini de exclude et
+    tr_img_id = re.search(r'photo-([^?]+)', tr_img).group(1)
+    en_img = img_url(en_kw, en_slug, used_ids | {tr_img_id})
+    tr_file = re.sub(r'^image_keyword:.*$', f'image: "{tr_img}"', tr_file, flags=re.MULTILINE)
+    en_file = re.sub(r'^image_keyword:.*$', f'image: "{en_img}"', en_file, flags=re.MULTILINE)
 
     return {
         "tr": {"slug": tr_slug, "title": tr_title,

@@ -6,7 +6,7 @@ date: "2026-04-11"
 category: "Yapay Zeka"
 tags: ["ai agent", "yapay zeka ajanı", "dijital pazarlama", "otomasyon", "makine öğrenmesi"]
 readTime: "11 dk"
-image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "what-is-ai-agent-digital-marketing-guide"
 faq:
   - question: "AI agent ile chatbot arasındaki temel fark nedir?"

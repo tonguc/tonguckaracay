@@ -6,7 +6,7 @@ date: "2026-04-11"
 category: "Artificial Intelligence"
 tags: ["AI agents", "marketing automation", "agentic AI", "digital marketing"]
 readTime: "11 min"
-image: "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "ai-agent-nedir-dijital-pazarlamada-nasil-kullanilir"
 faq:
   - question: "What is the difference between AI agents and chatbots?"
