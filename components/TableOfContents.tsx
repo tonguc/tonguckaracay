@@ -54,7 +54,7 @@ export default function TableOfContents({ headings, locale, variant }: Props) {
             document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth' });
           }}
           className={`block py-1 text-sm transition-all duration-150 border-l-2 -ml-px
-            ${h.level === 3 ? 'pl-6' : 'pl-4'}
+            ${h.level === 3 ? 'pl-5' : 'pl-2'}
             ${activeId === h.id
               ? 'border-accent-500 text-accent-400 font-medium'
               : 'border-transparent text-primary-400 hover:text-primary-200 hover:border-primary-500'
