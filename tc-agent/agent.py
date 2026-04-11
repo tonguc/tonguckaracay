@@ -314,55 +314,108 @@ def get_internal_links(lang="tr") -> str:
         return ""
 
 # ── BLOG ÜRETİCİ ─────────────────────────────────────────────────────────────
-# Sıralı görsel havuzu — her yeni yazı sıradaki ID'yi alır, tekrar etmez.
-# Yeni ID eklenecekse listenin SONUNA ekle, sırası değiştirme.
-IMAGE_POOL = [
-    "1573804633927-bfcbcd909acd",
-    "1533750349088-cd871a92f312",
-    "1561070791-2526d30994b5",
-    "1677442136019-21780ecad995",
-    "1542744094-3a31f272c490",
-    "1551288049-bebda4e38f71",
-    "1596526131083-e8c633360a4c",
-    "1611974789855-9c2a0a7236a3",
-    "1460925895917-afdab827c52f",
-    "1454165804606-c3d57bc86b40",
-    "1485827404703-89b55fcc595e",
-    "1555255707-c07966088b7b",
-    "1676299081847-824916de030a",
-    "1633356122544-f134324a6cee",
-    "1611162617213-7d7a39e9b1d7",
-    "1549924231-f129b911d442",
-    "1552664730-d307ca884978",
-    "1556761175-b413da4baf72",
-    "1558655702-b1a49a557e15",
-    "1432888498266-38ffec3eaf0a",
-    "1519389950473-47ba0277781c",
-    "1516116216624-53ad697a8648",
-    "1563986768609-322da13575f3",
-    "1516251193007-45ef944ab0c6",
-    "1520333789090-1afc82db536a",
-    "1541462608143-67571c6738dd",
-    "1507238691740-187a5b1d37b7",
-    "1499750310-25496d3e5ed6",
-    "1486312338219-ce68d2c6f44d",
-    "1553877522-43269d4ea984",
-    "1551434678-e076c223a692",
-    "1517976487492-5750f3195933",
-    "1562577309-4f401e5e5b31",
-    "1497366216548-37526070297c",
-    "1497366811353-6870744d04b2",
-    "1553484771-047a44eab61a",
-    "1526178613658-3f1622045557",
-    "1563237819-2aefb2a12e56",
-    "1571721795195-a2ca2d3370e9",
-    "1504711434969-e33886168f5c",
+# Kategori bazlı görsel havuzu. Her kategoride 6 ID var.
+# pick_image(topic, index): kategoriye uygun görsel seçer, index ile offset
+# verir → aynı kategoride bile farklı yazılar farklı görsel alır.
+CATEGORY_IMAGES: dict[str, list[str]] = {
+    "seo": [
+        "1573804633927-bfcbcd909acd",
+        "1432888498266-38ffec3eaf0a",
+        "1519389950473-47ba0277781c",
+        "1571721795195-a2ca2d3370e9",
+        "1553877522-43269d4ea984",
+        "1516116216624-53ad697a8648",
+    ],
+    "google": [
+        "1611162617213-7d7a39e9b1d7",
+        "1549924231-f129b911d442",
+        "1497366811353-6870744d04b2",
+        "1516251193007-45ef944ab0c6",
+        "1520333789090-1afc82db536a",
+        "1563986768609-322da13575f3",
+    ],
+    "social": [
+        "1563986768609-322da13575f3",
+        "1516251193007-45ef944ab0c6",
+        "1520333789090-1afc82db536a",
+        "1526178613658-3f1622045557",
+        "1562577309-4f401e5e5b31",
+        "1553484771-047a44eab61a",
+    ],
+    "market": [
+        "1533750349088-cd871a92f312",
+        "1454165804606-c3d57bc86b40",
+        "1552664730-d307ca884978",
+        "1556761175-b413da4baf72",
+        "1497366216548-37526070297c",
+        "1551434678-e076c223a692",
+    ],
+    "design": [
+        "1561070791-2526d30994b5",
+        "1558655702-b1a49a557e15",
+        "1541462608143-67571c6738dd",
+        "1507238691740-187a5b1d37b7",
+        "1517976487492-5750f3195933",
+        "1563237819-2aefb2a12e56",
+    ],
+    "ai": [
+        "1677442136019-21780ecad995",
+        "1485827404703-89b55fcc595e",
+        "1555255707-c07966088b7b",
+        "1633356122544-f134324a6cee",
+        "1676299081847-824916de030a",
+        "1611162617213-7d7a39e9b1d7",
+    ],
+    "content": [
+        "1542744094-3a31f272c490",
+        "1499750310-25496d3e5ed6",
+        "1486312338219-ce68d2c6f44d",
+        "1504711434969-e33886168f5c",
+        "1432888498266-38ffec3eaf0a",
+        "1571721795195-a2ca2d3370e9",
+    ],
+    "analytic": [
+        "1551288049-bebda4e38f71",
+        "1460925895917-afdab827c52f",
+        "1553877522-43269d4ea984",
+        "1551434678-e076c223a692",
+        "1497366216548-37526070297c",
+        "1516116216624-53ad697a8648",
+    ],
+    "email": [
+        "1596526131083-e8c633360a4c",
+        "1517976487492-5750f3195933",
+        "1526178613658-3f1622045557",
+        "1563237819-2aefb2a12e56",
+        "1499750310-25496d3e5ed6",
+        "1486312338219-ce68d2c6f44d",
+    ],
+    "ads": [
+        "1611974789855-9c2a0a7236a3",
+        "1562577309-4f401e5e5b31",
+        "1553484771-047a44eab61a",
+        "1556761175-b413da4baf72",
+        "1552664730-d307ca884978",
+        "1454165804606-c3d57bc86b40",
+    ],
+}
+
+_FALLBACK_POOL = [
+    "1460925895917-afdab827c52f", "1486312338219-ce68d2c6f44d",
+    "1504711434969-e33886168f5c", "1519389950473-47ba0277781c",
+    "1542744094-3a31f272c490",   "1551288049-bebda4e38f71",
 ]
 
 
-def pick_image(index: int) -> str:
-    """Havuzdan sıradaki görseli döner. index = mevcut TR post sayısı."""
-    pid = IMAGE_POOL[index % len(IMAGE_POOL)]
+def pick_image(topic: str, post_index: int) -> str:
+    """Konuya uygun kategoriden, post_index ile offset'li görsel seçer."""
+    t = topic.lower()
+    pool = _FALLBACK_POOL
+    for cat, ids in CATEGORY_IMAGES.items():
+        if cat in t:
+            pool = ids
+            break
+    pid = pool[post_index % len(pool)]
     return f"https://images.unsplash.com/photo-{pid}?w=1200&auto=format&fit=crop&q=80"
 
 
@@ -514,11 +567,11 @@ faq:
     # TR'deki PLACEHOLDER_EN_SLUG → gerçek EN slug ile değiştir
     tr_file = tr_file.replace("PLACEHOLDER_EN_SLUG", en_slug)
 
-    # Görsel seçimi: mevcut TR post sayısını index olarak kullan
-    # TR = index N, EN = index N+1 → asla aynı görsel alamazlar
+    # Görsel seçimi: konuya uygun kategoriden, post sayısı ile offset
+    # TR ve EN farklı index aldığından asla aynı görseli alamazlar
     post_index = len(gh_slugs("tr"))
-    tr_img = pick_image(post_index)
-    en_img = pick_image(post_index + 1)
+    tr_img = pick_image(topic, post_index)
+    en_img = pick_image(topic, post_index + 1)
     tr_file = re.sub(r'^image_keyword:.*$', f'image: "{tr_img}"', tr_file, flags=re.MULTILINE)
     en_file = re.sub(r'^image_keyword:.*$', f'image: "{en_img}"', en_file, flags=re.MULTILINE)
 
@@ -582,6 +635,7 @@ async def cmd_start(u, _):
         "👋 *tonguckaracay.com Growth Agent v2*\n\n"
         "📝 `/yazi [konu]` — SERP analizi yapıp yazı üret\n"
         "💡 `/fikir [konu]` — Trafik getirecek 7 konu önerisi\n"
+        "🌐 `/site hero [talimat]` — Ana sayfa slider metnini güncelle\n"
         "✏️ `/revize [slug] [istek]` — Mevcut yazıyı düzenle\n"
         "🤖 `/gunluk` — Otomatik konu seç ve yaz\n"
         "📋 `/brief [konu]` — Sadece içerik brief göster\n"
@@ -750,6 +804,129 @@ Respond in exactly this format (nothing else):
     except Exception as e:
         logger.exception("Revize hatası")
         await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:400]}\n```", parse_mode="Markdown")
+
+async def cmd_site(u, ctx):
+    """Site içerik alanlarını Telegram'dan günceller.
+    Kullanım: /site hero [talimat]
+    """
+    if not auth(u): return await deny(u)
+    args = ctx.args if ctx.args else []
+
+    AREAS = {
+        "hero": {
+            "tr": "messages/tr.json",
+            "en": "messages/en.json",
+            "key": "hero",
+            "label": "Ana Sayfa Hero / Slider",
+        }
+    }
+
+    if not args or args[0] not in AREAS:
+        bolumler = "\n".join(f"• `{k}` — {v['label']}" for k, v in AREAS.items())
+        return await u.message.reply_text(
+            f"🌐 *Site İçerik Editörü*\n\n"
+            f"Kullanım: `/site [bölüm] [talimat]`\n\n"
+            f"Mevcut bölümler:\n{bolumler}\n\n"
+            f"Örnek: `/site hero Başlığı daha güçlü yap, dönüşüme odaklan`",
+            parse_mode="Markdown")
+
+    alan = AREAS[args[0]]
+    talimat = " ".join(args[1:]).strip() if len(args) > 1 else ""
+
+    if not talimat:
+        # Mevcut içeriği göster
+        loop = asyncio.get_event_loop()
+        tr_raw = await loop.run_in_executor(None, gh_read, alan["tr"])
+        if not tr_raw:
+            return await u.message.reply_text("❌ Dosya okunamadı.")
+        import json as _json
+        tr_data = _json.loads(tr_raw)
+        current = _json.dumps(tr_data.get(alan["key"], {}), ensure_ascii=False, indent=2)
+        return await u.message.reply_text(
+            f"📄 *{alan['label']} — Mevcut İçerik*\n\n```json\n{current[:2000]}\n```\n\n"
+            f"Düzenlemek için: `/site {args[0]} [talimat]`",
+            parse_mode="Markdown")
+
+    msg = await u.message.reply_text(
+        f"✍️ *{alan['label']}* revize ediliyor...", parse_mode="Markdown")
+
+    loop = asyncio.get_event_loop()
+    import json as _json
+
+    tr_raw = await loop.run_in_executor(None, gh_read, alan["tr"])
+    en_raw = await loop.run_in_executor(None, gh_read, alan["en"])
+    if not tr_raw or not en_raw:
+        return await msg.edit_text("❌ Dosyalar okunamadı.")
+
+    tr_data = _json.loads(tr_raw)
+    en_data = _json.loads(en_raw)
+    tr_section = _json.dumps(tr_data.get(alan["key"], {}), ensure_ascii=False, indent=2)
+    en_section = _json.dumps(en_data.get(alan["key"], {}), ensure_ascii=False, indent=2)
+
+    prompt = f"""Bir web sitesinin "{alan['label']}" bölümünü revize et.
+
+TALİMAT: {talimat}
+
+MEVCUT TR İÇERİK (JSON):
+{tr_section}
+
+MEVCUT EN İÇERİK (JSON):
+{en_section}
+
+KURALLAR:
+- JSON key'lerini değiştirme, sadece value'ları güncelle
+- TR için Türkçe, EN için İngilizce yaz
+- Kısa, güçlü, dönüşüm odaklı metinler
+
+TAM OLARAK ŞU FORMATTA DÖN:
+===TR_JSON===
+{{düzenlenmiş TR JSON objesi}}
+===TR_JSON_END===
+===EN_JSON===
+{{düzenlenmiş EN JSON objesi}}
+===EN_JSON_END==="""
+
+    try:
+        resp = await loop.run_in_executor(None, lambda: claude.messages.create(
+            model="claude-sonnet-4-5", max_tokens=2000,
+            messages=[{"role": "user", "content": prompt}]
+        ).content[0].text.strip())
+
+        tr_m = re.search(r"===TR_JSON===\s*(.*?)\s*===TR_JSON_END===", resp, re.DOTALL)
+        en_m = re.search(r"===EN_JSON===\s*(.*?)\s*===EN_JSON_END===", resp, re.DOTALL)
+
+        if not tr_m or not en_m:
+            return await msg.edit_text("❌ Claude beklenen formatta yanıt vermedi.")
+
+        new_tr_section = _json.loads(tr_m.group(1).strip())
+        new_en_section = _json.loads(en_m.group(1).strip())
+
+        tr_data[alan["key"]] = new_tr_section
+        en_data[alan["key"]] = new_en_section
+
+        new_tr_raw = _json.dumps(tr_data, ensure_ascii=False, indent=2)
+        new_en_raw = _json.dumps(en_data, ensure_ascii=False, indent=2)
+
+        await msg.edit_text("📦 GitHub'a yükleniyor...", parse_mode="Markdown")
+        ok_tr = await loop.run_in_executor(None, gh_push, alan["tr"], new_tr_raw, f"site: {alan['key']} TR güncellendi")
+        ok_en = await loop.run_in_executor(None, gh_push, alan["en"], new_en_raw, f"site: {alan['key']} EN güncellendi")
+
+        if ok_tr and ok_en:
+            preview = _json.dumps(new_tr_section, ensure_ascii=False, indent=2)
+            await msg.edit_text(
+                f"✅ *{alan['label']}* güncellendi!\n\n"
+                f"```json\n{preview[:800]}\n```\n\n"
+                f"_Vercel deploy ~1-2 dk içinde._",
+                parse_mode="Markdown")
+        else:
+            await msg.edit_text("⚠️ Push başarısız. `agent.log` kontrol et.")
+
+    except _json.JSONDecodeError as e:
+        await msg.edit_text(f"❌ JSON parse hatası: `{str(e)[:200]}`", parse_mode="Markdown")
+    except Exception as e:
+        logger.exception("Site komutu hatası")
+        await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:400]}\n```", parse_mode="Markdown")
+
 
 async def cmd_fikir(u, ctx):
     if not auth(u): return await deny(u)
@@ -924,7 +1101,8 @@ def main():
     app = Application.builder().token(token).post_init(post_init).build()
     for cmd, fn in [("start",cmd_start),("yardim",cmd_start),("durum",cmd_durum),
                     ("liste",cmd_liste),("brief",cmd_brief),("revize",cmd_revize),
-                    ("yazi",cmd_yazi),("fikir",cmd_fikir),("gunluk",cmd_gunluk),("stop",cmd_stop)]:
+                    ("yazi",cmd_yazi),("fikir",cmd_fikir),("site",cmd_site),
+                    ("gunluk",cmd_gunluk),("stop",cmd_stop)]:
         app.add_handler(CommandHandler(cmd, fn))
     logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH}")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
