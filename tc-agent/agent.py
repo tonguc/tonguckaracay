@@ -348,7 +348,7 @@ def extract_paa(serp_data: str) -> list[str]:
 def _call_claude(prompt: str, max_tokens: int = 8000) -> str:
     """Claude API çağrısı yapar, raw metni döner."""
     resp = claude.messages.create(
-        model="claude-opus-4-5", max_tokens=max_tokens,
+        model="claude-sonnet-4-5", max_tokens=max_tokens,
         system=SYSTEM,
         messages=[{"role": "user", "content": prompt}]
     )
@@ -533,7 +533,7 @@ def pick_topic(used: list[str]) -> str:
         slug = t.lower().replace(" ", "-")
         if not any(SequenceMatcher(None, slug, u).ratio() > 0.5 for u in used):
             return t
-    r = claude.messages.create(model="claude-opus-4-5", max_tokens=80,
+    r = claude.messages.create(model="claude-sonnet-4-5", max_tokens=80,
         messages=[{"role":"user","content":"Dijital pazarlama ve SEO blogu için özgün bir yazı konusu öner. Sadece başlık."}])
     return r.content[0].text.strip()
 
@@ -658,7 +658,7 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
 ===EN_END==="""
 
         resp = claude.messages.create(
-            model="claude-opus-4-5", max_tokens=6000,
+            model="claude-sonnet-4-5", max_tokens=6000,
             system=SYSTEM,
             messages=[{"role": "user", "content": prompt}]
         )
