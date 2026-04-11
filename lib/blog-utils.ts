@@ -120,16 +120,23 @@ export function getAllSlugs(locale: 'tr' | 'en' = 'tr'): string[] {
 export function getRelatedPosts(currentSlug: string, locale: 'tr' | 'en' = 'tr', limit: number = 3): BlogPost[] {
   const currentPost = getPostBySlug(currentSlug, locale);
   if (!currentPost) return [];
-  
-  const allPosts = getAllPosts(locale);
-  
-  return allPosts
-    .filter(post => post.slug !== currentSlug)
-    .filter(post => 
-      post.category === currentPost.category || 
-      post.tags.some(tag => currentPost.tags.includes(tag))
-    )
-    .slice(0, limit);
+
+  const allPosts = getAllPosts(locale).filter(post => post.slug !== currentSlug);
+
+  const related = allPosts.filter(post =>
+    post.category === currentPost.category ||
+    post.tags.some(tag => currentPost.tags.includes(tag))
+  ).slice(0, limit);
+
+  if (related.length >= limit) return related;
+
+  // Yeterli ilgili yazı yoksa en son yazılarla tamamla
+  const relatedSlugs = new Set(related.map(p => p.slug));
+  const fallback = allPosts
+    .filter(post => !relatedSlugs.has(post.slug))
+    .slice(0, limit - related.length);
+
+  return [...related, ...fallback];
 }
 
 /**

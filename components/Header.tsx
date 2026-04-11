@@ -195,12 +195,16 @@ export default function Header() {
           </div>
 
           {/* Mobile */}
-          <button
-            className="md:hidden text-white p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex md:hidden items-center gap-2">
+            <Link href={navLinks.blog} className="text-sm font-medium text-primary-200 hover:text-white transition-colors px-2 py-1">{t('blog')}</Link>
+            <Link href={navLinks.contact} className="btn-primary text-sm px-3 py-1.5">{t('contact')}</Link>
+            <button
+              className="text-white p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu */}

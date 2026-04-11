@@ -207,7 +207,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
           </div>
         </div>
 
-        {relatedPosts.length > 0 && (
+        {relatedPosts.length >= 2 && (
           <div className="max-w-5xl mx-auto mt-20">
             <h2 className="font-display text-2xl font-bold text-white mb-8 text-center">{t('relatedPosts')}</h2>
             <div className="grid md:grid-cols-3 gap-6">

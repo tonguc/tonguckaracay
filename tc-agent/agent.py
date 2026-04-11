@@ -570,10 +570,9 @@ faq:
     # Görsel seçimi: konuya uygun kategoriden, post sayısı ile offset
     # TR ve EN farklı index aldığından asla aynı görseli alamazlar
     post_index = len(gh_slugs("tr"))
-    tr_img = pick_image(topic, post_index)
-    en_img = pick_image(topic, post_index + 1)
-    tr_file = re.sub(r'^image_keyword:.*$', f'image: "{tr_img}"', tr_file, flags=re.MULTILINE)
-    en_file = re.sub(r'^image_keyword:.*$', f'image: "{en_img}"', en_file, flags=re.MULTILINE)
+    img = pick_image(topic, post_index)
+    tr_file = re.sub(r'^image_keyword:.*$', f'image: "{img}"', tr_file, flags=re.MULTILINE)
+    en_file = re.sub(r'^image_keyword:.*$', f'image: "{img}"', en_file, flags=re.MULTILINE)
 
     return {
         "tr": {"slug": tr_slug, "title": tr_title,
