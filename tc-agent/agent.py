@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
 from telegram import Update
-from telegram.ext import Application, CommandHandler, ContextTypes
+from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 import anthropic, requests
 
 logging.basicConfig(
@@ -927,6 +927,9 @@ TAM OLARAK ŞU FORMATTA DÖN:
         await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:400]}\n```", parse_mode="Markdown")
 
 
+# Kullanıcı başına son /fikir sonuçlarını saklar: {user_id: [başlık1, başlık2, ...]}
+_pending_ideas: dict[int, list[str]] = {}
+
 async def cmd_fikir(u, ctx):
     if not auth(u): return await deny(u)
     konu = " ".join(ctx.args).strip() if ctx.args else ""
@@ -979,9 +982,16 @@ Sadece 7 öneriyi listele, başka açıklama ekleme."""
             messages=[{"role": "user", "content": prompt}]
         ))
         ideas = resp.content[0].text.strip()
+
+        # Başlıkları parse et ve hafızaya kaydet (sayı ile seçim için)
+        titles = re.findall(r'\*\*\d+\.\s+(.+?)\*\*', ideas)
+        if titles:
+            _pending_ideas[u.effective_user.id] = titles
+
         baslik = f"💡 *{konu_label} İçerik Fikirleri*\n\n"
+        footer = "\n\n_Yazmak için sadece numara gönder: `1`, `2` ... `7`_" if titles else ""
         # Telegram 4096 karakter limiti
-        text = baslik + ideas
+        text = baslik + ideas + footer
         if len(text) > 4000:
             text = text[:4000] + "\n..."
         await msg.edit_text(text, parse_mode="Markdown")
@@ -989,6 +999,22 @@ Sadece 7 öneriyi listele, başka açıklama ekleme."""
         logger.exception("Fikir hatası")
         await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:300]}\n```", parse_mode="Markdown")
 
+
+async def handle_idea_selection(u, ctx):
+    """Kullanıcı /fikir sonrası numara gönderirse o başlıkla yazı üretir."""
+    if not auth(u): return
+    text = (u.message.text or "").strip()
+    m = re.match(r'^([1-7])', text)
+    if not m: return
+    idx = int(m.group(1)) - 1
+    titles = _pending_ideas.get(u.effective_user.id, [])
+    if not titles:
+        return await u.message.reply_text("❌ Önce `/fikir` komutuyla öneri listesi al.", parse_mode="Markdown")
+    if idx >= len(titles):
+        return await u.message.reply_text(f"❌ Geçersiz numara. 1-{len(titles)} arası gir.")
+    topic = titles[idx]
+    await u.message.reply_text(f"✍️ *{idx+1}. öneri* seçildi:\n_{topic}_", parse_mode="Markdown")
+    await _run(u, topic)
 
 async def cmd_yazi(u, ctx):
     if not auth(u): return await deny(u)
@@ -1109,6 +1135,7 @@ def main():
                     ("yazi",cmd_yazi),("fikir",cmd_fikir),("site",cmd_site),
                     ("gunluk",cmd_gunluk),("stop",cmd_stop)]:
         app.add_handler(CommandHandler(cmd, fn))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_idea_selection))
     logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH}")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
 
