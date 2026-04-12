@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLocale, useTranslations } from 'next-intl';
-import { ArrowRight, CheckCircle, Sparkles, FileText } from "lucide-react";
+import { ArrowRight, CheckCircle, Sparkles } from "lucide-react";
 
 export default function Hero() {
   const t = useTranslations('hero');
@@ -10,7 +10,11 @@ export default function Hero() {
   const contactPath = locale === 'tr' ? '/iletisim' : '/en/contact';
   const servicesPath = locale === 'tr' ? '/#hizmetler' : '/en/#services';
   const featuredPost = t.raw('featuredPost') as { title: string; description: string; slug: string };
-  
+  const hasFeatured = !!featuredPost?.slug;
+  const postPath = hasFeatured
+    ? (locale === 'tr' ? `/${featuredPost.slug}` : `/en/${featuredPost.slug}`)
+    : null;
+
   return (
     <section className="pt-28 pb-12 md:pt-40 md:pb-28 relative overflow-hidden">
       {/* Animated Background Effects */}
@@ -25,46 +29,68 @@ export default function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-accent-500/10 border border-accent-500/20 rounded-full mb-6 md:mb-8">
             <Sparkles className="w-4 h-4 text-accent-500" />
-            <span className="text-xs md:text-sm text-accent-400 font-medium">{t('badge')}</span>
+            <span className="text-xs md:text-sm text-accent-400 font-medium">
+              {hasFeatured ? t('featuredLabel') : t('badge')}
+            </span>
           </div>
-          
+
           {/* Main Heading */}
           <h1 className="font-display text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight">
-            {t('title')}{' '}
-            <span className="text-gradient">{t('titleHighlight')}</span>{' '}
-            {t('titleEnd')}
+            {hasFeatured ? (
+              featuredPost.title
+            ) : (
+              <>
+                {t('title')}{' '}
+                <span className="text-gradient">{t('titleHighlight')}</span>{' '}
+                {t('titleEnd')}
+              </>
+            )}
           </h1>
 
           {/* Subtitle */}
           <p className="text-base md:text-xl text-primary-300 mb-8 md:mb-10 leading-relaxed max-w-2xl mx-auto px-4 md:px-0">
-            {t('subtitle')}
+            {hasFeatured ? featuredPost.description : t('subtitle')}
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 mb-6 md:mb-8 px-4 md:px-0">
-            <Link href={contactPath} className="btn-primary group text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
-              {t('cta')}
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link href={servicesPath} className="btn-secondary text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
-              {t('ctaSecondary')}
-            </Link>
+            {hasFeatured ? (
+              <>
+                <Link href={postPath!} className="btn-primary group text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
+                  {locale === 'tr' ? 'Yazıyı Oku' : 'Read Post'}
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link href={contactPath} className="btn-secondary text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
+                  {t('cta')}
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href={contactPath} className="btn-primary group text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
+                  {t('cta')}
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link href={servicesPath} className="btn-secondary text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
+                  {t('ctaSecondary')}
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Social Links */}
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12">
-            <a 
-              href="https://www.linkedin.com/in/tongu%C3%A7-kara%C3%A7ay-36311040/" 
-              target="_blank" 
+            <a
+              href="https://www.linkedin.com/in/tongu%C3%A7-kara%C3%A7ay-36311040/"
+              target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary"
             >
               <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               LinkedIn
             </a>
-            <a 
-              href="https://www.instagram.com/tonguckaracay" 
-              target="_blank" 
+            <a
+              href="https://www.instagram.com/tonguckaracay"
+              target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary"
             >
@@ -72,26 +98,6 @@ export default function Hero() {
               Instagram
             </a>
           </div>
-
-          {/* Featured Post Card */}
-          {featuredPost?.slug && (
-            <div className="mb-8 md:mb-10">
-              <Link
-                href={locale === 'tr' ? `/${featuredPost.slug}` : `/en/${featuredPost.slug}`}
-                className="inline-flex items-start gap-3 px-4 py-3 bg-surface-card border border-accent-500/20 hover:border-accent-500/50 rounded-xl transition-all group max-w-xl text-left"
-              >
-                <FileText className="w-4 h-4 text-accent-500 shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-xs text-accent-500 font-medium uppercase tracking-wider">{t('featuredLabel')}</span>
-                  <p className="text-sm text-white font-medium group-hover:text-accent-400 transition-colors mt-0.5 line-clamp-1">{featuredPost.title}</p>
-                  {featuredPost.description && (
-                    <p className="text-xs text-primary-400 mt-0.5 line-clamp-2">{featuredPost.description}</p>
-                  )}
-                </div>
-                <ArrowRight className="w-4 h-4 text-primary-500 group-hover:text-accent-500 group-hover:translate-x-1 transition-all shrink-0 mt-0.5" />
-              </Link>
-            </div>
-          )}
 
           {/* Trust Indicators */}
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 pt-6 md:pt-8 border-t border-primary-800">
