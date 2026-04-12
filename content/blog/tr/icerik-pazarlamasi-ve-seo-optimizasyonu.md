@@ -1,5 +1,5 @@
 ---
-title: "İçerik Pazarlaması ve SEO Optimizasyonu"
+title: "İçerik Pazarlaması ve SEO Optimizasyonu: Kapsamlı Rehber"
 slug: "icerik-pazarlamasi-ve-seo-optimizasyonu"
 description: "SEO uyumlu içerik nasıl yazılır, içerik pazarlaması stratejileri ve kaliteli içerik üretimi hakkında kapsamlı rehber."
 date: "2024-09-15"

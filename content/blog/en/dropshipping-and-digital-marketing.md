@@ -1,7 +1,7 @@
 ---
-title: "Dropshipping and Digital Marketing"
+title: "Dropshipping and Digital Marketing: A Beginner's Guide"
 slug: "dropshipping-and-digital-marketing"
-description: "What is dropshipping (stock-free e-commerce), how to do it, and how to support it with digital marketing?"
+description: "What is dropshipping and how does it work? Learn to start a stock-free e-commerce business and scale it using digital marketing strategies and the right tools."
 date: "2024-05-22"
 category: "Digital Marketing"
 tags: ["Dropshipping", "E-Commerce", "Digital Marketing", "Stock-Free Commerce"]

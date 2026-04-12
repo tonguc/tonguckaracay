@@ -1,5 +1,5 @@
 ---
-title: "Google Analytics İle Site Optimizasyonu"
+title: "Google Analytics ile Site Optimizasyonu Nasıl Yapılır?"
 slug: "google-analytics-ile-site-optimizasyonu"
 description: "Google Analytics kullanarak web sitenizi nasıl optimize edeceğinizi ve kullanıcı davranışlarını nasıl analiz edeceğinizi öğrenin."
 date: "2022-01-20"

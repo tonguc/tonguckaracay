@@ -1,7 +1,7 @@
 ---
-title: "Dropshipping ile Dijital Pazarlama"
+title: "Dropshipping ile Dijital Pazarlama: Başlangıç Rehberi"
 slug: "dropshipping-ile-dijital-pazarlama"
-description: "Stoksuz e-ticaret (dropshipping) nedir, nasıl yapılır ve dijital pazarlama ile nasıl desteklenir?"
+description: "Dropshipping nedir, stoksuz e-ticaret nasıl kurulur ve dijital pazarlama ile nasıl büyütülür? Adım adım strateji rehberi, başarı ipuçları ve önerilen araçlar."
 date: "2024-05-22"
 category: "Dijital Pazarlama"
 tags: ["Dropshipping", "E-Ticaret", "Dijital Pazarlama", "Stoksuz Ticaret"]

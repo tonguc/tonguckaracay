@@ -1,7 +1,7 @@
 ---
-title: "Kaliteli ve Özgün İçeriğin SEO İçin Önemi"
+title: "Kaliteli ve Özgün İçeriğin SEO İçin Önemi ve Etkisi"
 slug: "kaliteli-ve-ozgun-icerigin-seo-icin-onemi"
-description: "Kaliteli içerik üretimi, özgün içerik stratejileri ve SEO için içerik optimizasyonu hakkında kapsamlı rehber."
+description: "Kaliteli ve özgün içeriğin SEO'ya etkisi nedir? İçerik optimizasyonu stratejileri ve Google sıralamanızı yükseltecek pratik ipuçları için rehberimizi okuyun."
 date: "2025-05-20"
 category: "SEO"
 tags: ["Kaliteli İçerik", "Özgün İçerik", "SEO", "İçerik Stratejisi"]

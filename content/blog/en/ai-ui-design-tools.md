@@ -1,5 +1,5 @@
 ---
-title: "AI Tools for UI Design: Complete Guide"
+title: "AI Tools for UI Design: Complete Guide to AI-Powered UI"
 slug: "ai-ui-design-tools"
 description: "Discover AI tools transforming UI design. Figma AI, Uizard, Google Stitch features, practical strategies, and the latest industry statistics."
 date: "2026-01-12"

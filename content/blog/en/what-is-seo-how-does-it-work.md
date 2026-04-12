@@ -1,5 +1,5 @@
 ---
-title: "What Is SEO and How Does It Work?"
+title: "What Is SEO and How Does It Work? A Beginner's Guide"
 slug: "what-is-seo-how-does-it-work"
 description: "SEO stands for Search Engine Optimization. It's the process of improving your site's visibility for relevant searches to attract more traffic."
 date: "2020-03-15"

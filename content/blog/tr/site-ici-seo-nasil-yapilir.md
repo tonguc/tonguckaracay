@@ -1,5 +1,5 @@
 ---
-title: "Site İçi SEO Nasıl Yapılır? Ayrıntılı İç SEO Rehberi"
+title: "Site İçi SEO Nasıl Yapılır? Tam On-Page SEO Rehberi"
 slug: "site-ici-seo-nasil-yapilir"
 description: "On-Page SEO teknikleri, site içi optimizasyon stratejileri ve Google sıralamalarını yükseltmek için yapılması gerekenler."
 date: "2022-05-08"

@@ -1,5 +1,5 @@
 ---
-title: "En Etkili Dijital Pazarlama Yöntemleri"
+title: "En Etkili Dijital Pazarlama Yöntemleri ve Stratejileri"
 slug: "en-etkili-dijital-pazarlama-yontemleri"
 description: "Dijital pazarlama stratejileri, sosyal medya pazarlaması, içerik pazarlaması ve influencer marketing hakkında kapsamlı rehber."
 date: "2025-01-08"

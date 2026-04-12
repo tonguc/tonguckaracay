@@ -1,5 +1,5 @@
 ---
-title: "Social Media Management and Online Marketing"
+title: "Social Media Management and Online Marketing Strategies"
 slug: "social-media-management-and-online-marketing"
 description: "A comprehensive guide on social media management strategies, online marketing techniques, and the relationship between SEO and social media."
 date: "2022-09-14"

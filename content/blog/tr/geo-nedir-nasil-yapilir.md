@@ -1,7 +1,7 @@
 ---
 title: "GEO Nedir ve Nasıl Yapılır? Yapay Zeka SEO Rehberi 2026"
 slug: "geo-nedir-nasil-yapilir"
-description: "GEO (Generative Engine Optimization) nedir, nasıl yapılır? ChatGPT, Perplexity ve Google SGE'de görünür olmak için adım adım GEO stratejileri ve uygulama rehberi."
+description: "GEO (Generative Engine Optimization) nedir, nasıl yapılır? ChatGPT, Perplexity ve Google SGE'de görünür olmak için adım adım GEO stratejileri ve rehber."
 date: "2026-01-06"
 category: "SEO"
 tags: ["GEO", "Generative Engine Optimization", "AI SEO", "ChatGPT", "Perplexity", "SGE", "Yapay Zeka", "LLM Optimizasyonu"]

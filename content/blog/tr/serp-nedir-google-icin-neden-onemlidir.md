@@ -1,7 +1,7 @@
 ---
-title: "SERP Nedir, Google İçin Neden Önemlidir?"
+title: "SERP Nedir? Google Arama Sonuçları ve SEO'ya Etkisi"
 slug: "serp-nedir-google-icin-neden-onemlidir"
-description: "SERP (Search Engine Results Page) nedir, özellikleri nelerdir ve SEO stratejinizi nasıl etkiler?"
+description: "SERP (Search Engine Results Page) nedir, özellikleri nelerdir ve Google SEO stratejinizi nasıl etkiler? Arama sonuç sayfasını anlamak için kapsamlı rehber."
 date: "2023-01-25"
 category: "SEO"
 tags: ["SERP", "Google", "Arama Sonuçları", "SEO"]

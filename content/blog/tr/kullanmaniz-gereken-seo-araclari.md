@@ -1,5 +1,5 @@
 ---
-title: "Kullanmanız Gereken SEO Araçları Nelerdir?"
+title: "Profesyonel SEO için Kullanmanız Gereken En İyi Araçlar"
 slug: "kullanmaniz-gereken-seo-araclari"
 description: "Profesyonel SEO çalışmaları için mutlaka kullanmanız gereken 10 SEO aracı ve nasıl kullanıldıkları hakkında detaylı rehber."
 date: "2021-10-12"

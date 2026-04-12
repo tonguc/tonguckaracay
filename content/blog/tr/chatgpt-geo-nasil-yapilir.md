@@ -1,5 +1,5 @@
 ---
-title: "ChatGPT GEO Nasıl Yapılır? Yapay Zekada Görünür Olma Rehberi 2026"
+title: "ChatGPT GEO Nasıl Yapılır? Yapay Zekada Görünür Olun"
 slug: "chatgpt-geo-nasil-yapilir"
 description: "ChatGPT'de nasıl görünür olunur? ChatGPT GEO stratejileri, LLM optimizasyonu ve yapay zeka aramalarında alıntılanmak için adım adım rehber."
 date: "2026-01-11"

@@ -1,5 +1,5 @@
 ---
-title: "AI Agent ile Müşteri Hizmetleri Otomasyonu: Adım Adım Rehber"
+title: "AI Agent ile Müşteri Hizmetleri Otomasyonu Rehberi"
 slug: "ai-agent-musteri-hizmetleri-otomasyonu"
 description: "AI agent kullanarak müşteri hizmetlerini otomatikleştirin. Chatbot kurulumu, NLP entegrasyonu ve KVKK uyumlu otomasyon stratejileri."
 date: "2026-04-11"

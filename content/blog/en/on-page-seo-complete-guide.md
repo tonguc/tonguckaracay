@@ -1,7 +1,7 @@
 ---
-title: "On-Page SEO: A Complete Guide"
+title: "On-Page SEO: A Complete Guide to Site Optimization"
 slug: "on-page-seo-complete-guide"
-description: "On-page SEO techniques, site optimization strategies, and what you need to do to improve Google rankings."
+description: "Master on-page SEO with proven techniques and site optimization strategies. Learn what to do to improve your Google rankings and drive more organic traffic."
 date: "2022-05-08"
 category: "SEO"
 tags: ["On-Page SEO", "Site Optimization", "SEO Optimization", "Internal SEO"]

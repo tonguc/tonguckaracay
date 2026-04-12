@@ -1,7 +1,7 @@
 ---
-title: "What Is Inbound Marketing and How to Do It?"
+title: "What Is Inbound Marketing and How to Do It Effectively?"
 slug: "what-is-inbound-marketing-how-to-do-it"
-description: "A detailed guide on inbound marketing strategies, techniques, and methods for attracting customers."
+description: "What is inbound marketing and how does it work? Explore proven strategies, lead generation techniques, and content methods to attract and convert customers."
 date: "2021-02-18"
 category: "Digital Marketing"
 tags: ["Inbound Marketing", "Content Marketing", "Digital Marketing", "Lead Generation"]
