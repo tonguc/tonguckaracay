@@ -20,7 +20,13 @@
     "ctaSecondary": "View Services",
     "experience": "Years Experience",
     "resultOriented": "Results-Driven",
-    "personalizedStrategy": "Personalized Strategy"
+    "personalizedStrategy": "Personalized Strategy",
+    "featuredLabel": "Latest Post",
+    "featuredPost": {
+      "title": "",
+      "description": "",
+      "slug": ""
+    }
   },
   "services": {
     "sectionTitle": "How Can I",

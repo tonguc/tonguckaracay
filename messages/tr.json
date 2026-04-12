@@ -20,7 +20,13 @@
     "ctaSecondary": "Hizmetleri Gör",
     "experience": "Yıl Deneyim",
     "resultOriented": "Sonuç Odaklı",
-    "personalizedStrategy": "Kişiselleştirilmiş Strateji"
+    "personalizedStrategy": "Kişiselleştirilmiş Strateji",
+    "featuredLabel": "Son Yazı",
+    "featuredPost": {
+      "title": "",
+      "description": "",
+      "slug": ""
+    }
   },
   "services": {
     "sectionTitle": "Nasıl Yardımcı",

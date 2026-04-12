@@ -930,6 +930,83 @@ TAM OLARAK ŞU FORMATTA DÖN:
 # Kullanıcı başına son /fikir sonuçlarını saklar: {user_id: [başlık1, başlık2, ...]}
 _pending_ideas: dict[int, list[str]] = {}
 
+async def cmd_hero(u, ctx):
+    """Blog yazısını hero'ya öne çıkar: /hero <tr-slug>"""
+    if not auth(u): return await deny(u)
+    if not ctx.args:
+        return await u.message.reply_text(
+            "❌ Slug girin: `/hero ai-agent-musteri-hizmetleri-otomasyonu`", parse_mode="Markdown")
+    tr_slug = ctx.args[0].strip()
+
+    msg = await u.message.reply_text(f"📖 `{tr_slug}` okunuyor...", parse_mode="Markdown")
+    import json as _json
+
+    # TR blog dosyasını oku
+    tr_raw_md = gh_read(f"content/blog/tr/{tr_slug}.md")
+    if not tr_raw_md:
+        return await msg.edit_text(f"❌ `{tr_slug}.md` bulunamadı. Slug'ı kontrol et.")
+
+    # Frontmatter parse
+    fm_match = re.match(r'^---\s*\n(.*?)\n---', tr_raw_md, re.DOTALL)
+    if not fm_match:
+        return await msg.edit_text("❌ Frontmatter okunamadı.")
+    fm = fm_match.group(1)
+
+    def fm_val(key):
+        m = re.search(rf'^{key}:\s*"?(.+?)"?\s*$', fm, re.MULTILINE)
+        return m.group(1).strip('"').strip() if m else ""
+
+    tr_title = fm_val("title")
+    tr_desc = fm_val("description")
+    en_slug = fm_val("translationSlug")
+
+    if not en_slug:
+        return await msg.edit_text("❌ `translationSlug` frontmatter'da bulunamadı.")
+
+    # EN blog dosyasını oku
+    en_raw_md = gh_read(f"content/blog/en/{en_slug}.md")
+    if not en_raw_md:
+        return await msg.edit_text(f"❌ EN dosyası `{en_slug}.md` bulunamadı.")
+
+    fm_en_match = re.match(r'^---\s*\n(.*?)\n---', en_raw_md, re.DOTALL)
+    fm_en = fm_en_match.group(1) if fm_en_match else ""
+
+    def fm_en_val(key):
+        m = re.search(rf'^{key}:\s*"?(.+?)"?\s*$', fm_en, re.MULTILINE)
+        return m.group(1).strip('"').strip() if m else ""
+
+    en_title = fm_en_val("title")
+    en_desc = fm_en_val("description")
+    en_slug_clean = fm_en_val("slug") or en_slug
+
+    await msg.edit_text("📦 JSON dosyaları güncelleniyor...")
+
+    # tr.json güncelle
+    tr_json_raw = gh_read("messages/tr.json")
+    en_json_raw = gh_read("messages/en.json")
+    if not tr_json_raw or not en_json_raw:
+        return await msg.edit_text("❌ messages/tr.json veya en.json okunamadı.")
+
+    tr_data = _json.loads(tr_json_raw)
+    en_data = _json.loads(en_json_raw)
+
+    tr_data["hero"]["featuredPost"] = {"title": tr_title, "description": tr_desc, "slug": tr_slug}
+    en_data["hero"]["featuredPost"] = {"title": en_title, "description": en_desc, "slug": en_slug_clean}
+
+    ok_tr = gh_push("messages/tr.json", _json.dumps(tr_data, ensure_ascii=False, indent=2), f"hero: featured post → {tr_slug}")
+    ok_en = gh_push("messages/en.json", _json.dumps(en_data, ensure_ascii=False, indent=2), f"hero: featured post → {en_slug_clean}")
+
+    if ok_tr and ok_en:
+        await msg.edit_text(
+            f"✅ *Hero güncellendi!*\n\n"
+            f"🇹🇷 _{tr_title}_\n"
+            f"🇬🇧 _{en_title}_\n\n"
+            f"_Vercel deploy ~1-2 dk içinde._",
+            parse_mode="Markdown")
+    else:
+        await msg.edit_text("⚠️ Push başarısız. `agent.log` kontrol et.")
+
+
 async def cmd_fikir(u, ctx):
     if not auth(u): return await deny(u)
     konu = " ".join(ctx.args).strip() if ctx.args else ""
@@ -1133,7 +1210,7 @@ def main():
     for cmd, fn in [("start",cmd_start),("yardim",cmd_start),("durum",cmd_durum),
                     ("liste",cmd_liste),("brief",cmd_brief),("revize",cmd_revize),
                     ("yazi",cmd_yazi),("fikir",cmd_fikir),("site",cmd_site),
-                    ("gunluk",cmd_gunluk),("stop",cmd_stop)]:
+                    ("hero",cmd_hero),("gunluk",cmd_gunluk),("stop",cmd_stop)]:
         app.add_handler(CommandHandler(cmd, fn))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_idea_selection))
     logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH}")

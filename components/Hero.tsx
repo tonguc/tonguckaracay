@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useLocale, useTranslations } from 'next-intl';
-import { ArrowRight, CheckCircle, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle, Sparkles, FileText } from "lucide-react";
 
 export default function Hero() {
   const t = useTranslations('hero');
   const locale = useLocale();
   const contactPath = locale === 'tr' ? '/iletisim' : '/en/contact';
   const servicesPath = locale === 'tr' ? '/#hizmetler' : '/en/#services';
+  const featuredPost = t.raw('featuredPost') as { title: string; description: string; slug: string };
   
   return (
     <section className="pt-28 pb-12 md:pt-40 md:pb-28 relative overflow-hidden">
@@ -71,6 +72,26 @@ export default function Hero() {
               Instagram
             </a>
           </div>
+
+          {/* Featured Post Card */}
+          {featuredPost?.slug && (
+            <div className="mb-8 md:mb-10">
+              <Link
+                href={locale === 'tr' ? `/${featuredPost.slug}` : `/en/${featuredPost.slug}`}
+                className="inline-flex items-start gap-3 px-4 py-3 bg-surface-card border border-accent-500/20 hover:border-accent-500/50 rounded-xl transition-all group max-w-xl text-left"
+              >
+                <FileText className="w-4 h-4 text-accent-500 shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-xs text-accent-500 font-medium uppercase tracking-wider">{t('featuredLabel')}</span>
+                  <p className="text-sm text-white font-medium group-hover:text-accent-400 transition-colors mt-0.5 line-clamp-1">{featuredPost.title}</p>
+                  {featuredPost.description && (
+                    <p className="text-xs text-primary-400 mt-0.5 line-clamp-2">{featuredPost.description}</p>
+                  )}
+                </div>
+                <ArrowRight className="w-4 h-4 text-primary-500 group-hover:text-accent-500 group-hover:translate-x-1 transition-all shrink-0 mt-0.5" />
+              </Link>
+            </div>
+          )}
 
           {/* Trust Indicators */}
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 pt-6 md:pt-8 border-t border-primary-800">
