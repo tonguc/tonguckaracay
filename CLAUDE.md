@@ -58,6 +58,33 @@ translationSlug: "tr-versiyonun-slug'i"
 - Türkçe yazılarda CTA: `Profesyonel danışmanlık için [iletişime geçin](/iletisim).`
 - İngilizce yazılarda CTA: `For professional consulting [get in touch](/contact).`
 
+### KRİTİK: Teknik SEO Zorunlulukları
+
+#### Title (Başlık)
+- **Uzunluk: 50–60 karakter** (kod `| Tonguç Karaçay` ekliyor, toplam ~70 kr'yi geçmemeli)
+- 50 karakterin altı: Google SERP'te zayıf görünüm, keyword fırsatı kaybı
+- 60 karakterin üstü: Google tarafından kesiliyor, anlam bozuluyor
+- Hedef keyword'ü başa yakın yaz
+- Yıl (2024/2025/2026) kullanma — evergreen ol
+- Soru formatı veya güçlü fayda ifadesi kullan
+
+#### Description (Meta Açıklama)
+- **Uzunluk: 150–160 karakter** (120'nin altı: Google kendi yazar; 165 üstü: kesilir)
+- Hedef keyword'ü ilk cümlede kullan
+- Açık fayda/CTA içermeli (örn: "Öğren", "Keşfet", "Adım adım rehber")
+- Kopya içerik olmamalı, her yazı için özgün
+
+#### Doğrulama Komutu
+```bash
+# Uzunluk kontrolü
+awk 'NR>=1 && NR<=15' content/blog/tr/SLUG.md | grep -E "^title:|^description:"
+```
+
+Karakter sayısı:
+```bash
+echo -n "Başlık metni buraya" | wc -c
+```
+
 ## İzin Verilen Konular
 
 SEO, Dijital Pazarlama, Google Ads, Meta Ads, Sosyal Medya, UI/UX Tasarım,
