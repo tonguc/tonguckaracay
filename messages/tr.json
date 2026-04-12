@@ -23,9 +23,9 @@
     "personalizedStrategy": "Kişiselleştirilmiş Strateji",
     "featuredLabel": "Son Yazı",
     "featuredPost": {
-      "title": "",
-      "description": "",
-      "slug": ""
+      "title": "ChatGPT ile E-ticaret Ürün Açıklaması Yazma Rehberi",
+      "description": "ChatGPT ile SEO uyumlu, satış artırıcı ürün açıklamaları nasıl yazılır? Etkili prompt teknikleri, pratik örnekler ve hata önleme stratejileri.",
+      "slug": "chatgpt-ile-e-ticaret-urun-aciklamasi-yazma"
     }
   },
   "services": {
@@ -35,27 +35,47 @@
     "uiux": {
       "title": "UI/UX Tasarım",
       "description": "Kullanıcı odaklı, dönüşüm optimizasyonlu tasarımlar. Web sitesi ve uygulama arayüz tasarımı.",
-      "features": ["Kullanıcı Araştırması", "Wireframe & Prototip", "Dönüşüm Optimizasyonu"]
+      "features": [
+        "Kullanıcı Araştırması",
+        "Wireframe & Prototip",
+        "Dönüşüm Optimizasyonu"
+      ]
     },
     "seo": {
       "title": "SEO Danışmanlığı",
       "description": "Google'da üst sıralara çıkın. Teknik SEO, içerik stratejisi ve link building ile organik trafiğinizi artırın.",
-      "features": ["Teknik SEO Analizi", "Anahtar Kelime Stratejisi", "Link Building"]
+      "features": [
+        "Teknik SEO Analizi",
+        "Anahtar Kelime Stratejisi",
+        "Link Building"
+      ]
     },
     "ads": {
       "title": "Online Reklamcılık",
       "description": "Google Ads ve Meta Ads ile hedef kitlenize ulaşın. ROI odaklı kampanya yönetimi ve optimizasyon.",
-      "features": ["Google Ads", "Meta Ads", "Remarketing"]
+      "features": [
+        "Google Ads",
+        "Meta Ads",
+        "Remarketing"
+      ]
     },
     "ai": {
       "title": "Yapay Zeka Çözümleri",
       "description": "AI ile iş süreçlerinizi otomatize edin. Chatbot, içerik üretimi ve veri analizi çözümleri.",
-      "features": ["AI Otomasyon", "Chatbot Geliştirme", "Veri Analizi"]
+      "features": [
+        "AI Otomasyon",
+        "Chatbot Geliştirme",
+        "Veri Analizi"
+      ]
     },
     "social": {
       "title": "Sosyal Medya Yönetimi",
       "description": "Organik büyüme ve topluluk yönetimi. Strateji, içerik planlaması ve etkileşim artırma.",
-      "features": ["İçerik Stratejisi", "Topluluk Yönetimi", "Analitik & Raporlama"]
+      "features": [
+        "İçerik Stratejisi",
+        "Topluluk Yönetimi",
+        "Analitik & Raporlama"
+      ]
     }
   },
   "about": {
