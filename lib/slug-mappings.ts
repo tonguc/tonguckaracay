@@ -28,6 +28,7 @@ export const slugMappingTrToEn: Record<string, string> = {
   "prompt-muhendisligi-ile-para-kazanma": "ai-prompt-engineering-ways-to-make-money",
   "ai-agent-nedir-dijital-pazarlamada-nasil-kullanilir": "what-is-ai-agent-digital-marketing-guide",
   "ai-agent-musteri-hizmetleri-otomasyonu": "ai-agent-customer-service-automation",
+  "chatgpt-ile-e-ticaret-urun-aciklamasi-yazma": "chatgpt-ecommerce-product-descriptions-guide",
 };
 export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
   Object.entries(slugMappingTrToEn).map(([tr, en]) => [en, tr])
