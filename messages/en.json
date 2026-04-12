@@ -23,9 +23,9 @@
     "personalizedStrategy": "Personalized Strategy",
     "featuredLabel": "Latest Post",
     "featuredPost": {
-      "title": "",
-      "description": "",
-      "slug": ""
+      "title": "ChatGPT Product Descriptions for E-commerce: Complete Guide",
+      "description": "Learn how to write compelling, SEO-friendly e-commerce product descriptions with ChatGPT. Step-by-step prompts, best practices, and real examples included.",
+      "slug": "chatgpt-ecommerce-product-descriptions-guide"
     }
   },
   "services": {
@@ -35,27 +35,47 @@
     "uiux": {
       "title": "UI/UX Design",
       "description": "User-centered, conversion-optimized designs. Website and application interface design.",
-      "features": ["User Research", "Wireframe & Prototype", "Conversion Optimization"]
+      "features": [
+        "User Research",
+        "Wireframe & Prototype",
+        "Conversion Optimization"
+      ]
     },
     "seo": {
       "title": "SEO Consulting",
       "description": "Rank higher on Google. Increase your organic traffic with technical SEO, content strategy, and link building.",
-      "features": ["Technical SEO Audit", "Keyword Strategy", "Link Building"]
+      "features": [
+        "Technical SEO Audit",
+        "Keyword Strategy",
+        "Link Building"
+      ]
     },
     "ads": {
       "title": "Online Advertising",
       "description": "Reach your target audience with Google Ads and Meta Ads. ROI-focused campaign management and optimization.",
-      "features": ["Google Ads", "Meta Ads", "Remarketing"]
+      "features": [
+        "Google Ads",
+        "Meta Ads",
+        "Remarketing"
+      ]
     },
     "ai": {
       "title": "AI Solutions",
       "description": "Automate your business processes with AI. Chatbot, content generation, and data analysis solutions.",
-      "features": ["AI Automation", "Chatbot Development", "Data Analysis"]
+      "features": [
+        "AI Automation",
+        "Chatbot Development",
+        "Data Analysis"
+      ]
     },
     "social": {
       "title": "Social Media Management",
       "description": "Organic growth and community management. Strategy, content planning, and engagement optimization.",
-      "features": ["Content Strategy", "Community Management", "Analytics & Reporting"]
+      "features": [
+        "Content Strategy",
+        "Community Management",
+        "Analytics & Reporting"
+      ]
     }
   },
   "about": {
