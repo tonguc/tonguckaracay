@@ -953,11 +953,16 @@ async def cmd_optimize(u, ctx):
 
 6. GERÇEK VERİ: En az 3 cümlede somut sayı, istatistik veya maliyet bilgisi olsun.
 
-7. İÇ LİNK DÜZELTMESİ: Tüm "/blog/slug" formatındaki linkleri "/slug" formatına çevir.
+7. GEO ALINTILANABİLİR CÜMLELER: Her H2 bölümünde en az 1 bağımsız, alıntılanabilir cümle ekle. Format örnekleri:
+   - "[Araç/Yöntem], [somut sonuç]'u [şartla] sağlar."
+   - "[Kategori]'nin en etkili yaklaşımı [yöntem]'dir, çünkü [neden]."
+   ChatGPT veya Perplexity bu cümleleri direkt yanıt olarak kullanabilmeli.
 
-8. KELIME SAYISI: Commercial intent ise 2000+ kelime hedefle. Informational ise 1500+ yeterli.
+8. İÇ LİNK DÜZELTMESİ: Tüm "/blog/slug" formatındaki linkleri "/slug" formatına çevir.
 
-9. FAQ: 6-8 soru-cevap yoksa ekle veya güncelle (frontmatter faq alanına).
+9. KELIME SAYISI: Commercial intent ise 2000+ kelime hedefle. Informational ise 1500+ yeterli.
+
+10. FAQ: 6-8 soru-cevap yoksa ekle veya güncelle (frontmatter faq alanına).
 
 KURALLAR:
 - slug, translationSlug, date, image, category, tags değiştirme
@@ -977,6 +982,11 @@ KURALLAR:
 5. EEAT SIGNALS: Add at least 2 experience phrases: "In our experience...", "When we tested this with clients...", "We've observed..."
 
 6. REAL DATA: At least 3 sentences with concrete numbers, statistics or cost figures.
+
+7. GEO QUOTABLE SENTENCES: Add at least 1 independently extractable sentence per H2 section. Format examples:
+   - "[Tool/Method] delivers [concrete result] when [condition]."
+   - "The most effective approach to [category] is [method], because [reason]."
+   ChatGPT or Perplexity must be able to use these sentences as direct answers.
 
 7. INTERNAL LINK FIX: Convert all "/en/blog/slug" links to "/en/slug" format.
 
