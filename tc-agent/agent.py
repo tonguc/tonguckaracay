@@ -853,6 +853,153 @@ Respond in exactly this format (nothing else):
         logger.exception("Revize hatası")
         await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:400]}\n```", parse_mode="Markdown")
 
+async def cmd_optimize(u, ctx):
+    """SEO otomatik optimizasyonu: /optimize <tr-slug>
+    Sabit checklist uygular: Kısa Cevap, tablo, senaryo, EEAT, iç link düzeltmesi.
+    """
+    if not auth(u): return await deny(u)
+    if not ctx.args:
+        return await u.message.reply_text(
+            "❌ Kullanım: `/optimize [slug]`\n"
+            "Örnek: `/optimize ai-agent-nedir-dijital-pazarlamada-nasil-kullanilir`",
+            parse_mode="Markdown")
+
+    slug = ctx.args[0].strip()
+    msg = await u.message.reply_text(f"🔍 `{slug}` okunuyor...", parse_mode="Markdown")
+    loop = asyncio.get_event_loop()
+
+    tr_content = await loop.run_in_executor(None, gh_read, f"content/blog/tr/{slug}.md")
+    if not tr_content:
+        return await msg.edit_text(f"❌ `content/blog/tr/{slug}.md` bulunamadı.")
+
+    en_slug_match = re.search(r'translationSlug:\s*"([^"]+)"', tr_content)
+    en_slug = en_slug_match.group(1) if en_slug_match else slug
+    en_content = await loop.run_in_executor(None, gh_read, f"content/blog/en/{en_slug}.md")
+
+    await msg.edit_text("⚙️ SEO optimizasyonu uygulanıyor...", parse_mode="Markdown")
+
+    OPTIMIZE_CHECKLIST_TR = """SEO OPTİMİZASYON CHECKLİST — tüm maddeleri uygula:
+
+1. KISA CEVAP BLOĞU: İlk H2'den önce "## Kısa Cevap" bölümü ekle (40-60 kelime, direkt cevap, featured snippet için). Zaten varsa geliştir.
+
+2. KARAR MİMARİSİ: Her H2 bir soruyu cevaplar şekilde düzenle. Yazı sonunda okuyucu ne yapacağını net bilmeli.
+
+3. KARŞILAŞTIRMA TABLOSU: Eğer içerik commercial/karşılaştırma türündeyse en az 6 satırlı markdown tablo ekle/güncelle. Yoksa atlayabilirsin.
+
+4. SENARYO REHBERİ: "Hangi Durumda Hangisi?" veya benzer bir bölüm yoksa ekle — en az 3 kullanıcı profili (başlangıç/freelancer, büyüyen işletme, kurumsal).
+
+5. EEAT SİNYALLERİ: En az 2 yerde "Uygulamada gördüğümüz...", "Müşterilerimizde test ettiğimizde...", "Deneyimlerimize göre..." gibi ifadeler ekle.
+
+6. GERÇEK VERİ: En az 3 cümlede somut sayı, istatistik veya maliyet bilgisi olsun.
+
+7. İÇ LİNK DÜZELTMESİ: Tüm "/blog/slug" formatındaki linkleri "/slug" formatına çevir.
+
+8. KELIME SAYISI: Commercial intent ise 2000+ kelime hedefle. Informational ise 1500+ yeterli.
+
+9. FAQ: 6-8 soru-cevap yoksa ekle veya güncelle (frontmatter faq alanına).
+
+KURALLAR:
+- slug, translationSlug, date, image, category, tags değiştirme
+- Başlık ve slug'da yıl rakamı kullanma
+- TR yazı için Türkçe yaz"""
+
+    OPTIMIZE_CHECKLIST_EN = """SEO OPTIMIZATION CHECKLIST — apply all items:
+
+1. QUICK ANSWER BLOCK: Add "## Quick Answer" section before first H2 (40-60 words, direct answer for featured snippet). Improve if already exists.
+
+2. DECISION ARCHITECTURE: Each H2 should answer a reader question. Reader should know what to do at the end.
+
+3. COMPARISON TABLE: If content is commercial/comparison type, add/update a markdown table with at least 6 rows. Skip if not applicable.
+
+4. SCENARIO GUIDE: Add "Which Option for Which Use Case?" section if missing — at least 3 profiles (starter/freelancer, growing business, enterprise).
+
+5. EEAT SIGNALS: Add at least 2 experience phrases: "In our experience...", "When we tested this with clients...", "We've observed..."
+
+6. REAL DATA: At least 3 sentences with concrete numbers, statistics or cost figures.
+
+7. INTERNAL LINK FIX: Convert all "/en/blog/slug" links to "/en/slug" format.
+
+8. WORD COUNT: 2000+ words for commercial intent. 1500+ for informational.
+
+9. FAQ: Add or update 6-8 Q&A pairs in frontmatter faq field if missing.
+
+RULES:
+- Do not change slug, translationSlug, date, image, category, tags
+- No year numbers in title or slug"""
+
+    try:
+        tr_prompt = f"""Şu Türkçe blog yazısını SEO açısından optimize et.
+
+{OPTIMIZE_CHECKLIST_TR}
+
+MEVCUT TR YAZI:
+{tr_content}
+
+Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
+===TR_START===
+(optimize edilmiş TR markdown, frontmatter dahil)
+===TR_END==="""
+
+        await msg.edit_text("✍️ TR optimize ediliyor...", parse_mode="Markdown")
+        tr_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+            model="claude-sonnet-4-5", max_tokens=8000,
+            system=SYSTEM,
+            messages=[{"role": "user", "content": tr_prompt}]
+        ).content[0].text.strip())
+
+        tr_match = re.search(r"===TR_START===\s*(.*?)\s*===TR_END===", tr_raw, re.DOTALL) or \
+                   re.search(r"===TR_START===\s*(.*)", tr_raw, re.DOTALL)
+        if not tr_match:
+            return await msg.edit_text("❌ TR optimize başarısız: Claude beklenen formatta yanıt vermedi.")
+        new_tr = tr_match.group(1).strip()
+
+        new_en = None
+        if en_content:
+            en_prompt = f"""Optimize this English blog post for SEO.
+
+{OPTIMIZE_CHECKLIST_EN}
+
+CURRENT EN POST:
+{en_content}
+
+Respond in exactly this format (nothing else):
+===EN_START===
+(optimized EN markdown, including frontmatter)
+===EN_END==="""
+
+            await msg.edit_text("✍️ EN optimize ediliyor...", parse_mode="Markdown")
+            en_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+                model="claude-sonnet-4-5", max_tokens=8000,
+                system=SYSTEM,
+                messages=[{"role": "user", "content": en_prompt}]
+            ).content[0].text.strip())
+
+            en_match = re.search(r"===EN_START===\s*(.*?)\s*===EN_END===", en_raw, re.DOTALL) or \
+                       re.search(r"===EN_START===\s*(.*)", en_raw, re.DOTALL)
+            if en_match:
+                new_en = en_match.group(1).strip()
+
+        await msg.edit_text("📦 GitHub'a yükleniyor...", parse_mode="Markdown")
+        ok_tr = await loop.run_in_executor(None, gh_push,
+            f"content/blog/tr/{slug}.md", new_tr, f"optimize: {slug}")
+        ok_en = False
+        if new_en:
+            ok_en = await loop.run_in_executor(None, gh_push,
+                f"content/blog/en/{en_slug}.md", new_en, f"optimize: {en_slug}")
+
+        status = "✅ TR + EN" if (ok_tr and ok_en) else "✅ TR" if ok_tr else "⚠️ Başarısız"
+        await msg.edit_text(
+            f"{status} *optimize tamamlandı!*\n\n"
+            f"🇹🇷 `{slug}`\n"
+            f"🇬🇧 `{en_slug}`\n\n"
+            f"_Vercel deploy ~1-2 dk içinde._",
+            parse_mode="Markdown")
+
+    except Exception as e:
+        logger.exception("Optimize hatası")
+        await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:400]}\n```", parse_mode="Markdown")
+
+
 async def cmd_site(u, ctx):
     """Site içerik alanlarını Telegram'dan günceller.
     Kullanım: /site hero [talimat]
@@ -1258,8 +1405,8 @@ def main():
     app = Application.builder().token(token).post_init(post_init).build()
     for cmd, fn in [("start",cmd_start),("yardim",cmd_start),("durum",cmd_durum),
                     ("liste",cmd_liste),("brief",cmd_brief),("revize",cmd_revize),
-                    ("yazi",cmd_yazi),("fikir",cmd_fikir),("site",cmd_site),
-                    ("hero",cmd_hero),("gunluk",cmd_gunluk),("stop",cmd_stop)]:
+                    ("optimize",cmd_optimize),("yazi",cmd_yazi),("fikir",cmd_fikir),
+                    ("site",cmd_site),("hero",cmd_hero),("gunluk",cmd_gunluk),("stop",cmd_stop)]:
         app.add_handler(CommandHandler(cmd, fn))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_idea_selection))
     logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH}")
