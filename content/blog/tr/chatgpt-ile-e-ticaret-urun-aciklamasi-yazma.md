@@ -29,17 +29,19 @@ faq:
 
 ## Kısa Cevap
 
-ChatGPT ile e-ticaret ürün açıklaması yazmak, yapılandırılmış prompt mühendisliği gerektirir. **Etkili açıklama için beş bileşen zorunludur: ürün özellikleri (teknik detay, malzeme, boyut), hedef kitle tanımı (demografi, ihtiyaç), ton direktifi (samimi/resmi/teknik), format gereklilikleri (kelime sayısı, yapı) ve SEO anahtar kelimeleri.** Müşterilerimizde test ettiğimizde, detaylı prompt kullanımı %85 oranında editör onayından geçen içerik üretiyor ve manuel yazıma göre %75 zaman tasarrufu sağlıyor. Ancak yapay zeka çıktısını mutlaka doğrulayın — teknik hatalar ve marka uyumsuzluğu dönüşüm kaybına yol açar.
+**ChatGPT ile etkili e-ticaret ürün açıklaması yazmak, yapılandırılmış prompt mühendisliği gerektirir.** Başarılı sonuç için beş bileşen zorunludur: ürün özellikleri (malzeme, boyut, teknik detay), hedef kitle tanımı (demografi, ihtiyaç, motivasyon), ton direktifi (samimi/resmi/teknik), format gereklilikleri (kelime sayısı, yapı, platform limitleri) ve SEO anahtar kelimeleri (ana kelime + LSI varyantları). Müşterilerimizde test ettiğimizde, detaylı prompt kullanımı %85 oranında ilk seferde editör onayı alan içerik üretiyor ve manuel yazıma göre %75 zaman tasarrufu sağlıyor. Ancak yapay zeka çıktısını mutlaka doğrulayın — teknik hatalar ve marka uyumsuzluğu dönüşüm kaybına yol açar.
+
+---
 
 ChatGPT ile e-ticaret ürün açıklaması yazmak, zaman tasarrufu sağlarken SEO uyumlu ve dönüşüm odaklı metinler üretmenize olanak tanır. Doğru prompt teknikleri kullanarak yüzlerce ürün için tutarlı, markanıza özel açıklamalar hazırlayabilirsiniz. Bu rehberde gerçek örnekler, adım adım yöntemler ve sık yapılan hatalardan kaçınma stratejilerini bulacaksınız.
 
 E-ticaret sektöründe ürün açıklamaları, müşteri kararlarını doğrudan etkileyen kritik içeriklerdir. Ancak binlerce ürün için özgün, ilgi çekici ve SEO uyumlu açıklama yazmak hem zaman alıcı hem maliyetlidir. ChatGPT gibi yapay zeka araçları, bu süreci demokratikleştirerek küçük işletmelerin bile profesyonel standartlarda içerik üretmesini sağlar.
 
-Türkiye'deki e-ticaret işletmelerinin %68'i ürün içeriği üretiminde yetersizlik yaşıyor (Statista, 2025). ChatGPT, doğru kullanıldığında bu açığı kapatabilir. Ancak "ChatGPT ile ürün açıklaması yaz" demek yeterli değil; etkili sonuç için yapılandırılmış prompt mühendisliği gerekir.
+Türkiye'deki e-ticaret işletmelerinin %68'i ürün içeriği üretiminde yetersizlik yaşıyor (Statista). **ChatGPT, doğru kullanıldığında bu açığı kapatabilir — ancak "ürün açıklaması yaz" demek yeterli değil, yapılandırılmış prompt mühendisliği gerekir.**
 
 ## ChatGPT ile Ürün Açıklaması Yazmanın Avantajları Nedir?
 
-ChatGPT, e-ticaret işletmelerine üç temel alanda somut fayda sunar: zaman, maliyet ve tutarlılık. **Geleneksel yöntemlerle bir ürün açıklaması yazmak ortalama 15-20 dakika alırken, ChatGPT aynı işi 30-60 saniyede tamamlayabilir** — bu, 100 ürünlü katalog için 25 saatten 2 saate düşen iş yükü anlamına gelir.
+ChatGPT, e-ticaret işletmelerine üç temel alanda somut fayda sunar: zaman, maliyet ve tutarlılık. **Geleneksel yöntemlerle bir ürün açıklaması yazmak ortalama 15-20 dakika alırken, ChatGPT aynı işi 30-60 saniyede tamamlar** — bu, 100 ürünlü katalog için 25 saatten 2 saate düşen iş yükü anlamına gelir.
 
 Yapay zeka destekli içerik üretimi, sadece hız değil aynı zamanda ölçeklenebilirlik sağlar. Uygulamada gördüğümüz en büyük fark, mevsimsel kampanyalar öncesi yüzlerce ürünü aynı anda güncelleyebilme kapasitesidir. Geleneksel ekiplerle haftalarca sürecek iş, 2-3 günde tamamlanabilir.
 
@@ -49,14 +51,14 @@ Yapay zeka destekli içerik üretimi, sadece hız değil aynı zamanda ölçekle
 
 Müşterilerimizden bir ev tekstili e-ticaret sitesi, 450 ürün için ChatGPT destekli açıklama üretimi yaparak 3 haftalık iş yükünü 2 güne indirdi. **Editör onayından geçen metinler %85 oranında ilk hallerini korudu, sadece marka sesine uygun küçük düzenlemeler yapıldı** — bu, insan editörün stratejik görevlere odaklanmasını sağladı.
 
-| Metrik | Manuel Yöntem | ChatGPT ile |
-|--------|---------------|-------------|
-| 100 ürün süresi | 25-33 saat | 1-2 saat |
-| Maliyet (freelance) | 5.000-10.000 TL | ~500 TL (editör saati) |
-| Tutarlılık skoru | %65-75 | %90-95 |
-| İlk onay oranı | %60 | %85 |
-| Revizyon döngüsü | 2-3 tur | 1 tur |
-| Ölçeklenebilirlik | Sınırlı | Sınırsız |
+| Metrik | Manuel Yöntem | ChatGPT ile | Fark |
+|--------|---------------|-------------|------|
+| 100 ürün süresi | 25-33 saat | 1-2 saat | %92 azalma |
+| Maliyet (freelance) | 5.000-10.000 TL | ~500 TL | %90 tasarruf |
+| Tutarlılık skoru | %65-75 | %90-95 | +20-30 puan |
+| İlk onay oranı | %60 | %85 | +25 puan |
+| Revizyon döngüsü | 2-3 tur | 1 tur | %66 azalma |
+| Ölçeklenebilirlik | Sınırlı | Sınırsız | — |
 
 ### SEO ve Dönüşüm Optimizasyonu Nasıl Sağlanır?
 
@@ -85,12 +87,15 @@ ChatGPT'ye ne hakkında yazacağını net olarak bildirin:
 - Kullanım senaryoları
 - Rakiplerden farklılaşan noktalar
 
+**Copy-Paste Prompt Şablonu:**
+
 ```
-ÜRÜN ÖZELLİKLERİ PROMPT ŞEMALONu:
+ÜRÜN ÖZELLİKLERİ PROMPT ŞABLONU:
 
 Ürün: [Tam adı]
 Kategori: [Ana kategori > Alt kategori]
-Teknik:
+
+Teknik Özellikler:
 - Malzeme: [detaylı açıklama]
 - Boyut/Beden: [ölçüler]
 - Renk: [tüm seçenekler]
@@ -104,15 +109,20 @@ Benzersiz Özellikler:
 Kullanım Senaryoları:
 - [Senaryo 1]
 - [Senaryo 2]
+- [Senaryo 3]
 ```
 
-**Örnek:**
+**Doldurulabilir Örnek:**
+
 ```
+ÜRÜN ÖZELLİKLERİ:
+
 Ürün: EcoBreath Organik Pamuk Antrenman T-Shirt
 Kategori: Spor Giyim > Erkek > Üst Giyim
-Teknik:
+
+Teknik Özellikler:
 - Malzeme: %100 organik pamuk, GOTS sertifikalı, antimikrobiyal işlem görmüş
-- Beden: S, M, L, XL, XXL (Avrupa slim fit kesim)
+- Boyut/Beden: S, M, L, XL, XXL (Avrupa slim fit kesim)
 - Renk: Lacivert, siyah, haki yeşili
 - Ağırlık: 180 gram (breathable örgü)
 
@@ -131,8 +141,10 @@ Kullanım Senaryoları:
 
 ChatGPT'nin kime hitap ettiğini bilmesi kritik — aynı ürün farklı kitlelere farklı dille anlatılmalıdır. **Hedef kitle tanımı ne kadar spesifik olursa, ChatGPT o kadar kişiselleştirilmiş mesaj üretir.**
 
+**Copy-Paste Prompt Şablonu:**
+
 ```
-HEDEF KİTLE PROMPT ŞABLONu:
+HEDEF KİTLE PROMPT ŞABLONU:
 
 Demografi:
 - Yaş: [aralık]
@@ -151,7 +163,8 @@ Satın Alma Davranışı:
 - Bilgi seviyesi: [acemi/orta/uzman]
 ```
 
-**Örnek:**
+**Doldurulabilir Örnek:**
+
 ```
 HEDEF KİTLE: Fitness Meraklısı Erkekler
 
@@ -176,8 +189,10 @@ Satın Alma Davranışı:
 
 Marka sesinize uygun ton belirleyin. ChatGPT'ye sadece "samimi" veya "profesyonel" demek yeterli değil — örneklerle destekleyin.
 
+**Copy-Paste Prompt Şablonu:**
+
 ```
-TON VE STİL PROMPT ŞABLONu:
+TON VE STİL PROMPT ŞABLONU:
 
 Genel Ton: [seçenekler: resmi, samimi, eğlenceli, teknik, motive edici]
 
@@ -193,7 +208,8 @@ Yasak İfadeler: [kullanılmaması gereken kelimeler]
 Örnek Cümle: "[Mevcut markanızdan bir örnek cümle]"
 ```
 
-**Örnek:**
+**Doldurulabilir Örnek:**
+
 ```
 TON VE STİL: Motive Edici Samimi
 
@@ -215,16 +231,18 @@ Yasak İfadeler: "Muhteşem", "inanılmaz", "hayatını değiştirecek", "kesinl
 
 Platformunuza göre format belirleyin. Her e-ticaret platformunun farklı karakter limitleri ve görsel düzen gereksinimleri vardır.
 
-| Platform | Karakter Limiti | Önerilen Format |
-|----------|-----------------|-----------------|
-| Trendyol | 2000 karakter | Paragraf + madde listesi |
-| Hepsiburada | 1500 karakter | Kısa paragraf + özellik listesi |
-| N11 | 2500 karakter | Serbest format |
-| Kendi siteniz | Sınırsız | SEO için 150-300 kelime |
-| Amazon TR | 2000 karakter | Madde listesi + A+ içerik |
+| Platform | Karakter Limiti | Önerilen Format | Özel Gereksinim |
+|----------|-----------------|-----------------|-----------------|
+| Trendyol | 2000 karakter | Paragraf + madde listesi | HTML etiketleri desteklenir |
+| Hepsiburada | 1500 karakter | Kısa paragraf + özellik listesi | Madde işareti zorunlu |
+| N11 | 2500 karakter | Serbest format | Zengin metin editörü |
+| Kendi siteniz | Sınırsız | SEO için 150-300 kelime | Schema markup |
+| Amazon TR | 2000 karakter | Madde listesi + A+ içerik | Marka Kayıt Programı |
+
+**Copy-Paste Prompt Şablonu:**
 
 ```
-FORMAT PROMPT ŞABLONu:
+FORMAT PROMPT ŞABLONU:
 
 Yapı:
 - Giriş: [kaç cümle, neyi vurgula]
@@ -242,7 +260,8 @@ Uzunluk:
 - Kalın vurgu: [hangi ifadeler]
 ```
 
-**Örnek:**
+**Doldurulabilir Örnek:**
+
 ```
 FORMAT: E-ticaret Sitesi (SEO odaklı)
 
@@ -266,8 +285,10 @@ Uzunluk:
 
 Hedeflediğiniz anahtar kelimeleri listeleyin ve ChatGPT'ye nasıl kullanacağını net söyleyin.
 
+**Copy-Paste Prompt Şablonu:**
+
 ```
-SEO ANAHTAR KELİME PROMPT ŞABLONu:
+SEO ANAHTAR KELİME PROMPT ŞABLONU:
 
 Ana Anahtar Kelime: "[exact match kelime]"
 - Kullanım sıklığı: [kaç kez]
@@ -285,27 +306,10 @@ Uzun Kuyruk Varyasyonlar:
 KURAL: Anahtar kelimeleri doğal akışta kullan, spam yapma. Yoğunluk %2-3 arası kalmalı.
 ```
 
-**Örnek:**
+**Doldurulabilir Örnek:**
+
 ```
 SEO ANAHTAR KELİMELER: Organik Spor T-Shirt
 
 Ana Anahtar Kelime: "organik pamuk spor t-shirt"
-- Kullanım: 2 kez (ilk paragrafta 1, özellikler bölümünde 1)
-- Nerede: İlk 30 kelimede mutlaka, meta açıklamada
-
-LSI Kelimeler:
-- nefes alan kumaş
-- antimikrobiyal spor üstü
-- erkek antrenman tişört
-- GOTS sertifikalı pamuk
-
-Uzun Kuyruk Varyasyonlar:
-- en iyi organik spor giyim
-- koku yapmayan antrenman tişört
-- hassas cilt için spor kıyafet
-
-KURAL: "Organik pamuk spor t-shirt" ifadesini doğal cümle yapısında kullan. 
-"Bu organik pamuk spor t-shirt..." şeklinde başlama, bağlama uygun yerleştir.
-```
-
-### Komple Prompt Örneği (
+- Kullanım: 2 kez (ilk paragrafta 1, özellik
