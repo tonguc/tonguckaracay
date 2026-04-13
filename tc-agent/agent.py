@@ -576,6 +576,17 @@ def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
     tr_word_target = intent_word_targets.get(tr_intent, "1200-1800")
     en_word_target = intent_word_targets.get(en_intent, "1200-1800")
 
+    # Tool page tespiti: konu belirli bir araç/platform kullanımı içeriyor mu?
+    _topic_lower = topic.lower()
+    _tool_keywords = [
+        "ile ", "kullan", "nasıl yaz", "nasıl yap", "prompt", "şablon", "template",
+        "rehber", "chatgpt", "gemini", "claude", "copilot", "canva", "semrush",
+        "ahrefs", "google ads", "meta ads", "analytics", "search console",
+        "shopify", "wordpress", "woocommerce", "trendyol", "hepsiburada",
+        "instagram", "linkedin", "youtube", "midjourney", "dall-e",
+    ]
+    is_tool_page = any(kw in _topic_lower for kw in _tool_keywords)
+
     # Commercial intent için zorunlu bölümler (TR)
     tr_commercial_sections = ""
     if tr_intent == "commercial":
@@ -593,6 +604,46 @@ COMMERCIAL INTENT — MANDATORY SECTIONS:
 - Comparison table: Include a Markdown table with at least 5 rows comparing tools/methods/options — MANDATORY
 - "Which Scenario Uses What?" section: Give clear recommendations for 3 personas/scenarios (e.g. startup, freelancer, enterprise) — MANDATORY
 - Real cost analysis section: Estimate actual costs with specific figures (USD or local currency) — MANDATORY"""
+
+    # Tool page için zorunlu bölümler (TR)
+    tr_tool_sections = ""
+    if is_tool_page:
+        tr_tool_sections = """
+TOOL PAGE — ZORUNLU BÖLÜMLER (konu araç/platform kullanımı içeriyor):
+- COPY-PASTE PROMPT: En az 2 farklı kullanım senaryosu için hazır prompt ver (``` kod bloğu içinde, direkt kopyalanabilir):
+    → Genel kullanım promptu
+    → SEO/profesyonel odaklı prompt
+    → Bonus: sektöre özel 1 prompt (giyim / elektronik / hizmet vb.)
+- BEFORE/AFTER TABLOSU: En az 3 satır — sol sütun kötü örnek, sağ sütun optimize örnek (gerçekçi, uydurma değil)
+- DOLDURULABİLİR ŞABLON: Okuyucunun kendi bilgilerini yazabileceği alan yapısı:
+    Ürün/Konu adı: [...]
+    Hedef kitle: [...]
+    Ana fayda: [...]
+    Ton: [...]
+    (konuya göre uyarla)
+- KATEGORİ/NİŞ ÖRNEKLERİ: En az 3 farklı sektör veya kullanım tipine özel örnek ver (e-ticaret, hizmet, B2B vb.)
+- "NE ZAMAN İŞE YARAMAZ?" bölümü: Aracın/yöntemin sınırlılıklarını, risklerini ve başarısız olduğu senaryoları dürüstçe yaz — bu E-E-A-T'nin en güçlü sinyali
+- KARAR BLOĞU (yazı sonu): "Yeni başlıyorsan → şunu yap", "İleri seviyedeysen → şunu yap" formatında net yönlendirme"""
+
+    # Tool page için zorunlu bölümler (EN)
+    en_tool_sections = ""
+    if is_tool_page:
+        en_tool_sections = """
+TOOL PAGE — MANDATORY SECTIONS (topic involves a specific tool/platform):
+- COPY-PASTE PROMPTS: At least 2 ready-to-use prompts for different scenarios (inside ``` code blocks, directly usable):
+    → General use prompt
+    → SEO/professional-focused prompt
+    → Bonus: 1 industry-specific prompt (fashion / electronics / services etc.)
+- BEFORE/AFTER TABLE: At least 3 rows — left column bad example, right column optimized example (realistic, not fabricated)
+- FILLABLE TEMPLATE: A structure readers can fill in with their own information:
+    Product/Topic name: [...]
+    Target audience: [...]
+    Main benefit: [...]
+    Tone: [...]
+    (adapt to topic)
+- CATEGORY/NICHE EXAMPLES: At least 3 examples for different industries or use cases (e-commerce, services, B2B etc.)
+- "WHEN DOES IT FAIL?" section: Honestly describe the tool's/method's limitations, risks, and failure scenarios — this is the strongest E-E-A-T signal
+- DECISION BLOCK (end of post): Clear direction in "If you're just starting → do this", "If you're advanced → do this" format"""
 
     tr_links_block = f"\n\n{tr_links}" if tr_links else ""
     en_links_block = f"\n\n{en_links}" if en_links else ""
@@ -612,6 +663,7 @@ KURALLAR:
 - Dış link: 2-3 güvenilir kaynak (Google, Moz, HubSpot, Statista vb.)
 - FAQ: 6-8 soru, her cevap 60-80 kelime, PAA sorgularından üret{tr_block}{tr_paa_block}{tr_links_block}
 {tr_commercial_sections}
+{tr_tool_sections}
 KARAR MİMARİSİ (tüm intentler için zorunlu):
 - Her H2 başlığı okuyucunun aklındaki bir soruyu cevaplar (karar-odaklı yapı)
 - İçeriğin başına (ilk H2'den önce) 40-60 kelimelik "Kısa Cevap" bloğu ekle — Google featured snippet için
@@ -664,6 +716,7 @@ RULES:
 - External links: 2-3 authoritative sources (Google, Moz, HubSpot, Statista etc.)
 - FAQ: 6-8 questions, each answer 60-80 words, based on PAA queries{en_block}{en_paa_block}{en_links_block}
 {en_commercial_sections}
+{en_tool_sections}
 DECISION ARCHITECTURE (mandatory for all intents):
 - Each H2 heading answers a question the reader has in mind (decision-based structure)
 - Before the first H2, add a 40-60 word "Quick Answer" block — for Google featured snippet
