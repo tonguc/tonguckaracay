@@ -29,11 +29,216 @@ faq:
 
 ## Kısa Cevap
 
-ChatGPT ile e-ticaret ürün açıklaması yazmak beş adımda tamamlanır: (1) ürün bilgilerini hazırla (malzeme, boyut, renk, benzersiz özellikler), (2) hedef kitleyi tanımla (yaş, sorun noktası, satın alma motivasyonu), (3) ton ve formatı belirle (platform, kelime sayısı, CTA), (4) SEO kelimelerini ekle (ana kelime + LSI varyantları, ilk 30 kelimede), (5) çıktıyı doğrula ve düzenle (teknik hata kontrolü, marka sesi uyumu). **Yapılandırılmış prompt kullananlar manuel yazıma göre %75 zaman tasarrufu sağlar; üretilen içeriklerin %85'i ilk seferde editör onayı geçer.** Aşağıda kopyalayıp kullanabileceğiniz hazır şablonlar ve promptlar bulacaksınız.
+ChatGPT ile e-ticaret ürün açıklaması yazmak 5 adımda tamamlanır:
+
+1. **Ürün bilgilerini hazırla** — malzeme, boyut, renk, teknik detaylar
+2. **Hedef kitleyi tanımla** — yaş, sorun noktası, satın alma motivasyonu
+3. **Ton ve formatı belirle** — platform (Trendyol/kendi site), kelime sayısı, CTA
+4. **SEO kelimelerini ekle** — ana anahtar kelime + 3-4 LSI varyantı (ilk 30 kelimede)
+5. **Çıktıyı doğrula ve düzenle** — teknik hata kontrolü, marka sesi uyumu
+
+Yapılandırılmış prompt kullananlar manuel yazıma göre **%75 zaman tasarrufu** sağlar; üretilen içeriklerin **%85'i ilk seferde editör onayı** geçer. Aşağıda kopyalayıp kullanabileceğiniz hazır şablonlar ve promptlar bulacaksınız.
+
+
+## Hemen Kullanabileceğiniz Ürün Açıklaması Şablonu
+
+Aşağıdaki şablonu kopyala, köşeli parantezleri doldur, ChatGPT'ye gönder.
+
+### Çıktı Şablonu (Açıklamanın Nasıl Görüneceği)
+
+```
+[Ürün Adı] ile [Ana Fayda]
+
+[Ürün adı], [yaş/profil hedef kitle] için tasarlanmış [malzeme/özellik] [ürün kategorisi]dir.
+[Benzersiz özellik 1] sayesinde [kullanıcı faydası 1]; [benzersiz özellik 2] ile [kullanıcı faydası 2].
+
+Öne çıkan özellikler:
+• [Özellik 1] — [1 cümle fayda açıklaması]
+• [Özellik 2] — [1 cümle fayda açıklaması]
+• [Özellik 3] — [1 cümle fayda açıklaması]
+• [Özellik 4] — [1 cümle fayda açıklaması]
+
+[Kullanım senaryosu: kim, nerede, ne zaman kullanır.]
+[CTA: Sepete ekle / Hemen sipariş ver / Ücretsiz kargo ile dene]
+
+Meta açıklama (155 karakter):
+[Ana anahtar kelime] — [fayda 1] ve [fayda 2]. [Platform veya rakipten fark]. [Eylem çağrısı].
+```
+
+### ChatGPT'ye Gönderilecek Prompt Şablonu
+
+```
+GÖREV: E-ticaret ürün açıklaması yaz. Yukarıdaki çıktı formatını kullan.
+
+ÜRÜN: [Tam adı ve modeli]
+MALZEME/ÖZELLİK: [Detaylı teknik bilgi]
+BEDEN/BOYUT: [Tam aralık]
+RENK: [Tüm seçenekler]
+BENZERSIZ ÖZELLİK: [Rakiplerden farkı]
+
+HEDEF KİTLE: [Yaş, cinsiyet, ilgi alanı]
+SORUN: [Çözdüğün problem]
+MOTİVASYON: [Neden satın alır?]
+
+TON: [Samimi / Resmi / Teknik / Motive edici]
+HİTAP: [Sen / Siz]
+YASAK KELIMELER: [...]
+ÖRNEK CÜMLE: "[Marka sesinizden bir örnek]"
+
+PLATFORM: [Trendyol / Hepsiburada / Kendi site / Amazon]
+KELIME SAYISI: [80-120 / 120-150 / 150-200]
+CTA: [İstenen eylem çağrısı]
+
+ANA KELİME: "[Hedef anahtar kelime]" — ilk 30 kelimede geçmeli
+LSI: [kelime1], [kelime2], [kelime3]
+
+EKSTRA: Ayrıca 155 karakterlik meta açıklama yaz.
+```
 
 ---
 
-E-ticaret sektöründe ürün açıklamaları, müşteri kararlarını doğrudan etkileyen kritik içeriklerdir. Binlerce ürün için özgün, ilgi çekici ve SEO uyumlu açıklama yazmak hem zaman alıcı hem maliyetlidir. **ChatGPT, doğru kullanıldığında bu açığı kapatır — ancak "ürün açıklaması yaz" demek yeterli değil; yapılandırılmış prompt şart.** Deneyimlerimizde görüyoruz ki, detaylı prompt veren işletmeler manuel yazım süresini %75 azaltıyor ve editör onayından geçen içerik oranını %85'e çıkarıyor.
+## Kullanıma Hazır Segmentli Promptlar (Kopyala-Yapıştır)
+
+Hedefine göre doğru promptu seç. Köşeli parantezleri kendi ürün bilgilerinle doldur.
+
+### SEO Odaklı Prompt (Organik Trafik Hedefi)
+
+```
+GÖREV: SEO uyumlu ürün açıklaması yaz — arama motorunda üst sıralarda çıksın
+
+ÜRÜN: [Ürün adı]
+KATEGORİ: [Ana kategori > alt kategori]
+ÖZELLİKLER: [Malzeme, boyut, renk, teknik detaylar]
+HEDEF KİTLE: [Yaş, cinsiyet, ilgi alanı, sorun noktası]
+PLATFORM: [Trendyol / Hepsiburada / Kendi site / Amazon]
+
+SEO AYARLARI:
+- Ana anahtar kelime: "[hedef kelime]" — ilk 25 kelimede geçmeli
+- LSI kelimeleri: [kelime1], [kelime2], [kelime3]
+- Uzun kuyruk: "[uzun kuyruk varyasyon]"
+- Keyword yoğunluğu: %2-3
+
+FORMAT: 150-200 kelime, H2-uyumlu alt başlıklar, madde listesi
+META: 155 karakterlik SEO meta açıklama da yaz
+
+KURAL: Keyword'ü doğal cümleye göm, spam yapma. Featured snippet için ilk paragrafı soru-cevap formatında kur.
+```
+
+### Satış Odaklı Prompt (Dönüşüm Hedefi)
+
+```
+GÖREV: Dönüşüm odaklı ürün açıklaması yaz — okuyucu sepete eklesin
+
+ÜRÜN: [Ürün adı]
+ANA FAYDA: [Müşterinin en büyük kazancı ne?]
+SORUN ÇÖZÜMÜ: [Hangi acıyı gideriyor?]
+HEDEF KİTLE: [Kim, neden satın alır?]
+FİYAT KONUMU: [Bütçe dostu / orta segment / premium]
+
+SATIŞÇI ÇERÇEVE:
+- Problem-Çözüm-Fayda yapısını kullan
+- Sosyal kanıt ekle: "[müşteri profili] bunu seçiyor çünkü..."
+- Kayıp aversiyonu: "Bu özellik olmadan..."
+- Aciliyet/kıtlık ekleme (varsa gerçek stok bilgisi)
+- Kapanış CTA: net, eylem odaklı
+
+FORMAT: 100-130 kelime, kısa cümleler, tek paragraf + madde listesi + CTA
+YASAK: Pasif cümle yapısı, belirsiz sıfatlar ("iyi", "kaliteli", "güzel")
+```
+
+### Kategori Bazlı Promptlar (Niş Örnekler)
+
+**Moda ve Tekstil:**
+```
+GÖREV: Moda ürünü açıklaması yaz — stil + konfor + versatilite vurgula
+
+ÜRÜN: [Giysi/aksesuar adı]
+MALZEME: [Kumaş türü, sertifika, özellik]
+STİL: [Casual / business / sportwear / evening]
+BEDEN: [Boyut aralığı, kesim tipi]
+MEVSİM: [Yaz / kış / dört mevsim]
+
+YAZIM KURALI: Ürünü nasıl hissettireceğini anlat, teknik özellikleri hissiyata çevir.
+Örnek: "Pamuk değil, gün boyu konforu" | "İpek değil, güven veren zariflik"
+FORMAT: 80-120 kelime, stil kombinasyon önerisi dahil
+```
+
+**Elektronik ve Teknoloji:**
+```
+GÖREV: Elektronik ürün açıklaması yaz — spesifikasyonları faydaya dönüştür
+
+ÜRÜN: [Cihaz adı ve model]
+TEKNİK: [İşlemci/kapasite/çözünürlük/batarya — tam detay]
+KULLANIM SENARYOSU: [Kim, ne zaman, nerede kullanır?]
+RAKIP AVANTAJ: [Benzer ürünlerden farkı]
+
+YAZIM KURALI: Her teknik özelliği bir kullanıcı faydasına bağla.
+Örnek değil: "4000 mAh batarya" | Doğru: "Şarj aramadan tüm gün kullanım"
+FORMAT: 120-160 kelime, teknik tablo (opsiyonel) + paragraf
+```
+
+**Ev, Yaşam ve Dekorasyon:**
+```
+GÖREV: Ev ürünü açıklaması yaz — yaşam kalitesini ve estetiği öne çıkar
+
+ÜRÜN: [Ev ürünü adı]
+MALZEME/TASARIM: [Detaylar]
+KULLANIM AMACI: [Pratik fayda + dekoratif değer]
+BOYUT/KAPASİTE: [Ölçüler]
+RENK/DESEN: [Seçenekler]
+
+YAZIM KURALI: Ürünü ev ortamına yerleştir — okuyucunun evinde görmesini sağla.
+"Sabah kahveni hazırlarken..." / "Misafirler geldiğinde..."
+FORMAT: 100-140 kelime, kullanım senaryosu dahil
+```
+
+---
+
+## Doldurulabilir Master Şablon (Tüm Kategoriler)
+
+Bu şablonu bir kez hazırla, her ürün için doldur ve ChatGPT'ye gönder.
+
+```
+===== CHATGPT ÜRÜN AÇIKLAMASI ŞABLONU =====
+
+ÜRÜN BİLGİSİ:
+  Ad: [...]
+  Kategori: [...] > [...]
+  Malzeme/İçerik: [...]
+  Boyut/Kapasite/Beden: [...]
+  Renk seçenekleri: [...]
+  Benzersiz özellik 1: [...]
+  Benzersiz özellik 2: [...]
+
+HEDEF KİTLE:
+  Yaş/Cinsiyet: [...]
+  Yaşam tarzı: [...]
+  En büyük sorunu: [...]
+  Satın alma motivasyonu: [...]
+
+MARKA SESİ:
+  Ton: [ ] Resmi  [ ] Samimi  [ ] Teknik  [ ] Motive edici
+  Hitap: [ ] Sen  [ ] Siz
+  Yasak kelimeler: [...]
+  Örnek cümle: [...]
+
+SEO:
+  Ana kelime: [...]
+  LSI kelimeleri: [...], [...], [...]
+  Uzun kuyruk: [...]
+
+PLATFORM & FORMAT:
+  Platform: [...]
+  Kelime sayısı: [...]
+  Madde listesi: [ ] Evet  [ ] Hayır
+  CTA: [...]
+  Meta açıklama: [ ] İste  [ ] İsteme
+
+HEDEF: [ ] SEO  [ ] Satış  [ ] Her ikisi
+============================================
+```
+
+---
 
 ## ChatGPT ile Ürün Açıklaması Yazmanın Avantajları Nedir?
 
@@ -300,206 +505,6 @@ Uzun Kuyruk Varyasyonlar:
 KURAL: "Organik pamuk spor t-shirt" ifadesini doğal cümle yapısında kullan. 
 "Bu organik pamuk spor t-shirt..." şeklinde başlama, bağlama uygun yerleştir.
 ```
-
-## Hemen Kullanabileceğiniz Ürün Açıklaması Şablonu
-
-Aşağıdaki şablonu kopyala, köşeli parantezleri doldur, ChatGPT'ye gönder.
-
-### Çıktı Şablonu (Açıklamanın Nasıl Görüneceği)
-
-```
-[Ürün Adı] ile [Ana Fayda]
-
-[Ürün adı], [yaş/profil hedef kitle] için tasarlanmış [malzeme/özellik] [ürün kategorisi]dir.
-[Benzersiz özellik 1] sayesinde [kullanıcı faydası 1]; [benzersiz özellik 2] ile [kullanıcı faydası 2].
-
-Öne çıkan özellikler:
-• [Özellik 1] — [1 cümle fayda açıklaması]
-• [Özellik 2] — [1 cümle fayda açıklaması]
-• [Özellik 3] — [1 cümle fayda açıklaması]
-• [Özellik 4] — [1 cümle fayda açıklaması]
-
-[Kullanım senaryosu: kim, nerede, ne zaman kullanır.]
-[CTA: Sepete ekle / Hemen sipariş ver / Ücretsiz kargo ile dene]
-
-Meta açıklama (155 karakter):
-[Ana anahtar kelime] — [fayda 1] ve [fayda 2]. [Platform veya rakipten fark]. [Eylem çağrısı].
-```
-
-### ChatGPT'ye Gönderilecek Prompt Şablonu
-
-```
-GÖREV: E-ticaret ürün açıklaması yaz. Yukarıdaki çıktı formatını kullan.
-
-ÜRÜN: [Tam adı ve modeli]
-MALZEME/ÖZELLİK: [Detaylı teknik bilgi]
-BEDEN/BOYUT: [Tam aralık]
-RENK: [Tüm seçenekler]
-BENZERSIZ ÖZELLİK: [Rakiplerden farkı]
-
-HEDEF KİTLE: [Yaş, cinsiyet, ilgi alanı]
-SORUN: [Çözdüğün problem]
-MOTİVASYON: [Neden satın alır?]
-
-TON: [Samimi / Resmi / Teknik / Motive edici]
-HİTAP: [Sen / Siz]
-YASAK KELIMELER: [...]
-ÖRNEK CÜMLE: "[Marka sesinizden bir örnek]"
-
-PLATFORM: [Trendyol / Hepsiburada / Kendi site / Amazon]
-KELIME SAYISI: [80-120 / 120-150 / 150-200]
-CTA: [İstenen eylem çağrısı]
-
-ANA KELİME: "[Hedef anahtar kelime]" — ilk 30 kelimede geçmeli
-LSI: [kelime1], [kelime2], [kelime3]
-
-EKSTRA: Ayrıca 155 karakterlik meta açıklama yaz.
-```
-
----
-
-## Kullanıma Hazır Segmentli Promptlar (Kopyala-Yapıştır)
-
-Hedefine göre doğru promptu seç. Köşeli parantezleri kendi ürün bilgilerinle doldur.
-
-### SEO Odaklı Prompt (Organik Trafik Hedefi)
-
-```
-GÖREV: SEO uyumlu ürün açıklaması yaz — arama motorunda üst sıralarda çıksın
-
-ÜRÜN: [Ürün adı]
-KATEGORİ: [Ana kategori > alt kategori]
-ÖZELLİKLER: [Malzeme, boyut, renk, teknik detaylar]
-HEDEF KİTLE: [Yaş, cinsiyet, ilgi alanı, sorun noktası]
-PLATFORM: [Trendyol / Hepsiburada / Kendi site / Amazon]
-
-SEO AYARLARI:
-- Ana anahtar kelime: "[hedef kelime]" — ilk 25 kelimede geçmeli
-- LSI kelimeleri: [kelime1], [kelime2], [kelime3]
-- Uzun kuyruk: "[uzun kuyruk varyasyon]"
-- Keyword yoğunluğu: %2-3
-
-FORMAT: 150-200 kelime, H2-uyumlu alt başlıklar, madde listesi
-META: 155 karakterlik SEO meta açıklama da yaz
-
-KURAL: Keyword'ü doğal cümleye göm, spam yapma. Featured snippet için ilk paragrafı soru-cevap formatında kur.
-```
-
-### Satış Odaklı Prompt (Dönüşüm Hedefi)
-
-```
-GÖREV: Dönüşüm odaklı ürün açıklaması yaz — okuyucu sepete eklesin
-
-ÜRÜN: [Ürün adı]
-ANA FAYDA: [Müşterinin en büyük kazancı ne?]
-SORUN ÇÖZÜMÜ: [Hangi acıyı gideriyor?]
-HEDEF KİTLE: [Kim, neden satın alır?]
-FİYAT KONUMU: [Bütçe dostu / orta segment / premium]
-
-SATIŞÇI ÇERÇEVE:
-- Problem-Çözüm-Fayda yapısını kullan
-- Sosyal kanıt ekle: "[müşteri profili] bunu seçiyor çünkü..."
-- Kayıp aversiyonu: "Bu özellik olmadan..."
-- Aciliyet/kıtlık ekleme (varsa gerçek stok bilgisi)
-- Kapanış CTA: net, eylem odaklı
-
-FORMAT: 100-130 kelime, kısa cümleler, tek paragraf + madde listesi + CTA
-YASAK: Pasif cümle yapısı, belirsiz sıfatlar ("iyi", "kaliteli", "güzel")
-```
-
-### Kategori Bazlı Promptlar (Niş Örnekler)
-
-**Moda ve Tekstil:**
-```
-GÖREV: Moda ürünü açıklaması yaz — stil + konfor + versatilite vurgula
-
-ÜRÜN: [Giysi/aksesuar adı]
-MALZEME: [Kumaş türü, sertifika, özellik]
-STİL: [Casual / business / sportwear / evening]
-BEDEN: [Boyut aralığı, kesim tipi]
-MEVSİM: [Yaz / kış / dört mevsim]
-
-YAZIM KURALI: Ürünü nasıl hissettireceğini anlat, teknik özellikleri hissiyata çevir.
-Örnek: "Pamuk değil, gün boyu konforu" | "İpek değil, güven veren zariflik"
-FORMAT: 80-120 kelime, stil kombinasyon önerisi dahil
-```
-
-**Elektronik ve Teknoloji:**
-```
-GÖREV: Elektronik ürün açıklaması yaz — spesifikasyonları faydaya dönüştür
-
-ÜRÜN: [Cihaz adı ve model]
-TEKNİK: [İşlemci/kapasite/çözünürlük/batarya — tam detay]
-KULLANIM SENARYOSU: [Kim, ne zaman, nerede kullanır?]
-RAKIP AVANTAJ: [Benzer ürünlerden farkı]
-
-YAZIM KURALI: Her teknik özelliği bir kullanıcı faydasına bağla.
-Örnek değil: "4000 mAh batarya" | Doğru: "Şarj aramadan tüm gün kullanım"
-FORMAT: 120-160 kelime, teknik tablo (opsiyonel) + paragraf
-```
-
-**Ev, Yaşam ve Dekorasyon:**
-```
-GÖREV: Ev ürünü açıklaması yaz — yaşam kalitesini ve estetiği öne çıkar
-
-ÜRÜN: [Ev ürünü adı]
-MALZEME/TASARIM: [Detaylar]
-KULLANIM AMACI: [Pratik fayda + dekoratif değer]
-BOYUT/KAPASİTE: [Ölçüler]
-RENK/DESEN: [Seçenekler]
-
-YAZIM KURALI: Ürünü ev ortamına yerleştir — okuyucunun evinde görmesini sağla.
-"Sabah kahveni hazırlarken..." / "Misafirler geldiğinde..."
-FORMAT: 100-140 kelime, kullanım senaryosu dahil
-```
-
----
-
-## Doldurulabilir Master Şablon (Tüm Kategoriler)
-
-Bu şablonu bir kez hazırla, her ürün için doldur ve ChatGPT'ye gönder.
-
-```
-===== CHATGPT ÜRÜN AÇIKLAMASI ŞABLONU =====
-
-ÜRÜN BİLGİSİ:
-  Ad: [...]
-  Kategori: [...] > [...]
-  Malzeme/İçerik: [...]
-  Boyut/Kapasite/Beden: [...]
-  Renk seçenekleri: [...]
-  Benzersiz özellik 1: [...]
-  Benzersiz özellik 2: [...]
-
-HEDEF KİTLE:
-  Yaş/Cinsiyet: [...]
-  Yaşam tarzı: [...]
-  En büyük sorunu: [...]
-  Satın alma motivasyonu: [...]
-
-MARKA SESİ:
-  Ton: [ ] Resmi  [ ] Samimi  [ ] Teknik  [ ] Motive edici
-  Hitap: [ ] Sen  [ ] Siz
-  Yasak kelimeler: [...]
-  Örnek cümle: [...]
-
-SEO:
-  Ana kelime: [...]
-  LSI kelimeleri: [...], [...], [...]
-  Uzun kuyruk: [...]
-
-PLATFORM & FORMAT:
-  Platform: [...]
-  Kelime sayısı: [...]
-  Madde listesi: [ ] Evet  [ ] Hayır
-  CTA: [...]
-  Meta açıklama: [ ] İste  [ ] İsteme
-
-HEDEF: [ ] SEO  [ ] Satış  [ ] Her ikisi
-============================================
-```
-
----
 
 ## Önce/Sonra: Genel Prompt vs. Yapılandırılmış Prompt
 
