@@ -512,11 +512,22 @@ COMMERCIAL INTENT — MANDATORY SECTIONS:
 
 KURALLAR:
 - Başlık ve slug'da asla yıl (2024/2025/2026) kullanma — evergreen yaz
-- Hedef kelime sayısı: {target_words}
+- Hedef kelime sayısı: {tr_word_target} kelime (bu aralığa ulaş, altında kalma)
 - Intent: {tr_intent} — {tr_intent_desc}
 - İç link: verilen URL listesinden 3-5 tanesine doğal anchor text ile link ver
 - Dış link: 2-3 güvenilir kaynak (Google, Moz, HubSpot, Statista vb.)
 - FAQ: 6-8 soru, her cevap 60-80 kelime, PAA sorgularından üret{tr_block}{tr_paa_block}{tr_links_block}
+{tr_commercial_sections}
+KARAR MİMARİSİ (tüm intentler için zorunlu):
+- Her H2 başlığı okuyucunun aklındaki bir soruyu cevaplar (karar-odaklı yapı)
+- İçeriğin başına (ilk H2'den önce) 40-60 kelimelik "Kısa Cevap" bloğu ekle — Google featured snippet için
+  Format: **Kısa Cevap:** [40-60 kelime net özet]
+- En az bir yerde "**Kısaca:** [tek cümle net cevap]" formatında featured snippet bloğu ekle
+- Yazı sonunda okuyucu ne yapması gerektiğini net olarak bilmeli
+
+EEAT SİNYALLERİ (zorunlu):
+- En az 2 yerde şu ifade kalıplarını kullan: "Uygulamada gördüğümüz...", "Müşterilerimizde test ettiğimizde...", "Danışmanlık projelerinde karşılaştığımız..."
+- Gerçek istatistik veya sayı içeren en az 3 cümle ekle (kaynak belirt veya gerçekçi tahmin sun)
 
 TAM OLARAK ŞU FORMATTA DÖN (başka hiçbir şey ekleme):
 ===TR_START===
@@ -537,7 +548,7 @@ faq:
     answer: "Cevap 2."
 ---
 
-(TR markdown içerik — {target_words} kelime, AEO+GEO+EEAT, iç+dış linkler, sonunda ## Sıkça Sorulan Sorular bölümü)
+(TR markdown içerik — {tr_word_target} kelime, AEO+GEO+EEAT, iç+dış linkler, Kısa Cevap bloğu, karar mimarisi, EEAT deneyim ifadeleri, istatistikler, sonunda ## Sıkça Sorulan Sorular bölümü)
 
 ===TR_END==="""
 
@@ -549,15 +560,26 @@ faq:
     tr_title = fm_field(tr_file, "title")
 
     # ── 2. ÇAĞRI: İngilizce yazı ─────────────────────────────────────────────
-    en_prompt = f""""{topic}" konusunda İngilizce blog yazısı yaz.
+    en_prompt = f""""{topic}" — write an English blog post on this topic.
 
 RULES:
 - Never use years (2024/2025/2026) in title or slug — write evergreen
-- Target word count: {target_words}
+- Target word count: {en_word_target} words (reach this range, do not fall short)
 - Intent: {en_intent} — {en_intent_desc}
 - Internal links: naturally link 3-5 URLs from the list below
 - External links: 2-3 authoritative sources (Google, Moz, HubSpot, Statista etc.)
 - FAQ: 6-8 questions, each answer 60-80 words, based on PAA queries{en_block}{en_paa_block}{en_links_block}
+{en_commercial_sections}
+DECISION ARCHITECTURE (mandatory for all intents):
+- Each H2 heading answers a question the reader has in mind (decision-based structure)
+- Before the first H2, add a 40-60 word "Quick Answer" block — for Google featured snippet
+  Format: **Quick Answer:** [40-60 word concise summary]
+- Include at least one "**In short:** [single clear sentence answer]" featured snippet block
+- At the end of the post, the reader must clearly know what action to take next
+
+EEAT SIGNALS (mandatory):
+- Use at least 2 first-person authority phrases such as: "In practice, we've seen...", "When we tested this with clients...", "Across consulting engagements, we've found..."
+- Include at least 3 sentences containing real statistics or specific numbers (cite the source or present a credible estimate)
 
 The Turkish version of this post has slug: "{tr_slug}"
 
@@ -580,7 +602,7 @@ faq:
     answer: "Answer 2."
 ---
 
-(EN markdown content — {target_words} words, AEO+GEO+EEAT, internal+external links, end with ## Frequently Asked Questions)
+(EN markdown content — {en_word_target} words, AEO+GEO+EEAT, internal+external links, Quick Answer block, decision architecture, EEAT experience phrases, statistics, end with ## Frequently Asked Questions)
 
 ===EN_END==="""
 
