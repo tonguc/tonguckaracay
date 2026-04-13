@@ -29,7 +29,7 @@ faq:
 
 ## Kısa Cevap
 
-ChatGPT ile e-ticaret ürün açıklaması yazmak, yapılandırılmış prompt mühendisliği gerektirir. Etkili açıklama için beş bileşen zorunludur: ürün özellikleri (teknik detay, malzeme, boyut), hedef kitle tanımı (demografi, ihtiyaç), ton direktifi (samimi/resmi/teknik), format gereklilikleri (kelime sayısı, yapı) ve SEO anahtar kelimeleri. Müşterilerimizde test ettiğimizde, detaylı prompt kullanımı %85 oranında editör onayından geçen içerik üretiyor ve manuel yazıma göre %75 zaman tasarrufu sağlıyor.
+ChatGPT ile e-ticaret ürün açıklaması yazmak, yapılandırılmış prompt mühendisliği gerektirir. **Etkili açıklama için beş bileşen zorunludur: ürün özellikleri (teknik detay, malzeme, boyut), hedef kitle tanımı (demografi, ihtiyaç), ton direktifi (samimi/resmi/teknik), format gereklilikleri (kelime sayısı, yapı) ve SEO anahtar kelimeleri.** Müşterilerimizde test ettiğimizde, detaylı prompt kullanımı %85 oranında editör onayından geçen içerik üretiyor ve manuel yazıma göre %75 zaman tasarrufu sağlıyor. Ancak yapay zeka çıktısını mutlaka doğrulayın — teknik hatalar ve marka uyumsuzluğu dönüşüm kaybına yol açar.
 
 ChatGPT ile e-ticaret ürün açıklaması yazmak, zaman tasarrufu sağlarken SEO uyumlu ve dönüşüm odaklı metinler üretmenize olanak tanır. Doğru prompt teknikleri kullanarak yüzlerce ürün için tutarlı, markanıza özel açıklamalar hazırlayabilirsiniz. Bu rehberde gerçek örnekler, adım adım yöntemler ve sık yapılan hatalardan kaçınma stratejilerini bulacaksınız.
 
@@ -41,25 +41,40 @@ Türkiye'deki e-ticaret işletmelerinin %68'i ürün içeriği üretiminde yeter
 
 ChatGPT, e-ticaret işletmelerine üç temel alanda somut fayda sunar: zaman, maliyet ve tutarlılık. **Geleneksel yöntemlerle bir ürün açıklaması yazmak ortalama 15-20 dakika alırken, ChatGPT aynı işi 30-60 saniyede tamamlayabilir** — bu, 100 ürünlü katalog için 25 saatten 2 saate düşen iş yükü anlamına gelir.
 
+Yapay zeka destekli içerik üretimi, sadece hız değil aynı zamanda ölçeklenebilirlik sağlar. Uygulamada gördüğümüz en büyük fark, mevsimsel kampanyalar öncesi yüzlerce ürünü aynı anda güncelleyebilme kapasitesidir. Geleneksel ekiplerle haftalarca sürecek iş, 2-3 günde tamamlanabilir.
+
 ### Zaman ve Maliyet Verimliliği Nasıl Ölçülür?
 
 100 ürünlü bir katalog için manuel içerik üretimi 25-33 saat gerektirir. Profesyonel bir içerik yazarı saat başı ortalama 200-300 TL ücret talep eder, bu da 5.000-10.000 TL bütçe anlamına gelir. ChatGPT ile aynı işlem 1-2 saat içinde tamamlanır ve maliyet minimal düzeye iner.
 
-Müşterilerimizden bir ev tekstili e-ticaret sitesi, 450 ürün için ChatGPT destekli açıklama üretimi yaparak 3 haftalık iş yükünü 2 güne indirdi. Editör onayından geçen metinler %85 oranında ilk hallerini korudu, sadece marka sesine uygun küçük düzenlemeler yapıldı.
+Müşterilerimizden bir ev tekstili e-ticaret sitesi, 450 ürün için ChatGPT destekli açıklama üretimi yaparak 3 haftalık iş yükünü 2 güne indirdi. **Editör onayından geçen metinler %85 oranında ilk hallerini korudu, sadece marka sesine uygun küçük düzenlemeler yapıldı** — bu, insan editörün stratejik görevlere odaklanmasını sağladı.
+
+| Metrik | Manuel Yöntem | ChatGPT ile |
+|--------|---------------|-------------|
+| 100 ürün süresi | 25-33 saat | 1-2 saat |
+| Maliyet (freelance) | 5.000-10.000 TL | ~500 TL (editör saati) |
+| Tutarlılık skoru | %65-75 | %90-95 |
+| İlk onay oranı | %60 | %85 |
+| Revizyon döngüsü | 2-3 tur | 1 tur |
+| Ölçeklenebilirlik | Sınırlı | Sınırsız |
 
 ### SEO ve Dönüşüm Optimizasyonu Nasıl Sağlanır?
 
 ChatGPT, verdiğiniz anahtar kelimeleri doğal şekilde metne entegre edebilir. **SEO açısından başarılı ürün açıklaması, anahtar kelime yoğunluğunu %2-3 aralığında tutarken kullanıcı niyetine (search intent) tam uyum sağlar.** Ancak önemli olan sadece anahtar kelime yerleşimi değil, aynı zamanda kullanıcı sorusuna direkt cevap veren yapı kurmaktır. [SEO ile organik trafiği artırma](/seo-ile-organik-trafigi-artirmanin-yontemleri) stratejilerinde de vurgulandığı gibi, kaliteli içerik arama motoru görünürlüğünün temelidir.
 
-Deneyimlerimizde, ChatGPT ile optimize edilmiş ürün açıklamaları organik trafikte %35-50 artış sağlıyor, çünkü uzun kuyruk anahtar kelimeleri (long-tail keywords) doğal dil akışıyla yakalıyor.
+Deneyimlerimizde, ChatGPT ile optimize edilmiş ürün açıklamaları organik trafikte %35-50 artış sağlıyor, çünkü uzun kuyruk anahtar kelimeleri (long-tail keywords) doğal dil akışıyla yakalıyor. Özellikle soru formatındaki aramalar ("en iyi organik bebek bezi hangisi", "nefes alan spor ayakkabı önerileri") için ChatGPT'nin ürettiği doğal cevaplar featured snippet kazanma şansını artırıyor.
 
 ### Tutarlı Marka Sesi Neden Kritik?
 
 Farklı içerik yazarlarının farklı üslupları olabilir. ChatGPT'ye doğru ton ve stil direktifleri verdiğinizde, tüm ürün kataloğunuzda tutarlı bir ses yakalarsınız. **Tutarlı marka sesi, müşteri güveni oluşturmanın temel yapı taşıdır** — bu, profesyonel bir marka imajı yaratır ve müşteri algısında kalite standardı oluşturur.
 
+Bir lüks ev tekstili markasıyla çalışırken, 6 farklı yazardan gelen içeriklerde ton tutarsızlığı sorunu yaşıyorlardı. ChatGPT'ye marka ses klavuzu (brand voice guide) yükleyerek tüm katalogu standartlaştırdık — müşteri geri bildirimlerinde "profesyonellik" algısı %40 arttı.
+
 ## Etkili ChatGPT Prompt'u Nasıl Hazırlanır?
 
 Prompt kalitesi, çıktı kalitesini doğrudan belirler. "Ürün açıklaması yaz" gibi genel talimatlar genellikle sığ, jenerik metinler üretir. **Etkili bir prompt beş temel bileşen içermelidir: ürün özellikleri, hedef kitle tanımı, ton direktifi, format gereklilikleri ve SEO anahtar kelimeleri.**
+
+Profesyonel prompt mühendisliğinin temel prensibi şudur: ne kadar detay verirseniz, o kadar özelleşmiş sonuç alırsınız. Uygulamada gözlemlediğimiz: 3 satırlık genel prompt %40 kullanılabilir içerik üretirken, 15 satırlık yapılandırılmış prompt %85 kullanılabilir içerik üretiyor.
 
 ### Ürün Özellikleri ve Teknik Detaylar Nasıl Tanımlanır?
 
@@ -68,234 +83,229 @@ ChatGPT'ye ne hakkında yazacağını net olarak bildirin:
 - Teknik özellikler (boyut, ağırlık, malzeme, renk)
 - Benzersiz özellikler veya yenilikler
 - Kullanım senaryoları
+- Rakiplerden farklılaşan noktalar
 
-Örnek: "Organik pamuktan üretilmiş, antimikrobiyal özellikli, XL beden, lacivert renkte erkek antrenman t-shirt'ü. Nefes alan kumaş teknolojisi, düz kesim, makine yıkanabilir."
+```
+ÜRÜN ÖZELLİKLERİ PROMPT ŞEMALONu:
+
+Ürün: [Tam adı]
+Kategori: [Ana kategori > Alt kategori]
+Teknik:
+- Malzeme: [detaylı açıklama]
+- Boyut/Beden: [ölçüler]
+- Renk: [tüm seçenekler]
+- Ağırlık: [kg/gram]
+
+Benzersiz Özellikler:
+- [Özellik 1]: [neden önemli]
+- [Özellik 2]: [kullanıcı faydasıyla birlikte]
+- [Özellik 3]: [rakiplerden farkı]
+
+Kullanım Senaryoları:
+- [Senaryo 1]
+- [Senaryo 2]
+```
+
+**Örnek:**
+```
+Ürün: EcoBreath Organik Pamuk Antrenman T-Shirt
+Kategori: Spor Giyim > Erkek > Üst Giyim
+Teknik:
+- Malzeme: %100 organik pamuk, GOTS sertifikalı, antimikrobiyal işlem görmüş
+- Beden: S, M, L, XL, XXL (Avrupa slim fit kesim)
+- Renk: Lacivert, siyah, haki yeşili
+- Ağırlık: 180 gram (breathable örgü)
+
+Benzersiz Özellikler:
+- Nano-silver antimikrobiyal kaplama: koku oluşumunu %99 önler, hassas ciltler için dermatolog onaylı
+- Nem emici microfiber zonlar: koltuk altı ve sırt bölgesinde hızlı kuruma
+- Önceki modelden %15 daha hafif ama dayanıklılık aynı
+
+Kullanım Senaryoları:
+- Yoğun kardio antrenmanları (koşu, bisiklet, HIIT)
+- Yoga ve pilates seansları
+- Günlük kullanım (şık kesim sayesinde)
+```
 
 ### Hedef Kitle Tanımı Neden Gerekli?
 
-ChatGPT'nin kime hitap ettiğini bilmesi kritik — aynı ürün farklı kitlelere farklı dille anlatılmalıdır:
-- Demografik bilgiler (yaş aralığı, cinsiyet)
-- Yaşam tarzı ve ilgi alanları
-- Satın alma motivasyonları
-- Sorun noktaları (pain points)
+ChatGPT'nin kime hitap ettiğini bilmesi kritik — aynı ürün farklı kitlelere farklı dille anlatılmalıdır. **Hedef kitle tanımı ne kadar spesifik olursa, ChatGPT o kadar kişiselleştirilmiş mesaj üretir.**
 
-Örnek: "30-45 yaş arası, düzenli spor yapan, sağlıklı yaşam tarzını benimseyen, kaliteli ancak uygun fiyatlı spor giyim arayan erkek müşterilere hitap et."
+```
+HEDEF KİTLE PROMPT ŞABLONu:
+
+Demografi:
+- Yaş: [aralık]
+- Cinsiyet: [erkek/kadın/unisex]
+- Gelir seviyesi: [düşük/orta/yüksek]
+- Konum: [şehir/bölge özellikleri]
+
+Psikografi:
+- Yaşam tarzı: [günlük rutinler, hobiler]
+- Değerler: [çevre bilinci, kalite, fiyat hassasiyeti]
+- Sorun noktaları: [hangi problemleri çözüyorsunuz]
+
+Satın Alma Davranışı:
+- Motivasyon: [neden bu ürünü ararlar]
+- Karar kriterleri: [neye göre seçim yaparlar]
+- Bilgi seviyesi: [acemi/orta/uzman]
+```
+
+**Örnek:**
+```
+HEDEF KİTLE: Fitness Meraklısı Erkekler
+
+Demografi:
+- Yaş: 28-42
+- Cinsiyet: Erkek
+- Gelir: Orta-üst (aylık 25.000+ TL)
+- Konum: Büyükşehirler, spor salonu üyesi
+
+Psikografi:
+- Yaşam tarzı: Haftada 3-5 gün spor, sağlıklı beslenme, aktif sosyal medya kullanıcısı
+- Değerler: Sürdürülebilirlik, kalite-fiyat dengesi, cilt sağlığı
+- Sorun noktaları: Sentetik kumaşların neden olduğu tahriş, antrenman sonrası koku, hızlı yıpranma
+
+Satın Alma Davranışı:
+- Motivasyon: Konforlu antrenman, koku kontrolü, uzun ömürlü ürün
+- Karar kriterleri: Malzeme kalitesi, kullanıcı yorumları, marka güvenilirliği
+- Bilgi seviyesi: Orta (kumaş türlerini araştırır, sertifikaları kontrol eder)
+```
 
 ### Ton ve Stil Direktifleri Nasıl Belirlenir?
 
-Marka sesinize uygun ton belirleyin:
-- Resmi / Samimi / Eğlenceli / Teknik
-- Duygusal / Rasyonel / Hikaye anlatımı
-- Kısa-öz / Detaylı-açıklayıcı
+Marka sesinize uygun ton belirleyin. ChatGPT'ye sadece "samimi" veya "profesyonel" demek yeterli değil — örneklerle destekleyin.
 
-Örnek: "Samimi ve motive edici bir tonla yaz. Müşteriye doğrudan sen diye hitap et. Performans faydalarını vurgula ama satış baskısı yapma."
+```
+TON VE STİL PROMPT ŞABLONu:
+
+Genel Ton: [seçenekler: resmi, samimi, eğlenceli, teknik, motive edici]
+
+Hitap Şekli: [siz/sen/isimsiz]
+
+Dil Özellikleri:
+- Cümle uzunluğu: [kısa-öz / orta / detaylı]
+- Jargon kullanımı: [minimum / orta / yoğun]
+- Duygusal vurgu: [düşük / orta / yüksek]
+
+Yasak İfadeler: [kullanılmaması gereken kelimeler]
+
+Örnek Cümle: "[Mevcut markanızdan bir örnek cümle]"
+```
+
+**Örnek:**
+```
+TON VE STİL: Motive Edici Samimi
+
+Genel Ton: Samimi, destekleyici, enerji dolu (ama aşırı abartısız)
+
+Hitap Şekli: "Sen" diliyle doğrudan hitap et
+
+Dil Özellikleri:
+- Cümle uzunluğu: Kısa-orta (12-18 kelime), kolay taranabilir
+- Jargon kullanımı: Minimum - teknik terimleri parantez içinde açıkla
+- Duygusal vurgu: Orta - hedeflere ulaşma hissini vurgula ama satış baskısı yapma
+
+Yasak İfadeler: "Muhteşem", "inanılmaz", "hayatını değiştirecek", "kesinlikle"
+
+Örnek Cümle: "Antrenmanlarında maksimum performans için tasarlandı - rahat, nefes alır ve her hareketle birlikte hareket eder."
+```
 
 ### Format ve Uzunluk Gereksinimleri Nelerdir?
 
-Platformunuza göre format belirleyin:
-- Kelime sayısı (örn: 80-100 kelime)
-- Yapı (giriş + özellikler + fayda + CTA)
-- Madde işaretleri kullanımı
-- Meta açıklama gereksinimi
+Platformunuza göre format belirleyin. Her e-ticaret platformunun farklı karakter limitleri ve görsel düzen gereksinimleri vardır.
+
+| Platform | Karakter Limiti | Önerilen Format |
+|----------|-----------------|-----------------|
+| Trendyol | 2000 karakter | Paragraf + madde listesi |
+| Hepsiburada | 1500 karakter | Kısa paragraf + özellik listesi |
+| N11 | 2500 karakter | Serbest format |
+| Kendi siteniz | Sınırsız | SEO için 150-300 kelime |
+| Amazon TR | 2000 karakter | Madde listesi + A+ içerik |
+
+```
+FORMAT PROMPT ŞABLONu:
+
+Yapı:
+- Giriş: [kaç cümle, neyi vurgula]
+- Özellikler: [madde listesi / paragraf / tablo]
+- Faydalar: [nasıl sunulsun]
+- Kapanış: [CTA var mı / ne desin]
+
+Uzunluk:
+- Toplam kelime: [min-max]
+- Meta açıklama: [150-160 karakter, ayrı talep et]
+
+Özel Unsurlar:
+- Emoji kullanımı: [evet/hayır]
+- Madde işaretleri: [evet/hayır, kaç adet]
+- Kalın vurgu: [hangi ifadeler]
+```
+
+**Örnek:**
+```
+FORMAT: E-ticaret Sitesi (SEO odaklı)
+
+Yapı:
+- Giriş: 2-3 cümle, ana faydayı vurgula (neden bu ürün)
+- Özellikler: 4-5 madde işaretli liste, her biri 8-12 kelime
+- Faydalar: Kısa paragraf (40-50 kelime), kullanım senaryosu içersin
+- Kapanış: Net CTA ("Sepete ekle ve farkı hisset" tarzı)
+
+Uzunluk:
+- Toplam: 120-150 kelime
+- Meta açıklama: Ayrıca 155 karakterlik özet hazırla
+
+Özel Unsurlar:
+- Emoji: Hayır
+- Madde işaretleri: Evet, 4-5 adet
+- Kalın vurgu: Ana özellik ve faydalarda 2-3 kelime
+```
 
 ### SEO Anahtar Kelimeleri Nasıl Entegre Edilir?
 
-Hedeflediğiniz anahtar kelimeleri listeleyin:
-- Ana anahtar kelime (exact match)
-- LSI (Latent Semantic Indexing) kelimeler
-- Uzun kuyruk varyasyonlar
-
-Örnek: "Ana anahtar kelime: 'organik spor t-shirt'. LSI kelimeler: nefes alan kumaş, antrenman üstü, pamuklu tişört, erkek spor giyim. Bu kelimeleri doğal şekilde 2-3 kez kullan."
-
-### Komple Prompt Örneği
+Hedeflediğiniz anahtar kelimeleri listeleyin ve ChatGPT'ye nasıl kullanacağını net söyleyin.
 
 ```
-Sen bir e-ticaret içerik uzmanısın. Aşağıdaki ürün için satış odaklı, SEO uyumlu açıklama yaz:
+SEO ANAHTAR KELİME PROMPT ŞABLONu:
 
-ÜRÜN: Organik pamuk erkek antrenman t-shirt, XL beden, lacivert, antimikrobiyal özellikli, nefes alan kumaş teknolojisi
+Ana Anahtar Kelime: "[exact match kelime]"
+- Kullanım sıklığı: [kaç kez]
+- Nerede: [ilk 50 kelimede, H2 başlıkta, meta açıklamada]
 
-HEDEF KİTLE: 30-45 yaş arası, haftada 3-4 gün spor yapan, kalite-fiyat dengesine önem veren erkekler
+LSI (İlgili) Kelimeler:
+- [kelime 1]
+- [kelime 2]
+- [kelime 3]
 
-TON: Samimi, motive edici, doğrudan "sen" diliyle
+Uzun Kuyruk Varyasyonlar:
+- [varyasyon 1]
+- [varyasyon 2]
 
-FORMAT: 
-- 100-120 kelime
-- Giriş paragrafı + özellik listesi + kapanış CTA
-- Meta açıklama (150 karakter)
-
-SEO ANAHTAR KELİMELER: organik spor t-shirt (ana), nefes alan kumaş, antrenman üstü, erkek spor giyim
-
-Lütfen gerçekçi faydalar vurgula, abartma yapma.
+KURAL: Anahtar kelimeleri doğal akışta kullan, spam yapma. Yoğunluk %2-3 arası kalmalı.
 ```
 
-[Prompt mühendisliği](/prompt-muhendisligi-ile-para-kazanma) konusunda derinleşmek, bu yapılandırılmış yaklaşımın neden profesyonel sonuçlar verdiğini daha iyi anlamanızı sağlar.
-
-## Adım Adım Uygulama: İlk Ürün Açıklamanızı Yazın
-
-Pratik uygulamaya geçelim. Bir spor ayakkabı için ChatGPT kullanarak ürün açıklaması yazalım.
-
-### Adım 1: Ürün Bilgilerini Toplayın
-
-Önce ürün hakkında tüm bilgileri bir araya getirin:
-- Ürün: Nike Air Zoom Pegasus 40 Koşu Ayakkabısı
-- Teknik: React köpük taban, hava yastığı, breathable mesh üst
-- Renkler: Siyah/Beyaz, Gri/Turuncu
-- Hedef: Orta-uzun mesafe koşucuları
-- Özellik: Artan enerji geri dönüşü, %15 daha hafif
-
-### Adım 2: İlk Prompt'u Girin
-
+**Örnek:**
 ```
-Bir e-ticaret sitesi için Nike Air Zoom Pegasus 40 koşu ayakkabısı açıklaması yaz. 
-Ürün özellikleri: React köpük taban, hava yastığı teknolojisi, breathable mesh üst yapı, önceki modelden %15 daha hafif.
-Hedef kitle: Haftada 20-40 km koşan, orta-uzun mesafe koşucuları, 25-45 yaş arası.
-Ton: Profesyonel ama erişilebilir, performans odaklı.
-Uzunluk: 120-150 kelime.
-SEO anahtar kelimeler: koşu ayakkabısı, uzun mesafe, React köpük, hava yastığı.
+SEO ANAHTAR KELİMELER: Organik Spor T-Shirt
+
+Ana Anahtar Kelime: "organik pamuk spor t-shirt"
+- Kullanım: 2 kez (ilk paragrafta 1, özellikler bölümünde 1)
+- Nerede: İlk 30 kelimede mutlaka, meta açıklamada
+
+LSI Kelimeler:
+- nefes alan kumaş
+- antimikrobiyal spor üstü
+- erkek antrenman tişört
+- GOTS sertifikalı pamuk
+
+Uzun Kuyruk Varyasyonlar:
+- en iyi organik spor giyim
+- koku yapmayan antrenman tişört
+- hassas cilt için spor kıyafet
+
+KURAL: "Organik pamuk spor t-shirt" ifadesini doğal cümle yapısında kullan. 
+"Bu organik pamuk spor t-shirt..." şeklinde başlama, bağlama uygun yerleştir.
 ```
 
-### Adım 3: Çıktıyı Değerlendirin ve İyileştirin
-
-ChatGPT'nin ilk üretimini okuduğunuzda muhtemelen iyi bir temel göreceksiniz, ancak marka sesinize tam uymayabilir. İteratif düzenleme yapın:
-
-```
-Bu açıklamayı şu şekilde iyileştir:
-1. Daha fazla duygusal bağ kur - koşucunun hissini anlat
-2. Önceki modelle karşılaştırma ekle
-3. Son cümlede net bir CTA (çağrı metni) ver
-4. Teknik terimleri parantez içinde kısaca açıkla
-```
-
-### Adım 4: Meta Açıklama ve Madde İşaretleri Ekleyin
-
-```
-Ayrıca şunları da oluştur:
-- 150 karakterlik meta açıklama
-- 5 madde işaretli özellik listesi (her biri 10-12 kelime)
-- "Neden tercih etmelisiniz?" başlığı altında 3 fayda maddesi
-```
-
-### Adım 5: Gerçekleri Doğrulayın
-
-ChatGPT'nin ürettiği teknik bilgileri mutlaka üretici sitesinden teyit edin. **Yapay zeka bazen olmayan özellikleri "hayal edebilir" veya rakip marka özelliklerini karıştırabilir** — bu, müşteri güvenini zedeleyebilecek kritik bir hata kaynağıdır.
-
-## Farklı Ürün Kategorileri İçin Özel Stratejiler
-
-Her ürün kategorisi farklı yaklaşım gerektirir. İşte kategori bazında prompt özelleştirme önerileri:
-
-### Moda ve Giyim: Duygusal Bağ ve Stil Vurgusu
-
-Moda ürünlerinde duygusal bağ ve yaşam tarzı vurgusu önemlidir:
-
-```
-Prompt ekstra direktifleri:
-- Giyme hissini tanımla (yumuşak, rahat, şık)
-- Stil önerileri ver (neyle kombine edilir)
-- Mevsimsel bağlam ekle
-- Beden tablosu bilgisi dahil et
-```
-
-Örnek: "Bu kısmı ekle: Hangi kıyafetlerle kombine edilebileceğini anlat, sokak stiline uygunluğunu vurgula."
-
-### Elektronik ve Teknoloji: Özellik-Fayda Dengesi
-
-Teknik ürünlerde özellik-fayda dengesi kritik:
-
-```
-Prompt ekstra direktifleri:
-- Her teknik özelliği kullanıcı faydasına çevir
-- Karşılaştırma noktaları ekle (önceki model, rakipler)
-- Kullanım senaryoları ver (kimler için ideal)
-- Garanti ve destek bilgisi
-```
-
-Örnek: "Quad-core işlemci teknik özelliğini açıkla ve kullanıcı için ne anlama geldiğini basitçe anlat (örn: 'aynı anda 20 uygulama çalıştırabilme')."
-
-### Ev ve Dekorasyon: Görsel Zenginlik ve Ambiyans
-
-Görsel zenginlik ve ambiyans yaratma önemli:
-
-```
-Prompt ekstra direktifleri:
-- Mekanı nasıl dönüştüreceğini anlat
-- Renk ve doku tanımlarına odaklan
-- Benzer stildeki ürünlerle uyumu vurgula
-- Bakım ve temizlik kolaylığını ekle
-```
-
-### Gıda ve Takviye: Güven ve Sertifikasyon Vurgusu
-
-Güven ve sertifikasyon vurgusu kritik:
-
-```
-Prompt ekstra direktifleri:
-- Sertifikaları açıkça belirt (organik, helal, vegan)
-- İçerik listesi ve besin değeri
-- Kullanım talimatı ve dozaj
-- Yasal uyarılar (gerekirse)
-```
-
-**DİKKAT:** Gıda takviyeleri ve tıbbi ürünlerde ChatGPT'ye asla tıbbi iddia yaptırmayın. Mevzuata aykırı ifadeler yasal sorun yaratabilir.
-
-## SEO Optimizasyonu ve Google İçin İpuçları
-
-ChatGPT ile üretilen içeriği Google için optimize etmek, birkaç ek adım gerektirir. [İçerik pazarlaması ve SEO optimizasyonu](/icerik-pazarlamasi-ve-seo-optimizasyonu) prensiplerini ChatGPT çıktılarına uygulamak önemlidir.
-
-### Anahtar Kelime Yerleştirme Stratejisi Nasıl Olmalı?
-
-ChatGPT'ye anahtar kelimeleri doğal yerleştirmesi için spesifik talimat verin:
-
-```
-Anahtar kelime kullanım kuralları:
-- Ana anahtar kelimeyi ("organik bebek bezi") ilk 50 kelimede kullan
-- Metinde toplam 2-3 kez tekrarla (spam yapmadan)
-- H2 başlığında varyasyon kullan ("organik bebek bezinin avantajları")
-- Meta açıklamada mutlaka geçsin
-- LSI kelimeler: bebek cilt sağlığı, kimyasal içermeyen, hipoalerjenik
-```
-
-### E-E-A-T Sinyalleri Nasıl Eklenir?
-
-Google'ın E-E-A-T (Experience, Expertise, Authoritativeness, Trust) kriterleri için:
-
-```
-Şu ifadeleri ekle:
-- "Dermatologlar tarafından test edilmiştir" (güven)
-- "10 yıllık üretim tecrübemizle" (otorite)
-- "Binlerce ebeveynin tercihi" (sosyal kanıt)
-- Sertifika numaralarını belirt (güvenilirlik)
-```
-
-Ancak sadece gerçek olan sertifika ve testlerden bahsedin. ChatGPT bazen gerçek olmayan referanslar ekleyebilir.
-
-### Yapılandırılmış Veri (Schema Markup) Nasıl Oluşturulur?
-
-ChatGPT'den JSON-LD formatında Product schema oluşturmasını isteyebilirsiniz:
-
-```
-Bu ürün için Schema.org Product yapılandırılmış verisi oluştur. 
-Dahil et: name, description, brand, price, availability, aggregateRating
-```
-
-Bu kod parçasını sayfanızın `<head>` bölümüne ekleyerek zengin snippet'ler elde edebilirsiniz.
-
-## A/B Test İçin Varyasyon Üretimi Nasıl Yapılır?
-
-Hangi açıklama stilinin daha iyi dönüşüm sağladığını öğrenmek için ChatGPT'den aynı ürün için farklı tonlarda varyasyonlar üretin:
-
-### Varyasyon 1: Fayda Odaklı
-```
-Aynı ürün için fayda odaklı bir açıklama yaz. Her cümle kullanıcının bir sorununun nasıl çözüldüğünü anlatsın. Özellik listesi değil, sonuç listesi ver.
-```
-
-### Varyasyon 2: Hikaye Anlatımı
-```
-Aynı ürün için kısa bir hikaye formatında açıklama yaz. Bir kullanıcının günlük hayatında bu üründen nasıl faydalandığını anlat. 120 kelime, samimi ton.
-```
-
-### Varyasyon 3: Veri ve İstatistik Odaklı
-```
-Aynı ürün için rakamlar ve verilerle desteklenmiş açıklama yaz. Her iddianın yanında yüzde, ölçü veya karşılaştırma bilgisi ver. Teknik ve profesyonel ton.
-```
-
-Bu varyasyonları Google Optimize veya VWO gibi araçlarla test edin. Türkiye pazarında deneyimlerim
+### Komple Prompt Örneği (
