@@ -473,6 +473,33 @@ def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
     tr_intent_desc = intent_map.get(tr_intent, intent_map["informational"])
     en_intent_desc = intent_map.get(en_intent, intent_map["informational"])
 
+    # Intent'e göre kelime sayısı hedefi
+    intent_word_targets = {
+        "informational": "1200-1800",
+        "commercial": "2000-2800",
+        "transactional": "1500-2000",
+    }
+    tr_word_target = intent_word_targets.get(tr_intent, "1200-1800")
+    en_word_target = intent_word_targets.get(en_intent, "1200-1800")
+
+    # Commercial intent için zorunlu bölümler (TR)
+    tr_commercial_sections = ""
+    if tr_intent == "commercial":
+        tr_commercial_sections = """
+COMMERCIAL INTENT — ZORUNLU BÖLÜMLER:
+- Karşılaştırma tablosu: En az 5 satırlı Markdown tablosu ekle (araç/yöntem/seçenek karşılaştırması) — ZORUNLU
+- "Hangi Durumda Hangisi?" bölümü: 3 farklı persona/senaryo için net öneri ver (örn: startup, freelancer, kurumsal şirket) — ZORUNLU
+- Gerçek maliyet analizi: Araç/hizmet maliyetlerini somut rakamlarla tahmin et (TL veya USD) — ZORUNLU"""
+
+    # Commercial intent için zorunlu bölümler (EN)
+    en_commercial_sections = ""
+    if en_intent == "commercial":
+        en_commercial_sections = """
+COMMERCIAL INTENT — MANDATORY SECTIONS:
+- Comparison table: Include a Markdown table with at least 5 rows comparing tools/methods/options — MANDATORY
+- "Which Scenario Uses What?" section: Give clear recommendations for 3 personas/scenarios (e.g. startup, freelancer, enterprise) — MANDATORY
+- Real cost analysis section: Estimate actual costs with specific figures (USD or local currency) — MANDATORY"""
+
     tr_links_block = f"\n\n{tr_links}" if tr_links else ""
     en_links_block = f"\n\n{en_links}" if en_links else ""
 
