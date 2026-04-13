@@ -29,110 +29,114 @@ faq:
 
 ## Kısa Cevap
 
-ChatGPT'ye 5 şey ver: ürün adı, hedef kitle, ana fayda, özellikler, ton. Aşağıdaki promptlardan birini kopyala, doldur, yapıştır — 30 saniyede ürün açıklaması gelir. %85 editör onayından ilk seferde geçer.
+ChatGPT ile ürün açıklaması yazmak için ürünün adı, hedef kitlesi, temel faydası ve tonu gibi bilgileri içeren bir prompt kullanılır. Bu bilgilerle oluşturulan açıklamalar hem SEO uyumlu hem de satış odaklı olabilir.
 
 ---
 
 ## Prompt 1 — Genel Ürün Açıklaması
 
-Her ürün kategorisi için çalışır. Kopyala, 5 alanı doldur, ChatGPT'ye gönder.
-
 ```
-Bir e-ticaret ürün açıklaması yaz.
+Sen deneyimli bir e-ticaret içerik yazarısın.
+Aşağıdaki bilgilere göre ürün açıklaması yaz.
 
 Ürün: [ürün adı ve modeli]
-Hedef kitle: [yaş, ilgi alanı, sorun noktası]
-Ana fayda: [ürün müşteriye ne kazandırır?]
+Hedef kitle: [yaş aralığı, ilgi alanı, temel sorunu]
+Temel fayda: [ürün bu sorunu nasıl çözüyor?]
 Özellikler: [malzeme, boyut, renk, teknik detaylar]
-Ton: [samimi / resmi / teknik — birini seç]
+Ton: [samimi / profesyonel / teknik]
 Platform: [Trendyol / Hepsiburada / kendi site]
-Kelime sayısı: 100-130 kelime
-Format: kısa giriş paragrafı + 4 madde işaretli özellik + CTA cümlesi
+
+Çıktı: 100-130 kelime. Kısa giriş + 4 madde özellik listesi + CTA.
 ```
 
-**Doldurulmuş örnek — hemen kopyala ve çalıştır:**
+**Dolu örnek:**
 
 ```
-Bir e-ticaret ürün açıklaması yaz.
+Sen deneyimli bir e-ticaret içerik yazarısın.
+Aşağıdaki bilgilere göre ürün açıklaması yaz.
 
-Ürün: Mavi Su Matarası 1L BPA-free Tritan
-Hedef kitle: 20-35 yaş, spor yapan, ofise gidip gelen kişiler
-Ana fayda: Sızıntısız kapak sayesinde çantada güvenle taşınır
-Özellikler: Tritan plastik (BPA-free), 1 litre, çift cidarlı, sıcağı 6 saat soğuğu 12 saat tutar
+Ürün: Tritan BPA-free Su Matarası 1L
+Hedef kitle: 20-35 yaş, spor yapan ve ofise gidip gelen kişiler
+Temel fayda: Sızdırmaz kapak sayesinde çantada güvenle taşınır
+Özellikler: Tritan plastik (BPA-free), 1L, çift cidarlı, 6 saat sıcak / 12 saat soğuk
 Ton: samimi, sen dili
 Platform: Trendyol
-Kelime sayısı: 110 kelime
-Format: kısa giriş paragrafı + 4 madde işaretli özellik + CTA cümlesi
+
+Çıktı: 110 kelime. Kısa giriş + 4 madde özellik listesi + CTA.
 ```
 
 ---
 
 ## Prompt 2 — SEO Odaklı Ürün Açıklaması
 
-Organik arama trafiği hedefleniyorsa bu promptu kullan.
-
 ```
-SEO uyumlu ürün açıklaması yaz. Arama motorunda üst sıralarda çıksın.
+Sen SEO konusunda uzman bir e-ticaret içerik yazarısın.
+Aşağıdaki bilgilere göre arama motoru uyumlu ürün açıklaması yaz.
 
 Ürün: [ürün adı]
-Platform: [Trendyol / Hepsiburada / kendi site]
-Ana anahtar kelime: "[hedef kelime]" — ilk 25 kelimede geçmeli
-LSI kelimeleri: [kelime1], [kelime2], [kelime3]
 Hedef kitle: [kim, ne sorunu var]
 Özellikler: [teknik detaylar]
-Kelime sayısı: 150 kelime
-Format: ilk cümle anahtar kelimeyle başlasın + 4 özellik maddesi + meta açıklama (155 karakter) ayrıca yaz
-Kural: anahtar kelime yoğunluğu %2-3, doğal cümle yapısı
+Platform: [Trendyol / Hepsiburada / kendi site]
+
+SEO parametreleri:
+- Ana anahtar kelime: "[hedef kelime]" → ilk 25 kelimede geçmeli
+- LSI kelimeleri: [kelime1], [kelime2], [kelime3]
+- Anahtar kelime yoğunluğu: %2-3, doğal cümle yapısı
+
+Çıktı: 150 kelime + ayrıca 155 karakterlik meta açıklama.
 ```
 
-**Doldurulmuş örnek — hemen kopyala ve çalıştır:**
+**Dolu örnek:**
 
 ```
-SEO uyumlu ürün açıklaması yaz. Arama motorunda üst sıralarda çıksın.
+Sen SEO konusunda uzman bir e-ticaret içerik yazarısın.
+Aşağıdaki bilgilere göre arama motoru uyumlu ürün açıklaması yaz.
 
 Ürün: Xiaomi Redmi Buds 5 Pro Kablosuz Kulaklık
+Hedef kitle: 22-40 yaş, ofis çalışanı, uzaktan çalışma / toplantı yoğun kullanım
+Özellikler: 52dB ANC, 38 saat batarya (kılıf dahil), IPX4, çift cihaz bağlantısı
 Platform: Hepsiburada
-Ana anahtar kelime: "kablosuz bluetooth kulaklık" — ilk 25 kelimede geçmeli
-LSI kelimeleri: ANC kulaklık, gürültü engelleme, uzun batarya kulaklık
-Hedef kitle: 22-40 yaş, ofis çalışanı, uzaktan çalışma yapan, toplantı yoğun kullanım
-Özellikler: 52dB ANC, 38 saat batarya (kılıf dahil), IPX4 su geçirmezlik, çift bağlantı
-Kelime sayısı: 150 kelime
-Format: ilk cümle anahtar kelimeyle başlasın + 4 özellik maddesi + meta açıklama (155 karakter) ayrıca yaz
-Kural: anahtar kelime yoğunluğu %2-3, doğal cümle yapısı
+
+SEO parametreleri:
+- Ana anahtar kelime: "kablosuz bluetooth kulaklık" → ilk 25 kelimede geçmeli
+- LSI kelimeleri: ANC kulaklık, gürültü engelleme, uzun batarya kulaklık
+- Anahtar kelime yoğunluğu: %2-3, doğal cümle yapısı
+
+Çıktı: 150 kelime + ayrıca 155 karakterlik meta açıklama.
 ```
 
 ---
 
 ## Prompt 3 — Satış Odaklı Ürün Açıklaması
 
-Dönüşüm hedefleniyorsa — sepete ekleme, satın alma — bu promptu kullan.
-
 ```
-Dönüşüm odaklı ürün açıklaması yaz. Okuyucu sepete eklesin.
+Sen dönüşüm odaklı bir e-ticaret kopya yazarısın.
+Aşağıdaki bilgilere göre okuyucuyu sepete eklemeye yönlendiren açıklama yaz.
 
 Ürün: [ürün adı]
-Müşterinin sorunu: [ürün olmadan yaşadığı sıkıntı]
-Çözüm: [ürün bu sorunu nasıl çözüyor]
-Sosyal kanıt: [sertifika / test / kullanıcı sayısı / ödül]
-Rakipten farkı: [tek fark veya üstünlük]
-Ton: ikna edici, kısa cümleler, sen dili
-Format: 1 giriş cümlesi (problemi vurgula) + 3 madde fayda listesi + güçlü CTA
-Yasak: "kaliteli", "harika", "mükemmel" — bunların yerine somut fayda yaz
+Müşterinin sorunu: [ürün olmadan yaşanan sıkıntı]
+Çözüm: [ürün bu sorunu nasıl gideriyor]
+Sosyal kanıt: [sertifika / test sonucu / kullanıcı sayısı]
+Rakipten farkı: [belirleyici üstünlük]
+
+Çıktı: 120 kelime. Giriş (sorunu vurgula) + 3 fayda maddesi + güçlü CTA.
+Yasak: "kaliteli", "harika", "mükemmel" yerine somut veri kullan.
 ```
 
-**Doldurulmuş örnek — hemen kopyala ve çalıştır:**
+**Dolu örnek:**
 
 ```
-Dönüşüm odaklı ürün açıklaması yaz. Okuyucu sepete eklesin.
+Sen dönüşüm odaklı bir e-ticaret kopya yazarısın.
+Aşağıdaki bilgilere göre okuyucuyu sepete eklemeye yönlendiren açıklama yaz.
 
 Ürün: Vichy Minéral 89 Yüz Serumu 50ml
-Müşterinin sorunu: Kuru, mat ve sıkışmış hissettiren cilt; makyaj altında topaklanma
-Çözüm: %89 Vichy volkanik su + hyalüronik asit — 24 saat nem + cilt bariyerini 2 haftada onarır
-Sosyal kanıt: Dermatolojik test edilmiş, 77 ülkede satılan, hassas ciltler için onaylı
-Rakipten farkı: Parfüm, paraben, alkol yok — en hassas ciltlerde bile tahrişsiz kullanım
-Ton: ikna edici, kısa cümleler, sen dili
-Format: 1 giriş cümlesi (problemi vurgula) + 3 madde fayda listesi + güçlü CTA
-Yasak: "kaliteli", "harika", "mükemmel" — bunların yerine somut fayda yaz
+Müşterinin sorunu: Kuru ve mat cilt; makyaj altında topaklanma
+Çözüm: %89 Vichy volkanik su + hyalüronik asit → 24 saat nem, 2 haftada bariyer onarımı
+Sosyal kanıt: Dermatolojik test edilmiş, 77 ülkede satılan, hassas cilt onaylı
+Rakipten farkı: Parfüm, paraben, alkol yok
+
+Çıktı: 120 kelime. Giriş (sorunu vurgula) + 3 fayda maddesi + güçlü CTA.
+Yasak: "kaliteli", "harika", "mükemmel" yerine somut veri kullan.
 ```
 
 ---
@@ -158,9 +162,9 @@ SEO kelimesi  : ________________________________  (SEO hedefi seçildiyse)
 
 ---
 
-## Örnek Çıktılar — ChatGPT'nin Ürettiği Açıklamalar
+## Örnek Çıktılar
 
-Aşağıdaki metinler yukarıdaki promptlarla ChatGPT'den alınan gerçek çıktılardır. Kendi ürününüzün nasıl görüneceğini anlamak için referans olarak kullanın.
+Yukarıdaki promptlara ChatGPT'nin verdiği gerçek yanıtlar — kendi ürününüzün nasıl görüneceğini anlamak için referans alın.
 
 ### Giyim: Zara Oversize Keten Blazer
 
@@ -217,14 +221,6 @@ ChatGPT tüm ürünlerde aynı performansı vermez.
 
 ---
 
-## Sonraki Adım
+100 ürünlü bir kataloğu bu yöntemle 2 saatte tamamlayabilirsin. Manuel yazımda aynı iş 25-30 saat alır.
 
-1. Yukarıdaki 3 prompttan birini seç
-2. Doldurulabilir şablonla alanları hazırla
-3. ChatGPT'ye yapıştır, çıktıyı al
-4. Teknik doğruluk ve marka sesi için bir kez gözden geçir
-5. Yayınla
-
-100 ürünlü bir kataloğu bu yöntemle 2 saatte tamamlayabilirsin — manuel yazımda aynı iş 25-30 saat alır.
-
-E-ticaret içerik stratejisi ve ChatGPT entegrasyonu hakkında sorularınız için [iletişime geçin](/iletisim).
+Daha fazlası için [iletişime geçin](/iletisim).
