@@ -171,7 +171,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
         <div className="flex gap-12 justify-center">
           <div className="w-full max-w-3xl min-w-0">
-            <div className="xl:hidden sticky top-20 z-40">
+            <div className="xl:hidden mb-8">
               <TableOfContents headings={headings} locale={locale} variant="mobile" />
             </div>
 
