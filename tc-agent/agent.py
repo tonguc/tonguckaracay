@@ -1111,7 +1111,7 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
 
         await msg.edit_text("✍️ TR optimize ediliyor...", parse_mode="Markdown")
         tr_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
-            model="claude-sonnet-4-5", max_tokens=8000,
+            model="claude-sonnet-4-5", max_tokens=16000,
             system=SYSTEM,
             messages=[{"role": "user", "content": tr_prompt}]
         ).content[0].text.strip())
@@ -1138,7 +1138,7 @@ Respond in exactly this format (nothing else):
 
             await msg.edit_text("✍️ EN optimize ediliyor...", parse_mode="Markdown")
             en_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
-                model="claude-sonnet-4-5", max_tokens=8000,
+                model="claude-sonnet-4-5", max_tokens=16000,
                 system=SYSTEM,
                 messages=[{"role": "user", "content": en_prompt}]
             ).content[0].text.strip())
