@@ -648,6 +648,36 @@ TOOL PAGE — MANDATORY SECTIONS (topic involves a specific tool/platform):
     tr_links_block = f"\n\n{tr_links}" if tr_links else ""
     en_links_block = f"\n\n{en_links}" if en_links else ""
 
+    # Tool page için içerik yapısı şablonu (sıra kritik)
+    tr_tool_structure = ""
+    en_tool_structure = ""
+    if is_tool_page:
+        tr_tool_structure = """
+TOOL PAGE İÇERİK YAPISI — BU SIRAYI KORU (blog yapısı değil, utility yapısı):
+1. ## Kısa Cevap → 5 maddelik NUMARALI LİSTE (her madde bold: başlık + kısa açıklama), snippet için liste formatı
+2. ## Hazır Şablonlar → Çıktı şablonu (açıklamanın nasıl görüneceği, köşeli parantez ile) + Prompt şablonu (ChatGPT'ye gönderilecek metin) — SAYFANIN ÜSTÜNDE, kaydırmadan görünmeli
+3. ## Hazır Promptlar → SEO odaklı + Satış odaklı + Kategori bazlı (en az 3 farklı niş), hepsi ``` kod bloğu içinde
+4. ## Önce/Sonra Karşılaştırması → Tablo (en az 4 satır, gerçekçi örnekler)
+5. Açıklama bölümleri → Avantajlar, nasıl çalışır, detaylar (blog içeriği)
+6. ## Ne Zaman İşe Yaramaz? → Sınırlamalar + riskler + çözüm önerileri
+7. ## Kime Göre Ne Yapmalı? → Yeni başlayan / orta seviye / ileri seviye için karar bloğu
+8. ## Sıkça Sorulan Sorular
+
+KRİTİK: Kullanılabilir içerik (şablon + promptlar) ÖNCE gelir, açıklama SONRA."""
+
+        en_tool_structure = """
+TOOL PAGE CONTENT STRUCTURE — FOLLOW THIS ORDER (utility structure, not blog structure):
+1. ## Quick Answer → 5-item NUMBERED LIST (each item bold: title + short explanation), list format for snippet
+2. ## Ready-to-Use Templates → Output template (what the result looks like, with bracketed placeholders) + Prompt template (what to send to ChatGPT) — NEAR TOP, visible without scrolling
+3. ## Ready-to-Use Prompts → SEO-focused + Sales-focused + Category-based (at least 3 different niches), all inside ``` code blocks
+4. ## Before/After Comparison → Table (at least 4 rows, realistic examples)
+5. Explanation sections → Advantages, how it works, details (blog content)
+6. ## When Does It Fail? → Limitations + risks + workarounds
+7. ## Which Approach for Which Level? → Decision block for beginner / intermediate / advanced
+8. ## Frequently Asked Questions
+
+CRITICAL: Usable content (templates + prompts) comes FIRST, explanation comes AFTER."""
+
     def fm_field(content, key):
         m = re.search(rf'^{key}:\s*"([^"]+)"', content, re.MULTILINE)
         return m.group(1) if m else ""
@@ -664,11 +694,12 @@ KURALLAR:
 - FAQ: 6-8 soru, her cevap 60-80 kelime, PAA sorgularından üret{tr_block}{tr_paa_block}{tr_links_block}
 {tr_commercial_sections}
 {tr_tool_sections}
+{tr_tool_structure}
 KARAR MİMARİSİ (tüm intentler için zorunlu):
 - Her H2 başlığı okuyucunun aklındaki bir soruyu cevaplar (karar-odaklı yapı)
-- İçeriğin başına (ilk H2'den önce) 40-60 kelimelik "Kısa Cevap" bloğu ekle — Google featured snippet için
-  Format: **Kısa Cevap:** [40-60 kelime net özet]
-- En az bir yerde "**Kısaca:** [tek cümle net cevap]" formatında featured snippet bloğu ekle
+- İçeriğin başına "## Kısa Cevap" bölümü ekle (ilk H2'den önce):
+  • Tool page ise: 5 maddelik NUMARALI LİSTE (her madde: **bold başlık** — kısa açıklama)
+  • Diğer içerik ise: 40-60 kelime net paragraf özet
 - Yazı sonunda okuyucu ne yapması gerektiğini net olarak bilmeli
 
 EEAT SİNYALLERİ (zorunlu):
@@ -694,7 +725,7 @@ faq:
     answer: "Cevap 2."
 ---
 
-(TR markdown içerik — {tr_word_target} kelime, AEO+GEO+EEAT, iç+dış linkler, Kısa Cevap bloğu, karar mimarisi, EEAT deneyim ifadeleri, istatistikler, sonunda ## Sıkça Sorulan Sorular bölümü)
+(TR markdown içerik — {tr_word_target} kelime, AEO+GEO+EEAT, iç+dış linkler, EEAT deneyim ifadeleri, istatistikler{', TOOL PAGE YAPISI: Kısa Cevap (numaralı liste) → Şablonlar → Promptlar → Karşılaştırma → Açıklama → Ne Zaman İşe Yaramaz → Karar Bloğu → SSS' if is_tool_page else ', Kısa Cevap bloğu, karar mimarisi, sonunda ## Sıkça Sorulan Sorular bölümü'})
 
 ===TR_END==="""
 
@@ -717,11 +748,12 @@ RULES:
 - FAQ: 6-8 questions, each answer 60-80 words, based on PAA queries{en_block}{en_paa_block}{en_links_block}
 {en_commercial_sections}
 {en_tool_sections}
+{en_tool_structure}
 DECISION ARCHITECTURE (mandatory for all intents):
 - Each H2 heading answers a question the reader has in mind (decision-based structure)
-- Before the first H2, add a 40-60 word "Quick Answer" block — for Google featured snippet
-  Format: **Quick Answer:** [40-60 word concise summary]
-- Include at least one "**In short:** [single clear sentence answer]" featured snippet block
+- Before the first H2, add a "## Quick Answer" section:
+  • Tool page: 5-item NUMBERED LIST (each item: **bold title** — short explanation)
+  • Other content: 40-60 word concise paragraph summary
 - At the end of the post, the reader must clearly know what action to take next
 
 EEAT SIGNALS (mandatory):
@@ -749,7 +781,7 @@ faq:
     answer: "Answer 2."
 ---
 
-(EN markdown content — {en_word_target} words, AEO+GEO+EEAT, internal+external links, Quick Answer block, decision architecture, EEAT experience phrases, statistics, end with ## Frequently Asked Questions)
+(EN markdown content — {en_word_target} words, AEO+GEO+EEAT, internal+external links, EEAT experience phrases, statistics{', TOOL PAGE STRUCTURE: Quick Answer (numbered list) → Templates → Prompts → Comparison → Explanation → When Does It Fail → Decision Block → FAQ' if is_tool_page else ', Quick Answer block, decision architecture, end with ## Frequently Asked Questions'})
 
 ===EN_END==="""
 
