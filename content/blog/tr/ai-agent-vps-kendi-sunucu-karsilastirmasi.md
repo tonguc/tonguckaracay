@@ -29,6 +29,10 @@ faq:
 
 Yapay zeka agentları işletmelerin müşteri hizmetlerinden otomasyon süreçlerine kadar birçok alanda kritik rol oynuyor. **AI agent çalıştırmak için VPS (Virtual Private Server) mi yoksa kendi fiziksel sunucunuzu mu kullanmalısınız?** Cevap, proje büyüklüğüne, bütçeye, teknik kapasiteye ve ölçeklenebilirlik ihtiyacına bağlı olarak değişir. VPS esneklik ve düşük başlangıç maliyeti sunarken, kendi sunucunuz uzun vadede maliyet avantajı ve tam kontrol sağlar.
 
+## Kısa Cevap
+
+Başlangıç aşamasındaysanız ve bütçeniz kısıtlıysa **VPS ile başlayın** — aylık ₺200-400 ile dakikalar içinde çalışır hale gelirsiniz. Projeniz doğrulandıktan ve trafik öngörülebilir hale geldikten sonra **kendi sunucuya geçin** — 2. yıldan itibaren maliyet avantajı belirginleşir ve veri kontrolü tamamen sizde olur. Hassas müşteri verisi işliyorsanız veya KVKK uyumluluğu kritikse kendi sunucu ilk günden itibaren daha doğru tercih olabilir.
+
 Bu yazıda her iki seçeneği maliyet, performans, güvenlik, ölçeklenebilirlik ve yönetim açısından karşılaştırarak hangi durumda hangi çözümün daha uygun olduğunu açıklıyoruz.
 
 ## VPS (Virtual Private Server) Nedir ve AI Agent Çalıştırmak İçin Nasıl Kullanılır?
@@ -43,7 +47,7 @@ VPS, bir fiziksel sunucunun sanallaştırma teknolojisiyle bölünmesiyle oluşa
 - **Yedekleme ve güvenlik**: Otomatik snapshot, firewall ve DDoS koruması dahildir
 - **Ölçeklenebilirlik**: İhtiyaç anında RAM ve CPU artırılabilir
 
-Türkiye'de Hetzner, DigitalOcean, Linode ve yerel sağlayıcılar 2 vCPU, 4GB RAM ve 40GB SSD ile başlayan planlar sunuyor. Basit [AI agent müşteri hizmetleri otomasyonu](/blog/ai-agent-musteri-hizmetleri-otomasyonu) için bu özellikler yeterlidir.
+Türkiye'de Hetzner, DigitalOcean, Linode ve yerel sağlayıcılar 2 vCPU, 4GB RAM ve 40GB SSD ile başlayan planlar sunuyor. Basit [AI agent müşteri hizmetleri otomasyonu](/ai-agent-musteri-hizmetleri-otomasyonu) için bu özellikler yeterlidir.
 
 VPS üzerinde Docker, Jupyter Notebook, TensorFlow ve PyTorch gibi araçlar kurularak production ortamı hızla oluşturulabilir. Flask veya FastAPI ile model API'si haline getirilebilir.
 
@@ -59,7 +63,7 @@ Kendi fiziksel sunucusu (on-premise sunucu), donanımın tamamen sizin kontrolü
 - **Yerel ağ ihtiyacı**: Agent diğer yerel sistemlerle sürekli iletişim halindeyse latency minimalize edilir
 - **GPU yatırımı**: Nvidia RTX 3060 veya üzeri ekran kartı alarak eğitim süreçlerini hızlandırabilirsiniz
 
-Örneğin İstanbul'da bir e-ticaret firması kendi sunucusunda AI agent çalıştırarak müşteri sorgularını yerel ağda işleyebilir ve veri Türkiye dışına çıkmaz. [Yapay zeka araçlarının dijital pazarlamada kullanımı](/blog/ai-agent-nedir-dijital-pazarlamada-nasil-kullanilir) yaygınlaştıkça veri güvenliği öncelikli hale geliyor.
+Örneğin İstanbul'da bir e-ticaret firması kendi sunucusunda AI agent çalıştırarak müşteri sorgularını yerel ağda işleyebilir ve veri Türkiye dışına çıkmaz. [Yapay zeka araçlarının dijital pazarlamada kullanımı](/ai-agent-nedir-dijital-pazarlamada-nasil-kullanilir) yaygınlaştıkça veri güvenliği öncelikli hale geliyor.
 
 Ancak elektrik kesintileri, internet bağlantı sorunları, donanım arızaları ve 7/24 bakım sorumluluğu tamamen sizin üzerinizde olur. UPS (kesintisiz güç kaynağı) ve yedek internet hattı gibi ek yatırımlar gerekebilir.
 
@@ -101,7 +105,7 @@ Startup'lar veya prototip aşamasındaki projeler için VPS, doğrulanmış ve �
 - Sabit performans: Dış faktörlerden etkilenmez
 - Manuel ölçekleme: RAM veya disk eklemek fiziksel müdahale gerektirir
 
-Derin öğrenme modeli eğitiyorsanız GPU kritik önem taşır. VPS'te NVIDIA Tesla T4 veya A100 ek maliyetle kiralayabilirsiniz, kendi sunucunuzda RTX 3060 veya üzeri ekran kartı satın almanız gerekir. [ChatGPT ve GEO teknikleri](/blog/chatgpt-geo-nasil-yapilir) gibi LLM tabanlı uygulamalar GPU ile 10-50 kat daha hızlı çalışır.
+Derin öğrenme modeli eğitiyorsanız GPU kritik önem taşır. VPS'te NVIDIA Tesla T4 veya A100 ek maliyetle kiralayabilirsiniz, kendi sunucunuzda RTX 3060 veya üzeri ekran kartı satın almanız gerekir. [ChatGPT ve GEO teknikleri](/chatgpt-geo-nasil-yapilir) gibi LLM tabanlı uygulamalar GPU ile 10-50 kat daha hızlı çalışır.
 
 ## Güvenlik ve Veri Gizliliği Açısından Karşılaştırma
 
@@ -144,7 +148,7 @@ Aynı komutlar kullanılır ancak ek olarak:
 - Router üzerinde port forwarding (80, 443, 8888) açılmalıdır
 - Nginx reverse proxy ile domain bağlama yapılabilir
 
-Kendi sunucunuzda Jupyter Notebook'a dışarıdan erişim sağlamak için SSL sertifikası ve güvenlik katmanları eklemek kritik önem taşır. [SEO araçları ve analizler](/blog/anahtar-kelime-analizi-yapan-seo-araclari) gibi veri yoğun uygulamalarda disk I/O performansı belirleyicidir.
+Kendi sunucunuzda Jupyter Notebook'a dışarıdan erişim sağlamak için SSL sertifikası ve güvenlik katmanları eklemek kritik önem taşır. [SEO araçları ve analizler](/anahtar-kelime-analizi-yapan-seo-araclari) gibi veri yoğun uygulamalarda disk I/O performansı belirleyicidir.
 
 ## Hibrit Çözüm: İki Dünyadan da Yararlanmak
 
@@ -165,7 +169,7 @@ Birçok işletme hibrit mimari kullanarak her iki çözümün avantajını birle
 - VPS yedek sunucu olarak standby modda tutulur
 - Elektrik kesintisi veya donanım arızasında otomatik geçiş
 
-Bu yaklaşım özellikle [dijital pazarlama stratejilerinde](/blog/dijital-pazarlama-stratejileri-ve-araclari) esneklik sağlar. A/B test için farklı ortamlarda farklı model versiyonları çalıştırılabilir.
+Bu yaklaşım özellikle [dijital pazarlama stratejilerinde](/dijital-pazarlama-stratejileri-ve-araclari) esneklik sağlar. A/B test için farklı ortamlarda farklı model versiyonları çalıştırılabilir.
 
 ## Hangi Durumda VPS, Hangi Durumda Kendi Sunucu?
 
@@ -237,7 +241,7 @@ AI agent çalıştırmak için VPS mi kendi sunucu mu kullanmalısınız sorusun
 
 Startup aşamasında VPS ile başlayın, proje doğrulandıkça ve trafik öngörülebilir hale geldikçe kendi sunucuya geçiş yapabilirsiniz. Ya da hibrit mimari ile her iki çözümün avantajlarını birleştirin.
 
-Son olarak, AI agent performansı yalnızca sunucu altyapısına bağlı değildir. Model optimizasyonu, cache stratejileri ve verimli kod yazımı her iki ortamda da kritik öneme sahiptir. [GEO optimizasyonu](/blog/geo-nedir-nasil-yapilir) teknikleri ve [içerik pazarlama stratejileri](/blog/icerik-pazarlamasi-ve-seo-optimizasyonu) ile agentinizin organik görünürlüğünü artırabilirsiniz.
+Son olarak, AI agent performansı yalnızca sunucu altyapısına bağlı değildir. Model optimizasyonu, cache stratejileri ve verimli kod yazımı her iki ortamda da kritik öneme sahiptir. [GEO optimizasyonu](/geo-nedir-nasil-yapilir) teknikleri ve [içerik pazarlama stratejileri](/icerik-pazarlamasi-ve-seo-optimizasyonu) ile agentinizin organik görünürlüğünü artırabilirsiniz.
 
 Hangi yolu seçerseniz seçin, düzenli yedekleme, güvenlik güncellemeleri ve izleme sistemlerini ihmal etmeyin. AI agentinizin başarısı, altında yatan altyapının stabilitesi ile doğru orantılıdır.
 
