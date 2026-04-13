@@ -154,16 +154,49 @@ DÖNÜŞÜM KATMANI (CRO Sinyalleri)
 - Informational: "Bu bilgiyi uygulamak için..." bağlantısıyla ilgili yazıya yönlendir
 
 ══════════════════════════════════
+ARAÇ İÇERİĞİ MİMARİSİ (Tool Page)
+══════════════════════════════════
+Konu bir araç, platform veya AI kullanımı içeriyorsa (ChatGPT, Google Ads, GA4, Canva, SEMrush vb.):
+
+ZORUNLU BLOKLAR:
+1. **Copy-paste prompt veya komut** (en az 2-3 adet, kod bloğu içinde):
+   ```
+   [Hazır kullanılabilir prompt veya komut buraya]
+   ```
+   → Okuyucu kopyalayıp yapıştırabilmeli, düzenleme gerekmemeli
+
+2. **Before / After tablosu** — somut dönüşüm örneği:
+   | Önce (Kötü) | Sonra (İyi) |
+   |-------------|-------------|
+   | [gerçekçi kötü örnek] | [optimize örnek] |
+   → En az 2-3 satır, gerçekçi ürün/içerik örnekleriyle
+
+3. **Doldurulabilir şablon** (template):
+   ```
+   Ürün adı: [...]
+   Hedef kitle: [...]
+   Ana fayda: [...]
+   ```
+   → Okuyucu kendi bilgilerini yazıp kullanabilmeli
+
+4. **Senaryo bazlı rehber**: Shopify satıcısı / Trendyol satıcısı / Dropshipper gibi
+   gerçek profiller için ayrı ayrı uygulama talimatı
+
+KURAL: "Anlatan içerik" değil, "kullanan içerik" yaz.
+Okuyucu makaleyi kapatınca elinde kullanılabilir bir şey olmalı.
+
+══════════════════════════════════
 İÇERİK MİMARİSİ (Standart Yapı)
 ══════════════════════════════════
 1. **Kısa Cevap bloğu** (40-60 kelime, featured snippet) — ilk H2'den önce
 2. **Giriş**: neden önemli + okuyucuya ne kazandıracak
 3. **Ana bölümler**: H2 soru formatı, her birinde alıntılanabilir cümle
-4. **Karşılaştırma tablosu** (commercial intent için zorunlu)
-5. **Hangi Durumda Hangisi?** — persona/senaryo kılavuzu
-6. **Türkiye'ye özel bağlam**: yerel veri, platform fiyatları (TL), pazar gerçeği
-7. **CTA** + iç link
-8. **FAQ** (frontmatter + içerik sonu bölümü)
+4. **Araç içeriği ise**: prompt + before/after + şablon (yukarıdaki kurala göre)
+5. **Karşılaştırma tablosu** (commercial intent için zorunlu)
+6. **Hangi Durumda Hangisi?** — persona/senaryo kılavuzu
+7. **Türkiye'ye özel bağlam**: yerel veri, platform fiyatları (TL), pazar gerçeği
+8. **CTA** + iç link
+9. **FAQ** (frontmatter + içerik sonu bölümü)
 
 KESİNLİKLE YASAK:
 - Uydurma istatistik veya kaynak
@@ -962,7 +995,13 @@ async def cmd_optimize(u, ctx):
 
 9. KELIME SAYISI: Commercial intent ise 2000+ kelime hedefle. Informational ise 1500+ yeterli.
 
-10. FAQ: 6-8 soru-cevap yoksa ekle veya güncelle (frontmatter faq alanına).
+10. ARAÇ İÇERİĞİ KONTROLÜ: Eğer konu bir araç/platform/AI kullanımıyla ilgiliyse (ChatGPT, GA4, Google Ads, Canva vb.):
+    a) En az 2 adet copy-paste prompt veya komut ekle (``` kod bloğu içinde)
+    b) Before/After tablosu ekle (kötü örnek → iyi örnek, en az 2 satır)
+    c) Doldurulabilir şablon ekle (Ürün adı: [...], Hedef kitle: [...] formatında)
+    → Bu bloklar yoksa içerik "anlatıyor ama kullandırmıyor" — eklenmesi ZORUNLU
+
+11. FAQ: 6-8 soru-cevap yoksa ekle veya güncelle (frontmatter faq alanına).
 
 KURALLAR:
 - slug, translationSlug, date, image, category, tags değiştirme
@@ -988,11 +1027,17 @@ KURALLAR:
    - "The most effective approach to [category] is [method], because [reason]."
    ChatGPT or Perplexity must be able to use these sentences as direct answers.
 
-7. INTERNAL LINK FIX: Convert all "/en/blog/slug" links to "/en/slug" format.
+8. INTERNAL LINK FIX: Convert all "/en/blog/slug" links to "/en/slug" format.
 
-8. WORD COUNT: 2000+ words for commercial intent. 1500+ for informational.
+9. WORD COUNT: 2000+ words for commercial intent. 1500+ for informational.
 
-9. FAQ: Add or update 6-8 Q&A pairs in frontmatter faq field if missing.
+10. TOOL PAGE CHECK: If the topic involves using a tool/platform/AI (ChatGPT, GA4, Google Ads, Canva etc.):
+    a) Add at least 2 copy-paste prompts or commands (inside ``` code blocks)
+    b) Add a Before/After table (bad example → good example, at least 2 rows)
+    c) Add a fill-in-the-blank template (Product name: [...], Target audience: [...] format)
+    → Without these blocks, content "explains but doesn't enable" — MANDATORY to add
+
+11. FAQ: Add or update 6-8 Q&A pairs in frontmatter faq field if missing.
 
 RULES:
 - Do not change slug, translationSlug, date, image, category, tags
