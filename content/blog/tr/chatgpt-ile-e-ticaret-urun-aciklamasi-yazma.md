@@ -99,7 +99,7 @@ EKSTRA: Ayrıca 155 karakterlik meta açıklama yaz.
 
 ## Kullanıma Hazır Segmentli Promptlar (Kopyala-Yapıştır)
 
-Hedefine göre doğru promptu seç. Köşeli parantezleri kendi ürün bilgilerinle doldur.
+Her bölümde iki prompt var: **Şablon** (kendi ürününe göre doldur) ve **Hazır Örnek** (olduğu gibi kopyala, ChatGPT'ye yapıştır, çalışır).
 
 ### SEO Odaklı Prompt (Organik Trafik Hedefi)
 
@@ -124,6 +124,29 @@ META: 155 karakterlik SEO meta açıklama da yaz
 KURAL: Keyword'ü doğal cümleye göm, spam yapma. Featured snippet için ilk paragrafı soru-cevap formatında kur.
 ```
 
+**→ Hazır Örnek (kopyala, yapıştır, çalıştır):**
+
+```
+GÖREV: SEO uyumlu ürün açıklaması yaz — arama motorunda üst sıralarda çıksın
+
+ÜRÜN: Galaxy Buds3 Pro Kablosuz Bluetooth Kulaklık
+KATEGORİ: Elektronik > Kulaklık > Kablosuz
+ÖZELLİKLER: Aktif gürültü engelleme (ANC), 30 saat toplam batarya, IP57 su geçirmezlik, 3 mikrofon
+HEDEF KİTLE: 22-40 yaş, ofis çalışanı, uzaktan çalışma / toplantı yoğun kullanım
+PLATFORM: Trendyol
+
+SEO AYARLARI:
+- Ana anahtar kelime: "kablosuz bluetooth kulaklık" — ilk 25 kelimede geçmeli
+- LSI kelimeleri: ANC kulaklık, gürültü engelleme kulaklık, uzun batarya kulaklık
+- Uzun kuyruk: "ofis için en iyi kablosuz kulaklık"
+- Keyword yoğunluğu: %2-3
+
+FORMAT: 150 kelime, 4 madde işaretli özellik, CTA ile biter
+META: Ayrıca 155 karakterlik SEO meta açıklama yaz
+
+KURAL: "kablosuz bluetooth kulaklık" ifadesini ilk cümlede doğal kullan. Featured snippet için ilk paragrafı "Bu kulaklık X sorunu çözer" formatında yaz.
+```
+
 ### Satış Odaklı Prompt (Dönüşüm Hedefi)
 
 ```
@@ -146,6 +169,27 @@ FORMAT: 100-130 kelime, kısa cümleler, tek paragraf + madde listesi + CTA
 YASAK: Pasif cümle yapısı, belirsiz sıfatlar ("iyi", "kaliteli", "güzel")
 ```
 
+**→ Hazır Örnek (kopyala, yapıştır, çalıştır):**
+
+```
+GÖREV: Dönüşüm odaklı ürün açıklaması yaz — okuyucu sepete eklesin
+
+ÜRÜN: Vichy Minéral 89 Nemlendirici Serum
+ANA FAYDA: 24 saat yoğun nemlendirme, cilt bariyerini güçlendirir
+SORUN ÇÖZÜMÜ: Kuru, mat ve sıkışmış hissettiren cilt için; sabah makyaj altında topaklanmaz
+HEDEF KİTLE: 25-45 yaş kadın, cilt bakımına yatırım yapan, dermatolog önerisi arayan
+FİYAT KONUMU: Orta-üst segment (eczane markası güvencesi)
+
+SATIŞÇI ÇERÇEVE:
+- Problem-Çözüm-Fayda: Kuru cilt problemi → hyalüronik asit çözümü → görünür nem farkı
+- Sosyal kanıt: Dermatolojik test edilmiş, 77 ülkede satılan güven
+- Kayıp aversiyonu: "Bariyer onarılmazsa makyaj 3 saatte solar"
+- CTA: "İlk 3 günde farkı hisset — sepete ekle"
+
+FORMAT: 120 kelime, 3 madde listesi, güçlü kapanış CTA
+YASAK: "güzel", "kaliteli", "harika" — bunlar yerine somut fayda yaz
+```
+
 ### Kategori Bazlı Promptlar (Niş Örnekler)
 
 **Moda ve Tekstil:**
@@ -163,6 +207,21 @@ YAZIM KURALI: Ürünü nasıl hissettireceğini anlat, teknik özellikleri hissi
 FORMAT: 80-120 kelime, stil kombinasyon önerisi dahil
 ```
 
+**→ Hazır Örnek — Moda:**
+```
+GÖREV: Moda ürünü açıklaması yaz
+
+ÜRÜN: Zara Oversize Keten Blazer
+MALZEME: %55 keten, %45 viskoz, kırışmaz finish
+STİL: Smart casual — ofisten akşam yemeğine geçiş
+BEDEN: XS-XL, oversize kesim (beden küçük alınabilir)
+MEVSİM: İlkbahar-yaz, klimalı ortamlar için yıl boyu
+
+YAZIM KURALI: Hissiyatı anlat — teknik özellikleri konfora çevir.
+"Keten değil, serin bir ofis sabahı" / "Blazer değil, güvenli bir geçiş"
+FORMAT: 90 kelime, kombinasyon önerisi içersin (jean + topuklu / triko + beyaz sneaker)
+```
+
 **Elektronik ve Teknoloji:**
 ```
 GÖREV: Elektronik ürün açıklaması yaz — spesifikasyonları faydaya dönüştür
@@ -175,6 +234,22 @@ RAKIP AVANTAJ: [Benzer ürünlerden farkı]
 YAZIM KURALI: Her teknik özelliği bir kullanıcı faydasına bağla.
 Örnek değil: "4000 mAh batarya" | Doğru: "Şarj aramadan tüm gün kullanım"
 FORMAT: 120-160 kelime, teknik tablo (opsiyonel) + paragraf
+```
+
+**→ Hazır Örnek — Elektronik:**
+```
+GÖREV: Elektronik ürün açıklaması yaz — spesifikasyonları faydaya dönüştür
+
+ÜRÜN: Xiaomi Redmi Note 13 Pro 5G
+TEKNİK: 6.67" AMOLED 120Hz ekran, 200MP kamera, 5100 mAh batarya, Snapdragon 7s Gen 2, 256GB
+KULLANIM SENARYOSU: Günlük kullanım + sosyal medya içerik üretimi + uzun seyahat
+RAKIP AVANTAJ: Aynı fiyat aralığında rakiplerin 2 katı kamera çözünürlüğü
+
+YAZIM KURALI: Her spec'i faydaya çevir:
+- "5100 mAh" → "Şarj kablosu olmadan 2 gün"
+- "200MP" → "Zoom'da bile net fotoğraf"
+- "120Hz AMOLED" → "Video kaydırma ve oyun için göz yormayan ekran"
+FORMAT: 140 kelime, 4 madde özellik listesi, Hepsiburada için optimize
 ```
 
 **Ev, Yaşam ve Dekorasyon:**
@@ -190,6 +265,22 @@ RENK/DESEN: [Seçenekler]
 YAZIM KURALI: Ürünü ev ortamına yerleştir — okuyucunun evinde görmesini sağla.
 "Sabah kahveni hazırlarken..." / "Misafirler geldiğinde..."
 FORMAT: 100-140 kelime, kullanım senaryosu dahil
+```
+
+**→ Hazır Örnek — Ev & Yaşam:**
+```
+GÖREV: Ev ürünü açıklaması yaz — yaşam kalitesini ve estetiği öne çıkar
+
+ÜRÜN: Fellow Stagg EKG Kettle — Elektrikli Kahve Ketle
+MALZEME: Paslanmaz çelik gövde, mat siyah finish
+KULLANIM AMACI: Hassas sıcaklık kontrolü (40-100°C) ile pour-over ve french press kahve demleme
+BOYUT: 0.9 litre, ergonomik kuğu boynu tasarımı
+RENK: Mat siyah / krom gümüş
+
+YAZIM KURALI: Ketleyi kahve ritüeline yerleştir:
+"Sabah sessizliğinde, tam 93°C'de ilk damlayı görürken..."
+"Misafirler geldiğinde ketlenin üzerindeki buhar görülünce..."
+FORMAT: 120 kelime, 3 özellik maddesi, "kahve severler için" kapanış CTA
 ```
 
 ---
