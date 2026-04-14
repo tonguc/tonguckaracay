@@ -1598,7 +1598,7 @@ async def scheduler(app):
             logger.exception("Zamanlayıcı hatası")
 
 async def post_init(app):
-    asyncio.create_task(scheduler(app))
+    pass  # Otomatik günlük yazı devre dışı
 
 def main():
     token = config.get("TELEGRAM_BOT_TOKEN","")
