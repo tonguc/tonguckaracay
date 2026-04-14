@@ -1,6 +1,7 @@
 // Slug mappings for TR <-> EN translation
 // This file is safe to import from both server and client components
 
+
 export const slugMappingTrToEn: Record<string, string> = {
   "seo-nedir-nasil-yapilir": "what-is-seo-how-does-it-work",
   "ui-ux-designer-nedir-nasil-calisirlar": "what-is-ui-ux-designer-how-do-they-work",
@@ -30,10 +31,12 @@ export const slugMappingTrToEn: Record<string, string> = {
   "ai-agent-musteri-hizmetleri-otomasyonu": "ai-agent-customer-service-automation",
   "chatgpt-ile-e-ticaret-urun-aciklamasi-yazma": "chatgpt-ecommerce-product-descriptions-guide",
   "ai-agent-vps-kendi-sunucu-karsilastirmasi": "ai-agent-vps-vs-own-server-comparison",
+  "ucretsiz-turkce-yapay-zeka-araclari-e-ticaret": "free-turkish-ai-tools-ecommerce",
 };
 export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
   Object.entries(slugMappingTrToEn).map(([tr, en]) => [en, tr])
 );
+
 
 export function getTranslatedSlug(slug: string, fromLocale: 'tr' | 'en', toLocale: 'tr' | 'en'): string {
   if (fromLocale === toLocale) return slug;
@@ -48,3 +51,4 @@ export function getTranslatedSlug(slug: string, fromLocale: 'tr' | 'en', toLocal
   
   return slug;
 }
+
