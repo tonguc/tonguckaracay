@@ -27,7 +27,7 @@ faq:
     answer: "Dört temel metrik takip edin: Google Search Console'da yerel anahtar kelimelerin (semt adı içeren) tıklanma oranı, Google İşletme Profili İstatistikleri'nde görüntülenme, tıklama ve yol tarifi isteklerindeki artış, Google Analytics'te /locations/ sayfalarının organik trafiği ve telefon araması veya mağaza ziyareti dönüşüm oranı. Danışmanlık projelerinde her ay bu metrikleri karşılaştırarak optimizasyon yönünü belirliyoruz. Örneğin, tıklanma düşükse başlık/açıklama, görüntülenme düşükse içerik ve backlink stratejisini güncelliyoruz. Yerel SEO başarısı minimum 3 ayda ölçülmelidir."
 ---
 
-## Kısa Cevap: E-Ticaret İçin Yerel SEO Nasıl Yapılır?
+## E-Ticaret İçin Yerel SEO: 5 Kritik Adım
 
 1. **Google İşletme Profili Optimizasyonu** — İşletme adı, adres, telefon (NAP) bilgilerini tüm platformlarda birebir aynı tutun, en az 10 fotoğraf ekleyin, düzenli içerik paylaşın.
 

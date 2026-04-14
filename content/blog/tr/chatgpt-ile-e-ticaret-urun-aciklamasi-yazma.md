@@ -27,7 +27,7 @@ faq:
     answer: "ChatGPT ile üretilen ürün açıklamaları Trendyol, Hepsiburada, N11, kendi e-ticaret siteniz, Amazon TR, eBay gibi tüm platformlarda kullanılabilir. Her platformun karakter sınırı ve format gereksinimleri farklı — Trendyol 2000 karakter, Hepsiburada 1500 karakter, Amazon TR 2000 karakter. Promptunuzda platform özelliklerini belirtin: 'Trendyol için 2000 karakter sınırında, madde işaretli özellik listesi içeren açıklama yaz'. Uygulamada gözlemlediğimiz: platform bazlı optimize edilmiş açıklamalar %20-35 daha yüksek görünürlük sağlar."
 ---
 
-## Kısa Cevap
+## Doğru Promptun 4 Bileşeni
 
 ChatGPT ile ürün açıklaması yazmak için ürünün adı, hedef kitlesi, temel faydası ve tonu gibi bilgileri içeren bir prompt kullanılır. Bu bilgilerle oluşturulan açıklamalar hem SEO uyumlu hem de satış odaklı olabilir.
 

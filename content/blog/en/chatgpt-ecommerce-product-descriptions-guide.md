@@ -31,7 +31,7 @@ faq:
     answer: "Run A/B tests comparing AI-generated descriptions against human-written versions on similar products. Track conversion rate, bounce rate, and time-on-page using Google Analytics. Test for at least 2-4 weeks to gather statistically significant data. In our client implementations, properly edited ChatGPT descriptions matched or exceeded human-written conversion rates in 73% of cases while reducing production time by 85%. The key is rigorous editing and quality control, not raw AI output."
 ---
 
-## Quick Answer
+## The 4 Elements of an Effective Product Description Prompt
 
 To write e-commerce product descriptions with ChatGPT, use a prompt that includes the product name, target audience, core benefit, and tone. Descriptions created this way can be both SEO-friendly and sales-focused.
 

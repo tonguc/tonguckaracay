@@ -30,7 +30,7 @@ faq:
 # Küçük E-Ticaret Siteleri İçin Ücretsiz ve Türkçe Yapay Zeka Araçları
 
 
-## Kısa Cevap
+## Ücretsiz Türkçe Yapay Zeka: En İyi 5 Araç
 
 
 Küçük e-ticaret siteleri için 2025'te kullanılabilecek ücretsiz ve Türkçe destekli yapay zeka araçları: **ChatGPT** (içerik), **Google Gemini** (SEO ve araştırma), **Canva AI** (görsel), **Tidio** (chatbot), **Perplexity** (rakip analizi). Bu araçların tamamı Türkçe arayüz veya Türkçe çıktı üretme kapasitesine sahiptir.

@@ -30,7 +30,7 @@ faq:
 # Free AI Tools with Turkish Support for Small E-Commerce Sites
 
 
-## Quick Answer
+## 5 Free AI Tools with Turkish Support (2025)
 
 
 Free AI tools with Turkish support available for small e-commerce sites in 2025: **ChatGPT** (content), **Google Gemini** (SEO and research), **Canva AI** (visuals), **Tidio** (chatbot), and **Perplexity** (competitor analysis). All of these tools support Turkish-language interfaces or can generate Turkish-language output.
