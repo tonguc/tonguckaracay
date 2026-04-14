@@ -100,6 +100,8 @@ function FeaturedPost({ post, locale, t }: { post: BlogPost; locale: Locale; t: 
               src={post.image}
               alt={post.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              width={1200}
+              height={675}
             />
           </div>
           {/* Content */}
@@ -163,10 +165,12 @@ function BlogCard({
       >
         {/* Image */}
         <div className="aspect-video bg-gradient-to-br from-surface-border to-surface-dark relative overflow-hidden">
-          <img 
-            src={post.image} 
+          <img
+            src={post.image}
             alt={post.title}
             className="w-full h-full object-cover"
+            width={1200}
+            height={675}
           />
           <div className="absolute inset-0 bg-accent-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>

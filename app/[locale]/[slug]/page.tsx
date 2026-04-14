@@ -93,13 +93,13 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
   return (
     <article className="pt-28 pb-20">
       <ReadingProgress />
-      {/* Article Schema */}
+      {/* BlogPosting Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Article",
+            "@type": "BlogPosting",
             "headline": post.title,
             "description": post.description,
             "image": post.image,
@@ -109,7 +109,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
               "url": "https://tonguckaracay.com"
             },
             "publisher": {
-              "@type": "Person",
+              "@type": "Organization",
               "name": "Tonguç Karaçay",
               "logo": {
                 "@type": "ImageObject",
@@ -148,6 +148,39 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
         />
       )}
 
+      {/* BreadcrumbList Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": locale === 'tr' ? 'Ana Sayfa' : 'Home',
+                "item": locale === 'tr' ? 'https://tonguckaracay.com' : 'https://tonguckaracay.com/en'
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": locale === 'tr' ? 'https://tonguckaracay.com/blog' : 'https://tonguckaracay.com/en/blog'
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": post.title,
+                "item": locale === 'tr'
+                  ? `https://tonguckaracay.com/${post.slug}`
+                  : `https://tonguckaracay.com/en/${post.slug}`
+              }
+            ]
+          })
+        }}
+      />
+
       <div className="container-custom">
         <Link href={blogPath} className="inline-flex items-center gap-2 text-primary-400 hover:text-accent-500 transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" />
@@ -165,7 +198,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
         <div className="max-w-4xl mx-auto mb-12">
           <div className="aspect-video rounded-2xl overflow-hidden border border-surface-border">
-            <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+            <img src={post.image} alt={post.title} className="w-full h-full object-cover" width={1200} height={675} />
           </div>
         </div>
 
@@ -190,7 +223,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
             <div className="mt-12 p-6 bg-surface-card border border-surface-border rounded-2xl">
               <div className="flex items-center gap-4">
-                <img src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" className="w-16 h-16 rounded-full object-cover" />
+                <img src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" className="w-16 h-16 rounded-full object-cover" width={64} height={64} />
                 <div>
                   <h3 className="font-display font-semibold text-white">Tonguç Karaçay</h3>
                   <p className="text-sm text-primary-400">{locale === 'tr' ? 'AI-Driven UX & Growth Partner | 25+ Yıl Deneyim' : 'AI-Driven UX & Growth Partner | 25+ Years Experience'}</p>
@@ -222,7 +255,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
                   className="group bg-surface-card/50 border border-surface-border rounded-2xl overflow-hidden hover:border-accent-500/30 transition-all"
                 >
                   <div className="aspect-video overflow-hidden">
-                    <img src={relatedPost.image} alt={relatedPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={relatedPost.image} alt={relatedPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" width={1200} height={675} />
                   </div>
                   <div className="p-4">
                     <span className="text-xs text-accent-500 uppercase tracking-wider">{relatedPost.category}</span>
