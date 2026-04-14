@@ -14,14 +14,24 @@ type Props = {
   searchParams: { page?: string };
 };
 
-export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
+export async function generateMetadata({ params: { locale }, searchParams }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'blog' });
-  
+  const allPosts = getAllPosts(locale);
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const currentPage = Math.max(1, parseInt(searchParams.page || '1', 10));
+
+  const basePath = locale === 'tr'
+    ? 'https://tonguckaracay.com/blog'
+    : 'https://tonguckaracay.com/en/blog';
+
+  const canonical = currentPage === 1 ? basePath : `${basePath}?page=${currentPage}`;
+
   return {
     title: locale === 'tr'
       ? 'SEO ve Dijital Pazarlama Blogu | Tonguç Karaçay'
       : 'SEO, Digital Marketing & AI Blog | Tonguç Karaçay',
     description: t('subtitle'),
+    alternates: { canonical },
   };
 }
 

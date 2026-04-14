@@ -76,6 +76,50 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
         <link rel="alternate" hrefLang="en" href="https://tonguckaracay.com/en" />
         <link rel="alternate" hrefLang="x-default" href="https://tonguckaracay.com" />
         
+        {/* Organization Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Tonguç Karaçay",
+              "url": "https://tonguckaracay.com",
+              "logo": "https://tonguckaracay.com/logo.png",
+              "sameAs": [
+                "https://www.linkedin.com/in/tonguckaracay",
+                "https://twitter.com/tonguckaracay"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "availableLanguage": ["Turkish", "English"]
+              }
+            })
+          }}
+        />
+
+        {/* WebSite Schema with SearchAction */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Tonguç Karaçay",
+              "url": "https://tonguckaracay.com",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://tonguckaracay.com/blog?q={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+
         {/* Google Analytics - must be in head for Search Console verification */}
         <script
           async
