@@ -169,6 +169,7 @@ export default function Header() {
             <div className="flex items-center gap-1 bg-surface-card rounded-full px-1 py-1">
               <button
                 onClick={() => switchLocale('tr')}
+                aria-label="Türkçe"
                 className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                   locale === 'tr'
                     ? 'bg-accent-500 text-white'
@@ -179,6 +180,7 @@ export default function Header() {
               </button>
               <button
                 onClick={() => switchLocale('en')}
+                aria-label="English"
                 className={`px-3 py-1.5 text-sm font-medium rounded-full transition-all ${
                   locale === 'en'
                     ? 'bg-accent-500 text-white'
@@ -201,6 +203,8 @@ export default function Header() {
             <button
               className="text-white p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -226,8 +230,8 @@ export default function Header() {
                 <div className="flex items-center gap-2 px-2 py-2">
                   <span className="text-primary-400 text-sm">{locale === 'tr' ? 'Dil:' : 'Lang:'}</span>
                   <div className="flex items-center gap-1 bg-surface-border/30 rounded-full px-1 py-1">
-                    <button onClick={() => { switchLocale('tr'); setIsMobileMenuOpen(false); }} className={`px-3 py-1.5 text-sm font-medium rounded-full ${locale === 'tr' ? 'bg-accent-500 text-white' : 'text-primary-300'}`}>TR</button>
-                    <button onClick={() => { switchLocale('en'); setIsMobileMenuOpen(false); }} className={`px-3 py-1.5 text-sm font-medium rounded-full ${locale === 'en' ? 'bg-accent-500 text-white' : 'text-primary-300'}`}>EN</button>
+                    <button onClick={() => { switchLocale('tr'); setIsMobileMenuOpen(false); }} aria-label="Türkçe" className={`px-3 py-1.5 text-sm font-medium rounded-full ${locale === 'tr' ? 'bg-accent-500 text-white' : 'text-primary-300'}`}>TR</button>
+                    <button onClick={() => { switchLocale('en'); setIsMobileMenuOpen(false); }} aria-label="English" className={`px-3 py-1.5 text-sm font-medium rounded-full ${locale === 'en' ? 'bg-accent-500 text-white' : 'text-primary-300'}`}>EN</button>
                   </div>
                 </div>
                 

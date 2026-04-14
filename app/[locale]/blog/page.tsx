@@ -243,13 +243,14 @@ function Pagination({
       {currentPage > 1 ? (
         <Link
           href={getPageUrl(currentPage - 1)}
+          aria-label={locale === 'tr' ? 'Önceki sayfa' : 'Previous page'}
           className="flex items-center gap-1 px-3 py-2 text-sm text-primary-300 hover:text-white transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
           <span className="hidden sm:inline">{locale === 'tr' ? 'Önceki' : 'Previous'}</span>
         </Link>
       ) : (
-        <span className="flex items-center gap-1 px-3 py-2 text-sm text-primary-500 cursor-not-allowed">
+        <span className="flex items-center gap-1 px-3 py-2 text-sm text-primary-500 cursor-not-allowed" aria-hidden="true">
           <ChevronLeft className="w-4 h-4" />
           <span className="hidden sm:inline">{locale === 'tr' ? 'Önceki' : 'Previous'}</span>
         </span>
@@ -276,13 +277,14 @@ function Pagination({
       {currentPage < totalPages ? (
         <Link
           href={getPageUrl(currentPage + 1)}
+          aria-label={locale === 'tr' ? 'Sonraki sayfa' : 'Next page'}
           className="flex items-center gap-1 px-3 py-2 text-sm text-primary-300 hover:text-white transition-colors"
         >
           <span className="hidden sm:inline">{locale === 'tr' ? 'Sonraki' : 'Next'}</span>
           <ChevronRight className="w-4 h-4" />
         </Link>
       ) : (
-        <span className="flex items-center gap-1 px-3 py-2 text-sm text-primary-500 cursor-not-allowed">
+        <span className="flex items-center gap-1 px-3 py-2 text-sm text-primary-500 cursor-not-allowed" aria-hidden="true">
           <span className="hidden sm:inline">{locale === 'tr' ? 'Sonraki' : 'Next'}</span>
           <ChevronRight className="w-4 h-4" />
         </span>
