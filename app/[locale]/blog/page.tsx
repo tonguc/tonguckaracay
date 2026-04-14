@@ -18,7 +18,9 @@ export async function generateMetadata({ params: { locale } }: Props): Promise<M
   const t = await getTranslations({ locale, namespace: 'blog' });
   
   return {
-    title: locale === 'tr' ? 'Blog | Tonguç Karaçay' : 'Blog | Tonguç Karaçay',
+    title: locale === 'tr'
+      ? 'SEO ve Dijital Pazarlama Blogu | Tonguç Karaçay'
+      : 'SEO, Digital Marketing & AI Blog | Tonguç Karaçay',
     description: t('subtitle'),
   };
 }
