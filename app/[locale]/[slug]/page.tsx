@@ -106,7 +106,13 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
             "author": {
               "@type": "Person",
               "name": "Tonguç Karaçay",
-              "url": "https://tonguckaracay.com"
+              "url": "https://tonguckaracay.com",
+              "image": "https://tonguckaracay.com/tonguc-karacay.jpg",
+              "jobTitle": "AI-Driven UX & Growth Consultant",
+              "sameAs": [
+                "https://www.linkedin.com/in/tonguckaracay",
+                "https://twitter.com/tonguckaracay"
+              ]
             },
             "publisher": {
               "@type": "Organization",

@@ -76,6 +76,35 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
         <link rel="alternate" hrefLang="en" href="https://tonguckaracay.com/en" />
         <link rel="alternate" hrefLang="x-default" href="https://tonguckaracay.com" />
         
+        {/* Person Schema — E-E-A-T + AIO authorship signals */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Tonguç Karaçay",
+              "url": "https://tonguckaracay.com",
+              "image": "https://tonguckaracay.com/tonguc-karacay.jpg",
+              "jobTitle": "AI-Driven UX & Growth Consultant",
+              "description": "25+ yıllık dijital pazarlama, SEO ve UI/UX deneyimiyle işletmelerin büyümesine yardımcı olan bağımsız danışman.",
+              "knowsAbout": [
+                "SEO", "Digital Marketing", "UI/UX Design",
+                "Google Ads", "Artificial Intelligence", "E-commerce",
+                "Content Marketing", "Web Analytics"
+              ],
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Tonguç Karaçay Danışmanlık"
+              },
+              "sameAs": [
+                "https://www.linkedin.com/in/tonguckaracay",
+                "https://twitter.com/tonguckaracay"
+              ]
+            })
+          }}
+        />
+
         {/* Organization Schema */}
         <script
           type="application/ld+json"
