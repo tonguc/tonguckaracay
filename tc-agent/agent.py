@@ -188,7 +188,7 @@ Okuyucu makaleyi kapatınca elinde kullanılabilir bir şey olmalı.
 ══════════════════════════════════
 İÇERİK MİMARİSİ (Standart Yapı)
 ══════════════════════════════════
-1. **Kısa Cevap bloğu** (40-60 kelime, featured snippet) — ilk H2'den önce
+1. **İçeriğe özgün ilk H2** (40-60 kelime, featured snippet için optimize) — "Kısa Cevap" değil, konuya özel başlık
 2. **Giriş**: neden önemli + okuyucuya ne kazandıracak
 3. **Ana bölümler**: H2 soru formatı, her birinde alıntılanabilir cümle
 4. **Araç içeriği ise**: prompt + before/after + şablon (yukarıdaki kurala göre)
@@ -654,7 +654,8 @@ TOOL PAGE — MANDATORY SECTIONS (topic involves a specific tool/platform):
     if is_tool_page:
         tr_tool_structure = """
 TOOL PAGE İÇERİK YAPISI — BU SIRAYI KORU (blog yapısı değil, utility yapısı):
-1. ## Kısa Cevap → 5 maddelik NUMARALI LİSTE (her madde bold: başlık + kısa açıklama), snippet için liste formatı
+1. İÇERİĞE ÖZGÜN İLK H2 → 5 maddelik NUMARALI LİSTE (her madde bold: başlık + kısa açıklama), snippet için liste formatı
+   BAŞLIK KURALI: "Kısa Cevap" yazma — konuyu doğrudan ifade eden başlık yaz (örn: "[Konu] İçin 5 Kritik Adım", "En İyi X [Araç] Komutu", "[Konu] Nasıl Yapılır? X Adımda")
 2. ## Hazır Şablonlar → Çıktı şablonu (açıklamanın nasıl görüneceği, köşeli parantez ile) + Prompt şablonu (ChatGPT'ye gönderilecek metin) — SAYFANIN ÜSTÜNDE, kaydırmadan görünmeli
 3. ## Hazır Promptlar → SEO odaklı + Satış odaklı + Kategori bazlı (en az 3 farklı niş), hepsi ``` kod bloğu içinde
 4. ## Önce/Sonra Karşılaştırması → Tablo (en az 4 satır, gerçekçi örnekler)
@@ -667,7 +668,8 @@ KRİTİK: Kullanılabilir içerik (şablon + promptlar) ÖNCE gelir, açıklama 
 
         en_tool_structure = """
 TOOL PAGE CONTENT STRUCTURE — FOLLOW THIS ORDER (utility structure, not blog structure):
-1. ## Quick Answer → 5-item NUMBERED LIST (each item bold: title + short explanation), list format for snippet
+1. CONTENT-SPECIFIC FIRST H2 → 5-item NUMBERED LIST (each item bold: title + short explanation), list format for snippet
+   HEADING RULE: Never write "Quick Answer" — use a topic-specific, benefit-driven heading (e.g., "5 Critical Steps for [Topic]", "The Best X [Tool] Commands", "How to [Topic] in X Steps")
 2. ## Ready-to-Use Templates → Output template (what the result looks like, with bracketed placeholders) + Prompt template (what to send to ChatGPT) — NEAR TOP, visible without scrolling
 3. ## Ready-to-Use Prompts → SEO-focused + Sales-focused + Category-based (at least 3 different niches), all inside ``` code blocks
 4. ## Before/After Comparison → Table (at least 4 rows, realistic examples)
@@ -697,9 +699,10 @@ KURALLAR:
 {tr_tool_structure}
 KARAR MİMARİSİ (tüm intentler için zorunlu):
 - Her H2 başlığı okuyucunun aklındaki bir soruyu cevaplar (karar-odaklı yapı)
-- İçeriğin başına "## Kısa Cevap" bölümü ekle (ilk H2'den önce):
+- İlk H2'yi içeriğe özgün, fayda ifaden bir başlık olarak yaz — "Kısa Cevap" YAZMA:
   • Tool page ise: 5 maddelik NUMARALI LİSTE (her madde: **bold başlık** — kısa açıklama)
   • Diğer içerik ise: 40-60 kelime net paragraf özet
+  • BAŞLIK ÖRNEKLERİ: "[Konu]: X Adımda Nasıl Yapılır?", "X [Araç] Adımı", "[Konu] İçin X Kritik Adım", "En İyi X [Konu] Yöntemi"
 - Yazı sonunda okuyucu ne yapması gerektiğini net olarak bilmeli
 
 EEAT SİNYALLERİ (zorunlu):
@@ -725,7 +728,7 @@ faq:
     answer: "Cevap 2."
 ---
 
-(TR markdown içerik — {tr_word_target} kelime, AEO+GEO+EEAT, iç+dış linkler, EEAT deneyim ifadeleri, istatistikler{', TOOL PAGE YAPISI: Kısa Cevap (numaralı liste) → Şablonlar → Promptlar → Karşılaştırma → Açıklama → Ne Zaman İşe Yaramaz → Karar Bloğu → SSS' if is_tool_page else ', Kısa Cevap bloğu, karar mimarisi, sonunda ## Sıkça Sorulan Sorular bölümü'})
+(TR markdown içerik — {tr_word_target} kelime, AEO+GEO+EEAT, iç+dış linkler, EEAT deneyim ifadeleri, istatistikler{', TOOL PAGE YAPISI: İçeriğe özgün ilk H2 (numaralı liste) → Şablonlar → Promptlar → Karşılaştırma → Açıklama → Ne Zaman İşe Yaramaz → Karar Bloğu → SSS' if is_tool_page else ', içeriğe özgün ilk H2 (paragraph özet), karar mimarisi, sonunda ## Sıkça Sorulan Sorular bölümü'})
 
 ===TR_END==="""
 
@@ -751,9 +754,10 @@ RULES:
 {en_tool_structure}
 DECISION ARCHITECTURE (mandatory for all intents):
 - Each H2 heading answers a question the reader has in mind (decision-based structure)
-- Before the first H2, add a "## Quick Answer" section:
+- Write the first H2 as a content-specific, benefit-driven heading — NEVER write "Quick Answer":
   • Tool page: 5-item NUMBERED LIST (each item: **bold title** — short explanation)
   • Other content: 40-60 word concise paragraph summary
+  • HEADING EXAMPLES: "[Topic]: How to Do It in X Steps", "X [Tool] Steps That Work", "X Critical Steps for [Topic]", "The Best X [Topic] Methods"
 - At the end of the post, the reader must clearly know what action to take next
 
 EEAT SIGNALS (mandatory):
@@ -781,7 +785,7 @@ faq:
     answer: "Answer 2."
 ---
 
-(EN markdown content — {en_word_target} words, AEO+GEO+EEAT, internal+external links, EEAT experience phrases, statistics{', TOOL PAGE STRUCTURE: Quick Answer (numbered list) → Templates → Prompts → Comparison → Explanation → When Does It Fail → Decision Block → FAQ' if is_tool_page else ', Quick Answer block, decision architecture, end with ## Frequently Asked Questions'})
+(EN markdown content — {en_word_target} words, AEO+GEO+EEAT, internal+external links, EEAT experience phrases, statistics{', TOOL PAGE STRUCTURE: Content-specific first H2 (numbered list) → Templates → Prompts → Comparison → Explanation → When Does It Fail → Decision Block → FAQ' if is_tool_page else ', content-specific first H2 (paragraph summary), decision architecture, end with ## Frequently Asked Questions'})
 
 ===EN_END==="""
 
@@ -1034,7 +1038,7 @@ Respond in exactly this format (nothing else):
 
 async def cmd_optimize(u, ctx):
     """SEO otomatik optimizasyonu: /optimize <tr-slug>
-    Sabit checklist uygular: Kısa Cevap, tablo, senaryo, EEAT, iç link düzeltmesi.
+    Sabit checklist uygular: ilk H2 başlık kontrolü, tablo, senaryo, EEAT, iç link düzeltmesi.
     """
     if not auth(u): return await deny(u)
     if not ctx.args:
@@ -1059,7 +1063,7 @@ async def cmd_optimize(u, ctx):
 
     OPTIMIZE_CHECKLIST_TR = """SEO OPTİMİZASYON CHECKLİST — tüm maddeleri uygula:
 
-1. KISA CEVAP BLOĞU: İlk H2'den önce "## Kısa Cevap" bölümü ekle (40-60 kelime, direkt cevap, featured snippet için). Zaten varsa geliştir.
+1. İLK H2 BAŞLIĞI: İçeriğin ilk H2 başlığının konuya özgün ve fayda ifaden olduğunu kontrol et. "Kısa Cevap" veya "Quick Answer" yazıyorsa içeriğe uygun bir başlıkla değiştir (örn: "[Konu]: X Adımda Nasıl Yapılır?", "[Konu] İçin X Kritik Adım"). Başlığın ardındaki içerik 40-60 kelime, direkt cevap, featured snippet için optimize olmalı.
 
 2. KARAR MİMARİSİ: Her H2 bir soruyu cevaplar şekilde düzenle. Yazı sonunda okuyucu ne yapacağını net bilmeli.
 
@@ -1095,7 +1099,7 @@ KURALLAR:
 
     OPTIMIZE_CHECKLIST_EN = """SEO OPTIMIZATION CHECKLIST — apply all items:
 
-1. QUICK ANSWER BLOCK: Add "## Quick Answer" section before first H2 (40-60 words, direct answer for featured snippet). Improve if already exists.
+1. FIRST H2 HEADING: Check that the first H2 is content-specific and benefit-driven. If it says "Quick Answer" or "Kısa Cevap", replace it with a topic-specific heading (e.g., "[Topic]: How to Do It in X Steps", "X Critical Steps for [Topic]"). The content under that heading should be 40-60 words, a direct answer, optimized for featured snippets.
 
 2. DECISION ARCHITECTURE: Each H2 should answer a reader question. Reader should know what to do at the end.
 
