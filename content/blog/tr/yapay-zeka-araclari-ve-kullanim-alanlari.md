@@ -85,7 +85,7 @@ Anthropic'in geliştirdiği Claude, özellikle uzun belge analizi ve güvenlik k
 
 Google'ın Gemini modeli, metin, görsel ve ses girdilerini birlikte işleyebilen çok modlu bir yapıya sahip. Google Workspace entegrasyonu sayesinde Gmail, Docs ve Sheets içinde doğrudan kullanılabiliyor.
 
-[Yapay zeka destekli içerik üretimi hakkında daha fazla bilgi için ChatGPT ile GEO nasıl yapılır rehberimize göz atabilirsiniz.](/blog/chatgpt-geo-nasil-yapilir)
+[Yapay zeka destekli içerik üretimi hakkında daha fazla bilgi için ChatGPT ile GEO nasıl yapılır rehberimize göz atabilirsiniz.](/chatgpt-geo-nasil-yapilir)
 
 ## Görsel Üretimi İçin Yapay Zeka Araçları
 
@@ -132,7 +132,7 @@ Geleneksel anahtar kelime araçları sadece arama hacmi verisi sunarken, AI dest
 
 **MarketMuse:** İçerik boşluklarını tespit eder ve konu otoritesi için strateji önerileri sunar.
 
-[Anahtar kelime analizi için kullanabileceğiniz SEO araçlarını detaylı incelediğimiz rehberimize göz atın.](/blog/anahtar-kelime-analizi-yapan-seo-araclari)
+[Anahtar kelime analizi için kullanabileceğiniz SEO araçlarını detaylı incelediğimiz rehberimize göz atın.](/anahtar-kelime-analizi-yapan-seo-araclari)
 
 ### İçerik Optimizasyonu Sürecinde AI Kullanımı
 
@@ -144,7 +144,7 @@ AI araçlarını içerik optimizasyonunda kullanırken adım adım şu süreci i
 4. **Yazım ve düzenleme:** AI çıktılarını uzman gözüyle revize edin
 5. **Optimizasyon:** SEO skorlama araçlarıyla ince ayar yapın
 
-[Kaliteli ve özgün içerik üretimi hakkında daha fazla bilgi için rehberimizi inceleyebilirsiniz.](/blog/kaliteli-ve-ozgun-icerigin-seo-icin-onemi)
+[Kaliteli ve özgün içerik üretimi hakkında daha fazla bilgi için rehberimizi inceleyebilirsiniz.](/kaliteli-ve-ozgun-icerigin-seo-icin-onemi)
 
 ## Veri Analizi ve Raporlama İçin AI Araçları
 
@@ -166,7 +166,7 @@ GA4'ün AI destekli özellikleri:
 - Otomatik içgörüler
 - Akıllı listeler
 
-[Google Analytics ile site optimizasyonu hakkında detaylı bilgi için rehberimize göz atın.](/blog/google-analytics-ile-site-optimizasyonu)
+[Google Analytics ile site optimizasyonu hakkında detaylı bilgi için rehberimize göz atın.](/google-analytics-ile-site-optimizasyonu)
 
 ## Müşteri Hizmetlerinde Yapay Zeka Kullanımı
 
@@ -251,7 +251,7 @@ Pazarlama ekipleri, AI araçlarını kampanya optimizasyonundan içerik kişisel
 
 **Buffer AI:** Paylaşım metinleri ve hashtag önerileri için AI asistanı.
 
-[Dijital pazarlama stratejileri ve araçları hakkında kapsamlı rehberimize göz atın.](/blog/dijital-pazarlama-stratejileri-ve-araclari)
+[Dijital pazarlama stratejileri ve araçları hakkında kapsamlı rehberimize göz atın.](/dijital-pazarlama-stratejileri-ve-araclari)
 
 ## Tasarım ve UI/UX İçin Yapay Zeka Araçları
 
@@ -273,7 +273,7 @@ Figma'nın AI özellikleri:
 
 Adobe'un üretken AI modeli Firefly, Photoshop ve Illustrator ile entegre çalışıyor. Generative Fill özelliği ile görsel düzenleme inanılmaz kolaylaştı.
 
-[Yapay zeka UI tasarım araçları hakkında detaylı incelememize göz atın.](/blog/yapay-zeka-ui-tasarim-araclari)
+[Yapay zeka UI tasarım araçları hakkında detaylı incelememize göz atın.](/yapay-zeka-ui-tasarim-araclari)
 
 ## Türkiye'de Yapay Zeka Araçları Kullanımı
 

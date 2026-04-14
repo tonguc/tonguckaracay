@@ -168,7 +168,7 @@ Danışmanlık projelerinde karşılaştığımız en etkili strateji: her semt 
 1. **Google Arama Önerileri** — "istanbul ayakkabı" yazdığınızda çıkan öneriler
 2. **Google Haritalar** — rakip işletmelerin isim ve açıklamalarını inceleyin
 3. **Google Search Console** — Performans raporunda "yakınımda", semt adları filtreleyin
-4. **[Anahtar Kelime Analizi Araçları](/blog/anahtar-kelime-analizi-yapan-seo-araclari)** — Semrush, Ahrefs, Ubersuggest ile yerel kelime hacmi kontrol edin
+4. **[Anahtar Kelime Analizi Araçları](/anahtar-kelime-analizi-yapan-seo-araclari)** — Semrush, Ahrefs, Ubersuggest ile yerel kelime hacmi kontrol edin
 
 ### Yerel Anahtar Kelimeleri Nereye Yerleştirmelisiniz?
 

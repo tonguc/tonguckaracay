@@ -158,7 +158,7 @@ AI agent'ların dijital pazarlamada devrim yarattığı somut alanlar:
 
 **Örnek**: Bir seyahat acentesi agent'ı, hava durumu API'sine bağlanarak İstanbul'da yağmur yağdığı günlerde "son dakika tatil fırsatları" kampanyasının bütçesini otomatik artırıyor. Güneşli günlerde bütçeyi azaltıp, kış tatili kampanyalarına kaydırıyor.
 
-[Google Ads kampanya optimizasyonu](/blog/google-ads-kampanya-optimizasyonu-rehberi) için kurduğumuz bu akıllı sistemler, manuel yönetimle ulaşılamayan %15-30 arası ROAS iyileştirmesi sağlıyor.
+[Google Ads kampanya optimizasyonu](/google-ads-kampanya-optimizasyonu-rehberi) için kurduğumuz bu akıllı sistemler, manuel yönetimle ulaşılamayan %15-30 arası ROAS iyileştirmesi sağlıyor.
 
 ### 2. İçerik Kişiselleştirme ve E-posta Pazarlaması
 
@@ -170,7 +170,7 @@ Agent'lar her kullanıcı için:
 
 **Gerçek veri**: Müşterilerimizde kurduğumuz e-posta agent'ları, statik kampanyalara kıyasla ortalama %42 daha yüksek açılma oranı ve %28 daha yüksek tıklama oranı sağlıyor.
 
-[İçerik pazarlaması ve SEO optimizasyonu](/blog/icerik-pazarlamasi-ve-seo-optimizasyonu) stratejilerimizde AI agent'ları hem içerik üretiminde hem de performans analizinde kullanıyoruz.
+[İçerik pazarlaması ve SEO optimizasyonu](/icerik-pazarlamasi-ve-seo-optimizasyonu) stratejilerimizde AI agent'ları hem içerik üretiminde hem de performans analizinde kullanıyoruz.
 
 ### 3. Müşteri Segmentasyonu ve Lead Skorlama
 
@@ -191,7 +191,7 @@ Agent'lar sosyal medyada:
 - En yüksek etkileşim alan içerik türlerini öğrenip yeni içerik önerir
 - Optimal paylaşım saatlerini hesaplar
 
-[Sosyal medya yönetimi](/blog/sosyal-medya-yonetimi-ve-online-pazarlama) projelerimizde agent'lar, topluluk yöneticilerinin yükünü %50 azaltıyor.
+[Sosyal medya yönetimi](/sosyal-medya-yonetimi-ve-online-pazarlama) projelerimizde agent'lar, topluluk yöneticilerinin yükünü %50 azaltıyor.
 
 ### 5. SEO ve İçerik Stratejisi
 
@@ -202,7 +202,7 @@ Agent'lar SEO süreçlerinde:
 - Backlink fırsatlarını tarar ve outreach listesi hazırlar
 - SERP değişikliklerini izleyip içerik güncelleme önerir
 
-[SEO araçları](/blog/kullanmaniz-gereken-seo-araclari) listemizdeki araçları AI agent'larla entegre ederek, müşterilerimize tam otomasyon sağlıyoruz.
+[SEO araçları](/kullanmaniz-gereken-seo-araclari) listemizdeki araçları AI agent'larla entegre ederek, müşterilerimize tam otomasyon sağlıyoruz.
 
 ### 6. Müşteri Destek ve Chatbot Entegrasyonu
 

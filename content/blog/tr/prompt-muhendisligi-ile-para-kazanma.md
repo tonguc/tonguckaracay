@@ -31,7 +31,7 @@ Yapay zeka prompt mühendisliği, ChatGPT, Claude ve Gemini gibi dil modellerine
 
 Nisan 2026 itibarıyla global yapay zeka pazarının 184 milyar dolara ulaştığı ve Türkiye'de işletmelerin %47'sinin yapay zeka araçlarını kullandığı bir dönemde, kaliteli prompt yazımı kritik bir hizmet haline gelmiştir. PwC'nin raporuna göre, 2030'a kadar yapay zeka dünya ekonomisine 15,7 trilyon dolar katacak ve bu süreçte prompt mühendisliği gibi yardımcı beceriler temel yetkinliklere dönüşecektir.
 
-Bu rehberde, prompt mühendisliği ile para kazanmanın kanıtlanmış yollarını, gerçek fiyatlandırma stratejilerini, başarılı profesyonellerin kullandığı teknikleri ve ilk müşterinize ulaşma yöntemlerini bulacaksınız. [Yapay zeka araçları](/blog/yapay-zeka-araclari-ve-kullanim-alanlari) ekosistemindeki konumunuzu güçlendirerek, bu büyüyen pazarda kendinize yer açabilirsiniz.
+Bu rehberde, prompt mühendisliği ile para kazanmanın kanıtlanmış yollarını, gerçek fiyatlandırma stratejilerini, başarılı profesyonellerin kullandığı teknikleri ve ilk müşterinize ulaşma yöntemlerini bulacaksınız. [Yapay zeka araçları](/yapay-zeka-araclari-ve-kullanim-alanlari) ekosistemindeki konumunuzu güçlendirerek, bu büyüyen pazarda kendinize yer açabilirsiniz.
 
 ## Prompt Mühendisliği Nedir ve Neden Para Kazanma Aracı Olarak Önemlidir?
 
@@ -45,7 +45,7 @@ Bu beceri para kazanma aracı olarak önemlidir çünkü:
 
 **Düşük giriş engeli, yüksek değer**: Web geliştirme veya veri bilimi gibi alanlara kıyasla prompt mühendisliği için yıllarca eğitim gerekmez. Ancak iyi bir prompt mühendisi, müşterisinin 40 saatlik işini 4 saate indirebildiği için yüksek ücret talep edebilir.
 
-**Ölçeklenebilir gelir modelleri**: Bir kez oluşturulan prompt şablonları, kurslar veya araçlar sürekli gelir sağlayabilir. Bu, [dijital pazarlama stratejileri](/blog/dijital-pazarlama-stratejileri-ve-araclari) içinde pasif gelir modeli oluşturmanın modern yoludur.
+**Ölçeklenebilir gelir modelleri**: Bir kez oluşturulan prompt şablonları, kurslar veya araçlar sürekli gelir sağlayabilir. Bu, [dijital pazarlama stratejileri](/dijital-pazarlama-stratejileri-ve-araclari) içinde pasif gelir modeli oluşturmanın modern yoludur.
 
 ## Prompt Mühendisliği ile Para Kazanmanın 6 Kanıtlanmış Yolu
 
@@ -79,7 +79,7 @@ Orta ve büyük ölçekli şirketler, yapay zeka araçlarını ekip çapında ku
 - Aylık danışmanlık paketi: 25.000-80.000 TL
 - Kapsamlı entegrasyon projesi: 100.000-500.000 TL (3-6 ay)
 
-**Gerçek örnek**: Ankara'da bir dijital pazarlama ajansı, e-ticaret müşterileri için "AI İçerik Üretim Sistemi" danışmanlığı sunuyor. 3 aylık bir proje kapsamında müşterinin tüm ürün kategorileri için prompt kütüphanesi oluşturup içerik ekibini eğitiyor ve 120.000 TL gelir elde ediyor. [Dijital pazarlama yöntemleri](/blog/en-etkili-dijital-pazarlama-yontemleri) ile bu hizmeti paketlemek müşteri kazanımını kolaylaştırıyor.
+**Gerçek örnek**: Ankara'da bir dijital pazarlama ajansı, e-ticaret müşterileri için "AI İçerik Üretim Sistemi" danışmanlığı sunuyor. 3 aylık bir proje kapsamında müşterinin tüm ürün kategorileri için prompt kütüphanesi oluşturup içerik ekibini eğitiyor ve 120.000 TL gelir elde ediyor. [Dijital pazarlama yöntemleri](/en-etkili-dijital-pazarlama-yontemleri) ile bu hizmeti paketlemek müşteri kazanımını kolaylaştırıyor.
 
 ### 3. Online Kurs ve Eğitim İçeriği Satışı
 
@@ -157,7 +157,7 @@ En etkili promptlar üç katmanlı yapıdadır:
 
 **Görev**: "Argan yağlı saç bakım serumu için 300 kelimelik ürün açıklaması yaz. İlk 2 cümle ürünün temel faydasını vurgula. Anahtar kelimeleri doğal yerleştir: 'argan yağı', 'organik saç bakımı', 'paraben içermeyen'. Ton: güvenilir ama sıcak."
 
-Bu yapı yapay zekaya net bağlam verir ve daha isabetli çıktılar üretir. [SEO ile organik trafik artırma](/blog/seo-ile-organik-trafigi-artirmanin-yontemleri) stratejilerini prompt yazımına entegre etmek, müşterilerin arama motoru performansını doğrudan etkiler.
+Bu yapı yapay zekaya net bağlam verir ve daha isabetli çıktılar üretir. [SEO ile organik trafik artırma](/seo-ile-organik-trafigi-artirmanin-yontemleri) stratejilerini prompt yazımına entegre etmek, müşterilerin arama motoru performansını doğrudan etkiler.
 
 ### Teknik 2: Kısıtlamalar ve Yasaklar
 
@@ -198,7 +198,7 @@ Karmaşık görevlerde yapay zekaya "adım adım düşünme" talimatı vermek so
 
 Her adımın çıktısını göster, sonra final metni oluştur."
 
-Bu yöntem, [içerik pazarlaması ve SEO optimizasyonu](/blog/icerik-pazarlamasi-ve-seo-optimizasyonu) gibi çok katmanlı süreçlerde özellikle etkilidir.
+Bu yöntem, [içerik pazarlaması ve SEO optimizasyonu](/icerik-pazarlamasi-ve-seo-optimizasyonu) gibi çok katmanlı süreçlerde özellikle etkilidir.
 
 ### Teknik 5: Model-Spesifik Optimizasyon
 

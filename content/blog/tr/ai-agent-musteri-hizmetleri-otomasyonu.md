@@ -41,7 +41,7 @@ AI agent, özerk olarak görevleri yerine getirebilen, öğrenebilen ve karar al
 
 **Duygu Analizi**: Müşterinin memnun mu yoksa sinirli mi olduğunu metinden çıkarır. Sinirli bir müşteri tespit edildiğinde, konuşmayı otomatik olarak insan temsilciye yönlendirebilir.
 
-[AI agent sistemlerinin dijital pazarlamada kullanımı](/blog/ai-agent-nedir-dijital-pazarlamada-nasil-kullanilir) hakkında detaylı bilgiye buradan ulaşabilirsiniz.
+[AI agent sistemlerinin dijital pazarlamada kullanımı](/ai-agent-nedir-dijital-pazarlamada-nasil-kullanilir) hakkında detaylı bilgiye buradan ulaşabilirsiniz.
 
 ### AI Agent ile Geleneksel Chatbot Arasındaki Farklar
 
@@ -82,7 +82,7 @@ Her müşteri etkileşimi değerli veridir. AI agentlar otomatik olarak:
 - Ürün eksikliklerini raporlar
 - Müşteri segmentasyonu için veri sağlar
 
-Bu veriler [Google Analytics ile site optimizasyonu](/blog/google-analytics-ile-site-optimizasyonu) çalışmalarında stratejik girdiler oluşturur.
+Bu veriler [Google Analytics ile site optimizasyonu](/google-analytics-ile-site-optimizasyonu) çalışmalarında stratejik girdiler oluşturur.
 
 ### 4. Tutarlı Hizmet Kalitesi
 
@@ -149,7 +149,7 @@ E-ticaret siteniz varsa ürün verilerini (fiyat, stok durumu, özellikler) API 
 **Süreç Dökümantasyonu:**
 İade prosedürü, garanti koşulları, ödeme seçenekleri gibi işlem adımlarını detaylandırın.
 
-[Kaliteli ve özgün içerik](/blog/kaliteli-ve-ozgun-icerigin-seo-icin-onemi) üretme prensipleri burada da geçerlidir. Kopyala-yapıştır yerine müşterinizin dilini kullanarak özel yanıtlar yazın.
+[Kaliteli ve özgün içerik](/kaliteli-ve-ozgun-icerigin-seo-icin-onemi) üretme prensipleri burada da geçerlidir. Kopyala-yapıştır yerine müşterinizin dilini kullanarak özel yanıtlar yazın.
 
 ### Adım 4: Konuşma Akışı Tasarlama
 
