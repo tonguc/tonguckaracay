@@ -5,7 +5,7 @@ description: "Master local SEO for online stores. Learn Google Business optimiza
 date: "2026-04-14"
 category: "SEO"
 readTime: "14 min"
-image: "https://images.unsplash.com/photo-1516116216624-53ad697a8648?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1571721795195-a2ca2d3370e9?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "e-ticaret-yerel-seo-rehberi"
 tags: ["local SEO", "e-commerce", "Google Business Profile", "location-based search"]
 faq:

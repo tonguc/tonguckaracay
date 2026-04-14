@@ -5,7 +5,7 @@ description: "E-ticaret sitenizi yerel aramada öne çıkarın. Google İşletme
 date: "2026-04-14"
 category: "SEO"
 readTime: "12 dk"
-image: "https://images.unsplash.com/photo-1516116216624-53ad697a8648?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "local-seo-for-ecommerce-guide"
 tags: ["yerel seo", "e-ticaret seo", "google işletme profili", "lokal seo"]
 faq:
