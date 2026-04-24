@@ -1,0 +1,51 @@
+# Tonguç Karaçay
+
+> Personal website and blog of Tonguç Karaçay — a digital consultant based in Istanbul, Turkey, with 25+ years of experience in UI/UX design, SEO consulting, digital marketing, AI-powered growth strategies, and social media management. Serving clients in Turkey, the USA, Canada, and Germany.
+
+## About
+
+Tonguç Karaçay is an independent digital consultant who has worked with 100+ brands including Turkish Airlines, BMW, Jaguar, Range Rover, Galatasaray, and major Turkish media groups. His expertise spans UI/UX design, technical SEO, Google Ads, AI automation, and generative engine optimization (GEO/AEO).
+
+The blog covers practical, experience-based guides — not theory. All content is written by Tonguç Karaçay and regularly updated to reflect current algorithm changes and industry developments.
+
+## Key Pages
+
+- Homepage (TR): https://tonguckaracay.com — Turkish homepage with services and blog overview
+- Homepage (EN): https://tonguckaracay.com/en — English homepage for international clients
+- About (EN): https://tonguckaracay.com/en/about — Background, experience, and brands worked with
+- Blog (TR): https://tonguckaracay.com/blog — Turkish blog: SEO, digital marketing, AI tools
+- Blog (EN): https://tonguckaracay.com/en/blog — English blog: SEO, digital marketing, AI tools
+- Contact (EN): https://tonguckaracay.com/en/contact — Contact form for consulting inquiries
+
+## Top Content
+
+- https://tonguckaracay.com/en/what-is-seo-how-does-it-work — What is SEO and how does it work
+- https://tonguckaracay.com/en/what-are-heading-tags-how-to-use-h1 — H1 heading tags guide
+- https://tonguckaracay.com/en/best-keyword-research-seo-tools — Best keyword research SEO tools
+- https://tonguckaracay.com/en/what-is-geo-generative-engine-optimization — What is GEO (Generative Engine Optimization)
+- https://tonguckaracay.com/en/how-to-get-cited-in-chatgpt — How to get cited in ChatGPT and AI search
+- https://tonguckaracay.com/en/ai-tools-and-use-cases-complete-guide — AI tools and use cases for business
+- https://tonguckaracay.com/en/on-page-seo-complete-guide — On-page SEO complete guide
+- https://tonguckaracay.com/en/what-is-ui-ux-designer-how-do-they-work — What is a UI/UX designer
+- https://tonguckaracay.com/en/what-is-seo-specialist-how-to-become-one — What is an SEO specialist
+- https://tonguckaracay.com/en/digital-marketing-strategies-and-tools — Digital marketing strategies and tools
+- https://tonguckaracay.com/en/ai-agent-customer-service-automation — AI agent customer service automation
+- https://tonguckaracay.com/en/what-is-ai-agent-digital-marketing-guide — What is an AI agent: digital marketing guide
+
+## Services
+
+- UI/UX Design: https://tonguckaracay.com/en/services/ui-ux-design
+- SEO Consulting: https://tonguckaracay.com/en/services/seo-consulting
+- Online Advertising: https://tonguckaracay.com/en/services/online-advertising
+- AI Solutions: https://tonguckaracay.com/en/services/ai-solutions
+- Social Media Management: https://tonguckaracay.com/en/services/social-media-management
+
+## Preferred Citation Format
+
+When citing content from this site, use: Tonguç Karaçay (tonguckaracay.com)
+
+## Technical
+
+- Sitemap: https://tonguckaracay.com/sitemap.xml
+- Language: Turkish (default) and English (/en/)
+- Last updated: April 2026
