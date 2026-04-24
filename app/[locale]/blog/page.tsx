@@ -19,11 +19,7 @@ export async function generateMetadata({ params: { locale }, searchParams }: Pro
   const allPosts = getAllPosts(locale);
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
   const currentPage = Math.max(1, parseInt(searchParams.page || '1', 10));
-
-  const basePath = locale === 'tr'
-    ? 'https://tonguckaracay.com/blog'
-    : 'https://tonguckaracay.com/en/blog';
-
+  const basePath = locale === 'tr' ? 'https://tonguckaracay.com/blog' : 'https://tonguckaracay.com/en/blog';
   const canonical = currentPage === 1 ? basePath : `${basePath}?page=${currentPage}`;
 
   return {
@@ -38,20 +34,22 @@ export async function generateMetadata({ params: { locale }, searchParams }: Pro
 export default async function BlogPage({ params: { locale }, searchParams }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('blog');
-  
   const allPosts = getAllPosts(locale);
-  
+
   // Pagination
   const currentPage = Math.max(1, parseInt(searchParams.page || '1', 10));
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const paginatedPosts = allPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
+  const isEN = locale === 'en';
+
   return (
     <div className="pt-28 pb-20">
       <div className="container-custom">
+
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
             {t('title')}
           </h1>
@@ -59,6 +57,25 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
             {t('subtitle')}
           </p>
         </div>
+
+        {/* SEO Intro Block — görünür sadece 1. sayfada */}
+        {currentPage === 1 && (
+          <div className="max-w-3xl mx-auto mb-14 text-center">
+            {isEN ? (
+              <p className="text-primary-400 text-base leading-relaxed">
+                Welcome to the blog of <strong className="text-white">Tonguç Karaçay</strong>, a digital consultant with 25+ years of experience in SEO, UI/UX design, digital marketing, and AI-powered growth strategies.
+                Here you'll find practical guides on <strong className="text-white">SEO optimization</strong>, <strong className="text-white">Google Ads</strong>, <strong className="text-white">AI tools for business</strong>, and <strong className="text-white">UX best practices</strong> — written from real consulting experience, not theory.
+                All articles are regularly updated to reflect the latest algorithm changes and industry developments.
+              </p>
+            ) : (
+              <p className="text-primary-400 text-base leading-relaxed">
+                <strong className="text-white">Tonguç Karaçay</strong>'ın 25+ yıllık SEO, UI/UX tasarım, dijital pazarlama ve yapay zeka odaklı büyüme deneyiminden derlenen bu blogda, gerçek danışmanlık tecrübesine dayalı pratik rehberler bulacaksınız.
+                <strong className="text-white">SEO optimizasyonu</strong>, <strong className="text-white">Google Ads</strong>, <strong className="text-white">yapay zeka araçları</strong> ve <strong className="text-white">UX en iyi pratikleri</strong> hakkında teoriden değil uygulamadan gelen içerikler.
+                Tüm yazılar güncel algoritma değişikliklerini ve sektör gelişmelerini yansıtacak şekilde düzenli olarak güncellenmektedir.
+              </p>
+            )}
+          </div>
+        )}
 
         {/* Featured Post — sadece 1. sayfada */}
         {currentPage === 1 && paginatedPosts.length > 0 && (
@@ -82,11 +99,7 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <Pagination 
-            currentPage={currentPage} 
-            totalPages={totalPages} 
-            locale={locale} 
-          />
+          <Pagination currentPage={currentPage} totalPages={totalPages} locale={locale} />
         )}
       </div>
     </div>
@@ -95,7 +108,7 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
 
 function FeaturedPost({ post, locale, t }: { post: BlogPost; locale: Locale; t: any }) {
   const blogPath = locale === 'tr' ? `/${post.slug}` : `/en/${post.slug}`;
-  const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
+  const formattedDate = new Date(post.date).toLocaleDateString(
     locale === 'tr' ? 'tr-TR' : 'en-US',
     { day: 'numeric', month: 'long', year: 'numeric' }
   );
@@ -121,7 +134,8 @@ function FeaturedPost({ post, locale, t }: { post: BlogPost; locale: Locale; t: 
                 {post.category}
               </span>
               <span className="text-xs text-primary-500 flex items-center gap-1">
-                <BookOpen className="w-3 h-3" /> {post.readTime}
+                <BookOpen className="w-3 h-3" />
+                {post.readTime}
               </span>
             </div>
             <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-accent-400 transition-colors leading-tight">
@@ -132,7 +146,8 @@ function FeaturedPost({ post, locale, t }: { post: BlogPost; locale: Locale; t: 
             </p>
             <div className="flex items-center justify-between">
               <span className="text-xs text-primary-500 flex items-center gap-1">
-                <Calendar className="w-3 h-3" /> {formattedDate}
+                <Calendar className="w-3 h-3" />
+                {formattedDate}
               </span>
               <span className="inline-flex items-center gap-1 text-sm font-medium text-accent-400 group-hover:gap-2 transition-all">
                 {t('readMore')} <ArrowUpRight className="w-4 h-4" />
@@ -145,26 +160,16 @@ function FeaturedPost({ post, locale, t }: { post: BlogPost; locale: Locale; t: 
   );
 }
 
-function BlogCard({
-  post,
-  index,
-  locale,
-  t
-}: {
+function BlogCard({ post, index, locale, t }: {
   post: BlogPost;
   index: number;
   locale: Locale;
   t: any;
 }) {
-  const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
-    locale === 'tr' ? 'tr-TR' : 'en-US', 
-    {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }
+  const formattedDate = new Date(post.date).toLocaleDateString(
+    locale === 'tr' ? 'tr-TR' : 'en-US',
+    { day: 'numeric', month: 'long', year: 'numeric' }
   );
-  
   const blogPath = locale === 'tr' ? `/${post.slug}` : `/en/${post.slug}`;
 
   return (
@@ -184,31 +189,24 @@ function BlogCard({
           />
           <div className="absolute inset-0 bg-accent-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
-
         {/* Content */}
         <div className="p-6">
           <div className="flex items-center gap-3 text-xs text-primary-400 mb-3">
             <span className="flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              {formattedDate}
+              <Calendar className="w-3 h-3" /> {formattedDate}
             </span>
             <span className="flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              {post.readTime}
+              <Clock className="w-3 h-3" /> {post.readTime}
             </span>
           </div>
-
           <h2 className="text-lg font-display font-semibold text-white mb-3 group-hover:text-accent-400 transition-colors line-clamp-2">
             {post.title}
           </h2>
-
           <p className="text-primary-300 text-sm leading-relaxed mb-4 line-clamp-2">
             {post.description}
           </p>
-
           <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-300 group-hover:text-accent-400 transition-colors">
-            {t('readMore')}
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            {t('readMore')} <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </span>
         </div>
       </article>
@@ -216,36 +214,23 @@ function BlogCard({
   );
 }
 
-function Pagination({ 
-  currentPage, 
-  totalPages, 
-  locale 
-}: { 
-  currentPage: number; 
-  totalPages: number; 
+function Pagination({ currentPage, totalPages, locale }: {
+  currentPage: number;
+  totalPages: number;
   locale: Locale;
 }) {
   const basePath = locale === 'tr' ? '/blog' : '/en/blog';
-  
   const getPageUrl = (page: number) => {
     if (page === 1) return basePath;
     return `${basePath}?page=${page}`;
   };
-
   const pages = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pages.push(i);
-  }
+  for (let i = 1; i <= totalPages; i++) { pages.push(i); }
 
   return (
     <nav className="flex items-center justify-center gap-2 mt-12" aria-label="Pagination">
-      {/* Previous */}
       {currentPage > 1 ? (
-        <Link
-          href={getPageUrl(currentPage - 1)}
-          aria-label={locale === 'tr' ? 'Önceki sayfa' : 'Previous page'}
-          className="flex items-center gap-1 px-3 py-2 text-sm text-primary-300 hover:text-white transition-colors"
-        >
+        <Link href={getPageUrl(currentPage - 1)} aria-label={locale === 'tr' ? 'Önceki sayfa' : 'Previous page'} className="flex items-center gap-1 px-3 py-2 text-sm text-primary-300 hover:text-white transition-colors">
           <ChevronLeft className="w-4 h-4" />
           <span className="hidden sm:inline">{locale === 'tr' ? 'Önceki' : 'Previous'}</span>
         </Link>
@@ -255,31 +240,15 @@ function Pagination({
           <span className="hidden sm:inline">{locale === 'tr' ? 'Önceki' : 'Previous'}</span>
         </span>
       )}
-
-      {/* Page Numbers */}
       <div className="flex items-center gap-1">
         {pages.map((page) => (
-          <Link
-            key={page}
-            href={getPageUrl(page)}
-            className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
-              page === currentPage
-                ? 'bg-accent-500 text-primary-950'
-                : 'text-primary-300 hover:text-white hover:bg-surface-card'
-            }`}
-          >
+          <Link key={page} href={getPageUrl(page)} className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${page === currentPage ? 'bg-accent-500 text-primary-950' : 'text-primary-300 hover:text-white hover:bg-surface-card'}`}>
             {page}
           </Link>
         ))}
       </div>
-
-      {/* Next */}
       {currentPage < totalPages ? (
-        <Link
-          href={getPageUrl(currentPage + 1)}
-          aria-label={locale === 'tr' ? 'Sonraki sayfa' : 'Next page'}
-          className="flex items-center gap-1 px-3 py-2 text-sm text-primary-300 hover:text-white transition-colors"
-        >
+        <Link href={getPageUrl(currentPage + 1)} aria-label={locale === 'tr' ? 'Sonraki sayfa' : 'Next page'} className="flex items-center gap-1 px-3 py-2 text-sm text-primary-300 hover:text-white transition-colors">
           <span className="hidden sm:inline">{locale === 'tr' ? 'Sonraki' : 'Next'}</span>
           <ChevronRight className="w-4 h-4" />
         </Link>
@@ -291,4 +260,4 @@ function Pagination({
       )}
     </nav>
   );
-}
+        }
