@@ -52,21 +52,51 @@ export async function generateMetadata({ params: { locale, slug } }: Props): Pro
   if (!post) return { title: 'Post Not Found' };
 
   const baseUrl = 'https://tonguckaracay.com';
-  const url = locale === 'tr' ? `${baseUrl}/${slug}` : `${baseUrl}/en/${slug}`;
+  const canonicalUrl = locale === 'tr'
+    ? `${baseUrl}/${slug}`
+    : `${baseUrl}/en/${slug}`;
+
+  // Resolve sibling slug for hreflang
+  const trSlug = locale === 'en' ? (slugMappingEnToTr[slug] ?? null) : slug;
+  const enSlug = locale === 'tr' ? (slugMappingTrToEn[slug] ?? null) : slug;
+
+  const languages: Record<string, string> = {};
+  if (trSlug) languages['tr'] = `${baseUrl}/${trSlug}`;
+  if (enSlug) languages['en'] = `${baseUrl}/en/${enSlug}`;
+  // x-default points to EN when available, otherwise canonical
+  languages['x-default'] = enSlug ? `${baseUrl}/en/${enSlug}` : canonicalUrl;
 
   return {
     title: `${post.title} | Tonguç Karaçay`,
     description: post.description,
     keywords: post.tags,
-    openGraph: { title: post.title, description: post.description, type: 'article', publishedTime: post.date, modifiedTime: post.updatedDate, authors: ['Tonguç Karaçay'], images: [post.image], url },
-    twitter: { card: 'summary_large_image', title: post.title, description: post.description, images: [post.image] },
-    alternates: { canonical: url },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: 'article',
+      publishedTime: post.date,
+      modifiedTime: post.updatedDate,
+      authors: ['Tonguç Karaçay'],
+      images: [post.image],
+      url: canonicalUrl,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [post.image],
+    },
+    alternates: {
+      canonical: canonicalUrl,
+      languages,
+    },
   };
 }
 
 export default async function BlogPostPage({ params: { locale, slug } }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('blog');
+
   let post = getPostBySlug(slug, locale);
 
   if (!post) {
@@ -83,109 +113,88 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
   const latestPosts = getAllPosts(locale)
     .filter(p => !relatedSlugs.has(p.slug))
     .slice(0, 6);
+
   const headings = extractHeadings(post.content);
-  const formattedDate = new Date(post.updatedDate || post.date).toLocaleDateString(
+  const formattedDate = new Date(post.date).toLocaleDateString(
     locale === 'tr' ? 'tr-TR' : 'en-US',
     { day: 'numeric', month: 'long', year: 'numeric' }
   );
+
   const blogPath = locale === 'tr' ? '/blog' : '/en/blog';
 
   return (
     <article className="pt-28 pb-20">
       <ReadingProgress />
+
       {/* BlogPosting Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": post.title,
-            "description": post.description,
-            "image": post.image,
-            "author": {
-              "@type": "Person",
-              "name": "Tonguç Karaçay",
-              "url": "https://tonguckaracay.com",
-              "image": "https://tonguckaracay.com/tonguc-karacay.jpg",
-              "jobTitle": "AI-Driven UX & Growth Consultant",
-              "sameAs": [
-                "https://www.linkedin.com/in/tonguckaracay",
-                "https://twitter.com/tonguckaracay"
-              ]
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Tonguç Karaçay",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://tonguckaracay.com/logo.png"
-              }
-            },
-            "datePublished": post.date,
-            "dateModified": post.updatedDate || post.date,
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": locale === 'tr'
-                ? `https://tonguckaracay.com/${post.slug}`
-                : `https://tonguckaracay.com/en/${post.slug}`
-            }
-          })
-        }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.description,
+        "image": post.image,
+        "author": {
+          "@type": "Person",
+          "name": "Tonguç Karaçay",
+          "url": "https://tonguckaracay.com",
+          "image": "https://tonguckaracay.com/tonguc-karacay.jpg",
+          "jobTitle": "AI-Driven UX & Growth Consultant",
+          "sameAs": [
+            "https://www.linkedin.com/in/tonguckaracay",
+            "https://twitter.com/tonguckaracay"
+          ]
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Tonguç Karaçay",
+          "logo": { "@type": "ImageObject", "url": "https://tonguckaracay.com/logo.png" }
+        },
+        "datePublished": post.date,
+        "dateModified": post.updatedDate || post.date,
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": locale === 'tr'
+            ? `https://tonguckaracay.com/${post.slug}`
+            : `https://tonguckaracay.com/en/${post.slug}`
+        }
+      }) }} />
 
       {post.faq && post.faq.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": post.faq.map(item => ({
-                "@type": "Question",
-                "name": item.question,
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": item.answer
-                }
-              }))
-            })
-          }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": post.faq.map(item => ({
+            "@type": "Question",
+            "name": item.question,
+            "acceptedAnswer": { "@type": "Answer", "text": item.answer }
+          }))
+        }) }} />
       )}
 
       {/* BreadcrumbList Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": locale === 'tr' ? 'Ana Sayfa' : 'Home',
-                "item": locale === 'tr' ? 'https://tonguckaracay.com' : 'https://tonguckaracay.com/en'
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Blog",
-                "item": locale === 'tr' ? 'https://tonguckaracay.com/blog' : 'https://tonguckaracay.com/en/blog'
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": post.title,
-                "item": locale === 'tr'
-                  ? `https://tonguckaracay.com/${post.slug}`
-                  : `https://tonguckaracay.com/en/${post.slug}`
-              }
-            ]
-          })
-        }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem", "position": 1,
+            "name": locale === 'tr' ? 'Ana Sayfa' : 'Home',
+            "item": locale === 'tr' ? 'https://tonguckaracay.com' : 'https://tonguckaracay.com/en'
+          },
+          {
+            "@type": "ListItem", "position": 2,
+            "name": "Blog",
+            "item": locale === 'tr' ? 'https://tonguckaracay.com/blog' : 'https://tonguckaracay.com/en/blog'
+          },
+          {
+            "@type": "ListItem", "position": 3,
+            "name": post.title,
+            "item": locale === 'tr'
+              ? `https://tonguckaracay.com/${post.slug}`
+              : `https://tonguckaracay.com/en/${post.slug}`
+          }
+        ]
+      }) }} />
 
       <div className="container-custom">
         <Link href={blogPath} className="inline-flex items-center gap-2 text-primary-400 hover:text-accent-500 transition-colors mb-8">
@@ -195,16 +204,28 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
         <header className="max-w-3xl mx-auto text-center mb-12">
           <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
-            <span className="flex items-center gap-1 text-sm text-primary-400"><Calendar className="w-4 h-4" />{formattedDate}</span>
-            <span className="flex items-center gap-1 text-sm text-primary-400"><Clock className="w-4 h-4" />{post.readTime}</span>
+            <span className="flex items-center gap-1 text-sm text-primary-400">
+              <Calendar className="w-4 h-4" />{formattedDate}
+            </span>
+            <span className="flex items-center gap-1 text-sm text-primary-400">
+              <Clock className="w-4 h-4" />{post.readTime}
+            </span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">{post.title}</h1>
+          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            {post.title}
+          </h1>
           <p className="text-lg text-primary-300">{post.description}</p>
         </header>
 
         <div className="max-w-4xl mx-auto mb-12">
           <div className="aspect-video rounded-2xl overflow-hidden border border-surface-border">
-            <img src={post.image} alt={post.title} className="w-full h-full object-cover" width={1200} height={675} />
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full h-full object-cover"
+              width={1200}
+              height={675}
+            />
           </div>
         </div>
 
@@ -213,30 +234,30 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
             <div className="xl:hidden mb-8">
               <TableOfContents headings={headings} locale={locale} variant="mobile" />
             </div>
-
             <div className="prose prose-lg max-w-none">
               <MarkdownRenderer content={post.content} />
             </div>
-
             <div className="mt-12 pt-8 border-t border-surface-border">
               <div className="flex items-center gap-2 flex-wrap">
                 <Hash className="w-4 h-4 text-primary-400" />
                 {post.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 bg-surface-card border border-surface-border rounded-full text-sm text-primary-300">{tag}</span>
+                  <span key={tag} className="px-3 py-1 bg-surface-card border border-surface-border rounded-full text-sm text-primary-300">
+                    {tag}
+                  </span>
                 ))}
               </div>
             </div>
-
             <div className="mt-12 p-6 bg-surface-card border border-surface-border rounded-2xl">
               <div className="flex items-center gap-4">
                 <img src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" className="w-16 h-16 rounded-full object-cover" width={64} height={64} />
                 <div>
                   <h3 className="font-display font-semibold text-white">Tonguç Karaçay</h3>
-                  <p className="text-sm text-primary-400">{locale === 'tr' ? 'AI-Driven UX & Growth Partner | 25+ Yıl Deneyim' : 'AI-Driven UX & Growth Partner | 25+ Years Experience'}</p>
+                  <p className="text-sm text-primary-400">
+                    {locale === 'tr' ? 'AI-Driven UX & Growth Partner | 25+ Yıl Deneyim' : 'AI-Driven UX & Growth Partner | 25+ Years Experience'}
+                  </p>
                 </div>
               </div>
             </div>
-
             {post.faq && post.faq.length > 0 && (
               <FAQ
                 items={post.faq}
@@ -244,7 +265,6 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
               />
             )}
           </div>
-
           <div className="hidden xl:block">
             <TableOfContents headings={headings} locale={locale} variant="desktop" />
           </div>
@@ -261,16 +281,23 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
                   className="group bg-surface-card/50 border border-surface-border rounded-2xl overflow-hidden hover:border-accent-500/30 transition-all"
                 >
                   <div className="aspect-video overflow-hidden">
-                    <img src={relatedPost.image} alt={relatedPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" width={1200} height={675} />
+                    <img
+                      src={relatedPost.image}
+                      alt={relatedPost.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      width={1200}
+                      height={675}
+                    />
                   </div>
                   <div className="p-4">
                     <span className="text-xs text-accent-500 uppercase tracking-wider">{relatedPost.category}</span>
-                    <h3 className="font-display font-semibold text-white mt-2 group-hover:text-accent-500 transition-colors line-clamp-2">{relatedPost.title}</h3>
+                    <h3 className="font-display font-semibold text-white mt-2 group-hover:text-accent-500 transition-colors line-clamp-2">
+                      {relatedPost.title}
+                    </h3>
                   </div>
                 </Link>
               ))}
             </div>
-
             {latestPosts.length > 0 && (
               <div className="mt-10 pt-8 border-t border-surface-border">
                 <h3 className="text-xs font-semibold uppercase tracking-widest text-primary-400 mb-4">
@@ -296,4 +323,4 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
       </div>
     </article>
   );
-}
+    }
