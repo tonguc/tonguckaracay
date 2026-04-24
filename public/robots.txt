@@ -2,11 +2,31 @@
 
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# AI Crawlers — explicitly allowed for citation and indexing
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: CCBot
+Allow: /
 
 # Sitemap
 Sitemap: https://tonguckaracay.com/sitemap.xml
 
-# Disallow admin/private paths (if any)
-Disallow: /api/
-Disallow: /_next/
-Disallow: /admin/
+# AI content guide
+# llms.txt: https://tonguckaracay.com/llms.txt
