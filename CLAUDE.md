@@ -107,6 +107,7 @@ faq:
 - Her yazıda "Quick Answer / Kısa Cevap" bloku olmalı (GEO/AEO için)
 - Her yazıda `faq` frontmatter ile FAQ schema olmalı
 - Görsel: her yazı için farklı Unsplash ID
+- **"## İçindekiler" / "## Table of Contents" YAZMA** — site zaten otomatik TOC üretir (mobilde yazı üstünde, desktop'ta sağ sidebar). Manuel TOC eklenirse renderer'ın slugify'ı ile uyuşmaz (Türkçe karakterleri ve `-` siler), linkler kırılır.
 
 ### İçerik Kalite Standartları
 
