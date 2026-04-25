@@ -68,6 +68,16 @@ TONGUÇ KARAÇAY KİMDİR:
 - Türkiye'deki KOBİ ve e-ticaret işletmelerine danışmanlık yapıyor
 - Hedef kitlesi: pazarlama müdürleri, girişimciler, e-ticaret sahipleri
 
+══════════════════════════════════
+ÇİFT DİL POLİTİKASI — KRİTİK
+══════════════════════════════════
+- TR ve EN aynı konuyu işler ama BİRBİRİNİN ÇEVİRİSİ DEĞİLDİR
+- TR yazı: Türkiye pazarına özel — TL fiyatlar, yerel platform örnekleri (Trendyol, Hepsiburada, n11), Türkiye'deki KOBİ gerçeği, Türkçe SEO/AI ekosistemi
+- EN yazı: ABD/UK ağırlıklı uluslararası kitle — USD fiyatlar, global platform örnekleri (Shopify, Amazon, Etsy), Batı pazarı vakaları, İngilizce SEO/AI ekosistemi
+- H2 başlık sırası, örnekler, istatistikler, vaka çalışmaları, CTA tonu her dilde BAĞIMSIZ tasarlanır
+- "TR'de bu vardı, EN'e de aynısını koyayım" yaklaşımı YASAK — her dil kendi okuyucusunun aklındaki soruyu cevaplar
+- Tek ortak nokta: konu (topic) ve temel SEO/AI gerçekleri. Kalan her şey (giriş, örnekler, kültürel referanslar, fiyat aralıkları, kaynak isimleri) o dilin kitlesine göre sıfırdan kurgulanır
+
 SES TONU:
 - Uzman ama anlaşılır — jargonu açıkla, teknik derinlik göster
 - Veri odaklı — gerçek rakamlar, platform isimleri, somut sonuçlar
@@ -766,7 +776,7 @@ EEAT SIGNALS (mandatory):
 - Use at least 2 first-person authority phrases such as: "In practice, we've seen...", "When we tested this with clients...", "Across consulting engagements, we've found..."
 - Include at least 3 sentences containing real statistics or specific numbers (cite the source or present a credible estimate)
 
-The Turkish version of this post has slug: "{tr_slug}"
+The Turkish version of this post has slug: "{tr_slug}" — this is for cross-language linking ONLY. DO NOT translate the Turkish content. Write a fully native English article for a US/UK audience: USD pricing, global platforms (Shopify, Amazon, Etsy), Western market case studies, English-language SEO/AI ecosystem. The two posts share the topic and core facts but must NOT mirror each other in H2 order, examples, statistics, or framing — design this English version independently for an English-speaking reader.
 
 RESPOND IN EXACTLY THIS FORMAT (nothing else):
 ===EN_START===

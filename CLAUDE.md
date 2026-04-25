@@ -102,6 +102,7 @@ faq:
 - `featured: false` — her zaman
 - `updatedDate` kullanma — `date`'i override eder, karışıklık yaratır
 - Her yazı TR + EN çift olarak yazılır, asla tek başına
+- **TR ve EN birbirinin çevirisi DEĞİL** — her dil kendi kitlesi için özgün yazılır. TR: Türkiye pazarı (TL fiyat, Trendyol/Hepsiburada gibi yerel platformlar, KOBİ örnekleri). EN: ABD/UK ağırlıklı uluslararası kitle (USD fiyat, Shopify/Amazon gibi global platformlar, Batı pazarı vakaları). H2 sırası, örnekler, istatistikler her dilde bağımsız tasarlanır.
 - Kelime sayısı hedefi: 1.200–1.800 kelime
 - Her yazıda "Quick Answer / Kısa Cevap" bloku olmalı (GEO/AEO için)
 - Her yazıda `faq` frontmatter ile FAQ schema olmalı
