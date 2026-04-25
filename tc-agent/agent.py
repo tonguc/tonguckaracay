@@ -144,6 +144,7 @@ TEKNİK SEO & SCHEMA (2026 Durumu)
 - Her yazıda en az 1 karşılaştırma tablosu veya yapılandırılmış liste (tarama kolaylığı)
 - Başlıklar hiyerarşik: H1 (başlık) → H2 (ana sorular) → H3 (alt konular)
 - İç linkler: /slug formatı (TR için), /en/slug formatı (EN için) — /blog/ eklemeden
+- CTA linki: TR yazıda mutlaka `/iletisim`, EN yazıda mutlaka `/en/contact` — başka URL kullanma
 
 ══════════════════════════════════
 DÖNÜŞÜM KATMANI (CRO Sinyalleri)
@@ -402,7 +403,7 @@ def get_internal_links(lang="tr") -> str:
                 "EXISTING EN POSTS — add 3-5 internal links with natural anchor text:"
         lines = [label]
         for slug in slugs[:25]:
-            lines.append(f"  {base}/blog/{slug}")
+            lines.append(f"  {base}/{slug}")
         return "\n".join(lines)
     except Exception:
         return ""
@@ -719,6 +720,7 @@ date: "{today}"
 category: "SEO veya Dijital Pazarlama veya Sosyal Medya veya UI/UX veya Yapay Zeka"
 tags: ["tag1", "tag2", "tag3", "tag4"]
 readTime: "X dk"
+featured: false
 image_keyword: "seo veya google veya social veya marketing veya design veya ai veya content veya analytics"
 translationSlug: "PLACEHOLDER_EN_SLUG"
 faq:
@@ -776,6 +778,7 @@ date: "{today}"
 category: "SEO or Digital Marketing or Social Media or UI/UX or Artificial Intelligence"
 tags: ["tag1", "tag2", "tag3", "tag4"]
 readTime: "X min"
+featured: false
 image_keyword: "seo or google or social or marketing or design or ai or content or analytics"
 translationSlug: "{tr_slug}"
 faq:
