@@ -1,150 +1,208 @@
-# tonguckaracay.com - Claude Agent Kılavuzu
+# tonguckaracay.com — Claude Agent Kılavuzu
+
+Son güncelleme: 2026-04-25
+
+---
 
 ## Proje Hakkında
 
-Tonguç Karaçay'ın dijital pazarlama ve SEO danışmanlığı websitesi.
+Tonguç Karaçay'ın kişisel markası ve dijital danışmanlık websitesi.
 URL: https://tonguckaracay.com
+GitHub: tonguc/tonguckaracay (main branch)
+Deploy: Vercel (otomatik — main'e push = production)
+
+---
 
 ## Tech Stack
 
-- Next.js 14 (App Router)
-- TypeScript + Tailwind CSS
+- Next.js 15 (App Router, TypeScript)
+- Tailwind CSS
 - next-intl (TR/EN çift dil)
 - Markdown blog sistemi (gray-matter)
+- Resend API (iletişim formu)
 
-## Blog İçerik Kuralları
+---
+
+## URL Yapısı (KRİTİK)
+
+**Final canonical yapı:**
+- TR: https://tonguckaracay.com/slug
+- EN: https://tonguckaracay.com/en/slug
+- Blog listing TR: https://tonguckaracay.com/blog
+- Blog listing EN: https://tonguckaracay.com/en/blog
+
+**Redirect'ler (next.config.js):**
+- /blog/:slug → /:slug (301)
+- /en/blog/:slug → /en/:slug (301)
+
+**trailingSlash: false** — canonical ve gerçek URL aynı, trailing slash tutarsızlığı yok.
+
+---
+
+## Hreflang Yapısı (KRİTİK)
+
+Tüm blog yazılarında `app/[locale]/[slug]/page.tsx` içinde:
+
+```ts
+const languages: Record<string, string> = {};
+if (trSlug) languages['tr'] = `https://tonguckaracay.com/${trSlug}`;
+if (enSlug) {
+  languages['en'] = `https://tonguckaracay.com/en/${enSlug}`;
+  languages['x-default'] = `https://tonguckaracay.com/en/${enSlug}`;
+}
+```
+
+x-default → EN (hedef kitle: yurt dışı, ABD ağırlıklı)
+
+---
+
+## Blog Sistemi
 
 ### Dizin Yapısı
 ```
 content/blog/tr/   ← Türkçe yazılar
 content/blog/en/   ← İngilizce yazılar
+lib/slug-mappings.ts  ← TR↔EN dil geçişi (KRİTİK)
+lib/blog-utils.ts     ← Blog listeleme
 ```
 
-### Frontmatter Şablonu (TR)
+### KRİTİK: Slug Mapping
+
+Her yeni blog yazısında `lib/slug-mappings.ts` MUTLAKA güncellenmeli.
+Dil switcher buna bağlı — güncellenmezse dil geçişi kırılır.
+
+```ts
+// slugMappingTrToEn
+"tr-slug": "en-slug",
+// slugMappingEnToTr
+"en-slug": "tr-slug",
+```
+
+### Blog Frontmatter Şablonu
+
 ```yaml
 ---
 title: "Başlık"
 slug: "url-dostu-slug"
 description: "150-160 karakter meta açıklama"
 date: "YYYY-MM-DD"
-category: "SEO | Dijital Pazarlama | Sosyal Medya | UI/UX | Yapay Zeka"
-tags: ["tag1", "tag2", "tag3"]
+category: "SEO"
+tags: ["tag1", "tag2"]
 readTime: "X dk"
+featured: false
 image: "https://images.unsplash.com/photo-XXXXX?w=1200&auto=format&fit=crop&q=80"
-translationSlug: "en-versiyonun-slug'i"
+translationSlug: "karsi-dilin-slug"
+faq:
+  - question: "Soru?"
+    answer: "Cevap."
 ---
 ```
 
-### Frontmatter Şablonu (EN)
-```yaml
+**Kurallar:**
+- `featured: false` — her zaman
+- `updatedDate` kullanma — `date`'i override eder, karışıklık yaratır
+- Her yazı TR + EN çift olarak yazılır, asla tek başına
+- Kelime sayısı hedefi: 1.200–1.800 kelime
+- Her yazıda "Quick Answer / Kısa Cevap" bloku olmalı (GEO/AEO için)
+- Her yazıda `faq` frontmatter ile FAQ schema olmalı
+- Görsel: her yazı için farklı Unsplash ID
+
+### İçerik Kalite Standartları
+
+- Minimum 1.200 kelime (ideal 1.500–1.800)
+- H2/H3 hiyerarşisi
+- Karşılaştırma tablosu (uygunsa)
+- Checklist veya pratik liste
+- GEO bölümü (yapay zeka araması için)
+- CTA: TR → /iletisim, EN → /en/contact
+
 ---
-title: "Title"
-slug: "url-friendly-slug"
-description: "150-160 char meta description"
-date: "YYYY-MM-DD"
-category: "SEO | Digital Marketing | Social Media | UI/UX | Artificial Intelligence"
-tags: ["tag1", "tag2", "tag3"]
-readTime: "X min"
-image: "https://images.unsplash.com/photo-XXXXX?w=1200&auto=format&fit=crop&q=80"
-translationSlug: "tr-versiyonun-slug'i"
+
+## Teknik SEO Durumu (Nisan 2026)
+
+### Tamamlananlar ✅
+
+| Dosya | Değişiklik |
+|-------|-----------|
+| `next.config.js` | trailingSlash: false |
+| `next.config.js` | /blog/:slug → /:slug redirect (301) |
+| `middleware.ts` | Geo redirect 307 → 301 |
+| `app/[locale]/[slug]/page.tsx` | hreflang + x-default tüm blog yazıları |
+| `app/sitemap.ts` | canonical URL'ler, privacy/terms eklendi |
+| `public/robots.txt` | GPTBot, ClaudeBot, PerplexityBot izinleri |
+| `public/llms.txt` | AI crawler rehberi |
+| `app/[locale]/blog/page.tsx` | TR/EN intro blok (thin content fix) |
+| `app/[locale]/privacy-policy/page.tsx` | Yeni sayfa |
+| `app/[locale]/terms-of-service/page.tsx` | Yeni sayfa |
+| `lib/slug-mappings.ts` | Eksik slug'lar eklendi |
+
+### GSC Durumu (Nisan 2026)
+
+- 3 ayda 2 tıklama, 1.304 gösterim, %0 TO
+- Ortalama pozisyon: 70–95
+- USA: 833 gösterim, 0 tıklama
+- 46 "Tarandı ama indexlenmedi" → hreflang fix ile çözülmesi bekleniyor
+- Sitemap GSC'ye yeniden gönderildi
+
+### Güçlendirilen İçerikler
+
+| Yazı | Öncesi | Sonrası |
+|------|--------|---------|
+| heading-tags EN | ~350w | 1.678w |
+| heading-tags TR | ~350w | 1.494w |
+| keyword-research EN | ~350w | 1.678w |
+| keyword-research TR | ~350w | 1.686w |
+
 ---
-```
-
-### İçerik Standartları
-- Her yazı 800-1200 kelime
-- H2 ve H3 başlıklar kullan
-- Pratik, uygulanabilir bilgiler
-- Güncel (2025) bilgiler
-- Türkçe yazılarda CTA: `Profesyonel danışmanlık için [iletişime geçin](/iletisim).`
-- İngilizce yazılarda CTA: `For professional consulting [get in touch](/contact).`
-
-### KRİTİK: Teknik SEO Zorunlulukları
-
-#### Title (Başlık)
-- **Uzunluk: 50–60 karakter** (kod `| Tonguç Karaçay` ekliyor, toplam ~70 kr'yi geçmemeli)
-- 50 karakterin altı: Google SERP'te zayıf görünüm, keyword fırsatı kaybı
-- 60 karakterin üstü: Google tarafından kesiliyor, anlam bozuluyor
-- Hedef keyword'ü başa yakın yaz
-- Yıl (2024/2025/2026) kullanma — evergreen ol
-- Soru formatı veya güçlü fayda ifadesi kullan
-
-#### Description (Meta Açıklama)
-- **Uzunluk: 150–160 karakter** (120'nin altı: Google kendi yazar; 165 üstü: kesilir)
-- Hedef keyword'ü ilk cümlede kullan
-- Açık fayda/CTA içermeli (örn: "Öğren", "Keşfet", "Adım adım rehber")
-- Kopya içerik olmamalı, her yazı için özgün
-
-#### Doğrulama Komutu
-```bash
-# Uzunluk kontrolü
-awk 'NR>=1 && NR<=15' content/blog/tr/SLUG.md | grep -E "^title:|^description:"
-```
-
-Karakter sayısı:
-```bash
-echo -n "Başlık metni buraya" | wc -c
-```
-
-## İzin Verilen Konular
-
-SEO, Dijital Pazarlama, Google Ads, Meta Ads, Sosyal Medya, UI/UX Tasarım,
-Yapay Zeka Araçları, E-ticaret Pazarlama, İçerik Pazarlama, Web Analitik
-
-## Çalıştırılabilir Komutlar
-
-```bash
-# Site build
-npm run build
-
-# Geliştirme
-npm run dev
-
-# Lint
-npm run lint
-```
 
 ## Önemli Dosyalar
 
-- `lib/blog-utils.ts` — Blog okuma fonksiyonları
-- `app/[locale]/blog/` — Blog sayfaları
-- `messages/tr.json` + `messages/en.json` — UI çevirileri
-- `middleware.ts` — Geo-tabanlı locale yönlendirme
-
-## KRİTİK: Slug Mapping Zorunluluğu
-
-Her yeni blog yazısı eklendiğinde `lib/slug-mappings.ts` dosyası MUTLAKA güncellenmeli.
-Aksi hâlde TR↔EN dil geçişi ve ilgili yazı linkleri 500 hatası verir.
-
-### Kural
-`lib/slug-mappings.ts` içindeki `slugMappingTrToEn` nesnesine şu format ile ekle:
-```ts
-"tr-slug": "en-slug",
+```
+app/[locale]/[slug]/page.tsx    — hreflang, canonical, schema
+app/[locale]/blog/page.tsx      — blog listing, intro blok
+app/sitemap.ts                  — sitemap üretimi
+middleware.ts                   — geo redirect, locale
+next.config.js                  — trailingSlash, redirects, headers
+lib/slug-mappings.ts            — TR↔EN dil geçişi (KRİTİK)
+lib/blog-utils.ts               — blog okuma fonksiyonları
+public/robots.txt               — crawler izinleri
+public/llms.txt                 — AI crawler rehberi
+messages/tr.json                — TR UI metinleri
+messages/en.json                — EN UI metinleri
 ```
 
-### Doğrulama
-Mapping'teki EN slug değeri, `content/blog/en/` klasöründeki dosyanın frontmatter'ındaki
-`slug:` alanıyla **birebir** aynı olmalı. Dosya adıyla değil, frontmatter slug'ıyla eşleşmeli.
+---
 
-Örnek kontrol:
-```bash
-grep "slug:" content/blog/en/DOSYAADI.md
+## GitHub Commit Yöntemi
+
+Browser MCP + GitHub web editor (CodeMirror 6):
+
+```js
+// Yeni dosya: github.com/tonguc/tonguckaracay/new/main/content/blog/tr
+// Düzenleme: github.com/tonguc/tonguckaracay/edit/main/[dosya-yolu]
+
+const cm = document.querySelector('.cm-content');
+cm.focus();
+document.execCommand('selectAll');
+document.execCommand('delete');
+document.execCommand('insertText', false, content);
 ```
-Bu çıktıdaki değer slug-mappings.ts'e yazılmalı.
 
-## KRİTİK: Blog Görsel Tekrarı Yasak
+---
 
-Her blog yazısının görseli birbirinden farklı olmalı. Aynı Unsplash foto ID'si birden fazla yazıda kullanılamaz.
+## Vercel
 
-### Kural
-- `tc-agent/agent.py` içindeki `img_url(kw, slug)` fonksiyonu slug'ı seed olarak kullanır.
-  Aynı `image_keyword` kullanan iki yazı, farklı slug'ları sayesinde farklı görseller alır.
-- Elle görsel atarken önce mevcut görselleri kontrol et:
-  ```bash
-  grep -h "^image:" content/blog/tr/*.md | sort | uniq -d
-  ```
-  Çıktı boşsa tekrar yok demektir.
-- Tekrar varsa ilgili dosyalarda `image:` satırını farklı Unsplash ID ile güncelle.
+- Team: team_pPyw9vJKydRnGfBq6llHK68H
+- Project: prj_yNvFrZGRN2iJAv7jQSkRd84H69fg
+- Deploy: main branch'e push → otomatik production
 
-### Görsel Havuzu
-Görseller `tc-agent/agent.py` içindeki `IMAGES` dict'inde tutulur.
-Her kategori için 4 farklı ID bulunur. Yeni kategori eklenecekse buraya eklenmeli.
+---
+
+## Sonraki Adımlar
+
+- [ ] 4–6 hafta sonra GSC Coverage raporunu kontrol et
+- [ ] "Tarandı ama indexlenmedi" sayısının düşmesini izle
+- [ ] keyword-research yazıları pozisyon takibi (şu an pos. 63)
+- [ ] heading-tags yazıları pozisyon takibi (şu an pos. 92)
+- [ ] Statik sayfaların (hizmetler/services) hreflang kontrolü
+- [ ] Yeni blog içerikleri: UI/UX ve AI konuları (EN öncelikli)
