@@ -42,18 +42,6 @@ faq:
 
 ---
 
-## İçindekiler
-
-1. [Claude ve GPT-4 Model Ailesi: Fiyatlandırma Yapısı](#claude-ve-gpt-4-model-ailesi-fiyatlandırma-yapısı)
-2. [Hazır Token Maliyet Hesaplama Şablonları](#hazır-token-maliyet-hesaplama-şablonları)
-3. [Kullanım Senaryolarına Göre Model Seçimi](#kullanım-senaryolarına-göre-model-seçimi)
-4. [Önce/Sonra: Gerçek Proje Maliyet Karşılaştırması](#öncemaliyet-sonra-maliyet-gerçek-proje-karşılaştırması)
-5. [Token Maliyetini Düşürme Stratejileri](#token-maliyetini-düşürme-stratejileri)
-6. [Ne Zaman Claude, Ne Zaman GPT-4?](#ne-zaman-claude-ne-zaman-gpt-4)
-7. [Hangi Model Kime Uygun?](#hangi-model-kime-uygun)
-
----
-
 ## Claude ve GPT-4 Model Ailesi: Fiyatlandırma Yapısı
 
 Claude ve GPT-4 token maliyetlerini karşılaştırırken, her iki platformun da farklı performans seviyelerinde modeller sunduğunu anlamak gerekir. **Anthropic'in Claude ailesi** — Haiku (hızlı-ekonomik), Sonnet (dengeli) ve Opus (premium) — üç katmanda hizmet verir. **OpenAI'nin GPT-4 ailesi** ise GPT-4o Mini (ekonomik), GPT-4o (genel amaçlı) ve GPT-4 Turbo (yüksek performans) modellerini içerir.

@@ -214,7 +214,8 @@ KESİNLİKLE YASAK:
 - "Günümüzde dijital dünya..." gibi klişe girişler
 - Genel, yüzeysel tavsiyeler — spesifik ol
 - Fazla uzun cümleler (30+ kelime)
-- Promosyonel, haber bülteni dili — beyan edici ve nötr yaz"""
+- Promosyonel, haber bülteni dili — beyan edici ve nötr yaz
+- "## İçindekiler" / "## Table of Contents" / TOC bölümü YAZMA — site zaten otomatik TOC üretir (mobilde yazı üstünde, desktop'ta sağ sidebar). Manuel TOC eklenirse renderer'ın slugify'ı ile uyuşmaz (Türkçe karakterleri ve tireleri siler), anchor linkler kırılır."""
 
 # ── SERP ANALİZİ ─────────────────────────────────────────────────────────────
 
