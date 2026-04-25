@@ -218,17 +218,29 @@ KESİNLİKLE YASAK:
 
 # ── SERP ANALİZİ ─────────────────────────────────────────────────────────────
 
-def translate_topic(topic: str) -> str:
-    """Konuyu Türkçe'den İngilizce'ye çevirir (EN SERP için)."""
+def pick_english_keyword(topic_tr: str) -> str:
+    """TR konusu için native İngilizce ana anahtar kelimeyi döner.
+    Çeviri DEĞİL — ABD/UK pazarındaki gerçek arama davranışına ve
+    İngilizce SEO/AI ekosisteminde kullanılan terminolojiye göre seçilir."""
     try:
         r = claude.messages.create(
-            model="claude-haiku-4-5-20251001", max_tokens=60,
+            model="claude-haiku-4-5-20251001", max_tokens=80,
             messages=[{"role": "user", "content":
-                f"Translate this Turkish SEO topic to English. Return only the translation, nothing else: '{topic}'"}]
+                f"""Turkish SEO topic: '{topic_tr}'
+
+Suggest the SINGLE most likely native English search query that a US/UK reader would type into Google for this topic. This is NOT a translation — it must reflect actual English search behavior, common English phrasing, and terminology used in the English-speaking SEO/AI/marketing ecosystem.
+
+Examples (note these are reframings, not direct translations):
+- 'yapay zeka ile ürün açıklaması yazma' → 'AI product description generator'
+- 'sosyal medya yönetimi araçları' → 'best social media management tools'
+- 'google ads dönüşüm optimizasyonu' → 'google ads conversion optimization'
+- 'e-ticaret için yerel SEO' → 'local SEO for ecommerce'
+
+Return ONLY the English search query string, nothing else."""}]
         )
-        return r.content[0].text.strip()
+        return r.content[0].text.strip().strip('"').strip("'")
     except Exception:
-        return topic
+        return topic_tr
 
 def serp_analyze(keyword: str, lang: str = "tr") -> dict:
     """SerpAPI ile SERP analizi yapar. lang='tr' veya 'en'."""
@@ -322,9 +334,10 @@ def build_serp_context(keyword: str, lang: str = "tr") -> dict:
     return {"context": "\n".join(lines), "intent": intent, "target_words": target_words}
 
 def build_dual_serp_context(topic_tr: str) -> dict:
-    """TR ve EN için SERP analizi + meta. Dict döner."""
-    topic_en = translate_topic(topic_tr)
-    logger.info(f"EN konu çevirisi: {topic_en}")
+    """TR ve EN için SERP analizi + meta. Dict döner.
+    EN sorgusu için TR konunun çevirisini değil, native İngilizce keyword'ü kullanır."""
+    topic_en = pick_english_keyword(topic_tr)
+    logger.info(f"EN native keyword: {topic_en}")
     tr = build_serp_context(topic_tr, lang="tr")
     en = build_serp_context(topic_en, lang="en")
     target = (tr["target_words"] + en["target_words"]) // 2 if (tr["context"] and en["context"]) \
@@ -332,6 +345,7 @@ def build_dual_serp_context(topic_tr: str) -> dict:
     return {
         "tr_ctx": tr["context"], "en_ctx": en["context"],
         "tr_intent": tr["intent"], "en_intent": en["intent"],
+        "topic_en": topic_en,
         "target_words": target,
     }
 
@@ -559,7 +573,9 @@ def _parse_block(raw: str, start_tag: str, end_tag: str, lang: str) -> str:
 def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
                   tr_intent: str = "informational", en_intent: str = "informational",
                   target_words: int = 1200,
-                  tr_links: str = "", en_links: str = "") -> dict:
+                  tr_links: str = "", en_links: str = "",
+                  topic_en: str = "") -> dict:
+    topic_en = topic_en or topic
     today = datetime.now().strftime("%Y-%m-%d")
 
     tr_paa = extract_paa(tr_serp)
@@ -752,7 +768,13 @@ faq:
     tr_title = fm_field(tr_file, "title")
 
     # ── 2. ÇAĞRI: İngilizce yazı ─────────────────────────────────────────────
-    en_prompt = f""""{topic}" — write an English blog post on this topic.
+    en_prompt = f""""{topic_en}" — write an English blog post on this topic.
+
+NATIVE KEYWORD CONTEXT (mandatory):
+- Primary head term for this post: "{topic_en}" — this is a native English search query, NOT a translation of the Turkish topic
+- Build slug, title, meta description, H1, and H2 headings around this native term and its semantically related English keywords (use the EN SERP related searches and PAA below to discover them)
+- Do NOT mirror the Turkish slug structure or word order; use natural English phrasing that an American/British reader would actually search for
+- Secondary keywords must come from English search ecosystem (e.g., "ecommerce" not "e-ticaret", "social media" not "sosyal medya")
 
 RULES:
 - Never use years (2024/2025/2026) in title or slug — write evergreen
@@ -1542,7 +1564,9 @@ async def _run(u, topic):
         return
 
     tr_ctx, en_ctx = serp["tr_ctx"], serp["en_ctx"]
-    serp_info = (f"✅ TR + EN SERP | Intent: TR={serp['tr_intent']} EN={serp['en_intent']} | Hedef: ~{serp['target_words']} kelime"
+    topic_en = serp.get("topic_en", "")
+    en_kw_line = f"\n🔑 EN native keyword: `{topic_en}`" if topic_en else ""
+    serp_info = (f"✅ TR + EN SERP | Intent: TR={serp['tr_intent']} EN={serp['en_intent']} | Hedef: ~{serp['target_words']} kelime{en_kw_line}"
                  if (tr_ctx or en_ctx) else "⚠️ SerpAPI yok, genel yazı üretilecek")
     await msg.edit_text(
         f"{serp_info}\n✍️ Yazı üretiliyor _(1-2 dk)_...", parse_mode="Markdown")
@@ -1550,7 +1574,8 @@ async def _run(u, topic):
     try:
         post = await loop.run_in_executor(None, generate_post, topic, tr_ctx, en_ctx,
                                           serp["tr_intent"], serp["en_intent"],
-                                          serp["target_words"], tr_links, en_links)
+                                          serp["target_words"], tr_links, en_links,
+                                          serp.get("topic_en", ""))
 
         if _cancel:
             await msg.edit_text("🛑 İptal edildi (yazı üretildi ama GitHub'a yüklenmedi).")
@@ -1603,7 +1628,8 @@ async def scheduler(app):
             en_links = await loop.run_in_executor(None, get_internal_links, "en")
             post = await loop.run_in_executor(None, generate_post, topic,
                 serp["tr_ctx"], serp["en_ctx"], serp["tr_intent"], serp["en_intent"],
-                serp["target_words"], tr_links, en_links)
+                serp["target_words"], tr_links, en_links,
+                serp.get("topic_en", ""))
             ok_tr = await loop.run_in_executor(None, gh_push, post["tr"]["file"], post["tr"]["content"], f"blog: {post['tr']['slug']}")
             ok_en = await loop.run_in_executor(None, gh_push, post["en"]["file"], post["en"]["content"], f"blog: {post['en']['slug']}")
             result = (f"✅ *Günlük yazı yayınlandı!*\n🇹🇷 `{post['tr']['slug']}`\n🇬🇧 `{post['en']['slug']}`"
