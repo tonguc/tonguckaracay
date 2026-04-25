@@ -32,8 +32,8 @@ export const slugMappingTrToEn: Record<string, string> = {
   "ai-agent-vps-kendi-sunucu-karsilastirmasi": "ai-agent-vps-vs-own-server-comparison",
   "ucretsiz-turkce-yapay-zeka-araclari-e-ticaret": "free-turkish-ai-tools-ecommerce",
   "yerel-seo-e-ticaret-rehberi": "local-seo-for-ecommerce-guide",
+  "claude-gpt-4-token-maliyet-karsilastirmasi": "claude-gpt-4-token-cost-comparison",
 };
-
 export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
   Object.entries(slugMappingTrToEn).map(([tr, en]) => [en, tr])
 );
