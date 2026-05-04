@@ -21,7 +21,7 @@ import {
   Target,
 } from "lucide-react";
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "905XXXXXXXXX";
+const WHATSAPP_NUMBER = "905323824838";
 
 const waLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
