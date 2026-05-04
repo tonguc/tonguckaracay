@@ -327,19 +327,18 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
             </div>
 
             <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              AI'ı öğrenmeyin.{' '}
+              AI ile çalışan sistemler{' '}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400">
-                İşinize sistem kurun.
+                kurmayı öğrenin.
               </span>
             </h1>
 
             <p className="text-xl md:text-2xl text-primary-200 mb-4 leading-relaxed">
-              Bu eğitim <strong className="text-white">araç öğretmez.</strong> İşinize çalışan sistemler kurmayı öğretir.
+              Araç öğretmiyoruz. <strong className="text-white">İçerik, reklam ve operasyon süreçlerinize</strong> entegre olan sistemleri birlikte kuruyoruz.
             </p>
 
             <p className="text-lg text-primary-300 mb-10 leading-relaxed max-w-3xl">
-              İçerik, reklam ve operasyon süreçlerinizi AI ile optimize edin. Doktor,
-              emlakçı, e-ticaretçi, ajans, klinik veya SaaS girişimci — sektörünüze özel
+              Doktor, emlakçı, e-ticaretçi, ajans, klinik veya SaaS girişimci — sektörünüze özel
               prompt kütüphanesi, yarı-otomatik akışlar ve AI playbook ile çıkın.
             </p>
 
@@ -360,6 +359,20 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
                 Şirketim için
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bu eğitim değil callout */}
+      <section className="py-10 bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-y border-indigo-500/20">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg font-semibold text-indigo-200 mb-4">❗ Bu bir eğitim değil</p>
+            <div className="flex flex-wrap justify-center gap-6 text-primary-200">
+              <span className="flex items-center gap-2"><span className="text-red-400">✗</span> Araç öğretilmez</span>
+              <span className="flex items-center gap-2"><span className="text-red-400">✗</span> Teori anlatılmaz</span>
+              <span className="flex items-center gap-2"><span className="text-indigo-300 font-semibold">→</span> İşinize çalışan sistemler kurulur</span>
             </div>
           </div>
         </div>
@@ -611,10 +624,13 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
                   ))}
                 </ul>
 
-                <div className="mt-5 pt-5 border-t border-indigo-500/20">
+                <div className="mt-5 pt-5 border-t border-indigo-500/20 space-y-2">
                   <p className="text-sm text-primary-300">
                     <span className="font-semibold text-indigo-300">📦 Eğitim çıktısı: </span>
                     {s.output}
+                  </p>
+                  <p className="text-xs text-primary-500 italic">
+                    * Bunlar yapabileceklerimizden yalnızca bir kısmı — eğitim sürecinde sektörünüze özgü ek senaryolar da keşfediyoruz.
                   </p>
                 </div>
               </div>
@@ -704,6 +720,15 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="py-8">
+        <div className="container-custom">
+          <p className="text-center text-sm text-primary-500 max-w-2xl mx-auto">
+            Sonuçlar; sektör, uygulama ve sürekliliğe göre değişir. Bu program size sistemi kurmayı öğretir — uygulamak sizin elinizde.
+          </p>
         </div>
       </section>
 

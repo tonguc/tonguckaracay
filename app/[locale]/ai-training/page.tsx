@@ -328,19 +328,19 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
             </div>
 
             <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Don't learn AI.{' '}
+              Learn to build AI systems{' '}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400">
-                Build systems that work.
+                that work in your business.
               </span>
             </h1>
 
             <p className="text-xl md:text-2xl text-primary-200 mb-4 leading-relaxed">
-              This isn't <strong className="text-white">tool training.</strong> It's how to build systems that work in your business.
+              We don't teach tools. We build systems integrated into your{' '}
+              <strong className="text-white">content, ad, and operations workflows</strong> — together.
             </p>
 
             <p className="text-lg text-primary-300 mb-10 leading-relaxed max-w-3xl">
-              Optimize content, ad, and operations workflows with AI. Whether you're a doctor,
-              realtor, e-commerce founder, agency lead, clinic owner, or SaaS builder — leave with
+              Doctor, realtor, e-commerce founder, agency lead, clinic owner, or SaaS builder — leave with
               a vertical-specific prompt library, semi-automated workflows, and an AI playbook.
             </p>
 
@@ -361,6 +361,20 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
                 For my company
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Not a training callout */}
+      <section className="py-10 bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-y border-indigo-500/20">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg font-semibold text-indigo-200 mb-4">❗ This is not a training course</p>
+            <div className="flex flex-wrap justify-center gap-6 text-primary-200">
+              <span className="flex items-center gap-2"><span className="text-red-400">✗</span> No tool demos</span>
+              <span className="flex items-center gap-2"><span className="text-red-400">✗</span> No generic theory</span>
+              <span className="flex items-center gap-2"><span className="text-indigo-300 font-semibold">→</span> We build working systems into your business</span>
             </div>
           </div>
         </div>
@@ -612,10 +626,13 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
                   ))}
                 </ul>
 
-                <div className="mt-5 pt-5 border-t border-indigo-500/20">
+                <div className="mt-5 pt-5 border-t border-indigo-500/20 space-y-2">
                   <p className="text-sm text-primary-300">
                     <span className="font-semibold text-indigo-300">📦 You leave with: </span>
                     {s.output}
+                  </p>
+                  <p className="text-xs text-primary-500 italic">
+                    * These are just some of what's possible — we explore additional use-cases specific to your industry during the program.
                   </p>
                 </div>
               </div>
@@ -705,6 +722,15 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="py-8">
+        <div className="container-custom">
+          <p className="text-center text-sm text-primary-500 max-w-2xl mx-auto">
+            Results vary by industry, implementation, and consistency. This program teaches you how to build the system — applying it is up to you.
+          </p>
         </div>
       </section>
 
