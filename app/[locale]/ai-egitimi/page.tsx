@@ -364,16 +364,16 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
         </div>
       </section>
 
-      {/* Bu eğitim değil callout */}
+      {/* Sadece bir AI eğitimi değil callout */}
       <section className="py-10 bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-y border-indigo-500/20">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg font-semibold text-indigo-200 mb-4">❗ Bu bir eğitim değil</p>
-            <div className="flex flex-wrap justify-center gap-6 text-primary-200">
-              <span className="flex items-center gap-2"><span className="text-red-400">✗</span> Araç öğretilmez</span>
-              <span className="flex items-center gap-2"><span className="text-red-400">✗</span> Teori anlatılmaz</span>
-              <span className="flex items-center gap-2"><span className="text-indigo-300 font-semibold">→</span> İşinize çalışan sistemler kurulur</span>
-            </div>
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-lg font-semibold text-indigo-200 mb-4">
+              ✨ Bu sadece bir AI eğitimi değil
+            </p>
+            <p className="text-primary-200 leading-relaxed">
+              Sadece prompt göstermiyoruz · Sadece araç anlatmıyoruz · <strong className="text-white">UX + SEO + Reklam + AI deneyimiyle</strong> sektörünüze özgü sistem kurmayı öğretiyoruz.
+            </p>
           </div>
         </div>
       </section>
@@ -504,7 +504,7 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
                 href="/iletisim?konu=ai-egitimi-bireysel"
                 className="group block w-full text-center px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold hover:from-indigo-400 hover:to-violet-500 transition-all"
               >
-                Hemen kayıt ol
+                İlk kohorta katıl (kontenjan sınırlı)
                 <ArrowRight className="ml-2 w-4 h-4 inline group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -542,7 +542,7 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
                 href="/iletisim?konu=ai-egitimi-kurumsal"
                 className="group block w-full text-center px-6 py-4 rounded-xl bg-gradient-to-r from-accent-500 to-accent-600 text-primary-950 font-semibold hover:from-accent-400 hover:to-accent-500 transition-all"
               >
-                Keşif görüşmesi al
+                Ücretsiz keşif görüşmesi al
                 <ArrowRight className="ml-2 w-4 h-4 inline group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -695,6 +695,53 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
         </div>
       </section>
 
+      {/* Kim için DEĞİL */}
+      <section className="py-16">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="section-title mb-3">
+                Bu program <span className="text-gradient">kimler için değil?</span>
+              </h2>
+              <p className="text-primary-400 max-w-2xl mx-auto">
+                Yanlış beklentiyle gelmemeniz için açıkça söylüyoruz — bu eğitim aşağıdaki profillere uygun değildir:
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
+                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
+                <div>
+                  <p className="text-white font-medium mb-1">Tek tuşla sonuç bekleyenler</p>
+                  <p className="text-primary-400 text-sm">"AI butonuna basıp para gelecek" beklentisindeyseniz, doğru program değil.</p>
+                </div>
+              </div>
+              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
+                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
+                <div>
+                  <p className="text-white font-medium mb-1">Uygulama yapmayacak olanlar</p>
+                  <p className="text-primary-400 text-sm">Sadece izleyip not almakla yetinecekseniz, kohort sonunda elinizde sistem olmaz.</p>
+                </div>
+              </div>
+              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
+                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
+                <div>
+                  <p className="text-white font-medium mb-1">"AI her şeyi yapar" sananlar</p>
+                  <p className="text-primary-400 text-sm">AI bir araç. Sektör bilgisi, içerik kalitesi ve süreç tasarımı sizden beklenir.</p>
+                </div>
+              </div>
+              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
+                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
+                <div>
+                  <p className="text-white font-medium mb-1">Haftada birkaç saat ayıramayacak olanlar</p>
+                  <p className="text-primary-400 text-sm">Canlı oturumlar + ödev + uygulama için en az 4-5 saat/hafta gerekir.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-20 bg-surface-card/30">
         <div className="container-custom">
@@ -747,14 +794,14 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
                 href="/iletisim?konu=ai-egitimi-bireysel"
                 className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold hover:from-indigo-400 hover:to-violet-500 transform hover:scale-[1.02] transition-all shadow-lg shadow-indigo-500/30 text-lg"
               >
-                Bireysel için kayıt
+                İlk kohorta katıl
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/iletisim?konu=ai-egitimi-kurumsal"
                 className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-surface-card border border-accent-500/40 text-white font-semibold hover:border-accent-400 transition-all text-lg"
               >
-                Kurumsal görüşme
+                Ücretsiz keşif görüşmesi
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>

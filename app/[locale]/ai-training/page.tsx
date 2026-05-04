@@ -366,16 +366,16 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
         </div>
       </section>
 
-      {/* Not a training callout */}
+      {/* Not just an AI course callout */}
       <section className="py-10 bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-y border-indigo-500/20">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg font-semibold text-indigo-200 mb-4">❗ This is not a training course</p>
-            <div className="flex flex-wrap justify-center gap-6 text-primary-200">
-              <span className="flex items-center gap-2"><span className="text-red-400">✗</span> No tool demos</span>
-              <span className="flex items-center gap-2"><span className="text-red-400">✗</span> No generic theory</span>
-              <span className="flex items-center gap-2"><span className="text-indigo-300 font-semibold">→</span> We build working systems into your business</span>
-            </div>
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-lg font-semibold text-indigo-200 mb-4">
+              ✨ This isn't just another AI course
+            </p>
+            <p className="text-primary-200 leading-relaxed">
+              We don't only show prompts · We don't only demo tools · <strong className="text-white">With UX + SEO + Ads + AI experience</strong>, we teach you to build systems built for your industry.
+            </p>
           </div>
         </div>
       </section>
@@ -506,7 +506,7 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
                 href="/en/contact?topic=ai-training-individual"
                 className="group block w-full text-center px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold hover:from-indigo-400 hover:to-violet-500 transition-all"
               >
-                Reserve your seat
+                Join the first cohort (limited seats)
                 <ArrowRight className="ml-2 w-4 h-4 inline group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -544,7 +544,7 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
                 href="/en/contact?topic=ai-training-corporate"
                 className="group block w-full text-center px-6 py-4 rounded-xl bg-gradient-to-r from-accent-500 to-accent-600 text-primary-950 font-semibold hover:from-accent-400 hover:to-accent-500 transition-all"
               >
-                Book a discovery call
+                Book a free discovery call
                 <ArrowRight className="ml-2 w-4 h-4 inline group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -697,6 +697,53 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
         </div>
       </section>
 
+      {/* Who this is NOT for */}
+      <section className="py-16">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="section-title mb-3">
+                Who this program is <span className="text-gradient">NOT for</span>
+              </h2>
+              <p className="text-primary-400 max-w-2xl mx-auto">
+                We'd rather be upfront so you don't sign up with the wrong expectation. This program is not for:
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
+                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
+                <div>
+                  <p className="text-white font-medium mb-1">"One-click money" seekers</p>
+                  <p className="text-primary-400 text-sm">If you expect AI to print revenue with a button, this isn't the program.</p>
+                </div>
+              </div>
+              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
+                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
+                <div>
+                  <p className="text-white font-medium mb-1">People who won't do the work</p>
+                  <p className="text-primary-400 text-sm">If you'll only watch sessions without applying, you'll leave with notes — not a system.</p>
+                </div>
+              </div>
+              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
+                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
+                <div>
+                  <p className="text-white font-medium mb-1">"AI does everything" believers</p>
+                  <p className="text-primary-400 text-sm">AI is a tool. Industry expertise, content quality, and process design are still on you.</p>
+                </div>
+              </div>
+              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
+                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
+                <div>
+                  <p className="text-white font-medium mb-1">No time to invest weekly</p>
+                  <p className="text-primary-400 text-sm">Live sessions + homework + practice need at least 4-5 hours per week.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-20 bg-surface-card/30">
         <div className="container-custom">
@@ -749,14 +796,14 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
                 href="/en/contact?topic=ai-training-individual"
                 className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold hover:from-indigo-400 hover:to-violet-500 transform hover:scale-[1.02] transition-all shadow-lg shadow-indigo-500/30 text-lg"
               >
-                Reserve a seat
+                Join the first cohort
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/en/contact?topic=ai-training-corporate"
                 className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-surface-card border border-accent-500/40 text-white font-semibold hover:border-accent-400 transition-all text-lg"
               >
-                Talk corporate
+                Free discovery call
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
