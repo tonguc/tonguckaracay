@@ -48,8 +48,8 @@ const sectors = [
   {
     icon: Stethoscope,
     name: "Doctors & Clinics",
-    promise: "Cut social media content, patient education videos, and visuals down to 10 minutes with AI.",
-    tools: "ChatGPT, Sora, ElevenLabs, Midjourney",
+    promise: "Move social content, patient education videos, and visuals onto an AI pipeline.",
+    tools: "ChatGPT, Midjourney, ElevenLabs, Runway",
     anchor: "doctors",
   },
   {
@@ -83,7 +83,7 @@ const sectors = [
   {
     icon: Rocket,
     name: "SaaS Founders",
-    promise: "Idea to MVP in days, not weeks — with Cursor, Claude, and n8n.",
+    promise: "Ship from idea to prototype to product with Cursor, Claude, and n8n.",
     tools: "Cursor, Claude Code, n8n, Vercel",
     anchor: "saas",
   },
@@ -147,10 +147,10 @@ const sectorDeepDive = [
     title: "AI System for Doctors",
     intro: "Stay focused on patients — let AI handle content and ops.",
     use: [
-      "Patient education videos: script (ChatGPT) → visual (Sora) → voiceover (ElevenLabs) in 10 min",
-      "Instagram reel pipeline: 7 reels per week, produced in 1 hour",
+      "Patient education videos: script (ChatGPT) → visual (Midjourney/Runway) → voiceover (ElevenLabs)",
+      "Content calendar and reel template library for Instagram",
       "Custom GPT chatbot for frequently asked patient questions",
-      "Medical paper summarizer (PubMed → Claude → bullet points)",
+      "Medical paper summarizer (PDF → Claude → bullet points)",
       "Pre-appointment WhatsApp briefing bot (n8n)",
     ],
   },
@@ -158,7 +158,7 @@ const sectorDeepDive = [
     id: "ecommerce",
     icon: ShoppingBag,
     title: "AI System for E-commerce SMBs",
-    intro: "List 100 products in an hour. Let AI write copy and generate visuals.",
+    intro: "Move product listing, ad copy, and visual generation onto an AI pipeline.",
     use: [
       "Title + description automation for Shopify/Amazon/eBay",
       "Lifestyle visuals from product photos (Midjourney + image-to-image)",
@@ -184,7 +184,7 @@ const sectorDeepDive = [
     id: "agencies",
     icon: Megaphone,
     title: "AI System for Agencies",
-    intro: "Brief to delivery in 3 days, not 3 weeks.",
+    intro: "An automated production line from brief to delivery.",
     use: [
       "Brief → strategy → concept → ad copy pipeline",
       "Pitch deck automation (Gamma + Claude)",
@@ -202,7 +202,7 @@ const sectorDeepDive = [
       "Before/after visual generation and social pipeline",
       "WhatsApp booking bot (ManyChat + n8n)",
       "Review analysis → service-improvement signals",
-      "Monthly content calendar (30 days, 30 posts) via AI",
+      "Monthly content calendar via AI (visuals + captions + hashtags)",
       "Post-treatment follow-up message automation",
     ],
   },
@@ -210,7 +210,7 @@ const sectorDeepDive = [
     id: "saas",
     icon: Rocket,
     title: "AI System for SaaS Founders",
-    intro: "From idea to MVP in days instead of weeks.",
+    intro: "Shorten the path from prototype to product with AI.",
     use: [
       "Cursor + Claude Code for solo prototyping",
       "Backend logic with n8n (no code)",

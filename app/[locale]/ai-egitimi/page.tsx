@@ -47,8 +47,8 @@ const sectors = [
   {
     icon: Stethoscope,
     name: "Doktorlar & Klinikler",
-    promise: "Sosyal medya içeriği, hasta eğitim videosu ve görsel üretimini AI ile 10 dakikaya indir.",
-    tools: "ChatGPT, Sora, ElevenLabs, Midjourney",
+    promise: "Sosyal medya içeriği, hasta eğitim videosu ve görsel üretimini AI hattına alın.",
+    tools: "ChatGPT, Midjourney, ElevenLabs, Runway",
     anchor: "doktorlar",
   },
   {
@@ -82,7 +82,7 @@ const sectors = [
   {
     icon: Rocket,
     name: "SaaS Girişimciler",
-    promise: "Cursor, Claude ve n8n ile fikirden MVP'ye haftalar değil günlerle.",
+    promise: "Cursor, Claude ve n8n ile fikirden prototipe, prototipten ürüne çıkın.",
     tools: "Cursor, Claude Code, n8n, Vercel",
     anchor: "saas",
   },
@@ -146,10 +146,10 @@ const sectorDeepDive = [
     title: "Doktorlar için AI Sistemi",
     intro: "Hasta görmeye odaklan, içerik ve operasyon AI'da kalsın.",
     use: [
-      "Hasta eğitim videoları: senaryo (ChatGPT) → görsel (Sora) → seslendirme (ElevenLabs) → 10 dk",
-      "Instagram reel akışı: haftada 7 reel, 1 saatte üret",
+      "Hasta eğitim videoları: senaryo (ChatGPT) → görsel (Midjourney/Runway) → seslendirme (ElevenLabs)",
+      "Instagram reel için içerik takvimi ve şablon kütüphanesi",
       "Hasta sıkça sorulan sorular için Custom GPT chatbot",
-      "Tıbbi makale özetleyici (PubMed → Claude → maddeli özet)",
+      "Tıbbi makale özetleyici (PDF → Claude → maddeli özet)",
       "Randevu öncesi WhatsApp bilgilendirme botu (n8n)",
     ],
   },
@@ -157,7 +157,7 @@ const sectorDeepDive = [
     id: "eticaret",
     icon: ShoppingBag,
     title: "E-Ticaret KOBİ için AI Sistemi",
-    intro: "1 saatte 100 ürün listele, reklam metni ve görseli AI üretsin.",
+    intro: "Ürün listeleme, reklam metni ve görsel üretimini AI hattına alın.",
     use: [
       "Trendyol/Hepsiburada/Shopify için ürün başlığı + açıklama otomasyonu",
       "Ürün fotoğrafından life-style görsel (Midjourney + image-to-image)",
@@ -183,7 +183,7 @@ const sectorDeepDive = [
     id: "ajanslar",
     icon: Megaphone,
     title: "Ajanslar için AI Sistemi",
-    intro: "Brief'ten teslimata 3 günde, 1 günde değil.",
+    intro: "Brief'ten teslimata otomatik üretim hattı.",
     use: [
       "Brief → strateji → konsept → reklam metni hattı",
       "Pitch deck otomasyonu (Gamma + Claude)",
@@ -201,7 +201,7 @@ const sectorDeepDive = [
       "Before/after görsel üretimi ve sosyal medya akışı",
       "WhatsApp randevu botu (ManyChat + n8n)",
       "Müşteri yorum analizi → hizmet iyileştirme sinyalleri",
-      "Aylık içerik takvimi (30 gün, 30 post) AI ile",
+      "Aylık içerik takvimi AI ile (görsel + caption + hashtag)",
       "Tedavi sonrası takip mesaj otomasyonu",
     ],
   },
@@ -209,7 +209,7 @@ const sectorDeepDive = [
     id: "saas",
     icon: Rocket,
     title: "SaaS Girişimciler için AI Sistemi",
-    intro: "Fikirden MVP'ye haftalar yerine günlerle.",
+    intro: "Prototipten ürüne giden yolu AI ile kısalt.",
     use: [
       "Cursor + Claude Code ile no-team prototip",
       "n8n ile backend mantığı (kod yazmadan)",
