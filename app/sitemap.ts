@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/hizmetler/online-reklamcilik`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/hizmetler/yapay-zeka-cozumleri`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/hizmetler/sosyal-medya-yonetimi`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/ai-egitimi`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.9 },
   ];
 
   // Static pages - EN
@@ -33,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/en/services/online-advertising`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/en/services/ai-solutions`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/en/services/social-media-management`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/en/ai-training`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.9 },
   ];
 
   // Blog posts - TR (canonical: /slug, no /blog/ prefix)
