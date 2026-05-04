@@ -163,6 +163,41 @@ const sectorDetails = [
   },
 ];
 
+const showcase = [
+  {
+    title: "whattime.city",
+    initials: "WT",
+    desc: "City-based time and meeting planner. AI-powered content generation, multilingual UI, automated city data.",
+    tools: ["Next.js", "Claude API", "Vercel"],
+    image: null as string | null,
+    url: "https://whattime.city",
+  },
+  {
+    title: "UX SEO Audit Kit",
+    initials: "AK",
+    desc: "AI-powered, semi-automated UX & SEO audit report system. Data collection → analysis → presentation.",
+    tools: ["Claude", "Make.com", "Sheets"],
+    image: null as string | null,
+    url: null as string | null,
+  },
+  {
+    title: "Clinic Consent Form + SMS",
+    initials: "CF",
+    desc: "Patient consent form generation and pre-appointment semi-automated SMS / WhatsApp briefing flow for clinics.",
+    tools: ["n8n", "ChatGPT", "Twilio"],
+    image: null as string | null,
+    url: null as string | null,
+  },
+  {
+    title: "Sector-Based Digital Audit",
+    initials: "DA",
+    desc: "Semi-automated system that identifies and reports companies with weak digital presence in a given sector.",
+    tools: ["Apify", "Claude", "Sheets"],
+    image: null as string | null,
+    url: null as string | null,
+  },
+];
+
 const faq = [
   {
     q: "Do I need technical knowledge to join?",
@@ -291,7 +326,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
       {/* CALLOUT — Positioning */}
       <section className="py-12">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto bg-gradient-to-br from-indigo-500/10 via-violet-500/5 to-transparent border border-indigo-500/20 rounded-2xl p-8 md:p-10">
+          <div className="max-w-5xl mx-auto bg-gradient-to-br from-indigo-500/10 via-violet-500/5 to-transparent border border-indigo-500/20 rounded-2xl p-8 md:p-10">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-1">
                 <Sparkles className="w-5 h-5 text-indigo-300" />
@@ -322,7 +357,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <div className="bg-surface-card border border-surface-border rounded-2xl p-8">
               <h3 className="font-display text-lg font-bold text-primary-400 mb-6 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-surface-border flex items-center justify-center text-xs">✕</span>
@@ -368,8 +403,93 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
         </div>
       </section>
 
-      {/* SECTOR GRID */}
+      {/* SHOWCASE — Systems I've built */}
       <section className="py-16 md:py-20 bg-surface-darker">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm font-medium mb-4">
+              <Sparkles className="w-4 h-4" />
+              <span>Real examples</span>
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              Systems I've built
+            </h2>
+            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              I run these systems on my own work. Here are a few examples.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {showcase.map((item) => (
+              <div
+                key={item.title}
+                className="bg-surface-card border border-surface-border rounded-2xl overflow-hidden hover:border-indigo-500/50 transition-all group"
+              >
+                <div className="relative aspect-[16/10] bg-gradient-to-br from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-b border-surface-border overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-7 bg-surface-darker/80 backdrop-blur-sm border-b border-surface-border flex items-center px-3 gap-1.5 z-10">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                    {item.url && (
+                      <div className="ml-3 text-[10px] text-primary-400 font-mono truncate">
+                        {item.url.replace(/^https?:\/\//, "")}
+                      </div>
+                    )}
+                  </div>
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover pt-7"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 pt-7 flex items-center justify-center">
+                      <div className="font-display text-6xl font-bold bg-gradient-to-br from-indigo-300 to-violet-300 bg-clip-text text-transparent opacity-30">
+                        {item.initials}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-4 mb-2">
+                    <h3 className="font-display text-xl font-bold text-white">{item.title}</h3>
+                    {item.url && (
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit ${item.title}`}
+                        className="text-indigo-400 hover:text-indigo-300 transition-colors flex-shrink-0"
+                      >
+                        <ArrowRight className="w-5 h-5 -rotate-45" />
+                      </a>
+                    )}
+                  </div>
+                  <p className="text-primary-300 text-sm leading-relaxed mb-4">{item.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {item.tools.map((tool) => (
+                      <span
+                        key={tool}
+                        className="px-2.5 py-1 text-xs bg-indigo-500/10 text-indigo-300 rounded-md border border-indigo-500/20"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-primary-500 text-sm italic mt-8">
+            In the program, you'll learn how to adapt systems like these to your sector.
+          </p>
+        </div>
+      </section>
+
+      {/* SECTOR GRID */}
+      <section className="py-16 md:py-20">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
@@ -380,7 +500,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {sectors.map((sector) => {
               const Icon = sector.icon;
               return (
@@ -590,7 +710,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
       {/* WHAT THIS PROGRAM ISN'T */}
       <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10">
               <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
                 What this program <span className="text-amber-400">isn't</span>
@@ -636,7 +756,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
       {/* INSTRUCTOR */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto bg-surface-card border border-surface-border rounded-2xl p-8 md:p-12">
+          <div className="max-w-5xl mx-auto bg-surface-card border border-surface-border rounded-2xl p-8 md:p-12">
             <div className="text-center mb-8">
               <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">Instructor</h2>
               <p className="text-primary-300">Who's running this program.</p>
