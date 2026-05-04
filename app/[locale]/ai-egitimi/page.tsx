@@ -2,6 +2,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { setRequestLocale } from 'next-intl/server';
 import {
+  WhatTimeMockup,
+  UxSeoMockup,
+  OnayFormuMockup,
+  DijitalTespitMockup,
+} from "@/components/ShowcaseMockups";
+import {
   ArrowRight,
   Sparkles,
   Stethoscope,
@@ -19,6 +25,7 @@ import {
   Database,
   Shield,
   Target,
+  Zap,
 } from "lucide-react";
 
 const WHATSAPP_NUMBER = "905323824838";
@@ -109,7 +116,7 @@ const curriculum = [
   {
     icon: Workflow,
     title: "Yarı-otomatik iş akışları",
-    desc: "n8n, Make ve Zapier ile e-posta, CRM, takvim ve mesajlaşma entegrasyonu kurmayı öğren.",
+    desc: "AI araçlarını e-posta, CRM, takvim ve mesajlaşma sistemlerine bağlayan akışlar kurmayı öğren.",
   },
   {
     icon: Database,
@@ -128,11 +135,10 @@ const sectorDetails = [
     anchor: "doktorlar",
     icon: Stethoscope,
     name: "Doktorlar & Klinikler",
-    tools: ["ChatGPT", "Claude", "Midjourney", "ElevenLabs", "Canva", "Runway"],
     produce: [
-      "Haftalık 3-5 sosyal medya post'u (metin + görsel)",
-      "Hasta bilgilendirme videosu (script + seslendirme)",
-      "Randevu öncesi WhatsApp bilgilendirme akışı taslağı",
+      "Haftalık 3–5 sosyal medya post'u (metin + görsel)",
+      "Hasta bilgilendirme videosu (script + seslendirme taslağı)",
+      "Randevu öncesi bilgilendirme mesajı şablonları",
     ],
     how: "Branding kuralları → prompt şablonu → içerik takvimi → onay süreci.",
   },
@@ -140,25 +146,54 @@ const sectorDetails = [
     anchor: "eticaret",
     icon: ShoppingBag,
     name: "E-Ticaret KOBİ",
-    tools: ["GPT-5", "Claude", "Midjourney", "Make.com"],
     produce: [
-      "100+ ürün için açıklama varyantı",
+      "Çok sayıda ürün için açıklama varyantı",
       "Reklam metin ve kreatif varyantları",
       "Müşteri sorularına yanıt taslağı (insan kontrolünde)",
     ],
-    how: "Ürün CSV → prompt şablonu → varyant üretimi → marketplace yükleme.",
+    how: "Ürün bilgisi → prompt şablonu → varyant üretimi → düzenleme → yayın.",
   },
   {
     anchor: "ajanslar",
     icon: Megaphone,
     name: "Pazarlama Ajansları",
-    tools: ["Claude", "Gamma", "AdCreative.ai", "n8n"],
     produce: [
       "Brief'ten strateji dokümanı taslağı",
-      "Pitch deck taslağı (Gamma)",
-      "Her ad set için 5+ reklam kreatif varyantı",
+      "Sunum ve pitch deck taslağı",
+      "Her ad set için birden fazla reklam kreatif varyantı",
     ],
-    how: "Müşteri brief → AI workflow → revize döngüsü → final çıktı.",
+    how: "Müşteri brief → AI ile taslak → insan revizyonu → final çıktı.",
+  },
+];
+
+const showcase = [
+  {
+    id: "whattime",
+    title: "whattime.city",
+    desc: "Şehir bazlı zaman ve toplantı planlayıcı. AI destekli içerik üretimi, çok dilli arayüz, otomatik şehir verisi.",
+    tools: ["Next.js", "Claude API", "Vercel"],
+    url: "https://whattime.city",
+  },
+  {
+    id: "ux-seo",
+    title: "UX SEO Audit Kit",
+    desc: "AI destekli, yarı-otomatik UX & SEO audit raporu üretim sistemi. Veri toplama → analiz → sunum.",
+    tools: ["Claude", "ChatGPT", "Sheets"],
+    url: null as string | null,
+  },
+  {
+    id: "onay-formu",
+    title: "Klinik Onay Formu + SMS",
+    desc: "Klinikler için onay formu üretimi, randevu öncesi yarı-otomatik SMS ve WhatsApp bilgilendirme akışı.",
+    tools: ["ChatGPT", "Claude", "Sheets"],
+    url: null as string | null,
+  },
+  {
+    id: "dijital-tespit",
+    title: "Sektörel Dijital Tespit",
+    desc: "Belirli sektörde dijital varlığı zayıf şirketleri yarı-otomatik tespit edip raporlayan sistem.",
+    tools: ["Claude", "ChatGPT", "Sheets"],
+    url: null as string | null,
   },
 ];
 
@@ -288,26 +323,159 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
         </div>
       </section>
 
-      {/* WHATSAPP TRIGGER 1 — Kararsız mısınız? */}
+      {/* CALLOUT — Pozisyonlama */}
       <section className="py-12">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/30 rounded-2xl p-8 md:p-10 text-center">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-3">
-              Kararsız mısınız?
-            </h2>
-            <p className="text-primary-300 mb-6 max-w-xl mx-auto">
-              Size uygun olup olmadığını 2 dakika içinde birlikte netleştirelim.
-            </p>
-            <a
-              href={waLink("Merhaba, AI Eğitimi'nin bana uygun olup olmadığını konuşmak istiyorum.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
-            >
-              <WhatsAppIcon className="w-5 h-5" />
-              WhatsApp'tan yaz
-            </a>
+          <div className="max-w-5xl mx-auto bg-gradient-to-br from-indigo-500/10 via-violet-500/5 to-transparent border border-indigo-500/20 rounded-2xl p-8 md:p-10">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                <Sparkles className="w-5 h-5 text-indigo-300" />
+              </div>
+              <div className="flex-1">
+                <h2 className="font-display text-xl md:text-2xl font-bold text-white mb-3">
+                  Bu sadece bir AI eğitimi değil.
+                </h2>
+                <p className="text-primary-300 leading-relaxed">
+                  25 yıllık UX deneyimi, SEO uzmanlığı, dijital reklam bilgisi ve AI pratiği bir arada.
+                  Araç öğretmek değil — mevcut iş süreçlerinize oturan, gerçekten çalışan sistemler kurmayı öğretmek.
+                </p>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* KARŞILAŞTIRMA — Sıradan vs Sistem */}
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              Fark nerede?
+            </h2>
+            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              Çoğu AI kullanımı araç dener, sonuç görmez. Bu program sistem kurar.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-8">
+              <h3 className="font-display text-lg font-bold text-primary-400 mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-surface-border flex items-center justify-center text-xs">✕</span>
+                Sıradan AI kullanımı
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Her seferinde sıfırdan prompt yaz",
+                  "Çıktılar tutarsız, tone farklı",
+                  "Araç öğrenir, işe uyarlamak bilemez",
+                  "Merak aşamasında kalır, üretim yok",
+                  "Hangi araç ne işe yarar, belli değil",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-primary-400 text-sm">
+                    <XCircle className="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-indigo-500/10 to-violet-500/10 border border-indigo-500/30 rounded-2xl p-8">
+              <h3 className="font-display text-lg font-bold text-indigo-300 mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-xs">✓</span>
+                Sistem kurma
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Tekrar kullanılabilir prompt kütüphanesi",
+                  "Markana uygun, tutarlı çıktılar",
+                  "İş sürecine entegre edilmiş akış",
+                  "Haftalık gerçek üretim çıktıları",
+                  "Her araç için net kullanım amacı",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-primary-200 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SHOWCASE — Kurduğum sistemler */}
+      <section className="py-16 md:py-20 bg-surface-darker">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm font-medium mb-4">
+              <Sparkles className="w-4 h-4" />
+              <span>Gerçek örnekler</span>
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              Kurduğum sistemler
+            </h2>
+            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              Eğitimde anlattığım sistemleri kendim de kullanıyorum. İşte birkaç örnek.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {showcase.map((item) => (
+              <div
+                key={item.title}
+                className="bg-surface-card border border-surface-border rounded-2xl overflow-hidden hover:border-indigo-500/50 transition-all group"
+              >
+                <div className="relative aspect-[16/10] bg-gradient-to-br from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-b border-surface-border overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-7 bg-surface-darker/80 backdrop-blur-sm border-b border-surface-border flex items-center px-3 gap-1.5 z-10">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                    {item.url && (
+                      <div className="ml-3 text-[10px] text-primary-400 font-mono truncate">
+                        {item.url.replace(/^https?:\/\//, "")}
+                      </div>
+                    )}
+                  </div>
+                  {item.id === "whattime" && <WhatTimeMockup />}
+                  {item.id === "ux-seo" && <UxSeoMockup locale="tr" />}
+                  {item.id === "onay-formu" && <OnayFormuMockup locale="tr" />}
+                  {item.id === "dijital-tespit" && <DijitalTespitMockup locale="tr" />}
+                </div>
+
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-4 mb-2">
+                    <h3 className="font-display text-xl font-bold text-white">{item.title}</h3>
+                    {item.url && (
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit ${item.title}`}
+                        className="text-indigo-400 hover:text-indigo-300 transition-colors flex-shrink-0"
+                      >
+                        <ArrowRight className="w-5 h-5 -rotate-45" />
+                      </a>
+                    )}
+                  </div>
+                  <p className="text-primary-300 text-sm leading-relaxed mb-4">{item.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {item.tools.map((tool) => (
+                      <span
+                        key={tool}
+                        className="px-2.5 py-1 text-xs bg-indigo-500/10 text-indigo-300 rounded-md border border-indigo-500/20"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-primary-500 text-sm italic mt-8">
+            Bu tür sistemleri kendi sektörünüze nasıl uyarlayacağınızı eğitimde öğrenirsiniz.
+          </p>
         </div>
       </section>
 
@@ -323,7 +491,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {sectors.map((sector) => {
               const Icon = sector.icon;
               return (
@@ -343,13 +511,13 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
           </div>
 
           <p className="text-center text-primary-500 text-sm italic mt-8">
-            Bunlar yapılabileceklerden sadece bazıları. Sektörünüze özgü ihtiyaçları WhatsApp'ta konuşalım.
+            Bunlar yapılabileceklerden sadece bazıları. Her sektörün kullanım senaryosu farklıdır.
           </p>
         </div>
       </section>
 
-      {/* SEGMENT AYRIMI: Bireysel vs Kurumsal */}
-      <section className="py-16 md:py-20 bg-surface-darker">
+      {/* SEGMENT AYRIMI */}
+      <section className="py-16 md:py-20">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
@@ -361,8 +529,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {/* BİREYSEL */}
-            <div id="bireysel" className="bg-surface-card border border-indigo-500/30 rounded-2xl p-8 flex flex-col">
+            <div id="bireysel" className="bg-surface-card border border-indigo-500/30 rounded-2xl p-8 flex flex-col scroll-mt-24">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
                   <Users className="w-6 h-6 text-indigo-300" />
@@ -373,22 +540,17 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 Tek başına çalışan, freelancer veya kendi işini büyütmek isteyen profesyoneller için.
               </p>
               <ul className="space-y-3 mb-8 flex-1">
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span>Freelancer / tek çalışan</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span>6 haftalık program</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span>Canlı oturumlar + kayıt erişimi</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span>Sektöre özel prompt kütüphanesi</span>
-                </li>
+                {[
+                  "Freelancer / tek çalışan",
+                  "6 haftalık program",
+                  "Canlı oturumlar + kayıt erişimi",
+                  "Sektöre özel prompt kütüphanesi",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-primary-300">
+                    <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
               <a
                 href={waLink("Merhaba, Bireysel AI Eğitimi için yer ayırtmak istiyorum.")}
@@ -401,8 +563,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               </a>
             </div>
 
-            {/* KURUMSAL */}
-            <div id="kurumsal" className="bg-surface-card border border-violet-500/30 rounded-2xl p-8 flex flex-col">
+            <div id="kurumsal" className="bg-surface-card border border-violet-500/30 rounded-2xl p-8 flex flex-col scroll-mt-24">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-violet-500/20 flex items-center justify-center">
                   <Building2 className="w-6 h-6 text-violet-300" />
@@ -413,22 +574,17 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 5+ kişilik ekipler için şirkete özel program. Workshop, mentorluk ve sisteme özel kurulum.
               </p>
               <ul className="space-y-3 mb-8 flex-1">
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
-                  <span>5+ kişilik ekipler</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
-                  <span>Workshop + mentorluk</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
-                  <span>Şirkete özel sistemler</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
-                  <span>İhtiyaca göre özelleştirilmiş müfredat</span>
-                </li>
+                {[
+                  "5+ kişilik ekipler",
+                  "Workshop + mentorluk",
+                  "Şirkete özel sistemler",
+                  "İhtiyaca göre özelleştirilmiş müfredat",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-primary-300">
+                    <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
               <a
                 href={waLink("Merhaba, şirketim için Kurumsal AI Eğitimi teklifi almak istiyorum.")}
@@ -438,64 +594,6 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               >
                 <WhatsAppIcon className="w-5 h-5" />
                 WhatsApp'tan teklif al
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BU PROGRAM NE DEĞİL */}
-      <section className="py-16 md:py-20">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                Bu program <span className="text-amber-400">ne değil?</span>
-              </h2>
-              <p className="text-lg text-primary-300 max-w-2xl mx-auto">
-                Yanlış beklentiyle başlamak zaman kaybıdır. Net olalım.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 mb-10">
-              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
-                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
-                <h3 className="font-display text-lg font-bold text-white mb-2">
-                  Kolay para kazanma yöntemi değil
-                </h3>
-                <p className="text-primary-400 text-sm">
-                  Pasif gelir vaadi yok. Bu, mesleğinizdeki üretim hızınızı artıran bir altyapı kurma programı.
-                </p>
-              </div>
-              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
-                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
-                <h3 className="font-display text-lg font-bold text-white mb-2">
-                  Tek tuş çözüm değil
-                </h3>
-                <p className="text-primary-400 text-sm">
-                  AI işinizi tek başına yürütmez. Sistemi siz kurar, siz yönetir, siz onaylarsınız. AI hızlandırıcıdır.
-                </p>
-              </div>
-              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
-                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
-                <h3 className="font-display text-lg font-bold text-white mb-2">
-                  Uygulama yapmadan sonuç vermez
-                </h3>
-                <p className="text-primary-400 text-sm">
-                  İzlemekle bitmiyor. Her hafta uygulama, her hafta kendi işinize uyarlama gerekiyor.
-                </p>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <a
-                href={waLink("Merhaba, AI Eğitimi'nin bana uygun olup olmadığını sormak istiyorum.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
-              >
-                <WhatsAppIcon className="w-5 h-5" />
-                Uygun mu? WhatsApp'tan sor
               </a>
             </div>
           </div>
@@ -514,7 +612,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {curriculum.map((item, idx) => {
               const Icon = item.icon;
               return (
@@ -528,18 +626,6 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               );
             })}
           </div>
-
-          <div className="text-center">
-            <a
-              href={waLink("Merhaba, AI Eğitimi müfredatı hakkında detaylı bilgi almak istiyorum.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
-            >
-              <WhatsAppIcon className="w-5 h-5" />
-              Detaylı bilgi için yaz
-            </a>
-          </div>
         </div>
       </section>
 
@@ -551,7 +637,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               Sektörel detay
             </h2>
             <p className="text-lg text-primary-300 max-w-2xl mx-auto">
-              Üç sektörden somut örnekler. Diğer sektörler için WhatsApp'tan yazın.
+              Üç sektörden somut örnekler. Diğer sektörler için iletişime geçin.
             </p>
           </div>
 
@@ -571,19 +657,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                     <h3 className="font-display text-2xl font-bold text-white">{detail.name}</h3>
                   </div>
 
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div>
-                      <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
-                        Hangi araçlar
-                      </h4>
-                      <ul className="space-y-2">
-                        {detail.tools.map((tool) => (
-                          <li key={tool} className="text-primary-300 text-sm">
-                            {tool}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  <div className="grid md:grid-cols-2 gap-8">
                     <div>
                       <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
                         Ne üretilebilir
@@ -604,65 +678,152 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                       <p className="text-primary-300 text-sm leading-relaxed">{detail.how}</p>
                     </div>
                   </div>
+                  <p className="text-primary-500 text-xs italic mt-6">
+                    Bunlar yapılabileceklerden sadece bazıları.
+                  </p>
                 </div>
               );
             })}
           </div>
+        </div>
+      </section>
 
-          <p className="text-center text-primary-500 text-sm italic mt-8">
-            Bunlar yapılabileceklerden sadece bazıları.
-          </p>
+      {/* BU PROGRAM NE DEĞİL */}
+      <section className="py-16 md:py-20 bg-surface-darker">
+        <div className="container-custom">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+                Bu program <span className="text-amber-400">ne değil?</span>
+              </h2>
+              <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+                Yanlış beklentiyle başlamak zaman kaybıdır. Net olalım.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
+                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+                <h3 className="font-display text-lg font-bold text-white mb-2">
+                  Kolay para kazanma yöntemi değil
+                </h3>
+                <p className="text-primary-400 text-sm">
+                  Pasif gelir vaadi yok. Bu, mesleğinizdeki üretim hızınızı artıran bir altyapı kurma programı.
+                </p>
+              </div>
+              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
+                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+                <h3 className="font-display text-lg font-bold text-white mb-2">
+                  Tek tuş çözüm değil
+                </h3>
+                <p className="text-primary-400 text-sm">
+                  AI işinizi tek başına yürütmez. Sistemi siz kurar, siz yönetir, siz onaylarsınız.
+                </p>
+              </div>
+              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
+                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+                <h3 className="font-display text-lg font-bold text-white mb-2">
+                  Uygulama yapmadan sonuç vermez
+                </h3>
+                <p className="text-primary-400 text-sm">
+                  İzlemekle bitmiyor. Her hafta kendi işinize uyarlama gerekiyor.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* EĞİTMEN */}
-      <section className="py-16 md:py-20 bg-surface-darker">
+      <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-surface-card border border-surface-border rounded-2xl p-8 md:p-12">
-              <div className="text-center mb-8">
-                <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">
-                  Eğitmen
-                </h2>
-                <p className="text-primary-300">Bu programı veren kişi.</p>
-              </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="relative bg-surface-card border border-surface-border rounded-2xl overflow-hidden">
+              <div
+                className="absolute inset-0 opacity-[0.04] pointer-events-none"
+                style={{ backgroundImage: "radial-gradient(circle, #818cf8 1px, transparent 1px)", backgroundSize: "20px 20px" }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-violet-500/5 pointer-events-none" />
 
-              <div className="grid md:grid-cols-3 gap-6 mb-10">
-                <div className="text-center">
-                  <div className="font-display text-3xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2">
-                    25+
+              <div className="relative p-8 md:p-12">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-10 pb-10 border-b border-surface-border">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                    <span className="text-white font-bold text-2xl font-display">TK</span>
                   </div>
-                  <p className="text-primary-300 text-sm">UX & dijital deneyim</p>
-                </div>
-                <div className="text-center">
-                  <div className="font-display text-3xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2">
-                    UX + SEO + Ads + AI
+                  <div className="flex-1">
+                    <h2 className="font-display text-2xl font-bold text-white">Tonguç Karaçay</h2>
+                    <p className="text-indigo-300 text-sm mt-0.5">AI-Driven UX & Growth Partner</p>
+                    <p className="text-primary-400 text-sm">İstanbul — Türkiye, Avrupa, ABD, Körfez pazarları</p>
                   </div>
-                  <p className="text-primary-300 text-sm">Dört disiplin tek elde</p>
+                  <a
+                    href={waLink("Merhaba Tonguç, AI Eğitimi hakkında bir sorum var.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all text-sm flex-shrink-0"
+                  >
+                    <WhatsAppIcon className="w-4 h-4" />
+                    Yaz
+                  </a>
                 </div>
-                <div className="text-center">
-                  <div className="font-display text-3xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2">
-                    Gerçek
-                  </div>
-                  <p className="text-primary-300 text-sm">Yaşayan projelerden örnekler</p>
-                </div>
-              </div>
 
-              <p className="text-primary-300 leading-relaxed text-center max-w-2xl mx-auto mb-8">
-                Tonguç Karaçay. 25 yılı aşkın UX, SEO ve dijital pazarlama deneyimi.
-                Kendi projelerinde günlük olarak AI sistemleri kuruyor — ve bu deneyimi sizin işinize taşımayı öğretiyor.
-              </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                  {[
+                    { stat: "25+", label: "Yıl deneyim" },
+                    { stat: "4", label: "Disiplin: UX · SEO · Ads · AI" },
+                    { stat: "TR + EN", label: "İçerik pazarları" },
+                    { stat: "Global", label: "Müşteri portföyü" },
+                  ].map(({ stat, label }) => (
+                    <div key={label} className="bg-surface-darker/60 rounded-xl p-4 text-center">
+                      <div className="font-display text-2xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-1">
+                        {stat}
+                      </div>
+                      <p className="text-primary-400 text-xs leading-snug">{label}</p>
+                    </div>
+                  ))}
+                </div>
 
-              <div className="text-center">
-                <a
-                  href={waLink("Merhaba Tonguç, AI Eğitimi hakkında bir sorum var.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
-                >
-                  <WhatsAppIcon className="w-5 h-5" />
-                  Sorunu direkt bana yaz
-                </a>
+                <div className="mb-8">
+                  <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-3">
+                    Projeler & çalışmalar
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { label: "behance.net/tonguc", note: "Portföy", url: "https://www.behance.net/tonguc" },
+                      { label: "whattime.city", note: "Global SaaS", url: "https://whattime.city" },
+                      { label: "tonguckaracay.com/en", note: "EN pazarı", url: null },
+                      { label: "UX SEO Audit Kit", note: "AI sistem", url: null },
+                      { label: "Klinik Otomasyon", note: "AI + SMS", url: null },
+                      { label: "Sektörel Lead Tespit", note: "AI sistem", url: null },
+                    ].map(({ label, note, url }) =>
+                      url ? (
+                        <a
+                          key={label}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 rounded-lg text-xs text-indigo-300 transition-colors"
+                        >
+                          {label}
+                          <span className="text-primary-500">· {note}</span>
+                          <ArrowRight className="w-3 h-3 -rotate-45" />
+                        </a>
+                      ) : (
+                        <span
+                          key={label}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-darker border border-surface-border rounded-lg text-xs text-primary-300"
+                        >
+                          {label}
+                          <span className="text-primary-500">· {note}</span>
+                        </span>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <p className="text-primary-300 leading-relaxed">
+                  25 yıllık UX, SEO ve dijital pazarlama deneyimini AI ile birleştiren stratejist.
+                  Türkiye, Avrupa ve ABD pazarlarına yönelik projelerde aktif olarak AI sistemleri kuruyor ve öğretiyor.
+                </p>
               </div>
             </div>
           </div>
@@ -670,7 +831,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       </section>
 
       {/* FAQ */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
