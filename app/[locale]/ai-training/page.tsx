@@ -182,7 +182,7 @@ const faq = [
   },
   {
     q: "How is a corporate program planned?",
-    a: "We start with a short discovery call on WhatsApp. I shape the curriculum around your team, goal, and existing workflow.",
+    a: "We start with a short discovery call. I shape the curriculum around your team, goal, and existing workflow.",
   },
   {
     q: "What do I walk away with?",
@@ -288,31 +288,88 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
         </div>
       </section>
 
-      {/* WHATSAPP TRIGGER 1 — Not sure? */}
+      {/* CALLOUT — Positioning */}
       <section className="py-12">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/30 rounded-2xl p-8 md:p-10 text-center">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-3">
-              Not sure?
+          <div className="max-w-4xl mx-auto bg-gradient-to-br from-indigo-500/10 via-violet-500/5 to-transparent border border-indigo-500/20 rounded-2xl p-8 md:p-10">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                <Sparkles className="w-5 h-5 text-indigo-300" />
+              </div>
+              <div>
+                <h2 className="font-display text-xl md:text-2xl font-bold text-white mb-3">
+                  This isn't just another AI course.
+                </h2>
+                <p className="text-primary-300 leading-relaxed">
+                  25 years of UX experience, SEO expertise, digital advertising knowledge, and daily AI practice — in one program.
+                  Not teaching tools — teaching you to build systems that actually fit your existing business.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* COMPARISON — Casual use vs System building */}
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              What's the difference?
             </h2>
-            <p className="text-primary-300 mb-6 max-w-xl mx-auto">
-              Let's figure out if it's the right fit in 2 minutes.
+            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              Most AI use stays at the tool level and never produces results. This program builds systems.
             </p>
-            <a
-              href={waLink("Hi, I'd like to talk through whether the AI Training is a fit for me.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
-            >
-              <WhatsAppIcon className="w-5 h-5" />
-              Message on WhatsApp
-            </a>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-8">
+              <h3 className="font-display text-lg font-bold text-primary-400 mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-surface-border flex items-center justify-center text-xs">✕</span>
+                Casual AI use
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Write prompts from scratch every time",
+                  "Inconsistent outputs, shifting tone",
+                  "Learns the tool, can't apply it to the job",
+                  "Stays in the curiosity phase, no real output",
+                  "No clear idea which tool does what",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-primary-400 text-sm">
+                    <XCircle className="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-indigo-500/10 to-violet-500/10 border border-indigo-500/30 rounded-2xl p-8">
+              <h3 className="font-display text-lg font-bold text-indigo-300 mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-xs">✓</span>
+                Building a system
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Reusable prompt library built for your work",
+                  "Consistent outputs aligned to your brand",
+                  "Workflow integrated into your business process",
+                  "Real production output every week",
+                  "Clear purpose for each tool",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-primary-200 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
       {/* SECTOR GRID */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
@@ -343,13 +400,13 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
           </div>
 
           <p className="text-center text-primary-500 text-sm italic mt-8">
-            These are just a few of the things you can build. Message on WhatsApp for sector-specific use cases.
+            These are just a few of the things you can build. Every sector's use cases are different.
           </p>
         </div>
       </section>
 
       {/* SEGMENT: Individual vs Corporate */}
-      <section className="py-16 md:py-20 bg-surface-darker">
+      <section className="py-16 md:py-20">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
@@ -361,8 +418,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {/* INDIVIDUAL */}
-            <div id="individual" className="bg-surface-card border border-indigo-500/30 rounded-2xl p-8 flex flex-col">
+            <div id="individual" className="bg-surface-card border border-indigo-500/30 rounded-2xl p-8 flex flex-col scroll-mt-24">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
                   <Users className="w-6 h-6 text-indigo-300" />
@@ -373,22 +429,17 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                 For freelancers, solo operators, and professionals growing their own business.
               </p>
               <ul className="space-y-3 mb-8 flex-1">
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span>Freelancer / solo operator</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span>6-week program</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span>Live sessions + full recording access</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span>Sector-specific prompt library</span>
-                </li>
+                {[
+                  "Freelancer / solo operator",
+                  "6-week program",
+                  "Live sessions + full recording access",
+                  "Sector-specific prompt library",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-primary-300">
+                    <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
               <a
                 href={waLink("Hi, I'd like to reserve a spot in the individual AI Training cohort.")}
@@ -401,8 +452,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               </a>
             </div>
 
-            {/* CORPORATE */}
-            <div id="corporate" className="bg-surface-card border border-violet-500/30 rounded-2xl p-8 flex flex-col">
+            <div id="corporate" className="bg-surface-card border border-violet-500/30 rounded-2xl p-8 flex flex-col scroll-mt-24">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-violet-500/20 flex items-center justify-center">
                   <Building2 className="w-6 h-6 text-violet-300" />
@@ -413,22 +463,17 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                 Custom programs for teams of 5+. Workshop, mentoring, and systems built for your company.
               </p>
               <ul className="space-y-3 mb-8 flex-1">
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
-                  <span>Teams of 5+</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
-                  <span>Workshop + mentoring</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
-                  <span>Company-specific systems</span>
-                </li>
-                <li className="flex items-start gap-3 text-primary-300">
-                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
-                  <span>Curriculum tailored to your team</span>
-                </li>
+                {[
+                  "Teams of 5+",
+                  "Workshop + mentoring",
+                  "Company-specific systems",
+                  "Curriculum tailored to your team",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-primary-300">
+                    <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
               <a
                 href={waLink("Hi, I'd like a quote for corporate AI Training for my company.")}
@@ -438,64 +483,6 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               >
                 <WhatsAppIcon className="w-5 h-5" />
                 Request a quote on WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHAT THIS PROGRAM ISN'T */}
-      <section className="py-16 md:py-20">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                What this program <span className="text-amber-400">isn't</span>
-              </h2>
-              <p className="text-lg text-primary-300 max-w-2xl mx-auto">
-                Wrong expectations waste time. Let's be clear.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 mb-10">
-              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
-                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
-                <h3 className="font-display text-lg font-bold text-white mb-2">
-                  Not a get-rich-quick scheme
-                </h3>
-                <p className="text-primary-400 text-sm">
-                  No passive income promises. This is an infrastructure program that increases the production speed in your craft.
-                </p>
-              </div>
-              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
-                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
-                <h3 className="font-display text-lg font-bold text-white mb-2">
-                  Not a one-click solution
-                </h3>
-                <p className="text-primary-400 text-sm">
-                  AI doesn't run your business by itself. You build the system, you operate it, you approve outputs. AI is the accelerator.
-                </p>
-              </div>
-              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
-                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
-                <h3 className="font-display text-lg font-bold text-white mb-2">
-                  Doesn't work without practice
-                </h3>
-                <p className="text-primary-400 text-sm">
-                  Watching alone won't cut it. Weekly application and adapting it to your own business is required.
-                </p>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <a
-                href={waLink("Hi, I want to ask whether the AI Training is a fit for me.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
-              >
-                <WhatsAppIcon className="w-5 h-5" />
-                Right fit? Ask on WhatsApp
               </a>
             </div>
           </div>
@@ -514,7 +501,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {curriculum.map((item, idx) => {
               const Icon = item.icon;
               return (
@@ -528,18 +515,6 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               );
             })}
           </div>
-
-          <div className="text-center">
-            <a
-              href={waLink("Hi, I'd like more details about the AI Training curriculum.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
-            >
-              <WhatsAppIcon className="w-5 h-5" />
-              Get details on WhatsApp
-            </a>
-          </div>
         </div>
       </section>
 
@@ -551,7 +526,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               Sector deep-dive
             </h2>
             <p className="text-lg text-primary-300 max-w-2xl mx-auto">
-              Three sectors — concrete examples. For other sectors, message on WhatsApp.
+              Three sectors — concrete examples. For other sectors, get in touch.
             </p>
           </div>
 
@@ -578,9 +553,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                       </h4>
                       <ul className="space-y-2">
                         {detail.tools.map((tool) => (
-                          <li key={tool} className="text-primary-300 text-sm">
-                            {tool}
-                          </li>
+                          <li key={tool} className="text-primary-300 text-sm">{tool}</li>
                         ))}
                       </ul>
                     </div>
@@ -604,73 +577,96 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                       <p className="text-primary-300 text-sm leading-relaxed">{detail.how}</p>
                     </div>
                   </div>
+                  <p className="text-primary-500 text-xs italic mt-6">
+                    These are just a few of the things you can build.
+                  </p>
                 </div>
               );
             })}
           </div>
-
-          <p className="text-center text-primary-500 text-sm italic mt-8">
-            These are just a few of the things you can build.
-          </p>
         </div>
       </section>
 
-      {/* INSTRUCTOR */}
+      {/* WHAT THIS PROGRAM ISN'T */}
       <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-surface-card border border-surface-border rounded-2xl p-8 md:p-12">
-              <div className="text-center mb-8">
-                <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">
-                  Instructor
-                </h2>
-                <p className="text-primary-300">Who's running this program.</p>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-6 mb-10">
-                <div className="text-center">
-                  <div className="font-display text-3xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2">
-                    25+
-                  </div>
-                  <p className="text-primary-300 text-sm">Years in UX & digital</p>
-                </div>
-                <div className="text-center">
-                  <div className="font-display text-3xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2">
-                    UX + SEO + Ads + AI
-                  </div>
-                  <p className="text-primary-300 text-sm">Four disciplines, one practitioner</p>
-                </div>
-                <div className="text-center">
-                  <div className="font-display text-3xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2">
-                    Real
-                  </div>
-                  <p className="text-primary-300 text-sm">Examples from live projects</p>
-                </div>
-              </div>
-
-              <p className="text-primary-300 leading-relaxed text-center max-w-2xl mx-auto mb-8">
-                Tonguç Karaçay. 25+ years in UX, SEO, and digital marketing.
-                Builds AI systems daily on his own projects — and teaches you to apply that experience to your business.
+            <div className="text-center mb-10">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+                What this program <span className="text-amber-400">isn't</span>
+              </h2>
+              <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+                Wrong expectations waste time. Let's be clear.
               </p>
+            </div>
 
-              <div className="text-center">
-                <a
-                  href={waLink("Hi Tonguç, I have a question about the AI Training.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
-                >
-                  <WhatsAppIcon className="w-5 h-5" />
-                  Ask me directly on WhatsApp
-                </a>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
+                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+                <h3 className="font-display text-lg font-bold text-white mb-2">
+                  Not a get-rich-quick scheme
+                </h3>
+                <p className="text-primary-400 text-sm">
+                  No passive income promises. This is an infrastructure program that increases production speed in your craft.
+                </p>
+              </div>
+              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
+                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+                <h3 className="font-display text-lg font-bold text-white mb-2">
+                  Not a one-click solution
+                </h3>
+                <p className="text-primary-400 text-sm">
+                  AI doesn't run your business by itself. You build the system, you operate it, you approve outputs.
+                </p>
+              </div>
+              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
+                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+                <h3 className="font-display text-lg font-bold text-white mb-2">
+                  Doesn't work without practice
+                </h3>
+                <p className="text-primary-400 text-sm">
+                  Watching alone won't cut it. Weekly application and adapting it to your own business is required.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* INSTRUCTOR */}
       <section className="py-16 md:py-20">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto bg-surface-card border border-surface-border rounded-2xl p-8 md:p-12">
+            <div className="text-center mb-8">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">Instructor</h2>
+              <p className="text-primary-300">Who's running this program.</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              {[
+                { stat: "25+", label: "Years in UX & digital" },
+                { stat: "UX + SEO\n+ Ads + AI", label: "Four disciplines, one practitioner" },
+                { stat: "Real", label: "Examples from live projects" },
+              ].map(({ stat, label }) => (
+                <div key={label} className="text-center">
+                  <div className="font-display text-2xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2 whitespace-pre-line">
+                    {stat}
+                  </div>
+                  <p className="text-primary-300 text-sm">{label}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-primary-300 leading-relaxed text-center max-w-2xl mx-auto">
+              Tonguç Karaçay. 25+ years in UX, SEO, and digital marketing.
+              Builds AI systems daily on his own projects — and teaches you to apply that experience to your business.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
