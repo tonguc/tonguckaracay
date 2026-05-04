@@ -14,20 +14,28 @@ import {
   XCircle,
   Users,
   Building2,
-  Zap,
   Brain,
   Workflow,
   Database,
   Shield,
   Target,
-  Clock,
-  TrendingUp,
 } from "lucide-react";
 
+const WHATSAPP_NUMBER = "905323824838";
+
+const waLink = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+const WhatsAppIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+  </svg>
+);
+
 export const metadata: Metadata = {
-  title: "AI Training | Tonguç Karaçay — Don't Learn AI, Build Systems",
-  description: "Individual cohorts and corporate AI training programs. Vertical playbooks for doctors, real estate, e-commerce, agencies, clinics, and SaaS founders. Optimize content, ad, and operations workflows with AI.",
-  keywords: ["AI training", "ChatGPT training", "corporate AI training", "AI for business", "AI workflow automation", "vertical AI training"],
+  title: "AI Training | Tonguç Karaçay — Learn to Build AI Systems for Your Business",
+  description: "Individual and corporate AI training. Learn to build systems that speed up your content, ads, and operations. Message on WhatsApp.",
+  keywords: ["AI training", "ChatGPT training", "corporate AI training", "AI for business", "AI workflow automation", "learn to build AI systems"],
   alternates: {
     canonical: 'https://tonguckaracay.com/en/ai-training',
     languages: {
@@ -37,8 +45,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Training | Don't Learn AI, Build Systems — Tonguç Karaçay",
-    description: "This isn't tool training — it's how to build systems that work in your business. Individual cohorts and corporate in-house programs.",
+    title: "AI Training | Learn to Build AI Systems for Your Business — Tonguç Karaçay",
+    description: "Not tools — systems. Learn to make your content, ads, and operations semi-automated.",
     url: 'https://tonguckaracay.com/en/ai-training',
     type: 'website',
   },
@@ -48,43 +56,37 @@ const sectors = [
   {
     icon: Stethoscope,
     name: "Doctors & Clinics",
-    promise: "Move social content, patient education videos, and visuals onto an AI pipeline.",
-    tools: "ChatGPT, Midjourney, ElevenLabs, Runway",
+    output: "Learn to build weekly content, patient education videos, and visual production systems.",
     anchor: "doctors",
   },
   {
     icon: Home,
     name: "Real Estate",
-    promise: "Listing copy, drone-video editing, virtual staging, and lead-follow-up bots.",
-    tools: "Claude, Runway, Virtual Staging AI, n8n",
-    anchor: "realestate",
+    output: "Learn to make listing copy, virtual staging, and follow-up flows semi-automated.",
+    anchor: "real-estate",
   },
   {
     icon: ShoppingBag,
-    name: "E-commerce SMBs",
-    promise: "AI-supported product descriptions, visuals, and ad copy workflows for Shopify, Amazon, eBay.",
-    tools: "GPT-5, Midjourney, Make.com",
+    name: "E-commerce SMB",
+    output: "Learn to make product descriptions and ad creatives produceable at scale.",
     anchor: "ecommerce",
   },
   {
     icon: Megaphone,
     name: "Marketing Agencies",
-    promise: "From brief to campaign, from pitch deck to ad variants — a semi-automated production pipeline.",
-    tools: "Claude, Gamma, AdCreative.ai, n8n",
+    output: "Learn to build a workflow from brief to campaign, pitch deck to ad variant.",
     anchor: "agencies",
   },
   {
     icon: Scissors,
     name: "Beauty & Aesthetic Clinics",
-    promise: "Before/after visuals, booking bots, content calendars, review-mining for service insights.",
-    tools: "ChatGPT, Midjourney, ManyChat",
+    output: "Learn to build before/after edits, content calendars, and review analysis flows.",
     anchor: "beauty",
   },
   {
     icon: Rocket,
     name: "SaaS Founders",
-    promise: "Get to a working prototype on your own with Cursor, Claude, and n8n.",
-    tools: "Cursor, Claude Code, n8n, Vercel",
+    output: "Learn to make landing copy, blog posts, and support drafts semi-automated.",
     anchor: "saas",
   },
 ];
@@ -92,208 +94,128 @@ const sectors = [
 const curriculum = [
   {
     icon: Brain,
-    title: "Module 1 — AI Foundations & Picking the Right Model",
-    points: ["GPT vs. Claude vs. Gemini differences", "Which model for which job", "Tokens, context, and cost mechanics"],
+    title: "AI tools and selection logic",
+    desc: "ChatGPT, Claude, Gemini, Midjourney, Runway, ElevenLabs — which tool for which job.",
   },
   {
     icon: Sparkles,
-    title: "Module 2 — Advanced Prompt Engineering",
-    points: ["Vertical-specific prompt library", "Role / context / format patterns", "Prompt chaining"],
-  },
-  {
-    icon: Workflow,
-    title: "Module 3 — Semi-Automated AI Workflows",
-    points: ["Workflow pipelines with n8n & Make", "Email, WhatsApp, CRM integration", "Cut repetitive tasks substantially"],
-  },
-  {
-    icon: Database,
-    title: "Module 4 — AI on Your Company Data (RAG)",
-    points: ["Assistants that talk to your docs", "Client/customer data security", "ChatGPT Custom GPTs & Claude Projects"],
+    title: "Content production system",
+    desc: "Learn to consolidate blog, social, video script, and visual production into one flow.",
   },
   {
     icon: Target,
-    title: "Module 5 — AI for Marketing & Sales",
-    points: ["Content, ads, and email automation", "Visual & video production line", "Lead-qualification bots"],
+    title: "Ad creative system",
+    desc: "Learn to build a copy, visual, and A/B variant pipeline for Meta and Google.",
+  },
+  {
+    icon: Workflow,
+    title: "Semi-automated workflows",
+    desc: "Learn to integrate email, CRM, calendar, and messaging using n8n, Make, and Zapier.",
+  },
+  {
+    icon: Database,
+    title: "Prompt library",
+    desc: "Learn to build reusable prompt systems tailored to your sector.",
   },
   {
     icon: Shield,
-    title: "Module 6 — Ethics, Privacy & Compliance",
-    points: ["What data NOT to feed AI", "Corporate AI policy template", "Hallucination & verification"],
+    title: "Data safety & human review",
+    desc: "Learn what data goes to AI and what output needs human approval.",
   },
 ];
 
-const individualBenefits = [
-  "6-week live cohort (one 2-hour session per week)",
-  "Vertical-specific prompt library",
-  "5 ready-to-use semi-automated workflow templates (n8n)",
-  "Private Discord community",
-  "30 days of post-cohort Q&A access",
-  "Certificate",
-];
-
-const corporateBenefits = [
-  "1-3 day in-house workshop",
-  "Company-specific AI Playbook document",
-  "10+ semi-automated workflows customized for your team",
-  "4 weeks of implementation mentorship",
-  "AI policy & compliance template",
-  "Executive strategic summary briefing",
-];
-
-const sectorDeepDive = [
+const sectorDetails = [
   {
-    id: "doctors",
+    anchor: "doctors",
     icon: Stethoscope,
-    title: "AI System for Doctors",
-    intro: "Stay focused on patients — let AI support content and ops.",
-    use: [
-      "Patient education videos: script (ChatGPT) → visual (Midjourney/Runway) → voiceover (ElevenLabs)",
-      "Content calendar and reel template library for Instagram",
-      "Custom GPT chatbot for frequently asked patient questions",
-      "Medical paper summarizer (PDF → Claude → bullet points)",
-      "Pre-appointment WhatsApp briefing workflow (n8n)",
+    name: "Doctors & Clinics",
+    tools: ["ChatGPT", "Claude", "Midjourney", "ElevenLabs", "Canva", "Runway"],
+    produce: [
+      "Weekly 3–5 social posts (copy + visual)",
+      "Patient education video (script + voiceover)",
+      "Pre-appointment WhatsApp briefing flow draft",
     ],
-    output: "Doctor-specific prompt library + 3 semi-automated workflows (content, appointment briefing, patient FAQ).",
+    how: "Branding rules → prompt template → content calendar → review process.",
   },
   {
-    id: "ecommerce",
+    anchor: "ecommerce",
     icon: ShoppingBag,
-    title: "AI System for E-commerce SMBs",
-    intro: "Move product listing, ad copy, and visual generation onto an AI-supported pipeline.",
-    use: [
-      "Title + description prompt chain for Shopify/Amazon/eBay",
-      "Lifestyle visuals from product photos (Midjourney + image-to-image)",
-      "Review mining → conversion-driving sales arguments",
-      "Ad-variant prompt set for Meta Ads & Google Ads",
-      "Stock-price-competitor monitoring workflow (n8n + scrapers)",
+    name: "E-commerce SMB",
+    tools: ["GPT-5", "Claude", "Midjourney", "Make.com"],
+    produce: [
+      "Description variants for 100+ SKUs",
+      "Ad copy and creative variants",
+      "Customer reply drafts (human-reviewed)",
     ],
-    output: "E-commerce prompt set + ad-variant generator template + product-listing workflow.",
+    how: "Product CSV → prompt template → variant generation → marketplace upload.",
   },
   {
-    id: "realestate",
-    icon: Home,
-    title: "AI System for Real Estate",
-    intro: "Tour the property — let AI draft the listing and edit the video.",
-    use: [
-      "Voice memo → SEO-friendly listing draft (Zillow, Redfin, MLS)",
-      "Empty room → fully staged photos (virtual staging)",
-      "Short reels edited from drone footage",
-      "Lead segmentation and follow-up email workflows",
-      "Neighborhood report draft (price, demand, competing listings)",
-    ],
-    output: "Listing-copy library + lead-follow-up workflow + neighborhood-report template.",
-  },
-  {
-    id: "agencies",
+    anchor: "agencies",
     icon: Megaphone,
-    title: "AI System for Agencies",
-    intro: "A semi-automated production pipeline from brief to delivery.",
-    use: [
-      "Brief → strategy → concept → ad copy draft pipeline",
-      "Pitch deck draft (Gamma + Claude)",
-      "Ad-variant generator (AdCreative.ai + prompt set)",
-      "Social plan + visuals + captions production workflow",
-      "Client reporting workflow (GA4 → AI summary → PDF draft)",
+    name: "Marketing Agencies",
+    tools: ["Claude", "Gamma", "AdCreative.ai", "n8n"],
+    produce: [
+      "Strategy doc draft from brief",
+      "Pitch deck draft (Gamma)",
+      "5+ creative variants per ad set",
     ],
-    output: "Brief-to-delivery production pipeline + client-reporting template + ad-variant generator.",
-  },
-  {
-    id: "beauty",
-    icon: Scissors,
-    title: "AI System for Beauty & Clinics",
-    intro: "AI-supported booking, content production, and follow-up workflows.",
-    use: [
-      "Before/after visual generation and social pipeline",
-      "WhatsApp booking workflow (ManyChat + n8n)",
-      "Review analysis → service-improvement signals",
-      "Monthly content calendar via AI (visuals + captions + hashtags)",
-      "Post-treatment follow-up message workflow",
-    ],
-    output: "Monthly content-calendar template + WhatsApp booking workflow + review-analysis prompt.",
-  },
-  {
-    id: "saas",
-    icon: Rocket,
-    title: "AI System for SaaS Founders",
-    intro: "Get to a working prototype on your own and support workflows with AI.",
-    use: [
-      "Cursor + Claude Code for solo prototyping",
-      "Simple backend workflows with n8n (no code)",
-      "Landing page + onboarding email draft pipeline",
-      "User-interview summarizer",
-      "Product analytics → AI insight report draft",
-    ],
-    output: "Cursor + Claude prompt set + n8n workflow templates + onboarding email kit.",
+    how: "Client brief → AI workflow → revision loop → final output.",
   },
 ];
 
-const faqs = [
+const faq = [
   {
-    q: "Is this AI training, or are you actually building a system?",
-    a: "Both — but the system is the point. Generic training teaches you to 'use ChatGPT.' We teach you to build systems that work in your business: prompt libraries, semi-automated workflows, an AI playbook. Training ends; the workflows keep running.",
+    q: "Do I need technical knowledge to join?",
+    a: "No. We start from zero. If you can use a computer and commit to consistent practice, you're set.",
   },
   {
-    q: "I have zero technical background. Can I join?",
-    a: "Yes. The individual cohort starts from zero. We don't write code; we use no-code tools like ChatGPT, Claude, and n8n. If you can use a computer, you can do this.",
+    q: "Is the program live or recorded?",
+    a: "The individual program runs live with full recordings available. Corporate programs are scheduled around your team.",
   },
   {
-    q: "How does the individual cohort work?",
-    a: "6 weeks, one live 2-hour session per week. Homework and hands-on practice after each. Recordings are yours forever. Opening cohort price is $249 (regular $399-$549).",
+    q: "My sector isn't in the list. Can I still join?",
+    a: "Yes. The core curriculum is sector-agnostic. Message on WhatsApp and we'll figure out the fit together.",
   },
   {
-    q: "How does the corporate program work?",
-    a: "We start with a discovery call to assess your team's AI maturity. Then we build a custom curriculum — 1-3 day workshop plus 4 weeks of mentorship. Pricing ranges from $4K to $20K depending on scope.",
+    q: "Which tools require paid subscriptions?",
+    a: "Most tools work on free or low-cost tiers. We clarify which subscriptions are actually worth it in week one.",
   },
   {
-    q: "Which industries is this for?",
-    a: "Right now: doctors, real estate, e-commerce SMBs, marketing agencies, beauty/aesthetic clinics, and SaaS founders have ready playbooks. Other industries get a custom curriculum as part of the corporate program.",
+    q: "How is a corporate program planned?",
+    a: "We start with a short discovery call on WhatsApp. I shape the curriculum around your team, goal, and existing workflow.",
   },
   {
-    q: "Is our data safe?",
-    a: "Module 6 is dedicated to this: what data not to feed AI, GDPR/HIPAA-aware usage, corporate AI policy templates. We design systems that protect client/patient/customer data.",
-  },
-  {
-    q: "Is there post-training support?",
-    a: "Individual: 30 days of Q&A access plus the Discord community. Corporate: 4 weeks of implementation mentorship plus 3 months of email support.",
+    q: "What do I walk away with?",
+    a: "A sector-specific prompt library, working workflow drafts, and a system foundation you can keep building on.",
   },
 ];
 
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map(f => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
+export default function AiTrainingPage({ params }: { params: { locale: string } }) {
+  setRequestLocale(params.locale);
 
-const courseJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Course',
-  name: 'AI Training — Build an AI System for Your Business',
-  description: 'Individual and corporate AI training programs with vertical use-cases: prompt engineering, workflow automation, RAG, and AI playbooks.',
-  provider: {
-    '@type': 'Person',
-    name: 'Tonguç Karaçay',
-    url: 'https://tonguckaracay.com/en',
-  },
-  inLanguage: 'en-US',
-  offers: [
-    {
-      '@type': 'Offer',
-      name: 'Individual Cohort — Opening Price',
-      price: '249',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+
+  const courseJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "AI Training — Learn to Build AI Systems for Your Business",
+    description: "Individual and corporate AI training. Learn to make your content, ads, and operations semi-automated.",
+    provider: {
+      "@type": "Person",
+      name: "Tonguç Karaçay",
+      url: "https://tonguckaracay.com",
     },
-  ],
-};
-
-type Props = { params: { locale: string } };
-
-export default function AiTrainingPage({ params: { locale } }: Props) {
-  setRequestLocale(locale);
+    inLanguage: "en-US",
+    url: "https://tonguckaracay.com/en/ai-training",
+  };
 
   return (
     <main className="pt-20">
@@ -306,438 +228,441 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
       />
 
-      {/* Hero */}
+      {/* HERO */}
       <section className="relative py-20 md:py-28 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent-500/5 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl" />
         </div>
 
         <div className="container-custom relative z-10">
-          <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
-            <Link href="/en" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white">AI Training</span>
-          </nav>
+          <div className="max-w-4xl mx-auto text-center">
+            <nav className="flex items-center justify-center gap-2 text-sm text-primary-400 mb-6">
+              <Link href="/en" className="hover:text-white transition-colors">Home</Link>
+              <span>/</span>
+              <span className="text-white">AI Training</span>
+            </nav>
 
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/20 to-violet-500/20 border border-indigo-500/40 text-indigo-200 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm font-medium mb-8">
               <Sparkles className="w-4 h-4" />
-              UI/UX + SEO + Ads + AI experience
+              <span>Individual & Corporate AI Programs</span>
             </div>
 
-            <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Learn to build AI systems{' '}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400">
-                that work in your business.
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-6 leading-[1.1]">
+              Grow your business with AI.{" "}
+              <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+                Speed up your content, ads, and operations.
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-primary-200 mb-4 leading-relaxed">
-              We don't teach tools. We build systems integrated into your{' '}
-              <strong className="text-white">content, ad, and operations workflows</strong> — together.
+            <p className="text-xl text-primary-300 mb-10 leading-relaxed max-w-2xl mx-auto">
+              This program isn't a tool tutorial. You'll learn to build systems that work in your business.
             </p>
 
-            <p className="text-lg text-primary-300 mb-10 leading-relaxed max-w-3xl">
-              Doctor, realtor, e-commerce founder, agency lead, clinic owner, or SaaS builder — leave with
-              a vertical-specific prompt library, semi-automated workflows, and an AI playbook.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href={waLink("Hi, I'd like to know more about the AI Training program.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all shadow-lg shadow-green-500/20"
+              >
+                <WhatsAppIcon className="w-5 h-5" />
+                Message on WhatsApp
+              </a>
               <Link
                 href="#individual"
-                className="group inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold hover:from-indigo-400 hover:to-violet-500 transform hover:scale-[1.02] transition-all shadow-lg shadow-indigo-500/30"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-surface-card border border-surface-border hover:border-indigo-500/50 text-white font-semibold rounded-xl transition-all"
               >
                 <Users className="w-5 h-5" />
-                For individuals
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Individual
               </Link>
               <Link
                 href="#corporate"
-                className="group inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-surface-card border border-surface-border text-white font-semibold hover:border-indigo-400/50 hover:bg-surface-card/80 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-surface-card border border-surface-border hover:border-violet-500/50 text-white font-semibold rounded-xl transition-all"
               >
                 <Building2 className="w-5 h-5" />
                 For my company
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Not just an AI course callout */}
-      <section className="py-10 bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-y border-indigo-500/20">
+      {/* WHATSAPP TRIGGER 1 — Not sure? */}
+      <section className="py-12">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-lg font-semibold text-indigo-200 mb-4">
-              ✨ This isn't just another AI course
-            </p>
-            <p className="text-primary-200 leading-relaxed">
-              We don't only show prompts · We don't only demo tools · <strong className="text-white">With UX + SEO + Ads + AI experience</strong>, we teach you to build systems built for your industry.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Positioning */}
-      <section className="py-16 bg-surface-card/30">
-        <div className="container-custom">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="section-title text-center mb-12">
-              Looking for a <span className="text-gradient">generic AI course?</span>
+          <div className="max-w-3xl mx-auto bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/30 rounded-2xl p-8 md:p-10 text-center">
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-3">
+              Not sure?
             </h2>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-surface-card/60 border border-red-500/20 rounded-2xl p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <XCircle className="w-6 h-6 text-red-400" />
-                  <h3 className="font-display text-xl font-semibold text-white">Generic AI Training</h3>
-                </div>
-                <ul className="space-y-3 text-primary-300">
-                  <li>• Teaches you to "write a ChatGPT prompt"</li>
-                  <li>• Generic examples, same content for everyone</li>
-                  <li>• Training ends — without practice, you forget</li>
-                  <li>• No business-integrated output</li>
-                  <li>• A month later you're still staring at ChatGPT</li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-br from-indigo-500/10 to-violet-500/10 border border-indigo-500/40 rounded-2xl p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <CheckCircle2 className="w-6 h-6 text-indigo-400" />
-                  <h3 className="font-display text-xl font-semibold text-white">Building an AI System</h3>
-                </div>
-                <ul className="space-y-3 text-primary-200">
-                  <li>✓ Vertical-specific prompt library (yours forever)</li>
-                  <li>✓ Semi-automated workflow pipelines (n8n, Make)</li>
-                  <li>✓ AI assistants on your company data (RAG)</li>
-                  <li>✓ AI playbook your team will actually use</li>
-                  <li>✓ Training ends, <strong className="text-white">the workflows keep running</strong></li>
-                </ul>
-              </div>
-            </div>
+            <p className="text-primary-300 mb-6 max-w-xl mx-auto">
+              Let's figure out if it's the right fit in 2 minutes.
+            </p>
+            <a
+              href={waLink("Hi, I'd like to talk through whether the AI Training is a fit for me.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
+            >
+              <WhatsAppIcon className="w-5 h-5" />
+              Message on WhatsApp
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Sector grid */}
-      <section className="py-20">
+      {/* SECTOR GRID */}
+      <section className="py-16 md:py-20">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="section-title mb-4">
-              Built for <span className="text-gradient">your industry</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              What sector are you in?
             </h2>
-            <p className="section-subtitle mx-auto">
-              Not a generic AI course. We show you exactly how to win in your industry — with concrete tools and examples.
+            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              Every sector has its own content language, ad logic, and operational rhythm. The program adapts to yours.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-            {sectors.map((sector) => (
-              <Link
-                key={sector.anchor}
-                href={`#${sector.anchor}`}
-                className="group bg-surface-card border border-surface-border rounded-2xl p-6 hover:border-indigo-400/50 hover:bg-surface-card/80 transition-all"
-              >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 border border-indigo-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <sector.icon className="w-6 h-6 text-indigo-300" />
-                </div>
-                <h3 className="font-display text-lg font-semibold text-white mb-2">{sector.name}</h3>
-                <p className="text-primary-300 text-sm leading-relaxed mb-3">{sector.promise}</p>
-                <p className="text-xs text-indigo-300/70 font-mono">{sector.tools}</p>
-                <div className="flex items-center gap-1 text-indigo-400 text-sm mt-4 group-hover:gap-2 transition-all">
-                  See details
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Individual vs Corporate */}
-      <section className="py-20 bg-surface-card/30">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="section-title mb-4">
-              Which <span className="text-gradient">path is yours?</span>
-            </h2>
-            <p className="section-subtitle mx-auto">
-              Coming as an individual, or transforming an entire team?
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
-            {/* Individual */}
-            <div id="individual" className="bg-gradient-to-br from-indigo-500/10 to-violet-500/5 border border-indigo-500/30 rounded-2xl p-8 scroll-mt-24">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-indigo-300" />
-                </div>
-                <h3 className="font-display text-2xl font-bold text-white">Individual Cohort</h3>
-              </div>
-              <p className="text-primary-300 mb-6">
-                Freelancers, solopreneurs, small business owners, professionals — for yourself.
-              </p>
-
-              <ul className="space-y-3 mb-8">
-                {individualBenefits.map((b, i) => (
-                  <li key={i} className="flex items-start gap-2 text-primary-200">
-                    <CheckCircle2 className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="bg-surface-darker/50 border border-indigo-500/20 rounded-xl p-5 mb-6">
-                <div className="flex items-baseline gap-3 mb-1">
-                  <span className="text-sm text-primary-400 line-through">$399 - $549</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 font-medium">First Cohort Special</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="font-display text-4xl font-bold text-white">$249</span>
-                  <span className="text-primary-400 text-sm">/ seat</span>
-                </div>
-                <p className="text-primary-400 text-xs mt-2">Limited to 12 seats</p>
-              </div>
-
-              <Link
-                href="/en/contact?topic=ai-training-individual"
-                className="group block w-full text-center px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold hover:from-indigo-400 hover:to-violet-500 transition-all"
-              >
-                Join the first cohort (limited seats)
-                <ArrowRight className="ml-2 w-4 h-4 inline group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-
-            {/* Corporate */}
-            <div id="corporate" className="bg-gradient-to-br from-accent-500/10 to-amber-500/5 border border-accent-500/30 rounded-2xl p-8 scroll-mt-24">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center">
-                  <Building2 className="w-6 h-6 text-accent-400" />
-                </div>
-                <h3 className="font-display text-2xl font-bold text-white">Corporate Program</h3>
-              </div>
-              <p className="text-primary-300 mb-6">
-                In-house program designed for teams of 5+, departments, and entire companies.
-              </p>
-
-              <ul className="space-y-3 mb-8">
-                {corporateBenefits.map((b, i) => (
-                  <li key={i} className="flex items-start gap-2 text-primary-200">
-                    <CheckCircle2 className="w-5 h-5 text-accent-400 shrink-0 mt-0.5" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="bg-surface-darker/50 border border-accent-500/20 rounded-xl p-5 mb-6">
-                <div className="text-sm text-primary-400 mb-1">Custom proposal</div>
-                <div className="flex items-baseline gap-2">
-                  <span className="font-display text-4xl font-bold text-white">$4K — $20K</span>
-                </div>
-                <p className="text-primary-400 text-xs mt-2">Based on team size, scope, and duration</p>
-              </div>
-
-              <Link
-                href="/en/contact?topic=ai-training-corporate"
-                className="group block w-full text-center px-6 py-4 rounded-xl bg-gradient-to-r from-accent-500 to-accent-600 text-primary-950 font-semibold hover:from-accent-400 hover:to-accent-500 transition-all"
-              >
-                Book a free discovery call
-                <ArrowRight className="ml-2 w-4 h-4 inline group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Curriculum */}
-      <section className="py-20">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="section-title mb-4">
-              Core <span className="text-gradient">curriculum</span>
-            </h2>
-            <p className="section-subtitle mx-auto">
-              Six modules that ground both the individual and corporate program. Depth varies by industry.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-            {curriculum.map((m, i) => (
-              <div
-                key={i}
-                className="bg-surface-card border border-surface-border rounded-2xl p-6 hover:border-indigo-400/40 transition-all"
-              >
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/15 flex items-center justify-center mb-4">
-                  <m.icon className="w-6 h-6 text-indigo-300" />
-                </div>
-                <h3 className="font-display text-lg font-semibold text-white mb-3">{m.title}</h3>
-                <ul className="space-y-1.5">
-                  {m.points.map((p, j) => (
-                    <li key={j} className="text-primary-300 text-sm flex items-start gap-2">
-                      <span className="text-indigo-400 mt-1">•</span>
-                      <span>{p}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sector deep dive */}
-      <section className="py-20 bg-surface-card/30">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="section-title mb-4">
-              Vertical <span className="text-gradient">use-cases</span>
-            </h2>
-            <p className="section-subtitle mx-auto">
-              Concrete outcomes for each industry. Here are the ready-to-use scenarios you'll leave with.
-            </p>
-          </div>
-
-          <div className="space-y-6 max-w-5xl mx-auto">
-            {sectorDeepDive.map((s) => (
-              <div
-                key={s.id}
-                id={s.id}
-                className="bg-surface-card border border-surface-border rounded-2xl p-6 md:p-8 scroll-mt-24"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 border border-indigo-500/30 flex items-center justify-center shrink-0">
-                    <s.icon className="w-6 h-6 text-indigo-300" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sectors.map((sector) => {
+              const Icon = sector.icon;
+              return (
+                <Link
+                  key={sector.anchor}
+                  href={`#${sector.anchor}`}
+                  className="group bg-surface-card border border-surface-border hover:border-indigo-500/50 rounded-2xl p-6 transition-all"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 flex items-center justify-center mb-4">
+                    <Icon className="w-6 h-6 text-indigo-300" />
                   </div>
-                  <div>
-                    <h3 className="font-display text-xl md:text-2xl font-bold text-white mb-1">{s.title}</h3>
-                    <p className="text-primary-300">{s.intro}</p>
-                  </div>
-                </div>
-
-                <ul className="grid md:grid-cols-2 gap-2.5 mt-4">
-                  {s.use.map((u, i) => (
-                    <li key={i} className="flex items-start gap-2 text-primary-200 text-sm">
-                      <Zap className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                      <span>{u}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-5 pt-5 border-t border-indigo-500/20 space-y-2">
-                  <p className="text-sm text-primary-300">
-                    <span className="font-semibold text-indigo-300">📦 You leave with: </span>
-                    {s.output}
-                  </p>
-                  <p className="text-xs text-primary-500 italic">
-                    * These are just some of what's possible — we explore additional use-cases specific to your industry during the program.
-                  </p>
-                </div>
-              </div>
-            ))}
+                  <h3 className="font-display text-lg font-bold text-white mb-2">{sector.name}</h3>
+                  <p className="text-primary-300 text-sm leading-relaxed">{sector.output}</p>
+                </Link>
+              );
+            })}
           </div>
 
-          <p className="text-center text-primary-400 mt-10">
-            Don't see your industry?{' '}
-            <Link href="/en/contact?topic=ai-training-industry" className="text-indigo-300 hover:text-indigo-200 underline underline-offset-4">
-              Reach out
-            </Link>
-            {' '}— corporate programs include custom industry curricula.
+          <p className="text-center text-primary-500 text-sm italic mt-8">
+            These are just a few of the things you can build. Message on WhatsApp for sector-specific use cases.
           </p>
         </div>
       </section>
 
-      {/* Instructor */}
-      <section className="py-20">
+      {/* SEGMENT: Individual vs Corporate */}
+      <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="section-title mb-4">
-                Why <span className="text-gradient">work with me</span>
-              </h2>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              Which one fits you?
+            </h2>
+            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              Two programs. Two audiences. Clear focus.
+            </p>
+          </div>
 
-            <div className="grid md:grid-cols-3 gap-5 mb-8">
-              <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center">
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center mx-auto mb-3">
-                  <Clock className="w-6 h-6 text-indigo-300" />
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {/* INDIVIDUAL */}
+            <div id="individual" className="bg-surface-card border border-indigo-500/30 rounded-2xl p-8 flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                  <Users className="w-6 h-6 text-indigo-300" />
                 </div>
-                <div className="font-display text-3xl font-bold text-white mb-1">25+</div>
-                <div className="text-primary-300 text-sm">years in digital</div>
+                <h3 className="font-display text-2xl font-bold text-white">Individual</h3>
               </div>
-              <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center">
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center mx-auto mb-3">
-                  <Target className="w-6 h-6 text-indigo-300" />
-                </div>
-                <div className="font-display text-3xl font-bold text-white mb-1">4-in-1</div>
-                <div className="text-primary-300 text-sm">UI/UX + SEO + Ads + AI</div>
-              </div>
-              <div className="bg-surface-card border border-surface-border rounded-2xl p-6 text-center">
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center mx-auto mb-3">
-                  <TrendingUp className="w-6 h-6 text-indigo-300" />
-                </div>
-                <div className="font-display text-3xl font-bold text-white mb-1">100+</div>
-                <div className="text-primary-300 text-sm">brand experience</div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-br from-indigo-500/10 to-violet-500/5 border border-indigo-500/30 rounded-2xl p-8 text-center">
-              <p className="text-lg text-primary-200 leading-relaxed mb-6">
-                Unlike most AI trainers, you're learning from someone who has shipped <strong className="text-white">design, SEO, ads, and AI together</strong>.
-                Not just AI — outcome-driven systems.
+              <p className="text-primary-300 mb-6">
+                For freelancers, solo operators, and professionals growing their own business.
               </p>
-              <Link href="/en/about" className="btn-secondary">
-                More about Tonguç
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
+              <ul className="space-y-3 mb-8 flex-1">
+                <li className="flex items-start gap-3 text-primary-300">
+                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
+                  <span>Freelancer / solo operator</span>
+                </li>
+                <li className="flex items-start gap-3 text-primary-300">
+                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
+                  <span>6-week program</span>
+                </li>
+                <li className="flex items-start gap-3 text-primary-300">
+                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
+                  <span>Live sessions + full recording access</span>
+                </li>
+                <li className="flex items-start gap-3 text-primary-300">
+                  <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
+                  <span>Sector-specific prompt library</span>
+                </li>
+              </ul>
+              <a
+                href={waLink("Hi, I'd like to reserve a spot in the individual AI Training cohort.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
+              >
+                <WhatsAppIcon className="w-5 h-5" />
+                Reserve your seat on WhatsApp
+              </a>
+            </div>
+
+            {/* CORPORATE */}
+            <div id="corporate" className="bg-surface-card border border-violet-500/30 rounded-2xl p-8 flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-violet-500/20 flex items-center justify-center">
+                  <Building2 className="w-6 h-6 text-violet-300" />
+                </div>
+                <h3 className="font-display text-2xl font-bold text-white">Corporate</h3>
+              </div>
+              <p className="text-primary-300 mb-6">
+                Custom programs for teams of 5+. Workshop, mentoring, and systems built for your company.
+              </p>
+              <ul className="space-y-3 mb-8 flex-1">
+                <li className="flex items-start gap-3 text-primary-300">
+                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
+                  <span>Teams of 5+</span>
+                </li>
+                <li className="flex items-start gap-3 text-primary-300">
+                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
+                  <span>Workshop + mentoring</span>
+                </li>
+                <li className="flex items-start gap-3 text-primary-300">
+                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
+                  <span>Company-specific systems</span>
+                </li>
+                <li className="flex items-start gap-3 text-primary-300">
+                  <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
+                  <span>Curriculum tailored to your team</span>
+                </li>
+              </ul>
+              <a
+                href={waLink("Hi, I'd like a quote for corporate AI Training for my company.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
+              >
+                <WhatsAppIcon className="w-5 h-5" />
+                Request a quote on WhatsApp
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Who this is NOT for */}
-      <section className="py-16">
+      {/* WHAT THIS PROGRAM ISN'T */}
+      <section className="py-16 md:py-20">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="section-title mb-3">
-                Who this program is <span className="text-gradient">NOT for</span>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+                What this program <span className="text-amber-400">isn't</span>
               </h2>
-              <p className="text-primary-400 max-w-2xl mx-auto">
-                We'd rather be upfront so you don't sign up with the wrong expectation. This program is not for:
+              <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+                Wrong expectations waste time. Let's be clear.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
-                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
-                <div>
-                  <p className="text-white font-medium mb-1">"One-click money" seekers</p>
-                  <p className="text-primary-400 text-sm">If you expect AI to print revenue with a button, this isn't the program.</p>
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
+                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+                <h3 className="font-display text-lg font-bold text-white mb-2">
+                  Not a get-rich-quick scheme
+                </h3>
+                <p className="text-primary-400 text-sm">
+                  No passive income promises. This is an infrastructure program that increases the production speed in your craft.
+                </p>
+              </div>
+              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
+                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+                <h3 className="font-display text-lg font-bold text-white mb-2">
+                  Not a one-click solution
+                </h3>
+                <p className="text-primary-400 text-sm">
+                  AI doesn't run your business by itself. You build the system, you operate it, you approve outputs. AI is the accelerator.
+                </p>
+              </div>
+              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
+                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+                <h3 className="font-display text-lg font-bold text-white mb-2">
+                  Doesn't work without practice
+                </h3>
+                <p className="text-primary-400 text-sm">
+                  Watching alone won't cut it. Weekly application and adapting it to your own business is required.
+                </p>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <a
+                href={waLink("Hi, I want to ask whether the AI Training is a fit for me.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
+              >
+                <WhatsAppIcon className="w-5 h-5" />
+                Right fit? Ask on WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CURRICULUM */}
+      <section className="py-16 md:py-20 bg-surface-darker">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              Curriculum
+            </h2>
+            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              Six modules — built around needs, not tools.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
+            {curriculum.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div key={idx} className="bg-surface-card border border-surface-border rounded-2xl p-6">
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5 text-indigo-300" />
+                  </div>
+                  <h3 className="font-display text-lg font-bold text-white mb-2">{item.title}</h3>
+                  <p className="text-primary-300 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="text-center">
+            <a
+              href={waLink("Hi, I'd like more details about the AI Training curriculum.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
+            >
+              <WhatsAppIcon className="w-5 h-5" />
+              Get details on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTOR DETAIL */}
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              Sector deep-dive
+            </h2>
+            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              Three sectors — concrete examples. For other sectors, message on WhatsApp.
+            </p>
+          </div>
+
+          <div className="space-y-8 max-w-5xl mx-auto">
+            {sectorDetails.map((detail) => {
+              const Icon = detail.icon;
+              return (
+                <div
+                  key={detail.anchor}
+                  id={detail.anchor}
+                  className="bg-surface-card border border-surface-border rounded-2xl p-8 scroll-mt-24"
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 flex items-center justify-center">
+                      <Icon className="w-6 h-6 text-indigo-300" />
+                    </div>
+                    <h3 className="font-display text-2xl font-bold text-white">{detail.name}</h3>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div>
+                      <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
+                        Which tools
+                      </h4>
+                      <ul className="space-y-2">
+                        {detail.tools.map((tool) => (
+                          <li key={tool} className="text-primary-300 text-sm">
+                            {tool}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
+                        What you can produce
+                      </h4>
+                      <ul className="space-y-2">
+                        {detail.produce.map((item) => (
+                          <li key={item} className="text-primary-300 text-sm flex items-start gap-2">
+                            <span className="text-violet-400 flex-shrink-0">•</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
+                        How it's applied
+                      </h4>
+                      <p className="text-primary-300 text-sm leading-relaxed">{detail.how}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <p className="text-center text-primary-500 text-sm italic mt-8">
+            These are just a few of the things you can build.
+          </p>
+        </div>
+      </section>
+
+      {/* INSTRUCTOR */}
+      <section className="py-16 md:py-20 bg-surface-darker">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-surface-card border border-surface-border rounded-2xl p-8 md:p-12">
+              <div className="text-center mb-8">
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">
+                  Instructor
+                </h2>
+                <p className="text-primary-300">Who's running this program.</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-10">
+                <div className="text-center">
+                  <div className="font-display text-3xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2">
+                    25+
+                  </div>
+                  <p className="text-primary-300 text-sm">Years in UX & digital</p>
+                </div>
+                <div className="text-center">
+                  <div className="font-display text-3xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2">
+                    UX + SEO + Ads + AI
+                  </div>
+                  <p className="text-primary-300 text-sm">Four disciplines, one practitioner</p>
+                </div>
+                <div className="text-center">
+                  <div className="font-display text-3xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2">
+                    Real
+                  </div>
+                  <p className="text-primary-300 text-sm">Examples from live projects</p>
                 </div>
               </div>
-              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
-                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
-                <div>
-                  <p className="text-white font-medium mb-1">People who won't do the work</p>
-                  <p className="text-primary-400 text-sm">If you'll only watch sessions without applying, you'll leave with notes — not a system.</p>
-                </div>
-              </div>
-              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
-                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
-                <div>
-                  <p className="text-white font-medium mb-1">"AI does everything" believers</p>
-                  <p className="text-primary-400 text-sm">AI is a tool. Industry expertise, content quality, and process design are still on you.</p>
-                </div>
-              </div>
-              <div className="bg-surface-card/60 border border-amber-500/20 rounded-xl p-5 flex items-start gap-3">
-                <span className="text-amber-400 text-xl shrink-0">⚠️</span>
-                <div>
-                  <p className="text-white font-medium mb-1">No time to invest weekly</p>
-                  <p className="text-primary-400 text-sm">Live sessions + homework + practice need at least 4-5 hours per week.</p>
-                </div>
+
+              <p className="text-primary-300 leading-relaxed text-center max-w-2xl mx-auto mb-8">
+                Tonguç Karaçay. 25+ years in UX, SEO, and digital marketing.
+                Builds AI systems daily on his own projects — and teaches you to apply that experience to your business.
+              </p>
+
+              <div className="text-center">
+                <a
+                  href={waLink("Hi Tonguç, I have a question about the AI Training.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
+                >
+                  <WhatsAppIcon className="w-5 h-5" />
+                  Ask me directly on WhatsApp
+                </a>
               </div>
             </div>
           </div>
@@ -745,68 +670,59 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 bg-surface-card/30">
+      <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="section-title mb-4">
-                Frequently asked <span className="text-gradient">questions</span>
-              </h2>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+              Frequently asked questions
+            </h2>
+          </div>
 
-            <div className="space-y-4">
-              {faqs.map((faq, i) => (
-                <details
-                  key={i}
-                  className="group bg-surface-card border border-surface-border rounded-xl overflow-hidden"
-                >
-                  <summary className="cursor-pointer px-6 py-4 font-medium text-white flex items-center justify-between gap-4 hover:bg-surface-card/80 transition-colors">
-                    <span>{faq.q}</span>
-                    <ArrowRight className="w-4 h-4 text-indigo-400 shrink-0 group-open:rotate-90 transition-transform" />
-                  </summary>
-                  <div className="px-6 pb-4 text-primary-300 leading-relaxed">{faq.a}</div>
-                </details>
-              ))}
-            </div>
+          <div className="max-w-3xl mx-auto space-y-3">
+            {faq.map((item, idx) => (
+              <details
+                key={idx}
+                className="group bg-surface-card border border-surface-border rounded-xl overflow-hidden"
+              >
+                <summary className="cursor-pointer px-6 py-4 flex items-center justify-between gap-4 text-white font-medium hover:bg-surface-border/30 transition-colors">
+                  <span>{item.q}</span>
+                  <ArrowRight className="w-5 h-5 text-indigo-400 flex-shrink-0 transition-transform group-open:rotate-90" />
+                </summary>
+                <div className="px-6 pb-5 text-primary-300 leading-relaxed">{item.a}</div>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Disclaimer */}
+      {/* DISCLAIMER */}
       <section className="py-8">
         <div className="container-custom">
-          <p className="text-center text-sm text-primary-500 max-w-2xl mx-auto">
-            Results vary by industry, implementation, and consistency. This program teaches you how to build the system — applying it is up to you.
+          <p className="max-w-3xl mx-auto text-center text-primary-400 text-sm leading-relaxed border-t border-surface-border pt-8">
+            Results vary by sector, application, and consistency. This program teaches you to build the system.
           </p>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-br from-indigo-500/15 via-violet-500/10 to-fuchsia-500/10">
+      {/* FINAL CTA */}
+      <section className="py-16 md:py-24">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
-              Time to make AI part of your business
+          <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border border-indigo-500/30 rounded-3xl p-10 md:p-14">
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">
+              Ready? Let's start.
             </h2>
-            <p className="text-xl text-primary-200 mb-10">
-              Individual cohort or corporate program — let's spend 30 free minutes figuring out which fits.
+            <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
+              Seats are limited. Let's figure out the fit together.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/en/contact?topic=ai-training-individual"
-                className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-semibold hover:from-indigo-400 hover:to-violet-500 transform hover:scale-[1.02] transition-all shadow-lg shadow-indigo-500/30 text-lg"
-              >
-                Join the first cohort
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/en/contact?topic=ai-training-corporate"
-                className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-surface-card border border-accent-500/40 text-white font-semibold hover:border-accent-400 transition-all text-lg"
-              >
-                Free discovery call
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
+            <a
+              href={waLink("Hi, I want to join the AI Training. Writing to reserve a seat.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl text-lg transition-all shadow-xl shadow-green-500/20"
+            >
+              <WhatsAppIcon className="w-5 h-5" />
+              Message on WhatsApp & reserve your seat
+            </a>
           </div>
         </div>
       </section>
