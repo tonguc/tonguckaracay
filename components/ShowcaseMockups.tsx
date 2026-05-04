@@ -1,12 +1,30 @@
 type Locale = "tr" | "en";
 
 export const WhatTimeMockup = () => (
-  <img
-    src="https://image.thum.io/get/width/600/crop/375/https://whattime.city"
-    alt="whattime.city screenshot"
-    className="absolute inset-0 w-full h-full object-cover pt-7"
-    loading="lazy"
-  />
+  <div className="absolute inset-0 pt-7 p-3 overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
+    <div className="text-[9px] text-slate-400 mb-2 font-mono">whattime.city</div>
+    <div className="grid grid-cols-2 gap-1.5">
+      {[
+        { city: "Istanbul", time: "14:00", flag: "🇹🇷", offset: "UTC+3" },
+        { city: "London", time: "11:00", flag: "🇬🇧", offset: "UTC+0" },
+        { city: "New York", time: "06:00", flag: "🇺🇸", offset: "UTC-5" },
+        { city: "Dubai", time: "15:00", flag: "🇦🇪", offset: "UTC+4" },
+      ].map(({ city, time, flag, offset }) => (
+        <div key={city} className="bg-slate-700/60 rounded-lg px-2 py-1.5 flex items-center gap-1.5">
+          <span className="text-sm leading-none">{flag}</span>
+          <div>
+            <div className="text-[9px] text-slate-300 leading-none">{city}</div>
+            <div className="text-xs font-bold text-white leading-tight">{time}</div>
+            <div className="text-[8px] text-slate-500">{offset}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div className="mt-2 bg-indigo-600/30 border border-indigo-500/30 rounded-lg px-2 py-1.5">
+      <div className="text-[8px] text-indigo-300">Best overlap window</div>
+      <div className="text-[10px] font-semibold text-white">14:00 – 16:00 Istanbul</div>
+    </div>
+  </div>
 );
 
 export const UxSeoMockup = ({ locale = "tr" }: { locale?: Locale }) => {

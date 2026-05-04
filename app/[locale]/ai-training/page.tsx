@@ -749,31 +749,94 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
       {/* INSTRUCTOR */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="max-w-5xl mx-auto bg-surface-card border border-surface-border rounded-2xl p-8 md:p-12">
-            <div className="text-center mb-8">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">Instructor</h2>
-              <p className="text-primary-300">Who's running this program.</p>
-            </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="relative bg-surface-card border border-surface-border rounded-2xl overflow-hidden">
+              <div
+                className="absolute inset-0 opacity-[0.04] pointer-events-none"
+                style={{ backgroundImage: "radial-gradient(circle, #818cf8 1px, transparent 1px)", backgroundSize: "20px 20px" }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-violet-500/5 pointer-events-none" />
 
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              {[
-                { stat: "25+", label: "Years in UX & digital" },
-                { stat: "UX + SEO\n+ Ads + AI", label: "Four disciplines, one practitioner" },
-                { stat: "Real", label: "Examples from live projects" },
-              ].map(({ stat, label }) => (
-                <div key={label} className="text-center">
-                  <div className="font-display text-2xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-2 whitespace-pre-line">
-                    {stat}
+              <div className="relative p-8 md:p-12">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-10 pb-10 border-b border-surface-border">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                    <span className="text-white font-bold text-2xl font-display">TK</span>
                   </div>
-                  <p className="text-primary-300 text-sm">{label}</p>
+                  <div className="flex-1">
+                    <h2 className="font-display text-2xl font-bold text-white">Tonguç Karaçay</h2>
+                    <p className="text-indigo-300 text-sm mt-0.5">AI-Driven UX & Growth Partner</p>
+                    <p className="text-primary-400 text-sm">Istanbul — Turkey, Europe, USA, Gulf markets</p>
+                  </div>
+                  <a
+                    href={waLink("Hi Tonguç, I have a question about the AI Training.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all text-sm flex-shrink-0"
+                  >
+                    <WhatsAppIcon className="w-4 h-4" />
+                    Message
+                  </a>
                 </div>
-              ))}
-            </div>
 
-            <p className="text-primary-300 leading-relaxed text-center max-w-2xl mx-auto">
-              Tonguç Karaçay. 25+ years in UX, SEO, and digital marketing.
-              Builds AI systems daily on his own projects — and teaches you to apply that experience to your business.
-            </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                  {[
+                    { stat: "25+", label: "Years of experience" },
+                    { stat: "4", label: "Disciplines: UX · SEO · Ads · AI" },
+                    { stat: "TR + EN", label: "Content markets" },
+                    { stat: "Global", label: "Client portfolio" },
+                  ].map(({ stat, label }) => (
+                    <div key={label} className="bg-surface-darker/60 rounded-xl p-4 text-center">
+                      <div className="font-display text-2xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-1">
+                        {stat}
+                      </div>
+                      <p className="text-primary-400 text-xs leading-snug">{label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mb-8">
+                  <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-3">
+                    Projects & work
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { label: "whattime.city", note: "Global SaaS", url: "https://whattime.city" },
+                      { label: "tonguckaracay.com/en", note: "EN market", url: null },
+                      { label: "UX SEO Audit Kit", note: "AI system", url: null },
+                      { label: "Clinic Automation", note: "n8n + SMS", url: null },
+                      { label: "Sector Lead Detection", note: "Apify + AI", url: null },
+                    ].map(({ label, note, url }) =>
+                      url ? (
+                        <a
+                          key={label}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 rounded-lg text-xs text-indigo-300 transition-colors"
+                        >
+                          {label}
+                          <span className="text-primary-500">· {note}</span>
+                          <ArrowRight className="w-3 h-3 -rotate-45" />
+                        </a>
+                      ) : (
+                        <span
+                          key={label}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-darker border border-surface-border rounded-lg text-xs text-primary-300"
+                        >
+                          {label}
+                          <span className="text-primary-500">· {note}</span>
+                        </span>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <p className="text-primary-300 leading-relaxed">
+                  Strategist combining 25 years of UX, SEO, and digital marketing with active AI practice.
+                  Builds and deploys AI systems across Turkey, Europe, and the US — and teaches you to do the same.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
