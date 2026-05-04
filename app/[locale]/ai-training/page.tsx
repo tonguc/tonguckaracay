@@ -2,6 +2,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { setRequestLocale } from 'next-intl/server';
 import {
+  WhatTimeMockup,
+  UxSeoMockup,
+  OnayFormuMockup,
+  DijitalTespitMockup,
+} from "@/components/ShowcaseMockups";
+import {
   ArrowRight,
   Sparkles,
   Stethoscope,
@@ -165,35 +171,31 @@ const sectorDetails = [
 
 const showcase = [
   {
+    id: "whattime",
     title: "whattime.city",
-    initials: "WT",
     desc: "City-based time and meeting planner. AI-powered content generation, multilingual UI, automated city data.",
     tools: ["Next.js", "Claude API", "Vercel"],
-    image: null as string | null,
     url: "https://whattime.city",
   },
   {
+    id: "ux-seo",
     title: "UX SEO Audit Kit",
-    initials: "AK",
     desc: "AI-powered, semi-automated UX & SEO audit report system. Data collection → analysis → presentation.",
     tools: ["Claude", "Make.com", "Sheets"],
-    image: null as string | null,
     url: null as string | null,
   },
   {
+    id: "onay-formu",
     title: "Clinic Consent Form + SMS",
-    initials: "CF",
     desc: "Patient consent form generation and pre-appointment semi-automated SMS / WhatsApp briefing flow for clinics.",
     tools: ["n8n", "ChatGPT", "Twilio"],
-    image: null as string | null,
     url: null as string | null,
   },
   {
+    id: "dijital-tespit",
     title: "Sector-Based Digital Audit",
-    initials: "DA",
     desc: "Semi-automated system that identifies and reports companies with weak digital presence in a given sector.",
     tools: ["Apify", "Claude", "Sheets"],
-    image: null as string | null,
     url: null as string | null,
   },
 ];
@@ -436,19 +438,10 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                       </div>
                     )}
                   </div>
-                  {item.image ? (
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="absolute inset-0 w-full h-full object-cover pt-7"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 pt-7 flex items-center justify-center">
-                      <div className="font-display text-6xl font-bold bg-gradient-to-br from-indigo-300 to-violet-300 bg-clip-text text-transparent opacity-30">
-                        {item.initials}
-                      </div>
-                    </div>
-                  )}
+                  {item.id === "whattime" && <WhatTimeMockup />}
+                  {item.id === "ux-seo" && <UxSeoMockup locale="en" />}
+                  {item.id === "onay-formu" && <OnayFormuMockup locale="en" />}
+                  {item.id === "dijital-tespit" && <DijitalTespitMockup locale="en" />}
                 </div>
 
                 <div className="p-6">
