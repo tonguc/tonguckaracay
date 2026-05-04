@@ -135,7 +135,6 @@ const sectorDetails = [
     anchor: "doktorlar",
     icon: Stethoscope,
     name: "Doktorlar & Klinikler",
-    tools: ["ChatGPT", "Claude", "Midjourney", "Canva AI"],
     produce: [
       "Haftalık 3–5 sosyal medya post'u (metin + görsel)",
       "Hasta bilgilendirme videosu (script + seslendirme taslağı)",
@@ -147,7 +146,6 @@ const sectorDetails = [
     anchor: "eticaret",
     icon: ShoppingBag,
     name: "E-Ticaret KOBİ",
-    tools: ["ChatGPT", "Claude", "Midjourney", "Canva AI"],
     produce: [
       "Çok sayıda ürün için açıklama varyantı",
       "Reklam metin ve kreatif varyantları",
@@ -159,7 +157,6 @@ const sectorDetails = [
     anchor: "ajanslar",
     icon: Megaphone,
     name: "Pazarlama Ajansları",
-    tools: ["ChatGPT", "Claude", "Midjourney", "Canva AI"],
     produce: [
       "Brief'ten strateji dokümanı taslağı",
       "Sunum ve pitch deck taslağı",
@@ -334,14 +331,27 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-1">
                 <Sparkles className="w-5 h-5 text-indigo-300" />
               </div>
-              <div>
+              <div className="flex-1">
                 <h2 className="font-display text-xl md:text-2xl font-bold text-white mb-3">
                   Bu sadece bir AI eğitimi değil.
                 </h2>
-                <p className="text-primary-300 leading-relaxed">
+                <p className="text-primary-300 leading-relaxed mb-6">
                   25 yıllık UX deneyimi, SEO uzmanlığı, dijital reklam bilgisi ve AI pratiği bir arada.
                   Araç öğretmek değil — mevcut iş süreçlerinize oturan, gerçekten çalışan sistemler kurmayı öğretmek.
                 </p>
+                <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-3">
+                  Programda kullandığımız araçlar
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["ChatGPT", "Claude", "Google Gemini", "Midjourney", "Canva AI"].map((tool) => (
+                    <span
+                      key={tool}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/30 rounded-lg text-xs text-indigo-200 font-medium"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -660,17 +670,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                     <h3 className="font-display text-2xl font-bold text-white">{detail.name}</h3>
                   </div>
 
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div>
-                      <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
-                        Hangi araçlar
-                      </h4>
-                      <ul className="space-y-2">
-                        {detail.tools.map((tool) => (
-                          <li key={tool} className="text-primary-300 text-sm">{tool}</li>
-                        ))}
-                      </ul>
-                    </div>
+                  <div className="grid md:grid-cols-2 gap-8">
                     <div>
                       <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
                         Ne üretilebilir

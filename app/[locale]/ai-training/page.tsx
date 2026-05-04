@@ -135,7 +135,6 @@ const sectorDetails = [
     anchor: "doctors",
     icon: Stethoscope,
     name: "Doctors & Clinics",
-    tools: ["ChatGPT", "Claude", "Midjourney", "Canva AI"],
     produce: [
       "Weekly 3–5 social posts (copy + visual)",
       "Patient education video (script + voiceover draft)",
@@ -147,7 +146,6 @@ const sectorDetails = [
     anchor: "ecommerce",
     icon: ShoppingBag,
     name: "E-commerce SMB",
-    tools: ["ChatGPT", "Claude", "Midjourney", "Canva AI"],
     produce: [
       "Description variants for multiple SKUs",
       "Ad copy and creative variants",
@@ -159,7 +157,6 @@ const sectorDetails = [
     anchor: "agencies",
     icon: Megaphone,
     name: "Marketing Agencies",
-    tools: ["ChatGPT", "Claude", "Midjourney", "Canva AI"],
     produce: [
       "Strategy doc draft from brief",
       "Presentation and pitch deck draft",
@@ -333,14 +330,27 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-1">
                 <Sparkles className="w-5 h-5 text-indigo-300" />
               </div>
-              <div>
+              <div className="flex-1">
                 <h2 className="font-display text-xl md:text-2xl font-bold text-white mb-3">
                   This isn't just another AI course.
                 </h2>
-                <p className="text-primary-300 leading-relaxed">
+                <p className="text-primary-300 leading-relaxed mb-6">
                   25 years of UX experience, SEO expertise, digital advertising knowledge, and daily AI practice — in one program.
                   Not teaching tools — teaching you to build systems that actually fit your existing business.
                 </p>
+                <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-3">
+                  Tools we use in the program
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["ChatGPT", "Claude", "Google Gemini", "Midjourney", "Canva AI"].map((tool) => (
+                    <span
+                      key={tool}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/30 rounded-lg text-xs text-indigo-200 font-medium"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -659,17 +669,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                     <h3 className="font-display text-2xl font-bold text-white">{detail.name}</h3>
                   </div>
 
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div>
-                      <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
-                        Which tools
-                      </h4>
-                      <ul className="space-y-2">
-                        {detail.tools.map((tool) => (
-                          <li key={tool} className="text-primary-300 text-sm">{tool}</li>
-                        ))}
-                      </ul>
-                    </div>
+                  <div className="grid md:grid-cols-2 gap-8">
                     <div>
                       <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
                         What you can produce
