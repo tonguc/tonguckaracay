@@ -25,8 +25,8 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI Training | Tonguç Karaçay — Build an AI System for Your Business",
-  description: "Individual cohorts and corporate AI training programs. Vertical playbooks for doctors, real estate, e-commerce, agencies, clinics, and SaaS founders. Automate content, ads, and operations.",
+  title: "AI Training | Tonguç Karaçay — Don't Learn AI, Build Systems",
+  description: "Individual cohorts and corporate AI training programs. Vertical playbooks for doctors, real estate, e-commerce, agencies, clinics, and SaaS founders. Optimize content, ad, and operations workflows with AI.",
   keywords: ["AI training", "ChatGPT training", "corporate AI training", "AI for business", "AI workflow automation", "vertical AI training"],
   alternates: {
     canonical: 'https://tonguckaracay.com/en/ai-training',
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Training | Build an AI System for Your Business — Tonguç Karaçay",
-    description: "I don't teach AI — I build AI systems into your business. Individual cohorts and corporate in-house programs.",
+    title: "AI Training | Don't Learn AI, Build Systems — Tonguç Karaçay",
+    description: "This isn't tool training — it's how to build systems that work in your business. Individual cohorts and corporate in-house programs.",
     url: 'https://tonguckaracay.com/en/ai-training',
     type: 'website',
   },
@@ -62,14 +62,14 @@ const sectors = [
   {
     icon: ShoppingBag,
     name: "E-commerce SMBs",
-    promise: "Product descriptions, visuals, and ad copy at scale for Shopify, Amazon, eBay.",
+    promise: "AI-supported product descriptions, visuals, and ad copy workflows for Shopify, Amazon, eBay.",
     tools: "GPT-5, Midjourney, Make.com",
     anchor: "ecommerce",
   },
   {
     icon: Megaphone,
     name: "Marketing Agencies",
-    promise: "From brief to campaign, from pitch deck to ad variants — an automated production line.",
+    promise: "From brief to campaign, from pitch deck to ad variants — a semi-automated production pipeline.",
     tools: "Claude, Gamma, AdCreative.ai, n8n",
     anchor: "agencies",
   },
@@ -83,7 +83,7 @@ const sectors = [
   {
     icon: Rocket,
     name: "SaaS Founders",
-    promise: "Ship from idea to prototype to product with Cursor, Claude, and n8n.",
+    promise: "Get to a working prototype on your own with Cursor, Claude, and n8n.",
     tools: "Cursor, Claude Code, n8n, Vercel",
     anchor: "saas",
   },
@@ -102,8 +102,8 @@ const curriculum = [
   },
   {
     icon: Workflow,
-    title: "Module 3 — AI Workflow Automation",
-    points: ["Process automation with n8n & Make", "Email, WhatsApp, CRM integration", "Eliminate repetitive tasks"],
+    title: "Module 3 — Semi-Automated AI Workflows",
+    points: ["Workflow pipelines with n8n & Make", "Email, WhatsApp, CRM integration", "Cut repetitive tasks substantially"],
   },
   {
     icon: Database,
@@ -125,7 +125,7 @@ const curriculum = [
 const individualBenefits = [
   "6-week live cohort (one 2-hour session per week)",
   "Vertical-specific prompt library",
-  "5 ready-to-use automation templates (n8n)",
+  "5 ready-to-use semi-automated workflow templates (n8n)",
   "Private Discord community",
   "30 days of post-cohort Q&A access",
   "Certificate",
@@ -134,7 +134,7 @@ const individualBenefits = [
 const corporateBenefits = [
   "1-3 day in-house workshop",
   "Company-specific AI Playbook document",
-  "10+ workflow automations customized for your team",
+  "10+ semi-automated workflows customized for your team",
   "4 weeks of implementation mentorship",
   "AI policy & compliance template",
   "Executive strategic summary briefing",
@@ -145,86 +145,92 @@ const sectorDeepDive = [
     id: "doctors",
     icon: Stethoscope,
     title: "AI System for Doctors",
-    intro: "Stay focused on patients — let AI handle content and ops.",
+    intro: "Stay focused on patients — let AI support content and ops.",
     use: [
       "Patient education videos: script (ChatGPT) → visual (Midjourney/Runway) → voiceover (ElevenLabs)",
       "Content calendar and reel template library for Instagram",
       "Custom GPT chatbot for frequently asked patient questions",
       "Medical paper summarizer (PDF → Claude → bullet points)",
-      "Pre-appointment WhatsApp briefing bot (n8n)",
+      "Pre-appointment WhatsApp briefing workflow (n8n)",
     ],
+    output: "Doctor-specific prompt library + 3 semi-automated workflows (content, appointment briefing, patient FAQ).",
   },
   {
     id: "ecommerce",
     icon: ShoppingBag,
     title: "AI System for E-commerce SMBs",
-    intro: "Move product listing, ad copy, and visual generation onto an AI pipeline.",
+    intro: "Move product listing, ad copy, and visual generation onto an AI-supported pipeline.",
     use: [
-      "Title + description automation for Shopify/Amazon/eBay",
+      "Title + description prompt chain for Shopify/Amazon/eBay",
       "Lifestyle visuals from product photos (Midjourney + image-to-image)",
       "Review mining → conversion-driving sales arguments",
-      "20 ad variants for Meta Ads & Google Ads from a single prompt",
-      "Stock-price-competitor monitoring bot (n8n + scrapers)",
+      "Ad-variant prompt set for Meta Ads & Google Ads",
+      "Stock-price-competitor monitoring workflow (n8n + scrapers)",
     ],
+    output: "E-commerce prompt set + ad-variant generator template + product-listing workflow.",
   },
   {
     id: "realestate",
     icon: Home,
     title: "AI System for Real Estate",
-    intro: "Tour the property — let AI write the listing and edit the video.",
+    intro: "Tour the property — let AI draft the listing and edit the video.",
     use: [
-      "Voice memo → SEO-friendly listing copy (Zillow, Redfin, MLS)",
+      "Voice memo → SEO-friendly listing draft (Zillow, Redfin, MLS)",
       "Empty room → fully staged photos (virtual staging)",
-      "60s reels edited from drone footage",
-      "Lead segmentation and automated follow-up emails",
-      "Neighborhood report (price, demand, competing listings)",
+      "Short reels edited from drone footage",
+      "Lead segmentation and follow-up email workflows",
+      "Neighborhood report draft (price, demand, competing listings)",
     ],
+    output: "Listing-copy library + lead-follow-up workflow + neighborhood-report template.",
   },
   {
     id: "agencies",
     icon: Megaphone,
     title: "AI System for Agencies",
-    intro: "An automated production line from brief to delivery.",
+    intro: "A semi-automated production pipeline from brief to delivery.",
     use: [
-      "Brief → strategy → concept → ad copy pipeline",
-      "Pitch deck automation (Gamma + Claude)",
-      "Ad-variant factory (AdCreative.ai)",
-      "Social plan + visuals + captions in one pass",
-      "Client reporting automation (GA4 → AI summary → PDF)",
+      "Brief → strategy → concept → ad copy draft pipeline",
+      "Pitch deck draft (Gamma + Claude)",
+      "Ad-variant generator (AdCreative.ai + prompt set)",
+      "Social plan + visuals + captions production workflow",
+      "Client reporting workflow (GA4 → AI summary → PDF draft)",
     ],
+    output: "Brief-to-delivery production pipeline + client-reporting template + ad-variant generator.",
   },
   {
     id: "beauty",
     icon: Scissors,
     title: "AI System for Beauty & Clinics",
-    intro: "Fill the appointment book, focus on the service itself.",
+    intro: "AI-supported booking, content production, and follow-up workflows.",
     use: [
       "Before/after visual generation and social pipeline",
-      "WhatsApp booking bot (ManyChat + n8n)",
+      "WhatsApp booking workflow (ManyChat + n8n)",
       "Review analysis → service-improvement signals",
       "Monthly content calendar via AI (visuals + captions + hashtags)",
-      "Post-treatment follow-up message automation",
+      "Post-treatment follow-up message workflow",
     ],
+    output: "Monthly content-calendar template + WhatsApp booking workflow + review-analysis prompt.",
   },
   {
     id: "saas",
     icon: Rocket,
     title: "AI System for SaaS Founders",
-    intro: "Shorten the path from prototype to product with AI.",
+    intro: "Get to a working prototype on your own and support workflows with AI.",
     use: [
       "Cursor + Claude Code for solo prototyping",
-      "Backend logic with n8n (no code)",
-      "Landing page + onboarding emails by AI",
+      "Simple backend workflows with n8n (no code)",
+      "Landing page + onboarding email draft pipeline",
       "User-interview summarizer",
-      "Product analytics → AI insight reports",
+      "Product analytics → AI insight report draft",
     ],
+    output: "Cursor + Claude prompt set + n8n workflow templates + onboarding email kit.",
   },
 ];
 
 const faqs = [
   {
     q: "Is this AI training, or are you actually building a system?",
-    a: "Both — but the system is the point. Generic training teaches you to 'use ChatGPT.' We build a working system into your business: prompt libraries, automation flows, an AI playbook. Training ends; the system stays.",
+    a: "Both — but the system is the point. Generic training teaches you to 'use ChatGPT.' We teach you to build systems that work in your business: prompt libraries, semi-automated workflows, an AI playbook. Training ends; the workflows keep running.",
   },
   {
     q: "I have zero technical background. Can I join?",
@@ -322,20 +328,20 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
             </div>
 
             <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Build an AI{' '}
+              Don't learn AI.{' '}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400">
-                system that runs.
+                Build systems that work.
               </span>
             </h1>
 
             <p className="text-xl md:text-2xl text-primary-200 mb-4 leading-relaxed">
-              I don't just teach AI — <strong className="text-white">I build it into your business.</strong>
+              This isn't <strong className="text-white">tool training.</strong> It's how to build systems that work in your business.
             </p>
 
             <p className="text-lg text-primary-300 mb-10 leading-relaxed max-w-3xl">
-              Automate content, ads, and operations. Whether you're a doctor, realtor, e-commerce
-              founder, agency lead, clinic owner, or SaaS builder — leave with a vertical-specific
-              prompt library, automation pipeline, and AI playbook.
+              Optimize content, ad, and operations workflows with AI. Whether you're a doctor,
+              realtor, e-commerce founder, agency lead, clinic owner, or SaaS builder — leave with
+              a vertical-specific prompt library, semi-automated workflows, and an AI playbook.
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -390,10 +396,10 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
                 </div>
                 <ul className="space-y-3 text-primary-200">
                   <li>✓ Vertical-specific prompt library (yours forever)</li>
-                  <li>✓ Working workflow automations (n8n, Make)</li>
+                  <li>✓ Semi-automated workflow pipelines (n8n, Make)</li>
                   <li>✓ AI assistants on your company data (RAG)</li>
                   <li>✓ AI playbook your team will actually use</li>
-                  <li>✓ Training ends, <strong className="text-white">the system keeps running</strong></li>
+                  <li>✓ Training ends, <strong className="text-white">the workflows keep running</strong></li>
                 </ul>
               </div>
             </div>
@@ -605,6 +611,13 @@ export default function AiTrainingPage({ params: { locale } }: Props) {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mt-5 pt-5 border-t border-indigo-500/20">
+                  <p className="text-sm text-primary-300">
+                    <span className="font-semibold text-indigo-300">📦 You leave with: </span>
+                    {s.output}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

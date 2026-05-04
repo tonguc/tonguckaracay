@@ -25,8 +25,8 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI Eğitimi | Tonguç Karaçay — İşine AI Sistemi Kur",
-  description: "Bireysel ve kurumsal AI eğitimi. Doktor, emlakçı, e-ticaret, ajans, klinik ve SaaS girişimciler için sektörel AI sistemleri. İçerik, reklam ve operasyonu otomatikleştirin.",
+  title: "AI Eğitimi | Tonguç Karaçay — Araç Değil, Sistem Öğret",
+  description: "Bireysel ve kurumsal AI eğitimi. Doktor, emlakçı, e-ticaret, ajans, klinik ve SaaS girişimciler için sektörel AI sistemleri. İçerik, reklam ve operasyon süreçlerinizi AI ile optimize edin.",
   keywords: ["AI eğitimi", "yapay zeka eğitimi", "ChatGPT eğitimi", "kurumsal AI eğitimi", "sektörel yapay zeka", "AI sistemi kurma"],
   alternates: {
     canonical: 'https://tonguckaracay.com/ai-egitimi',
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Eğitimi | İşine AI Sistemi Kur — Tonguç Karaçay",
-    description: "AI'ı öğretmiyorum, işine kuruyorum. Bireysel kohort ve kurumsal in-house programlar.",
+    title: "AI Eğitimi | Araç Değil, Sistem Öğret — Tonguç Karaçay",
+    description: "Bu eğitim araç öğretmez, işinize çalışan sistemler kurmayı öğretir. Bireysel kohort ve kurumsal in-house programlar.",
     url: 'https://tonguckaracay.com/ai-egitimi',
     type: 'website',
   },
@@ -61,14 +61,14 @@ const sectors = [
   {
     icon: ShoppingBag,
     name: "E-Ticaret KOBİ",
-    promise: "Trendyol, Hepsiburada, Shopify için ürün açıklaması, görsel ve reklam metni otomasyonu.",
+    promise: "Trendyol, Hepsiburada, Shopify için ürün açıklaması, görsel ve reklam metni üretim akışları.",
     tools: "GPT-5, Midjourney, Make.com",
     anchor: "eticaret",
   },
   {
     icon: Megaphone,
     name: "Pazarlama Ajansları",
-    promise: "Brief'ten kampanyaya, pitch deck'ten reklam varyantına otomatik üretim hattı.",
+    promise: "Brief'ten kampanyaya, pitch deck'ten reklam varyantına yarı-otomatik üretim akışı.",
     tools: "Claude, Gamma, AdCreative.ai, n8n",
     anchor: "ajanslar",
   },
@@ -82,7 +82,7 @@ const sectors = [
   {
     icon: Rocket,
     name: "SaaS Girişimciler",
-    promise: "Cursor, Claude ve n8n ile fikirden prototipe, prototipten ürüne çıkın.",
+    promise: "Cursor, Claude ve n8n ile temel prototipi kendiniz kurabilecek seviyeye gelin.",
     tools: "Cursor, Claude Code, n8n, Vercel",
     anchor: "saas",
   },
@@ -101,8 +101,8 @@ const curriculum = [
   },
   {
     icon: Workflow,
-    title: "Modül 3 — AI Workflow Otomasyonu",
-    points: ["n8n & Make ile süreç otomasyonu", "Mail, WhatsApp, CRM entegrasyonu", "Tekrarlayan işleri sıfıra indir"],
+    title: "Modül 3 — AI ile Yarı-Otomatik İş Akışları",
+    points: ["n8n & Make ile süreç akışları", "Mail, WhatsApp, CRM entegrasyonu", "Tekrarlayan işleri büyük oranda azalt"],
   },
   {
     icon: Database,
@@ -124,7 +124,7 @@ const curriculum = [
 const individualBenefits = [
   "6 hafta canlı kohort (haftada 1 oturum, 2 saat)",
   "Sektörüne özel prompt kütüphanesi",
-  "5 hazır otomasyon şablonu (n8n)",
+  "5 hazır yarı-otomatik akış şablonu (n8n)",
   "Özel Discord topluluğu",
   "Kohort sonrası 30 gün soru-cevap erişimi",
   "Sertifika",
@@ -133,7 +133,7 @@ const individualBenefits = [
 const corporateBenefits = [
   "1-3 günlük şirket içi (in-house) workshop",
   "Şirkete özel AI Playbook dokümanı",
-  "Ekip için özelleştirilmiş 10+ workflow otomasyonu",
+  "Ekibiniz için 10+ özelleştirilmiş yarı-otomatik akış",
   "4 hafta uygulama mentorluğu",
   "AI politikası & KVKK uyum şablonu",
   "Yönetici stratejik özet sunumu",
@@ -144,86 +144,92 @@ const sectorDeepDive = [
     id: "doktorlar",
     icon: Stethoscope,
     title: "Doktorlar için AI Sistemi",
-    intro: "Hasta görmeye odaklan, içerik ve operasyon AI'da kalsın.",
+    intro: "Hasta görmeye odaklan, içerik ve operasyon AI destekli aksın.",
     use: [
       "Hasta eğitim videoları: senaryo (ChatGPT) → görsel (Midjourney/Runway) → seslendirme (ElevenLabs)",
       "Instagram reel için içerik takvimi ve şablon kütüphanesi",
       "Hasta sıkça sorulan sorular için Custom GPT chatbot",
       "Tıbbi makale özetleyici (PDF → Claude → maddeli özet)",
-      "Randevu öncesi WhatsApp bilgilendirme botu (n8n)",
+      "Randevu öncesi WhatsApp bilgilendirme akışı (n8n)",
     ],
+    output: "Doktor pratiğinize özel prompt kütüphanesi + 3 yarı-otomatik akış (içerik üretimi, randevu bilgilendirme, hasta SSS).",
   },
   {
     id: "eticaret",
     icon: ShoppingBag,
     title: "E-Ticaret KOBİ için AI Sistemi",
-    intro: "Ürün listeleme, reklam metni ve görsel üretimini AI hattına alın.",
+    intro: "Ürün listeleme, reklam metni ve görsel üretimini AI destekli hale getirin.",
     use: [
-      "Trendyol/Hepsiburada/Shopify için ürün başlığı + açıklama otomasyonu",
+      "Trendyol/Hepsiburada/Shopify için ürün başlığı + açıklama prompt zinciri",
       "Ürün fotoğrafından life-style görsel (Midjourney + image-to-image)",
       "Yorum analizi → satış argümanı çıkartma",
-      "Meta Ads & Google Ads için 20 reklam varyantı tek prompt'la",
-      "Stok-fiyat-rakip takip botu (n8n + scraper)",
+      "Meta Ads & Google Ads için reklam varyantı üretici prompt seti",
+      "Stok-fiyat-rakip takip akışı (n8n + scraper)",
     ],
+    output: "E-ticaret prompt seti + reklam varyantı üretici şablonu + ürün listeleme akışı.",
   },
   {
     id: "emlak",
     icon: Home,
     title: "Emlakçılar için AI Sistemi",
-    intro: "Mülkü gez, ilanı AI yazsın, video AI kurgulasın.",
+    intro: "Mülkü gez, ilan taslağını AI yazsın, video AI ile kurgu.",
     use: [
-      "Sesli not → SEO uyumlu ilan metni (sahibinden, hepsiemlak)",
+      "Sesli not → SEO uyumlu ilan metni taslağı (sahibinden, hepsiemlak)",
       "Boş daireden döşenmiş görsel (sanal staging)",
-      "Drone footage'tan 60sn reels kurgu",
-      "Müşteri segmentasyonu ve otomatik takip e-postaları",
-      "Bölge analizi raporu (fiyat, talep, rakip ilan)",
+      "Drone footage'tan kısa reels kurgu",
+      "Müşteri segmentasyonu ve takip e-postası akışları",
+      "Bölge analizi raporu taslağı (fiyat, talep, rakip ilan)",
     ],
+    output: "İlan metni kütüphanesi + lead takip akışı + bölge analiz raporu şablonu.",
   },
   {
     id: "ajanslar",
     icon: Megaphone,
     title: "Ajanslar için AI Sistemi",
-    intro: "Brief'ten teslimata otomatik üretim hattı.",
+    intro: "Brief'ten teslimata yarı-otomatik üretim akışı.",
     use: [
-      "Brief → strateji → konsept → reklam metni hattı",
-      "Pitch deck otomasyonu (Gamma + Claude)",
-      "Reklam varyant fabrikası (AdCreative.ai)",
-      "Sosyal medya planı + görsel + caption tek seferde",
-      "Müşteri raporlama otomasyonu (GA4 → AI özet → PDF)",
+      "Brief → strateji → konsept → reklam metni taslak akışı",
+      "Pitch deck taslağı (Gamma + Claude)",
+      "Reklam varyantı üretici (AdCreative.ai + prompt set)",
+      "Sosyal medya planı + görsel + caption üretim akışı",
+      "Müşteri raporlama akışı (GA4 → AI özet → PDF taslak)",
     ],
+    output: "Brief→teslim üretim akışı + müşteri raporlama şablonu + reklam varyantı üretici.",
   },
   {
     id: "guzellik",
     icon: Scissors,
     title: "Güzellik & Klinik için AI Sistemi",
-    intro: "Randevu defteri dolsun, sen hizmete odaklan.",
+    intro: "Randevu yönetimi, içerik üretimi ve takip süreçleri AI destekli.",
     use: [
       "Before/after görsel üretimi ve sosyal medya akışı",
-      "WhatsApp randevu botu (ManyChat + n8n)",
+      "WhatsApp randevu akışı (ManyChat + n8n)",
       "Müşteri yorum analizi → hizmet iyileştirme sinyalleri",
       "Aylık içerik takvimi AI ile (görsel + caption + hashtag)",
-      "Tedavi sonrası takip mesaj otomasyonu",
+      "Tedavi sonrası takip mesajı akışı",
     ],
+    output: "Aylık içerik takvimi şablonu + WhatsApp randevu akışı + yorum analiz prompt'u.",
   },
   {
     id: "saas",
     icon: Rocket,
     title: "SaaS Girişimciler için AI Sistemi",
-    intro: "Prototipten ürüne giden yolu AI ile kısalt.",
+    intro: "Temel prototipi kurabilecek seviyeye gelin, akışlarınızı AI ile destekleyin.",
     use: [
-      "Cursor + Claude Code ile no-team prototip",
-      "n8n ile backend mantığı (kod yazmadan)",
-      "Landing page + onboarding maili AI ile",
+      "Cursor + Claude Code ile temel prototip kurma",
+      "n8n ile basit backend akışları (no-code)",
+      "Landing page + onboarding maili taslak akışı",
       "Kullanıcı görüşmesi özetleyici",
-      "Product analytics → AI insight raporu",
+      "Product analytics → AI insight rapor taslağı",
     ],
+    output: "Cursor + Claude prompt seti + n8n akış şablonları + onboarding mail kiti.",
   },
 ];
 
 const faqs = [
   {
     q: "AI eğitimi mi alıyorum, sistem mi kuruyorsunuz?",
-    a: "İkisi bir arada. Sıradan eğitim 'ChatGPT kullanmayı öğretir', biz işinize çalışan bir sistem kuruyoruz: prompt kütüphanesi, otomasyon akışları, AI playbook. Eğitim biter ama sistem kalır.",
+    a: "İkisi bir arada. Sıradan eğitim 'ChatGPT kullanmayı öğretir'; biz işinize çalışan sistemler kurmayı öğretiyoruz: prompt kütüphanesi, yarı-otomatik akışlar, AI playbook. Eğitim biter ama akışlar çalışmaya devam eder.",
   },
   {
     q: "Hiç teknik bilgim yok, katılabilir miyim?",
@@ -321,20 +327,20 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
             </div>
 
             <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              AI ile çalışan{' '}
+              AI'ı öğrenmeyin.{' '}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400">
-                sistem kur.
+                İşinize sistem kurun.
               </span>
             </h1>
 
             <p className="text-xl md:text-2xl text-primary-200 mb-4 leading-relaxed">
-              AI'ı sana öğretmiyorum — <strong className="text-white">işine kuruyorum.</strong>
+              Bu eğitim <strong className="text-white">araç öğretmez.</strong> İşinize çalışan sistemler kurmayı öğretir.
             </p>
 
             <p className="text-lg text-primary-300 mb-10 leading-relaxed max-w-3xl">
-              İçerik, reklam ve operasyonu otomatikleştirin. Doktor, emlakçı, e-ticaretçi,
-              ajans, klinik veya SaaS girişimci — sektörünüze özel prompt kütüphanesi,
-              otomasyon akışı ve AI playbook ile çıkın.
+              İçerik, reklam ve operasyon süreçlerinizi AI ile optimize edin. Doktor,
+              emlakçı, e-ticaretçi, ajans, klinik veya SaaS girişimci — sektörünüze özel
+              prompt kütüphanesi, yarı-otomatik akışlar ve AI playbook ile çıkın.
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -389,10 +395,10 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
                 </div>
                 <ul className="space-y-3 text-primary-200">
                   <li>✓ Sektörüne özel prompt kütüphanesi (kalıcı)</li>
-                  <li>✓ Çalışan workflow otomasyonları (n8n, Make)</li>
+                  <li>✓ Yarı-otomatik workflow akışları (n8n, Make)</li>
                   <li>✓ Şirket verisiyle çalışan AI asistan (RAG)</li>
                   <li>✓ Ekibinin kullanacağı AI playbook</li>
-                  <li>✓ Eğitim biter, <strong className="text-white">sistem çalışmaya devam eder</strong></li>
+                  <li>✓ Eğitim biter, <strong className="text-white">akışlar çalışmaya devam eder</strong></li>
                 </ul>
               </div>
             </div>
@@ -604,6 +610,13 @@ export default function AiEgitimiPage({ params: { locale } }: Props) {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mt-5 pt-5 border-t border-indigo-500/20">
+                  <p className="text-sm text-primary-300">
+                    <span className="font-semibold text-indigo-300">📦 Eğitim çıktısı: </span>
+                    {s.output}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
