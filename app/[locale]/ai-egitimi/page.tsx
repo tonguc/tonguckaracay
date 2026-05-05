@@ -2,12 +2,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { setRequestLocale } from 'next-intl/server';
 import {
-  WhatTimeMockup,
-  UxSeoMockup,
-  OnayFormuMockup,
-  DijitalTespitMockup,
-} from "@/components/ShowcaseMockups";
-import {
   ArrowRight,
   Sparkles,
   Stethoscope,
@@ -168,31 +162,31 @@ const sectorDetails = [
 
 const showcase = [
   {
-    id: "whattime",
     title: "whattime.city",
+    image: "whattime.png",
     desc: "Şehir bazlı zaman ve toplantı planlayıcı. AI destekli içerik üretimi, çok dilli arayüz, otomatik şehir verisi.",
     tools: ["Next.js", "Claude API", "Vercel"],
     url: "https://whattime.city",
   },
   {
-    id: "ux-seo",
     title: "UX SEO Audit Kit",
+    image: "audit-dashboard.png",
     desc: "AI destekli, yarı-otomatik UX & SEO audit raporu üretim sistemi. Veri toplama → analiz → sunum.",
     tools: ["Claude", "ChatGPT", "Sheets"],
     url: null as string | null,
   },
   {
-    id: "onay-formu",
-    title: "Klinik Onay Formu + SMS",
-    desc: "Klinikler için onay formu üretimi, randevu öncesi yarı-otomatik SMS ve WhatsApp bilgilendirme akışı.",
-    tools: ["ChatGPT", "Claude", "Sheets"],
+    title: "Sektörel Dijital Tespit",
+    image: "ajans-intel.png",
+    desc: "Belirli sektörde dijital varlığı zayıf şirketleri yarı-otomatik tespit edip raporlayan sistem.",
+    tools: ["Claude", "ChatGPT", "Sheets"],
     url: null as string | null,
   },
   {
-    id: "dijital-tespit",
-    title: "Sektörel Dijital Tespit",
-    desc: "Belirli sektörde dijital varlığı zayıf şirketleri yarı-otomatik tespit edip raporlayan sistem.",
-    tools: ["Claude", "ChatGPT", "Sheets"],
+    title: "Klinik Onay Formu + SMS",
+    image: "onay-sistemi.png",
+    desc: "Klinikler için onay formu üretimi, randevu öncesi yarı-otomatik SMS ve WhatsApp bilgilendirme akışı.",
+    tools: ["ChatGPT", "Claude", "Sheets"],
     url: null as string | null,
   },
 ];
@@ -425,8 +419,8 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 key={item.title}
                 className="bg-surface-card border border-surface-border rounded-2xl overflow-hidden hover:border-indigo-500/50 transition-all group"
               >
-                <div className="relative aspect-[16/10] bg-gradient-to-br from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-b border-surface-border overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-7 bg-surface-darker/80 backdrop-blur-sm border-b border-surface-border flex items-center px-3 gap-1.5 z-10">
+                <div className="relative aspect-[16/10] border-b border-surface-border overflow-hidden bg-surface-darker">
+                  <div className="absolute top-0 left-0 right-0 h-7 bg-surface-darker/90 backdrop-blur-sm border-b border-surface-border flex items-center px-3 gap-1.5 z-10">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
@@ -436,10 +430,11 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                       </div>
                     )}
                   </div>
-                  {item.id === "whattime" && <WhatTimeMockup />}
-                  {item.id === "ux-seo" && <UxSeoMockup locale="tr" />}
-                  {item.id === "onay-formu" && <OnayFormuMockup locale="tr" />}
-                  {item.id === "dijital-tespit" && <DijitalTespitMockup locale="tr" />}
+                  <img
+                    src={`/showcase/${item.image}`}
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-cover object-top pt-7"
+                  />
                 </div>
 
                 <div className="p-6">
