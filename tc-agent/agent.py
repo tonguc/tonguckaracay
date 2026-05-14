@@ -832,8 +832,13 @@ faq:
     en_slug  = fm_field(en_file, "slug")
     en_title = fm_field(en_file, "title")
 
-    # TR'deki PLACEHOLDER_EN_SLUG → gerçek EN slug ile değiştir
-    tr_file = tr_file.replace("PLACEHOLDER_EN_SLUG", en_slug)
+    # translationSlug alanlarını gerçek karşı slug ile zorla ayarla.
+    # LLM bazen PLACEHOLDER_EN_SLUG'ı kendi tahminiyle dolduruyor; bu durumda
+    # düz .replace() çalışmaz ve TR↔EN slug mismatch'i oluşur (dil switcher + /hero kırılır).
+    tr_file = re.sub(r'^translationSlug:.*$', f'translationSlug: "{en_slug}"',
+                     tr_file, count=1, flags=re.MULTILINE)
+    en_file = re.sub(r'^translationSlug:.*$', f'translationSlug: "{tr_slug}"',
+                     en_file, count=1, flags=re.MULTILINE)
 
     # Görsel seçimi: konuya uygun kategoriden, post sayısı ile offset
     # TR ve EN farklı index aldığından asla aynı görseli alamazlar

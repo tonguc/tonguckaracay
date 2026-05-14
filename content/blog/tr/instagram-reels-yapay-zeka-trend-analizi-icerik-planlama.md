@@ -8,7 +8,7 @@ tags: ["instagram reels", "yapay zeka", "trend analizi", "içerik planlama", "so
 readTime: "12 dk"
 featured: false
 image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&auto=format&fit=crop&q=80"
-translationSlug: "instagram-reels-ai-trend-analysis-content-planning"
+translationSlug: "ai-trend-analysis-instagram-reels-content-planning"
 faq:
   - question: "Instagram Reels için trend analizi yapan yapay zeka araçları nelerdir?"
     answer: "ChatGPT Plus (güncel web araması ile), Perplexity AI, Google Gemini ve Claude, Instagram trendlerini analiz edebilir. Özellikle Perplexity gerçek zamanlı sosyal medya verilerini tarayarak hangi ses kliplerinin, hashtag'lerin ve formatların yükselişte olduğunu tespit eder. Ayrıca TrendTok, Sprout Social ve Later gibi platformlar da yapay zeka destekli trend takibi sunar. Bu araçlar milyonlarca gönderiyi analiz ederek viral içerik özelliklerini belirler ve sizin nişinize uygun fırsatları filtreler."
