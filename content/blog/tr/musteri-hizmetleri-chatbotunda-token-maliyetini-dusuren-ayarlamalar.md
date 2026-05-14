@@ -8,7 +8,7 @@ tags: ["AI Chatbot", "Token Optimizasyonu", "Müşteri Hizmetleri", "LLM Maliyet
 readTime: "9 dk"
 featured: false
 image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&auto=format&fit=crop&q=80"
-translationSlug: "customer-service-chatbot-token-cost-optimization"
+translationSlug: "how-to-reduce-token-costs-in-customer-service-chatbots"
 faq:
   - question: "Müşteri hizmetleri chatbotunda token maliyeti nasıl hesaplanır?"
     answer: "Token maliyeti, modelin input (gelen mesaj + prompt) ve output (üretilen yanıt) token sayısının toplamı ile model başına birim fiyatın çarpımıyla hesaplanır. GPT-4 Turbo'da 1M input token ~10 USD, 1M output token ~30 USD'dir. Ortalama bir müşteri konuşması 800-1200 token arasında değişir ve her yanıt için prompt yeniden gönderiliyorsa maliyet hızla artar. Önbellek ve kısa prompt kullanımı ile bu maliyet %60-75 oranında düşürülebilir."
