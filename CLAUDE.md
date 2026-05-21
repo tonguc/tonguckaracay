@@ -1,6 +1,6 @@
 # tonguckaracay.com — Claude Agent Kılavuzu
 
-Son güncelleme: 2026-04-25
+Son güncelleme: 2026-05-21
 
 ---
 
@@ -137,14 +137,17 @@ faq:
 | `app/[locale]/privacy-policy/page.tsx` | Yeni sayfa |
 | `app/[locale]/terms-of-service/page.tsx` | Yeni sayfa |
 | `lib/slug-mappings.ts` | Eksik slug'lar eklendi |
+| `app/[locale]/hizmetler/*/page.tsx` | 5 TR servis sayfasına canonical eklendi (Mayıs 2026) |
+| `app/[locale]/services/*/page.tsx` | 5 EN servis sayfasına canonical eklendi (Mayıs 2026) |
+| `middleware.ts` | Trailing slash → 301 redirect eklendi (Mayıs 2026) |
+| `app/[locale]/layout.tsx` | x-default hreflang TR→EN düzeltildi (Mayıs 2026) |
 
-### GSC Durumu (Nisan 2026)
+### GSC Durumu (Mayıs 2026)
 
-- 3 ayda 2 tıklama, 1.304 gösterim, %0 TO
+- 83 sayfa "Tarandı ama indexlenmedi" (18 Mayıs 2026 itibarıyla)
+- Doğrulama başarısız: 7 Mayıs başladı, 19 Mayıs başarısız
 - Ortalama pozisyon: 70–95
 - USA: 833 gösterim, 0 tıklama
-- 46 "Tarandı ama indexlenmedi" → hreflang fix ile çözülmesi bekleniyor
-- Sitemap GSC'ye yeniden gönderildi
 
 ### Güçlendirilen İçerikler
 
@@ -206,5 +209,32 @@ document.execCommand('insertText', false, content);
 - [ ] "Tarandı ama indexlenmedi" sayısının düşmesini izle
 - [ ] keyword-research yazıları pozisyon takibi (şu an pos. 63)
 - [ ] heading-tags yazıları pozisyon takibi (şu an pos. 92)
-- [ ] Statik sayfaların (hizmetler/services) hreflang kontrolü
 - [ ] Yeni blog içerikleri: UI/UX ve AI konuları (EN öncelikli)
+- [ ] 4–6 hafta sonra GSC'de "Tarandı ama indexlenmedi" 83→düşüş kontrolü
+- [ ] Servis sayfaları indexlenince hreflang (TR↔EN karşılıklı) eklenebilir
+
+---
+
+## Canonical Kuralı (KRİTİK — Mayıs 2026 Fix'ten Öğrenilen)
+
+`app/[locale]/layout.tsx`'teki `generateMetadata` tüm sayfalara
+`canonical: url` (homepage URL'i) kalıtımla verir.
+
+**Her yeni sayfa için `alternates.canonical` MUTLAKA kendi page.tsx veya layout.tsx'ine eklenmeli:**
+
+```ts
+// TR sayfası örneği (hizmetler/*)
+alternates: {
+  canonical: 'https://tonguckaracay.com/hizmetler/[slug]',
+},
+
+// EN sayfası örneği (services/*)
+alternates: {
+  canonical: 'https://tonguckaracay.com/en/services/[slug]',
+},
+```
+
+Canonical eksikse Google sayfayı homepage'in kopyası sanır → indexlemez.
+
+Client component olan sayfalar (`"use client"`) için canonical'ı
+aynı dizine `layout.tsx` ekleyerek tanımla (bkz. `iletisim/layout.tsx`).
