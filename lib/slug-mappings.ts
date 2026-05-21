@@ -35,6 +35,7 @@ export const slugMappingTrToEn: Record<string, string> = {
   "claude-gpt-4-token-maliyet-karsilastirmasi": "claude-gpt-4-token-cost-comparison",
   "musteri-hizmetleri-chatbotunda-token-maliyetini-dusuren-ayarlamalar": "how-to-reduce-token-costs-in-customer-service-chatbots",
   "instagram-reels-yapay-zeka-trend-analizi-icerik-planlama": "ai-trend-analysis-instagram-reels-content-planning",
+  "kobi-yapay-zeka-egitim-programi": "ai-tools-small-business-owners-training",
 };
 export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
   Object.entries(slugMappingTrToEn).map(([tr, en]) => [en, tr])
