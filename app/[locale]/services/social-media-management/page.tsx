@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: "Professional social media management to grow your brand. Content strategy and organic growth.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/en/services/social-media-management',
+  },
 };
 
 // ============================================

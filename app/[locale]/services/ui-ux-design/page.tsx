@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     description: "Professional UI/UX design services to transform your digital products. Research-driven approach, 25+ years experience.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/en/services/ui-ux-design',
+  },
 };
 
 // ============================================

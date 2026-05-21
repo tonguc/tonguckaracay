@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: "Transform your business with AI. Cost-effective AI consulting for SMBs.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/en/services/ai-solutions',
+  },
 };
 
 // ============================================

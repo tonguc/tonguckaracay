@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     description: "Profesyonel UI/UX tasarım hizmeti ile dijital ürünlerinizin dönüşüm oranlarını artırın. 25+ yıl deneyim.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/hizmetler/ui-ux-tasarim',
+  },
 };
 
 // ============================================

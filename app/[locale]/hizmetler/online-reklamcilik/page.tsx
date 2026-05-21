@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: "Profesyonel Google Ads ve Meta Ads yönetimi ile reklam bütçenizden maksimum verim alın. 25+ yıl deneyim.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/hizmetler/online-reklamcilik',
+  },
 };
 
 // ============================================

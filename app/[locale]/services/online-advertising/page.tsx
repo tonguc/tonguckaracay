@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: "Professional Google Ads and Meta Ads management to maximize your ad budget ROI. 25+ years experience.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/en/services/online-advertising',
+  },
 };
 
 // ============================================

@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: "Profesyonel SEO danışmanlığı ile organik trafiğinizi artırın. 25+ yıl deneyim, ölçülebilir sonuçlar.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/hizmetler/seo-danismanligi',
+  },
 };
 
 // ============================================

@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: "İş süreçlerinizi AI ile dönüştürün. KOBİ'ler için uygun maliyetli yapay zeka danışmanlığı.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri',
+  },
 };
 
 // ============================================

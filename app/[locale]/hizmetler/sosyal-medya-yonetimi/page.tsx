@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: "Profesyonel sosyal medya yönetimi ile markanızı büyütün. İçerik stratejisi ve organik büyüme.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/hizmetler/sosyal-medya-yonetimi',
+  },
 };
 
 // ============================================

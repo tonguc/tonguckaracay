@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: "Professional SEO consulting to boost your search rankings. 25+ years experience, measurable results.",
     type: "website",
   },
+  alternates: {
+    canonical: 'https://tonguckaracay.com/en/services/seo-consulting',
+  },
 };
 
 // ============================================

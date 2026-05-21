@@ -37,6 +37,14 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Trailing slash → 301 redirect before any other processing.
+  // trailingSlash: false in next.config.js doesn't fire when middleware intercepts first.
+  if (pathname !== '/' && pathname.endsWith('/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.slice(0, -1);
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
   // Bots: never geo-redirect. Serve canonical content so Google sees
   // / and /<tr-slug> as real pages, not as redirects to /en/*.
   if (isBot(request)) {
