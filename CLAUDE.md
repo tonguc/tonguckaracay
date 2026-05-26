@@ -137,6 +137,13 @@ faq:
 | `app/[locale]/privacy-policy/page.tsx` | Yeni sayfa |
 | `app/[locale]/terms-of-service/page.tsx` | Yeni sayfa |
 | `lib/slug-mappings.ts` | Eksik slug'lar eklendi |
+| `app/[locale]/layout.tsx` | **Mayıs 2026:** Hardcoded `<link rel=alternate>` 3 satırı silindi — her sayfada anasayfaya işaret ediyordu, page.tsx'in doğru hreflang'iyle çelişiyordu |
+| `middleware.ts` | **Mayıs 2026:** `alternateLinks: false` eklendi — next-intl'in `/en/<aynı-slug>` üreten broken HTTP Link header'ı kapatıldı; ayrıca yanlış-locale slug'ları (örn. `/en/<tr-slug>`) için 301 defense redirect |
+| `next.config.js` | **Mayıs 2026:** `/tr/:path*` → `/:path*` 301 (next-intl'in 307'sini geçer) |
+
+### KRİTİK: Hreflang Tek Kaynak Kuralı
+
+Hreflang **sadece** `app/[locale]/[slug]/page.tsx` ve diğer per-page `generateMetadata`'lardan üretilir. Layout'a veya middleware'e hreflang **EKLEME** — çoklu kaynak Google için broken cluster anlamına gelir, indexlemeyi durdurur.
 
 ### GSC Durumu (Nisan 2026)
 

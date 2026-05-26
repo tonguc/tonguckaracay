@@ -72,10 +72,6 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <link rel="alternate" hrefLang="tr" href="https://tonguckaracay.com" />
-        <link rel="alternate" hrefLang="en" href="https://tonguckaracay.com/en" />
-        <link rel="alternate" hrefLang="x-default" href="https://tonguckaracay.com" />
-        
         {/* Person Schema — E-E-A-T + AIO authorship signals */}
         <script
           type="application/ld+json"

@@ -75,6 +75,13 @@ const nextConfig = {
       // Blog URL yapısı değişikliği: /blog/[slug] → /[slug]
       { source: '/blog/:slug+', destination: '/:slug+', permanent: true },
       { source: '/en/blog/:slug+', destination: '/en/:slug+', permanent: true },
+
+      // TR is the default locale (localePrefix: 'as-needed'). next-intl
+      // would 307-redirect /tr/* → /* itself, but a 307 leaves Google
+      // holding two URL variants in its index. Force a hard 301 here
+      // so the prefix-less canonical is the single indexable form.
+      { source: '/tr', destination: '/', permanent: true },
+      { source: '/tr/:path*', destination: '/:path*', permanent: true },
     ];
   },
 };
