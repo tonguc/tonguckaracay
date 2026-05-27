@@ -23,9 +23,9 @@
     "personalizedStrategy": "Kişiselleştirilmiş Strateji",
     "featuredLabel": "Son Yazı",
     "featuredPost": {
-      "title": "KOBİ'ler İçin Yapay Zeka Eğitim Programı: Kapsamlı Rehber",
-      "description": "KOBİ sahipleri için yapay zeka araçları eğitim programı: ChatGPT, AI otomasyon ve dijital dönüşüm için adım adım uygulama rehberi ve araç önerileri.",
-      "slug": "kobi-yapay-zeka-egitim-programi"
+      "title": "Claude MCP ile Instagram İçerik Takvimi Otomasyonu Kurulumu",
+      "description": "Claude MCP sunucusu ile Instagram içerik takvimi otomasyonu nasıl kurulur? Hazır promptlar, şablonlar ve adım adım kurulum rehberi.",
+      "slug": "claude-mcp-instagram-icerik-takvimi-otomasyonu"
     }
   },
   "services": {
