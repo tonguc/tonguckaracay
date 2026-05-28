@@ -133,13 +133,13 @@ faq:
 | `app/sitemap.ts` | canonical URL'ler, privacy/terms eklendi |
 | `public/robots.txt` | GPTBot, ClaudeBot, PerplexityBot izinleri |
 | `public/llms.txt` | AI crawler rehberi |
-| `app/[locale]/blog/page.tsx` | TR/EN intro blok (thin content fix) |
 | `app/[locale]/privacy-policy/page.tsx` | Yeni sayfa |
 | `app/[locale]/terms-of-service/page.tsx` | Yeni sayfa |
 | `lib/slug-mappings.ts` | Eksik slug'lar eklendi |
 | `app/[locale]/layout.tsx` | **Mayıs 2026:** Hardcoded `<link rel=alternate>` 3 satırı silindi — her sayfada anasayfaya işaret ediyordu, page.tsx'in doğru hreflang'iyle çelişiyordu |
 | `middleware.ts` | **Mayıs 2026:** `alternateLinks: false` eklendi — next-intl'in `/en/<aynı-slug>` üreten broken HTTP Link header'ı kapatıldı; ayrıca yanlış-locale slug'ları (örn. `/en/<tr-slug>`) için 301 defense redirect |
 | `next.config.js` | **Mayıs 2026:** `/tr/:path*` → `/:path*` 301 (next-intl'in 307'sini geçer) |
+| `app/[locale]/blog/page.tsx` | **Mayıs 2026:** SEO intro bloğu kaldırıldı — subtitle aynı mesajı veriyordu (duplicate); ayrıca 30+ post kartı (başlık + 150-160 karakter açıklama) zaten yeterli unique metin sağlıyor, "thin content fix" gerekçesi artık geçerli değil |
 
 ### KRİTİK: Hreflang Tek Kaynak Kuralı
 
@@ -168,7 +168,7 @@ Hreflang **sadece** `app/[locale]/[slug]/page.tsx` ve diğer per-page `generateM
 
 ```
 app/[locale]/[slug]/page.tsx    — hreflang, canonical, schema
-app/[locale]/blog/page.tsx      — blog listing, intro blok
+app/[locale]/blog/page.tsx      — blog listing, pagination
 app/sitemap.ts                  — sitemap üretimi
 middleware.ts                   — geo redirect, locale
 next.config.js                  — trailingSlash, redirects, headers
