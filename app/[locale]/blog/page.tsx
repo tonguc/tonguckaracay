@@ -42,8 +42,6 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const paginatedPosts = allPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
-  const isEN = locale === 'en';
-
   return (
     <div className="pt-28 pb-20">
       <div className="container-custom">
@@ -57,25 +55,6 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
             {t('subtitle')}
           </p>
         </div>
-
-        {/* SEO Intro Block — görünür sadece 1. sayfada */}
-        {currentPage === 1 && (
-          <div className="max-w-3xl mx-auto mb-14 text-center">
-            {isEN ? (
-              <p className="text-primary-400 text-base leading-relaxed">
-                Welcome to the blog of <strong className="text-white">Tonguç Karaçay</strong>, a digital consultant with 25+ years of experience in SEO, UI/UX design, digital marketing, and AI-powered growth strategies.
-                Here you'll find practical guides on <strong className="text-white">SEO optimization</strong>, <strong className="text-white">Google Ads</strong>, <strong className="text-white">AI tools for business</strong>, and <strong className="text-white">UX best practices</strong> — written from real consulting experience, not theory.
-                All articles are regularly updated to reflect the latest algorithm changes and industry developments.
-              </p>
-            ) : (
-              <p className="text-primary-400 text-base leading-relaxed">
-                <strong className="text-white">Tonguç Karaçay</strong>'ın 25+ yıllık SEO, UI/UX tasarım, dijital pazarlama ve yapay zeka odaklı büyüme deneyiminden derlenen bu blogda, gerçek danışmanlık tecrübesine dayalı pratik rehberler bulacaksınız.
-                <strong className="text-white">SEO optimizasyonu</strong>, <strong className="text-white">Google Ads</strong>, <strong className="text-white">yapay zeka araçları</strong> ve <strong className="text-white">UX en iyi pratikleri</strong> hakkında teoriden değil uygulamadan gelen içerikler.
-                Tüm yazılar güncel algoritma değişikliklerini ve sektör gelişmelerini yansıtacak şekilde düzenli olarak güncellenmektedir.
-              </p>
-            )}
-          </div>
-        )}
 
         {/* Featured Post — sadece 1. sayfada */}
         {currentPage === 1 && paginatedPosts.length > 0 && (
