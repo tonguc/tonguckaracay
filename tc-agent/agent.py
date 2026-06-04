@@ -12,6 +12,11 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 import anthropic, requests
 
+try:
+    import yaml as _yaml   # frontmatter doğrulaması için (opsiyonel)
+except ImportError:
+    _yaml = None
+
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO,
@@ -616,6 +621,47 @@ def _parse_block(raw: str, start_tag: str, end_tag: str, lang: str) -> str:
     return m.group(1).strip()
 
 
+def _fix_yaml_quoted_value(line: str) -> str:
+    """Tek satırlık `key: "değer"` (veya `- key: "değer"`) YAML alanındaki
+    kaçırılmamış iç çift tırnakları escape eder. LLM bazen description/answer
+    gibi alanların metnine düz " koyuyor (örn: (e.g., "x")) → çift tırnaklı
+    YAML scalar'ı bozuluyor. İlk ve son tırnak gerçek sınırlayıcıdır; arasındaki
+    her şey değerdir, dolayısıyla içteki tüm tırnaklar \\" olmalı."""
+    m = re.match(r'^(\s*(?:-\s*)?[A-Za-z_][\w]*:\s*)"(.*)"\s*$', line)
+    if not m:
+        return line
+    prefix, value = m.group(1), m.group(2)
+    value = value.replace('\\"', '"')   # önce mevcut escape'i geri al (idempotent olsun)
+    value = value.replace('"', '\\"')   # sonra tüm iç tırnakları escape et
+    return f'{prefix}"{value}"'
+
+
+def _sanitize_frontmatter(md: str) -> str:
+    """Markdown'ın frontmatter (---...---) bloğundaki çift tırnaklı YAML
+    değerlerini güvene alır. Gövdedeki (body) tırnaklara dokunmaz."""
+    m = re.match(r'^(---\s*\n)(.*?)(\n---\s*\n?)(.*)$', md, re.DOTALL)
+    if not m:
+        return md
+    head, fm, sep, body = m.groups()
+    fixed = "\n".join(_fix_yaml_quoted_value(ln) for ln in fm.split("\n"))
+    return head + fixed + sep + body
+
+
+def _validate_frontmatter(md: str, lang: str) -> None:
+    """Sanitize sonrası frontmatter'ın geçerli YAML olduğunu doğrular.
+    Geçersizse ValueError fırlatır → bozuk içerik GitHub'a PUSH EDİLMEZ
+    (aksi halde gray-matter build'i çöküp tüm site deploy'unu kilitliyordu)."""
+    if _yaml is None:
+        return
+    fm = re.match(r'^---\s*\n(.*?)\n---\s*\n?', md, re.DOTALL)
+    if not fm:
+        raise ValueError(f"{lang}: frontmatter bulunamadı")
+    try:
+        _yaml.safe_load(fm.group(1))
+    except _yaml.YAMLError as e:
+        raise ValueError(f"{lang} frontmatter geçersiz YAML (sanitize sonrası): {e}")
+
+
 def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
                   tr_intent: str = "informational", en_intent: str = "informational",
                   target_words: int = 1200,
@@ -892,6 +938,13 @@ faq:
     tr_file = re.sub(r'^image_keyword:.*$', f'image: "{img}"', tr_file, flags=re.MULTILINE)
     en_file = re.sub(r'^image_keyword:.*$', f'image: "{img}"', en_file, flags=re.MULTILINE)
 
+    # Frontmatter güvenliği: LLM'in ürettiği YAML'i onar + doğrula.
+    # Geçersizse fırlatır → bozuk yazı push edilmez, site deploy'u kilitlenmez.
+    tr_file = _sanitize_frontmatter(tr_file)
+    en_file = _sanitize_frontmatter(en_file)
+    _validate_frontmatter(tr_file, "TR")
+    _validate_frontmatter(en_file, "EN")
+
     return {
         "tr": {"slug": tr_slug, "title": tr_title,
                "file": f"content/blog/tr/{tr_slug}.md",
@@ -1070,7 +1123,7 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
                    re.search(r"===TR_START===\s*(.*)", tr_raw, re.DOTALL)
         if not tr_match:
             return await msg.edit_text("❌ TR revize başarısız: Claude beklenen formatta yanıt vermedi.")
-        new_tr = tr_match.group(1).strip()
+        new_tr = _sanitize_frontmatter(tr_match.group(1).strip())
 
         # ── 2. ÇAĞRI: EN revize (EN içerik varsa) ───────────────────────────
         new_en = None
@@ -1099,7 +1152,7 @@ Respond in exactly this format (nothing else):
             en_match = re.search(r"===EN_START===\s*(.*?)\s*===EN_END===", en_raw, re.DOTALL) or \
                        re.search(r"===EN_START===\s*(.*)", en_raw, re.DOTALL)
             if en_match:
-                new_en = en_match.group(1).strip()
+                new_en = _sanitize_frontmatter(en_match.group(1).strip())
 
         await msg.edit_text("📦 Revize edilmiş yazı GitHub'a yükleniyor...", parse_mode="Markdown")
 
@@ -1242,7 +1295,7 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
                    re.search(r"===TR_START===\s*(.*)", tr_raw, re.DOTALL)
         if not tr_match:
             return await msg.edit_text("❌ TR optimize başarısız: Claude beklenen formatta yanıt vermedi.")
-        new_tr = tr_match.group(1).strip()
+        new_tr = _sanitize_frontmatter(tr_match.group(1).strip())
 
         new_en = None
         if en_content:
@@ -1268,7 +1321,7 @@ Respond in exactly this format (nothing else):
             en_match = re.search(r"===EN_START===\s*(.*?)\s*===EN_END===", en_raw, re.DOTALL) or \
                        re.search(r"===EN_START===\s*(.*)", en_raw, re.DOTALL)
             if en_match:
-                new_en = en_match.group(1).strip()
+                new_en = _sanitize_frontmatter(en_match.group(1).strip())
 
         await msg.edit_text("📦 GitHub'a yükleniyor...", parse_mode="Markdown")
         ok_tr = await loop.run_in_executor(None, gh_push,
