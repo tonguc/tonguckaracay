@@ -1,6 +1,6 @@
 # tonguckaracay.com — Claude Agent Kılavuzu
 
-Son güncelleme: 2026-04-25
+Son güncelleme: 2026-06-04
 
 ---
 
@@ -108,6 +108,7 @@ faq:
 - Her yazıda `faq` frontmatter ile FAQ schema olmalı
 - Görsel: her yazı için farklı Unsplash ID
 - **"## İçindekiler" / "## Table of Contents" YAZMA** — site zaten otomatik TOC üretir (mobilde yazı üstünde, desktop'ta sağ sidebar). Manuel TOC eklenirse renderer'ın slugify'ı ile uyuşmaz (Türkçe karakterleri ve `-` siler), linkler kırılır.
+- **KRİTİK — Frontmatter YAML tırnak kuralı:** Çift tırnaklı bir frontmatter değerinin (title, description, faq question/answer) İÇİNDE düz `"` kullanma. YAML çift tırnaklı scalar'da iç tırnak `\"` olarak escape edilmeli (örn. `answer: "... (örn. \"şiddetli ağrım var\") ..."`). Escape edilmezse `gray-matter` parse edemez → **Next.js build'i komple çöker → o yazı yayına çıkamaz + sonraki tüm deploy'lar kilitlenir** (site donar). Alternatif: iç ifadeyi tek tırnakla yaz (`'...'`). Manuel yazımda buna dikkat et; tc-agent zaten otomatik escape ediyor (aşağıya bak).
 
 ### İçerik Kalite Standartları
 
@@ -140,6 +141,19 @@ faq:
 | `middleware.ts` | **Mayıs 2026:** `alternateLinks: false` eklendi — next-intl'in `/en/<aynı-slug>` üreten broken HTTP Link header'ı kapatıldı; ayrıca yanlış-locale slug'ları (örn. `/en/<tr-slug>`) için 301 defense redirect |
 | `next.config.js` | **Mayıs 2026:** `/tr/:path*` → `/:path*` 301 (next-intl'in 307'sini geçer) |
 | `app/[locale]/blog/page.tsx` | **Mayıs 2026:** SEO intro bloğu kaldırıldı — subtitle aynı mesajı veriyordu (duplicate); ayrıca 30+ post kartı (başlık + 150-160 karakter açıklama) zaten yeterli unique metin sağlıyor, "thin content fix" gerekçesi artık geçerli değil |
+| `content/blog/en/ai-agent-patient-follow-up-appointment-reminders.md` | **Haziran 2026:** FAQ cevabındaki kaçırılmamış iç çift tırnak (`(e.g., "...")`) düzeltildi. Bu bozuk YAML, `gray-matter` parse'ında `YAMLException: a colon is missed` verip Vercel build'ini tamamen düşürmüştü → site son sağlam deploy'da donmuş, EN yazısı yayına çıkamamış, sonraki tüm deploy'lar (agent fix dahil) ERROR olmuştu. Tırnaklar `\"` ile escape edilince build yeşile döndü |
+| `tc-agent/agent.py` | **Haziran 2026:** Telegram agent'a `_sanitize_frontmatter` + `_validate_frontmatter` eklendi — ürettiği frontmatter'daki iç tırnakları push'tan önce otomatik escape eder ve PyYAML ile doğrular; geçersizse hata verip **bozuk yazıyı GitHub'a basmaz**. Böylece yukarıdaki build-kilitleyen YAML hatası bir daha oluşamaz. Ayrıca tüm Claude çağrıları geçici 5xx/429 hatalarında retry'lı (`_claude_create`) |
+
+### KRİTİK: Telegram Agent (tc-agent) — Slug & Build Güvenliği
+
+Blog yazıları çoğunlukla **Telegram üzerinden tc-agent** ile üretiliyor (`/yazi`, `/fikir` → numara). Agent TR+EN çift yazı üretip GitHub'a push eder, Vercel otomatik deploy alır.
+
+**Bir blog yazısının build'i kırma / yanlış indexlenme riskini önlemek için 3 kural:**
+1. **Frontmatter YAML geçerli olmalı** — iç çift tırnaklar escape (`\"`). Agent bunu otomatik yapar; manuel düzenlemede sen dikkat et. Geçersiz YAML = tüm site deploy'u kilitlenir.
+2. **translationSlug iki yönlü tutarlı olmalı** — TR yazının `translationSlug`'ı EN slug'a, EN yazının `translationSlug`'ı TR slug'a işaret etmeli. Agent bunu zorla senkronlar; ayrıca `lib/slug-mappings.ts` güncellenmeli (dil switcher + hreflang buna bağlı).
+3. **Yıl yok, manuel TOC yok** (yukarıdaki frontmatter kuralları).
+
+**Yeni yazı sonrası kontrol:** Vercel deploy'unun **READY** olduğunu doğrula (ERROR ise build kırılmıştır → site eski deploy'da donar, yeni içerik yayına çıkamaz). Bozulursa build log'undaki `YAMLException` satırına bak, ilgili `content/blog/<lang>/<slug>.md` frontmatter'ını düzelt.
 
 ### KRİTİK: Hreflang Tek Kaynak Kuralı
 
