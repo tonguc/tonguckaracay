@@ -2,6 +2,9 @@
 """
 Growth Agent v2.0 - tonguckaracay.com
 SERP Analizi + Rakip İçerik + GEO/AEO/E-E-A-T
+
+Not: Bu dosya değiştiğinde /root/tc-agent/auto-deploy.sh (cron, 5 dk) main'den
+çekip `pm2 restart bot` ile otomatik devreye alır — elle restart gerekmez.
 """
 
 import os, json, asyncio, logging, re, base64, time
