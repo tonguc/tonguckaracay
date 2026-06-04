@@ -1005,6 +1005,7 @@ async def cmd_start(u, _):
         "👋 *tonguckaracay.com Growth Agent v2*\n\n"
         "📝 `/yazi [konu]` — SERP analizi yapıp yazı üret\n"
         "💡 `/fikir [konu]` — Trafik getirecek 7 konu önerisi\n"
+        "🔢 `/fikirler` — Son fikir listesini tekrar göster (numara seç)\n"
         "🌐 `/site hero [talimat]` — Ana sayfa slider metnini güncelle\n"
         "✏️ `/revize [slug] [istek]` — Mevcut yazıyı düzenle\n"
         "🤖 `/gunluk` — Otomatik konu seç ve yaz\n"
@@ -1468,7 +1469,24 @@ TAM OLARAK ŞU FORMATTA DÖN:
 
 
 # Kullanıcı başına son /fikir sonuçlarını saklar: {user_id: [başlık1, başlık2, ...]}
-_pending_ideas: dict[int, list[str]] = {}
+# Diske yazılır → bot restart olsa bile fikirler kaybolmaz, eski listeden numara seçilebilir.
+_IDEAS_FILE = "pending_ideas.json"
+
+def _load_ideas() -> dict:
+    try:
+        with open(_IDEAS_FILE, encoding="utf-8") as f:
+            return {int(k): v for k, v in json.load(f).items()}
+    except (FileNotFoundError, ValueError, OSError):
+        return {}
+
+def _save_ideas(data: dict) -> None:
+    try:
+        with open(_IDEAS_FILE, "w", encoding="utf-8") as f:
+            json.dump({str(k): v for k, v in data.items()}, f, ensure_ascii=False)
+    except OSError:
+        logger.warning("pending_ideas.json yazılamadı")
+
+_pending_ideas: dict[int, list[str]] = _load_ideas()
 
 async def cmd_hero(u, ctx):
     """Blog yazısını hero'ya öne çıkar: /hero <tr-slug>"""
@@ -1604,6 +1622,7 @@ Sadece 7 öneriyi listele, başka açıklama ekleme."""
         titles = re.findall(r'\*\*\d+\.\s+(.+?)\*\*', ideas)
         if titles:
             _pending_ideas[u.effective_user.id] = titles
+            _save_ideas(_pending_ideas)
 
         baslik = f"💡 *{konu_label} İçerik Fikirleri*\n\n"
         footer = "\n\n_Yazmak için sadece numara gönder: `1`, `2` ... `7`_" if titles else ""
@@ -1617,8 +1636,24 @@ Sadece 7 öneriyi listele, başka açıklama ekleme."""
         await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:300]}\n```", parse_mode="Markdown")
 
 
+async def cmd_fikirler(u, ctx):
+    """Son /fikir listesini numaralarıyla tekrar gösterir (restart sonrası da çalışır)."""
+    if not auth(u): return await deny(u)
+    titles = _pending_ideas.get(u.effective_user.id, [])
+    if not titles:
+        return await u.message.reply_text(
+            "❌ Kayıtlı fikir yok. Önce `/fikir [konu]` ile liste al.", parse_mode="Markdown")
+    lines = "\n".join(f"*{i}.* {t}" for i, t in enumerate(titles, 1))
+    await u.message.reply_text(
+        f"💡 *Son İçerik Fikirleri*\n\n{lines}\n\n"
+        f"_Yazmak için numara gönder: `1` … `{len(titles)}`_",
+        parse_mode="Markdown")
+
+
 async def handle_idea_selection(u, ctx):
-    """Kullanıcı /fikir sonrası numara gönderirse o başlıkla yazı üretir."""
+    """Kullanıcı /fikir sonrası numara gönderirse o başlıkla yazı üretir.
+    Liste diske kayıtlı olduğu için aynı listeden birden çok numara seçilebilir;
+    bot restart olsa bile eski liste korunur."""
     if not auth(u): return
     text = (u.message.text or "").strip()
     m = re.match(r'^([1-7])', text)
@@ -1754,6 +1789,7 @@ def main():
     for cmd, fn in [("start",cmd_start),("yardim",cmd_start),("durum",cmd_durum),
                     ("liste",cmd_liste),("brief",cmd_brief),("revize",cmd_revize),
                     ("optimize",cmd_optimize),("yazi",cmd_yazi),("fikir",cmd_fikir),
+                    ("fikirler",cmd_fikirler),
                     ("site",cmd_site),("hero",cmd_hero),("gunluk",cmd_gunluk),("stop",cmd_stop)]:
         app.add_handler(CommandHandler(cmd, fn))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_idea_selection))
