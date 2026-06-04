@@ -40,7 +40,13 @@ def load_config(path="config-tc.env"):
     return cfg
 
 config     = load_config()
-claude     = anthropic.Anthropic(api_key=config.get("ANTHROPIC_API_KEY",""))
+# max_retries: SDK'nın kendi backoff'u (429/5xx/bağlantı için). Aşağıdaki
+# _claude_create sarmalayıcısı bunun da üstünde daha uzun bir retry penceresi sağlar.
+claude     = anthropic.Anthropic(
+    api_key=config.get("ANTHROPIC_API_KEY",""),
+    max_retries=4,
+    timeout=600.0,
+)
 ALLOWED    = set(int(x) for x in config.get("TELEGRAM_ALLOWED_IDS","").split(",") if x.strip().isdigit())
 GH_REPO    = config.get("GITHUB_REPO","tonguc/tonguckaracay")
 GH_BRANCH  = config.get("GITHUB_BRANCH","main")
@@ -50,6 +56,45 @@ DAILY_H    = int(config.get("DAILY_POST_HOUR","7"))
 DAILY_M    = int(config.get("DAILY_POST_MINUTE","0"))
 
 _cancel = False   # /stop komutu bunu True yapar
+
+# ── CLAUDE API ÇAĞRISI (geçici hatalara karşı dayanıklı) ──────────────────────
+
+def _claude_create(**kwargs):
+    """claude.messages.create için retry sarmalayıcısı.
+
+    Anthropic API yoğun saatlerde ara sıra geçici hata döndürür:
+      • 500 Internal Server Error
+      • 529 Overloaded
+      • 502/503
+      • 429 Rate limit
+      • bağlantı kopması / timeout
+    Bu çağrı, böyle bir hatada exponential backoff ile (2s, 4s, 8s, 16s, 32s)
+    tekrar dener. Aksi halde tek seferlik bir 500 — özellikle yazı üretimindeki
+    İKİNCİ (EN) çağrıda — tüm üretimi düşürüyor ve hem TR hem EN kaybediliyordu.
+
+    Kalıcı hatalar (geçersiz API key=401, bozuk istek=400 gibi 4xx) tekrar
+    denenmez, anında fırlatılır."""
+    max_attempts = 6
+    delay = 2.0
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return claude.messages.create(**kwargs)
+        except anthropic.APIStatusError as e:
+            status = getattr(e, "status_code", 0) or 0
+            # 5xx ve 429 geçici → tekrar dene; diğer 4xx kalıcı → hemen fırlat
+            if not (status >= 500 or status == 429) or attempt == max_attempts:
+                raise
+            logger.warning(
+                f"Claude API geçici hata {status} "
+                f"(deneme {attempt}/{max_attempts}); {delay:.0f}s sonra tekrar denenecek...")
+        except anthropic.APIConnectionError as e:
+            if attempt == max_attempts:
+                raise
+            logger.warning(
+                f"Claude API bağlantı hatası "
+                f"(deneme {attempt}/{max_attempts}): {e}; {delay:.0f}s sonra tekrar denenecek...")
+        time.sleep(delay)
+        delay = min(delay * 2, 32)
 
 # ── SYSTEM PROMPT ────────────────────────────────────────────────────────────
 
@@ -224,7 +269,7 @@ def pick_english_keyword(topic_tr: str) -> str:
     Çeviri DEĞİL — ABD/UK pazarındaki gerçek arama davranışına ve
     İngilizce SEO/AI ekosisteminde kullanılan terminolojiye göre seçilir."""
     try:
-        r = claude.messages.create(
+        r = _claude_create(
             model="claude-haiku-4-5-20251001", max_tokens=80,
             messages=[{"role": "user", "content":
                 f"""Turkish SEO topic: '{topic_tr}'
@@ -552,7 +597,7 @@ def extract_paa(serp_data: str) -> list[str]:
 
 def _call_claude(prompt: str, max_tokens: int = 8000) -> str:
     """Claude API çağrısı yapar, raw metni döner."""
-    resp = claude.messages.create(
+    resp = _claude_create(
         model="claude-sonnet-4-5", max_tokens=max_tokens,
         system=SYSTEM,
         messages=[{"role": "user", "content": prompt}]
@@ -892,7 +937,7 @@ def pick_topic(used: list[str]) -> str:
         slug = t.lower().replace(" ", "-")
         if not any(SequenceMatcher(None, slug, u).ratio() > 0.5 for u in used):
             return t
-    r = claude.messages.create(model="claude-sonnet-4-5", max_tokens=80,
+    r = _claude_create(model="claude-sonnet-4-5", max_tokens=80,
         messages=[{"role":"user","content":"Dijital pazarlama ve SEO blogu için özgün bir yazı konusu öner. Sadece başlık."}])
     return r.content[0].text.strip()
 
@@ -1015,7 +1060,7 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
 (düzenlenmiş TR markdown, frontmatter dahil)
 ===TR_END==="""
 
-        tr_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+        tr_raw = await loop.run_in_executor(None, lambda: _claude_create(
             model="claude-sonnet-4-5", max_tokens=8000,
             system=SYSTEM,
             messages=[{"role": "user", "content": tr_prompt}]
@@ -1045,7 +1090,7 @@ Respond in exactly this format (nothing else):
 (revised EN markdown, including frontmatter)
 ===EN_END==="""
 
-            en_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+            en_raw = await loop.run_in_executor(None, lambda: _claude_create(
                 model="claude-sonnet-4-5", max_tokens=8000,
                 system=SYSTEM,
                 messages=[{"role": "user", "content": en_prompt}]
@@ -1187,7 +1232,7 @@ Tam olarak şu formatta döndür (başka hiçbir şey ekleme):
 ===TR_END==="""
 
         await msg.edit_text("✍️ TR optimize ediliyor...", parse_mode="Markdown")
-        tr_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+        tr_raw = await loop.run_in_executor(None, lambda: _claude_create(
             model="claude-sonnet-4-5", max_tokens=16000,
             system=SYSTEM,
             messages=[{"role": "user", "content": tr_prompt}]
@@ -1214,7 +1259,7 @@ Respond in exactly this format (nothing else):
 ===EN_END==="""
 
             await msg.edit_text("✍️ EN optimize ediliyor...", parse_mode="Markdown")
-            en_raw = await loop.run_in_executor(None, lambda: claude.messages.create(
+            en_raw = await loop.run_in_executor(None, lambda: _claude_create(
                 model="claude-sonnet-4-5", max_tokens=16000,
                 system=SYSTEM,
                 messages=[{"role": "user", "content": en_prompt}]
@@ -1328,7 +1373,7 @@ TAM OLARAK ŞU FORMATTA DÖN:
 ===EN_JSON_END==="""
 
     try:
-        resp = await loop.run_in_executor(None, lambda: claude.messages.create(
+        resp = await loop.run_in_executor(None, lambda: _claude_create(
             model="claude-sonnet-4-5", max_tokens=2000,
             messages=[{"role": "user", "content": prompt}]
         ).content[0].text.strip())
@@ -1496,7 +1541,7 @@ Her öneri için TAM OLARAK şu formatı kullan:
 Sadece 7 öneriyi listele, başka açıklama ekleme."""
 
     try:
-        resp = await loop.run_in_executor(None, lambda: claude.messages.create(
+        resp = await loop.run_in_executor(None, lambda: _claude_create(
             model="claude-sonnet-4-5", max_tokens=1500,
             messages=[{"role": "user", "content": prompt}]
         ))
