@@ -34,13 +34,13 @@ export default function TrustedBy({ locale }: Props) {
           {isTr ? "Birlikte Çalıştığım Marka ve Kurumlar" : "Brands & Organizations I've Worked With"}
         </p>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4">
           {brands.map((brand) => (
             <div
               key={brand}
-              className="group flex items-center justify-center"
+              className="group flex items-center justify-center rounded-xl border border-surface-border/50 bg-surface-card/40 px-5 py-3 backdrop-blur-sm transition-all duration-300 hover:border-accent-500/40 hover:bg-surface-card/70"
             >
-              <span className="select-none font-display text-lg font-bold tracking-tight text-primary-500 grayscale transition-all duration-300 group-hover:text-accent-400 group-hover:[text-shadow:0_0_18px_rgba(245,158,11,0.35)] md:text-xl">
+              <span className="select-none whitespace-nowrap font-display text-base font-bold tracking-tight text-primary-400 transition-colors duration-300 group-hover:text-accent-300 md:text-lg">
                 {brand}
               </span>
             </div>
