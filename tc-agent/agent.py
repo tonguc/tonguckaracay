@@ -425,32 +425,45 @@ _IDEA_SEEDS_TR = [
 _Q_HINTS = ("nasıl", "nedir", "neden", "hangi", "kaç", "mı", "mi", "mu", "mü",
             "what", "how", "why", "which", "when", "?")
 
-def harvest_keyword_pool(seeds: list[str], lang: str = "tr") -> dict:
+def harvest_keyword_pool(seeds: list[str], lang: str = "tr", expand: int = 0) -> dict:
     """Birden çok seed için HAFİF SERP taraması yapar (rakip sayfa gövdesi ÇEKMEZ,
     sadece başlık + PAA + ilgili aramalar). Fikir üretimi uydurma keyword yerine
-    bu GERÇEK sorgu havuzuna dayansın diye. {titles, questions, searches} döner."""
+    bu GERÇEK sorgu havuzuna dayansın diye. {titles, questions, searches} döner.
+
+    expand>0 ise 2-aşamalı: ilk turdan sonra en güçlü `expand` ilgili sorgu
+    ikinci-seviye seed olarak da taranır → çok daha fazla FARKLI gerçek sorgu
+    (tek-seed konularda keyword cannibalization'ı önler)."""
     titles, questions, searches = [], [], []
-    seen_t, seen_q = set(), set()
-    for seed in seeds:
+    seen_t, seen_q, seen_seed = set(), set(), set()
+
+    def _scan(seed: str):
+        k = (seed or "").lower().strip()
+        if not k or k in seen_seed:
+            return
+        seen_seed.add(k)
         serp = serp_analyze(seed, lang)
         if not serp:
-            continue
+            return
         for res in serp.get("results", []):
             t = (res.get("title") or "").strip()
-            k = t.lower()
-            if t and k not in seen_t:
-                seen_t.add(k); titles.append(t)
+            tk = t.lower()
+            if t and tk not in seen_t:
+                seen_t.add(tk); titles.append(t)
         for q in serp.get("related", []):
             q = (q or "").strip()
-            k = q.lower()
-            if not q or k in seen_q:
+            qk = q.lower()
+            if not q or qk in seen_q:
                 continue
-            seen_q.add(k)
+            seen_q.add(qk)
             # PAA tarzı soru mu yoksa "related search" mı — kaba ayrım
-            if any(h in k for h in _Q_HINTS):
-                questions.append(q)
-            else:
-                searches.append(q)
+            (questions if any(h in qk for h in _Q_HINTS) else searches).append(q)
+
+    for s in seeds:
+        _scan(s)
+    if expand > 0:
+        # ilk turun en güçlü ilgili sorgularını ikinci-seviye seed yap (PAA önce)
+        for s in (questions + searches)[:expand]:
+            _scan(s)
     return {"titles": titles, "questions": questions, "searches": searches}
 
 def _chunk_telegram(text: str, limit: int = 4000) -> list[str]:
@@ -1644,9 +1657,11 @@ async def cmd_fikir(u, ctx):
     loop = asyncio.get_event_loop()
 
     # GERÇEK ARAMA VERİSİ MADENLE — fikirler uydurma keyword'e değil bu havuza dayanır.
-    # Konu varsa o seed; yoksa dönüşümlü seed listesinden 3 tane (her çağrı farklı açı).
+    # Konu varsa o seed + 2-aşamalı genişletme (tek SERP ince kalmasın, cannibalization
+    # olmasın); yoksa dönüşümlü seed listesinden 3 tane (her çağrı farklı açı).
     seeds = [konu] if konu else random.sample(_IDEA_SEEDS_TR, 3)
-    pool = await loop.run_in_executor(None, harvest_keyword_pool, seeds, "tr")
+    expand = 3 if konu else 0
+    pool = await loop.run_in_executor(None, lambda: harvest_keyword_pool(seeds, "tr", expand))
 
     pool_block = ""
     if pool["questions"] or pool["searches"] or pool["titles"]:
