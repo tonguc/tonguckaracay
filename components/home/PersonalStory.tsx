@@ -31,18 +31,17 @@ export default function PersonalStory({ locale }: Props) {
     <section className="py-14 md:py-24">
       <div className="container-custom">
         <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          {/* Portre — siyah zemin + vignette ile koyu temaya harmanlanır */}
+          {/* Portre — arka planı silinmiş cutout, düz siyah zeminde */}
           <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
             <div className="absolute -inset-3 rounded-3xl bg-accent-500/10 blur-2xl" />
-            <div className="relative overflow-hidden rounded-3xl bg-black shadow-2xl ring-1 ring-white/10">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-black shadow-2xl ring-1 ring-white/10">
               <Image
-                src="/tonguc-karacay.jpg"
+                src="/tonguc-karacay-cutout.png"
                 alt="Tonguç Karaçay"
-                width={520}
-                height={640}
-                className="h-auto w-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-contain object-bottom"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/15" />
             </div>
           </div>
 
