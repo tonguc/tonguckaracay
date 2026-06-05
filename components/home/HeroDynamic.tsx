@@ -98,8 +98,15 @@ export default function HeroDynamic({ locale }: Props) {
           {/* SAĞ — Sabit kişisel tanıtım */}
           <div className="order-1 flex flex-col justify-center lg:order-2">
             <div className="flex items-center gap-4">
-              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl ring-2 ring-accent-500/30 md:h-20 md:w-20">
-                <Image src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" fill sizes="80px" className="object-cover" />
+              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_50%_32%,rgba(245,158,11,0.20),rgba(99,102,241,0.06)_55%,transparent_72%)] ring-1 ring-accent-500/30 md:h-[120px] md:w-[120px]">
+                <Image
+                  src="/tonguckaracay-ux-seo-ai.png"
+                  alt="Tonguç Karaçay"
+                  fill
+                  sizes="120px"
+                  className="object-cover"
+                  style={{ transform: "scale(1.7)", transformOrigin: "50% 15%" }}
+                />
               </div>
               <div>
                 <h1 className="font-display text-2xl font-bold text-white md:text-3xl">Tonguç Karaçay</h1>
