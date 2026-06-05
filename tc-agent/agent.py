@@ -1683,10 +1683,12 @@ Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimc
 3. UZUN KUYRUK + DÜŞÜK REKABET + YÜKSEK NİYET: 4+ kelimeli spesifik sorgular; büyük medya/markaların doymadığı nişler; arayanın danışmanlık/satın alma niyeti yüksek olsun.
 4. CONTENT GAP: Rakiplerin zayıf/eksik bıraktığı VE sitede zaten yazılmamış açıları seç.
 5. SERP FIRSATI: Featured snippet / PAA kutusu / AEO (yapay zeka cevabı) kazanılabilecek, net cevaplanabilir sorgular avantajlı.
+6. YIL/TARİH YASAK: Başlıkta veya keyword'de "2024", "2025", "2026" gibi yıl/tarih KESİNLİKLE yazma — site otomatik güncel kalır, yıl içerikleri eskitir.
+7. ÇERÇEVE TEKRARI YOK: Aynı içerik çerçevesini (örn. "yapmak mı satın almak mı / mühendis mi araç mı", "X mi Y mi karşılaştırması") 7 öneri içinde EN FAZLA 1 kez kullan. Format çeşitlendir (how-to, liste, vaka, rehber, tablo).
 
-Her öneri için TAM OLARAK şu format (başlık ** ile sarılı, YIL YOK):
+Her öneri için TAM OLARAK şu format (başlık ** ile sarılı, BAŞLIKTA YIL YOK):
 
-**1. Tıklanır, spesifik başlık (uzun kuyruk)**
+**1. Tıklanır, spesifik başlık (uzun kuyruk, yıl yok)**
 🔑 Hedef sorgu: (yukarıdaki veriden birebir veya çok yakın varyant)
 🧭 Intent/Funnel: informational|commercial|transactional / TOFU|MOFU|BOFU
 🏆 SERP fırsatı + gap: (featured snippet / PAA / zayıf rakip — eksik açı tek cümle)
