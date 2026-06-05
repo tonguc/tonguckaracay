@@ -1695,6 +1695,7 @@ Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimc
    • Tanım/kavram (AEO — "X nedir, nasıl çalışır")
    • Karar çerçevesi / framework
    ZORUNLU: 7 önerinin EN FAZLA 2'si bir kitle-persona'sı (KOBİ/e-ticaret/freelancer) etrafında kurulabilir. Geri kalanı persona-bağımsız olsun. Başlıkları "...ler için" kalıbıyla BAŞLATMA.
+9. SORGU YAMYAMLIĞI (CANNIBALIZATION) YASAK: Aynı kök/head sorguyu (örn. "yapay zeka mühendisliği") BİRDEN FAZLA öneride hedefleme — Google'da yazılar birbirini yer. Her öneri AYRI bir kök sorgu + long-tail almalı. Parantez içine "(uygulama sırasında karşılaşılan problem)" gibi niyet ekleyerek aynı head sorguyu farklı gösterme KESİNLİKLE YASAK; `🔑 Hedef sorgu` gerçekten farklı bir kelime öbeği olmalı. Havuzda yeterli sayıda FARKLI gerçek sorgu yoksa, 7'ye zorlama — 4-5 gerçekten ayrık öneri, 7 çakışan öneriden iyidir.
 
 Her öneri için TAM OLARAK şu format (başlık ** ile sarılı, BAŞLIKTA YIL YOK):
 
