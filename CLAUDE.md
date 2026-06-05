@@ -1,6 +1,6 @@
 # tonguckaracay.com — Claude Agent Kılavuzu
 
-Son güncelleme: 2026-06-04
+Son güncelleme: 2026-06-05
 
 ---
 
@@ -53,6 +53,30 @@ if (enSlug) {
 ```
 
 x-default → EN (hedef kitle: yurt dışı, ABD ağırlıklı)
+
+---
+
+## Ana Sayfa (Homepage) — Haziran 2026 Yeniden Tasarım
+
+Ana sayfa premium kişisel-marka / danışmanlık formatında yeniden tasarlandı. **Tüm bölümler `components/home/` altında**; `app/[locale]/page.tsx` bunları sırayla render eder. TR/EN inline `locale` ternary ile yazılır (mevcut desen). Tasarım sistemi: deep-navy bg + amber/gold accent (`accent-*`), glassmorphism (`.card`), `.text-gradient` (sarı→hafif turuncu, `accent-400→accent-500`), Poppins.
+
+### Bölüm sırası (`app/[locale]/page.tsx`)
+1. `HeroDynamic` — sol: **otomatik güncellenen "Son Yazı" kartı** (`getAllPosts()[0]` — manuel güncelleme YOK, yeni yazı yayınlanınca kendi değişir) · sağ: **H1 değer önermesi** + müsaitlik rozeti + CTA + istatistik + altta küçük cutout portre
+2. `TrustedBy` — 34 markanın wordmark duvarı (kutu/buton DEĞİL, tıklanmaz)
+3. `CaseStudies` — 3 temsili sonuç kartı (sözel/nitel vurgu; uydurma kesin rakam YOK) → "Vaka İncele" iletişime
+4. `Engagement` — kartsız premium timeline ("A Typical Engagement" / "Nasıl Çalışıyorum"); desktop yatay, mobil dikey
+5. `WhyMe` — 3 sütun (anlama göre renkli ikonlar)
+6. `Insights` — en yeni 6 blog yazısı grid ("Son Yazılar")
+7. `PersonalStory` — büyük cutout portre + timeline ("Hakkımda")
+8. `FinalCTASection` — görüşme + mesaj
+
+### Kurallar / notlar
+- **Portre görseli:** `public/tonguckaracay-ux-seo-ai.png` = arka planı silinmiş (transparent) cutout; Hero avatarı + PersonalStory bunu kullanır (yumuşak ışık zemini + alta fade, montaj hissi yok). Eski `public/tonguc-karacay.jpg` artık homepage'de kullanılmıyor.
+- **Tek H1:** sayfada yalnızca `HeroDynamic` H1'i (değer önermesi); featured kart başlığı `h2`. Layout'a/başka yere ikinci H1 ekleme.
+- **Eski component'ler** (`Hero, Services, About, BlogPreview, FinalCTA, Expertise`) artık homepage'de kullanılmıyor; geri dönüş için repoda duruyor (silinmedi).
+- **Referanslar/testimonials bölümü YOK** — gerçek müşteri yorumu/foto gelene kadar eklenmedi. **Uydurma referans/metrik yayınlama** (FTC/AB sahte yorum yasağı + itibar riski). Gerçek veri gelince `components/home/` altına eklenir.
+- **Vaka metrikleri temsilidir** — gerçek vaka verisiyle güncellenecek.
+- Footer logosu: **"Tonguç Karaçay."** (`components/Footer.tsx`).
 
 ---
 
@@ -143,6 +167,7 @@ faq:
 | `app/[locale]/blog/page.tsx` | **Mayıs 2026:** SEO intro bloğu kaldırıldı — subtitle aynı mesajı veriyordu (duplicate); ayrıca 30+ post kartı (başlık + 150-160 karakter açıklama) zaten yeterli unique metin sağlıyor, "thin content fix" gerekçesi artık geçerli değil |
 | `content/blog/en/ai-agent-patient-follow-up-appointment-reminders.md` | **Haziran 2026:** FAQ cevabındaki kaçırılmamış iç çift tırnak (`(e.g., "...")`) düzeltildi. Bu bozuk YAML, `gray-matter` parse'ında `YAMLException: a colon is missed` verip Vercel build'ini tamamen düşürmüştü → site son sağlam deploy'da donmuş, EN yazısı yayına çıkamamış, sonraki tüm deploy'lar (agent fix dahil) ERROR olmuştu. Tırnaklar `\"` ile escape edilince build yeşile döndü |
 | `tc-agent/agent.py` | **Haziran 2026:** Telegram agent'a `_sanitize_frontmatter` + `_validate_frontmatter` eklendi — ürettiği frontmatter'daki iç tırnakları push'tan önce otomatik escape eder ve PyYAML ile doğrular; geçersizse hata verip **bozuk yazıyı GitHub'a basmaz**. Böylece yukarıdaki build-kilitleyen YAML hatası bir daha oluşamaz. Ayrıca tüm Claude çağrıları geçici 5xx/429 hatalarında retry'lı (`_claude_create`) |
+| `tc-agent/agent.py` | **Haziran 2026:** `/fikir` komutu tamamen **SEO-odaklı** yeniden yazıldı — `harvest_keyword_pool` ile gerçek SERP verisi (PAA + ilgili aramalar + rakip başlıkları) madenler (konu verilince 2-aşamalı genişletme = ~4 SERP), öneriler uydurma keyword yerine **gerçek sorgulara** dayanır. Prompt kuralları: kitle-persona dizilim yasağı (çeşitlilik içerik-açısı ekseninde: problem/hata/karşılaştırma/süreç/veri/vaka/tanım/framework), **yıl yasağı**, **keyword cannibalization yasağı**. `_chunk_telegram` ile Telegram 4096 limitinde öneriler kesilmeden bölünür |
 
 ### KRİTİK: Telegram Agent (tc-agent) — Slug & Build Güvenliği
 
@@ -181,6 +206,8 @@ Hreflang **sadece** `app/[locale]/[slug]/page.tsx` ve diğer per-page `generateM
 ## Önemli Dosyalar
 
 ```
+app/[locale]/page.tsx           — ANA SAYFA (home bölümlerini sırayla render eder)
+components/home/                 — ana sayfa bölümleri (HeroDynamic, TrustedBy, CaseStudies, Engagement, WhyMe, Insights, PersonalStory, FinalCTASection)
 app/[locale]/[slug]/page.tsx    — hreflang, canonical, schema
 app/[locale]/blog/page.tsx      — blog listing, pagination
 app/sitemap.ts                  — sitemap üretimi
@@ -229,3 +256,6 @@ document.execCommand('insertText', false, content);
 - [ ] heading-tags yazıları pozisyon takibi (şu an pos. 92)
 - [ ] Statik sayfaların (hizmetler/services) hreflang kontrolü
 - [ ] Yeni blog içerikleri: UI/UX ve AI konuları (EN öncelikli)
+- [ ] **Ana sayfa Referanslar bölümü:** gerçek müşteri yorumu / LinkedIn tavsiyesi gelince ekle (uydurma yayınlama)
+- [ ] **Ana sayfa vaka çalışması metrikleri:** gerçek verilerle güncelle
+- [ ] Kullanılmayan eski homepage component'lerini temizle (Hero/Services/About/BlogPreview/FinalCTA/Expertise) + `claude/homepage-redesign` branch'i sil
