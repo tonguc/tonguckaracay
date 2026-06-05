@@ -58,7 +58,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           <div className="lg:col-span-1">
             <Link href={navLinks.home} className="font-display text-2xl font-bold text-white inline-block mb-4">
-              Tonguç<span className="text-accent-500">.</span>
+              Tonguç Karaçay<span className="text-accent-500">.</span>
             </Link>
             <p className="text-primary-400 mb-6 leading-relaxed">{t('tagline')}</p>
             <div className="flex items-center gap-3">
