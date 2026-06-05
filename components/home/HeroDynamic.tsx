@@ -119,7 +119,7 @@ export default function HeroDynamic({ locale }: Props) {
             <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {stats.map((s) => (
                 <div key={s.label} className="rounded-xl border border-surface-border/50 bg-surface-card/40 px-3 py-4 text-center backdrop-blur-sm">
-                  <div className="font-display text-2xl font-bold text-accent-500 md:text-3xl">{s.value}</div>
+                  <div className="text-gradient font-display text-2xl font-bold md:text-3xl">{s.value}</div>
                   <div className="mt-1 text-[11px] leading-tight text-primary-400 md:text-xs">{s.label}</div>
                 </div>
               ))}

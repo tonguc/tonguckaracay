@@ -107,7 +107,7 @@ export default function CaseStudies({ locale }: Props) {
                 </div>
 
                 <div className="mt-6">
-                  <div className="font-display text-2xl font-bold leading-tight text-accent-400 md:text-[28px]">
+                  <div className="text-gradient inline-block font-display text-2xl font-bold leading-tight md:text-[28px]">
                     {c.result}
                   </div>
                   <div className="mt-2 text-sm text-primary-400">{c.resultNote}</div>
