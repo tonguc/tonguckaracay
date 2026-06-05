@@ -27,7 +27,7 @@ export default function Insights({ locale }: Props) {
             </p>
             <h2 className="section-title">
               {isTr ? "Son " : "Latest "}
-              <span className="text-gradient">{isTr ? "İçgörüler" : "Insights"}</span>
+              <span className="text-gradient">{isTr ? "Yazılar" : "Insights"}</span>
             </h2>
           </div>
           <Link

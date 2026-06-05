@@ -79,12 +79,12 @@ export default function Engagement({ locale }: Props) {
       <div className="container-custom">
         <div className="mb-12 text-center md:mb-16">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-            {isTr ? "Nasıl Çalışırım" : "How I Work"}
+            {isTr ? "Süreç" : "How I Work"}
           </p>
           <h2 className="section-title mx-auto">
             {isTr ? (
               <>
-                Tipik Bir <span className="text-gradient">Çalışma Süreci</span>
+                Nasıl <span className="text-gradient">Çalışıyorum</span>
               </>
             ) : (
               <>

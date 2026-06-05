@@ -112,11 +112,11 @@ export default function HeroDynamic({ locale }: Props) {
             <h1 className="font-display text-3xl font-bold leading-[1.1] text-white sm:text-4xl md:text-5xl">
               {isTr ? (
                 <>
-                  UX, SEO &amp; <span className="text-gradient">AI Büyüme</span> Danışmanı
+                  UX, SEO ve Yapay Zeka ile <span className="text-gradient">Ölçülebilir Büyüme</span>
                 </>
               ) : (
                 <>
-                  UX, SEO &amp; <span className="text-gradient">AI Growth</span> Consultant
+                  <span className="text-gradient">Measurable Growth</span> with UX, SEO &amp; AI
                 </>
               )}
             </h1>

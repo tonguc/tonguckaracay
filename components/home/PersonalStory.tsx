@@ -56,7 +56,7 @@ export default function PersonalStory({ locale }: Props) {
           {/* Hikaye + timeline */}
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-              {isTr ? "Tanışalım" : "Get to Know Me"}
+              {isTr ? "Hakkımda" : "About Me"}
             </p>
             <h2 className="section-title">
               {isTr ? "Tonguç " : "Meet Tonguç "}

@@ -62,8 +62,8 @@ export default function WhyMe({ locale }: Props) {
             {isTr ? "Fark" : "The Difference"}
           </p>
           <h2 className="section-title mx-auto">
-            {isTr ? "Şirketler Neden " : "Why Companies "}
-            <span className="text-gradient">{isTr ? "Beni Seçiyor" : "Choose Me"}</span>
+            {isTr ? "Neden " : "Why Companies "}
+            <span className="text-gradient">{isTr ? "Benimle Çalışıyorlar" : "Choose Me"}</span>
           </h2>
         </div>
 
