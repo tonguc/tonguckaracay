@@ -7,7 +7,7 @@ Not: Bu dosya değiştiğinde /root/tc-agent/auto-deploy.sh (cron, 5 dk) main'de
 çekip `pm2 restart bot` ile otomatik devreye alır — elle restart gerekmez.
 """
 
-import os, json, asyncio, logging, re, base64, time
+import os, json, asyncio, logging, re, base64, time, random
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
@@ -402,6 +402,71 @@ def build_dual_serp_context(topic_tr: str) -> dict:
         "topic_en": topic_en,
         "target_words": target,
     }
+
+# ── FİKİR / KEYWORD MADENLEME ────────────────────────────────────────────────
+
+# Konu verilmediğinde dönüşümlü kullanılan SPESİFİK seed sorguları.
+# Geniş tek terim ("SEO") yerine uzun-kuyruk seed → daha zengin PAA + ilgili arama havuzu.
+_IDEA_SEEDS_TR = [
+    "yapay zeka ile SEO içerik üretimi",
+    "e-ticaret SEO stratejisi",
+    "google ads dönüşüm optimizasyonu",
+    "yerel SEO küçük işletme",
+    "teknik SEO denetimi nasıl yapılır",
+    "içerik pazarlaması hunisi",
+    "chatgpt ile dijital pazarlama",
+    "UI UX dönüşüm optimizasyonu",
+    "anahtar kelime araştırması nasıl yapılır",
+    "yapay zeka arama optimizasyonu AEO GEO",
+    "landing page dönüşüm oranı artırma",
+    "blog yazısı SEO optimizasyonu",
+]
+
+_Q_HINTS = ("nasıl", "nedir", "neden", "hangi", "kaç", "mı", "mi", "mu", "mü",
+            "what", "how", "why", "which", "when", "?")
+
+def harvest_keyword_pool(seeds: list[str], lang: str = "tr") -> dict:
+    """Birden çok seed için HAFİF SERP taraması yapar (rakip sayfa gövdesi ÇEKMEZ,
+    sadece başlık + PAA + ilgili aramalar). Fikir üretimi uydurma keyword yerine
+    bu GERÇEK sorgu havuzuna dayansın diye. {titles, questions, searches} döner."""
+    titles, questions, searches = [], [], []
+    seen_t, seen_q = set(), set()
+    for seed in seeds:
+        serp = serp_analyze(seed, lang)
+        if not serp:
+            continue
+        for res in serp.get("results", []):
+            t = (res.get("title") or "").strip()
+            k = t.lower()
+            if t and k not in seen_t:
+                seen_t.add(k); titles.append(t)
+        for q in serp.get("related", []):
+            q = (q or "").strip()
+            k = q.lower()
+            if not q or k in seen_q:
+                continue
+            seen_q.add(k)
+            # PAA tarzı soru mu yoksa "related search" mı — kaba ayrım
+            if any(h in k for h in _Q_HINTS):
+                questions.append(q)
+            else:
+                searches.append(q)
+    return {"titles": titles, "questions": questions, "searches": searches}
+
+def _chunk_telegram(text: str, limit: int = 4000) -> list[str]:
+    """Telegram 4096 karakter limiti için metni TAM fikir sınırlarından böler —
+    böylece hiçbir öneri yarıda kesilmez (eskiden [:4000] ile son fikirler kayboluyordu)."""
+    if len(text) <= limit:
+        return [text]
+    parts, cur = [], ""
+    for block in text.split("\n\n"):
+        if cur and len(cur) + len(block) + 2 > limit:
+            parts.append(cur); cur = block
+        else:
+            cur = f"{cur}\n\n{block}" if cur else block
+    if cur:
+        parts.append(cur)
+    return parts
 
 # ── GITHUB API ───────────────────────────────────────────────────────────────
 
@@ -1578,45 +1643,61 @@ async def cmd_fikir(u, ctx):
 
     loop = asyncio.get_event_loop()
 
-    # SERP verisi — konu varsa ona göre, yoksa genel nişe göre
-    arama = konu if konu else "dijital pazarlama SEO stratejisi"
-    serp = await loop.run_in_executor(None, build_serp_context, arama, "tr")
-    serp_block = f"\nSERP VERİSİ:\n{serp['context'][:2000]}" if serp.get("context") else ""
+    # GERÇEK ARAMA VERİSİ MADENLE — fikirler uydurma keyword'e değil bu havuza dayanır.
+    # Konu varsa o seed; yoksa dönüşümlü seed listesinden 3 tane (her çağrı farklı açı).
+    seeds = [konu] if konu else random.sample(_IDEA_SEEDS_TR, 3)
+    pool = await loop.run_in_executor(None, harvest_keyword_pool, seeds, "tr")
 
-    # Zaten yazılmış sluglar — tekrar önermemek için
+    pool_block = ""
+    if pool["questions"] or pool["searches"] or pool["titles"]:
+        pool_block = "GERÇEK ARAMA VERİSİ (SERP'ten toplandı — fikirler BUNLARA dayanmalı):\n"
+        if pool["questions"]:
+            pool_block += "\nİnsanların sorduğu sorular (PAA):\n" + \
+                "\n".join(f"- {q}" for q in pool["questions"][:18])
+        if pool["searches"]:
+            pool_block += "\n\nİlgili aramalar:\n" + \
+                "\n".join(f"- {s}" for s in pool["searches"][:18])
+        if pool["titles"]:
+            pool_block += "\n\nİlk sıradaki rakip başlıkları:\n" + \
+                "\n".join(f"- {t}" for t in pool["titles"][:10])
+
+    # Zaten yazılmış sluglar — tekrar önermemek için (content gap analizi)
     used_slugs = gh_slugs("tr")
-    used_block = ("\nZATEN YAZILMIŞ KONULAR (bunları ve benzerlerini önerme):\n"
+    used_block = ("\nZATEN YAZILMIŞ KONULAR (bunları ve YAKIN varyasyonlarını önerme):\n"
                   + "\n".join(f"- {s}" for s in used_slugs[:40])) if used_slugs else ""
 
     konu_block = f'"{konu}" konusuna odaklanarak' if konu else \
-        "dijital pazarlama, SEO, UI/UX, yapay zeka, Google Ads, içerik pazarlaması konularında"
+        "dijital pazarlama, SEO, UI/UX, yapay zeka, Google Ads ve içerik pazarlaması nişlerinde"
 
     prompt = f"""tonguckaracay.com için {konu_block} trafik getirecek 7 blog yazısı öner.
 
-Site: Tonguç Karaçay — dijital pazarlama ve SEO danışmanlığı (tonguckaracay.com)
-Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, girişimciler
-{serp_block}
+Site: Tonguç Karaçay — dijital pazarlama & SEO danışmanlığı. NİHAİ İŞ HEDEFİ: danışmanlık satışı.
+Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimcileri.
+
+{pool_block}
 {used_block}
 
-KRİTİK KURAL — ÖNCELIK SIRASI:
-1. UZUN KUYRUK keyword seç: 4+ kelimeli, çok spesifik sorgular ("Google Ads için hedefleme nasıl yapılır" değil "Shopify mağazası için Google Ads hedefleme stratejileri")
-2. DÜŞÜK REKABETLİ konular tercih et: büyük markalar ve medya sitelerinin yazmadığı nişler
-3. Arama hacmi düşük ama dönüşümü yüksek olsun: arayanın satın alma / danışmanlık alma niyeti yüksek
+ÇALIŞMA YÖNTEMİ — KESİN KURALLAR:
+1. KAYNAK GERÇEK VERİ: Her öneri YUKARIDAKİ gerçek arama verisindeki bir soru/sorguya dayanmalı. Uydurma "tahmini keyword" YASAK — hangi gerçek sorguyu hedeflediğini birebir yaz. Veri zayıfsa o sorgunun mantıklı uzun-kuyruk varyantını türet.
+2. HER FİKİR AYRI SERP: 7 öneri 7 FARKLI arama sorgusunu/SERP'i hedeflesin. Aynı yazının sadece kitlesini değiştirme — "küçük şirketler için", "X sektörü için" gibi yüzeysel kitle-varyasyonu YASAK.
+3. UZUN KUYRUK + DÜŞÜK REKABET + YÜKSEK NİYET: 4+ kelimeli spesifik sorgular; büyük medya/markaların doymadığı nişler; arayanın danışmanlık/satın alma niyeti yüksek olsun.
+4. CONTENT GAP: Rakiplerin zayıf/eksik bıraktığı VE sitede zaten yazılmamış açıları seç.
+5. SERP FIRSATI: Featured snippet / PAA kutusu / AEO (yapay zeka cevabı) kazanılabilecek, net cevaplanabilir sorgular avantajlı.
 
-Her öneri için TAM OLARAK şu formatı kullan:
+Her öneri için TAM OLARAK şu format (başlık ** ile sarılı, YIL YOK):
 
-**1. Başlık buraya (uzun kuyruk, spesifik, yıl yok)**
-📌 Format: how-to / listicle / comparison / what-is / case-study
-🎯 Intent: informational / commercial / transactional
-🔑 Hedef keyword: (tam olarak bu kelime öbeğini hedefle)
-📊 Rekabet: düşük / orta / yüksek
-💡 Neden kazanılabilir: (tek cümle — rakip eksikliği veya niş)
+**1. Tıklanır, spesifik başlık (uzun kuyruk)**
+🔑 Hedef sorgu: (yukarıdaki veriden birebir veya çok yakın varyant)
+🧭 Intent/Funnel: informational|commercial|transactional / TOFU|MOFU|BOFU
+🏆 SERP fırsatı + gap: (featured snippet / PAA / zayıf rakip — eksik açı tek cümle)
+🔗 Cluster + iç link: (hangi ana/pillar konuya bağlanır, hangi mevcut yazıya link)
+💼 İş değeri: (bu yazı danışmanlık satışına nasıl hizmet eder — tek cümle)
 
-Sadece 7 öneriyi listele, başka açıklama ekleme."""
+Sadece 7 öneriyi bu formatta listele, başka açıklama ekleme."""
 
     try:
         resp = await loop.run_in_executor(None, lambda: _claude_create(
-            model="claude-sonnet-4-5", max_tokens=1500,
+            model="claude-sonnet-4-5", max_tokens=2600,
             messages=[{"role": "user", "content": prompt}]
         ))
         ideas = resp.content[0].text.strip()
@@ -1629,11 +1710,12 @@ Sadece 7 öneriyi listele, başka açıklama ekleme."""
 
         baslik = f"💡 *{konu_label} İçerik Fikirleri*\n\n"
         footer = "\n\n_Yazmak için sadece numara gönder: `1`, `2` ... `7`_" if titles else ""
-        # Telegram 4096 karakter limiti
         text = baslik + ideas + footer
-        if len(text) > 4000:
-            text = text[:4000] + "\n..."
-        await msg.edit_text(text, parse_mode="Markdown")
+        # Telegram 4096 limiti: tam fikir sınırından böl, hiçbir öneriyi kesme
+        chunks = _chunk_telegram(text)
+        await msg.edit_text(chunks[0], parse_mode="Markdown")
+        for chunk in chunks[1:]:
+            await u.message.reply_text(chunk, parse_mode="Markdown")
     except Exception as e:
         logger.exception("Fikir hatası")
         await msg.edit_text(f"❌ Hata:\n```\n{str(e)[:300]}\n```", parse_mode="Markdown")
