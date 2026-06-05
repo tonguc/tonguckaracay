@@ -1685,10 +1685,21 @@ Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimc
 5. SERP FIRSATI: Featured snippet / PAA kutusu / AEO (yapay zeka cevabı) kazanılabilecek, net cevaplanabilir sorgular avantajlı.
 6. YIL/TARİH YASAK: Başlıkta veya keyword'de "2024", "2025", "2026" gibi yıl/tarih KESİNLİKLE yazma — site otomatik güncel kalır, yıl içerikleri eskitir.
 7. ÇERÇEVE TEKRARI YOK: Aynı içerik çerçevesini (örn. "yapmak mı satın almak mı / mühendis mi araç mı", "X mi Y mi karşılaştırması") 7 öneri içinde EN FAZLA 1 kez kullan. Format çeşitlendir (how-to, liste, vaka, rehber, tablo).
+8. KİTLE-PERSONA TUZAĞINA DÜŞME (EN ÖNEMLİ): Önerileri "KOBİ için / e-ticaret için / freelancer için" gibi KİTLE ekseninde dizme — bu klasik, şablon ve sıkıcı. Çeşitliliği İÇERİK AÇISI ekseninde kur. En az 5 farklı açı kullan:
+   • Problem/semptom ("X neden çalışmıyor / düşük dönüşümün gerçek sebebi")
+   • Hata/anti-pattern ("en sık yapılan X hatası ve düzeltmesi")
+   • Araç/karşılaştırma ("X aracı vs Y aracı gerçek test")
+   • Süreç/adım-adım ("X'i sıfırdan kurma akışı")
+   • Veri/benchmark ("X kaç olmalı — sektör ortalaması / gerçek rakamlar")
+   • Vaka/sonuç ("X ile Y sonucunu nasıl aldık")
+   • Tanım/kavram (AEO — "X nedir, nasıl çalışır")
+   • Karar çerçevesi / framework
+   ZORUNLU: 7 önerinin EN FAZLA 2'si bir kitle-persona'sı (KOBİ/e-ticaret/freelancer) etrafında kurulabilir. Geri kalanı persona-bağımsız olsun. Başlıkları "...ler için" kalıbıyla BAŞLATMA.
 
 Her öneri için TAM OLARAK şu format (başlık ** ile sarılı, BAŞLIKTA YIL YOK):
 
 **1. Tıklanır, spesifik başlık (uzun kuyruk, yıl yok)**
+🎬 Açı: (problem / hata / karşılaştırma / süreç / veri-benchmark / vaka / tanım / framework — kural 8'den, her öneri farklı olsun)
 🔑 Hedef sorgu: (yukarıdaki veriden birebir veya çok yakın varyant)
 🧭 Intent/Funnel: informational|commercial|transactional / TOFU|MOFU|BOFU
 🏆 SERP fırsatı + gap: (featured snippet / PAA / zayıf rakip — eksik açı tek cümle)
