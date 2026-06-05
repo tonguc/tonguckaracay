@@ -4,7 +4,6 @@ import TrustedBy from "@/components/home/TrustedBy";
 import CaseStudies from "@/components/home/CaseStudies";
 import Expertise from "@/components/home/Expertise";
 import WhyMe from "@/components/home/WhyMe";
-import Testimonials from "@/components/home/Testimonials";
 import Insights from "@/components/home/Insights";
 import PersonalStory from "@/components/home/PersonalStory";
 import FinalCTASection from "@/components/home/FinalCTASection";
@@ -28,9 +27,7 @@ export default async function Home({ params: { locale } }: Props) {
       <Expertise locale={locale} />
       {/* 5 — Neden Benimle */}
       <WhyMe locale={locale} />
-      {/* 6 — Referanslar */}
-      <Testimonials />
-      {/* 7 — İçgörüler / Blog */}
+      {/* 6 — İçgörüler / Blog (Referanslar gerçek yorum gelince eklenecek) */}
       <Insights locale={locale} />
       {/* 8 — Kişisel Hikaye */}
       <PersonalStory locale={locale} />
