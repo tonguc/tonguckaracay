@@ -36,8 +36,8 @@ export default function PersonalStory({ locale }: Props) {
             <div className="absolute -inset-3 rounded-3xl bg-accent-500/10 blur-2xl" />
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-black shadow-2xl ring-1 ring-white/10">
               <Image
-                src="/tonguc-karacay-cutout.png"
-                alt="Tonguç Karaçay"
+                src="/tonguckaracay-ux-seo-ai.png"
+                alt="Tonguç Karaçay — UX, SEO & AI Danışmanı"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-contain object-bottom"
