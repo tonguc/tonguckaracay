@@ -31,16 +31,24 @@ export default function PersonalStory({ locale }: Props) {
     <section className="py-14 md:py-24">
       <div className="container-custom">
         <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          {/* Portre — arka planı silinmiş cutout, düz siyah zeminde */}
-          <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
-            <div className="absolute -inset-3 rounded-3xl bg-accent-500/10 blur-2xl" />
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-black shadow-2xl ring-1 ring-white/10">
+          {/* Portre — saydam cutout; kutu yok, yumuşak ışık zemini + alta erime (editoryal his) */}
+          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+            {/* Derinlik için yumuşak ışık zemini (düz siyah kutu yerine) */}
+            <div className="absolute left-1/2 top-1/2 h-[120%] w-[118%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_50%_38%,rgba(245,158,11,0.18),rgba(99,102,241,0.06)_45%,transparent_68%)] blur-2xl" />
+            <div className="absolute inset-x-8 bottom-4 h-44 rounded-[45%] bg-accent-500/10 blur-3xl" />
+            {/* Figür: kareyle letterbox yok, alt kenar sayfaya erir */}
+            <div className="relative aspect-square">
               <Image
                 src="/tonguckaracay-ux-seo-ai.png"
                 alt="Tonguç Karaçay — UX, SEO & AI Danışmanı"
                 fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-contain object-bottom"
+                priority
+                sizes="(max-width: 1024px) 90vw, 40vw"
+                className="object-contain object-bottom drop-shadow-2xl"
+                style={{
+                  WebkitMaskImage: "linear-gradient(to bottom, #000 80%, transparent 100%)",
+                  maskImage: "linear-gradient(to bottom, #000 80%, transparent 100%)",
+                }}
               />
             </div>
           </div>
