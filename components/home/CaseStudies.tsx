@@ -100,8 +100,8 @@ export default function CaseStudies({ locale }: Props) {
                   <span className="rounded-full bg-surface-card/70 px-3 py-1 text-xs font-medium text-primary-300">
                     {c.industry}
                   </span>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-500/10 text-accent-500 transition-colors group-hover:bg-accent-500/20">
-                    <Icon className="h-5 w-5" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-500/20 text-accent-300 ring-1 ring-accent-500/30 transition-all group-hover:bg-accent-500/30 group-hover:text-accent-200">
+                    <Icon className="h-6 w-6" strokeWidth={2.25} />
                   </div>
                 </div>
 

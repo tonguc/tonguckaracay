@@ -46,6 +46,14 @@ export default function WhyMe({ locale }: Props) {
         },
       ];
 
+  // Anlamına göre ayrık (discrete) renk tonları — sıra cols ile aynı:
+  // Deneyim → amber, Teknik+İş → sky, AI-First → violet
+  const tones = [
+    "bg-amber-500/10 text-amber-400 ring-1 ring-amber-500/20",
+    "bg-sky-500/10 text-sky-400 ring-1 ring-sky-500/20",
+    "bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20",
+  ];
+
   return (
     <section className="border-y border-surface-border/40 bg-surface-card/20 py-14 md:py-24">
       <div className="container-custom">
@@ -60,11 +68,11 @@ export default function WhyMe({ locale }: Props) {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3 md:gap-8">
-          {cols.map((c) => {
+          {cols.map((c, i) => {
             const Icon = c.icon;
             return (
               <div key={c.title} className="text-center md:text-left">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-500/10 text-accent-500 md:mx-0">
+                <div className={`mx-auto flex h-14 w-14 items-center justify-center rounded-2xl md:mx-0 ${tones[i]}`}>
                   <Icon className="h-7 w-7" />
                 </div>
                 <h3 className="mt-5 font-display text-xl font-bold text-white">{c.title}</h3>

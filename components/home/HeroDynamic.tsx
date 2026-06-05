@@ -63,7 +63,7 @@ export default function HeroDynamic({ locale }: Props) {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-surface-darker/90 via-surface-darker/20 to-transparent" />
                   {latest.category && (
-                    <span className="absolute left-4 top-4 rounded-full bg-surface-darker/70 px-3 py-1 text-xs font-medium text-accent-300 backdrop-blur-sm">
+                    <span className="absolute left-4 top-4 rounded-full bg-surface-darker/80 px-3 py-1.5 text-[13px] font-semibold leading-none text-accent-200 backdrop-blur-sm">
                       {latest.category}
                     </span>
                   )}

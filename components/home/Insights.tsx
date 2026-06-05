@@ -57,7 +57,7 @@ export default function Insights({ locale }: Props) {
                   />
                 )}
                 {post.category && (
-                  <span className="absolute left-3 top-3 rounded-full bg-surface-darker/70 px-3 py-1 text-xs font-medium text-accent-300 backdrop-blur-sm">
+                  <span className="absolute left-3 top-3 rounded-full bg-surface-darker/80 px-3 py-1.5 text-[13px] font-semibold leading-none text-accent-200 backdrop-blur-sm">
                     {post.category}
                   </span>
                 )}
