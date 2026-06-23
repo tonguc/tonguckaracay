@@ -242,9 +242,17 @@ document.execCommand('insertText', false, content);
 
 ## Vercel
 
-- Team: team_pPyw9vJKydRnGfBq6llHK68H
-- Project: prj_yNvFrZGRN2iJAv7jQSkRd84H69fg
-- Deploy: main branch'e push → otomatik production
+**Haziran 2026 — tonguckaracay AYRI Vercel hesabına taşındı.**
+
+- **Aktif hesap (yeni):** Vercel slug `tonguckaracay` (Gmail ile açılmış ayrı ücretsiz Hobby hesabı). `tonguckaracay` projesi burada barınıyor.
+- **Deploy:** GitHub `tonguc/tonguckaracay` → `main`'e push → yeni hesapta otomatik production deploy. (Telegram bot → GitHub → otomatik deploy akışı korundu.)
+- **Domain DNS:** Domain `guzel.net.tr`'de kayıtlı. Nameserver'lar Vercel'den **guzel.net.tr DNS yönetimine** alındı; apex `A @ → 76.76.21.21` + doğrulama için `_vercel TXT (vc-domain-verify=...)`. www CNAME → `cname.vercel-dns.com`. **guzel.net.tr nameserver/DNS'ine dokunma** — site bağlantısı buna bağlı.
+
+### Neden taşındı (geçmiş kayıt)
+- **Eski hesap:** "Tonguç's projects" (`team_pPyw9vJKydRnGfBq6llHK68H`, eski proje `prj_yNvFrZGRN2iJAv7jQSkRd84H69fg`). Tek ücretsiz Hobby hesabında **4 proje** vardı: `whattime-city`, `tonguckaracay`, `auditpro`, `agencyos-bot`.
+- **Sorun:** Hobby kotası **hesap genelinde** sayılıyor. Bot trafiği ağır olan **whattime-city** serverless sayaçlarını patlattı (ISR Writes 7.5×, Edge Requests/Function Invocations/CPU aşımı — bandwidth değil). Sonuç: **tüm hesap "Paused"** → tonguckaracay da yan hasar olarak kapandı. (Vercel Pro tuzak: kullanım üstü faturalanır; whattime daha önce ~$50-60/ay yapmıştı.)
+- **Çözüm:** tonguckaracay'ı kendi ayrı ücretsiz hesabına aldık → whattime'ın kotasından izole, bir daha o yüzden kapanmaz.
+- **Not:** Paused hesap domain Move/Delete/DNS-edit'e izin vermediği için domaini eski hesaptan çıkaramadık; bu yüzden DNS'i guzel.net.tr'ye taşıyıp `_vercel` TXT ile yeni hesapta doğruladık.
 
 ---
 
@@ -259,3 +267,5 @@ document.execCommand('insertText', false, content);
 - [ ] **Ana sayfa Referanslar bölümü:** gerçek müşteri yorumu / LinkedIn tavsiyesi gelince ekle (uydurma yayınlama)
 - [ ] **Ana sayfa vaka çalışması metrikleri:** gerçek verilerle güncelle
 - [ ] Kullanılmayan eski homepage component'lerini temizle (Hero/Services/About/BlogPreview/FinalCTA/Expertise) + `claude/homepage-redesign` branch'i sil
+- [ ] **whattime-city kalıcı çözüm:** eski hesapta kalan whattime + auditpro + agencyos, ay başı reset olunca whattime'ın bot trafiği yüzünden yine paused olur. whattime'ı kendi ayrı hesabına veya DigitalOcean VPS'ine (`clawdbot`, 134.209.202.253) taşı; metered olmayan yerde bot trafiği faturayı/paused'u tetiklemez. (auditpro/agencyos önemliyse onları da ayır.)
+- [ ] tonguckaracay yeni hesabında `RESEND_API_KEY` + `ANTHROPIC_API_KEY` env'lerinin dolu olduğunu ve iletişim formu + /audit'in çalıştığını doğrula
