@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface Props {
   locale: string;
@@ -31,15 +31,11 @@ export default function FinalCTASection({ locale }: Props) {
                 : "Schedule a free consultation and discover growth opportunities in UX, SEO, AI and digital marketing."}
             </p>
 
-            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+            <div className="mt-9 flex justify-center">
               <Link href={contactPath} className="btn-primary group text-base md:text-lg">
                 {isTr ? "Ücretsiz Görüşme Al" : "Book Free Consultation"}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
-              <a href="mailto:tonguckaracay@gmail.com" className="btn-secondary group text-base md:text-lg">
-                <Mail className="mr-2 h-5 w-5" />
-                {isTr ? "Mesaj Gönder" : "Send Message"}
-              </a>
             </div>
           </div>
         </div>
