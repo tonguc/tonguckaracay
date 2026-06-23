@@ -237,8 +237,17 @@ export default function YapayZekaCozumleriPage({ params: { locale } }: Props) {
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">AI kullanan şirketlerde verimlilik artışı</span>
-                    <span className="text-accent-500 font-bold">40%</span>
+                    <span className="text-primary-300">En az bir iş fonksiyonunda AI kullanan şirket</span>
+                    <span className="text-accent-500 font-bold">%72</span>
+                  </div>
+                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '72%' }} />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-primary-300">Chatbotların yanıtlayabildiği rutin müşteri sorusu</span>
+                    <span className="text-accent-500 font-bold">~%80</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
                     <div className="h-full bg-accent-500 rounded-full" style={{ width: '80%' }} />
@@ -246,24 +255,15 @@ export default function YapayZekaCozumleriPage({ params: { locale } }: Props) {
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Müşteri hizmetleri maliyet tasarrufu</span>
-                    <span className="text-accent-500 font-bold">30%</span>
+                    <span className="text-primary-300">Üretken AI ile otomatikleşebilen çalışma zamanı</span>
+                    <span className="text-accent-500 font-bold">%60-70</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '60%' }} />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">AI içerik üretimi zaman tasarrufu</span>
-                    <span className="text-accent-500 font-bold">70%</span>
-                  </div>
-                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '90%' }} />
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '70%' }} />
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-primary-500 mt-4">Kaynak: McKinsey Global AI Survey, IBM AI Adoption Report</p>
+              <p className="text-xs text-primary-500 mt-4">Kaynak: McKinsey State of AI & Generative AI raporları, IBM</p>
             </div>
           </div>
         </div>

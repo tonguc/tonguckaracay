@@ -227,17 +227,17 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Google günlük arama sayısı</span>
-                    <span className="text-accent-500 font-bold">8.5 Milyar</span>
+                    <span className="text-primary-300">Google'da günlük arama sayısı</span>
+                    <span className="text-accent-500 font-bold">8.5 milyar</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '90%' }} />
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '95%' }} />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Ortalama Google Ads ROI</span>
-                    <span className="text-accent-500 font-bold">200%</span>
+                    <span className="text-primary-300">Google Ads'te her $1 harcamaya ortalama gelir</span>
+                    <span className="text-accent-500 font-bold">$2</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
                     <div className="h-full bg-accent-500 rounded-full" style={{ width: '70%' }} />
@@ -245,15 +245,15 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Arama reklamları tıklama oranı</span>
-                    <span className="text-accent-500 font-bold">%3-5</span>
+                    <span className="text-primary-300">Arama reklamlarında ortalama tıklama oranı</span>
+                    <span className="text-accent-500 font-bold">%3-6</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '50%' }} />
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '55%' }} />
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-primary-500 mt-4">Kaynak: Google Economic Impact Report, WordStream Industry Benchmarks</p>
+              <p className="text-xs text-primary-500 mt-4">Kaynak: Google Economic Impact, Internet Live Stats, WordStream benchmarks</p>
             </div>
           </div>
         </div>
