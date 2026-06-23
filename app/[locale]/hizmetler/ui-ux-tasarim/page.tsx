@@ -226,25 +226,25 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Dönüşüm oranı artışı</span>
-                    <span className="text-accent-500 font-bold">%200-400</span>
+                    <span className="text-primary-300">Dönüşüm oranında artış</span>
+                    <span className="text-accent-500 font-bold">%200'e kadar</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '85%' }} />
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '80%' }} />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">UX yatırım ROI</span>
-                    <span className="text-accent-500 font-bold">%9,900</span>
+                    <span className="text-primary-300">Tasarım kaynaklı ilk izlenim</span>
+                    <span className="text-accent-500 font-bold">%94</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '95%' }} />
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '90%' }} />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Kötü UX nedeniyle terk oranı</span>
+                    <span className="text-primary-300">Kötü deneyim sonrası geri dönmeyen kullanıcı</span>
                     <span className="text-accent-500 font-bold">%88</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
@@ -252,7 +252,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-primary-500 mt-4">Kaynak: Forrester Research, UXCam sektör raporları</p>
+              <p className="text-xs text-primary-500 mt-4">Kaynak: Forrester Research, Stanford Web Credibility, sektör UX araştırmaları</p>
             </div>
           </div>
         </div>
