@@ -227,25 +227,25 @@ export default function UIUXDesignPage({ params: { locale } }: Props) {
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Conversion rate increase</span>
-                    <span className="text-accent-500 font-bold">200-400%</span>
+                    <span className="text-primary-300">Conversion uplift</span>
+                    <span className="text-accent-500 font-bold">up to 200%</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '85%' }} />
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '80%' }} />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">UX investment ROI</span>
-                    <span className="text-accent-500 font-bold">9,900%</span>
+                    <span className="text-primary-300">First impressions that are design-related</span>
+                    <span className="text-accent-500 font-bold">94%</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '95%' }} />
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '90%' }} />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Users abandoning due to poor UX</span>
+                    <span className="text-primary-300">Users who won&apos;t return after a bad experience</span>
                     <span className="text-accent-500 font-bold">88%</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
@@ -253,7 +253,7 @@ export default function UIUXDesignPage({ params: { locale } }: Props) {
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-primary-500 mt-4">Source: Forrester Research, UXCam industry reports</p>
+              <p className="text-xs text-primary-500 mt-4">Source: Forrester Research, Stanford Web Credibility, UX industry studies</p>
             </div>
           </div>
         </div>
