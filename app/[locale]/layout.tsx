@@ -6,6 +6,7 @@ import { locales, type Locale } from '@/i18n.config';
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const GA_ID = "G-0YHTLZPKKZ";
 
@@ -170,6 +171,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
             {children}
           </main>
           <Footer />
+          <WhatsAppFloat locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>
