@@ -237,8 +237,17 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Productivity increase with AI adoption</span>
-                    <span className="text-accent-500 font-bold">40%</span>
+                    <span className="text-primary-300">Companies using AI in at least one function</span>
+                    <span className="text-accent-500 font-bold">72%</span>
+                  </div>
+                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '72%' }} />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between mb-2">
+                    <span className="text-primary-300">Routine customer questions answerable by chatbots</span>
+                    <span className="text-accent-500 font-bold">~80%</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
                     <div className="h-full bg-accent-500 rounded-full" style={{ width: '80%' }} />
@@ -246,24 +255,15 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Customer service cost reduction</span>
-                    <span className="text-accent-500 font-bold">30%</span>
+                    <span className="text-primary-300">Work time automatable with generative AI</span>
+                    <span className="text-accent-500 font-bold">60-70%</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '60%' }} />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Time saved on content creation</span>
-                    <span className="text-accent-500 font-bold">70%</span>
-                  </div>
-                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '90%' }} />
+                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '70%' }} />
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-primary-500 mt-4">Source: McKinsey Global AI Survey, IBM AI Adoption Report</p>
+              <p className="text-xs text-primary-500 mt-4">Source: McKinsey State of AI & Generative AI reports, IBM</p>
             </div>
           </div>
         </div>
