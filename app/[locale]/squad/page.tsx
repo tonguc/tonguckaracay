@@ -73,6 +73,23 @@ export default function SquadMeetingPage() {
     setSpeakingAgentState(agentId);
   }, []);
 
+  // Hide WhatsApp on this page
+  useEffect(() => {
+    const el = document.querySelector('a[href*="wa.me"]') as HTMLElement;
+    if (el) el.style.display = 'none';
+    return () => { if (el) el.style.display = ''; };
+  }, []);
+
+  // Preload voices for speech synthesis
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const synth = window.speechSynthesis;
+    synth.getVoices();
+    const handler = () => synth.getVoices();
+    synth.addEventListener('voiceschanged', handler);
+    return () => synth.removeEventListener('voiceschanged', handler);
+  }, []);
+
   // Timer
   useEffect(() => {
     const interval = setInterval(() => {
@@ -100,8 +117,10 @@ export default function SquadMeetingPage() {
         : 'Hello. I\'m VEGA, the Squad coordinator. Type the domain or topic you want to analyze. I\'ll decide which agents to activate.';
       addMessage({ agentId: 'VEGA', text: intro, isUser: false, isSystem: false });
       conversationRef.current.push({ role: 'assistant', content: '**VEGA:** ' + intro });
-      speakText(intro, 'VEGA', lang);
-      setTimeout(() => setSpeaking(null), 3000);
+      setTimeout(() => {
+        speakText(intro, 'VEGA', 'TR');
+        setTimeout(() => setSpeaking(null), 3000);
+      }, 500);
     }, 600);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -114,10 +133,13 @@ export default function SquadMeetingPage() {
     utt.lang = currentLang === 'TR' ? 'tr-TR' : 'en-US';
     const voices = synth.getVoices();
     const langVoices = voices.filter(v => v.lang.startsWith(currentLang === 'TR' ? 'tr' : 'en'));
+    const fallbackVoices = voices.filter(v => v.lang.startsWith('en'));
     const agentIdx = AGENTS.findIndex(a => a.id === agentId);
-    if (langVoices.length > 0) utt.voice = langVoices[agentIdx % langVoices.length];
+    const pool = langVoices.length > 0 ? langVoices : fallbackVoices;
+    if (pool.length > 0) utt.voice = pool[agentIdx % pool.length];
     utt.rate = 1.05;
     utt.pitch = 0.95 + (agentIdx % 5) * 0.05;
+    utt.volume = 1;
     synth.speak(utt);
   }
 
@@ -137,7 +159,7 @@ export default function SquadMeetingPage() {
 Agents: VEGA(coordinator), ATLAS(AI visibility), REX(competitor SOV), DANTE(competitor intel), MARCUS(entity), FELIX(schema), OLIVER(answer intel), HUNTER(citations), NERO(intent), ZEPHYR(technical), CASPIAN(local), ARGO(topical authority), VECTOR(programmatic), NOVA(content strategy), LYRA(GEO), IRIS(answers), SERA(E-E-A-T), MIRA(content gaps), LUNA(brand monitor), ECHO(snippets), AURORA(international), SAGE(AI queries), CELESTE(reviews), DIANA(CRO), RIO(onboarding), KAI(proposals), MAX(reporting), OTTO(collections).
 
 FORMAT for multiple agents: **AGENTNAME:** [response]
-- @mention → that agent speaks first
+- @mention -> that agent speaks first
 - 2-3 sentences per agent max
 - VEGA summarizes if 3+ agents speak
 - Be direct and actionable`;
@@ -202,9 +224,12 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
   }
 
   function initRecognition() {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return null;
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SR) return null;
+    if (!SR) {
+      addMessage({ agentId: null, text: lang === 'TR' ? 'Tarayıcınız ses tanımayı desteklemiyor.' : 'Browser does not support speech recognition.', isUser: false, isSystem: true });
+      return null;
+    }
     const rec = new SR();
     rec.lang = lang === 'TR' ? 'tr-TR' : 'en-US';
     rec.interimResults = true;
@@ -219,10 +244,17 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
       if (final) {
         setInput(final);
         stopRecording();
-        setTimeout(() => sendMessage(), 100);
+        setTimeout(() => {
+          const inp = document.querySelector('textarea') as HTMLTextAreaElement;
+          if (inp) inp.dispatchEvent(new Event('input', { bubbles: true }));
+          sendMessage();
+        }, 200);
       }
     };
-    rec.onerror = () => stopRecording();
+    rec.onerror = (e: any) => {
+      addMessage({ agentId: null, text: lang === 'TR' ? `Mikrofon hatası: ${e.error}` : `Mic error: ${e.error}`, isUser: false, isSystem: true });
+      stopRecording();
+    };
     rec.onend = () => stopRecording();
     return rec;
   }
@@ -244,8 +276,6 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
     recognitionRef.current?.stop();
     setIsRecording(false);
   }
-
-  const speakingAgentData = AGENTS.find(a => a.id === speakingAgent);
 
   const seoAgents = AGENTS.filter(a => a.role === 'seo');
   const opsAgents = AGENTS.filter(a => a.role === 'ops');
@@ -366,36 +396,14 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
 
 function AgentCard({ agent, isSpeaking, onClick, isDashed }: { agent: Agent; isSpeaking: boolean; onClick: () => void; isDashed?: boolean }) {
   return (
-    <div
-      onClick={onClick}
-      title={agent.desc}
-      style={{
-        background: isSpeaking ? `rgba(124,111,255,0.08)` : '#111118',
-        border: `${isDashed ? '1px dashed' : '1px solid'} ${isSpeaking ? '#7c6fff' : 'rgba(255,255,255,0.07)'}`,
-        borderRadius: 12,
-        padding: '14px 10px 12px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 8,
-        cursor: 'pointer',
-        position: 'relative',
-        overflow: 'hidden',
-        boxShadow: isSpeaking ? '0 0 20px rgba(124,111,255,0.15)' : 'none',
-        transition: 'all 0.2s',
-      }}
-    >
-      {isSpeaking && (
-        <div style={{ position: 'absolute', inset: -1, borderRadius: 13, border: '2px solid #7c6fff', animation: 'speakRing 1.5s ease-in-out infinite', pointerEvents: 'none' }} />
-      )}
+    <div onClick={onClick} title={agent.desc} style={{ background: isSpeaking ? `rgba(124,111,255,0.08)` : '#111118', border: `${isDashed ? '1px dashed' : '1px solid'} ${isSpeaking ? '#7c6fff' : 'rgba(255,255,255,0.07)'}`, borderRadius: 12, padding: '14px 10px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, cursor: 'pointer', position: 'relative', overflow: 'hidden', boxShadow: isSpeaking ? '0 0 20px rgba(124,111,255,0.15)' : 'none', transition: 'all 0.2s' }}>
+      {isSpeaking && <div style={{ position: 'absolute', inset: -1, borderRadius: 13, border: '2px solid #7c6fff', animation: 'speakRing 1.5s ease-in-out infinite', pointerEvents: 'none' }} />}
       <div style={{ width: 44, height: 44, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 600, fontFamily: 'monospace', background: agent.bg, color: agent.color, transform: isSpeaking ? 'scale(1.08)' : 'scale(1)', transition: 'transform 0.2s' }}>{agent.label}</div>
       <div style={{ fontSize: 11, fontWeight: 600, fontFamily: 'monospace', color: isSpeaking ? '#7c6fff' : '#e8e8f0', letterSpacing: '0.05em' }}>{agent.id}</div>
       <div style={{ fontSize: 9, color: '#6b6b80', textAlign: 'center', lineHeight: 1.3 }}>{agent.desc}</div>
       {isSpeaking && (
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 2, height: 12, position: 'absolute', bottom: 8, right: 8 }}>
-          {[4, 8, 12, 6].map((h, i) => (
-            <div key={i} style={{ width: 2, height: h, background: '#7c6fff', borderRadius: 1, animation: `soundBar 0.8s ${i * 0.15}s ease-in-out infinite` }} />
-          ))}
+          {[4, 8, 12, 6].map((h, i) => <div key={i} style={{ width: 2, height: h, background: '#7c6fff', borderRadius: 1, animation: `soundBar 0.8s ${i * 0.15}s ease-in-out infinite` }} />)}
         </div>
       )}
     </div>
@@ -404,16 +412,10 @@ function AgentCard({ agent, isSpeaking, onClick, isDashed }: { agent: Agent; isS
 
 function ChatMessage({ msg, agents, lang }: { msg: Message; agents: typeof AGENTS; lang: Lang }) {
   if (msg.isSystem) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ fontSize: 11, fontFamily: 'monospace', color: '#3a3a4a', textAlign: 'center' }}>{msg.text}</div>
-      </div>
-    );
+    return <div style={{ display: 'flex', justifyContent: 'center' }}><div style={{ fontSize: 11, fontFamily: 'monospace', color: '#3a3a4a', textAlign: 'center' }}>{msg.text}</div></div>;
   }
-
   const agent = agents.find(a => a.id === msg.agentId);
   const isUser = msg.isUser;
-
   return (
     <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', flexDirection: isUser ? 'row-reverse' : 'row' }}>
       <div style={{ width: 30, height: 30, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 600, fontFamily: 'monospace', background: isUser ? 'rgba(124,111,255,0.15)' : (agent?.bg || 'rgba(255,255,255,0.1)'), color: isUser ? '#7c6fff' : (agent?.color || '#888'), flexShrink: 0, marginTop: 2 }}>
