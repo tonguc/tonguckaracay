@@ -3,12 +3,17 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   try {
     const { messages, systemPrompt } = await req.json();
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    
+    if (!apiKey) {
+      return NextResponse.json({ error: 'API key missing' }, { status: 500 });
+    }
 
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY || '',
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
@@ -20,8 +25,13 @@ export async function POST(req: NextRequest) {
     });
 
     const data = await res.json();
+    
+    if (!res.ok) {
+      return NextResponse.json({ error: data }, { status: res.status });
+    }
+    
     return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json({ error: 'API error' }, { status: 500 });
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
