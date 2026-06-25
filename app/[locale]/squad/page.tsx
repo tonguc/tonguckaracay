@@ -15,7 +15,7 @@ const AGENTS = [
   { id:'ZEPHYR',  label:'TEC', desc:'Technical SEO',             color:'#06b6d4', bg:'rgba(6,182,212,0.12)',  role:'seo' },
   { id:'CASPIAN', label:'LOC', desc:'Local SEO',                 color:'#f97316', bg:'rgba(249,115,22,0.12)', role:'seo' },
   { id:'ARGO',    label:'TOP', desc:'Topical Authority',         color:'#10b981', bg:'rgba(16,185,129,0.12)', role:'seo' },
-  { id:'VECTOR',  label:'PRG', desc:'Programmatic SEO',         color:'#6366f1', bg:'rgba(99,102,241,0.12)', role:'seo' },
+  { id:'VECTOR',  label:'PRG', desc:'Programmatic SEO',          color:'#6366f1', bg:'rgba(99,102,241,0.12)', role:'seo' },
   { id:'NOVA',    label:'STR', desc:'Content Strategist',        color:'#ec4899', bg:'rgba(236,72,153,0.12)', role:'seo' },
   { id:'LYRA',    label:'GEO', desc:'GEO Optimizer',             color:'#f59e0b', bg:'rgba(245,158,11,0.12)', role:'seo' },
   { id:'IRIS',    label:'OPT', desc:'Answer Optimizer',          color:'#ef4444', bg:'rgba(239,68,68,0.12)',  role:'seo' },
@@ -47,6 +47,9 @@ interface Message {
 }
 
 export default function SquadMeetingPage() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   const [lang, setLangState] = useState<Lang>('TR');
   const [mode, setMode] = useState<Mode>('text');
   const [messages, setMessages] = useState<Message[]>([]);
@@ -73,14 +76,34 @@ export default function SquadMeetingPage() {
     setSpeakingAgentState(agentId);
   }, []);
 
-  // Hide WhatsApp on this page
+  async function handlePasswordSubmit() {
+    const res = await fetch('/api/squad-auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: passwordInput }),
+    });
+    const data = await res.json();
+    if (data.ok) {
+      setAuthenticated(true);
+    } else {
+      setPasswordError(true);
+      setPasswordInput('');
+      setTimeout(() => setPasswordError(false), 2000);
+    }
+  }
+
+  // Hide site header/footer/whatsapp
   useEffect(() => {
-    const el = document.querySelector('a[href*="wa.me"]') as HTMLElement;
-    if (el) el.style.display = 'none';
-    return () => { if (el) el.style.display = ''; };
+    const els = document.querySelectorAll('header, footer, nav, a[href*="wa.me"]') as NodeListOf<HTMLElement>;
+    els.forEach(el => { el.style.display = 'none'; });
+    document.body.style.overflow = 'hidden';
+    return () => {
+      els.forEach(el => { el.style.display = ''; });
+      document.body.style.overflow = '';
+    };
   }, []);
 
-  // Preload voices for speech synthesis
+  // Preload voices
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const synth = window.speechSynthesis;
@@ -92,11 +115,12 @@ export default function SquadMeetingPage() {
 
   // Timer
   useEffect(() => {
+    if (!authenticated) return;
     const interval = setInterval(() => {
       setElapsed(Math.floor((Date.now() - startTimeRef.current) / 1000));
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [authenticated]);
 
   const timerDisplay = `${String(Math.floor(elapsed / 60)).padStart(2,'0')}:${String(elapsed % 60).padStart(2,'0')}`;
 
@@ -109,6 +133,8 @@ export default function SquadMeetingPage() {
 
   // Welcome message
   useEffect(() => {
+    if (!authenticated) return;
+    startTimeRef.current = Date.now();
     addMessage({ agentId: null, text: lang === 'TR' ? 'Toplantı başladı — 28 agent aktif' : 'Meeting started — 28 agents active', isUser: false, isSystem: true });
     setTimeout(() => {
       setSpeaking('VEGA');
@@ -117,13 +143,10 @@ export default function SquadMeetingPage() {
         : 'Hello. I\'m VEGA, the Squad coordinator. Type the domain or topic you want to analyze. I\'ll decide which agents to activate.';
       addMessage({ agentId: 'VEGA', text: intro, isUser: false, isSystem: false });
       conversationRef.current.push({ role: 'assistant', content: '**VEGA:** ' + intro });
-      setTimeout(() => {
-        speakText(intro, 'VEGA', 'TR');
-        setTimeout(() => setSpeaking(null), 3000);
-      }, 500);
+      setTimeout(() => { speakText(intro, 'VEGA', lang); setTimeout(() => setSpeaking(null), 3000); }, 500);
     }, 600);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [authenticated]);
 
   function speakText(text: string, agentId: string, currentLang: Lang) {
     if (typeof window === 'undefined') return;
@@ -132,13 +155,12 @@ export default function SquadMeetingPage() {
     const utt = new SpeechSynthesisUtterance(text);
     utt.lang = currentLang === 'TR' ? 'tr-TR' : 'en-US';
     const voices = synth.getVoices();
-    const langVoices = voices.filter(v => v.lang.startsWith(currentLang === 'TR' ? 'tr' : 'en'));
-    const fallbackVoices = voices.filter(v => v.lang.startsWith('en'));
-    const agentIdx = AGENTS.findIndex(a => a.id === agentId);
-    const pool = langVoices.length > 0 ? langVoices : fallbackVoices;
-    if (pool.length > 0) utt.voice = pool[agentIdx % pool.length];
-    utt.rate = 1.05;
-    utt.pitch = 0.95 + (agentIdx % 5) * 0.05;
+    const trVoice = voices.find(v => v.lang.startsWith('tr'));
+    const enVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) || voices.find(v => v.lang.startsWith('en'));
+    if (currentLang === 'TR' && trVoice) utt.voice = trVoice;
+    else if (enVoice) utt.voice = enVoice;
+    utt.rate = currentLang === 'TR' ? 0.95 : 1.0;
+    utt.pitch = 1.0;
     utt.volume = 1;
     synth.speak(utt);
   }
@@ -154,15 +176,16 @@ export default function SquadMeetingPage() {
   }
 
   function buildSystemPrompt(currentLang: Lang) {
-    return `AI SEO Squad meeting room. 28 agents. Language: ${currentLang === 'TR' ? 'Turkish' : 'English'}.
+    return `AI SEO Squad meeting room. 28 specialized agents. Respond in ${currentLang === 'TR' ? 'Turkish' : 'English'}.
 
-Agents: VEGA(coordinator), ATLAS(AI visibility), REX(competitor SOV), DANTE(competitor intel), MARCUS(entity), FELIX(schema), OLIVER(answer intel), HUNTER(citations), NERO(intent), ZEPHYR(technical), CASPIAN(local), ARGO(topical authority), VECTOR(programmatic), NOVA(content strategy), LYRA(GEO), IRIS(answers), SERA(E-E-A-T), MIRA(content gaps), LUNA(brand monitor), ECHO(snippets), AURORA(international), SAGE(AI queries), CELESTE(reviews), DIANA(CRO), RIO(onboarding), KAI(proposals), MAX(reporting), OTTO(collections).
+Agents: VEGA(coordinator/CEO), ATLAS(AI visibility), REX(competitor SOV), DANTE(competitor intel), MARCUS(entity), FELIX(schema), OLIVER(answer intel), HUNTER(citations/PR), NERO(intent mapping), ZEPHYR(technical SEO), CASPIAN(local SEO), ARGO(topical authority), VECTOR(programmatic SEO), NOVA(content strategy), LYRA(GEO optimization), IRIS(answer optimization), SERA(E-E-A-T), MIRA(content gaps), LUNA(brand monitor), ECHO(snippets), AURORA(international SEO), SAGE(AI queries), CELESTE(reviews), DIANA(CRO), RIO(client onboarding), KAI(proposals), MAX(reporting), OTTO(collections).
 
-FORMAT for multiple agents: **AGENTNAME:** [response]
-- @mention -> that agent speaks first
-- 2-3 sentences per agent max
-- VEGA summarizes if 3+ agents speak
-- Be direct and actionable`;
+FORMAT: Each agent response on new line: **AGENTNAME:** [response]
+- If user mentions @AGENTNAME, that agent speaks first
+- VEGA coordinates and summarizes when 3+ agents speak
+- Give thorough, specific, actionable responses — not just 1-2 sentences
+- Agents can build on each other or respectfully disagree
+- Always end with concrete next steps`;
   }
 
   async function sendMessage() {
@@ -185,7 +208,7 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: conversationRef.current.slice(-6),
+          messages: conversationRef.current.slice(-8),
           systemPrompt: buildSystemPrompt(lang),
         }),
       });
@@ -207,7 +230,7 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
             setSpeaking(agentId);
             addMessage({ agentId, text: agentText, isUser: false, isSystem: false });
             speakText(agentText, agentId, lang);
-            await new Promise(r => setTimeout(r, 400));
+            await new Promise(r => setTimeout(r, 600));
           }
         }
       } else {
@@ -226,10 +249,7 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
   function initRecognition() {
     if (typeof window === 'undefined') return null;
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SR) {
-      addMessage({ agentId: null, text: lang === 'TR' ? 'Tarayıcınız ses tanımayı desteklemiyor.' : 'Browser does not support speech recognition.', isUser: false, isSystem: true });
-      return null;
-    }
+    if (!SR) { addMessage({ agentId: null, text: 'Tarayıcınız ses tanımayı desteklemiyor.', isUser: false, isSystem: true }); return null; }
     const rec = new SR();
     rec.lang = lang === 'TR' ? 'tr-TR' : 'en-US';
     rec.interimResults = true;
@@ -241,118 +261,101 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
         else interim += e.results[i][0].transcript;
       }
       setLiveTranscript(final || interim);
-      if (final) {
-        setInput(final);
-        stopRecording();
-        setTimeout(() => {
-          const inp = document.querySelector('textarea') as HTMLTextAreaElement;
-          if (inp) inp.dispatchEvent(new Event('input', { bubbles: true }));
-          sendMessage();
-        }, 200);
-      }
+      if (final) { setInput(final); stopRecording(); setTimeout(() => sendMessage(), 200); }
     };
-    rec.onerror = (e: any) => {
-      addMessage({ agentId: null, text: lang === 'TR' ? `Mikrofon hatası: ${e.error}` : `Mic error: ${e.error}`, isUser: false, isSystem: true });
-      stopRecording();
-    };
+    rec.onerror = () => stopRecording();
     rec.onend = () => stopRecording();
     return rec;
   }
 
-  function toggleMic() {
-    if (isRecording) stopRecording();
-    else startRecording();
-  }
-
-  function startRecording() {
-    const rec = initRecognition();
-    if (!rec) return;
-    recognitionRef.current = rec;
-    rec.start();
-    setIsRecording(true);
-  }
-
-  function stopRecording() {
-    recognitionRef.current?.stop();
-    setIsRecording(false);
-  }
+  function toggleMic() { if (isRecording) stopRecording(); else startRecording(); }
+  function startRecording() { const rec = initRecognition(); if (!rec) return; recognitionRef.current = rec; rec.start(); setIsRecording(true); }
+  function stopRecording() { recognitionRef.current?.stop(); setIsRecording(false); }
 
   const seoAgents = AGENTS.filter(a => a.role === 'seo');
   const opsAgents = AGENTS.filter(a => a.role === 'ops');
 
+  // PASSWORD SCREEN
+  if (!authenticated) {
+    return (
+      <div style={{ position: 'fixed', inset: 0, background: '#0a0a0f', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, fontFamily: 'Inter, sans-serif' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+          <div style={{ width: 48, height: 48, background: '#7c6fff', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 700, color: 'white' }}>S</div>
+          <div style={{ fontSize: 18, fontWeight: 500, color: '#e8e8f0' }}>AI SEO Squad</div>
+          <div style={{ fontSize: 13, color: '#6b6b80', marginTop: -12 }}>Meeting Room</div>
+          <input
+            autoFocus
+            type="password"
+            value={passwordInput}
+            onChange={e => setPasswordInput(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handlePasswordSubmit()}
+            placeholder="Şifre"
+            style={{ width: 220, padding: '12px 16px', borderRadius: 10, border: `1px solid ${passwordError ? '#ef4444' : 'rgba(255,255,255,0.1)'}`, background: '#111118', color: '#e8e8f0', fontSize: 15, outline: 'none', textAlign: 'center', letterSpacing: '0.2em', transition: 'border-color 0.2s' }}
+          />
+          {passwordError && <div style={{ fontSize: 12, color: '#ef4444', marginTop: -16 }}>Hatalı şifre</div>}
+          <button onClick={handlePasswordSubmit} style={{ width: 220, padding: '12px 0', borderRadius: 10, border: 'none', background: '#7c6fff', color: 'white', fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>Giriş</button>
+        </div>
+      </div>
+    );
+  }
+
+  // MAIN MEETING ROOM
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', background: '#0a0a0f', color: '#e8e8f0', height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <div style={{ position: 'fixed', inset: 0, fontFamily: 'Inter, sans-serif', background: '#0a0a0f', color: '#e8e8f0', display: 'flex', flexDirection: 'column', overflow: 'hidden', zIndex: 9999 }}>
 
       {/* TOP BAR */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', height: 52, borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'rgba(10,10,15,0.95)', flexShrink: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{ width: 28, height: 28, background: '#7c6fff', borderRadius: 7, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600, color: 'white' }}>S</div>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 500 }}>AI SEO Squad</div>
-            <div style={{ fontSize: 11, color: '#6b6b80', fontFamily: 'monospace' }}>by tonguckaracay.com</div>
-          </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px', height: 48, borderBottom: '1px solid rgba(255,255,255,0.07)', background: '#0a0a0f', flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 24, height: 24, background: '#7c6fff', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: 'white' }}>S</div>
+          <span style={{ fontSize: 13, fontWeight: 500 }}>AI SEO Squad</span>
+          <span style={{ fontSize: 11, color: '#6b6b80', fontFamily: 'monospace' }}>— Meeting Room</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           {speakingAgent && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(124,111,255,0.15)', border: '1px solid rgba(124,111,255,0.3)', borderRadius: 20, padding: '4px 14px', fontSize: 11, fontFamily: 'monospace', color: '#7c6fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 7, background: 'rgba(124,111,255,0.12)', border: '1px solid rgba(124,111,255,0.25)', borderRadius: 20, padding: '3px 12px', fontSize: 11, fontFamily: 'monospace', color: '#7c6fff' }}>
               <span style={{ display: 'inline-flex', gap: 2, alignItems: 'flex-end', height: 10 }}>
-                {[3,7,10,5].map((h, i) => (
-                  <span key={i} style={{ width: 2, height: h, background: '#7c6fff', borderRadius: 1, animation: `bar 0.8s ${i * 0.15}s ease-in-out infinite` }} />
-                ))}
+                {[3,7,10,5].map((h,i) => <span key={i} style={{ width: 2, height: h, background: '#7c6fff', borderRadius: 1, animation: `bar 0.8s ${i*0.15}s ease-in-out infinite` }} />)}
               </span>
-              {speakingAgent} {lang === 'TR' ? 'konuşuyor' : 'speaking'}
+              {speakingAgent}
             </div>
           )}
-          <div style={{ fontSize: 12, color: '#6b6b80', fontFamily: 'monospace', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 6px #22c55e', animation: 'pulse 2s infinite' }} />
-            LIVE
+          <div style={{ fontSize: 11, color: '#6b6b80', fontFamily: 'monospace', display: 'flex', alignItems: 'center', gap: 5 }}>
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#22c55e', display: 'inline-block', animation: 'pulse 2s infinite' }} />
+            {timerDisplay}
           </div>
-          <div style={{ fontFamily: 'monospace', fontSize: 13, color: '#6b6b80' }}>{timerDisplay}</div>
-          <div style={{ display: 'flex', background: '#111118', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 8, padding: 3, gap: 2 }}>
-            {(['TR', 'EN'] as Lang[]).map(l => (
-              <button key={l} onClick={() => setLang(l)} style={{ fontSize: 11, fontFamily: 'monospace', fontWeight: 500, padding: '3px 10px', borderRadius: 5, border: 'none', background: lang === l ? '#7c6fff' : 'transparent', color: lang === l ? 'white' : '#6b6b80', cursor: 'pointer', letterSpacing: '0.05em' }}>{l}</button>
+          <div style={{ display: 'flex', background: '#111118', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 7, padding: 2, gap: 2 }}>
+            {(['TR','EN'] as Lang[]).map(l => (
+              <button key={l} onClick={() => setLang(l)} style={{ fontSize: 10, fontFamily: 'monospace', fontWeight: 600, padding: '2px 9px', borderRadius: 5, border: 'none', background: lang===l ? '#7c6fff' : 'transparent', color: lang===l ? 'white' : '#6b6b80', cursor: 'pointer' }}>{l}</button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* MAIN */}
+      {/* MAIN — chat left big, agents right small */}
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
 
-        {/* AGENT GRID */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: 20, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: 10, alignContent: 'start' }}>
-          <div style={{ gridColumn: '1 / -1', fontSize: 10, fontFamily: 'monospace', color: '#2a2a3a', letterSpacing: '0.1em', textTransform: 'uppercase', paddingBottom: 4, borderBottom: '1px solid rgba(255,255,255,0.07)', marginBottom: 2 }}>SEO + AI AGENTS</div>
-          {seoAgents.map(agent => <AgentCard key={agent.id} agent={agent} isSpeaking={speakingAgent === agent.id} onClick={() => mentionAgent(agent.id)} />)}
-          <div style={{ gridColumn: '1 / -1', fontSize: 10, fontFamily: 'monospace', color: '#2a2a3a', letterSpacing: '0.1em', textTransform: 'uppercase', paddingBottom: 4, borderBottom: '1px solid rgba(255,255,255,0.07)', marginBottom: 2, marginTop: 8 }}>AGENCY OPS</div>
-          {opsAgents.map(agent => <AgentCard key={agent.id} agent={agent} isSpeaking={speakingAgent === agent.id} onClick={() => mentionAgent(agent.id)} isDashed />)}
-        </div>
-
-        {/* RIGHT PANEL */}
-        <div style={{ width: 380, minWidth: 380, borderLeft: '1px solid rgba(255,255,255,0.07)', display: 'flex', flexDirection: 'column', background: '#111118' }}>
-          <div style={{ padding: '14px 16px 12px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
-            <div style={{ fontSize: 12, fontWeight: 500, color: '#6b6b80', fontFamily: 'monospace', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{lang === 'TR' ? 'Toplantı Transkripti' : 'Meeting Transcript'}</div>
-            <button onClick={() => { setMessages([]); conversationRef.current = []; }} style={{ fontSize: 10, fontFamily: 'monospace', color: '#3a3a4a', background: 'none', border: 'none', cursor: 'pointer', padding: '4px 8px', borderRadius: 4 }}>{lang === 'TR' ? 'temizle' : 'clear'}</button>
-          </div>
-
-          <div ref={chatLogRef} style={{ flex: 1, overflowY: 'auto', padding: 16, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        {/* CHAT — main area */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid rgba(255,255,255,0.07)', minWidth: 0 }}>
+          <div ref={chatLogRef} style={{ flex: 1, overflowY: 'auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
             {messages.map(msg => <ChatMessage key={msg.id} msg={msg} agents={AGENTS} lang={lang} />)}
             {isLoading && (
               <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'rgba(124,111,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 600, fontFamily: 'monospace', color: '#7c6fff', flexShrink: 0 }}>VGA</div>
-                <div style={{ display: 'flex', gap: 4, alignItems: 'center', padding: '10px 13px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10 }}>
-                  {[0, 0.2, 0.4].map((d, i) => <span key={i} style={{ width: 5, height: 5, borderRadius: '50%', background: '#7c6fff', animation: `tdot 1.2s ${d}s infinite` }} />)}
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(124,111,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, fontFamily: 'monospace', color: '#7c6fff', flexShrink: 0 }}>CEO</div>
+                <div style={{ display: 'flex', gap: 4, alignItems: 'center', padding: '11px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12 }}>
+                  {[0,0.2,0.4].map((d,i) => <span key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: '#7c6fff', animation: `tdot 1.2s ${d}s infinite` }} />)}
                 </div>
               </div>
             )}
           </div>
 
-          <div style={{ padding: '14px 16px', borderTop: '1px solid rgba(255,255,255,0.07)', display: 'flex', flexDirection: 'column', gap: 10, background: '#0a0a0f', flexShrink: 0 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#3a3a4a', letterSpacing: '0.05em' }}>{lang === 'TR' ? 'MOD:' : 'MODE:'}</span>
+          {/* INPUT */}
+          <div style={{ padding: '12px 20px 16px', borderTop: '1px solid rgba(255,255,255,0.07)', background: '#0a0a0f', flexShrink: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+              <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#3a3a4a' }}>{lang==='TR' ? 'MOD:' : 'MODE:'}</span>
               <div style={{ display: 'flex', background: '#111118', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 6, padding: 2, gap: 2 }}>
-                {(['text', 'voice'] as Mode[]).map(m => (
-                  <button key={m} onClick={() => setMode(m)} style={{ fontSize: 10, fontFamily: 'monospace', padding: '3px 10px', borderRadius: 4, border: 'none', background: mode === m ? 'rgba(124,111,255,0.15)' : 'transparent', color: mode === m ? '#7c6fff' : '#6b6b80', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 5 }}>
-                    {m === 'text' ? '⌨' : '🎙'} {m === 'text' ? (lang === 'TR' ? 'metin' : 'text') : (lang === 'TR' ? 'ses' : 'voice')}
+                {(['text','voice'] as Mode[]).map(m => (
+                  <button key={m} onClick={() => setMode(m)} style={{ fontSize: 10, fontFamily: 'monospace', padding: '2px 9px', borderRadius: 4, border: 'none', background: mode===m ? 'rgba(124,111,255,0.15)' : 'transparent', color: mode===m ? '#7c6fff' : '#6b6b80', cursor: 'pointer' }}>
+                    {m==='text' ? '⌨' : '🎙'} {m==='text' ? (lang==='TR' ? 'metin' : 'text') : (lang==='TR' ? 'ses' : 'voice')}
                   </button>
                 ))}
               </div>
@@ -363,19 +366,27 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
                 ref={textInputRef}
                 value={input}
                 onChange={e => setInput(e.target.value)}
-                onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
-                placeholder={lang === 'TR' ? 'Konuyu yazın veya domain girin...' : 'Type a topic or domain...'}
-                rows={1}
-                style={{ flex: 1, resize: 'none', fontFamily: 'Inter, sans-serif', fontSize: 13, minHeight: 40, maxHeight: 100, padding: '10px 14px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.1)', background: '#111118', color: '#e8e8f0', lineHeight: 1.5, outline: 'none' }}
+                onKeyDown={e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
+                placeholder={lang==='TR' ? 'Domain veya konu yazın... (@ATLAS gibi agent da mention edebilirsiniz)' : 'Type a domain or topic... (you can @mention agents)'}
+                rows={2}
+                style={{ flex: 1, resize: 'none', fontFamily: 'Inter, sans-serif', fontSize: 14, minHeight: 48, maxHeight: 120, padding: '12px 16px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.1)', background: '#111118', color: '#e8e8f0', lineHeight: 1.5, outline: 'none' }}
               />
-              {mode === 'voice' && (
-                <button onClick={toggleMic} style={{ width: 40, height: 40, borderRadius: 10, border: `1px solid ${isRecording ? '#ef4444' : 'rgba(255,255,255,0.07)'}`, background: isRecording ? 'rgba(239,68,68,0.15)' : '#111118', color: isRecording ? '#ef4444' : '#6b6b80', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>
+              {mode==='voice' && (
+                <button onClick={toggleMic} style={{ width: 44, height: 44, borderRadius: 10, border: `1px solid ${isRecording ? '#ef4444' : 'rgba(255,255,255,0.07)'}`, background: isRecording ? 'rgba(239,68,68,0.15)' : '#111118', color: isRecording ? '#ef4444' : '#6b6b80', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>
                   {isRecording ? '⏹' : '🎙'}
                 </button>
               )}
-              <button onClick={sendMessage} disabled={isLoading} style={{ width: 40, height: 40, borderRadius: 10, border: 'none', background: '#7c6fff', color: 'white', cursor: isLoading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0, opacity: isLoading ? 0.5 : 1 }}>↑</button>
+              <button onClick={sendMessage} disabled={isLoading} style={{ width: 44, height: 44, borderRadius: 10, border: 'none', background: '#7c6fff', color: 'white', cursor: isLoading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0, opacity: isLoading ? 0.5 : 1 }}>↑</button>
             </div>
           </div>
+        </div>
+
+        {/* AGENT PANEL — right, compact */}
+        <div style={{ width: 200, minWidth: 200, overflowY: 'auto', padding: '12px 10px', background: '#0d0d14', display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <div style={{ fontSize: 9, fontFamily: 'monospace', color: '#2a2a3a', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '2px 6px 6px', borderBottom: '1px solid rgba(255,255,255,0.05)', marginBottom: 4 }}>SEO + AI</div>
+          {seoAgents.map(agent => <AgentRow key={agent.id} agent={agent} isSpeaking={speakingAgent===agent.id} onClick={() => mentionAgent(agent.id)} />)}
+          <div style={{ fontSize: 9, fontFamily: 'monospace', color: '#2a2a3a', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '8px 6px 6px', borderBottom: '1px solid rgba(255,255,255,0.05)', marginBottom: 4, marginTop: 6 }}>OPS</div>
+          {opsAgents.map(agent => <AgentRow key={agent.id} agent={agent} isSpeaking={speakingAgent===agent.id} onClick={() => mentionAgent(agent.id)} />)}
         </div>
       </div>
 
@@ -383,27 +394,27 @@ FORMAT for multiple agents: **AGENTNAME:** [response]
         @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
         @keyframes bar { 0%,100%{transform:scaleY(0.4)}50%{transform:scaleY(1)} }
         @keyframes tdot { 0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-5px);opacity:1} }
-        @keyframes speakRing { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.02)} }
-        @keyframes soundBar { 0%,100%{transform:scaleY(0.3)}50%{transform:scaleY(1)} }
+        @keyframes speakGlow { 0%,100%{box-shadow:0 0 0 0 rgba(124,111,255,0)}50%{box-shadow:0 0 12px 2px rgba(124,111,255,0.3)} }
         * { box-sizing: border-box; }
-        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 2px; }
       `}</style>
     </div>
   );
 }
 
-function AgentCard({ agent, isSpeaking, onClick, isDashed }: { agent: Agent; isSpeaking: boolean; onClick: () => void; isDashed?: boolean }) {
+function AgentRow({ agent, isSpeaking, onClick }: { agent: Agent; isSpeaking: boolean; onClick: () => void }) {
   return (
-    <div onClick={onClick} title={agent.desc} style={{ background: isSpeaking ? `rgba(124,111,255,0.08)` : '#111118', border: `${isDashed ? '1px dashed' : '1px solid'} ${isSpeaking ? '#7c6fff' : 'rgba(255,255,255,0.07)'}`, borderRadius: 12, padding: '14px 10px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, cursor: 'pointer', position: 'relative', overflow: 'hidden', boxShadow: isSpeaking ? '0 0 20px rgba(124,111,255,0.15)' : 'none', transition: 'all 0.2s' }}>
-      {isSpeaking && <div style={{ position: 'absolute', inset: -1, borderRadius: 13, border: '2px solid #7c6fff', animation: 'speakRing 1.5s ease-in-out infinite', pointerEvents: 'none' }} />}
-      <div style={{ width: 44, height: 44, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 600, fontFamily: 'monospace', background: agent.bg, color: agent.color, transform: isSpeaking ? 'scale(1.08)' : 'scale(1)', transition: 'transform 0.2s' }}>{agent.label}</div>
-      <div style={{ fontSize: 11, fontWeight: 600, fontFamily: 'monospace', color: isSpeaking ? '#7c6fff' : '#e8e8f0', letterSpacing: '0.05em' }}>{agent.id}</div>
-      <div style={{ fontSize: 9, color: '#6b6b80', textAlign: 'center', lineHeight: 1.3 }}>{agent.desc}</div>
+    <div onClick={onClick} title={agent.desc} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '5px 8px', borderRadius: 7, cursor: 'pointer', background: isSpeaking ? 'rgba(124,111,255,0.1)' : 'transparent', border: `1px solid ${isSpeaking ? 'rgba(124,111,255,0.3)' : 'transparent'}`, transition: 'all 0.15s', animation: isSpeaking ? 'speakGlow 1.5s infinite' : 'none' }}>
+      <div style={{ width: 26, height: 26, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, fontFamily: 'monospace', background: agent.bg, color: agent.color, flexShrink: 0 }}>{agent.label}</div>
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 600, fontFamily: 'monospace', color: isSpeaking ? '#7c6fff' : '#e8e8f0', letterSpacing: '0.03em' }}>{agent.id}</div>
+        <div style={{ fontSize: 9, color: '#4a4a5a', lineHeight: 1.2 }}>{agent.desc}</div>
+      </div>
       {isSpeaking && (
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 2, height: 12, position: 'absolute', bottom: 8, right: 8 }}>
-          {[4, 8, 12, 6].map((h, i) => <div key={i} style={{ width: 2, height: h, background: '#7c6fff', borderRadius: 1, animation: `soundBar 0.8s ${i * 0.15}s ease-in-out infinite` }} />)}
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'flex-end', gap: 1.5, height: 10 }}>
+          {[3,6,9,4].map((h,i) => <div key={i} style={{ width: 2, height: h, background: '#7c6fff', borderRadius: 1, animation: `bar 0.8s ${i*0.15}s ease-in-out infinite` }} />)}
         </div>
       )}
     </div>
@@ -412,21 +423,21 @@ function AgentCard({ agent, isSpeaking, onClick, isDashed }: { agent: Agent; isS
 
 function ChatMessage({ msg, agents, lang }: { msg: Message; agents: typeof AGENTS; lang: Lang }) {
   if (msg.isSystem) {
-    return <div style={{ display: 'flex', justifyContent: 'center' }}><div style={{ fontSize: 11, fontFamily: 'monospace', color: '#3a3a4a', textAlign: 'center' }}>{msg.text}</div></div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', padding: '2px 0' }}><div style={{ fontSize: 11, fontFamily: 'monospace', color: '#2a2a3a' }}>{msg.text}</div></div>;
   }
   const agent = agents.find(a => a.id === msg.agentId);
   const isUser = msg.isUser;
   return (
-    <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', flexDirection: isUser ? 'row-reverse' : 'row' }}>
-      <div style={{ width: 30, height: 30, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 600, fontFamily: 'monospace', background: isUser ? 'rgba(124,111,255,0.15)' : (agent?.bg || 'rgba(255,255,255,0.1)'), color: isUser ? '#7c6fff' : (agent?.color || '#888'), flexShrink: 0, marginTop: 2 }}>
-        {isUser ? (lang === 'TR' ? 'SİZ' : 'YOU') : (agent?.label || msg.agentId?.slice(0,3) || '?')}
+    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', flexDirection: isUser ? 'row-reverse' : 'row' }}>
+      <div style={{ width: 32, height: 32, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, fontFamily: 'monospace', background: isUser ? 'rgba(124,111,255,0.15)' : (agent?.bg || 'rgba(255,255,255,0.08)'), color: isUser ? '#7c6fff' : (agent?.color || '#888'), flexShrink: 0, marginTop: 2 }}>
+        {isUser ? (lang==='TR' ? 'SİZ' : 'YOU') : (agent?.label || msg.agentId?.slice(0,3) || '?')}
       </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 4, flexDirection: isUser ? 'row-reverse' : 'row' }}>
-          <span style={{ fontSize: 10, fontWeight: 600, fontFamily: 'monospace', letterSpacing: '0.05em', color: isUser ? '#7c6fff' : (agent?.color || '#888') }}>{isUser ? (lang === 'TR' ? 'Siz' : 'You') : msg.agentId}</span>
-          <span style={{ fontSize: 10, color: '#3a3a4a', fontFamily: 'monospace' }}>{msg.time}</span>
+      <div style={{ flex: 1, minWidth: 0, maxWidth: '80%' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 5, flexDirection: isUser ? 'row-reverse' : 'row' }}>
+          <span style={{ fontSize: 11, fontWeight: 700, fontFamily: 'monospace', letterSpacing: '0.05em', color: isUser ? '#7c6fff' : (agent?.color || '#888') }}>{isUser ? (lang==='TR' ? 'Siz' : 'You') : msg.agentId}</span>
+          <span style={{ fontSize: 10, color: '#2a2a3a', fontFamily: 'monospace' }}>{msg.time}</span>
         </div>
-        <div style={{ fontSize: 13, lineHeight: 1.6, padding: '10px 13px', borderRadius: 10, border: '1px solid', borderColor: isUser ? 'rgba(124,111,255,0.2)' : 'rgba(255,255,255,0.07)', background: isUser ? 'rgba(124,111,255,0.12)' : 'rgba(255,255,255,0.03)', color: isUser ? '#c4beff' : '#e8e8f0' }}>
+        <div style={{ fontSize: 14, lineHeight: 1.65, padding: '12px 16px', borderRadius: 12, border: '1px solid', borderColor: isUser ? 'rgba(124,111,255,0.2)' : 'rgba(255,255,255,0.07)', background: isUser ? 'rgba(124,111,255,0.1)' : 'rgba(255,255,255,0.03)', color: isUser ? '#c4beff' : '#e8e8f0', whiteSpace: 'pre-wrap' }}>
           {msg.text}
         </div>
       </div>
