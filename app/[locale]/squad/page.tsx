@@ -148,21 +148,8 @@ export default function SquadMeetingPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authenticated]);
 
-  function speakText(text: string, agentId: string, currentLang: Lang) {
-    if (typeof window === 'undefined') return;
-    const synth = window.speechSynthesis;
-    synth.cancel();
-    const utt = new SpeechSynthesisUtterance(text);
-    utt.lang = currentLang === 'TR' ? 'tr-TR' : 'en-US';
-    const voices = synth.getVoices();
-    const trVoice = voices.find(v => v.lang.startsWith('tr'));
-    const enVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) || voices.find(v => v.lang.startsWith('en'));
-    if (currentLang === 'TR' && trVoice) utt.voice = trVoice;
-    else if (enVoice) utt.voice = enVoice;
-    utt.rate = currentLang === 'TR' ? 0.95 : 1.0;
-    utt.pitch = 1.0;
-    utt.volume = 1;
-    synth.speak(utt);
+  function speakText(_text: string, _agentId: string, _currentLang: Lang) {
+    // TTS disabled — will be replaced with ElevenLabs
   }
 
   function setLang(l: Lang) {
