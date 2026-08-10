@@ -841,6 +841,31 @@ function todayISO(d){ return toLocalISO(d || new Date()); }
 function monthKeyOf(iso){ return iso.slice(0,7); }
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 
+/* ---- Demo-mode transaction limit (this file only, never index.html) ----
+   Public demo == the full product with zero access control, so it's also
+   fully copyable via View Source with no technical barrier at all (found
+   during pre-launch review, 2026-08-10) - matches how the category leader
+   (EzPlanningStudio) protects their own public demo: the whole app stays
+   browsable, but new transactions are capped, with an unlock prompt that
+   points at the real purchase path instead of silently failing. */
+const IS_DEMO = true;
+const DEMO_TX_LIMIT = 3;
+// No live Etsy listing yet (2026-08-10) - points at the real marketing
+// page instead, which already has its own "Buy on Etsy" call to action.
+// Swap for the actual Etsy listing URL the moment it goes live - nothing
+// else in this file needs to change.
+const DEMO_UNLOCK_URL = "https://tonguckaracay.com/en/products/finance-os";
+async function demoLimitReached(){
+  if(!IS_DEMO) return false;
+  if((state.demoAddedCount||0) < DEMO_TX_LIMIT) return false;
+  const goToEtsy = await confirmModal(
+    `You've reached the ${DEMO_TX_LIMIT}-transaction limit of this demo. Visit our Etsy store to get the full, unlimited version.`,
+    {title:"Demo Limit Reached", confirmText:"Visit Etsy Store", tone:"primary"}
+  );
+  if(goToEtsy) window.open(DEMO_UNLOCK_URL, "_blank", "noopener");
+  return true;
+}
+
 function seedData(){
   const now = new Date();
   const y = now.getFullYear(), m = now.getMonth();
@@ -2361,7 +2386,8 @@ document.querySelectorAll(".select-on-focus").forEach(input=>{
 
 document.getElementById("monthSelect").addEventListener("change", (e)=>{ state.selectedMonth = e.target.value; saveState(); renderAll(); });
 
-document.getElementById("addTxBtn").addEventListener("click", ()=>{
+document.getElementById("addTxBtn").addEventListener("click", async ()=>{
+  if(await demoLimitReached()) return;
   const date = document.getElementById("txDate").value || todayISO();
   const type = document.getElementById("txType").value;
   let amount = parseFloat(document.getElementById("txAmount").value);
@@ -2437,6 +2463,7 @@ document.getElementById("addTxBtn").addEventListener("click", ()=>{
     }
   }
   state.transactions.push({id:uid(), date, type, category, targetId, accountId, sourceAccountId, amount, note});
+  if(IS_DEMO) state.demoAddedCount = (state.demoAddedCount||0) + 1;
   document.getElementById("txAmount").value = ""; document.getElementById("txNote").value = "";
   document.getElementById("txNewCatName").value = ""; document.getElementById("txNewAcctName").value = "";
   saveState(); renderAll();
@@ -2566,8 +2593,9 @@ document.getElementById("debtTableBody").addEventListener("change",(e)=>{
     saveState(); renderDebtView(); renderDashboard();
   }
 });
-document.getElementById("debtCards").addEventListener("click",(e)=>{
+document.getElementById("debtCards").addEventListener("click", async (e)=>{
   const btn = e.target.closest("[data-pay-debt]"); if(!btn) return;
+  if(await demoLimitReached()) return;
   const d = state.debts.find(d=>d.id===btn.dataset.payDebt); if(!d) return;
   const input = document.getElementById(`payAmt-${d.id}`);
   const noteId = `payNote-${d.id}`;
@@ -2590,6 +2618,7 @@ document.getElementById("debtCards").addEventListener("click",(e)=>{
     return;
   }
   state.transactions.push({id:uid(), date:todayISO(), type:"Debt Payment", category:d.name, targetId:d.id, accountId:d.accountId, sourceAccountId:assetAccounts[0].id, amount:amt, note:"Payment"});
+  if(IS_DEMO) state.demoAddedCount = (state.demoAddedCount||0) + 1;
   saveState(); renderAll();
   if(postNote) setNote(noteId, postNote, "info");
 });
