@@ -36,12 +36,14 @@ export default function Header() {
     about: '/hakkimda',
     contact: '/iletisim',
     aiTraining: '/ai-egitimi',
+    products: '/urunler',
     home: '/'
   } : {
     blog: '/en/blog',
     about: '/en/about',
     contact: '/en/contact',
     aiTraining: '/en/ai-training',
+    products: '/en/products',
     home: '/en'
   };
 
@@ -89,6 +91,10 @@ export default function Header() {
       '/services/social-media-management': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
       '/ai-egitimi': { tr: '/ai-egitimi', en: '/en/ai-training' },
       '/ai-training': { tr: '/ai-egitimi', en: '/en/ai-training' },
+      '/urunler': { tr: '/urunler', en: '/en/products' },
+      '/products': { tr: '/urunler', en: '/en/products' },
+      '/urunler/finance-os': { tr: '/urunler/finance-os', en: '/en/products/finance-os' },
+      '/products/finance-os': { tr: '/urunler/finance-os', en: '/en/products/finance-os' },
     };
     
     let newPath: string;
@@ -176,6 +182,10 @@ export default function Header() {
               <span className="ml-0.5 px-1.5 py-0.5 text-[9px] font-bold leading-none bg-indigo-500 text-white rounded">{newBadge}</span>
             </Link>
 
+            <Link href={navLinks.products} className="text-primary-200 hover:text-white transition-colors font-medium">
+              {t('products')}
+            </Link>
+
             <Link href={navLinks.blog} className="text-primary-200 hover:text-white transition-colors font-medium">
               {t('blog')}
             </Link>
@@ -255,6 +265,7 @@ export default function Header() {
                   {aiTrainingLabel}
                   <span className="ml-auto px-1.5 py-0.5 text-[9px] font-bold leading-none bg-indigo-500 text-white rounded">{newBadge}</span>
                 </Link>
+                <Link href={navLinks.products} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('products')}</Link>
                 <Link href={navLinks.blog} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('blog')}</Link>
                 <Link href={navLinks.about} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('about')}</Link>
                 

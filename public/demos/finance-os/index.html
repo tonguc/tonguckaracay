@@ -1,0 +1,2837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance OS — Budget Dashboard</title>
+<style>
+/* ==========================================================================
+   FINANCE OS — DESIGN TOKENS
+   v2: benchmark raised from Etsy-competitor spreadsheets to Stripe / Mercury /
+   Arc / Linear / Notion Calendar / Apple Wallet / Apple Health / Copilot
+   Money / Monarch Money / Rocket Money. Concretely: a persistent sidebar
+   (Linear/Mercury/Notion), a real stroke-icon set (no emoji), a progress
+   ring for the headline health metric (Apple Health), and hover/motion
+   micro-interactions real CSS can do that native Excel never could.
+   ========================================================================== */
+:root{
+  --space-xs:4px; --space-sm:8px; --space-md:16px; --space-lg:24px;
+  --space-xl:32px; --space-2xl:48px; --space-3xl:64px;
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px; --radius-full:999px;
+
+  --font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-h1:1.75rem; --font-h2:1.25rem; --font-h3:0.8125rem;
+  --font-numbers:2rem; --font-numbers-sm:1.25rem;
+  --font-body:0.9375rem; --font-caption:0.8125rem; --font-label:0.6875rem;
+
+  --color-bg:#F8FAFC;
+  --color-surface:#FFFFFF;
+  --color-surface-2:#F1F5F9;
+  --color-sidebar:#0F172A;
+  --color-sidebar-text:#CBD5E1;
+  --color-sidebar-text-active:#FFFFFF;
+  --color-sidebar-hover:rgba(255,255,255,0.06);
+  --color-text:#0F172A;
+  --color-text-secondary:#475569;
+  --color-border:#E2E8F0;
+  --color-primary:#2563EB;
+  --color-primary-tint:#EFF6FF;
+  /* Separate token for text-on-tint usage (badges) - light mode's regular
+     --color-primary already passes AA here (5.17:1), dark mode's doesn't
+     (see the dark-theme block below) so it needs its own lighter value. */
+  --color-primary-badge-text:#2563EB;
+  --color-success:#059669;
+  --color-success-tint:#D1FAE5;
+  --color-warning:#D97706;
+  --color-warning-tint:#FEF3C7;
+  --color-danger:#DC2626;
+  --color-danger-tint:#FEE2E2;
+  --color-violet:#7C3AED;
+  --color-violet-tint:#EDE9FE;
+  --shadow-card:0 1px 2px rgba(15,23,42,0.04),0 1px 3px rgba(15,23,42,0.06);
+  --shadow-elevated:0 4px 12px rgba(15,23,42,0.08),0 2px 4px rgba(15,23,42,0.06);
+  --shadow-hover:0 8px 20px rgba(15,23,42,0.10),0 2px 6px rgba(15,23,42,0.06);
+}
+
+:root[data-theme="dark"]{
+  --color-bg:#0B1220;
+  --color-surface:#141B2E;
+  --color-surface-2:#1B2436;
+  --color-sidebar:#070B14;
+  --color-sidebar-hover:rgba(255,255,255,0.05);
+  --color-text:#F1F5F9;
+  --color-text-secondary:#94A3B8;
+  --color-border:#243044;
+  /* #3B82F6 measured at 3.68:1 with white text (WCAG AA needs 4.5:1 for
+     normal-weight text - Maya QA finding). #2F6FE0 measures 4.69:1 via the
+     same relative-luminance formula, verified by hand before applying. */
+  --color-primary:#2F6FE0;
+  --color-primary-tint:rgba(47,111,224,0.15);
+  /* #2F6FE0 (the same solid-background-safe blue above) measures only
+     ~3.1-3.65:1 against its own translucent tint on a dark card - a real
+     dark-mode-only contrast failure on .badge.medium, found live by an
+     independent Inspector-Standing review, 2026-08-10 (the comment on
+     --color-primary above documents ITS OWN solid-background contrast
+     check, which doesn't carry over to a translucent-tint background - a
+     lesson that a verified-safe color for one usage isn't automatically
+     safe for a different one). #5B93F0 measures 4.78:1 by the same
+     relative-luminance formula against the effective composited
+     background, verified by hand before applying. */
+  --color-primary-badge-text:#5B93F0;
+  --color-success:#10B981;
+  --color-success-tint:rgba(16,185,129,0.15);
+  --color-warning:#F59E0B;
+  --color-warning-tint:rgba(245,158,11,0.15);
+  --color-danger:#EF4444;
+  --color-danger-tint:rgba(239,68,68,0.15);
+  --color-violet:#A78BFA;
+  --color-violet-tint:rgba(167,139,250,0.15);
+  --shadow-card:0 1px 2px rgba(0,0,0,0.24),0 1px 3px rgba(0,0,0,0.3);
+  --shadow-elevated:0 4px 16px rgba(0,0,0,0.4),0 2px 6px rgba(0,0,0,0.3);
+  --shadow-hover:0 10px 26px rgba(0,0,0,0.45),0 3px 8px rgba(0,0,0,0.3);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --color-bg:#0B1220; --color-surface:#141B2E; --color-surface-2:#1B2436;
+    --color-sidebar:#070B14; --color-sidebar-hover:rgba(255,255,255,0.05);
+    --color-text:#F1F5F9; --color-text-secondary:#94A3B8; --color-border:#243044;
+    --color-primary:#2F6FE0; --color-primary-tint:rgba(47,111,224,0.15);
+    --color-primary-badge-text:#5B93F0;
+    --color-success:#10B981; --color-success-tint:rgba(16,185,129,0.15);
+    --color-warning:#F59E0B; --color-warning-tint:rgba(245,158,11,0.15);
+    --color-danger:#EF4444; --color-danger-tint:rgba(239,68,68,0.15);
+    --color-violet:#A78BFA; --color-violet-tint:rgba(167,139,250,0.15);
+    --shadow-card:0 1px 2px rgba(0,0,0,0.24),0 1px 3px rgba(0,0,0,0.3);
+    --shadow-elevated:0 4px 16px rgba(0,0,0,0.4),0 2px 6px rgba(0,0,0,0.3);
+    --shadow-hover:0 10px 26px rgba(0,0,0,0.45),0 3px 8px rgba(0,0,0,0.3);
+  }
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--font-family);
+  background:var(--color-bg);
+  color:var(--color-text);
+  font-size:var(--font-body);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  transition:background .2s ease,color .2s ease;
+}
+svg.icon{width:18px;height:18px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;display:block;}
+
+/* ---- App shell: persistent sidebar (Linear/Mercury/Notion pattern) ---- */
+.app-shell{display:flex;min-height:100vh;}
+.sidebar{
+  width:232px;flex-shrink:0;background:var(--color-sidebar);color:var(--color-sidebar-text);
+  display:flex;flex-direction:column;padding:var(--space-lg) var(--space-md);
+  position:sticky;top:0;height:100vh;
+}
+.sidebar .brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:var(--font-h2);padding:0 var(--space-sm);margin-bottom:var(--space-xl);}
+.sidebar .brand .mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--color-primary),#7C3AED);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;}
+.sidebar nav{display:flex;flex-direction:column;gap:2px;}
+.sidebar nav button{
+  display:flex;align-items:center;gap:12px;
+  border:none;background:transparent;color:var(--color-sidebar-text);
+  font-family:inherit;font-size:0.875rem;font-weight:600;text-align:left;
+  padding:9px 12px;border-radius:var(--radius-sm);cursor:pointer;transition:all .15s ease;
+}
+.sidebar nav button:hover{background:var(--color-sidebar-hover);color:#fff;}
+.sidebar nav button.active{background:var(--color-primary);color:#fff;}
+.sidebar .spacer{flex:1;}
+.sidebar .side-section{display:flex;flex-direction:column;gap:2px;padding-top:var(--space-md);border-top:1px solid rgba(255,255,255,0.08);margin-top:var(--space-md);}
+.sidebar .side-btn{
+  display:flex;align-items:center;gap:12px;border:none;background:transparent;color:var(--color-sidebar-text);
+  font-family:inherit;font-size:0.8125rem;font-weight:600;text-align:left;padding:8px 12px;border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .15s ease;width:100%;
+}
+.sidebar .side-btn:hover{background:var(--color-sidebar-hover);color:#fff;}
+select.month-select{
+  font-family:inherit;font-size:0.8125rem;font-weight:600;color:#fff;
+  background:var(--color-sidebar-hover);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-sm);
+  padding:8px 10px;cursor:pointer;width:100%;
+}
+select.month-select option{color:#0F172A;}
+
+.main-wrap{flex:1;min-width:0;}
+main{max-width:1080px;margin:0 auto;padding:var(--space-2xl) var(--space-xl);}
+.view{display:none;}
+.view.active{display:block;animation:fadein .3s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+@media (max-width:900px){
+  .sidebar{width:76px;padding:var(--space-lg) var(--space-sm);}
+  .sidebar .brand span:last-child,.sidebar nav button span.label,.side-btn span.label{display:none;}
+  .sidebar .brand{justify-content:center;}
+  .sidebar nav button{justify-content:center;}
+}
+
+/* ---- Typography ---- */
+.page-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:var(--space-xl);}
+h1.page-title{font-size:var(--font-h1);font-weight:700;margin:0 0 4px 0;letter-spacing:-0.01em;}
+.page-sub{color:var(--color-text-secondary);font-size:var(--font-body);margin:0;}
+.section-header{
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:var(--font-h3);font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--color-text-secondary);
+  padding-bottom:var(--space-sm);margin:var(--space-2xl) 0 var(--space-md) 0;
+  border-bottom:1px solid var(--color-border);
+}
+.view > .section-header:first-of-type{margin-top:0;}
+.section-header .accent{color:var(--accent,var(--color-primary));}
+.section-header a{display:flex;align-items:center;gap:4px;font-size:var(--font-caption);color:var(--color-primary);text-decoration:none;text-transform:none;letter-spacing:0;font-weight:600;}
+
+/* ---- Grid ---- */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);}
+.grid.cols-2{grid-template-columns:repeat(2,1fr);}
+.grid.cols-4{grid-template-columns:repeat(4,1fr);}
+/* Grid items default to min-width:auto, so a child with unshrinkable
+   content (the debt/goal cards' contrib-row: a min-width:120px field + a
+   button in a nowrap flex row) forces its whole track wider than the grid's
+   own container - a "grid blowout". min-width:0 lets the track actually
+   shrink to the intended 1fr/single-column width. */
+.grid > *{min-width:0;}
+@media (max-width:860px){.grid,.grid.cols-2,.grid.cols-4{grid-template-columns:1fr;}}
+
+/* ---- Card system ---- */
+.card{
+  background:var(--color-surface);
+  border-radius:var(--radius-md);
+  box-shadow:var(--shadow-card);
+  padding:var(--space-lg);
+  transition:box-shadow .2s ease,transform .2s ease;
+}
+.card.hoverable:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px);}
+.card.hero{background:linear-gradient(135deg,var(--color-primary),#4F46E5);color:#fff;box-shadow:var(--shadow-elevated);}
+.card.hero .kpi-label,.card.hero .kpi-meta,.card.hero .kpi-micro{color:rgba(255,255,255,.85);}
+.card.hero .kpi-value{color:#fff;}
+
+.kpi-label{font-size:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:6px;}
+.kpi-value{font-size:var(--font-numbers);font-weight:700;line-height:1.1;margin-bottom:6px;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;}
+.kpi-meta{display:flex;align-items:center;gap:4px;font-size:var(--font-caption);font-weight:700;margin-bottom:4px;}
+.kpi-micro{font-size:var(--font-caption);color:var(--color-text-secondary);}
+.trend-up{color:var(--color-success);} .trend-down{color:var(--color-danger);}
+.kpi-ring-row{display:flex;align-items:center;gap:var(--space-md);}
+
+/* ---- Apple-Health-style progress ring ---- */
+.ring{transform:rotate(-90deg);}
+.ring circle{fill:none;stroke-width:8;}
+.ring .track{stroke:var(--color-surface-2);}
+.ring .fill{stroke-linecap:round;transition:stroke-dashoffset .5s ease;}
+
+.action-card{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-md);
+  background:var(--color-surface);border-radius:var(--radius-md);box-shadow:var(--shadow-card);
+  padding:14px var(--space-lg);margin-bottom:var(--space-sm);transition:box-shadow .2s ease,transform .2s ease;
+}
+.action-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-1px);}
+.action-card .msg{display:flex;align-items:center;gap:12px;font-size:var(--font-body);}
+.action-card .msg .icon-chip{width:32px;height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.action-card.warning .icon-chip{background:var(--color-danger-tint);color:var(--color-danger);}
+.action-card.recommend .icon-chip{background:var(--color-primary-tint);color:var(--color-primary);}
+.action-card.positive .icon-chip{background:var(--color-success-tint);color:var(--color-success);}
+.action-card.warning{border-left:3px solid var(--color-danger);}
+.action-card.recommend{border-left:3px solid var(--color-primary);}
+.action-card.positive{border-left:3px solid var(--color-success);}
+.badge{
+  font-size:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  padding:5px 12px;border-radius:var(--radius-full);white-space:nowrap;
+}
+.badge.high{background:var(--color-danger-tint);color:var(--color-danger);}
+.badge.medium{background:var(--color-primary-tint);color:var(--color-primary-badge-text);}
+.badge.ok{background:var(--color-success-tint);color:var(--color-success);}
+.badge.watch{background:var(--color-warning-tint);color:var(--color-warning);}
+.badge.info{background:var(--color-violet-tint);color:var(--color-violet);}
+.badge.neutral{background:var(--color-surface-2);color:var(--color-text-secondary);}
+
+.action-card .dismiss{
+  border:none;background:transparent;color:var(--color-text-secondary);cursor:pointer;
+  width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .15s ease,color .15s ease;
+}
+.action-card .dismiss:hover{background:var(--color-surface-2);color:var(--color-text);}
+.action-card .msg{flex:1;min-width:0;}
+.action-card .right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+
+.progress-track{height:8px;background:var(--color-surface-2);border-radius:var(--radius-full);overflow:hidden;margin:10px 0 8px;}
+.progress-fill{height:100%;border-radius:var(--radius-full);background:var(--color-success);transition:width .4s ease;}
+.progress-fill.warn{background:var(--color-warning);}
+.progress-fill.over{background:var(--color-danger);}
+
+/* ---- Table system ---- */
+table.data-table{width:100%;border-collapse:collapse;}
+table.data-table thead th{
+  text-align:left;font-size:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--color-text-secondary);padding:0 12px var(--space-sm) 12px;border-bottom:1px solid var(--color-border);
+}
+table.data-table thead th.num{text-align:right;}
+table.data-table tbody td{padding:12px;border-bottom:1px solid var(--color-border);font-size:var(--font-body);}
+table.data-table tbody tr:last-child td{border-bottom:none;}
+table.data-table tbody td.num{text-align:right;font-variant-numeric:tabular-nums;}
+table.data-table tbody tr{transition:background .12s ease;}
+table.data-table tbody tr:hover{background:var(--color-surface-2);}
+.cat-pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:var(--radius-full);font-size:var(--font-caption);background:var(--color-surface-2);color:var(--color-text-secondary);}
+.cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
+/* ---- Forms ---- */
+.form-row{display:flex;gap:var(--space-md);flex-wrap:wrap;align-items:flex-end;}
+.field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:120px;}
+.field label{font-size:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-secondary);}
+.field input,.field select{
+  font-family:inherit;font-size:16px;color:var(--color-text);
+  background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-sm);
+  padding:10px 12px;outline:none;transition:border-color .15s ease,box-shadow .15s ease;
+}
+.field input:focus,.field select:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-tint);}
+.field-inline{display:flex;gap:6px;}
+.field-inline input{flex:1;min-width:0;}
+.field-cancel{
+  border:none;background:var(--color-surface-2);color:var(--color-text-secondary);cursor:pointer;
+  width:38px;flex-shrink:0;border-radius:var(--radius-sm);font-size:var(--font-body);
+  transition:background .15s ease,color .15s ease;
+}
+.field-cancel:hover{background:var(--color-danger-tint);color:var(--color-danger);}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:inherit;font-size:var(--font-body);font-weight:700;cursor:pointer;
+  border:none;border-radius:var(--radius-sm);padding:11px 20px;transition:opacity .15s ease,transform .1s ease;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--color-primary);color:#fff;}
+.btn-primary:hover{opacity:.92;}
+.btn-secondary{background:var(--color-surface-2);color:var(--color-text);}
+.btn-danger{background:var(--color-danger);color:#fff;}
+.btn-danger:hover{opacity:.92;}
+.btn-danger-text{background:transparent;color:var(--color-danger);padding:6px 10px;font-size:var(--font-caption);border-radius:var(--radius-sm);}
+.btn-danger-text:hover{background:var(--color-danger-tint);}
+
+/* ---- Confirm modal (replaces native confirm() - matches the app's own
+   design tokens instead of the OS chrome native dialogs render with) ---- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(15,23,42,0.55);
+  display:flex;align-items:center;justify-content:center;padding:var(--space-lg);
+  z-index:1000;animation:fadein .15s ease;
+}
+.modal-overlay.hidden{display:none;}
+.modal-card{
+  background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-elevated);
+  padding:var(--space-xl);max-width:420px;width:100%;
+}
+.modal-title{font-size:var(--font-h2);font-weight:700;margin-bottom:var(--space-sm);}
+.modal-message{font-size:var(--font-body);color:var(--color-text-secondary);line-height:1.5;margin-bottom:var(--space-lg);}
+.modal-actions{display:flex;justify-content:flex-end;gap:var(--space-sm);}
+
+.card + .card{margin-top:var(--space-lg);}
+.empty-state{text-align:center;padding:var(--space-2xl) var(--space-md);color:var(--color-text-secondary);}
+.empty-state svg.icon{width:32px;height:32px;margin:0 auto var(--space-sm);opacity:.5;}
+
+/* ---- Donut ---- */
+.donut-wrap{display:flex;align-items:center;gap:var(--space-2xl);flex-wrap:wrap;}
+.donut-holder{position:relative;width:168px;height:168px;flex-shrink:0;}
+.donut{width:168px;height:168px;border-radius:50%;}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.donut-center .amt{font-size:1.375rem;font-weight:700;letter-spacing:-0.02em;}
+.donut-center .lbl{font-size:0.6875rem;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;}
+.legend{display:flex;flex-direction:column;gap:10px;font-size:var(--font-caption);flex:1;min-width:200px;}
+.legend .row{display:flex;align-items:center;gap:10px;}
+.legend .row .name{flex:1;}
+.legend .row .val{font-variant-numeric:tabular-nums;font-weight:600;}
+.legend .swatch{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+
+/* ---- Segmented control (Debt strategy toggle) ---- */
+/* flex-wrap:wrap is unconditional (not gated to a narrow-screen media
+   query) because it's harmless whenever there's enough room - it only
+   changes anything when a segmented control's buttons genuinely don't
+   fit their available width, which turned out to happen at a
+   non-monotonic set of widths (375px overflowed, 390-540px didn't,
+   600px did again) once a 4-button control with longer labels
+   (Transactions' date-range filter) was added - depends on how the
+   parent .form-row itself wraps at that exact width, not a clean
+   breakpoint. Wrapping always, rather than only under one guessed
+   width, is correct at every width instead of most of them. */
+.segmented{display:inline-flex;flex-wrap:wrap;background:var(--color-surface-2);border-radius:var(--radius-sm);padding:3px;gap:2px;}
+.segmented button{border:none;background:transparent;padding:8px 16px;border-radius:6px;font-family:inherit;font-size:var(--font-caption);font-weight:700;cursor:pointer;color:var(--color-text-secondary);transition:all .15s ease;}
+.segmented button.active{background:var(--color-surface);color:var(--color-primary);box-shadow:var(--shadow-card);}
+
+/* ---- Debt / Goal cards ---- */
+.stat-line{display:flex;justify-content:space-between;align-items:flex-start;}
+.entity-name{font-size:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:6px;}
+.entity-value{font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
+.contrib-row{display:flex;flex-wrap:wrap;gap:var(--space-sm);margin-top:var(--space-md);align-items:flex-end;}
+.contrib-row .field{margin-bottom:0;}
+input.inline-edit{
+  font-family:inherit;font-size:var(--font-body);color:var(--color-text);background:transparent;border:1px solid transparent;
+  border-radius:6px;padding:6px 8px;width:100px;text-align:right;font-variant-numeric:tabular-nums;transition:border-color .15s ease,background .15s ease;
+}
+input.inline-edit:hover{background:var(--color-surface-2);}
+input.inline-edit:focus{outline:none;border-color:var(--color-primary);background:var(--color-surface-2);}
+.currency-field{position:relative;display:inline-block;}
+.currency-field::before{content:var(--currency-symbol,"$");position:absolute;left:8px;top:50%;transform:translateY(-50%);color:var(--color-text-secondary);font-size:var(--font-caption);pointer-events:none;}
+.currency-field input.inline-edit{padding-left:18px;}
+
+/* ---- Inline form feedback (replaces native alert() for validation/info) ---- */
+.form-note{
+  display:none;margin-top:var(--space-md);padding:10px 14px;border-radius:var(--radius-sm);
+  font-size:var(--font-caption);font-weight:600;
+}
+.form-note.error{background:var(--color-danger-tint);color:var(--color-danger);}
+.form-note.info{background:var(--color-primary-tint);color:var(--color-primary);}
+.form-note.success{background:var(--color-success-tint);color:var(--color-success);}
+
+/* ---- Simple stat list (Reports) ---- */
+.stat-list .row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--color-border);}
+.stat-list .row:last-child{border-bottom:none;}
+.stat-list .row .name{color:var(--color-text-secondary);}
+.stat-list .row .val{font-weight:700;font-variant-numeric:tabular-nums;}
+.review-verdict-card{border-left:3px solid var(--color-border);transition:border-color .2s ease;}
+.review-verdict-card.tier-excellent{border-left-color:var(--color-success);}
+.review-verdict-card.tier-tight{border-left-color:var(--color-warning);}
+.review-verdict-card.tier-reset{border-left-color:var(--color-danger);}
+.review-verdict{font-size:var(--font-h2);font-weight:700;line-height:1.4;margin-bottom:var(--space-sm);}
+.review-verdict.tier-excellent{color:var(--color-success);}
+.review-verdict.tier-tight{color:var(--color-warning);}
+.review-verdict.tier-reset{color:var(--color-danger);}
+.review-sub{font-size:var(--font-body);color:var(--color-text-secondary);line-height:1.6;padding:4px 0;}
+.review-insights{margin-top:var(--space-md);padding-top:var(--space-md);border-top:1px solid var(--color-border);}
+.review-insights .insight-row{font-size:var(--font-caption);color:var(--color-text-secondary);padding:4px 0;}
+.review-one-thing{font-size:var(--font-body);line-height:1.6;}
+.review-mission-item{display:flex;justify-content:space-between;align-items:center;gap:var(--space-md);padding:10px 0;border-bottom:1px solid var(--color-border);}
+.review-mission-item:last-child{border-bottom:none;}
+.review-mission-item .txt{font-size:var(--font-body);}
+.review-mission-item .impact{font-weight:700;font-variant-numeric:tabular-nums;color:var(--color-primary);white-space:nowrap;}
+.review-one-thing .review-sub{font-size:var(--font-h3);font-weight:600;color:var(--color-text);padding-top:0;}
+
+/* ---- Trend chart (Reports) ---- */
+.trend-chart{width:100%;}
+.trend-chart svg{width:100%;height:auto;display:block;}
+.trend-chart .area{fill:var(--color-primary);opacity:.12;}
+.trend-chart .line{fill:none;stroke:var(--color-primary);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.trend-chart .dot{fill:var(--color-primary);}
+.trend-chart .glabel{font-size:9px;fill:var(--color-text-secondary);}
+.trend-labels{display:flex;justify-content:space-between;margin-top:6px;font-size:var(--font-label);color:var(--color-text-secondary);}
+
+/* ---- Table scroll wrapper (Reports matrix) ---- */
+.table-scroll{overflow-x:auto;}
+.table-scroll table.data-table{min-width:640px;}
+
+footer{text-align:center;color:var(--color-text-secondary);font-size:var(--font-caption);padding:var(--space-2xl) 0 var(--space-xl);}
+
+/* 320-360px only: at this width the sidebar is already collapsed to 76px
+   (see the 900px breakpoint above), leaving main content narrower than a
+   few fixed-min-width/no-wrap elements assume, causing ~12-26px of real
+   document horizontal overflow at 320px, verified by direct measurement on
+   Dashboard/Debt/Reports. Placed last in the stylesheet (not near the base
+   rules) so it reliably wins the cascade against the equal-specificity base
+   .legend/.section-header/.trend-labels rules regardless of their own
+   position in the file. 375px+ appearance is untouched - none of this
+   applies above 360px. */
+@media (max-width:360px){
+  .legend{min-width:0;width:100%;}
+  .section-header{flex-wrap:wrap;row-gap:var(--space-sm);}
+  .trend-labels{flex-wrap:wrap;row-gap:2px;}
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="mark">$</span><span>Finance OS</span></div>
+    <nav id="mainNav">
+      <button data-view="dashboard" class="active">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        <span class="label">Dashboard</span>
+      </button>
+      <button data-view="transactions">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/></svg>
+        <span class="label">Transactions</span>
+      </button>
+      <button data-view="budget">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6.5 4.5"/></svg>
+        <span class="label">Budget</span>
+      </button>
+      <button data-view="debt">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <span class="label">Debt</span>
+      </button>
+      <button data-view="goals">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+        <span class="label">Goals</span>
+      </button>
+      <button data-view="reports">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="4" y1="20" x2="4" y2="11"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="20" y1="20" x2="20" y2="15"/></svg>
+        <span class="label">Reports</span>
+      </button>
+    </nav>
+    <div class="spacer"></div>
+    <div class="side-section">
+      <select class="month-select" id="monthSelect" aria-label="Selected month"></select>
+      <select class="month-select" id="currencySelect" title="Currency" style="margin-top:6px;"></select>
+    </div>
+    <div class="side-section">
+      <button class="side-btn" id="themeToggle">
+        <svg class="icon" id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+        <span class="label">Dark mode</span>
+      </button>
+      <button class="side-btn" id="exportBtn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+        <span class="label">Export backup</span>
+      </button>
+      <button class="side-btn" id="importBtn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 3h16"/></svg>
+        <span class="label">Import backup</span>
+      </button>
+      <input type="file" id="importFile" accept="application/json" style="display:none;">
+      <div class="form-note" id="importNote" style="margin-top:8px;"></div>
+      <button class="side-btn" id="resetBtn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+        <span class="label">Start fresh</span>
+      </button>
+      <div class="form-note" id="resetNote" style="margin-top:8px;"></div>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+  <main>
+
+  <!-- ============================== DASHBOARD ============================== -->
+  <section class="view active" id="view-dashboard">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title" id="greeting">Good morning</h1>
+        <p class="page-sub" id="healthSentence">Your finances are healthy this month.</p>
+      </div>
+    </div>
+
+    <div class="grid cols-4" id="kpiRow"></div>
+
+    <div class="section-header">
+      <span><span class="accent" style="--accent:var(--color-primary);">NET</span> WORTH</span>
+      <a href="#" data-goto="reports">View breakdown
+        <svg class="icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="card hoverable" id="netWorthCard"></div>
+
+    <div class="section-header"><span><span class="accent" style="--accent:var(--color-danger);">ACTION</span> CENTER</span></div>
+    <div id="actionCenter"></div>
+
+    <div class="section-header"><span><span class="accent" style="--accent:var(--color-violet);">SPENDING</span> BREAKDOWN</span></div>
+    <div class="card hoverable">
+      <div class="donut-wrap">
+        <div class="donut-holder">
+          <div class="donut" id="donut"></div>
+          <div class="donut-center"><div class="amt" id="donutTotal">$0</div><div class="lbl">Spent</div></div>
+        </div>
+        <div class="legend" id="donutLegend"></div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <span><span class="accent" style="--accent:var(--color-success);">RECENT</span> ACTIVITY</span>
+      <a href="#" data-goto="transactions">View all
+        <svg class="icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="card hoverable" style="padding:0;">
+      <div class="table-scroll">
+        <table class="data-table" style="padding:8px 8px 0 8px;">
+          <thead><tr><th>Date</th><th>Category</th><th>Note</th><th class="num">Amount</th></tr></thead>
+          <tbody id="recentActivityBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== TRANSACTIONS ============================== -->
+  <section class="view" id="view-transactions">
+    <div class="page-head"><div><h1 class="page-title">Transactions</h1><p class="page-sub">Log what happened. Everything else reads from this list.</p></div></div>
+
+    <div class="section-header">QUICK ENTRY</div>
+    <div class="card">
+      <div class="form-row">
+        <div class="field"><label for="txDate">Date</label><input type="date" id="txDate"></div>
+        <div class="field"><label for="txType">Type</label>
+          <select id="txType"><option>Expense</option><option>Income</option><option>Debt Payment</option><option>Goal Contribution</option></select>
+        </div>
+        <div class="field" id="txCategoryField" style="flex:2;"><label id="txCategoryLabel" for="txCategory">Category</label><select id="txCategory"></select></div>
+        <div class="field" id="txNewCatField" style="flex:2;display:none;">
+          <label for="txNewCatName">New category name</label>
+          <div class="field-inline"><input type="text" id="txNewCatName" placeholder="e.g. Groceries"><button type="button" class="field-cancel" id="cancelNewCatBtn" title="Choose an existing category instead">✕</button></div>
+        </div>
+        <div class="field" id="txAccountField" style="flex:2;display:none;"><label for="txAccount" id="txAccountLabel">Account</label><select id="txAccount"></select></div>
+        <div class="field" id="txNewAcctField" style="flex:2;display:none;">
+          <label for="txNewAcctName">New account name</label>
+          <div class="field-inline"><input type="text" id="txNewAcctName" placeholder="e.g. Checking"><button type="button" class="field-cancel" id="cancelNewAcctBtn" title="Choose an existing account instead">✕</button></div>
+        </div>
+        <div class="field"><label for="txAmount">Amount</label><input type="number" step="0.01" min="0" id="txAmount" placeholder="0.00"></div>
+        <div class="field" style="flex:2;"><label for="txNote">Note</label><input type="text" id="txNote" placeholder="Optional"></div>
+        <button class="btn btn-primary" id="addTxBtn">
+          <svg class="icon" style="width:16px;height:16px;stroke:#fff;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add
+        </button>
+      </div>
+      <div class="form-note" id="txFormNote"></div>
+    </div>
+
+    <div class="section-header">ALL TRANSACTIONS <span id="txCount" style="text-transform:none;font-weight:400;"></span></div>
+    <div class="card">
+      <div class="form-row">
+        <div class="field" style="flex:2;"><label for="txSearchInput">Search</label><input type="text" id="txSearchInput" placeholder="Search notes or category…"></div>
+        <div class="field"><label for="txFilterCategory">Category</label><select id="txFilterCategory"></select></div>
+        <div class="field" style="flex:0 1 auto;min-width:0;"><label>Date range</label>
+          <div class="segmented" id="txDateRangeFilter">
+            <button type="button" data-range="all" class="active">All</button>
+            <button type="button" data-range="30d">Last 30 Days</button>
+            <button type="button" data-range="month">This Month</button>
+            <button type="button" data-range="year">This Year</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;margin-top:var(--space-md);">
+      <div class="table-scroll">
+        <table class="data-table" style="padding:8px;">
+          <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Note</th><th class="num">Amount</th><th></th></tr></thead>
+          <tbody id="allTxBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-state" id="txEmpty" style="display:none;">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/></svg>
+        No transactions yet — log your first one above.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== BUDGET ============================== -->
+  <section class="view" id="view-budget">
+    <div class="page-head"><div><h1 class="page-title">Budget</h1><p class="page-sub">Where you're over, where you're safe, and what to adjust.</p></div></div>
+
+    <div class="grid" id="budgetZones"></div>
+
+    <div class="section-header">MANAGE CATEGORIES</div>
+    <div class="card">
+      <div class="form-row" style="margin-bottom:var(--space-md);">
+        <div class="field"><label for="catName">Category name</label><input type="text" id="catName" class="select-on-focus" placeholder="e.g. Groceries"></div>
+        <div class="field"><label for="catGroup">Group</label><input type="text" id="catGroup" class="select-on-focus" placeholder="e.g. Food"></div>
+        <div class="field"><label for="catBudget">Monthly budget</label><input type="number" step="1" min="0" id="catBudget" class="select-on-focus" placeholder="0"></div>
+        <button class="btn btn-primary" id="addCatBtn">
+          <svg class="icon" style="width:16px;height:16px;stroke:#fff;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add category
+        </button>
+      </div>
+      <div class="form-note" id="catFormNote"></div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Category</th><th>Group</th><th class="num">Budget</th><th class="num">Actual</th><th class="num">% Used</th><th></th></tr></thead>
+          <tbody id="catTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== DEBT ============================== -->
+  <section class="view" id="view-debt">
+    <div class="page-head"><div><h1 class="page-title">Debt</h1><p class="page-sub">Log a payment below or from Transactions — balances update automatically from your payment history.</p></div></div>
+
+    <div class="grid" id="debtSummary"></div>
+
+    <div class="section-header">
+      <span>YOUR DEBTS</span>
+      <div class="segmented" id="debtStrategyToggle">
+        <button data-strategy="Snowball">Snowball</button>
+        <button data-strategy="Avalanche">Avalanche</button>
+      </div>
+    </div>
+    <div class="grid cols-2" id="debtCards"></div>
+
+    <div class="section-header">MANAGE DEBTS</div>
+    <div class="card">
+      <div class="form-row" style="margin-bottom:var(--space-md);">
+        <div class="field"><label for="debtName">Debt name</label><input type="text" id="debtName" class="select-on-focus" placeholder="e.g. Visa Card"></div>
+        <div class="field"><label for="debtType">Type</label>
+          <select id="debtType"><option>Credit Card</option><option>Student Loan</option><option>Auto Loan</option><option>Personal Loan</option><option>Mortgage</option><option>Other</option></select>
+        </div>
+        <div class="field"><label for="debtBalance">Current balance</label><input type="number" step="0.01" min="0" id="debtBalance" class="select-on-focus" placeholder="0.00"></div>
+        <div class="field" id="debtCreditLimitField" style="display:none;"><label for="debtCreditLimit">Credit limit</label><input type="number" step="0.01" min="0" id="debtCreditLimit" class="select-on-focus" placeholder="0.00"></div>
+        <div class="field"><label for="debtApr">APR %</label><input type="number" step="0.01" min="0" id="debtApr" class="select-on-focus" placeholder="0.00"></div>
+        <div class="field"><label for="debtMin">Min. payment</label><input type="number" step="0.01" min="0" id="debtMin" class="select-on-focus" placeholder="0.00"></div>
+        <button class="btn btn-primary" id="addDebtBtn">
+          <svg class="icon" style="width:16px;height:16px;stroke:#fff;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add debt
+        </button>
+      </div>
+      <div class="form-note" id="debtFormNote"></div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Type</th><th class="num">APR</th><th class="num">Min. Payment</th><th class="num">Starting Balance</th><th class="num">Credit Limit</th><th class="num">Balance</th><th></th></tr></thead>
+          <tbody id="debtTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== GOALS ============================== -->
+  <section class="view" id="view-goals">
+    <div class="page-head"><div><h1 class="page-title">Savings Goals</h1><p class="page-sub">Add a contribution any time — the pace sentence updates automatically.</p></div></div>
+
+    <div class="section-header">YOUR GOALS</div>
+    <div class="grid cols-2" id="goalCards"></div>
+
+    <div class="section-header">MANAGE GOALS</div>
+    <div class="card">
+      <div class="form-row" style="margin-bottom:var(--space-md);">
+        <div class="field"><label for="goalName">Goal name</label><input type="text" id="goalName" class="select-on-focus" placeholder="e.g. Emergency Fund"></div>
+        <div class="field"><label for="goalTarget">Target amount</label><input type="number" step="1" min="0" id="goalTarget" class="select-on-focus" placeholder="0"></div>
+        <div class="field"><label for="goalStart">Start date</label><input type="date" id="goalStart"></div>
+        <div class="field"><label for="goalTargetDate">Target date</label><input type="date" id="goalTargetDate"></div>
+        <div class="field"><label for="goalSaved">Starting saved</label><input type="number" step="1" min="0" id="goalSaved" class="select-on-focus" placeholder="0"></div>
+        <button class="btn btn-primary" id="addGoalBtn">
+          <svg class="icon" style="width:16px;height:16px;stroke:#fff;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add goal
+        </button>
+      </div>
+      <div class="form-note" id="goalFormNote"></div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Target</th><th>Target Date</th><th class="num">Starting Saved</th><th class="num">Total Saved</th><th class="num">% Complete</th><th></th></tr></thead>
+          <tbody id="goalTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== REPORTS ============================== -->
+  <section class="view" id="view-reports">
+    <div class="page-head"><div><h1 class="page-title">Reports</h1><p class="page-sub">How the selected month stacks up, and where your money has been trending.</p></div></div>
+
+    <div class="section-header">MONTHLY REVIEW</div>
+    <div class="card review-verdict-card" id="reviewVerdictCard">
+      <div class="review-verdict" id="reviewVerdict"></div>
+      <div id="reviewPillars"></div>
+      <div class="review-insights" id="reviewInsights"></div>
+    </div>
+
+    <div class="grid cols-2">
+      <div>
+        <div class="section-header"><span><span class="accent" style="--accent:var(--color-warning);">IF YOU ONLY</span> DO ONE THING</span></div>
+        <div class="card hoverable review-one-thing" id="reviewOneThing"></div>
+      </div>
+      <div>
+        <div class="section-header"><span><span class="accent" style="--accent:var(--color-success);">NEXT MONTH</span> MISSION</span></div>
+        <div class="card hoverable" id="reviewMission"></div>
+      </div>
+    </div>
+
+    <div class="section-header">MONTH IN REVIEW</div>
+    <div class="card">
+      <div class="stat-list" id="monthReview"></div>
+    </div>
+
+    <div class="grid cols-2">
+      <div>
+        <div class="section-header">TOP CATEGORIES</div>
+        <div class="card hoverable"><div class="stat-list" id="topCategories"></div></div>
+      </div>
+      <div>
+        <div class="section-header">TOP EXPENSES</div>
+        <div class="card hoverable"><div class="stat-list" id="topExpenses"></div></div>
+      </div>
+    </div>
+
+    <div class="section-header">SPEND TREND <span style="text-transform:none;font-weight:400;">(trailing 12 months)</span></div>
+    <div class="card hoverable" id="trendCard"></div>
+
+    <div class="section-header">CATEGORY MATRIX <span style="text-transform:none;font-weight:400;">(trailing 6 months)</span></div>
+    <div class="card hoverable">
+      <div class="table-scroll" id="categoryMatrix"></div>
+    </div>
+
+    <div class="section-header">NET WORTH</div>
+    <div class="card">
+      <div class="stat-list" id="netWorthStats"></div>
+    </div>
+
+    <div class="section-header">MANAGE ACCOUNTS</div>
+    <div class="card">
+      <div class="form-row" style="margin-bottom:var(--space-md);">
+        <div class="field"><label for="acctName">Account name</label><input type="text" id="acctName" placeholder="e.g. Checking"></div>
+        <div class="field"><label for="acctType">Type</label>
+          <select id="acctType"><option>Checking</option><option>Savings</option><option>Cash</option><option>Credit Card</option><option>Investment</option><option>Other</option></select>
+        </div>
+        <div class="field"><label for="acctBalance">Starting balance</label><input type="number" step="0.01" id="acctBalance" placeholder="0.00"></div>
+        <button class="btn btn-primary" id="addAcctBtn">
+          <svg class="icon" style="width:16px;height:16px;stroke:#fff;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add account
+        </button>
+      </div>
+      <div class="form-note" id="acctFormNote"></div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Type</th><th>Kind</th><th class="num">Starting Balance</th><th class="num">Balance</th><th></th></tr></thead>
+          <tbody id="acctTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>Finance OS — your data stays on this device. Use Export to back it up.</footer>
+  </main>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="modalOverlay">
+  <div class="modal-card" role="alertdialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMessage">
+    <div class="modal-title" id="modalTitle">Are you sure?</div>
+    <div class="modal-message" id="modalMessage"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="modalCancelBtn">Cancel</button>
+      <button class="btn btn-danger" id="modalConfirmBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ==========================================================================
+   ICONS (inline SVG strings - Feather/Lucide-style minimal stroke icons,
+   no emoji, no icon-font/CDN dependency - matches the Stripe/Linear/Mercury
+   benchmark's visual language)
+   ========================================================================== */
+const ICONS = {
+  warning: '<svg class="icon" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  bulb: '<svg class="icon" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg>',
+  check: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 5-5"/></svg>',
+  receipt: '<svg class="icon" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/></svg>',
+  sun: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>',
+  moon: '<svg class="icon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>',
+};
+
+/* ==========================================================================
+   STATE + PERSISTENCE
+   ========================================================================== */
+const STORAGE_KEY = "financeOS_v1";
+const CURRENCIES = [
+  {code:"USD", symbol:"$", label:"USD ($)"},
+  {code:"EUR", symbol:"€", label:"EUR (€)"},
+  {code:"GBP", symbol:"£", label:"GBP (£)"},
+  {code:"TRY", symbol:"₺", label:"TRY (₺)"},
+  {code:"JPY", symbol:"¥", label:"JPY (¥)"},
+  {code:"CNY", symbol:"¥", label:"CNY (¥)"},
+  {code:"INR", symbol:"₹", label:"INR (₹)"},
+  {code:"CAD", symbol:"$", label:"CAD ($)"},
+  {code:"AUD", symbol:"$", label:"AUD ($)"},
+  {code:"CHF", symbol:"CHF", label:"CHF (CHF)"},
+  {code:"BRL", symbol:"R$", label:"BRL (R$)"},
+  {code:"MXN", symbol:"$", label:"MXN ($)"},
+];
+function currencySymbol(){
+  const code = (state.settings && state.settings.currency) || "USD";
+  return (CURRENCIES.find(c=>c.code===code) || CURRENCIES[0]).symbol;
+}
+
+function toLocalISO(d){
+  const y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,"0"), day = String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
+function todayISO(d){ return toLocalISO(d || new Date()); }
+function monthKeyOf(iso){ return iso.slice(0,7); }
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+function seedData(){
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth();
+  const d = (day)=> toLocalISO(new Date(y, m, day));
+  const categories = [
+    {id:uid(), name:"Rent/Mortgage", group:"Home", budget:1250},
+    {id:uid(), name:"Utilities", group:"Home", budget:150},
+    {id:uid(), name:"Groceries", group:"Food", budget:450},
+    {id:uid(), name:"Dining Out", group:"Food", budget:150},
+    {id:uid(), name:"Transportation", group:"Transport", budget:180},
+    {id:uid(), name:"Entertainment", group:"Lifestyle", budget:80},
+    {id:uid(), name:"Subscriptions", group:"Lifestyle", budget:35},
+  ];
+  const byName = n => categories.find(c=>c.name===n).name;
+
+  // Accounts complete the financial model: every dollar the app tracks now
+  // sits in exactly one account (an asset or a liability), so Net Worth is
+  // a real sum, not a guess. One everyday Checking account carries all
+  // Income/Expense activity; each debt gets its OWN liability account
+  // (mirrors the Excel-era build's "Debt links to an Account" design - see
+  // memory - which existed precisely to avoid double-entry problems for
+  // credit cards specifically).
+  const checking = {id:uid(), name:"Checking", type:"Checking", kind:"asset", startingBalance:0};
+  const accounts = [checking];
+
+  const transactions = [
+    {id:uid(), date:d(1), type:"Income", category:"Paycheck", accountId:checking.id, amount:3200, note:"Paycheck"},
+    {id:uid(), date:d(1), type:"Expense", category:byName("Rent/Mortgage"), accountId:checking.id, amount:1250, note:"Monthly rent"},
+    {id:uid(), date:d(3), type:"Expense", category:byName("Groceries"), accountId:checking.id, amount:96.40, note:"Weekly shop"},
+    {id:uid(), date:d(5), type:"Expense", category:byName("Utilities"), accountId:checking.id, amount:85, note:"Electric"},
+    {id:uid(), date:d(7), type:"Expense", category:byName("Dining Out"), accountId:checking.id, amount:42.50, note:"Dinner out"},
+    {id:uid(), date:d(9), type:"Expense", category:byName("Transportation"), accountId:checking.id, amount:60, note:"Gas"},
+    {id:uid(), date:d(11), type:"Expense", category:byName("Subscriptions"), accountId:checking.id, amount:35, note:"Streaming + music"},
+    {id:uid(), date:d(13), type:"Expense", category:byName("Entertainment"), accountId:checking.id, amount:88, note:"Concert tickets"},
+    {id:uid(), date:d(15), type:"Expense", category:byName("Groceries"), accountId:checking.id, amount:102.10, note:"Weekly shop"},
+  ];
+
+  const visaAccount = {id:uid(), name:"Visa Credit Card", type:"Credit Card", kind:"liability", startingBalance:3300};
+  const loanAccount = {id:uid(), name:"Student Loan", type:"Other", kind:"liability", startingBalance:15600};
+  accounts.push(visaAccount, loanAccount);
+  const debts = [
+    {id:uid(), name:"Visa Credit Card", type:"Credit Card", apr:22.9, minPayment:120, creditLimit:5000, accountId:visaAccount.id},
+    {id:uid(), name:"Student Loan", type:"Student Loan", apr:5.5, minPayment:210, accountId:loanAccount.id},
+  ];
+
+  const yearStart = toLocalISO(new Date(y, 0, 1));
+  const goals = [
+    {id:uid(), name:"Emergency Fund", target:10000, startDate:yearStart, targetDate:toLocalISO(new Date(y+1, m, 1)), startingSaved:4000},
+    {id:uid(), name:"Vacation", target:3000, startDate:yearStart, targetDate:toLocalISO(new Date(y, m+5, 1)), startingSaved:800},
+  ];
+  // Demonstrate the transaction-driven balance model in the seed data itself:
+  // startingSaved covers progress made before tracking began, and one real
+  // logged transaction per debt/goal shows the live mechanism. Debt Payment
+  // transactions carry accountId (the debt's own liability account, for
+  // the debt's balance/progress) AND sourceAccountId (the real asset
+  // account the money actually left, for Net Worth to stay correct).
+  transactions.push(
+    {id:uid(), date:d(6), type:"Debt Payment", category:debts[0].name, targetId:debts[0].id, accountId:visaAccount.id, sourceAccountId:checking.id, amount:150, note:"Card payment"},
+    {id:uid(), date:d(10), type:"Debt Payment", category:debts[1].name, targetId:debts[1].id, accountId:loanAccount.id, sourceAccountId:checking.id, amount:200, note:"Loan payment"},
+    {id:uid(), date:d(2), type:"Goal Contribution", category:goals[0].name, targetId:goals[0].id, amount:200, note:"Contribution"},
+    {id:uid(), date:d(4), type:"Goal Contribution", category:goals[1].name, targetId:goals[1].id, amount:100, note:"Contribution"},
+  );
+  return { settings:{theme:"light", debtStrategy:"Snowball", currency:"USD"}, categories, transactions, accounts, debts, goals,
+           dismissedActions: [], selectedMonth: monthKeyOf(todayISO()) };
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){ const parsed = JSON.parse(raw); if(parsed && parsed.categories) return parsed; }
+  }catch(e){ console.warn("Could not read saved data, starting fresh.", e); }
+  return seedData();
+}
+
+/* One-time upgrade for saves made before balances/saved-amounts became
+   transaction-derived: a manually-edited d.balance/g.saved becomes the
+   "progress made before you started logging transactions" baseline
+   (priorPayments/startingSaved), so nothing is lost - no fake transactions
+   are fabricated, since the real total is still exactly reproduced by
+   baseline + (zero transactions logged so far).
+
+   Second upgrade, same function: completes the financial model with a
+   first-class Accounts layer (assets + liabilities -> real Net Worth).
+   Every debt now OWNS a linked liability account instead of tracking its
+   own startBalance/priorPayments directly (mirrors the Excel-era "Debt
+   links to an Account" design). Every Expense/Income transaction now
+   belongs to exactly one account. Migration never fabricates numbers it
+   doesn't have - a pre-existing debt's already-computed balance becomes
+   its new account's startingBalance exactly (startBalance-priorPayments),
+   and pre-existing Expense/Income transactions with no account get
+   assigned to one auto-created "Main Account" so nothing goes untracked. */
+function migrateState(){
+  if(!state.transactions) state.transactions = [];
+  if(!state.debts) state.debts = [];
+  if(!state.goals) state.goals = [];
+  if(!state.accounts) state.accounts = [];
+  if(!state.dismissedActions) state.dismissedActions = [];
+  state.debts.forEach(d=>{
+    if(d.balance !== undefined){
+      if(d.priorPayments === undefined) d.priorPayments = Math.max(0, (d.startBalance||0) - d.balance);
+      delete d.balance;
+    }
+    if(d.priorPayments === undefined) d.priorPayments = 0;
+    if(!d.accountId){
+      const startingBalance = Math.max(0, (d.startBalance||0) - (d.priorPayments||0));
+      const acct = {id:uid(), name:d.name, type: d.type==="Credit Card" ? "Credit Card" : "Other", kind:"liability", startingBalance};
+      state.accounts.push(acct);
+      d.accountId = acct.id;
+      // Every already-logged Debt Payment transaction for this debt needs
+      // the same accountId retroactively, so computeAccountBalance() (which
+      // reads transactions by accountId, not by debt targetId) agrees with
+      // the debt's own already-correct balance instead of showing zero.
+      state.transactions.forEach(t=>{ if(t.type==="Debt Payment" && t.targetId===d.id && !t.accountId) t.accountId = acct.id; });
+    }
+    delete d.startBalance; delete d.priorPayments;
+  });
+  state.goals.forEach(g=>{
+    if(g.saved !== undefined){
+      if(g.startingSaved === undefined) g.startingSaved = g.saved;
+      delete g.saved;
+    }
+    if(g.startingSaved === undefined) g.startingSaved = 0;
+  });
+  const needsMainAccount = state.transactions.some(t=>(t.type==="Expense"||t.type==="Income") && !t.accountId);
+  if(needsMainAccount){
+    const main = {id:uid(), name:"Main Account", type:"Checking", kind:"asset", startingBalance:0};
+    state.accounts.push(main);
+    state.transactions.forEach(t=>{ if((t.type==="Expense"||t.type==="Income") && !t.accountId) t.accountId = main.id; });
+  }
+  // Debt Payment transactions used to only ever touch the debt's own
+  // liability account - the money was never modeled as leaving any real
+  // asset account, so Net Worth incorrectly rose with every payment
+  // (liability dropped, nothing else moved). A real P0, found live by a
+  // second AI's code review, 2026-08-10, that survived two full
+  // Inspector-Standing audits. This retroactively assigns every
+  // already-logged Debt Payment to a real asset account (preferring an
+  // existing "Main Account" or the first real asset account, creating one
+  // if truly none exist) so PAST Net Worth is corrected too, not just new
+  // payments going forward - a disclosed correction, not a silent one:
+  // a user's Checking balance can genuinely drop after this migration
+  // runs, because it's now accounting for money that always actually left
+  // that account, even though the app never recorded it doing so before.
+  const needsSourceAccount = state.transactions.some(t=>t.type==="Debt Payment" && !t.sourceAccountId);
+  if(needsSourceAccount){
+    let fallback = state.accounts.find(a=>a.kind==="asset" && a.name==="Main Account") || state.accounts.find(a=>a.kind==="asset");
+    if(!fallback){
+      fallback = {id:uid(), name:"Main Account", type:"Checking", kind:"asset", startingBalance:0};
+      state.accounts.push(fallback);
+    }
+    state.transactions.forEach(t=>{ if(t.type==="Debt Payment" && !t.sourceAccountId) t.sourceAccountId = fallback.id; });
+  }
+  if(!state.settings) state.settings = {theme:"light"};
+  if(!state.settings.debtStrategy) state.settings.debtStrategy = "Snowball";
+  if(!state.settings.currency) state.settings.currency = "USD";
+  if(!state.selectedMonth) state.selectedMonth = monthKeyOf(todayISO());
+}
+
+let state = loadState();
+migrateState();
+
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ console.warn("Could not save - browser storage may be full or disabled.", e); }
+}
+
+/* ==========================================================================
+   CALCULATIONS (pure functions - the Finance Engine, JS edition)
+   ========================================================================== */
+function txForMonth(monthKey){ return state.transactions.filter(t => monthKeyOf(t.date) === monthKey); }
+function sumBy(txs, type){ return txs.filter(t=>t.type===type).reduce((s,t)=>s+Number(t.amount||0),0); }
+function sumByTypes(txs, types){ return txs.filter(t=>types.includes(t.type)).reduce((s,t)=>s+Number(t.amount||0),0); }
+function debtPaymentsTotal(debtId){ return state.transactions.filter(t=>t.type==="Debt Payment" && t.targetId===debtId).reduce((s,t)=>s+Number(t.amount||0),0); }
+function goalContributionsTotal(goalId, exclusiveCutoffISO){ return state.transactions.filter(t=>t.type==="Goal Contribution" && t.targetId===goalId && (!exclusiveCutoffISO || t.date < exclusiveCutoffISO)).reduce((s,t)=>s+Number(t.amount||0),0); }
+function prevMonthKey(monthKey){
+  let [y,m] = monthKey.split("-").map(Number);
+  m -= 1; if(m < 1){ m = 12; y -= 1; }
+  return `${y}-${String(m).padStart(2,"0")}`;
+}
+function nextMonthKey(monthKey){
+  let [y,m] = monthKey.split("-").map(Number);
+  m += 1; if(m > 12){ m = 1; y += 1; }
+  return `${y}-${String(m).padStart(2,"0")}`;
+}
+function fmt(n){ const sign = n<0 ? "-" : ""; return sign + currencySymbol() + Math.abs(Math.round(n)).toLocaleString(); }
+/* Ledger-row amounts keep the cents a user actually typed instead of
+   rounding them away - summaries (fmt) can stay whole-dollar, but the one
+   place showing a specific transaction must match what was entered. */
+function fmtExact(n){
+  const sign = n<0 ? "-" : "";
+  const abs = Math.abs(n);
+  const hasCents = Math.round(abs*100) % 100 !== 0;
+  return sign + currencySymbol() + abs.toLocaleString(undefined, {minimumFractionDigits: hasCents?2:0, maximumFractionDigits:2});
+}
+function fmtPct(n){ return Math.round(n*100) + "%"; }
+
+/* Inline, non-blocking replacement for alert() - a small tinted message
+   under the form it belongs to, auto-clearing after a few seconds. Used for
+   both validation errors and informational confirmations (e.g. a payment
+   capped at the remaining balance) so no interaction blocks on a native
+   OS dialog. */
+function setNote(id, message, tone){
+  const elm = document.getElementById(id);
+  if(!elm) return;
+  clearTimeout(elm._noteTimer);
+  if(!message){ elm.style.display = "none"; elm.textContent = ""; return; }
+  elm.textContent = message;
+  elm.className = `form-note ${tone||"error"}`;
+  elm.style.display = "block";
+  elm._noteTimer = setTimeout(()=>{ elm.style.display = "none"; }, 5000);
+}
+
+/* Custom on-brand replacement for native confirm() - a native dialog
+   renders with the OS's own chrome (Windows' title bar/buttons), which
+   looks jarring against this app's own design system. Reused for every
+   destructive, hard-to-reverse action (Start Fresh, debt/goal cascade-
+   delete) - a real confirmation is still the right UX for those, just not
+   a native one. Returns a Promise<boolean> so call sites just `await` it. */
+function confirmModal(message, {title="Are you sure?", confirmText="Delete", tone="danger"}={}){
+  return new Promise(resolve=>{
+    const overlay = document.getElementById("modalOverlay");
+    document.getElementById("modalTitle").textContent = title;
+    document.getElementById("modalMessage").textContent = message;
+    const confirmBtn = document.getElementById("modalConfirmBtn");
+    const cancelBtn = document.getElementById("modalCancelBtn");
+    confirmBtn.textContent = confirmText;
+    confirmBtn.className = "btn " + (tone==="danger" ? "btn-danger" : "btn-primary");
+    overlay.classList.remove("hidden");
+    function onKey(e){ if(e.key==="Escape") settle(false); }
+    function onOverlayClick(e){ if(e.target===overlay) settle(false); }
+    function settle(result){
+      overlay.classList.add("hidden");
+      confirmBtn.removeEventListener("click", onConfirm);
+      cancelBtn.removeEventListener("click", onCancel);
+      overlay.removeEventListener("click", onOverlayClick);
+      document.removeEventListener("keydown", onKey);
+      resolve(result);
+    }
+    function onConfirm(){ settle(true); }
+    function onCancel(){ settle(false); }
+    confirmBtn.addEventListener("click", onConfirm);
+    cancelBtn.addEventListener("click", onCancel);
+    overlay.addEventListener("click", onOverlayClick);
+    document.addEventListener("keydown", onKey);
+    cancelBtn.focus();
+  });
+}
+
+function categoryActuals(monthKey){
+  const txs = txForMonth(monthKey);
+  const map = {};
+  state.categories.forEach(c => map[c.name] = 0);
+  txs.filter(t=>t.type==="Expense").forEach(t=>{
+    if(map[t.category] === undefined) map[t.category] = 0;
+    map[t.category] += Number(t.amount||0);
+  });
+  return map;
+}
+
+/* Money already earmarked for a budgeted category this month (budget minus
+   what's been spent so far) isn't actually free to spend elsewhere, even
+   though it hasn't left the account yet - Safe to Spend has to net this
+   out or it overstates what's really available (the bug Maya flagged as
+   "risky logic"). This is also what makes Safe to Spend a genuinely
+   different number from Cash Flow instead of a duplicate. */
+function remainingBudgetedThisMonth(monthKey){
+  const actuals = categoryActuals(monthKey);
+  return state.categories.filter(c=>c.budget>0)
+    .reduce((s,c)=> s + Math.max(0, c.budget - (actuals[c.name]||0)), 0);
+}
+
+function computeSummary(monthKey){
+  const txs = txForMonth(monthKey);
+  const income = sumBy(txs,"Income");
+  const expense = sumBy(txs,"Expense");
+  const debtPayments = sumBy(txs,"Debt Payment");
+  const goalContributions = sumBy(txs,"Goal Contribution");
+  const totalOutflow = expense + debtPayments + goalContributions;
+  const prevTxs = txForMonth(prevMonthKey(monthKey));
+  const prevIncome = sumBy(prevTxs,"Income");
+  const prevExpense = sumBy(prevTxs,"Expense");
+  const prevDebtPayments = sumBy(prevTxs,"Debt Payment");
+  const prevTotalOutflow = sumByTypes(prevTxs,["Expense","Debt Payment","Goal Contribution"]);
+  const cashFlow = income - totalOutflow;
+  const prevCashFlow = prevIncome - prevTotalOutflow;
+  const remainingBudgeted = remainingBudgetedThisMonth(monthKey);
+  const safeToSpend = cashFlow - remainingBudgeted;
+
+  // Savings Rate = share of income NOT consumed by required spending (budget
+  // categories + debt payments). Goal contributions must NOT be subtracted
+  // here - they ARE the savings, so treating them as an "outflow" that
+  // lowers this rate was backwards (the bug Maya flagged as "wrong logic":
+  // saving more money into a goal was making your savings rate look worse).
+  const savingsAmount = Math.max(0, income - expense - debtPayments);
+  const prevSavingsAmount = Math.max(0, prevIncome - prevExpense - prevDebtPayments);
+  const savingsRate = income>0 ? savingsAmount/income : 0;
+  const prevSavingsRate = prevIncome>0 ? prevSavingsAmount/prevIncome : 0;
+
+  const actuals = categoryActuals(monthKey);
+  const budgeted = state.categories.filter(c=>c.budget>0);
+  const overCount = budgeted.filter(c => actuals[c.name] > c.budget).length;
+  const budgetHealth = budgeted.length ? 1 - overCount/budgeted.length : 1;
+
+  return { income, expense, debtPayments, goalContributions, totalOutflow, cashFlow, prevCashFlow,
+           remainingBudgeted, savingsRate, prevSavingsRate,
+           safeToSpend, actuals, budgetHealth, overCount, totalBudgeted: budgeted.length };
+}
+
+function categoryZones(monthKey){
+  const actuals = categoryActuals(monthKey);
+  const rows = state.categories.filter(c=>c.budget>0).map(c=>{
+    const actual = actuals[c.name] || 0;
+    const pct = c.budget>0 ? actual/c.budget : 0;
+    return {name:c.name, group:c.group, budget:c.budget, actual, pct};
+  }).sort((a,b)=>b.pct-a.pct);
+  return { over: rows.filter(r=>r.pct>1), watch: rows.filter(r=>r.pct>=0.85 && r.pct<=1), safe: rows.filter(r=>r.pct<0.85), all: rows };
+}
+
+/* ---- Date helpers (all pure y/m/d arithmetic - no toISOString(), see the
+   timezone lesson baked into toLocalISO() above) ---- */
+function dateFromISO(iso){ const [y,m,d] = iso.split("-").map(Number); return new Date(y, m-1, d); }
+function addMonthsISO(iso, n){ const [y,m,d] = iso.split("-").map(Number); return toLocalISO(new Date(y, m-1+n, d)); }
+function daysBetween(aIso, bIso){ return Math.round((dateFromISO(bIso) - dateFromISO(aIso)) / 86400000); }
+function monthsBetween(aIso, bIso){
+  const [ay,am,ad] = aIso.split("-").map(Number), [by,bm,bd] = bIso.split("-").map(Number);
+  let months = (by-ay)*12 + (bm-am);
+  if(bd < ad) months -= 1;
+  return months;
+}
+function clamp01(n){ return Math.max(0, Math.min(1, n)); }
+function isoToMonthYear(iso){ const [y,m] = iso.split("-").map(Number); return new Date(y,m-1,1).toLocaleDateString(undefined,{month:"short",year:"numeric"}); }
+function monthShortLabel(monthKey){ const [y,m] = monthKey.split("-").map(Number); return new Date(y,m-1,1).toLocaleDateString(undefined,{month:"short"}); }
+function monthsList(n, endKey){
+  const out = []; let mk = endKey || state.selectedMonth;
+  for(let i=0;i<n;i++){ out.unshift(mk); mk = prevMonthKey(mk); }
+  return out;
+}
+function avgActualTrailing(catName, monthKey, n){
+  let mk = monthKey, total = 0;
+  for(let i=0;i<n;i++){ mk = prevMonthKey(mk); total += (categoryActuals(mk)[catName] || 0); }
+  return total / n;
+}
+
+/* ---- Debt calculations. Balance is derived from real ledger entries -
+   startBalance is the balance the moment you started tracking a debt,
+   priorPayments covers progress made before that (set once, at creation or
+   via migration), every "Debt Payment" transaction since then reduces it,
+   and - now that Expense can target a liability account directly - every
+   new charge increases it too, so the balance stays live and real instead
+   of frozen except for payments. Payoff-time estimates use real APR
+   amortization (see monthsToPayoff() below), not a linear guess. ---- */
+/* Single source of truth for "how much is left on this debt" - used both
+   by debtRows() for display and by the payment-entry validation, so a debt
+   can never be overpaid past its true remaining balance in one path but not
+   the other. */
+/* ---- Accounts: the completed financial model. Every Expense/Income
+   transaction, and every Debt Payment (via the debt's own linked liability
+   account), belongs to exactly one account. "Income adds, everything else
+   subtracts" is correct for BOTH sides: an Expense reduces an asset
+   account's cash, and a Debt Payment reduces a liability account's amount
+   owed. Goal Contributions deliberately do NOT touch an account - a goal is
+   a progress label on money that already lives in a real account, not a
+   separate pot, so it doesn't affect Net Worth on its own - a scoped
+   decision, not an oversight.
+   A liability account can now also receive Expense transactions directly -
+   a new credit-card charge - which INCREASES what's owed, the opposite of
+   an asset account's Expense (which decreases cash on hand). Previously an
+   Expense could only target an asset account, meaning new credit-card
+   spending had no way to be recorded at all (found by ChatGPT's code
+   review, confirmed via the code comment that used to sit here disclosing
+   this as a known limitation). Debt Payment still only ever targets a
+   debt's own liability account (see the Debt page) and still reduces it,
+   unchanged. ---- */
+const ACCOUNT_TYPES = ["Checking","Savings","Cash","Credit Card","Investment","Other"];
+const ACCOUNT_LIABILITY_TYPES = ["Credit Card"];
+/* exclusiveCutoffISO lets Net Worth be computed AS OF any past date, purely
+   by replaying transactions up to that point - no separate monthly
+   snapshot log needs to be stored. This is what lets the Monthly Review
+   say "net worth grew $340 this month" as a real, derived fact instead of
+   a number that had to be saved somewhere in advance. */
+function accountBalanceThrough(account, exclusiveCutoffISO){
+  if(!account) return 0;
+  let bal = account.startingBalance || 0;
+  const isLiability = account.kind === "liability";
+  state.transactions.forEach(t=>{
+    if(exclusiveCutoffISO && t.date >= exclusiveCutoffISO) return;
+    const amt = Number(t.amount||0);
+    if(t.accountId === account.id){
+      if(isLiability){
+        if(t.type==="Expense") bal += amt;       // a new charge increases what's owed
+        else bal -= amt;                          // a Debt Payment, or a refund posted as Income, reduces it
+      } else {
+        bal += t.type==="Income" ? amt : -amt;    // Income adds cash, everything else spends it
+      }
+    }
+    // A Debt Payment's `accountId` is always the debt's own liability
+    // account (reduces what's owed, above) - but the money genuinely left
+    // a real asset account too. Without this, paying down a card looked
+    // like it INCREASED Net Worth (liability dropped, nothing else moved)
+    // instead of leaving it unchanged - a real P0 found live by a second
+    // AI's code review, 2026-08-10, that survived two full Inspector-
+    // Standing audits because neither one specifically checked "does Net
+    // Worth stay flat across a debt payment," only that each side's own
+    // number moved in the direction its own comment claimed it should.
+    if(!isLiability && t.type==="Debt Payment" && t.sourceAccountId === account.id){
+      bal -= amt;
+    }
+  });
+  return bal;
+}
+function accountBalance(account){ return accountBalanceThrough(account, null); }
+function accountRows(){
+  return state.accounts.map(a=>({...a, balance: accountBalance(a)}));
+}
+function netWorthThrough(exclusiveCutoffISO){
+  let assets = 0, liabilities = 0;
+  state.accounts.forEach(a=>{
+    const bal = accountBalanceThrough(a, exclusiveCutoffISO);
+    if(a.kind==="liability") liabilities += Math.max(0,bal); else assets += bal;
+  });
+  return { assets, liabilities, netWorth: assets - liabilities };
+}
+function netWorth(){ return netWorthThrough(null); }
+function netWorthAtEndOf(monthKey){ return netWorthThrough(nextMonthKey(monthKey)+"-01"); }
+function accountHasLinkedDebt(accountId){ return state.debts.some(d=>d.accountId===accountId); }
+
+/* computeDebtBalance() keeps its name (every existing call site - debtRows,
+   the payment-entry validation, the Action Center rule - reads through it
+   unchanged) but now delegates to the debt's own linked liability account
+   instead of tracking a balance directly on the debt object. */
+function computeDebtBalance(dbt, exclusiveCutoffISO){
+  const acct = state.accounts.find(a=>a.id===dbt.accountId);
+  return acct ? Math.max(0, accountBalanceThrough(acct, exclusiveCutoffISO||null)) : 0;
+}
+function computeGoalSaved(g, exclusiveCutoffISO){
+  return (g.startingSaved||0) + goalContributionsTotal(g.id, exclusiveCutoffISO);
+}
+
+/* Real amortization, not a linear balance/payment guess - a fixed payment
+   against a balance that carries real APR pays down slower than a naive
+   division suggests (found by ChatGPT's code review, verified: the old
+   formula never factored APR into payoff time at all, only into Avalanche
+   sort order). Standard fixed-payment-loan formula:
+   n = -ln(1 - i*B/P) / ln(1+i), where i is the MONTHLY rate.
+   Returns Infinity (not null) when the payment doesn't even cover a
+   month's interest - the balance would never shrink at that payment, a
+   real and important fact to surface honestly rather than hide behind a
+   dash. Returns null only when there's no payment/balance to project at
+   all (nothing to divide by). */
+function monthsToPayoff(balance, monthlyPayment, aprPercent){
+  if(balance<=0) return 0;
+  if(!monthlyPayment || monthlyPayment<=0) return null;
+  const i = (aprPercent||0)/100/12;
+  if(i<=0) return Math.ceil(balance/monthlyPayment);
+  const interestPortion = balance*i;
+  if(monthlyPayment <= interestPortion) return Infinity;
+  const n = -Math.log(1 - (i*balance)/monthlyPayment) / Math.log(1+i);
+  return Math.ceil(n);
+}
+
+/* asOfMonthKey lets every figure here (balance, pctPaid, payoff projection)
+   reflect the state as of the END of that specific month, not today's live
+   state - without it, Reports' Monthly Review for a past month described
+   TODAY's debts under a past month's label (found by ChatGPT's code
+   review, verified: reviewVerdict/reviewPillars called this with no
+   argument at all). Omitting it (every existing call site: the Debt page
+   itself, Action Center) preserves the exact live-balance behavior this
+   had before - same exclusiveCutoffISO convention netWorthAtEndOf() uses. */
+function debtRows(asOfMonthKey){
+  const cutoff = asOfMonthKey ? nextMonthKey(asOfMonthKey)+"-01" : null;
+  const asOfDate = cutoff || todayISO();
+  const strategy = (state.settings && state.settings.debtStrategy) || "Snowball";
+  const rows = state.debts.map(dbt=>{
+    const acct = state.accounts.find(a=>a.id===dbt.accountId);
+    const startBalance = acct ? (acct.startingBalance||0) : 0;
+    const balance = computeDebtBalance(dbt, cutoff);
+    const pctPaid = startBalance>0 ? clamp01((startBalance-balance)/startBalance) : 0;
+    const monthsAtMin = monthsToPayoff(balance, dbt.minPayment, dbt.apr);
+    const payoffDate = Number.isFinite(monthsAtMin) ? addMonthsISO(asOfDate, monthsAtMin) : null;
+    // monthsToPayoff() returns null (not Infinity) when there's no real
+    // minimum payment set at all (0/blank) - a real, live-user-reachable
+    // case (Add Debt has no `required` on Min. Payment) that was invisible
+    // to every "stuck" check here, in debtSummary(), and in
+    // reviewCandidates() until an independent Inspector-Standing review
+    // caught it (2026-08-10). A debt with no payment plan is just as
+    // "not on current plan" as one whose payment doesn't cover interest.
+    const neverPaysOffAtMin = monthsAtMin === Infinity || monthsAtMin === null;
+    const hasNoMinPayment = !(dbt.minPayment>0);
+    const monthsAtPlus50 = monthsToPayoff(balance, (dbt.minPayment||0)+50, dbt.apr);
+    const monthsSaved = (Number.isFinite(monthsAtMin) && Number.isFinite(monthsAtPlus50)) ? monthsAtMin - monthsAtPlus50 : 0;
+    // Deliberately NOT clamped to 100% - going over the limit is a real,
+    // important risk signal (a bug found by ChatGPT's code review,
+    // 2026-08-10: the earlier clamp01() hid exactly this). A progress BAR
+    // would need its visual width capped so it doesn't overflow its
+    // track, but the number itself must show the true ratio.
+    const creditUtilization = (dbt.creditLimit>0) ? balance/dbt.creditLimit : null;
+    return {...dbt, startBalance, balance, pctPaid, monthsAtMin, payoffDate, monthsSaved, neverPaysOffAtMin, hasNoMinPayment, creditUtilization};
+  });
+  const active = rows.filter(r=>r.balance>0);
+  const sortKey = strategy==="Snowball" ? (r=>r.balance) : (r=>-r.apr);
+  const ranked = [...active].sort((a,b)=>sortKey(a)-sortKey(b));
+  const rankMap = {}; ranked.forEach((r,i)=>{ rankMap[r.id] = i+1; });
+  rows.forEach(r=>{ r.payoffOrder = r.balance>0 ? rankMap[r.id] : null; });
+  return rows;
+}
+/* estInterestThisMonth is deliberately labeled "Est." everywhere it's
+   shown - our transaction model never actually accrues/charges interest
+   as a real ledger event (a payment reduces what's owed, a new charge
+   increases it, but nothing automatically adds interest on top monthly).
+   This is balance × monthly-rate for every debt with a real balance and
+   APR, which is mathematically what would accrue - a real, disclosed
+   estimate, not a figure pulled from an actual "Interest" transaction
+   type (which doesn't exist in this model). Never call it "paid." */
+function debtSummary(){
+  const rows = debtRows();
+  const totalDebt = rows.reduce((s,r)=>s+Math.max(0,r.balance),0);
+  const active = rows.filter(r=>r.balance>0);
+  // If ANY active debt never pays off at its current minimum, the household
+  // is never truly debt-free at this pace, full stop - showing the latest
+  // date among the OTHER debts as "Debt-Free Date" would silently ignore
+  // the one that's actually stuck (a bug found by ChatGPT's code review,
+  // 2026-08-10: two debts, one payoff-projectable and one stuck, could
+  // show a real-looking date that was never really achievable).
+  const stuck = active.some(r=>r.neverPaysOffAtMin);
+  const withDate = active.filter(r=>r.payoffDate);
+  const debtFreeDate = (!stuck && withDate.length) ? withDate.reduce((max,r)=> r.payoffDate>max?r.payoffDate:max, withDate[0].payoffDate) : null;
+  const estInterestThisMonth = rows.reduce((s,r)=> s + (r.balance>0 ? r.balance*((r.apr||0)/100/12) : 0), 0);
+  return { rows, totalDebt, debtFreeDate, estInterestThisMonth, stuck };
+}
+
+/* ---- Savings goal calculations (docs/05 sec 10 pace formula, ported).
+   Saved is now derived: startingSaved covers progress made before you
+   started tracking a goal here, and every "Goal Contribution" transaction
+   since then adds to it. ---- */
+function goalRows(asOfMonthKey){
+  const cutoff = asOfMonthKey ? nextMonthKey(asOfMonthKey)+"-01" : null;
+  const today = cutoff || todayISO();
+  return state.goals.map(g=>{
+    const saved = computeGoalSaved(g, cutoff);
+    const pct = g.target>0 ? clamp01(saved/g.target) : 0;
+    let status = "", neededPerMonth = null, requiredByNow = 0;
+    if(g.targetDate && g.target>0){
+      const startEff = g.startDate || toLocalISO(new Date(new Date().getFullYear(),0,1));
+      const totalDays = daysBetween(startEff, g.targetDate);
+      const elapsedDays = daysBetween(startEff, today < g.targetDate ? today : g.targetDate);
+      requiredByNow = totalDays<=0 ? g.target : g.target * clamp01(elapsedDays/totalDays);
+      const monthsRemaining = Math.max(1, monthsBetween(today, g.targetDate));
+      neededPerMonth = g.targetDate<=today ? 0 : Math.max(0,g.target-saved)/monthsRemaining;
+      if(saved >= g.target) status = "reached";
+      else if(g.targetDate <= today) status = "passed";
+      else if(saved >= requiredByNow) status = saved > requiredByNow*1.1 ? "ahead" : "onpace";
+      else status = "needs";
+    }
+    return {...g, saved, pct, status, neededPerMonth, requiredByNow};
+  });
+}
+
+function actionCenterRules(monthKey){
+  const s = computeSummary(monthKey);
+  const zones = categoryZones(monthKey);
+  const buffer = Math.max(50, (s.expense/4.33)*0.25);
+  const rules = [];
+  if(zones.over.length){
+    const worst = zones.over[0];
+    rules.push({sev:"warning", icon:ICONS.warning, priority:"HIGH", msg:`${worst.name} is ${Math.round((worst.pct-1)*100)}% over budget this month.`});
+  }
+  zones.watch.slice(0,1).forEach(w=>{
+    rules.push({sev:"warning", icon:ICONS.warning, priority:"HIGH", msg:`You've used ${fmtPct(w.pct)} of your ${w.name} budget already.`});
+  });
+  if(s.safeToSpend < 0){
+    rules.push({sev:"warning", icon:ICONS.warning, priority:"HIGH", msg:"Your safe-to-spend balance has gone negative this month — income minus spending and what's still budgeted doesn't leave any room."});
+  }
+  const subAvg = avgActualTrailing("Subscriptions", monthKey, 3);
+  const subActual = s.actuals["Subscriptions"] || 0;
+  if(subAvg > 0 && (subActual-subAvg)/subAvg >= 0.15){
+    rules.push({sev:"warning", icon:ICONS.warning, priority:"HIGH", msg:`Subscription spending is up ${fmtPct((subActual-subAvg)/subAvg)} vs. your recent average.`});
+  }
+  const goals = goalRows();
+  const needsGoal = goals.filter(g=>g.status==="needs").sort((a,b)=>b.neededPerMonth-a.neededPerMonth)[0];
+  if(needsGoal){
+    rules.push({sev:"recommend", icon:ICONS.bulb, priority:"MEDIUM", msg:`You need ${fmt(needsGoal.neededPerMonth)}/mo more to hit ${needsGoal.name} on time.`});
+  }
+  const debts = debtRows();
+  const debt1 = debts.find(d=>d.payoffOrder===1);
+  if(debt1 && debt1.monthsAtMin!=null && debt1.monthsAtMin>2 && debt1.monthsSaved>=2){
+    rules.push({sev:"recommend", icon:ICONS.bulb, priority:"MEDIUM", msg:`An extra ${fmt(50)}/mo on ${debt1.name} clears it about ${debt1.monthsSaved} months sooner.`});
+  }
+  if(s.savingsRate < 0.1 && s.income>0){
+    rules.push({sev:"recommend", icon:ICONS.bulb, priority:"MEDIUM", msg:`Your savings rate is ${fmtPct(s.savingsRate)} — under the 10% mark.`});
+  }
+  if(!zones.over.length && !zones.watch.length && s.totalBudgeted>0 && s.safeToSpend>=buffer){
+    rules.push({sev:"positive", icon:ICONS.check, priority:"", msg:"You're on track across every budgeted category this month."});
+  }
+  const paceGoal = goals.find(g=>g.status==="onpace" || g.status==="ahead");
+  if(paceGoal){
+    rules.push({sev:"positive", icon:ICONS.check, priority:"", msg:`You're on pace to reach ${paceGoal.name} by ${isoToMonthYear(paceGoal.targetDate)}.`});
+  }
+  if(s.savingsRate >= 0.2){
+    rules.push({sev:"positive", icon:ICONS.check, priority:"", msg:`Great pace — you're saving ${fmtPct(s.savingsRate)} of your income.`});
+  }
+  if(!rules.length){ rules.push({sev:"positive", icon:ICONS.check, priority:"", msg:"Nothing needs your attention right now."}); }
+  const order = {warning:0, recommend:1, positive:2};
+  rules.sort((a,b)=>order[a.sev]-order[b.sev]);
+  const dismissed = new Set(state.dismissedActions||[]);
+  const visible = rules.filter(r=>!dismissed.has(`${monthKey}::${r.msg}`));
+  if(!visible.length){ visible.push({sev:"positive", icon:ICONS.check, priority:"", msg:"You're all caught up — nothing new to review."}); }
+  return visible.slice(0,5);
+}
+
+/* ==========================================================================
+   MONTHLY REVIEW - the "financial coach" layer. Every function here reads
+   ONLY from computeSummary()/categoryZones()/debtRows()/goalRows()/
+   categoryActuals() and plain transaction history - nothing is invented,
+   nothing is stored separately, everything is a live interpretation of the
+   same numbers already on screen elsewhere. Tone throughout is a flat,
+   calm verdict - no exclamation points, no celebratory language, no
+   badges/streak-gamification (explicitly ruled out) - the multi-month
+   trend detection below is the analytical replacement for that: a
+   noteworthy pattern stated as fact, not a badge earned.
+   ========================================================================== */
+function ordinal(n){
+  const rem100 = n % 100;
+  if(rem100 >= 11 && rem100 <= 13) return n + "th";
+  switch(n % 10){ case 1: return n+"st"; case 2: return n+"nd"; case 3: return n+"rd"; default: return n+"th"; }
+}
+
+/* Walks backward from monthKey counting consecutive same-direction moves.
+   A flat (sub-$1) change breaks the streak rather than counting either way,
+   so a category that's merely noisy doesn't get a false trend claim.
+   A month with zero logged transactions at all (not just zero for this
+   category) means "before real tracking started," not "genuinely $0" -
+   counting that as a real data point would read a jump from no-history
+   into a first real month as an extra step of trend (Maya QA finding,
+   P3: could inflate a streak by up to 1 month). The walk stops the moment
+   it reaches a month with no transaction activity, same as hitting a
+   direction change or a flat month. */
+function monthHasActivity(monthKey){ return txForMonth(monthKey).length > 0; }
+function categoryTrendStreak(catName, monthKey){
+  const months = monthsList(7, monthKey);
+  const vals = months.map(mk => categoryActuals(mk)[catName] || 0);
+  let dir = null, streak = 0;
+  for(let i=vals.length-1; i>0; i--){
+    if(!monthHasActivity(months[i-1])) break;
+    const diff = vals[i] - vals[i-1];
+    if(Math.abs(diff) < 1) break;
+    const d = diff > 0 ? "up" : "down";
+    if(dir===null){ dir = d; streak = 2; }
+    else if(d===dir){ streak++; }
+    else break;
+  }
+  return dir ? { direction: dir, months: streak } : null;
+}
+function savingsRateTrendStreak(monthKey){
+  const months = monthsList(7, monthKey);
+  const rates = months.map(mk => computeSummary(mk).savingsRate);
+  let dir = null, streak = 0;
+  for(let i=rates.length-1; i>0; i--){
+    if(!monthHasActivity(months[i-1])) break;
+    const diff = rates[i] - rates[i-1];
+    if(Math.abs(diff) < 0.01) break;
+    const d = diff > 0 ? "up" : "down";
+    if(dir===null){ dir = d; streak = 2; }
+    else if(d===dir){ streak++; }
+    else break;
+  }
+  return dir ? { direction: dir, months: streak } : null;
+}
+/* Only surfaces a trend once it's 3+ months long - shorter runs are just
+   noise, not a pattern worth interpreting for the user. */
+function monthlyTrendInsights(monthKey){
+  const insights = [];
+  state.categories.forEach(c=>{
+    const t = categoryTrendStreak(c.name, monthKey);
+    if(t && t.months >= 3){
+      insights.push(`${c.name} spending has ${t.direction==="up"?"increased":"decreased"} for the ${ordinal(t.months)} consecutive month.`);
+    }
+  });
+  const sr = savingsRateTrendStreak(monthKey);
+  if(sr && sr.months >= 3){
+    insights.push(`Your savings rate has ${sr.direction==="up"?"improved":"declined"} for the ${ordinal(sr.months)} consecutive month.`);
+  }
+  return insights.slice(0,3);
+}
+
+function reviewVerdict(monthKey){
+  const s = computeSummary(monthKey);
+  const zones = categoryZones(monthKey);
+  const laggingGoal = goalRows(monthKey).some(g=>g.status==="needs" || g.status==="passed");
+  if(s.safeToSpend < 0){
+    return { tier:"reset", text:"This month spent more than it earned. That's the number to fix first." };
+  }
+  if(zones.over.length){
+    return { tier:"tight", text:`Spending outpaced the plan this month — mainly in ${zones.over[0].name}.` };
+  }
+  if(laggingGoal){
+    return { tier:"tight", text:"Spending stayed in range, but at least one goal is falling behind schedule." };
+  }
+  if(s.savingsRate >= 0.2 && s.debtPayments > 0){
+    return { tier:"excellent", text:"This was a month of real progress — spending stayed under plan, debt went down, and every goal moved forward." };
+  }
+  return { tier:"solid", text:"A steady month. Income covered spending, with a little left over." };
+}
+
+function reviewPillars(monthKey){
+  const s = computeSummary(monthKey);
+  const zones = categoryZones(monthKey);
+  const spendingText = zones.over.length
+    ? `You spent ${fmt(s.expense)} this month — ${zones.over.map(z=>z.name).join(", ")} ran over plan, everything else stayed on track.`
+    : `You spent ${fmt(s.expense)} this month, staying within plan across every budgeted category.`;
+
+  const dRows = debtRows(monthKey);
+  const active = dRows.filter(d=>d.balance>0);
+  let debtText;
+  if(!dRows.length){ debtText = "No debts tracked here."; }
+  else if(!active.length){ debtText = "Every tracked debt is fully paid off."; }
+  else {
+    const withDates = active.filter(d=>d.payoffDate);
+    const soonest = withDates.length ? withDates.reduce((a,b)=> a.payoffDate < b.payoffDate ? a : b) : null;
+    debtText = `You paid down ${fmt(s.debtPayments)} in debt this month.` + (soonest ? ` At this pace, ${soonest.name} is debt-free by ${isoToMonthYear(soonest.payoffDate)}.` : "");
+  }
+
+  const gRows = goalRows(monthKey);
+  const goalText = gRows.length
+    ? gRows.map(g=>{
+        if(g.status==="reached") return `${g.name} is fully funded.`;
+        if(g.status==="ahead" || g.status==="onpace") return `${g.name} is on pace.`;
+        if(g.status==="needs") return `${g.name} needs ${fmt(g.neededPerMonth)}/mo more to stay on schedule.`;
+        if(g.status==="passed") return `${g.name}'s target date has passed and it's not fully funded.`;
+        return `${g.name} has no target date set yet.`;
+      }).join(" ")
+    : "No savings goals set yet.";
+
+  return { spendingText, debtText, goalText };
+}
+
+/* Single ranked list of real, actionable levers - the "one thing" is just
+   candidates[0], and "Next Month Mission" is candidates.slice(0,3), so
+   there's exactly one engine to keep correct, not two. Ranked by actual
+   dollar impact wherever a dollar figure applies - never by severity alone. */
+function reviewCandidates(monthKey){
+  const s = computeSummary(monthKey);
+  const zones = categoryZones(monthKey);
+  const goals = goalRows(monthKey);
+  const debts = debtRows(monthKey);
+  const candidates = [];
+
+  zones.over.forEach(z=>{
+    const over = z.actual - z.budget;
+    candidates.push({ text:`Bring ${z.name} back under budget — it ran ${fmt(over)} over this month.`, impact: over });
+  });
+
+  const needsGoal = goals.filter(g=>g.status==="needs").sort((a,b)=>b.neededPerMonth-a.neededPerMonth)[0];
+  if(needsGoal){
+    candidates.push({ text:`Increase your ${needsGoal.name} contribution by ${fmt(needsGoal.neededPerMonth)}/mo to stay on schedule.`, impact: needsGoal.neededPerMonth });
+  }
+
+  const debt1 = debts.find(d=>d.payoffOrder===1);
+  if(debt1 && debt1.neverPaysOffAtMin){
+    // Real APR math (see monthsToPayoff()) can reveal the minimum payment
+    // doesn't even cover a month's interest - the balance would never
+    // shrink at that rate. Too important to leave silent behind a dash.
+    // Also covers the sibling case of no minimum payment being set at all
+    // (monthsToPayoff() returns null there, not Infinity - found missing
+    // from this exact check by an independent Inspector-Standing review,
+    // 2026-08-10) - same real-world consequence, different wording.
+    const interestPortion = debt1.balance * ((debt1.apr||0)/100/12);
+    const shortfall = Math.max(1, Math.round(interestPortion - (debt1.minPayment||0)));
+    const text = debt1.hasNoMinPayment
+      ? `${debt1.name} has no minimum payment set — start paying at least ${fmt(shortfall)}/mo or the balance will never shrink.`
+      : `${debt1.name}'s minimum payment doesn't cover its interest — increase it by at least ${fmt(shortfall)}/mo or the balance will never shrink.`;
+    candidates.push({ text, impact: shortfall });
+  } else if(debt1 && debt1.monthsAtMin!=null && debt1.monthsAtMin>2 && debt1.monthsSaved>=2){
+    candidates.push({ text:`Put an extra ${fmt(50)}/mo toward ${debt1.name} — it clears about ${debt1.monthsSaved} months sooner.`, impact: 50 });
+  }
+
+  if(s.safeToSpend > 50){
+    const target = needsGoal ? needsGoal.name : (debt1 ? debt1.name : null);
+    if(target){ candidates.push({ text:`Direct your ${fmt(s.safeToSpend)} of unclaimed cash toward ${target}.`, impact: s.safeToSpend }); }
+  }
+
+  const subAvg = avgActualTrailing("Subscriptions", monthKey, 3);
+  const subActual = s.actuals["Subscriptions"] || 0;
+  if(subAvg > 0 && (subActual-subAvg)/subAvg >= 0.15){
+    candidates.push({ text:`Review your subscriptions — spending is up ${fmtPct((subActual-subAvg)/subAvg)} vs. your recent average.`, impact: subActual-subAvg });
+  }
+
+  candidates.sort((a,b)=>b.impact-a.impact);
+  return candidates;
+}
+
+/* ==========================================================================
+   RENDERING
+   ========================================================================== */
+const DONUT_COLORS = ["#2563EB","#059669","#D97706","#7C3AED","#DC2626","#0EA5E9","#94A3B8"];
+
+/* Output-encoding choke point (Maya QA finding, P1 stored-XSS): every
+   category/debt/goal/transaction name is free-typed by the user and gets
+   interpolated into innerHTML all over this file - none of it was ever
+   escaped, so `<img src=x onerror=...>` typed into a Note field executed
+   live. esc() is the one place that gets fixed; every render function below
+   wraps user-controlled strings with it before interpolation. Never escape
+   at input time (storing escaped text would corrupt the real data) - only
+   at this output boundary. */
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+/* html param is always plain option-label text in this file (verified - no
+   call site passes real markup), so textContent keeps it inherently safe
+   without needing esc() at every populateXSelect() call site too. */
+function el(tag, cls, html){ const e = document.createElement(tag); if(cls) e.className = cls; if(html !== undefined) e.textContent = html; return e; }
+
+function populateMonthSelect(){
+  const sel = document.getElementById("monthSelect");
+  const keys = new Set(state.transactions.map(t=>monthKeyOf(t.date)));
+  keys.add(state.selectedMonth);
+  const sorted = Array.from(keys).sort();
+  sel.innerHTML = "";
+  sorted.forEach(k=>{
+    const [y,m] = k.split("-");
+    const label = new Date(Number(y), Number(m)-1, 1).toLocaleDateString(undefined,{month:"short",year:"numeric"});
+    const opt = el("option", null, label); opt.value = k;
+    if(k === state.selectedMonth) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function renderGreeting(){
+  const h = new Date().getHours();
+  const greet = h<12 ? "Good morning" : h<18 ? "Good afternoon" : "Good evening";
+  document.getElementById("greeting").textContent = greet;
+  const s = computeSummary(state.selectedMonth);
+  document.getElementById("healthSentence").textContent = s.overCount === 0
+    ? "Your finances are healthy this month."
+    : `${s.overCount} categor${s.overCount===1?"y needs":"ies need"} a look this month.`;
+}
+
+function ringSVG(pct, size, color){
+  const r = (size-10)/2, c = 2*Math.PI*r, offset = c*(1-Math.max(0,Math.min(1,pct)));
+  return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+    <circle class="track" cx="${size/2}" cy="${size/2}" r="${r}"></circle>
+    <circle class="fill" cx="${size/2}" cy="${size/2}" r="${r}" stroke="${color}" stroke-dasharray="${c}" stroke-dashoffset="${offset}"></circle>
+  </svg>`;
+}
+
+function kpiCard({label, value, hero, meta, metaClass, micro, ring}){
+  const c = el("div", "card kpi hoverable" + (hero?" hero":""));
+  const body = `
+    <div class="kpi-label">${label}</div>
+    <div class="kpi-value">${value}</div>
+    <div class="kpi-meta ${metaClass||""}">${meta||""}</div>
+    <div class="kpi-micro">${micro||""}</div>`;
+  if(ring){
+    c.innerHTML = `<div class="kpi-ring-row">
+      <div style="flex-shrink:0;">${ringSVG(ring.pct, 64, ring.color)}</div>
+      <div>${body}</div>
+    </div>`;
+  } else { c.innerHTML = body; }
+  return c;
+}
+
+function trendChip(curr, prev){
+  if(!prev) return {text:"", cls:""};
+  const diff = curr - prev, pct = Math.abs(diff / prev);
+  if(Math.abs(diff) < 0.01) return {text:"— flat vs last month", cls:""};
+  const arrow = diff>=0 ? '<svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>'
+                        : '<svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M18 13l-6 6-6-6"/></svg>';
+  return { text:`${arrow} ${fmtPct(pct)} vs last month`, cls: diff>=0?"trend-up":"trend-down" };
+}
+
+function renderKPIs(){
+  const s = computeSummary(state.selectedMonth);
+  const row = document.getElementById("kpiRow");
+  row.innerHTML = "";
+  row.appendChild(kpiCard({
+    label:"Safe to Spend", hero:true, value: fmt(s.safeToSpend),
+    meta: s.safeToSpend>=0 ? "Truly unclaimed this month" : "Nothing left — budgets + spending cover it all",
+    micro: `${fmt(s.cashFlow)} cash flow · ${fmt(s.remainingBudgeted)} still earmarked`
+  }));
+  const cf = trendChip(s.cashFlow, s.prevCashFlow);
+  row.appendChild(kpiCard({ label:"Cash Flow", value: fmt(s.cashFlow), meta: cf.text, metaClass: cf.cls,
+    micro: `${fmt(s.income)} income · ${fmt(s.totalOutflow)} out (spend + debt + goals)` }));
+  const sr = trendChip(s.savingsRate, s.prevSavingsRate);
+  row.appendChild(kpiCard({ label:"Savings Rate", value: fmtPct(s.savingsRate), meta: sr.text, metaClass: sr.cls,
+    micro: s.savingsRate>=0.2 ? "Above the 20% target." : "Getting there — aim for 20%." }));
+  const ringColor = s.budgetHealth>=0.8 ? "var(--color-success)" : s.budgetHealth>=0.5 ? "var(--color-warning)" : "var(--color-danger)";
+  row.appendChild(kpiCard({
+    label:"Budget Health", value: fmtPct(s.budgetHealth),
+    meta: s.overCount===0 ? "On track" : `${s.overCount} over budget`, metaClass: s.overCount===0 ? "trend-up" : "trend-down",
+    micro: `${s.totalBudgeted - s.overCount} of ${s.totalBudgeted} on track`,
+    ring: {pct: s.budgetHealth, color: ringColor}
+  }));
+}
+
+let currentActionKeys = [];
+function renderActionCenter(){
+  const wrap = document.getElementById("actionCenter");
+  wrap.innerHTML = "";
+  const mk = state.selectedMonth;
+  const rules = actionCenterRules(mk);
+  currentActionKeys = rules.map(r=>`${mk}::${r.msg}`);
+  rules.forEach((r,i)=>{
+    const card = el("div", `action-card ${r.sev}`);
+    const badgeCls = r.priority==="HIGH" ? "high" : r.priority==="MEDIUM" ? "medium" : "ok";
+    card.innerHTML = `<div class="msg"><span class="icon-chip">${r.icon}</span><span>${esc(r.msg)}</span></div>
+      <div class="right">
+        ${r.priority ? `<span class="badge ${badgeCls}">${r.priority}</span>` : ""}
+        <button class="dismiss" data-dismiss-idx="${i}" title="Dismiss">
+          <svg class="icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>`;
+    wrap.appendChild(card);
+  });
+}
+document.getElementById("actionCenter").addEventListener("click",(e)=>{
+  const btn = e.target.closest("[data-dismiss-idx]"); if(!btn) return;
+  const key = currentActionKeys[Number(btn.dataset.dismissIdx)]; if(!key) return;
+  if(!state.dismissedActions) state.dismissedActions = [];
+  state.dismissedActions.push(key);
+  saveState(); renderActionCenter();
+});
+
+function renderDonut(){
+  const actuals = categoryActuals(state.selectedMonth);
+  const entries = Object.entries(actuals).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+  const total = entries.reduce((s,[,v])=>s+v,0);
+  const donut = document.getElementById("donut");
+  const legend = document.getElementById("donutLegend");
+  document.getElementById("donutTotal").textContent = fmt(total);
+  legend.innerHTML = "";
+  if(!total){
+    donut.style.background = "var(--color-surface-2)";
+    legend.innerHTML = '<span style="color:var(--color-text-secondary);">No spending logged yet this month.</span>';
+    return;
+  }
+  let acc = 0;
+  const stops = entries.slice(0,6).map(([name,val],i)=>{
+    const start = acc/total*360; acc += val; const end = acc/total*360;
+    const color = DONUT_COLORS[i % DONUT_COLORS.length];
+    legend.innerHTML += `<div class="row"><span class="swatch" style="background:${color};"></span><span class="name">${esc(name)}</span><span class="val">${fmt(val)}</span></div>`;
+    return `${color} ${start}deg ${end}deg`;
+  });
+  donut.style.background = `conic-gradient(${stops.join(",")})`;
+  donut.style.maskImage = "radial-gradient(circle, transparent 62%, black 63%)";
+  donut.style.webkitMaskImage = "radial-gradient(circle, transparent 62%, black 63%)";
+}
+
+function renderRecentActivity(){
+  const body = document.getElementById("recentActivityBody");
+  const sorted = [...state.transactions].sort((a,b)=> b.date.localeCompare(a.date) || 0).slice(0,6);
+  body.innerHTML = sorted.map(t=>`
+    <tr>
+      <td>${t.date}</td>
+      <td><span class="cat-pill"><span class="cat-dot" style="background:${DONUT_COLORS[Math.abs(hashCode(t.category))%DONUT_COLORS.length]};"></span>${esc(t.category)}</span></td>
+      <td>${esc(t.note||"")}</td>
+      <td class="num" style="color:${t.type==='Income'?'var(--color-success)':'var(--color-text)'}">${t.type==='Income'?'+':''}${fmtExact(t.amount)}</td>
+    </tr>`).join("") || `<tr><td colspan="4" style="color:var(--color-text-secondary);">No transactions yet.</td></tr>`;
+}
+function hashCode(str){ let h=0; for(let i=0;i<str.length;i++){ h = (h<<5)-h+str.charCodeAt(i); h|=0; } return h; }
+
+/* Net Worth had no presence anywhere on Dashboard - a user had to guess it
+   lived on Reports, then scroll past 4 other sections to find it (Maya QA
+   finding NF-1, P1: failed the mandatory Naive First-Contact single-page
+   test). This card is a compact summary only - the full Assets/Liabilities
+   breakdown and Manage Accounts table still live on Reports, reached via
+   the "View breakdown" link, so this doesn't duplicate that page. */
+function renderNetWorthCard(){
+  const { assets, liabilities, netWorth: nw } = netWorth();
+  document.getElementById("netWorthCard").innerHTML = `
+    <div class="kpi-label">Net Worth</div>
+    <div class="kpi-value" style="font-size:var(--font-h1);">${fmt(nw)}</div>
+    <div class="kpi-micro">${fmt(assets)} in assets · ${fmt(liabilities)} in liabilities</div>`;
+}
+
+function renderDashboard(){ renderGreeting(); renderKPIs(); renderNetWorthCard(); renderActionCenter(); renderDonut(); renderRecentActivity(); }
+
+/* ---- Transactions view ---- */
+/* "+ Add new category..." is always offered (not just when the list is
+   empty) - the alternative was a dead-end "Add a category first" message
+   that sent the user away to the Budget page and back, for something as
+   simple as a name. Selecting it reveals #txNewCatField inline; addTxBtn
+   creates the category (budget defaults to 0, adjustable later in Budget)
+   in the same click that logs the transaction. */
+const NEW_CATEGORY_VALUE = "__new__";
+function populateCategorySelect(sel){
+  sel.innerHTML = "";
+  state.categories.forEach(c=>{ const opt = el("option", null, c.name); opt.value = c.name; sel.appendChild(opt); });
+  const addNew = el("option", null, "+ Add new category…"); addNew.value = NEW_CATEGORY_VALUE;
+  sel.appendChild(addNew);
+  if(!state.categories.length){ sel.value = NEW_CATEGORY_VALUE; }
+}
+const INCOME_SOURCES = ["Paycheck","Freelance","Gift","Interest","Refund","Other Income"];
+
+/* Debt Payment / Goal Contribution transactions target a debt/goal instead
+   of a budget category, and Income gets its own source list instead of
+   sharing the Expense category list (the old shared list defaulted a new
+   Income entry to "Rent/Mortgage" - a real trap for a user who didn't
+   notice). Same <select>, repopulated + relabeled based on the chosen type
+   so the whole ledger (and therefore every derived balance) stays a single
+   source of truth. */
+/* Accounts complete the model: an Expense/Income transaction must post to
+   exactly one account. Same "+ Add new..." inline-creation pattern as
+   categories (see NEW_CATEGORY_VALUE above) - a brand-new user with zero
+   accounts gets the inline field by default instead of a dead end. Only
+   asks for a name (defaults to a Checking/asset account) - the fuller
+   Type/Kind picker lives in Reports > Manage Accounts for the less-frequent
+   case of wanting a Savings/Credit Card/Investment account instead. */
+const NEW_ACCOUNT_VALUE = "__newacct__";
+function populateAccountSelect(sel, assetOnly){
+  sel.innerHTML = "";
+  // Both asset and liability accounts are offered here for Expense/Income
+  // - an Expense on a liability account is a real credit-card charge
+  // (increases what's owed) and an Income on one is a refund/credit
+  // (decreases it); the sign logic lives in accountBalanceThrough().
+  // Debt Payment callers pass assetOnly=true - the money has to come FROM
+  // a real account you hold, paying a debt out of another debt isn't a
+  // thing this product models. Liability accounts are labeled distinctly
+  // so it's clear "Visa Credit Card" here means charging the card, not
+  // spending cash out of it. Quick inline "+Add new account…" creation
+  // still only ever creates an asset account - a liability account needs
+  // APR/min payment too, so it's added via the Debt page, which
+  // auto-creates its linked account already.
+  const accounts = assetOnly ? state.accounts.filter(a=>a.kind==="asset") : state.accounts;
+  accounts.forEach(a=>{
+    const opt = el("option", null, a.kind==="liability" ? `${a.name} (credit)` : a.name);
+    opt.value = a.id; sel.appendChild(opt);
+  });
+  const addNew = el("option", null, "+ Add new account…"); addNew.value = NEW_ACCOUNT_VALUE;
+  sel.appendChild(addNew);
+  if(!accounts.length){ sel.value = NEW_ACCOUNT_VALUE; }
+}
+function toggleAccountField(){
+  const type = document.getElementById("txType").value;
+  const showAccount = type === "Expense" || type === "Income" || type === "Debt Payment";
+  const sel = document.getElementById("txAccount");
+  const isNew = showAccount && sel.value===NEW_ACCOUNT_VALUE;
+  // The dropdown and the "type a new name" field are two views of the same
+  // slot, never both at once - showing both at the same time is what made
+  // the Quick Entry row wrap unpredictably and confused users about which
+  // field actually mattered (real user report).
+  document.getElementById("txAccountField").style.display = (showAccount && !isNew) ? "" : "none";
+  document.getElementById("txNewAcctField").style.display = isNew ? "" : "none";
+  // No real account exists yet to fall back to - nothing for cancel to do.
+  document.getElementById("cancelNewAcctBtn").style.display = (isNew && sel.options.length > 1) ? "" : "none";
+  document.getElementById("txAccountLabel").textContent = type === "Debt Payment" ? "Pay from" : "Account";
+}
+document.getElementById("cancelNewAcctBtn").addEventListener("click", ()=>{
+  const sel = document.getElementById("txAccount");
+  if(sel.options.length > 1) sel.selectedIndex = 0;
+  toggleAccountField();
+});
+
+function populateTxCategorySelect(){
+  const sel = document.getElementById("txCategory");
+  const label = document.getElementById("txCategoryLabel");
+  const type = document.getElementById("txType").value;
+  sel.innerHTML = "";
+  if(type === "Debt Payment"){
+    label.textContent = "Debt";
+    if(!state.debts.length){ sel.appendChild(el("option", null, "Add a debt first")); }
+    else state.debts.forEach(d=>{ const opt = el("option", null, d.name); opt.value = d.id; sel.appendChild(opt); });
+  } else if(type === "Goal Contribution"){
+    label.textContent = "Goal";
+    if(!state.goals.length){ sel.appendChild(el("option", null, "Add a goal first")); }
+    else state.goals.forEach(g=>{ const opt = el("option", null, g.name); opt.value = g.id; sel.appendChild(opt); });
+  } else if(type === "Income"){
+    label.textContent = "Source";
+    INCOME_SOURCES.forEach(name=>{ const opt = el("option", null, name); opt.value = name; sel.appendChild(opt); });
+  } else {
+    label.textContent = "Category";
+    populateCategorySelect(sel);
+  }
+  if(type === "Expense" || type === "Income"){ populateAccountSelect(document.getElementById("txAccount"), false); }
+  else if(type === "Debt Payment"){ populateAccountSelect(document.getElementById("txAccount"), true); }
+  toggleNewCatField();
+  toggleAccountField();
+}
+function toggleNewCatField(){
+  const type = document.getElementById("txType").value;
+  const sel = document.getElementById("txCategory");
+  const show = type === "Expense" && sel.value === NEW_CATEGORY_VALUE;
+  // Same reasoning as toggleAccountField(): the dropdown and the "type a
+  // new name" field are two views of the same slot, never both at once.
+  document.getElementById("txCategoryField").style.display = show ? "none" : "";
+  document.getElementById("txNewCatField").style.display = show ? "" : "none";
+  document.getElementById("cancelNewCatBtn").style.display = (show && sel.options.length > 1) ? "" : "none";
+}
+document.getElementById("cancelNewCatBtn").addEventListener("click", ()=>{
+  const sel = document.getElementById("txCategory");
+  if(sel.options.length > 1) sel.selectedIndex = 0;
+  toggleNewCatField();
+});
+document.getElementById("txType").addEventListener("change", populateTxCategorySelect);
+document.getElementById("txCategory").addEventListener("change", toggleNewCatField);
+document.getElementById("txAccount").addEventListener("change", toggleAccountField);
+
+/* ---- Transactions list: search / category / date-range filters ----
+   Filter state lives in plain module-level vars, not `state` - these are
+   view-only display filters, not data the product needs to persist or
+   export (unlike everything in `state`, which is real user data). */
+let txFilterDateRange = "all";
+function txDateRangeStartISO(range){
+  const now = new Date();
+  if(range === "30d"){ const d = new Date(now); d.setDate(d.getDate()-30); return toLocalISO(d); }
+  if(range === "month"){ return toLocalISO(new Date(now.getFullYear(), now.getMonth(), 1)); }
+  if(range === "year"){ return toLocalISO(new Date(now.getFullYear(), 0, 1)); }
+  return null;
+}
+function populateTxFilterCategorySelect(){
+  const sel = document.getElementById("txFilterCategory");
+  const prevValue = sel.value;
+  const names = [...new Set(state.transactions.map(t=>t.category).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+  sel.innerHTML = "";
+  sel.appendChild(el("option", null, "All Categories")).value = "";
+  names.forEach(name=>{ const opt = el("option", null, name); opt.value = name; sel.appendChild(opt); });
+  sel.value = names.includes(prevValue) ? prevValue : "";
+}
+document.getElementById("txSearchInput").addEventListener("input", renderTransactionsView);
+document.getElementById("txFilterCategory").addEventListener("change", renderTransactionsView);
+document.getElementById("txDateRangeFilter").addEventListener("click",(e)=>{
+  const btn = e.target.closest("[data-range]"); if(!btn) return;
+  txFilterDateRange = btn.dataset.range;
+  document.querySelectorAll("#txDateRangeFilter button").forEach(b=>b.classList.toggle("active", b===btn));
+  renderTransactionsView();
+});
+
+function renderTransactionsView(){
+  populateTxCategorySelect();
+  document.getElementById("txDate").value = todayISO();
+  populateTxFilterCategorySelect();
+  const body = document.getElementById("allTxBody");
+  const searchTerm = document.getElementById("txSearchInput").value.trim().toLowerCase();
+  const categoryFilter = document.getElementById("txFilterCategory").value;
+  const rangeStart = txDateRangeStartISO(txFilterDateRange);
+  const filtered = state.transactions.filter(t=>{
+    if(categoryFilter && t.category !== categoryFilter) return false;
+    if(rangeStart && t.date < rangeStart) return false;
+    if(searchTerm && !`${t.category} ${t.note||""}`.toLowerCase().includes(searchTerm)) return false;
+    return true;
+  });
+  const sorted = filtered.sort((a,b)=> b.date.localeCompare(a.date));
+  const isFiltered = searchTerm || categoryFilter || txFilterDateRange !== "all";
+  document.getElementById("txCount").textContent = isFiltered ? `(${sorted.length} of ${state.transactions.length})` : `(${sorted.length})`;
+  document.getElementById("txEmpty").style.display = sorted.length ? "none" : "block";
+  document.getElementById("txEmpty").lastChild.textContent = state.transactions.length && isFiltered
+    ? "No transactions match your filters."
+    : "No transactions yet — log your first one above.";
+  const txBadgeCls = t => t.type==='Income' ? 'ok' : t.type==='Debt Payment' ? 'info' : t.type==='Goal Contribution' ? 'medium' : 'neutral';
+  body.innerHTML = sorted.map(t=>`
+    <tr>
+      <td>${t.date}</td>
+      <td><span class="badge ${txBadgeCls(t)}">${t.type}</span></td>
+      <td>${esc(t.category)}</td>
+      <td>${esc(t.note||"")}</td>
+      <td class="num" style="color:${t.type==='Income'?'var(--color-success)':'var(--color-text)'}">${t.type==='Income'?'+':''}${fmtExact(t.amount)}</td>
+      <td><button class="btn-danger-text" data-del-tx="${t.id}">Delete</button></td>
+    </tr>`).join("");
+}
+
+/* ---- Budget view ---- */
+function zoneCard(title, tone, rows){
+  const c = el("div","card hoverable");
+  const toneColor = tone==="danger"?"var(--color-danger)":tone==="warning"?"var(--color-warning)":"var(--color-success)";
+  let rowsHtml = rows.length ? rows.map(r=>`
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--color-border);">
+      <span>${esc(r.name)}</span><strong style="font-variant-numeric:tabular-nums;">${fmtPct(r.pct)}</strong>
+    </div>`).join("") : `<div style="color:var(--color-text-secondary);padding:8px 0;">None</div>`;
+  c.innerHTML = `<div style="font-weight:700;color:${toneColor};margin-bottom:8px;">${title} (${rows.length})</div>${rowsHtml}`;
+  return c;
+}
+
+function renderBudgetView(){
+  const zones = categoryZones(state.selectedMonth);
+  const wrap = document.getElementById("budgetZones");
+  wrap.innerHTML = "";
+  wrap.appendChild(zoneCard("Over Budget","danger",zones.over));
+  wrap.appendChild(zoneCard("Watch","warning",zones.watch));
+  // zones.safe was already computed by categoryZones() but never rendered
+  // anywhere - the product's own third named zone silently missing from
+  // its own summary (found live by an independent Inspector-Standing
+  // review, 2026-08-10).
+  wrap.appendChild(zoneCard("Safe","success",zones.safe));
+
+  const body = document.getElementById("catTableBody");
+  const actuals = categoryActuals(state.selectedMonth);
+  body.innerHTML = state.categories.map(c=>{
+    const actual = actuals[c.name]||0;
+    const pct = c.budget>0 ? actual/c.budget : 0;
+    const cls = pct>1?"over":pct>=0.85?"warn":"";
+    return `<tr>
+      <td>${esc(c.name)}</td><td><span class="cat-pill">${esc(c.group)}</span></td>
+      <td class="num">${fmt(c.budget)}</td><td class="num">${fmt(actual)}</td>
+      <td class="num">${c.budget>0?fmtPct(pct):"—"}
+        <div class="progress-track" style="width:80px;display:inline-block;vertical-align:middle;margin-left:8px;">
+          <div class="progress-fill ${cls}" style="width:${Math.min(100,pct*100)}%;"></div>
+        </div>
+      </td>
+      <td><button class="btn-danger-text" data-del-cat="${c.id}">Delete</button></td>
+    </tr>`;
+  }).join("");
+}
+
+/* ---- Debt view ---- */
+function renderDebtSummary(){
+  const { totalDebt, debtFreeDate, estInterestThisMonth, stuck } = debtSummary();
+  const wrap = document.getElementById("debtSummary");
+  wrap.innerHTML = "";
+  wrap.appendChild(kpiCard({ label:"Total Debt", value: fmt(totalDebt),
+    meta: totalDebt<=0 ? "You're debt-free!" : "", metaClass: totalDebt<=0?"trend-up":"",
+    micro: totalDebt>0 ? "Across all linked debts" : "" }));
+  wrap.appendChild(kpiCard({ label:"Debt-Free Date (est.)",
+    value: totalDebt<=0 ? "Reached" : (stuck ? "Not on current plan" : (debtFreeDate ? isoToMonthYear(debtFreeDate) : "—")),
+    metaClass: totalDebt<=0 ? "trend-up" : (stuck ? "trend-down" : ""),
+    micro: totalDebt<=0 ? "" : (stuck ? "A debt won't clear at its current payment plan" : "Assumes minimum payments only") }));
+  wrap.appendChild(kpiCard({ label:"Est. Interest This Month",
+    value: totalDebt<=0 ? "—" : fmt(estInterestThisMonth),
+    micro: totalDebt>0 ? "Estimated from balance × APR, not a ledger charge" : "" }));
+}
+
+function renderDebtCards(){
+  const rows = debtRows();
+  const wrap = document.getElementById("debtCards");
+  wrap.innerHTML = "";
+  if(!rows.length){ wrap.innerHTML = `<div class="empty-state">${ICONS.receipt}No debts tracked yet — add one below.</div>`; return; }
+  rows.forEach(d=>{
+    const card = el("div","card hoverable");
+    const orderBadge = d.balance<=0 ? `<span class="badge ok">PAID OFF</span>` : `<span class="badge medium">#${d.payoffOrder}</span>`;
+    card.innerHTML = `
+      <div class="stat-line">
+        <div>
+          <div class="entity-name">${esc(d.name)}</div>
+          <div class="entity-value">${fmt(Math.max(0,d.balance))}</div>
+          <div class="kpi-micro">${esc(d.type)} · ${d.apr}% APR</div>
+        </div>
+        ${orderBadge}
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:${d.pctPaid*100}%;"></div></div>
+      <div class="kpi-meta trend-up">${fmtPct(d.pctPaid)} paid off</div>
+      <div class="kpi-micro">${d.balance<=0 ? "Nothing owed on this one." : d.hasNoMinPayment ? "No minimum payment set — add one to see a payoff estimate." : d.neverPaysOffAtMin ? `Min ${fmt(d.minPayment)}/mo won't cover interest — balance won't shrink at this rate.` : `Min ${fmt(d.minPayment)}/mo · Est. payoff ${d.payoffDate?isoToMonthYear(d.payoffDate):"—"}`}</div>
+      ${d.creditUtilization!=null ? `<div class="kpi-micro${d.creditUtilization>1?" trend-down":""}">${fmtPct(d.creditUtilization)} of ${fmt(d.creditLimit)} limit used${d.creditUtilization>1?" — over limit":""}</div>` : ""}
+      ${d.balance>0 ? `<div class="contrib-row">
+        <div class="field"><label for="payAmt-${d.id}">Log a payment</label><input type="number" min="0" step="0.01" placeholder="0.00" id="payAmt-${d.id}"></div>
+        <button class="btn btn-secondary" data-pay-debt="${d.id}">Add</button>
+      </div>` : ""}
+      <div class="form-note" id="payNote-${d.id}"></div>`;
+    wrap.appendChild(card);
+  });
+}
+
+function renderDebtTable(){
+  const strat = (state.settings && state.settings.debtStrategy) || "Snowball";
+  document.querySelectorAll("#debtStrategyToggle button").forEach(b=>b.classList.toggle("active", b.dataset.strategy===strat));
+  const rows = debtRows();
+  const body = document.getElementById("debtTableBody");
+  body.innerHTML = rows.map(d=>`
+    <tr>
+      <td>${esc(d.name)}</td><td>${esc(d.type)}</td>
+      <td class="num">${d.apr}%</td><td class="num">${fmt(d.minPayment)}</td>
+      <td class="num"><span class="currency-field"><input class="inline-edit" type="number" step="0.01" min="0" value="${d.startBalance||0}" data-debt-start="${d.accountId}" aria-label="Starting balance for ${esc(d.name)}"></span></td>
+      <td class="num">${d.type==="Credit Card" ? `<span class="currency-field"><input class="inline-edit" type="number" step="0.01" min="0" value="${d.creditLimit||0}" data-debt-credit-limit="${d.id}" aria-label="Credit limit for ${esc(d.name)}"></span>` : `<span class="kpi-micro">—</span>`}</td>
+      <td class="num" style="font-weight:700;">${fmt(d.balance)}</td>
+      <td><button class="btn-danger-text" data-del-debt="${d.id}">Delete</button></td>
+    </tr>`).join("") || `<tr><td colspan="8" style="color:var(--color-text-secondary);">No debts yet.</td></tr>`;
+}
+
+function renderDebtView(){ renderDebtSummary(); renderDebtCards(); renderDebtTable(); }
+
+/* ---- Goals view ---- */
+function goalStatusInfo(g){
+  switch(g.status){
+    case "reached": return {text:"Goal reached!", cls:"trend-up", icon:ICONS.check};
+    case "passed": return {text:"Target date passed", cls:"trend-down", icon:ICONS.warning};
+    case "ahead": return {text:"Ahead of pace", cls:"trend-up", icon:ICONS.check};
+    case "onpace": return {text:"On pace", cls:"trend-up", icon:ICONS.check};
+    case "needs": return {text:`Needs ${fmt(g.neededPerMonth)}/mo to reach goal on time`, cls:"trend-down", icon:ICONS.warning};
+    default: return {text:"Set a target date to see your pace", cls:"", icon:""};
+  }
+}
+
+function renderGoalCards(){
+  const rows = goalRows();
+  const wrap = document.getElementById("goalCards");
+  wrap.innerHTML = "";
+  if(!rows.length){ wrap.innerHTML = `<div class="empty-state">${ICONS.receipt}No goals yet — add one below.</div>`; return; }
+  rows.forEach(g=>{
+    const info = goalStatusInfo(g);
+    const card = el("div","card hoverable");
+    card.innerHTML = `
+      <div class="stat-line">
+        <div>
+          <div class="entity-name">${esc(g.name)}</div>
+          <div class="entity-value">${fmtPct(g.pct)}</div>
+        </div>
+        <div class="kpi-micro" style="text-align:right;">${fmt(g.saved)} of ${fmt(g.target)}</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:${g.pct*100}%;"></div></div>
+      <div class="kpi-meta ${info.cls}">${info.icon}<span>${info.text}</span></div>
+      <div class="contrib-row">
+        <div class="field"><label for="contribAmt-${g.id}">Add contribution</label><input type="number" min="0" step="0.01" placeholder="0.00" id="contribAmt-${g.id}"></div>
+        <button class="btn btn-secondary" data-contribute="${g.id}">Add</button>
+      </div>
+      <div class="form-note" id="contribNote-${g.id}"></div>`;
+    wrap.appendChild(card);
+  });
+}
+
+function renderGoalTable(){
+  const body = document.getElementById("goalTableBody");
+  const rows = goalRows();
+  body.innerHTML = rows.map(g=>`
+    <tr>
+      <td>${esc(g.name)}</td><td class="num">${fmt(g.target)}</td>
+      <td>${g.targetDate ? isoToMonthYear(g.targetDate) : "—"}</td>
+      <td class="num"><span class="currency-field"><input class="inline-edit" type="number" step="0.01" min="0" value="${g.startingSaved||0}" data-goal-starting="${g.id}" aria-label="Starting saved for ${esc(g.name)}"></span></td>
+      <td class="num" style="font-weight:700;">${fmt(g.saved)}</td>
+      <td class="num">${fmtPct(g.pct)}</td>
+      <td><button class="btn-danger-text" data-del-goal="${g.id}">Delete</button></td>
+    </tr>`).join("") || `<tr><td colspan="7" style="color:var(--color-text-secondary);">No goals yet.</td></tr>`;
+}
+
+function renderGoalsView(){
+  if(!document.getElementById("goalStart").value) document.getElementById("goalStart").value = todayISO();
+  renderGoalCards(); renderGoalTable();
+}
+
+/* ---- Reports view ---- */
+function budgetTotalSum(){ return state.categories.filter(c=>c.budget>0).reduce((s,c)=>s+c.budget,0); }
+function topCategoriesOf(monthKey, n){
+  const acts = categoryActuals(monthKey);
+  return Object.entries(acts).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).slice(0,n);
+}
+function topExpensesOf(monthKey, n){
+  return txForMonth(monthKey).filter(t=>t.type==="Expense").sort((a,b)=>b.amount-a.amount).slice(0,n);
+}
+
+function renderMonthlyReview(){
+  const mk = state.selectedMonth;
+  const verdict = reviewVerdict(mk);
+  const pillars = reviewPillars(mk);
+  const insights = monthlyTrendInsights(mk);
+  const candidates = reviewCandidates(mk);
+
+  const verdictEl = document.getElementById("reviewVerdict");
+  verdictEl.className = "review-verdict tier-" + verdict.tier;
+  verdictEl.textContent = verdict.text;
+  document.getElementById("reviewVerdictCard").className = "card review-verdict-card tier-" + verdict.tier;
+
+  document.getElementById("reviewPillars").innerHTML = [pillars.spendingText, pillars.debtText, pillars.goalText]
+    .map(t=>`<div class="review-sub">${esc(t)}</div>`).join("");
+
+  document.getElementById("reviewInsights").innerHTML = insights.length
+    ? insights.map(t=>`<div class="insight-row">${esc(t)}</div>`).join("")
+    : `<div class="insight-row">No multi-month spending patterns yet — check back after a few more months of data.</div>`;
+
+  document.getElementById("reviewOneThing").innerHTML = candidates.length
+    ? `<div class="review-sub" style="padding-top:0;">${esc(candidates[0].text)}</div>`
+    : `<div class="review-sub" style="padding-top:0;">Nothing stands out right now — spending, debt, and goals are all on track.</div>`;
+
+  document.getElementById("reviewMission").innerHTML = candidates.length
+    ? candidates.slice(0,3).map(c=>`<div class="review-mission-item"><span class="txt">${esc(c.text)}</span><span class="impact">${fmt(c.impact)}</span></div>`).join("")
+    : `<div class="review-sub" style="padding-top:0;">No action items for next month — keep doing what you're doing.</div>`;
+}
+
+function renderMonthReview(){
+  const mk = state.selectedMonth;
+  const s = computeSummary(mk);
+  const totalBudget = budgetTotalSum();
+  const adherence = totalBudget>0 ? s.expense/totalBudget : null;
+  const spendTrend = trendChip(s.expense, sumBy(txForMonth(prevMonthKey(mk)),"Expense"));
+  const rows = [
+    ["Income", fmt(s.income)],
+    ["Spend", fmt(s.expense) + (spendTrend.text ? ` <span class="${spendTrend.cls}" style="font-weight:400;font-size:var(--font-caption);">${spendTrend.text}</span>` : "")],
+    ["Debt Payments", fmt(s.debtPayments)],
+    ["Goal Contributions", fmt(s.goalContributions)],
+    ["Net", fmt(s.cashFlow)],
+    ["Total Budgeted", fmt(totalBudget)],
+    ["Plan Adherence", adherence==null ? "—" : fmtPct(adherence)],
+    ["Savings Rate", fmtPct(s.savingsRate)],
+  ];
+  document.getElementById("monthReview").innerHTML = rows.map(([name,val])=>
+    `<div class="row"><span class="name">${name}</span><span class="val">${val}</span></div>`).join("");
+}
+
+function renderTopLists(){
+  const mk = state.selectedMonth;
+  const cats = topCategoriesOf(mk, 5);
+  document.getElementById("topCategories").innerHTML = cats.length ? cats.map(([name,val])=>
+    `<div class="row"><span class="name">${esc(name)}</span><span class="val">${fmt(val)}</span></div>`).join("")
+    : `<div class="row"><span class="name">No spending logged yet.</span></div>`;
+
+  const exps = topExpensesOf(mk, 5);
+  document.getElementById("topExpenses").innerHTML = exps.length ? exps.map(t=>
+    `<div class="row"><span class="name">${esc(t.category)}${t.note?" · "+esc(t.note):""}</span><span class="val">${fmt(t.amount)}</span></div>`).join("")
+    : `<div class="row"><span class="name">No expenses logged yet.</span></div>`;
+}
+
+function renderTrendChart(){
+  const months = monthsList(12);
+  const values = months.map(mk => sumBy(txForMonth(mk),"Expense"));
+  const max = Math.max(1, ...values);
+  const w = 1000, h = 220, pad = 20;
+  const stepX = (w-2*pad) / (months.length-1 || 1);
+  const pts = values.map((v,i)=>{
+    const x = pad + i*stepX;
+    const y = h-pad - (v/max)*(h-2*pad);
+    return [x,y];
+  });
+  const line = pts.map(([x,y],i)=> (i===0?"M":"L")+x.toFixed(1)+","+y.toFixed(1)).join(" ");
+  const area = line + ` L${pts[pts.length-1][0].toFixed(1)},${h-pad} L${pts[0][0].toFixed(1)},${h-pad} Z`;
+  const last = pts[pts.length-1];
+  const svg = `<div class="trend-chart"><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+      <path class="area" d="${area}"></path>
+      <path class="line" d="${line}"></path>
+      <circle class="dot" cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="4"></circle>
+    </svg></div>
+    <div class="trend-labels">${months.map(mk=>`<span>${monthShortLabel(mk)}</span>`).join("")}</div>`;
+  document.getElementById("trendCard").innerHTML = svg;
+}
+
+function renderCategoryMatrix(){
+  const months = monthsList(6);
+  const rows = state.categories.map(c=>{
+    const vals = months.map(mk => categoryActuals(mk)[c.name] || 0);
+    const total = vals.reduce((s,v)=>s+v,0);
+    return {name:c.name, vals, total};
+  });
+  let html = `<table class="data-table"><thead><tr><th>Category</th>${months.map(mk=>`<th class="num">${monthShortLabel(mk)}</th>`).join("")}<th class="num">Total</th></tr></thead><tbody>`;
+  html += rows.map(r=>`<tr><td>${esc(r.name)}</td>${r.vals.map(v=>`<td class="num">${v>0?fmt(v):"—"}</td>`).join("")}<td class="num" style="font-weight:700;">${fmt(r.total)}</td></tr>`).join("");
+  html += `</tbody></table>`;
+  document.getElementById("categoryMatrix").innerHTML = rows.length ? html : `<div class="empty-state">No categories yet.</div>`;
+}
+
+function renderNetWorth(){
+  const { assets, liabilities, netWorth: nw } = netWorth();
+  const rows = [
+    ["Total Assets", fmt(assets)],
+    ["Total Liabilities", fmt(liabilities)],
+    ["Net Worth", fmt(nw)],
+  ];
+  document.getElementById("netWorthStats").innerHTML = rows.map(([name,val])=>
+    `<div class="row"><span class="name">${name}</span><span class="val">${val}</span></div>`).join("");
+}
+
+function renderAccountsTable(){
+  const rows = accountRows();
+  const body = document.getElementById("acctTableBody");
+  body.innerHTML = rows.map(a=>{
+    const linked = accountHasLinkedDebt(a.id);
+    const startCell = linked
+      ? `${fmt(a.startingBalance)} <span class="kpi-micro">(set from Debt page)</span>`
+      : `<span class="currency-field"><input class="inline-edit" type="number" step="0.01" value="${a.startingBalance||0}" data-acct-start="${a.id}" aria-label="Starting balance for ${esc(a.name)}"></span>`;
+    const deleteCell = linked ? `<span class="kpi-micro">Linked to a debt</span>` : `<button class="btn-danger-text" data-del-acct="${a.id}">Delete</button>`;
+    return `<tr>
+      <td>${esc(a.name)}</td><td>${esc(a.type)}</td><td><span class="badge ${a.kind==='asset'?'ok':'watch'}">${a.kind==='asset'?'Asset':'Liability'}</span></td>
+      <td class="num">${startCell}</td>
+      <td class="num" style="font-weight:700;">${fmt(a.balance)}</td>
+      <td>${deleteCell}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="6" style="color:var(--color-text-secondary);">No accounts yet.</td></tr>`;
+}
+
+function renderReportsView(){ renderMonthlyReview(); renderMonthReview(); renderTopLists(); renderTrendChart(); renderCategoryMatrix(); renderNetWorth(); renderAccountsTable(); }
+
+/* ==========================================================================
+   EVENTS
+   ========================================================================== */
+function renderAll(){ populateMonthSelect(); renderDashboard(); renderTransactionsView(); renderBudgetView(); renderDebtView(); renderGoalsView(); renderReportsView(); }
+
+/* Render-on-navigate, not render-on-every-mutation: a state change (debt
+   strategy, a new transaction, an account edit) only has to update the
+   view the user is currently looking at - every OTHER view is guaranteed
+   fresh the moment it becomes visible, because activateView() always
+   re-derives it from current state right here, not from whatever DOM was
+   last left behind. This is the single navigation entry point - sidebar
+   buttons, every [data-goto] link ("View breakdown", "View all"), and any
+   future programmatic navigation all route through it, so there is no
+   second place that can show a view without also rendering it. Fixes a
+   real stale-DOM bug found via testing (2026-08-10): switching Debt's
+   payoff strategy then navigating to Reports via the sidebar showed
+   Reports' last-rendered (pre-switch) recommendation ranking, because the
+   old nav handler only toggled CSS visibility. */
+const VIEW_RENDERERS = {
+  dashboard: renderDashboard,
+  transactions: renderTransactionsView,
+  budget: renderBudgetView,
+  debt: renderDebtView,
+  goals: renderGoalsView,
+  reports: renderReportsView,
+};
+function renderView(viewName){
+  const renderer = VIEW_RENDERERS[viewName];
+  if(renderer) renderer();
+}
+function activateView(viewName){
+  document.querySelectorAll("#mainNav button").forEach(b=>b.classList.toggle("active", b.dataset.view===viewName));
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  document.getElementById("view-"+viewName).classList.add("active");
+  renderView(viewName);
+}
+
+document.getElementById("mainNav").addEventListener("click", (e)=>{
+  const btn = e.target.closest("button[data-view]");
+  if(!btn) return;
+  activateView(btn.dataset.view);
+});
+document.querySelectorAll("[data-goto]").forEach(a=>{
+  a.addEventListener("click",(e)=>{ e.preventDefault(); activateView(a.dataset.goto); });
+});
+
+/* Add Debt/Category/Goal fields keep whatever was typed after a failed
+   submit (so a correction doesn't lose the rest of the entry) - but that
+   meant clicking back into an already-filled field and typing again just
+   appended onto the stale text instead of replacing it (Maya QA finding,
+   P3, e.g. "Test Bad DTest Bad"). Selecting the existing text on focus
+   means the very next keystroke replaces it, matching how a spreadsheet
+   cell behaves. */
+document.querySelectorAll(".select-on-focus").forEach(input=>{
+  input.addEventListener("focus", ()=> input.select());
+});
+
+document.getElementById("monthSelect").addEventListener("change", (e)=>{ state.selectedMonth = e.target.value; saveState(); renderAll(); });
+
+document.getElementById("addTxBtn").addEventListener("click", ()=>{
+  const date = document.getElementById("txDate").value || todayISO();
+  const type = document.getElementById("txType").value;
+  let amount = parseFloat(document.getElementById("txAmount").value);
+  const note = document.getElementById("txNote").value.trim();
+  if(!amount || amount<=0){ setNote("txFormNote", "Enter an amount greater than 0.", "error"); return; }
+  let category, targetId = null, accountId = null, sourceAccountId = null, postNote = null;
+  if(type === "Debt Payment"){
+    const d = state.debts.find(x=>x.id===document.getElementById("txCategory").value);
+    if(!d){ setNote("txFormNote", "Add a debt first (Debt page).", "error"); return; }
+    const balance = computeDebtBalance(d);
+    if(balance<=0){ setNote("txFormNote", `${d.name} is already paid off.`, "error"); return; }
+    if(amount > balance){ postNote = `Capped at ${fmt(balance)} — that's ${d.name}'s remaining balance.`; amount = balance; }
+    // The money paying down this debt has to come FROM a real asset
+    // account, resolved/created the same way Expense/Income resolve
+    // theirs - without this, a debt payment reduced what's owed but never
+    // touched any asset balance, so Net Worth rose with every payment
+    // instead of staying flat (a real P0, found live by a second AI's
+    // code review, 2026-08-10, that survived two full Inspector-Standing
+    // audits since neither specifically checked that Net Worth stays flat
+    // across a debt payment).
+    const acctVal = document.getElementById("txAccount").value;
+    if(acctVal === NEW_ACCOUNT_VALUE){
+      const newAcctName = document.getElementById("txNewAcctName").value.trim();
+      if(!newAcctName){ setNote("txFormNote", "Enter a name for the account you're paying from.", "error"); return; }
+      if(state.accounts.some(a=>a.name.toLowerCase()===newAcctName.toLowerCase())){ setNote("txFormNote", "That account already exists — pick it from the list.", "error"); return; }
+      const acct = {id:uid(), name:newAcctName, type:"Checking", kind:"asset", startingBalance:0};
+      state.accounts.push(acct);
+      sourceAccountId = acct.id;
+    } else {
+      const acct = state.accounts.find(a=>a.id===acctVal);
+      if(!acct){ setNote("txFormNote", "Choose which account you're paying from.", "error"); return; }
+      sourceAccountId = acct.id;
+    }
+    category = d.name; targetId = d.id; accountId = d.accountId;
+  } else if(type === "Goal Contribution"){
+    const g = state.goals.find(x=>x.id===document.getElementById("txCategory").value);
+    if(!g){ setNote("txFormNote", "Add a goal first (Goals page).", "error"); return; }
+    const saved = computeGoalSaved(g);
+    if(g.target>0 && saved<g.target && saved+amount>g.target){
+      postNote = `Goal reached — ${g.name} is now ${fmt(saved+amount-g.target)} over its ${fmt(g.target)} target.`;
+    }
+    category = g.name; targetId = g.id;
+  } else {
+    // Expense and Income both need a real account - resolve or create it
+    // the same way Expense resolves/creates a category (existing option,
+    // or the "+ Add new..." inline path).
+    const acctVal = document.getElementById("txAccount").value;
+    if(acctVal === NEW_ACCOUNT_VALUE){
+      const newAcctName = document.getElementById("txNewAcctName").value.trim();
+      if(!newAcctName){ setNote("txFormNote", "Enter a name for the new account.", "error"); return; }
+      if(state.accounts.some(a=>a.name.toLowerCase()===newAcctName.toLowerCase())){ setNote("txFormNote", "That account already exists — pick it from the list.", "error"); return; }
+      const acct = {id:uid(), name:newAcctName, type:"Checking", kind:"asset", startingBalance:0};
+      state.accounts.push(acct);
+      accountId = acct.id;
+    } else {
+      const acct = state.accounts.find(a=>a.id===acctVal);
+      if(!acct){ setNote("txFormNote", "Choose or add an account.", "error"); return; }
+      accountId = acct.id;
+    }
+    if(type === "Expense"){
+      const catVal = document.getElementById("txCategory").value;
+      if(catVal === NEW_CATEGORY_VALUE){
+        const newName = document.getElementById("txNewCatName").value.trim();
+        if(!newName){ setNote("txFormNote", "Enter a name for the new category.", "error"); return; }
+        if(state.categories.some(c=>c.name.toLowerCase()===newName.toLowerCase())){ setNote("txFormNote", "That category already exists — pick it from the list.", "error"); return; }
+        state.categories.push({id:uid(), name:newName, group:"Other", budget:0});
+        category = newName;
+      } else {
+        category = catVal;
+      }
+    } else {
+      category = document.getElementById("txCategory").value;
+    }
+  }
+  state.transactions.push({id:uid(), date, type, category, targetId, accountId, sourceAccountId, amount, note});
+  document.getElementById("txAmount").value = ""; document.getElementById("txNote").value = "";
+  document.getElementById("txNewCatName").value = ""; document.getElementById("txNewAcctName").value = "";
+  saveState(); renderAll();
+  if(postNote) setNote("txFormNote", postNote, "info");
+});
+
+document.getElementById("allTxBody").addEventListener("click",(e)=>{
+  const btn = e.target.closest("[data-del-tx]"); if(!btn) return;
+  state.transactions = state.transactions.filter(t=>t.id!==btn.dataset.delTx);
+  saveState(); renderAll();
+});
+
+document.getElementById("addCatBtn").addEventListener("click", ()=>{
+  const name = document.getElementById("catName").value.trim();
+  const group = document.getElementById("catGroup").value.trim() || "Other";
+  const budget = parseFloat(document.getElementById("catBudget").value) || 0;
+  if(!name){ setNote("catFormNote", "Give the category a name.", "error"); return; }
+  if(budget<0){ setNote("catFormNote", "Budget can't be negative.", "error"); return; }
+  if(state.categories.some(c=>c.name.toLowerCase()===name.toLowerCase())){ setNote("catFormNote", "That category already exists.", "error"); return; }
+  state.categories.push({id:uid(), name, group, budget});
+  document.getElementById("catName").value = ""; document.getElementById("catGroup").value = ""; document.getElementById("catBudget").value = "";
+  saveState(); renderAll();
+});
+
+document.getElementById("catTableBody").addEventListener("click", async (e)=>{
+  const btn = e.target.closest("[data-del-cat]"); if(!btn) return;
+  const cat = state.categories.find(c=>c.id===btn.dataset.delCat); if(!cat) return;
+  // Unlike Debt/Goal/Account, a category is a plain string on each
+  // transaction (not an id reference) - deleting it can't corrupt or
+  // orphan anything, but it DOES make the same real spending disagree
+  // across screens: Dashboard/Reports read straight from transactions
+  // (still shows it) while Budget/Category Matrix iterate state.categories
+  // (stops showing it) - a real trust problem a silent one-click delete
+  // made worse by having no warning at all, unlike its three siblings
+  // (found live by an independent Inspector-Standing review, 2026-08-10).
+  const linked = state.transactions.filter(t=>t.category===cat.name);
+  if(linked.length){
+    const total = linked.reduce((s,t)=>s+Number(t.amount||0),0);
+    const ok = await confirmModal(
+      `This category has ${linked.length} logged transaction(s) totaling ${fmt(total)}. They'll stay in your history under "${cat.name}", but this category will no longer appear in Budget or the Category Matrix.`,
+      {title:"Delete this category?", confirmText:"Delete category"}
+    );
+    if(!ok) return;
+  }
+  state.categories = state.categories.filter(c=>c.id!==btn.dataset.delCat);
+  saveState(); renderAll();
+});
+
+/* ---- Debt events ---- */
+/* Credit limit only means anything for a Credit Card - shown/hidden the
+   same way the New Category/Account fields toggle, not a permanent extra
+   field every debt type has to carry. */
+function toggleDebtCreditLimitField(){
+  const type = document.getElementById("debtType").value;
+  document.getElementById("debtCreditLimitField").style.display = type==="Credit Card" ? "" : "none";
+}
+document.getElementById("debtType").addEventListener("change", toggleDebtCreditLimitField);
+toggleDebtCreditLimitField();
+
+document.getElementById("addDebtBtn").addEventListener("click", ()=>{
+  const name = document.getElementById("debtName").value.trim();
+  const type = document.getElementById("debtType").value;
+  const startBalance = parseFloat(document.getElementById("debtBalance").value) || 0;
+  const creditLimit = type==="Credit Card" ? (parseFloat(document.getElementById("debtCreditLimit").value) || 0) : 0;
+  const apr = parseFloat(document.getElementById("debtApr").value) || 0;
+  const minPayment = parseFloat(document.getElementById("debtMin").value) || 0;
+  if(!name){ setNote("debtFormNote", "Give the debt a name.", "error"); return; }
+  // Category/Account creation already guard against this at every entry
+  // point; Debt/Goal were the two missing it (found live by an
+  // independent Inspector-Standing review, 2026-08-10) - two same-named
+  // debts/goals are indistinguishable in the Transactions "Debt
+  // Payment"/"Goal Contribution" picker, a real path to a misdirected
+  // payment, not just a cosmetic duplicate.
+  if(state.debts.some(d=>d.name.toLowerCase()===name.toLowerCase())){ setNote("debtFormNote", "A debt with that name already exists.", "error"); return; }
+  if(startBalance<0 || creditLimit<0 || apr<0 || minPayment<0){ setNote("debtFormNote", "Enter values of 0 or more.", "error"); return; }
+  // Every debt owns exactly one liability account - created transparently
+  // here so the Add Debt form itself never has to mention "accounts" at
+  // all. "Current balance" the user just typed becomes that account's
+  // starting balance directly.
+  const acct = {id:uid(), name, type: type==="Credit Card" ? "Credit Card" : "Other", kind:"liability", startingBalance:startBalance};
+  state.accounts.push(acct);
+  state.debts.push({id:uid(), name, type, apr, minPayment, creditLimit: creditLimit||null, accountId:acct.id});
+  document.getElementById("debtName").value = ""; document.getElementById("debtBalance").value = "";
+  document.getElementById("debtCreditLimit").value = "";
+  document.getElementById("debtApr").value = ""; document.getElementById("debtMin").value = "";
+  saveState(); renderAll();
+});
+document.getElementById("debtTableBody").addEventListener("click", async (e)=>{
+  const btn = e.target.closest("[data-del-debt]"); if(!btn) return;
+  const id = btn.dataset.delDebt;
+  const dbt = state.debts.find(d=>d.id===id); if(!dbt) return;
+  const linked = state.transactions.filter(t=>t.type==="Debt Payment" && t.targetId===id);
+  if(linked.length){
+    const total = linked.reduce((s,t)=>s+Number(t.amount||0),0);
+    const ok = await confirmModal(
+      `This debt has ${linked.length} logged payment(s) totaling ${fmt(total)}. Deleting it will also delete those transactions from your history.`,
+      {title:"Delete this debt?", confirmText:"Delete debt"}
+    );
+    if(!ok) return;
+    state.transactions = state.transactions.filter(t=>!(t.type==="Debt Payment" && t.targetId===id));
+  }
+  state.debts = state.debts.filter(d=>d.id!==id);
+  // The linked liability account was auto-created solely for this debt (1:1,
+  // never independently managed) - it leaves with the debt, no orphan account.
+  state.accounts = state.accounts.filter(a=>a.id!==dbt.accountId);
+  saveState(); renderAll();
+});
+document.getElementById("debtTableBody").addEventListener("change",(e)=>{
+  const startInput = e.target.closest("[data-debt-start]");
+  if(startInput){
+    const acct = state.accounts.find(a=>a.id===startInput.dataset.debtStart); if(!acct) return;
+    // Math.max(0,...), not just || 0 - a negative typed value is truthy
+    // and would otherwise sail straight through (found alongside the
+    // credit-limit sibling of this exact bug, 2026-08-10).
+    acct.startingBalance = Math.max(0, parseFloat(startInput.value) || 0);
+    saveState(); renderDebtView(); renderDashboard();
+    return;
+  }
+  const limitInput = e.target.closest("[data-debt-credit-limit]");
+  if(limitInput){
+    const dbt = state.debts.find(d=>d.id===limitInput.dataset.debtCreditLimit); if(!dbt) return;
+    // Same fix as startInput above - a bug found by ChatGPT's code review
+    // (2026-08-10): the Add Debt form rejects a negative credit limit,
+    // but this inline-edit path only had `|| 0`, which a real negative
+    // number sails straight through (it's truthy).
+    dbt.creditLimit = Math.max(0, parseFloat(limitInput.value) || 0);
+    saveState(); renderDebtView(); renderDashboard();
+  }
+});
+document.getElementById("debtCards").addEventListener("click",(e)=>{
+  const btn = e.target.closest("[data-pay-debt]"); if(!btn) return;
+  const d = state.debts.find(d=>d.id===btn.dataset.payDebt); if(!d) return;
+  const input = document.getElementById(`payAmt-${d.id}`);
+  const noteId = `payNote-${d.id}`;
+  let amt = parseFloat(input.value) || 0;
+  if(amt<=0){ setNote(noteId, "Enter an amount greater than 0.", "error"); return; }
+  const balance = computeDebtBalance(d);
+  if(balance<=0){ setNote(noteId, `${d.name} is already paid off.`, "error"); return; }
+  let postNote = null;
+  if(amt > balance){ postNote = `Capped at ${fmt(balance)} — that's the remaining balance.`; amt = balance; }
+  // This quick action has no room for an account picker the way Quick
+  // Entry does - safe to auto-pick the account when there's exactly one
+  // real asset account (the common case), but with 2+ it's a real choice
+  // this card can't make for the user, so send them to Transactions
+  // instead of silently guessing which account the money came from (the
+  // guess-wrong version of this was the original P0: no source account
+  // tracked at all, found live by a second AI's code review, 2026-08-10).
+  const assetAccounts = state.accounts.filter(a=>a.kind==="asset");
+  if(assetAccounts.length !== 1){
+    setNote(noteId, "Log this from Transactions instead — pick which account it's coming from there.", "error");
+    return;
+  }
+  state.transactions.push({id:uid(), date:todayISO(), type:"Debt Payment", category:d.name, targetId:d.id, accountId:d.accountId, sourceAccountId:assetAccounts[0].id, amount:amt, note:"Payment"});
+  saveState(); renderAll();
+  if(postNote) setNote(noteId, postNote, "info");
+});
+document.getElementById("debtStrategyToggle").addEventListener("click",(e)=>{
+  const btn = e.target.closest("[data-strategy]"); if(!btn) return;
+  state.settings.debtStrategy = btn.dataset.strategy;
+  saveState(); renderDebtView();
+});
+
+/* ---- Goals events ---- */
+document.getElementById("addGoalBtn").addEventListener("click", ()=>{
+  const name = document.getElementById("goalName").value.trim();
+  const target = parseFloat(document.getElementById("goalTarget").value) || 0;
+  const startDate = document.getElementById("goalStart").value || todayISO();
+  const targetDate = document.getElementById("goalTargetDate").value;
+  const startingSaved = parseFloat(document.getElementById("goalSaved").value) || 0;
+  if(!name){ setNote("goalFormNote", "Give the goal a name.", "error"); return; }
+  if(state.goals.some(g=>g.name.toLowerCase()===name.toLowerCase())){ setNote("goalFormNote", "A goal with that name already exists.", "error"); return; }
+  if(!targetDate){ setNote("goalFormNote", "Set a target date.", "error"); return; }
+  if(target<0 || startingSaved<0){ setNote("goalFormNote", "Enter values of 0 or more.", "error"); return; }
+  state.goals.push({id:uid(), name, target, startDate, targetDate, startingSaved});
+  document.getElementById("goalName").value = ""; document.getElementById("goalTarget").value = "";
+  document.getElementById("goalTargetDate").value = ""; document.getElementById("goalSaved").value = "";
+  saveState(); renderGoalsView(); renderDashboard();
+});
+document.getElementById("goalTableBody").addEventListener("click", async (e)=>{
+  const btn = e.target.closest("[data-del-goal]"); if(!btn) return;
+  const id = btn.dataset.delGoal;
+  const linked = state.transactions.filter(t=>t.type==="Goal Contribution" && t.targetId===id);
+  if(linked.length){
+    const total = linked.reduce((s,t)=>s+Number(t.amount||0),0);
+    const ok = await confirmModal(
+      `This goal has ${linked.length} logged contribution(s) totaling ${fmt(total)}. Deleting it will also delete those transactions from your history.`,
+      {title:"Delete this goal?", confirmText:"Delete goal"}
+    );
+    if(!ok) return;
+    state.transactions = state.transactions.filter(t=>!(t.type==="Goal Contribution" && t.targetId===id));
+  }
+  state.goals = state.goals.filter(g=>g.id!==id);
+  saveState(); renderAll();
+});
+document.getElementById("goalTableBody").addEventListener("change",(e)=>{
+  const input = e.target.closest("[data-goal-starting]"); if(!input) return;
+  const g = state.goals.find(g=>g.id===input.dataset.goalStarting); if(!g) return;
+  // Same missing-guard bug as debt Starting Balance/Credit Limit, found by
+  // self-auditing every parseFloat(...)||0 inline-edit site in the file
+  // (2026-08-10) instead of waiting for a 3rd external report of it.
+  g.startingSaved = Math.max(0, parseFloat(input.value) || 0);
+  saveState(); renderGoalsView(); renderDashboard();
+});
+document.getElementById("goalCards").addEventListener("click",(e)=>{
+  const btn = e.target.closest("[data-contribute]"); if(!btn) return;
+  const g = state.goals.find(g=>g.id===btn.dataset.contribute); if(!g) return;
+  const input = document.getElementById(`contribAmt-${g.id}`);
+  const noteId = `contribNote-${g.id}`;
+  const amt = parseFloat(input.value) || 0;
+  if(amt<=0){ setNote(noteId, "Enter an amount greater than 0.", "error"); return; }
+  const saved = computeGoalSaved(g);
+  let postNote = null;
+  if(g.target>0 && saved<g.target && saved+amt>g.target){
+    postNote = `Goal reached — you're now ${fmt(saved+amt-g.target)} over your ${fmt(g.target)} target.`;
+  }
+  state.transactions.push({id:uid(), date:todayISO(), type:"Goal Contribution", category:g.name, targetId:g.id, amount:amt, note:"Contribution"});
+  saveState(); renderAll();
+  if(postNote) setNote(noteId, postNote, "success");
+});
+
+/* ---- Accounts events (Reports > Manage Accounts) ---- */
+document.getElementById("addAcctBtn").addEventListener("click", ()=>{
+  const name = document.getElementById("acctName").value.trim();
+  const type = document.getElementById("acctType").value;
+  const startingBalance = parseFloat(document.getElementById("acctBalance").value) || 0;
+  if(!name){ setNote("acctFormNote", "Give the account a name.", "error"); return; }
+  // The one creation form in the file missing this guard - every sibling
+  // (Add Debt/Goal/Category, and this same field's own inline-edit
+  // counterpart) already rejects a negative value. A negative starting
+  // balance here silently corrupted Net Worth with no floor and no
+  // warning (found by an independent Inspector-Standing review, 2026-08-10).
+  if(startingBalance<0){ setNote("acctFormNote", "Starting balance can't be negative.", "error"); return; }
+  if(state.accounts.some(a=>a.name.toLowerCase()===name.toLowerCase())){ setNote("acctFormNote", "An account with that name already exists.", "error"); return; }
+  const kind = ACCOUNT_LIABILITY_TYPES.includes(type) ? "liability" : "asset";
+  state.accounts.push({id:uid(), name, type, kind, startingBalance});
+  document.getElementById("acctName").value = ""; document.getElementById("acctBalance").value = "";
+  saveState(); renderReportsView();
+});
+document.getElementById("acctTableBody").addEventListener("click", async (e)=>{
+  const btn = e.target.closest("[data-del-acct]"); if(!btn) return;
+  const id = btn.dataset.delAcct;
+  if(accountHasLinkedDebt(id)){ setNote("acctFormNote", "This account is linked to a debt — delete the debt instead (Debt page).", "error"); return; }
+  // sourceAccountId is the asset side of a Debt Payment's two-sided entry
+  // (see accountBalanceThrough()) - deleting or reassigning it would rewrite
+  // financial history and silently inflate historical/current Net Worth, so
+  // this is a hard block, never a cascade-delete or a guessed reassignment.
+  const sourceTransactions = state.transactions.filter(t=>t.sourceAccountId===id);
+  if(sourceTransactions.length){
+    const total = sourceTransactions.reduce((sum,t)=>sum+Number(t.amount||0),0);
+    setNote("acctFormNote", `This account is used as the source for ${sourceTransactions.length} debt payment(s) totaling ${fmt(total)}. Those payments must keep their original source account to preserve Net Worth history.`, "error");
+    return;
+  }
+  const linked = state.transactions.filter(t=>t.accountId===id);
+  if(linked.length){
+    const ok = await confirmModal(
+      `This account has ${linked.length} transaction(s) posted to it. Deleting it will also delete those transactions from your history.`,
+      {title:"Delete this account?", confirmText:"Delete account"}
+    );
+    if(!ok) return;
+    state.transactions = state.transactions.filter(t=>t.accountId!==id);
+  }
+  state.accounts = state.accounts.filter(a=>a.id!==id);
+  saveState(); renderAll();
+});
+document.getElementById("acctTableBody").addEventListener("change",(e)=>{
+  const input = e.target.closest("[data-acct-start]"); if(!input) return;
+  const acct = state.accounts.find(a=>a.id===input.dataset.acctStart); if(!acct) return;
+  // Same missing-guard bug as the debt-side inline edits - found in the
+  // same self-audit pass, not reported.
+  acct.startingBalance = Math.max(0, parseFloat(input.value) || 0);
+  saveState(); renderReportsView(); renderDashboard();
+});
+
+/* ---- Theme toggle ---- */
+/* Applies every persisted display setting (theme + currency) to the DOM -
+   kept as one function, called from the same 4 places theme alone used
+   to be (toggle, import, start fresh, init), so a new setting never needs
+   its own separate wiring at every one of those call sites. */
+function applyTheme(){
+  document.documentElement.setAttribute("data-theme", state.settings.theme);
+  document.getElementById("themeIcon").outerHTML = state.settings.theme==="dark"
+    ? ICONS.sun.replace('class="icon"','class="icon" id="themeIcon"')
+    : ICONS.moon.replace('class="icon"','class="icon" id="themeIcon"');
+  document.querySelector('#themeToggle .label').textContent = state.settings.theme==="dark" ? "Light mode" : "Dark mode";
+  document.documentElement.style.setProperty("--currency-symbol", `"${currencySymbol()}"`);
+  populateCurrencySelect();
+}
+function populateCurrencySelect(){
+  const sel = document.getElementById("currencySelect");
+  if(document.activeElement === sel) return; // don't yank the dropdown out from under an open selection
+  sel.innerHTML = "";
+  CURRENCIES.forEach(c=>{
+    const opt = el("option", null, c.label); opt.value = c.code;
+    if(c.code === ((state.settings && state.settings.currency) || "USD")) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+document.getElementById("currencySelect").addEventListener("change", (e)=>{
+  state.settings.currency = e.target.value;
+  saveState(); applyTheme(); renderAll();
+});
+document.getElementById("themeToggle").addEventListener("click", ()=>{
+  state.settings.theme = state.settings.theme==="dark" ? "light" : "dark";
+  saveState(); applyTheme();
+});
+
+/* ---- Export / Import ---- */
+document.getElementById("exportBtn").addEventListener("click", ()=>{
+  const blob = new Blob([JSON.stringify(state,null,2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a"); a.href = url; a.download = `finance-os-backup-${todayISO()}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+});
+document.getElementById("importBtn").addEventListener("click", ()=> document.getElementById("importFile").click());
+document.getElementById("importFile").addEventListener("change", (e)=>{
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    // saveState() (writes to disk) must be the LAST thing that happens,
+    // only once parsing, shape-checking, migration, AND a real render have
+    // ALL succeeded. The previous version of this comment claimed exactly
+    // that but the code didn't actually do it - saveState() ran BEFORE
+    // renderAll(), so a file that parsed as JSON and passed the shallow
+    // shape check but broke a later render (e.g. a transaction with no
+    // .date, which transaction-sort code dereferences) had ALREADY been
+    // written to disk by the time the render threw. The in-memory `state`
+    // got rolled back by the catch block below, but disk didn't - the next
+    // reload silently restored the corrupted data, with the on-screen
+    // "This doesn't look like a valid backup" message implying nothing had
+    // changed. Found live (not just by reading code) by an independent
+    // Inspector-Standing review, 2026-08-10, using exactly that kind of
+    // file - a real, realistic failure mode for a hand-edited or partially
+    // corrupted backup, not a hypothetical.
+    const previousState = state;
+    try{
+      const parsed = JSON.parse(reader.result);
+      if(!parsed || typeof parsed !== "object") throw new Error("shape");
+      if(!Array.isArray(parsed.categories) || !Array.isArray(parsed.transactions)) throw new Error("shape");
+      state = parsed;
+      migrateState();
+      applyTheme();
+      renderAll(); // must succeed before ANYTHING is persisted
+      saveState(); // only reached once every step above has actually succeeded
+      setNote("importNote", "Backup imported successfully.", "success");
+    }catch(err){
+      state = previousState;
+      // renderAll() above may have thrown partway through, leaving some
+      // views showing fragments of the bad parsed data - re-render from
+      // the restored state so the screen, not just memory, is genuinely
+      // back to where it was before the import was attempted.
+      applyTheme();
+      renderAll();
+      // Both a raw JSON syntax error and a wrong-shape/broken-content file
+      // land here - a non-technical buyer doesn't need to see "Expected
+      // property name or '}' in JSON at position 1", just that the file
+      // isn't a real backup.
+      setNote("importNote", "This doesn't look like a valid Finance OS backup file.", "error");
+    }
+  };
+  reader.readAsText(file); e.target.value = "";
+});
+
+/* ---- Start fresh (clear demo data) ----
+   A real buyer's first-run experience ships pre-populated with sample
+   categories/transactions/debts/goals so the product is understandable
+   immediately - but there was no in-app way to clear that demo data and
+   start entering real numbers (the only path was manually clearing
+   localStorage via devtools, not realistic for a non-technical customer).
+   confirmModal() is used deliberately here, same as the debt/goal cascade-
+   delete - a genuinely destructive, hard-to-reverse action still needs a
+   real confirmation, just not a native OS dialog (see confirmModal() above). */
+document.getElementById("resetBtn").addEventListener("click", async ()=>{
+  const ok = await confirmModal(
+    "This permanently deletes everything - all categories, transactions, debts, and goals - and starts you with a completely empty budget. Export a backup first if you want to keep anything.",
+    {title:"Start fresh?", confirmText:"Delete everything"}
+  );
+  if(!ok) return;
+  state = {
+    settings: {theme: state.settings.theme, currency: state.settings.currency, debtStrategy: "Snowball"},
+    categories: [], transactions: [], debts: [], goals: [], accounts: [],
+    dismissedActions: [], selectedMonth: monthKeyOf(todayISO())
+  };
+  saveState(); applyTheme(); renderAll();
+  setNote("resetNote", "All set — starting fresh.", "success");
+});
+
+/* ==========================================================================
+   INIT
+   ========================================================================== */
+migrateState();
+applyTheme();
+renderAll();
+saveState();
+
+})();
+</script>
+</body>
+</html>
