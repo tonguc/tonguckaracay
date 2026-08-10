@@ -66,7 +66,7 @@ export default function ProductsPage({ params: { locale } }: Props) {
                 </span>
               </div>
               <div className="pointer-events-none">
-                <LaptopMockup src="/products/finance-os/mockup-hero.png" alt="Finance OS Dashboard" width={1053} height={559} />
+                <LaptopMockup src="/products/finance-os/mockup-hero.png" alt="Finance OS Dashboard" width={1180} height={660} />
               </div>
             </div>
           </Link>

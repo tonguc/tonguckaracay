@@ -28,6 +28,7 @@ const rows = [
     body: "Action Center, ayın en önemli 3 şeyini önceliğine göre sıralar — bütçeyi aşan bir kategori, borcu aylar önce kapatacak ekstra bir ödeme, ya da sadece iyi gittiğinin onayı. Rozet yok, oyunlaştırma yok — sadece net bir sonraki adım.",
     points: ["Otomatik önceliklendirme", "Rakamları yorumlar, sadece göstermez"],
     img: "/products/finance-os/mockup-action-center.png",
+    imgW: 1455, imgH: 814,
   },
   {
     eyebrow: "BORÇ ÖDEME PLANI",
@@ -35,6 +36,7 @@ const rows = [
     body: "Snowball veya Avalanche stratejisiyle otomatik ödeme sırası, gerçek APR'a dayalı tahmini borçtan kurtulma tarihi, kredi kartı limit kullanımı — hepsi otomatik hesaplanır. Elle takip yok, tahmin yok.",
     points: ["Gerçek APR bileşik faiz hesabı", "Birden fazla borç, otomatik sıralama"],
     img: "/products/finance-os/mockup-debt.png",
+    imgW: 1180, imgH: 660,
   },
   {
     eyebrow: "AYLIK DEĞERLENDİRME",
@@ -42,6 +44,7 @@ const rows = [
     body: "Aylık Değerlendirme, o ay gerçekten ne olduğunu anlatır — harcama plana uydu mu, borç azaldı mı, hedefler ilerledi mi. Hiçbir rakip üründe bu yok; sadece sayı göstermek yerine, o sayının ne anlama geldiğini söyler.",
     points: ["\"Bu ay tek bir şey yapacaksan\" önerisi", "Gelecek ay için somut hedef"],
     img: "/products/finance-os/mockup-review.png",
+    imgW: 1180, imgH: 660,
   },
 ];
 
@@ -115,7 +118,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <LaptopMockup src="/products/finance-os/mockup-hero.png" alt="Finance OS Dashboard - Safe to Spend, Cash Flow, Net Worth" width={1053} height={559} priority />
+            <LaptopMockup src="/products/finance-os/mockup-hero.png" alt="Finance OS Dashboard - Safe to Spend, Cash Flow, Net Worth" width={1180} height={660} priority />
           </div>
         </div>
       </section>
@@ -126,7 +129,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
           {rows.map((row, i) => (
             <div key={row.title} className="grid lg:grid-cols-2 gap-12 items-center">
               <div className={i % 2 === 1 ? "lg:order-2" : ""}>
-                <LaptopMockup src={row.img} alt={row.title} width={1053} height={559} />
+                <LaptopMockup src={row.img} alt={row.title} width={row.imgW} height={row.imgH} />
               </div>
               <div className={i % 2 === 1 ? "lg:order-1" : ""}>
                 <span className="text-accent-400 text-sm font-semibold tracking-wide">{row.eyebrow}</span>

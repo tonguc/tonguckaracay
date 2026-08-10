@@ -28,6 +28,7 @@ const rows = [
     body: "The Action Center ranks the month's top 3 things by priority - a category running over budget, an extra payment that clears a debt months sooner, or just confirmation you're on pace. No badges, no streaks - just a clear next step.",
     points: ["Automatic prioritization", "Interprets the numbers, doesn't just display them"],
     img: "/products/finance-os/mockup-action-center.png",
+    imgW: 1455, imgH: 814,
   },
   {
     eyebrow: "DEBT PAYOFF PLAN",
@@ -35,6 +36,7 @@ const rows = [
     body: "Automatic Snowball or Avalanche payoff order, a real APR-based debt-free date estimate, and credit-limit utilization tracking - all calculated automatically. No manual tracking, no guessing.",
     points: ["Real compound-interest APR math", "Multiple debts, ranked automatically"],
     img: "/products/finance-os/mockup-debt.png",
+    imgW: 1180, imgH: 660,
   },
   {
     eyebrow: "MONTHLY REVIEW",
@@ -42,6 +44,7 @@ const rows = [
     body: "The Monthly Review explains what happened that month - did spending stay on plan, did debt go down, did goals move forward. No competitor product does this - it doesn't just show a number, it tells you what it means.",
     points: ["\"If you only do one thing\" recommendation", "A concrete target for next month"],
     img: "/products/finance-os/mockup-review.png",
+    imgW: 1180, imgH: 660,
   },
 ];
 
@@ -115,7 +118,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <LaptopMockup src="/products/finance-os/mockup-hero.png" alt="Finance OS Dashboard - Safe to Spend, Cash Flow, Net Worth" width={1053} height={559} priority />
+            <LaptopMockup src="/products/finance-os/mockup-hero.png" alt="Finance OS Dashboard - Safe to Spend, Cash Flow, Net Worth" width={1180} height={660} priority />
           </div>
         </div>
       </section>
@@ -126,7 +129,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
           {rows.map((row, i) => (
             <div key={row.title} className="grid lg:grid-cols-2 gap-12 items-center">
               <div className={i % 2 === 1 ? "lg:order-2" : ""}>
-                <LaptopMockup src={row.img} alt={row.title} width={1053} height={559} />
+                <LaptopMockup src={row.img} alt={row.title} width={row.imgW} height={row.imgH} />
               </div>
               <div className={i % 2 === 1 ? "lg:order-1" : ""}>
                 <span className="text-accent-400 text-sm font-semibold tracking-wide">{row.eyebrow}</span>
