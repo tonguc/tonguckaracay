@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { setRequestLocale } from 'next-intl/server';
-import { ArrowRight, Wallet, TrendingDown, PieChart, Target, ShieldCheck, Download, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { FINANCE_OS_ETSY_URL, FINANCE_OS_DEMO_URL } from "@/lib/products/finance-os";
 
 export const metadata: Metadata = {
@@ -13,48 +13,19 @@ export const metadata: Metadata = {
     title: "Finance OS — Kişisel Bütçe & Net Değer Takibi",
     description: "Bütçe, borç ödeme ve net değerinizi tek dosyalık, tamamen çevrimdışı bir uygulamada takip edin.",
     type: "website",
-    images: ["/products/finance-os/dashboard.jpg"],
+    images: ["/products/finance-os/hero-kpi.png"],
   },
 };
 
-const features = [
-  {
-    icon: Wallet,
-    title: "Tek Bakışta Bütçe",
-    description: "Bu ay harcanabilir gerçek tutar, nakit akışı ve tasarruf oranı — hepsi tek bir Dashboard'da, elle hesaplama yok."
-  },
-  {
-    icon: TrendingDown,
-    title: "Borç Ödeme Planlayıcı",
-    description: "Snowball veya Avalanche stratejisiyle otomatik ödeme sırası, gerçek APR'a dayalı tahmini borçtan kurtulma tarihi, kredi kartı limit kullanımı takibi."
-  },
-  {
-    icon: PieChart,
-    title: "Tek Bir Net Değer Rakamı",
-    description: "Varlıklar ve borçlar otomatik birleşir; her borç ödemesi net değeri yanlışlıkla şişirmeden doğru şekilde yansır."
-  },
-  {
-    icon: Target,
-    title: "Hedefler & Kategoriler",
-    description: "Birikim hedefleri, kategori bazlı bütçe limitleri, aşan/riskli/güvenli kategoriler otomatik ayrılır."
-  },
-  {
-    icon: ShieldCheck,
-    title: "Sakin, Gerçek Tavsiye",
-    description: "Her ay 'bu ay ne yapmalıyım' sorusuna düz, oyunlaştırma içermeyen bir dille cevap veren Aylık Değerlendirme."
-  },
-  {
-    icon: Download,
-    title: "%100 Yerel, Sıfır Hesap",
-    description: "Veriniz sadece cihazınızda — internet bağlantısı, kayıt, abonelik yok. Tek dosya, tarayıcıda çalışır, JSON olarak yedeklenir."
-  },
+const trustBadges = [
+  "Tek seferlik satın alma", "%100 çevrimdışı çalışır", "Hesap gerektirmez", "Verileriniz cihazınızda kalır",
 ];
 
-const steps = [
-  { step: "01", title: "İndir & Aç", description: "Tek bir HTML dosyası — Chrome, Edge veya Safari'de doğrudan açılır, kurulum gerekmez." },
-  { step: "02", title: "Hesaplarını Ekle", description: "Banka/kredi kartı hesaplarını, kategorilerini ve varsa mevcut borçlarını gir." },
-  { step: "03", title: "İşlemleri Logla", description: "Harcama, gelir, borç ödemesi veya hedef katkısı — her biri ilgili hesabı otomatik günceller." },
-  { step: "04", title: "Panoyu Takip Et", description: "Dashboard, Bütçe, Borç ve Raporlar sayfaları her girişte kendini otomatik günceller." },
+const miniFeatures = [
+  { title: "Hedefler & Kategoriler", description: "Birikim hedefleri ve kategori bazlı bütçe limitleri, aşan/riskli/güvenli olarak otomatik ayrılır." },
+  { title: "12 Para Birimi", description: "USD, EUR, GBP, TRY dahil 12 para birimi arasında anında geçiş." },
+  { title: "Karanlık Mod", description: "Göz yormayan koyu tema, tek tıkla açılır kapanır." },
+  { title: "JSON Yedekleme", description: "Tüm verinizi tek dosya olarak dışa aktarın, istediğiniz cihaza aktarın." },
 ];
 
 const faqs = [
@@ -84,10 +55,9 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
   return (
     <main className="pt-20">
       {/* Hero */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
+      <section className="relative py-16 md:py-20 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-96 bg-accent-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -98,92 +68,104 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
             <span className="text-white">Finance OS</span>
           </nav>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                <span className="text-gradient">Finance OS</span>
-              </h1>
-              <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
-                Bütçenizi, borç ödeme planınızı ve net değerinizi tek bir yerde takip edin — hesap yok, abonelik yok, verileriniz sadece sizde kalır.
-              </p>
+          <div className="max-w-3xl mb-10">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Bütçenizi, borcunuzu ve <span className="text-gradient">net değerinizi</span> tek yerde görün
+            </h1>
+            <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
+              Hesap yok, abonelik yok — tek dosyalık bir uygulama, tamamen tarayıcınızda çalışır, verileriniz hiç cihazınızdan çıkmaz.
+            </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <a href={FINANCE_OS_DEMO_URL} target="_blank" rel="noopener noreferrer" className="btn-primary group text-lg">
-                  Ücretsiz Demoyu Dene
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <a href={FINANCE_OS_DEMO_URL} target="_blank" rel="noopener noreferrer" className="btn-primary group text-lg">
+                Ücretsiz Demoyu Dene
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </a>
+              {FINANCE_OS_ETSY_URL ? (
+                <a href={FINANCE_OS_ETSY_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary text-lg">
+                  Etsy'de Satın Al
                 </a>
-                {FINANCE_OS_ETSY_URL ? (
-                  <a href={FINANCE_OS_ETSY_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary text-lg">
-                    Etsy'de Satın Al
-                  </a>
-                ) : (
-                  <span className="btn-secondary text-lg opacity-50 cursor-not-allowed select-none" aria-disabled="true">
-                    Etsy'de Satın Al — Yakında
-                  </span>
-                )}
-              </div>
-
-              <div className="flex flex-wrap gap-6 text-sm text-primary-400">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>Tek seferlik satın alma</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>%100 çevrimdışı çalışır</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>Hesap gerektirmez</span>
-                </div>
-              </div>
+              ) : (
+                <span className="btn-secondary text-lg opacity-50 cursor-not-allowed select-none" aria-disabled="true">
+                  Etsy'de Satın Al — Yakında
+                </span>
+              )}
             </div>
 
-            <div className="card overflow-hidden p-0">
-              <div className="relative aspect-video">
-                <Image src="/products/finance-os/dashboard.jpg" alt="Finance OS Dashboard" fill className="object-cover object-top" />
-              </div>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-primary-400">
+              {trustBadges.map((b) => (
+                <div key={b} className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-accent-500" />
+                  <span>{b}</span>
+                </div>
+              ))}
             </div>
+          </div>
+
+          {/* Dominant hero screenshot - not a small floating card */}
+          <div className="rounded-2xl overflow-hidden border border-surface-border shadow-2xl">
+            <Image src="/products/finance-os/hero-kpi.png" alt="Finance OS Dashboard - Safe to Spend, Cash Flow, Net Worth" width={1184} height={516} className="w-full h-auto" priority />
           </div>
         </div>
       </section>
 
-      {/* Screenshots gallery */}
+      {/* Feature + proof rows, alternating */}
       <section className="py-16 md:py-20 bg-surface-card/30">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="section-title mb-4">Uygulamadan <span className="text-gradient">Görüntüler</span></h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">Örnek verilerle - gerçek uygulama arayüzünden alınmış ekran görüntüleri.</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="card overflow-hidden p-0">
-              <div className="relative aspect-video">
-                <Image src="/products/finance-os/debt.jpg" alt="Finance OS Borç Takibi" fill className="object-cover object-top" />
-              </div>
+        <div className="container-custom space-y-20">
+
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="rounded-2xl overflow-hidden border border-surface-border order-2 lg:order-1">
+              <Image src="/products/finance-os/action-center.png" alt="Finance OS Action Center ve Harcama Dağılımı" width={1184} height={516} className="w-full h-auto" />
             </div>
-            <div className="card overflow-hidden p-0">
-              <div className="relative aspect-video">
-                <Image src="/products/finance-os/reports.jpg" alt="Finance OS Aylık Değerlendirme" fill className="object-cover object-top" />
-              </div>
+            <div className="order-1 lg:order-2">
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
+                Sana ne yapman gerektiğini <span className="text-gradient">söyler</span>
+              </h2>
+              <p className="text-primary-300 leading-relaxed">
+                Action Center, ayın en önemli 3 şeyini önceliğine göre sıralar — bütçeyi aşan bir kategori mi var, ekstra bir ödeme borcu kaç ay erken kapatır, iyi gidiyorsan bunu da söyler. Oyunlaştırma yok, rozet yok — sadece net bir sonraki adım.
+              </p>
             </div>
           </div>
+
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
+                Gerçek bir <span className="text-gradient">borç ödeme planı</span>
+              </h2>
+              <p className="text-primary-300 leading-relaxed">
+                Snowball veya Avalanche stratejisiyle otomatik ödeme sırası, gerçek APR'a dayalı tahmini borçtan kurtulma tarihi, kredi kartı limit kullanımı — hepsi otomatik hesaplanır, elle takip gerekmez.
+              </p>
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-surface-border">
+              <Image src="/products/finance-os/debt-card.png" alt="Finance OS Borç Ödeme Kartı" width={516} height={362} className="w-full h-auto" />
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="rounded-2xl overflow-hidden border border-surface-border order-2 lg:order-1">
+              <Image src="/products/finance-os/monthly-review.png" alt="Finance OS Aylık Değerlendirme" width={1020} height={329} className="w-full h-auto" />
+            </div>
+            <div className="order-1 lg:order-2">
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
+                Her ay <span className="text-gradient">sakin, dürüst</span> bir özet
+              </h2>
+              <p className="text-primary-300 leading-relaxed">
+                Aylık Değerlendirme, o ay gerçekten ne olduğunu düz bir dille anlatır — harcama plana uydu mu, borç azaldı mı, hedefler ilerledi mi. Hiçbir rakip üründe bu yok; sadece sayı göstermek yerine, o sayının ne anlama geldiğini söyler.
+              </p>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* Features */}
+      {/* Compact everything-else strip */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="section-title mb-4">Neler <span className="text-gradient">Yapabilirsiniz?</span></h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((f, i) => (
-              <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
-                  <f.icon className="w-7 h-7 text-accent-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">{f.title}</h3>
-                <p className="text-primary-300">{f.description}</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {miniFeatures.map((f) => (
+              <div key={f.title}>
+                <h3 className="text-white font-semibold mb-2">{f.title}</h3>
+                <p className="text-primary-400 text-sm">{f.description}</p>
               </div>
             ))}
           </div>
@@ -193,15 +175,20 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
       {/* How it works */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="section-title mb-4">Nasıl <span className="text-gradient">Çalışır?</span></h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {steps.map((s, i) => (
-              <div key={i} className="card p-6 relative group hover:border-accent-500/30 transition-colors">
-                <div className="absolute top-4 right-4 text-5xl font-bold text-accent-500/10 group-hover:text-accent-500/20 transition-colors">{s.step}</div>
-                <h3 className="text-xl font-semibold text-white mb-3">{s.title}</h3>
-                <p className="text-primary-300">{s.description}</p>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-0 md:divide-x md:divide-surface-border">
+            {[
+              { n: "01", t: "İndir & Aç", d: "Tek bir HTML dosyası, tarayıcıda doğrudan açılır." },
+              { n: "02", t: "Hesaplarını Ekle", d: "Banka/kredi kartı hesapları ve kategoriler." },
+              { n: "03", t: "İşlemleri Logla", d: "Her giriş ilgili hesabı otomatik günceller." },
+              { n: "04", t: "Panoyu Takip Et", d: "Dashboard her girişte kendini yeniler." },
+            ].map((s) => (
+              <div key={s.n} className="flex-1 px-0 md:px-6 first:pl-0">
+                <div className="text-accent-500/40 text-3xl font-bold mb-2">{s.n}</div>
+                <h3 className="text-white font-semibold mb-1">{s.t}</h3>
+                <p className="text-primary-400 text-sm">{s.d}</p>
               </div>
             ))}
           </div>

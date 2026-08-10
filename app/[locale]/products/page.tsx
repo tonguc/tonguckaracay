@@ -19,7 +19,7 @@ const products = [
     slug: "finance-os",
     name: "Finance OS",
     tagline: "Personal budget, debt, and net worth tracking — one file, fully offline.",
-    image: "/products/finance-os/dashboard.jpg",
+    image: "/products/finance-os/hero-kpi.png",
   },
 ];
 

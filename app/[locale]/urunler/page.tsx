@@ -19,7 +19,7 @@ const products = [
     slug: "finance-os",
     name: "Finance OS",
     tagline: "Kişisel bütçe, borç ve net değer takibi — tek dosya, tamamen çevrimdışı.",
-    image: "/products/finance-os/dashboard.jpg",
+    image: "/products/finance-os/hero-kpi.png",
   },
 ];
 
