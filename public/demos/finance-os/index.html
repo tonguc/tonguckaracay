@@ -165,6 +165,7 @@ main{max-width:1080px;margin:0 auto;padding:var(--space-2xl) var(--space-xl);}
   .sidebar .brand span:last-child,.sidebar nav button span.label,.side-btn span.label{display:none;}
   .sidebar .brand{justify-content:center;}
   .sidebar nav button{justify-content:center;}
+  #demoBanner{display:none;}
 }
 
 /* ---- Typography ---- */
@@ -438,6 +439,10 @@ footer{text-align:center;color:var(--color-text-secondary);font-size:var(--font-
 <div class="app-shell">
   <aside class="sidebar">
     <div class="brand"><span class="mark">$</span><span>Finance OS</span></div>
+    <div id="demoBanner" style="margin:0 0 var(--space-md) 0;padding:8px 10px;border-radius:var(--radius-sm);background:var(--color-sidebar-hover);font-size:var(--font-caption);color:var(--color-sidebar-text);line-height:1.4;">
+      <span id="demoBannerText">Demo Mode</span>
+      <a href="#" id="demoBannerLink" style="display:block;color:#fff;text-decoration:underline;font-weight:600;margin-top:2px;">Get Full Version</a>
+    </div>
     <nav id="mainNav">
       <button data-view="dashboard" class="active">
         <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
@@ -474,11 +479,12 @@ footer{text-align:center;color:var(--color-text-secondary);font-size:var(--font-
         <svg class="icon" id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
         <span class="label">Dark mode</span>
       </button>
-      <button class="side-btn" id="exportBtn">
+      <button class="side-btn" id="exportBtn" style="opacity:0.5;cursor:not-allowed;">
         <svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
         <span class="label">Export backup</span>
       </button>
-      <button class="side-btn" id="importBtn">
+      <div class="form-note" id="exportNote" style="margin-top:4px;"></div>
+      <button class="side-btn" id="importBtn" style="opacity:0.5;cursor:not-allowed;">
         <svg class="icon" viewBox="0 0 24 24"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 3h16"/></svg>
         <span class="label">Import backup</span>
       </button>
@@ -486,7 +492,7 @@ footer{text-align:center;color:var(--color-text-secondary);font-size:var(--font-
       <div class="form-note" id="importNote" style="margin-top:8px;"></div>
       <button class="side-btn" id="resetBtn">
         <svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
-        <span class="label">Start fresh</span>
+        <span class="label">Reset demo</span>
       </button>
       <div class="form-note" id="resetNote" style="margin-top:8px;"></div>
     </div>
@@ -813,7 +819,81 @@ const ICONS = {
 /* ==========================================================================
    STATE + PERSISTENCE
    ========================================================================== */
-const STORAGE_KEY = "financeOS_v1";
+/* ---- Demo hardening (this file only, never index.html) ----
+   The public demo previously used the SAME localStorage key as the real
+   product (financeOS_v1) and tracked its transaction-add count INSIDE that
+   same finance-state blob (state.demoAddedCount). Both were real, exploitable
+   gaps: Start Fresh / Import could silently reset or replace demoAddedCount
+   along with everything else, and sharing financeOS_v1 meant the demo could
+   in principle read or clobber real product data on the same browser/domain
+   (found live, 2026-08-10, after the first version shipped - "demoda
+   güvenlik kısıtlaması kolayca aşılıyor").
+   Fix: two completely separate localStorage keys. STORAGE_KEY holds ONLY the
+   demo's own sample finance data (never financeOS_v1). DEMO_USAGE_KEY holds
+   ONLY the transaction-add counter, in its own key, touched by nothing else
+   in this file - not seedData(), not migrateState(), not Reset Demo, not
+   (the now-disabled) Import. This is what makes the limit survive a reset. */
+const IS_DEMO = true;
+const DEMO_TX_LIMIT = 3;
+const DEMO_UNLOCK_URL = "https://tonguckaracay.com/en/products/finance-os";
+const STORAGE_KEY = "financeOS_demo_state";
+const DEMO_USAGE_KEY = "financeOS_demo_usage";
+
+function getDemoUsage(){
+  try{
+    const raw = localStorage.getItem(DEMO_USAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(parsed && typeof parsed.transactionAdds === "number") return parsed;
+    }
+  }catch(e){ console.warn("Could not read demo usage, starting at 0.", e); }
+  return { transactionAdds: 0, firstUsedAt: null, lastUsedAt: null };
+}
+function saveDemoUsage(usage){
+  try{ localStorage.setItem(DEMO_USAGE_KEY, JSON.stringify(usage)); }
+  catch(e){ console.warn("Could not save demo usage.", e); }
+}
+function canAddDemoTransaction(){
+  return getDemoUsage().transactionAdds < DEMO_TX_LIMIT;
+}
+function recordDemoTransactionAdd(){
+  const usage = getDemoUsage();
+  const now = new Date().toISOString();
+  usage.transactionAdds += 1;
+  usage.lastUsedAt = now;
+  if(!usage.firstUsedAt) usage.firstUsedAt = now;
+  saveDemoUsage(usage);
+  renderDemoBanner();
+  return usage;
+}
+// Single centralized gate - every transaction-creating entry point (Quick
+// Entry, the Debt card's quick payment, and any future shortcut) must call
+// this before creating a transaction, never re-implement the limit check.
+async function demoLimitReached(){
+  if(!IS_DEMO) return false;
+  if(canAddDemoTransaction()) return false;
+  const goFull = await confirmModal(
+    `You've reached the ${DEMO_TX_LIMIT}-transaction limit of this demo. Get the full version to add unlimited transactions, keep your own financial history, and use backup tools.`,
+    {title:"Demo Limit Reached", confirmText:"Get Full Version", tone:"primary"}
+  );
+  if(goFull) window.open(DEMO_UNLOCK_URL, "_blank", "noopener");
+  return true;
+}
+function renderDemoBanner(){
+  if(!IS_DEMO) return;
+  const textEl = document.getElementById("demoBannerText");
+  if(!textEl) return;
+  const usage = getDemoUsage();
+  const remaining = Math.max(0, DEMO_TX_LIMIT - usage.transactionAdds);
+  if(usage.transactionAdds === 0){
+    textEl.textContent = `Demo Mode · ${DEMO_TX_LIMIT} custom transactions available`;
+  } else if(remaining > 0){
+    textEl.textContent = `Demo Mode · ${remaining} of ${DEMO_TX_LIMIT} custom transactions remaining`;
+  } else {
+    textEl.textContent = `Demo Mode · Transaction limit reached`;
+  }
+}
+
 const CURRENCIES = [
   {code:"USD", symbol:"$", label:"USD ($)"},
   {code:"EUR", symbol:"€", label:"EUR (€)"},
@@ -840,31 +920,6 @@ function toLocalISO(d){
 function todayISO(d){ return toLocalISO(d || new Date()); }
 function monthKeyOf(iso){ return iso.slice(0,7); }
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
-
-/* ---- Demo-mode transaction limit (this file only, never index.html) ----
-   Public demo == the full product with zero access control, so it's also
-   fully copyable via View Source with no technical barrier at all (found
-   during pre-launch review, 2026-08-10) - matches how the category leader
-   (EzPlanningStudio) protects their own public demo: the whole app stays
-   browsable, but new transactions are capped, with an unlock prompt that
-   points at the real purchase path instead of silently failing. */
-const IS_DEMO = true;
-const DEMO_TX_LIMIT = 3;
-// No live Etsy listing yet (2026-08-10) - points at the real marketing
-// page instead, which already has its own "Buy on Etsy" call to action.
-// Swap for the actual Etsy listing URL the moment it goes live - nothing
-// else in this file needs to change.
-const DEMO_UNLOCK_URL = "https://tonguckaracay.com/en/products/finance-os";
-async function demoLimitReached(){
-  if(!IS_DEMO) return false;
-  if((state.demoAddedCount||0) < DEMO_TX_LIMIT) return false;
-  const goToEtsy = await confirmModal(
-    `You've reached the ${DEMO_TX_LIMIT}-transaction limit of this demo. Visit our Etsy store to get the full, unlimited version.`,
-    {title:"Demo Limit Reached", confirmText:"Visit Etsy Store", tone:"primary"}
-  );
-  if(goToEtsy) window.open(DEMO_UNLOCK_URL, "_blank", "noopener");
-  return true;
-}
 
 function seedData(){
   const now = new Date();
@@ -2463,7 +2518,7 @@ document.getElementById("addTxBtn").addEventListener("click", async ()=>{
     }
   }
   state.transactions.push({id:uid(), date, type, category, targetId, accountId, sourceAccountId, amount, note});
-  if(IS_DEMO) state.demoAddedCount = (state.demoAddedCount||0) + 1;
+  if(IS_DEMO) recordDemoTransactionAdd();
   document.getElementById("txAmount").value = ""; document.getElementById("txNote").value = "";
   document.getElementById("txNewCatName").value = ""; document.getElementById("txNewAcctName").value = "";
   saveState(); renderAll();
@@ -2618,7 +2673,7 @@ document.getElementById("debtCards").addEventListener("click", async (e)=>{
     return;
   }
   state.transactions.push({id:uid(), date:todayISO(), type:"Debt Payment", category:d.name, targetId:d.id, accountId:d.accountId, sourceAccountId:assetAccounts[0].id, amount:amt, note:"Payment"});
-  if(IS_DEMO) state.demoAddedCount = (state.demoAddedCount||0) + 1;
+  if(IS_DEMO) recordDemoTransactionAdd();
   saveState(); renderAll();
   if(postNote) setNote(noteId, postNote, "info");
 });
@@ -2774,13 +2829,28 @@ document.getElementById("themeToggle").addEventListener("click", ()=>{
 
 /* ---- Export / Import ---- */
 document.getElementById("exportBtn").addEventListener("click", ()=>{
+  // Demo-only restriction: the demo is for evaluation, not for maintaining
+  // a real personal finance ledger - exporting would let a visitor turn
+  // the demo into a working backup/restore workflow for data that was
+  // never meant to be a real ledger in the first place.
+  if(IS_DEMO){ setNote("exportNote", "Backup export is available in the full version.", "info"); return; }
   const blob = new Blob([JSON.stringify(state,null,2)], {type:"application/json"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a"); a.href = url; a.download = `finance-os-backup-${todayISO()}.json`;
   document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
 });
-document.getElementById("importBtn").addEventListener("click", ()=> document.getElementById("importFile").click());
+document.getElementById("importBtn").addEventListener("click", ()=>{
+  // Demo-only restriction: Import is the main bypass vector for the
+  // transaction limit above (load a backup with hundreds of transactions,
+  // or one that resets state entirely) - never open the file picker here.
+  if(IS_DEMO){ setNote("importNote", "Import is available in the full version.", "info"); return; }
+  document.getElementById("importFile").click();
+});
 document.getElementById("importFile").addEventListener("change", (e)=>{
+  // Defense in depth: even if this handler is somehow triggered without
+  // going through importBtn above (e.g. devtools), never parse or apply
+  // an imported file in demo mode.
+  if(IS_DEMO){ e.target.value = ""; return; }
   const file = e.target.files[0]; if(!file) return;
   const reader = new FileReader();
   reader.onload = () => {
@@ -2837,19 +2907,31 @@ document.getElementById("importFile").addEventListener("change", (e)=>{
    confirmModal() is used deliberately here, same as the debt/goal cascade-
    delete - a genuinely destructive, hard-to-reverse action still needs a
    real confirmation, just not a native OS dialog (see confirmModal() above). */
+// Demo version: "Start Fresh" (which wipes to an EMPTY budget - the right
+// behavior for a real buyer) is replaced with "Reset Demo" (which restores
+// the polished SAMPLE data instead - an empty demo would show nothing and
+// defeat the point of evaluating the product). Critically, this never
+// touches DEMO_USAGE_KEY - resetting the sample data a visitor is looking
+// at must not refund their transaction allowance, or Reset Demo becomes
+// the exact bypass this whole hardening pass exists to close.
 document.getElementById("resetBtn").addEventListener("click", async ()=>{
   const ok = await confirmModal(
-    "This permanently deletes everything - all categories, transactions, debts, and goals - and starts you with a completely empty budget. Export a backup first if you want to keep anything.",
-    {title:"Start fresh?", confirmText:"Delete everything"}
+    "This restores the demo to its original sample data. Your demo transaction allowance is not affected.",
+    {title:"Reset demo?", confirmText:"Reset demo"}
   );
   if(!ok) return;
-  state = {
-    settings: {theme: state.settings.theme, currency: state.settings.currency, debtStrategy: "Snowball"},
-    categories: [], transactions: [], debts: [], goals: [], accounts: [],
-    dismissedActions: [], selectedMonth: monthKeyOf(todayISO())
-  };
+  const preservedTheme = state.settings.theme;
+  const preservedCurrency = state.settings.currency;
+  state = seedData();
+  state.settings.theme = preservedTheme;
+  state.settings.currency = preservedCurrency;
   saveState(); applyTheme(); renderAll();
-  setNote("resetNote", "All set — starting fresh.", "success");
+  setNote("resetNote", "Demo reset — back to sample data.", "success");
+});
+
+document.getElementById("demoBannerLink").addEventListener("click", (e)=>{
+  e.preventDefault();
+  window.open(DEMO_UNLOCK_URL, "_blank", "noopener");
 });
 
 /* ==========================================================================
@@ -2859,6 +2941,7 @@ migrateState();
 applyTheme();
 renderAll();
 saveState();
+renderDemoBanner();
 
 })();
 </script>
