@@ -36,6 +36,14 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Raw static demo apps under public/demos/* must be served as-is, same
+  // reasoning as /audit above - the intl middleware's geo-redirect would
+  // otherwise rewrite e.g. /demos/finance-os/ to /en/demos/finance-os/,
+  // which has no matching file and 404s (found live via curl testing).
+  if (pathname.startsWith('/demos')) {
+    return NextResponse.next();
+  }
+
   if (
     pathname.startsWith('/_next') ||
     pathname.includes('/favicon') ||

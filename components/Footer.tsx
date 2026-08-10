@@ -47,9 +47,9 @@ export default function Footer() {
   ];
 
   const navLinks = locale === 'tr' ? {
-    about: '/hakkimda', contact: '/iletisim', home: '/', privacy: '/gizlilik-politikasi', terms: '/kullanim-sartlari'
+    about: '/hakkimda', contact: '/iletisim', home: '/', privacy: '/gizlilik-politikasi', terms: '/kullanim-sartlari', products: '/urunler'
   } : {
-    about: '/en/about', contact: '/en/contact', home: '/en', privacy: '/en/privacy-policy', terms: '/en/terms-of-service'
+    about: '/en/about', contact: '/en/contact', home: '/en', privacy: '/en/privacy-policy', terms: '/en/terms-of-service', products: '/en/products'
   };
 
   return (
@@ -102,6 +102,7 @@ export default function Footer() {
                   <Mail className="w-4 h-4" />tonguckaracay@gmail.com
                 </a>
               </li>
+              <li><Link href={navLinks.products} className="text-primary-400 hover:text-accent-500 transition-colors">{locale === 'tr' ? 'Ürünler' : 'Products'}</Link></li>
               <li><Link href={navLinks.about} className="text-primary-400 hover:text-accent-500 transition-colors">{locale === 'tr' ? 'Hakkımda' : 'About'}</Link></li>
               <li><Link href={navLinks.contact} className="text-primary-400 hover:text-accent-500 transition-colors">{t('contactForm')}</Link></li>
             </ul>
