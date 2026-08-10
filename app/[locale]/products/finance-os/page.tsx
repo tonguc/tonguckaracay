@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import LaptopMockup from "@/components/LaptopMockup";
 import { FINANCE_OS_ETSY_URL, FINANCE_OS_DEMO_URL } from "@/lib/products/finance-os";
 
 export const metadata: Metadata = {
@@ -13,12 +13,36 @@ export const metadata: Metadata = {
     title: "Finance OS — Personal Budget & Net Worth Tracker",
     description: "Track your budget, debt payoff, and net worth in one single-file, fully offline app.",
     type: "website",
-    images: ["/products/finance-os/hero-kpi.png"],
+    images: ["/products/finance-os/mockup-hero.png"],
   },
 };
 
 const trustBadges = [
   "One-time purchase", "Works 100% offline", "No account required", "Your data never leaves your device",
+];
+
+const rows = [
+  {
+    eyebrow: "SMART PRIORITIES",
+    title: "Stop guessing what to do next",
+    body: "The Action Center ranks the month's top 3 things by priority - a category running over budget, an extra payment that clears a debt months sooner, or just confirmation you're on pace. No badges, no streaks - just a clear next step.",
+    points: ["Automatic prioritization", "Interprets the numbers, doesn't just display them"],
+    img: "/products/finance-os/mockup-action-center.png",
+  },
+  {
+    eyebrow: "DEBT PAYOFF PLAN",
+    title: "See your real debt-free date, with real math",
+    body: "Automatic Snowball or Avalanche payoff order, a real APR-based debt-free date estimate, and credit-limit utilization tracking - all calculated automatically. No manual tracking, no guessing.",
+    points: ["Real compound-interest APR math", "Multiple debts, ranked automatically"],
+    img: "/products/finance-os/mockup-debt.png",
+  },
+  {
+    eyebrow: "MONTHLY REVIEW",
+    title: "Know what actually happened, in plain language",
+    body: "The Monthly Review explains what happened that month - did spending stay on plan, did debt go down, did goals move forward. No competitor product does this - it doesn't just show a number, it tells you what it means.",
+    points: ["\"If you only do one thing\" recommendation", "A concrete target for next month"],
+    img: "/products/finance-os/mockup-review.png",
+  },
 ];
 
 const miniFeatures = [
@@ -29,22 +53,10 @@ const miniFeatures = [
 ];
 
 const faqs = [
-  {
-    question: "Do I need an internet connection?",
-    answer: "No. Finance OS runs entirely in your browser and stores data in localStorage on your own device. Nothing is ever sent to a server."
-  },
-  {
-    question: "Is there a subscription?",
-    answer: "No — a one-time purchase, unlimited use. No monthly fee, no renewal."
-  },
-  {
-    question: "What if I lose my data?",
-    answer: "Export a full JSON backup any time and import it on another device the same way."
-  },
-  {
-    question: "How is this different from a Google Sheets or Excel template?",
-    answer: "No broken formulas, row-shifting, or spreadsheet setup - a real app interface with automatic calculations and debt/net-worth logic built in."
-  },
+  { question: "Do I need an internet connection?", answer: "No. Finance OS runs entirely in your browser and stores data in localStorage on your own device. Nothing is ever sent to a server." },
+  { question: "Is there a subscription?", answer: "No — a one-time purchase, unlimited use. No monthly fee, no renewal." },
+  { question: "What if I lose my data?", answer: "Export a full JSON backup any time and import it on another device the same way." },
+  { question: "How is this different from a Google Sheets or Excel template?", answer: "No broken formulas, row-shifting, or spreadsheet setup - a real app interface with automatic calculations and debt/net-worth logic built in." },
 ];
 
 type Props = { params: { locale: string } };
@@ -57,7 +69,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
       {/* Hero */}
       <section className="relative py-16 md:py-20 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-96 bg-accent-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-96 bg-accent-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -68,15 +80,15 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
             <span className="text-white">Finance OS</span>
           </nav>
 
-          <div className="max-w-3xl mb-10">
+          <div className="max-w-3xl mx-auto text-center mb-12">
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              See your budget, debt, and <span className="text-gradient">net worth</span> in one place
+              Stop guessing where <span className="text-gradient">your money went</span>
             </h1>
             <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
-              No account, no subscription - a single-file app that runs entirely in your browser, your data never leaves your device.
+              See your budget, debt payoff plan, and net worth in one place. No account, no subscription - just a file that runs in your browser, your data never leaves it.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <a href={FINANCE_OS_DEMO_URL} target="_blank" rel="noopener noreferrer" className="btn-primary group text-lg">
                 Try the Free Demo
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -92,7 +104,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
               )}
             </div>
 
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-primary-400">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-primary-400">
               {trustBadges.map((b) => (
                 <div key={b} className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-accent-500" />
@@ -102,59 +114,35 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
             </div>
           </div>
 
-          {/* Dominant hero screenshot - not a small floating card */}
-          <div className="rounded-2xl overflow-hidden border border-surface-border shadow-2xl">
-            <Image src="/products/finance-os/hero-kpi.png" alt="Finance OS Dashboard - Safe to Spend, Cash Flow, Net Worth" width={1184} height={516} className="w-full h-auto" priority />
+          <div className="max-w-4xl mx-auto">
+            <LaptopMockup src="/products/finance-os/mockup-hero.png" alt="Finance OS Dashboard - Safe to Spend, Cash Flow, Net Worth" width={1053} height={559} priority />
           </div>
         </div>
       </section>
 
-      {/* Feature + proof rows, alternating */}
+      {/* Feature + proof rows, alternating, equal-size mockups */}
       <section className="py-16 md:py-20 bg-surface-card/30">
-        <div className="container-custom space-y-20">
-
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div className="rounded-2xl overflow-hidden border border-surface-border order-2 lg:order-1">
-              <Image src="/products/finance-os/action-center.png" alt="Finance OS Action Center and Spending Breakdown" width={1184} height={516} className="w-full h-auto" />
+        <div className="container-custom space-y-24">
+          {rows.map((row, i) => (
+            <div key={row.title} className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className={i % 2 === 1 ? "lg:order-2" : ""}>
+                <LaptopMockup src={row.img} alt={row.title} width={1053} height={559} />
+              </div>
+              <div className={i % 2 === 1 ? "lg:order-1" : ""}>
+                <span className="text-accent-400 text-sm font-semibold tracking-wide">{row.eyebrow}</span>
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-white mt-2 mb-4">{row.title}</h2>
+                <p className="text-primary-300 leading-relaxed mb-5">{row.body}</p>
+                <ul className="space-y-2">
+                  {row.points.map((p) => (
+                    <li key={p} className="flex items-center gap-2 text-primary-200">
+                      <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="order-1 lg:order-2">
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
-                Tells you what to <span className="text-gradient">do next</span>
-              </h2>
-              <p className="text-primary-300 leading-relaxed">
-                The Action Center ranks the month's top 3 things by priority - a category running over budget, an extra payment that clears a debt months sooner, or just confirmation you're on pace. No badges, no streaks - just a clear next step.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
-                A real <span className="text-gradient">debt payoff plan</span>
-              </h2>
-              <p className="text-primary-300 leading-relaxed">
-                Automatic Snowball or Avalanche payoff order, a real APR-based debt-free date estimate, and credit-limit utilization tracking - all calculated automatically, no manual spreadsheet math.
-              </p>
-            </div>
-            <div className="rounded-2xl overflow-hidden border border-surface-border">
-              <Image src="/products/finance-os/debt-card.png" alt="Finance OS Debt Payoff Card" width={516} height={362} className="w-full h-auto" />
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div className="rounded-2xl overflow-hidden border border-surface-border order-2 lg:order-1">
-              <Image src="/products/finance-os/monthly-review.png" alt="Finance OS Monthly Review" width={1020} height={329} className="w-full h-auto" />
-            </div>
-            <div className="order-1 lg:order-2">
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
-                A <span className="text-gradient">calm, honest</span> summary every month
-              </h2>
-              <p className="text-primary-300 leading-relaxed">
-                The Monthly Review explains what actually happened that month in plain language - did spending stay on plan, did debt go down, did goals move forward. No competitor product does this - it doesn't just show a number, it tells you what it means.
-              </p>
-            </div>
-          </div>
-
+          ))}
         </div>
       </section>
 
@@ -237,7 +225,6 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
         </div>
       </section>
 
-      {/* Schema.org FAQ */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -252,8 +239,6 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
           })
         }}
       />
-
-      {/* Schema.org Product */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
