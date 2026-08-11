@@ -228,6 +228,12 @@ h1.page-title{font-size:var(--font-h1);font-weight:700;margin:0 0 4px 0;letter-s
 }
 .action-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-1px);}
 .action-card .msg{display:flex;align-items:center;gap:12px;font-size:var(--font-body);}
+/* .msg's own text span is a flex child of .msg (display:flex above) with
+   no min-width set, so its default min-width:auto pinned it to its
+   full-line content width - at narrow cards the text rendered past that
+   width instead of wrapping inside it, visually overlapping the HIGH/
+   MEDIUM badge in .right. Found via automated 320px screenshot review. */
+.action-card .msg span{min-width:0;}
 .action-card .msg .icon-chip{width:32px;height:32px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .action-card.warning .icon-chip{background:var(--color-danger-tint);color:var(--color-danger);}
 .action-card.recommend .icon-chip{background:var(--color-primary-tint);color:var(--color-primary);}
@@ -324,6 +330,13 @@ table.data-table tbody tr:hover{background:var(--color-surface-2);}
 .modal-actions{display:flex;justify-content:flex-end;gap:var(--space-sm);}
 
 .card + .card{margin-top:var(--space-lg);}
+/* .card + .card is meant for cards stacked in normal document flow (e.g.
+   Action Center's list) - inside a .grid row, siblings sit in separate grid
+   cells, not flow, so that margin only pushed cards 2/3/4 down while card 1
+   kept sitting at the row's top edge. Every .grid of cards (Dashboard KPI
+   row, Budget zones, Debt summary/cards, Goal cards) had its first card
+   start visibly higher than the rest until this override. */
+.grid > .card{margin-top:0;}
 .empty-state{text-align:center;padding:var(--space-2xl) var(--space-md);color:var(--color-text-secondary);}
 .empty-state svg.icon{width:32px;height:32px;margin:0 auto var(--space-sm);opacity:.5;}
 
@@ -412,6 +425,11 @@ input.inline-edit:focus{outline:none;border-color:var(--color-primary);backgroun
 .trend-chart .glabel{font-size:9px;fill:var(--color-text-secondary);}
 .trend-labels{display:flex;justify-content:space-between;margin-top:6px;font-size:var(--font-label);color:var(--color-text-secondary);}
 
+/* ---- Net Worth trend (Dashboard) ---- */
+.networth-wrap{display:flex;align-items:center;gap:var(--space-2xl);flex-wrap:wrap;}
+.networth-stats{flex:none;min-width:180px;}
+.networth-chart{flex:1;min-width:220px;}
+
 /* ---- Table scroll wrapper (Reports matrix) ---- */
 .table-scroll{overflow-x:auto;}
 .table-scroll table.data-table{min-width:640px;}
@@ -431,6 +449,28 @@ footer{text-align:center;color:var(--color-text-secondary);font-size:var(--font-
   .legend{min-width:0;width:100%;}
   .section-header{flex-wrap:wrap;row-gap:var(--space-sm);}
   .trend-labels{flex-wrap:wrap;row-gap:2px;}
+  /* .networth-chart's 220px min-width (fine down to ~375px) doesn't fit
+     inside the Net Worth card at 320-360px even after it wraps onto its
+     own line below .networth-stats - the min-width itself was the overflow,
+     not the wrapping. Found via automated 320px width-overflow check.
+     .networth-stats' own 180px min-width caused the same 24px overflow on
+     its own line once the chart above stopped being the culprit - both
+     needed min-width:0 here, not just one. */
+  .networth-chart{min-width:0;}
+  /* min-width:0 alone did nothing here - .networth-stats also has
+     flex:none (flex-shrink:0), which pins it to its content's natural
+     width no matter what min-width says. Needs flex-shrink allowed too. */
+  .networth-stats{min-width:0;flex:1 1 auto;}
+  /* Action Center cards: icon(32px, fixed) + text + badge/dismiss(86px,
+   * fixed) genuinely don't fit on one line at this card width regardless
+   * of text wrapping (the fixed-width neighbors alone eat nearly all of
+   * it) - .msg's own min-width:0 fix (see .action-card .msg span above)
+   * just made the text wrap taller in an ~27px column instead of
+   * overflowing, which still visually collided with the badge. Letting
+   * the row wrap moves badge+dismiss to their own line below the message,
+   * which is the only layout that actually fits. */
+  .action-card{flex-wrap:wrap;}
+  .action-card .right{margin-left:44px;}
 }
 </style>
 </head>
@@ -634,6 +674,16 @@ footer{text-align:center;color:var(--color-text-secondary);font-size:var(--font-
           <tbody id="catTableBody"></tbody>
         </table>
       </div>
+    </div>
+
+    <!-- Archived categories keep their transaction history (Reports > Category
+         Matrix) but drop out of active Budget/Expense-picker use - shown here,
+         separately, so Restore is actually reachable instead of the category
+         just vanishing with no way back. -->
+    <div class="section-header" id="archivedCatHeader" style="display:none;">ARCHIVED CATEGORIES</div>
+    <div class="card" id="archivedCatCard" style="display:none;">
+      <p class="page-sub" style="margin:0 0 var(--space-md) 0;">Their history stays in Reports → Category Matrix. Restore one to use it for new expenses again.</p>
+      <div id="archivedCatList"></div>
     </div>
   </section>
 
@@ -867,8 +917,9 @@ function recordDemoTransactionAdd(){
   return usage;
 }
 // Single centralized gate - every transaction-creating entry point (Quick
-// Entry, the Debt card's quick payment, and any future shortcut) must call
-// this before creating a transaction, never re-implement the limit check.
+// Entry, the Debt card's quick payment, the Goal card's quick contribution,
+// and any future shortcut) must call this before creating a transaction,
+// never re-implement the limit check.
 async function demoLimitReached(){
   if(!IS_DEMO) return false;
   if(canAddDemoTransaction()) return false;
@@ -893,7 +944,6 @@ function renderDemoBanner(){
     textEl.textContent = `Demo Mode · Transaction limit reached`;
   }
 }
-
 const CURRENCIES = [
   {code:"USD", symbol:"$", label:"USD ($)"},
   {code:"EUR", symbol:"€", label:"EUR (€)"},
@@ -924,7 +974,11 @@ function uid(){ return Date.now().toString(36) + Math.random().toString(36).slic
 function seedData(){
   const now = new Date();
   const y = now.getFullYear(), m = now.getMonth();
-  const d = (day)=> toLocalISO(new Date(y, m, day));
+  // Per-month date helper: monthsAgo=0 is the current month, 5 is the
+  // oldest seeded month - used to lay down 6 months of real history so a
+  // fresh install already shows a genuine trend (Net Worth chart, Spend
+  // Trend, debt %-paid-off) instead of one flat starting month.
+  const dateIn = (monthsAgo, day)=> toLocalISO(new Date(y, m-monthsAgo, day));
   const categories = [
     {id:uid(), name:"Rent/Mortgage", group:"Home", budget:1250},
     {id:uid(), name:"Utilities", group:"Home", budget:150},
@@ -942,47 +996,68 @@ function seedData(){
   // Income/Expense activity; each debt gets its OWN liability account
   // (mirrors the Excel-era build's "Debt links to an Account" design - see
   // memory - which existed precisely to avoid double-entry problems for
-  // credit cards specifically).
+  // credit cards specifically). startingBalance is the balance 6 months
+  // ago, before any seeded transaction - everything since is real,
+  // computed history, not a hand-typed "current" number.
   const checking = {id:uid(), name:"Checking", type:"Checking", kind:"asset", startingBalance:0};
-  const accounts = [checking];
+  const visaAccount = {id:uid(), name:"Visa Credit Card", type:"Credit Card", kind:"liability", startingBalance:2450};
+  const loanAccount = {id:uid(), name:"Student Loan", type:"Other", kind:"liability", startingBalance:16800};
+  const accounts = [checking, visaAccount, loanAccount];
 
-  const transactions = [
-    {id:uid(), date:d(1), type:"Income", category:"Paycheck", accountId:checking.id, amount:3200, note:"Paycheck"},
-    {id:uid(), date:d(1), type:"Expense", category:byName("Rent/Mortgage"), accountId:checking.id, amount:1250, note:"Monthly rent"},
-    {id:uid(), date:d(3), type:"Expense", category:byName("Groceries"), accountId:checking.id, amount:96.40, note:"Weekly shop"},
-    {id:uid(), date:d(5), type:"Expense", category:byName("Utilities"), accountId:checking.id, amount:85, note:"Electric"},
-    {id:uid(), date:d(7), type:"Expense", category:byName("Dining Out"), accountId:checking.id, amount:42.50, note:"Dinner out"},
-    {id:uid(), date:d(9), type:"Expense", category:byName("Transportation"), accountId:checking.id, amount:60, note:"Gas"},
-    {id:uid(), date:d(11), type:"Expense", category:byName("Subscriptions"), accountId:checking.id, amount:35, note:"Streaming + music"},
-    {id:uid(), date:d(13), type:"Expense", category:byName("Entertainment"), accountId:checking.id, amount:88, note:"Concert tickets"},
-    {id:uid(), date:d(15), type:"Expense", category:byName("Groceries"), accountId:checking.id, amount:102.10, note:"Weekly shop"},
-  ];
-
-  const visaAccount = {id:uid(), name:"Visa Credit Card", type:"Credit Card", kind:"liability", startingBalance:3300};
-  const loanAccount = {id:uid(), name:"Student Loan", type:"Other", kind:"liability", startingBalance:15600};
-  accounts.push(visaAccount, loanAccount);
   const debts = [
-    {id:uid(), name:"Visa Credit Card", type:"Credit Card", apr:22.9, minPayment:120, creditLimit:5000, accountId:visaAccount.id},
-    {id:uid(), name:"Student Loan", type:"Student Loan", apr:5.5, minPayment:210, accountId:loanAccount.id},
+    {id:uid(), name:"Visa Credit Card", type:"Credit Card", apr:22.9, minPayment:60, creditLimit:5000, accountId:visaAccount.id},
+    {id:uid(), name:"Student Loan", type:"Student Loan", apr:5.5, minPayment:120, accountId:loanAccount.id},
   ];
 
   const yearStart = toLocalISO(new Date(y, 0, 1));
   const goals = [
-    {id:uid(), name:"Emergency Fund", target:10000, startDate:yearStart, targetDate:toLocalISO(new Date(y+1, m, 1)), startingSaved:4000},
-    {id:uid(), name:"Vacation", target:3000, startDate:yearStart, targetDate:toLocalISO(new Date(y, m+5, 1)), startingSaved:800},
+    {id:uid(), name:"Emergency Fund", target:10000, startDate:yearStart, targetDate:toLocalISO(new Date(y+1, m, 1)), startingSaved:2600},
+    {id:uid(), name:"Vacation", target:3000, startDate:yearStart, targetDate:toLocalISO(new Date(y, m+5, 1)), startingSaved:200},
   ];
-  // Demonstrate the transaction-driven balance model in the seed data itself:
-  // startingSaved covers progress made before tracking began, and one real
-  // logged transaction per debt/goal shows the live mechanism. Debt Payment
-  // transactions carry accountId (the debt's own liability account, for
-  // the debt's balance/progress) AND sourceAccountId (the real asset
-  // account the money actually left, for Net Worth to stay correct).
-  transactions.push(
-    {id:uid(), date:d(6), type:"Debt Payment", category:debts[0].name, targetId:debts[0].id, accountId:visaAccount.id, sourceAccountId:checking.id, amount:150, note:"Card payment"},
-    {id:uid(), date:d(10), type:"Debt Payment", category:debts[1].name, targetId:debts[1].id, accountId:loanAccount.id, sourceAccountId:checking.id, amount:200, note:"Loan payment"},
-    {id:uid(), date:d(2), type:"Goal Contribution", category:goals[0].name, targetId:goals[0].id, amount:200, note:"Contribution"},
-    {id:uid(), date:d(4), type:"Goal Contribution", category:goals[1].name, targetId:goals[1].id, amount:100, note:"Contribution"},
-  );
+
+  // 6 months of realistic, slightly-noisy activity (oldest first). Every
+  // number below is real logged activity, not a snapshot - Net Worth,
+  // Spend Trend, and each debt's "% paid off" are all derived from this,
+  // so a fresh install shows genuine month-over-month movement.
+  const monthlyExpense = [
+    // [rent, utilities, groceries, diningOut, transportation, entertainment, subscriptions]
+    [1250, 142, 410, 120, 165, 60, 35],
+    [1250, 158, 435,  95, 172, 40, 35],
+    [1250, 149, 398, 140, 180, 90, 35],
+    [1250, 165, 452, 110, 158, 55, 35],
+    [1250, 151, 421, 165, 190, 70, 35],
+    [1250, 150, 470, 155, 180, 88, 35], // current month - groceries/dining/entertainment run over budget on purpose, so Action Center has real things to say
+  ];
+  const monthlyDebtPayment = [ [70,120], [65,125], [80,120], [60,130], [75,120], [60,120] ]; // [visa, loan]
+  const monthlyGoalContribution = [ [150,50], [200,0], [150,100], [300,50], [200,0], [200,100] ]; // [emergencyFund, vacation]
+
+  const transactions = [];
+  for(let i=0;i<6;i++){
+    const monthsAgo = 5-i;
+    const [rent,utilities,groceries,diningOut,transportation,entertainment,subscriptions] = monthlyExpense[i];
+    const [visaPay,loanPay] = monthlyDebtPayment[i];
+    const [efContrib,vacContrib] = monthlyGoalContribution[i];
+    transactions.push(
+      {id:uid(), date:dateIn(monthsAgo,1), type:"Income", category:"Paycheck", accountId:checking.id, amount:3200, note:"Paycheck"},
+      {id:uid(), date:dateIn(monthsAgo,2), type:"Expense", category:byName("Rent/Mortgage"), accountId:checking.id, amount:rent, note:"Monthly rent"},
+      {id:uid(), date:dateIn(monthsAgo,5), type:"Expense", category:byName("Utilities"), accountId:checking.id, amount:utilities, note:"Electric & water"},
+      {id:uid(), date:dateIn(monthsAgo,8), type:"Expense", category:byName("Groceries"), accountId:checking.id, amount:Math.round(groceries*0.55*100)/100, note:"Weekly shop"},
+      {id:uid(), date:dateIn(monthsAgo,21), type:"Expense", category:byName("Groceries"), accountId:checking.id, amount:Math.round(groceries*0.45*100)/100, note:"Weekly shop"},
+      {id:uid(), date:dateIn(monthsAgo,12), type:"Expense", category:byName("Dining Out"), accountId:checking.id, amount:diningOut, note:"Dinner out"},
+      {id:uid(), date:dateIn(monthsAgo,9), type:"Expense", category:byName("Transportation"), accountId:checking.id, amount:transportation, note:"Gas & transit"},
+      {id:uid(), date:dateIn(monthsAgo,15), type:"Expense", category:byName("Entertainment"), accountId:checking.id, amount:entertainment, note:"Streaming & fun"},
+      {id:uid(), date:dateIn(monthsAgo,3), type:"Expense", category:byName("Subscriptions"), accountId:checking.id, amount:subscriptions, note:"Subscriptions"},
+      // Debt Payment transactions carry accountId (the debt's own liability
+      // account, for the debt's balance/progress) AND sourceAccountId (the
+      // real asset account the money actually left, for Net Worth to stay
+      // correct across the payment).
+      {id:uid(), date:dateIn(monthsAgo,6), type:"Debt Payment", category:debts[0].name, targetId:debts[0].id, accountId:visaAccount.id, sourceAccountId:checking.id, amount:visaPay, note:"Card payment"},
+      {id:uid(), date:dateIn(monthsAgo,10), type:"Debt Payment", category:debts[1].name, targetId:debts[1].id, accountId:loanAccount.id, sourceAccountId:checking.id, amount:loanPay, note:"Loan payment"},
+    );
+    if(efContrib>0) transactions.push({id:uid(), date:dateIn(monthsAgo,4), type:"Goal Contribution", category:goals[0].name, targetId:goals[0].id, amount:efContrib, note:"Contribution"});
+    if(vacContrib>0) transactions.push({id:uid(), date:dateIn(monthsAgo,4), type:"Goal Contribution", category:goals[1].name, targetId:goals[1].id, amount:vacContrib, note:"Contribution"});
+  }
+
   return { settings:{theme:"light", debtStrategy:"Snowball", currency:"USD"}, categories, transactions, accounts, debts, goals,
            dismissedActions: [], selectedMonth: monthKeyOf(todayISO()) };
 }
@@ -1187,7 +1262,7 @@ function categoryActuals(monthKey){
    different number from Cash Flow instead of a duplicate. */
 function remainingBudgetedThisMonth(monthKey){
   const actuals = categoryActuals(monthKey);
-  return state.categories.filter(c=>c.budget>0)
+  return state.categories.filter(c=>c.budget>0 && !c.archived)
     .reduce((s,c)=> s + Math.max(0, c.budget - (actuals[c.name]||0)), 0);
 }
 
@@ -1219,7 +1294,7 @@ function computeSummary(monthKey){
   const prevSavingsRate = prevIncome>0 ? prevSavingsAmount/prevIncome : 0;
 
   const actuals = categoryActuals(monthKey);
-  const budgeted = state.categories.filter(c=>c.budget>0);
+  const budgeted = state.categories.filter(c=>c.budget>0 && !c.archived);
   const overCount = budgeted.filter(c => actuals[c.name] > c.budget).length;
   const budgetHealth = budgeted.length ? 1 - overCount/budgeted.length : 1;
 
@@ -1230,7 +1305,7 @@ function computeSummary(monthKey){
 
 function categoryZones(monthKey){
   const actuals = categoryActuals(monthKey);
-  const rows = state.categories.filter(c=>c.budget>0).map(c=>{
+  const rows = state.categories.filter(c=>c.budget>0 && !c.archived).map(c=>{
     const actual = actuals[c.name] || 0;
     const pct = c.budget>0 ? actual/c.budget : 0;
     return {name:c.name, group:c.group, budget:c.budget, actual, pct};
@@ -1887,10 +1962,17 @@ function hashCode(str){ let h=0; for(let i=0;i<str.length;i++){ h = (h<<5)-h+str
    the "View breakdown" link, so this doesn't duplicate that page. */
 function renderNetWorthCard(){
   const { assets, liabilities, netWorth: nw } = netWorth();
+  const months = monthsList(6);
+  const values = months.map(mk => netWorthAtEndOf(mk).netWorth);
   document.getElementById("netWorthCard").innerHTML = `
-    <div class="kpi-label">Net Worth</div>
-    <div class="kpi-value" style="font-size:var(--font-h1);">${fmt(nw)}</div>
-    <div class="kpi-micro">${fmt(assets)} in assets · ${fmt(liabilities)} in liabilities</div>`;
+    <div class="networth-wrap">
+      <div class="networth-stats">
+        <div class="kpi-label">Net Worth</div>
+        <div class="kpi-value" style="font-size:var(--font-h1);">${fmt(nw)}</div>
+        <div class="kpi-micro">${fmt(assets)} in assets · ${fmt(liabilities)} in liabilities</div>
+      </div>
+      <div class="networth-chart">${buildTrendChartHTML(months, values)}</div>
+    </div>`;
 }
 
 function renderDashboard(){ renderGreeting(); renderKPIs(); renderNetWorthCard(); renderActionCenter(); renderDonut(); renderRecentActivity(); }
@@ -1905,10 +1987,16 @@ function renderDashboard(){ renderGreeting(); renderKPIs(); renderNetWorthCard()
 const NEW_CATEGORY_VALUE = "__new__";
 function populateCategorySelect(sel){
   sel.innerHTML = "";
-  state.categories.forEach(c=>{ const opt = el("option", null, c.name); opt.value = c.name; sel.appendChild(opt); });
+  // Archived categories (retired via Delete while they still had transaction
+  // history - see the Delete handler below) stay in state.categories forever
+  // so Category Matrix/Reports keep reading real history, but they must not
+  // be offered here - a user shouldn't be able to log a brand new expense
+  // against a category they just retired.
+  const activeCategories = state.categories.filter(c=>!c.archived);
+  activeCategories.forEach(c=>{ const opt = el("option", null, c.name); opt.value = c.name; sel.appendChild(opt); });
   const addNew = el("option", null, "+ Add new category…"); addNew.value = NEW_CATEGORY_VALUE;
   sel.appendChild(addNew);
-  if(!state.categories.length){ sel.value = NEW_CATEGORY_VALUE; }
+  if(!activeCategories.length){ sel.value = NEW_CATEGORY_VALUE; }
 }
 const INCOME_SOURCES = ["Paycheck","Freelance","Gift","Interest","Refund","Other Income"];
 
@@ -2079,8 +2167,9 @@ function renderTransactionsView(){
 }
 
 /* ---- Budget view ---- */
-function zoneCard(title, tone, rows){
+function zoneCard(title, tone, rows, minHeight){
   const c = el("div","card hoverable");
+  if(minHeight) c.style.minHeight = minHeight;
   const toneColor = tone==="danger"?"var(--color-danger)":tone==="warning"?"var(--color-warning)":"var(--color-success)";
   let rowsHtml = rows.length ? rows.map(r=>`
     <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--color-border);">
@@ -2094,7 +2183,10 @@ function renderBudgetView(){
   const zones = categoryZones(state.selectedMonth);
   const wrap = document.getElementById("budgetZones");
   wrap.innerHTML = "";
-  wrap.appendChild(zoneCard("Over Budget","danger",zones.over));
+  // Over Budget is the most urgent zone - give it a floor height so it
+  // reads as the most important card even when it has just 1-2 rows,
+  // instead of shrinking to whatever the grid's other columns need.
+  wrap.appendChild(zoneCard("Over Budget","danger",zones.over,"220px"));
   wrap.appendChild(zoneCard("Watch","warning",zones.watch));
   // zones.safe was already computed by categoryZones() but never rendered
   // anywhere - the product's own third named zone silently missing from
@@ -2104,7 +2196,10 @@ function renderBudgetView(){
 
   const body = document.getElementById("catTableBody");
   const actuals = categoryActuals(state.selectedMonth);
-  body.innerHTML = state.categories.map(c=>{
+  // Archived categories are deliberately absent from this "active budget"
+  // table - Reports > Category Matrix is the dedicated place their history
+  // stays visible (see populateCategorySelect and the Delete handler below).
+  body.innerHTML = state.categories.filter(c=>!c.archived).map(c=>{
     const actual = actuals[c.name]||0;
     const pct = c.budget>0 ? actual/c.budget : 0;
     const cls = pct>1?"over":pct>=0.85?"warn":"";
@@ -2119,6 +2214,15 @@ function renderBudgetView(){
       <td><button class="btn-danger-text" data-del-cat="${c.id}">Delete</button></td>
     </tr>`;
   }).join("");
+
+  const archived = state.categories.filter(c=>c.archived);
+  document.getElementById("archivedCatHeader").style.display = archived.length ? "" : "none";
+  document.getElementById("archivedCatCard").style.display = archived.length ? "" : "none";
+  document.getElementById("archivedCatList").innerHTML = archived.map(c=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--color-border);">
+      <span>${esc(c.name)} <span class="kpi-micro">(${esc(c.group)})</span></span>
+      <button class="btn btn-secondary" data-restore-cat="${c.id}">Restore</button>
+    </div>`).join("");
 }
 
 /* ---- Debt view ---- */
@@ -2245,7 +2349,7 @@ function renderGoalsView(){
 }
 
 /* ---- Reports view ---- */
-function budgetTotalSum(){ return state.categories.filter(c=>c.budget>0).reduce((s,c)=>s+c.budget,0); }
+function budgetTotalSum(){ return state.categories.filter(c=>c.budget>0 && !c.archived).reduce((s,c)=>s+c.budget,0); }
 function topCategoriesOf(monthKey, n){
   const acts = categoryActuals(monthKey);
   return Object.entries(acts).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).slice(0,n);
@@ -2315,27 +2419,35 @@ function renderTopLists(){
     : `<div class="row"><span class="name">No expenses logged yet.</span></div>`;
 }
 
-function renderTrendChart(){
-  const months = monthsList(12);
-  const values = months.map(mk => sumBy(txForMonth(mk),"Expense"));
-  const max = Math.max(1, ...values);
+/* Shared by Spend Trend (Reports) and the Net Worth trend (Dashboard).
+   Scaled by actual min/max rather than assuming a 0 baseline - Net Worth
+   can go negative, unlike monthly spend, so a fixed 0 floor would flatten
+   or misrepresent an all-negative or mixed-sign run. */
+function buildTrendChartHTML(months, values){
+  const max = Math.max(0, ...values);
+  const min = Math.min(0, ...values);
+  const range = (max - min) || 1;
   const w = 1000, h = 220, pad = 20;
   const stepX = (w-2*pad) / (months.length-1 || 1);
   const pts = values.map((v,i)=>{
     const x = pad + i*stepX;
-    const y = h-pad - (v/max)*(h-2*pad);
+    const y = h-pad - ((v-min)/range)*(h-2*pad);
     return [x,y];
   });
   const line = pts.map(([x,y],i)=> (i===0?"M":"L")+x.toFixed(1)+","+y.toFixed(1)).join(" ");
   const area = line + ` L${pts[pts.length-1][0].toFixed(1)},${h-pad} L${pts[0][0].toFixed(1)},${h-pad} Z`;
   const last = pts[pts.length-1];
-  const svg = `<div class="trend-chart"><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+  return `<div class="trend-chart"><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
       <path class="area" d="${area}"></path>
       <path class="line" d="${line}"></path>
       <circle class="dot" cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="4"></circle>
     </svg></div>
     <div class="trend-labels">${months.map(mk=>`<span>${monthShortLabel(mk)}</span>`).join("")}</div>`;
-  document.getElementById("trendCard").innerHTML = svg;
+}
+function renderTrendChart(){
+  const months = monthsList(12);
+  const values = months.map(mk => sumBy(txForMonth(mk),"Expense"));
+  document.getElementById("trendCard").innerHTML = buildTrendChartHTML(months, values);
 }
 
 function renderCategoryMatrix(){
@@ -2507,7 +2619,19 @@ document.getElementById("addTxBtn").addEventListener("click", async ()=>{
       if(catVal === NEW_CATEGORY_VALUE){
         const newName = document.getElementById("txNewCatName").value.trim();
         if(!newName){ setNote("txFormNote", "Enter a name for the new category.", "error"); return; }
-        if(state.categories.some(c=>c.name.toLowerCase()===newName.toLowerCase())){ setNote("txFormNote", "That category already exists — pick it from the list.", "error"); return; }
+        const existingCat = state.categories.find(c=>c.name.toLowerCase()===newName.toLowerCase());
+        if(existingCat){
+          // An archived category is deliberately missing from the dropdown
+          // (see populateCategorySelect), so "pick it from the list" here
+          // used to send the user looking for something that isn't there -
+          // Restore lives on Budget, not inline in Quick Entry, since
+          // reactivating a category mid-transaction-entry is its own
+          // decision, not something to do silently as a side effect here.
+          setNote("txFormNote", existingCat.archived
+            ? `"${existingCat.name}" is archived. Restore it from Budget → Manage Categories, then it'll be selectable here.`
+            : "That category already exists — pick it from the list.", "error");
+          return;
+        }
         state.categories.push({id:uid(), name:newName, group:"Other", budget:0});
         category = newName;
       } else {
@@ -2531,15 +2655,47 @@ document.getElementById("allTxBody").addEventListener("click",(e)=>{
   saveState(); renderAll();
 });
 
-document.getElementById("addCatBtn").addEventListener("click", ()=>{
+document.getElementById("addCatBtn").addEventListener("click", async ()=>{
   const name = document.getElementById("catName").value.trim();
   const group = document.getElementById("catGroup").value.trim() || "Other";
   const budget = parseFloat(document.getElementById("catBudget").value) || 0;
   if(!name){ setNote("catFormNote", "Give the category a name.", "error"); return; }
   if(budget<0){ setNote("catFormNote", "Budget can't be negative.", "error"); return; }
-  if(state.categories.some(c=>c.name.toLowerCase()===name.toLowerCase())){ setNote("catFormNote", "That category already exists.", "error"); return; }
+  const existing = state.categories.find(c=>c.name.toLowerCase()===name.toLowerCase());
+  if(existing){
+    // An archived category (see the Delete handler below) never truly
+    // leaves state.categories, so its name is still "taken" - the old dead
+    // end here just said "already exists" with no way forward, since the
+    // archived one is deliberately filtered out of every picker a user
+    // could otherwise "just pick it from." Offer to restore it instead of
+    // creating a second category with the same name, which transactions
+    // (linked by name string, not id) would have no way to disambiguate.
+    if(existing.archived){
+      const ok = await confirmModal(
+        `"${existing.name}" already exists as an archived category with past history. Restore it instead of creating a duplicate?`,
+        {title:"Category is archived", confirmText:"Restore category", tone:"primary"}
+      );
+      if(ok){
+        existing.archived = false;
+        existing.group = group;
+        existing.budget = budget;
+        document.getElementById("catName").value = ""; document.getElementById("catGroup").value = ""; document.getElementById("catBudget").value = "";
+        saveState(); renderAll();
+        setNote("catFormNote", `"${existing.name}" restored.`, "success");
+      }
+      return;
+    }
+    setNote("catFormNote", "That category already exists.", "error"); return;
+  }
   state.categories.push({id:uid(), name, group, budget});
   document.getElementById("catName").value = ""; document.getElementById("catGroup").value = ""; document.getElementById("catBudget").value = "";
+  saveState(); renderAll();
+});
+
+document.getElementById("archivedCatList").addEventListener("click", (e)=>{
+  const btn = e.target.closest("[data-restore-cat]"); if(!btn) return;
+  const cat = state.categories.find(c=>c.id===btn.dataset.restoreCat); if(!cat) return;
+  cat.archived = false;
   saveState(); renderAll();
 });
 
@@ -2547,23 +2703,33 @@ document.getElementById("catTableBody").addEventListener("click", async (e)=>{
   const btn = e.target.closest("[data-del-cat]"); if(!btn) return;
   const cat = state.categories.find(c=>c.id===btn.dataset.delCat); if(!cat) return;
   // Unlike Debt/Goal/Account, a category is a plain string on each
-  // transaction (not an id reference) - deleting it can't corrupt or
-  // orphan anything, but it DOES make the same real spending disagree
-  // across screens: Dashboard/Reports read straight from transactions
-  // (still shows it) while Budget/Category Matrix iterate state.categories
-  // (stops showing it) - a real trust problem a silent one-click delete
-  // made worse by having no warning at all, unlike its three siblings
-  // (found live by an independent Inspector-Standing review, 2026-08-10).
+  // transaction (not an id reference), so deleting it can't orphan anything
+  // structurally - but a HARD delete used to make the same real spending
+  // disagree across screens: Dashboard/Reports read straight from
+  // transactions (still shows it) while Budget/Category Matrix iterated
+  // state.categories (stopped showing it) - a real trust problem (found
+  // live by an independent Inspector-Standing review, 2026-08-10).
+  // Fix: archive instead of delete whenever real history exists. An
+  // archived category is filtered out of populateCategorySelect (can't
+  // log new Expenses against it) and out of Budget's active zones/table
+  // (populateCategorySelect, categoryZones, computeSummary,
+  // remainingBudgetedThisMonth, budgetTotalSum, this table above all skip
+  // it now) - but it stays in state.categories forever, so Reports >
+  // Category Matrix (which never filtered by archived) keeps showing its
+  // real history exactly as before. A category with zero linked
+  // transactions has no history to protect, so it's still removed outright.
   const linked = state.transactions.filter(t=>t.category===cat.name);
   if(linked.length){
     const total = linked.reduce((s,t)=>s+Number(t.amount||0),0);
     const ok = await confirmModal(
-      `This category has ${linked.length} logged transaction(s) totaling ${fmt(total)}. They'll stay in your history under "${cat.name}", but this category will no longer appear in Budget or the Category Matrix.`,
-      {title:"Delete this category?", confirmText:"Delete category"}
+      `This category has ${linked.length} logged transaction(s) totaling ${fmt(total)}. They'll stay in your history under "${cat.name}" (including in Reports > Category Matrix), but this category will no longer appear in Budget or be selectable for new expenses.`,
+      {title:"Archive this category?", confirmText:"Archive category"}
     );
     if(!ok) return;
+    cat.archived = true;
+  } else {
+    state.categories = state.categories.filter(c=>c.id!==btn.dataset.delCat);
   }
-  state.categories = state.categories.filter(c=>c.id!==btn.dataset.delCat);
   saveState(); renderAll();
 });
 
@@ -2693,7 +2859,16 @@ document.getElementById("addGoalBtn").addEventListener("click", ()=>{
   if(!name){ setNote("goalFormNote", "Give the goal a name.", "error"); return; }
   if(state.goals.some(g=>g.name.toLowerCase()===name.toLowerCase())){ setNote("goalFormNote", "A goal with that name already exists.", "error"); return; }
   if(!targetDate){ setNote("goalFormNote", "Set a target date.", "error"); return; }
-  if(target<0 || startingSaved<0){ setNote("goalFormNote", "Enter values of 0 or more.", "error"); return; }
+  // target<=0 (not just <0) - a $0 goal is meaningless (always "reached") and
+  // the same silent-garbage-in class of bug as the goal date check below.
+  if(target<=0){ setNote("goalFormNote", "Target amount must be greater than 0.", "error"); return; }
+  if(startingSaved<0){ setNote("goalFormNote", "Enter values of 0 or more.", "error"); return; }
+  // Nothing compared start vs target date before this - a target date on or
+  // before the start date silently created a goal every pace/neededPerMonth
+  // calculation downstream had to somehow survive (division by a zero or
+  // negative day-span), instead of being rejected at the one place that
+  // could actually explain the problem to the user.
+  if(targetDate <= startDate){ setNote("goalFormNote", "Target date must be after the start date.", "error"); return; }
   state.goals.push({id:uid(), name, target, startDate, targetDate, startingSaved});
   document.getElementById("goalName").value = ""; document.getElementById("goalTarget").value = "";
   document.getElementById("goalTargetDate").value = ""; document.getElementById("goalSaved").value = "";
@@ -2724,8 +2899,15 @@ document.getElementById("goalTableBody").addEventListener("change",(e)=>{
   g.startingSaved = Math.max(0, parseFloat(input.value) || 0);
   saveState(); renderGoalsView(); renderDashboard();
 });
-document.getElementById("goalCards").addEventListener("click",(e)=>{
+document.getElementById("goalCards").addEventListener("click", async (e)=>{
   const btn = e.target.closest("[data-contribute]"); if(!btn) return;
+  // The one transaction-creating path that historically never called
+  // demoLimitReached()/recordDemoTransactionAdd() - a real bypass letting
+  // unlimited Goal Contributions through the demo's 3-transaction cap
+  // (found by ChatGPT's code review, 2026-08-11). Same gate, same order
+  // (check before validation-exits, record only after a transaction is
+  // actually pushed) as Quick Entry and the Debt card's quick-pay handler.
+  if(await demoLimitReached()) return;
   const g = state.goals.find(g=>g.id===btn.dataset.contribute); if(!g) return;
   const input = document.getElementById(`contribAmt-${g.id}`);
   const noteId = `contribNote-${g.id}`;
@@ -2737,6 +2919,7 @@ document.getElementById("goalCards").addEventListener("click",(e)=>{
     postNote = `Goal reached — you're now ${fmt(saved+amt-g.target)} over your ${fmt(g.target)} target.`;
   }
   state.transactions.push({id:uid(), date:todayISO(), type:"Goal Contribution", category:g.name, targetId:g.id, amount:amt, note:"Contribution"});
+  if(IS_DEMO) recordDemoTransactionAdd();
   saveState(); renderAll();
   if(postNote) setNote(noteId, postNote, "success");
 });
@@ -2898,22 +3081,17 @@ document.getElementById("importFile").addEventListener("change", (e)=>{
   reader.readAsText(file); e.target.value = "";
 });
 
-/* ---- Start fresh (clear demo data) ----
-   A real buyer's first-run experience ships pre-populated with sample
-   categories/transactions/debts/goals so the product is understandable
-   immediately - but there was no in-app way to clear that demo data and
-   start entering real numbers (the only path was manually clearing
-   localStorage via devtools, not realistic for a non-technical customer).
+/* ---- Reset Demo ----
    confirmModal() is used deliberately here, same as the debt/goal cascade-
    delete - a genuinely destructive, hard-to-reverse action still needs a
-   real confirmation, just not a native OS dialog (see confirmModal() above). */
-// Demo version: "Start Fresh" (which wipes to an EMPTY budget - the right
-// behavior for a real buyer) is replaced with "Reset Demo" (which restores
-// the polished SAMPLE data instead - an empty demo would show nothing and
-// defeat the point of evaluating the product). Critically, this never
-// touches DEMO_USAGE_KEY - resetting the sample data a visitor is looking
-// at must not refund their transaction allowance, or Reset Demo becomes
-// the exact bypass this whole hardening pass exists to close.
+   real confirmation, just not a native OS dialog (see confirmModal() above).
+   Demo version: "Start Fresh" (which wipes to an EMPTY budget - the right
+   behavior for a real buyer) is replaced with "Reset Demo" (which restores
+   the polished SAMPLE data instead - an empty demo would show nothing and
+   defeat the point of evaluating the product). Critically, this never
+   touches DEMO_USAGE_KEY - resetting the sample data a visitor is looking
+   at must not refund their transaction allowance, or Reset Demo becomes
+   the exact bypass this whole hardening pass exists to close. */
 document.getElementById("resetBtn").addEventListener("click", async ()=>{
   const ok = await confirmModal(
     "This restores the demo to its original sample data. Your demo transaction allowance is not affected.",
