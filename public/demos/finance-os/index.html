@@ -528,7 +528,6 @@ footer{text-align:center;color:var(--color-text-secondary);font-size:var(--font-
         <svg class="icon" viewBox="0 0 24 24"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 3h16"/></svg>
         <span class="label">Import backup</span>
       </button>
-      <input type="file" id="importFile" accept="application/json" style="display:none;">
       <div class="form-note" id="importNote" style="margin-top:8px;"></div>
       <button class="side-btn" id="resetBtn">
         <svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
@@ -869,22 +868,17 @@ const ICONS = {
 /* ==========================================================================
    STATE + PERSISTENCE
    ========================================================================== */
-/* ---- Demo hardening (this file only, never index.html) ----
-   The public demo previously used the SAME localStorage key as the real
-   product (financeOS_v1) and tracked its transaction-add count INSIDE that
-   same finance-state blob (state.demoAddedCount). Both were real, exploitable
-   gaps: Start Fresh / Import could silently reset or replace demoAddedCount
-   along with everything else, and sharing financeOS_v1 meant the demo could
-   in principle read or clobber real product data on the same browser/domain
-   (found live, 2026-08-10, after the first version shipped - "demoda
-   güvenlik kısıtlaması kolayca aşılıyor").
-   Fix: two completely separate localStorage keys. STORAGE_KEY holds ONLY the
-   demo's own sample finance data (never financeOS_v1). DEMO_USAGE_KEY holds
-   ONLY the transaction-add counter, in its own key, touched by nothing else
-   in this file - not seedData(), not migrateState(), not Reset Demo, not
-   (the now-disabled) Import. This is what makes the limit survive a reset. */
-const IS_DEMO = true;
+/* ---- Showcase build (this file only - a purpose-built demo, not the full
+   product gated by a flag) ----
+   This build has no backup/import engine and no unrestricted long-term
+   ledger workflow - it's meant to demonstrate Finance OS, not to become a
+   free substitute for it. Two dedicated localStorage keys, isolated from
+   the real product's own storage: STORAGE_KEY holds only this build's
+   sample finance data, DEMO_USAGE_KEY holds only the interaction
+   counters - untouched by seedData(), migrateState(), or Reset Demo, which
+   is what makes the allowance survive a reset. */
 const DEMO_TX_LIMIT = 3;
+const DEMO_STRUCTURE_LIMIT = 2;
 const DEMO_UNLOCK_URL = "https://tonguckaracay.com/en/products/finance-os";
 const STORAGE_KEY = "financeOS_demo_state";
 const DEMO_USAGE_KEY = "financeOS_demo_usage";
@@ -897,7 +891,7 @@ function getDemoUsage(){
       if(parsed && typeof parsed.transactionAdds === "number") return parsed;
     }
   }catch(e){ console.warn("Could not read demo usage, starting at 0.", e); }
-  return { transactionAdds: 0, firstUsedAt: null, lastUsedAt: null };
+  return { transactionAdds: 0, structureAdds: 0, firstUsedAt: null, lastUsedAt: null };
 }
 function saveDemoUsage(usage){
   try{ localStorage.setItem(DEMO_USAGE_KEY, JSON.stringify(usage)); }
@@ -921,23 +915,45 @@ function recordDemoTransactionAdd(){
 // and any future shortcut) must call this before creating a transaction,
 // never re-implement the limit check.
 async function demoLimitReached(){
-  if(!IS_DEMO) return false;
   if(canAddDemoTransaction()) return false;
   const goFull = await confirmModal(
-    `You've reached the ${DEMO_TX_LIMIT}-transaction limit of this demo. Get the full version to add unlimited transactions, keep your own financial history, and use backup tools.`,
+    `You've reached the interactive demo limit. Get the full version for unlimited transactions, complete data management, and backup tools.`,
+    {title:"Demo Limit Reached", confirmText:"Get Full Version", tone:"primary"}
+  );
+  if(goFull) window.open(DEMO_UNLOCK_URL, "_blank", "noopener");
+  return true;
+}
+// Separate, smaller allowance for adding new structural entities (a
+// category, account, debt, or goal) - the showcase should let a visitor
+// try creating one of these, not build out a parallel real ledger of
+// them. Restoring an archived category doesn't count (see the category
+// Delete/Restore handlers below) - that's reactivating existing sample
+// history, not creating something new.
+function canAddDemoStructure(){
+  return getDemoUsage().structureAdds < DEMO_STRUCTURE_LIMIT;
+}
+function recordDemoStructureAdd(){
+  const usage = getDemoUsage();
+  usage.structureAdds += 1;
+  saveDemoUsage(usage);
+  return usage;
+}
+async function demoStructureLimitReached(){
+  if(canAddDemoStructure()) return false;
+  const goFull = await confirmModal(
+    `You've reached the interactive demo limit. Get the full version for unlimited categories, accounts, debts, and goals.`,
     {title:"Demo Limit Reached", confirmText:"Get Full Version", tone:"primary"}
   );
   if(goFull) window.open(DEMO_UNLOCK_URL, "_blank", "noopener");
   return true;
 }
 function renderDemoBanner(){
-  if(!IS_DEMO) return;
   const textEl = document.getElementById("demoBannerText");
   if(!textEl) return;
   const usage = getDemoUsage();
   const remaining = Math.max(0, DEMO_TX_LIMIT - usage.transactionAdds);
   if(usage.transactionAdds === 0){
-    textEl.textContent = `Demo Mode · ${DEMO_TX_LIMIT} custom transactions available`;
+    textEl.textContent = `Demo Mode · Try Finance OS with sample data`;
   } else if(remaining > 0){
     textEl.textContent = `Demo Mode · ${remaining} of ${DEMO_TX_LIMIT} custom transactions remaining`;
   } else {
@@ -2642,7 +2658,7 @@ document.getElementById("addTxBtn").addEventListener("click", async ()=>{
     }
   }
   state.transactions.push({id:uid(), date, type, category, targetId, accountId, sourceAccountId, amount, note});
-  if(IS_DEMO) recordDemoTransactionAdd();
+  recordDemoTransactionAdd();
   document.getElementById("txAmount").value = ""; document.getElementById("txNote").value = "";
   document.getElementById("txNewCatName").value = ""; document.getElementById("txNewAcctName").value = "";
   saveState(); renderAll();
@@ -2687,7 +2703,9 @@ document.getElementById("addCatBtn").addEventListener("click", async ()=>{
     }
     setNote("catFormNote", "That category already exists.", "error"); return;
   }
+  if(await demoStructureLimitReached()) return;
   state.categories.push({id:uid(), name, group, budget});
+  recordDemoStructureAdd();
   document.getElementById("catName").value = ""; document.getElementById("catGroup").value = ""; document.getElementById("catBudget").value = "";
   saveState(); renderAll();
 });
@@ -2744,7 +2762,7 @@ function toggleDebtCreditLimitField(){
 document.getElementById("debtType").addEventListener("change", toggleDebtCreditLimitField);
 toggleDebtCreditLimitField();
 
-document.getElementById("addDebtBtn").addEventListener("click", ()=>{
+document.getElementById("addDebtBtn").addEventListener("click", async ()=>{
   const name = document.getElementById("debtName").value.trim();
   const type = document.getElementById("debtType").value;
   const startBalance = parseFloat(document.getElementById("debtBalance").value) || 0;
@@ -2752,14 +2770,12 @@ document.getElementById("addDebtBtn").addEventListener("click", ()=>{
   const apr = parseFloat(document.getElementById("debtApr").value) || 0;
   const minPayment = parseFloat(document.getElementById("debtMin").value) || 0;
   if(!name){ setNote("debtFormNote", "Give the debt a name.", "error"); return; }
-  // Category/Account creation already guard against this at every entry
-  // point; Debt/Goal were the two missing it (found live by an
-  // independent Inspector-Standing review, 2026-08-10) - two same-named
-  // debts/goals are indistinguishable in the Transactions "Debt
-  // Payment"/"Goal Contribution" picker, a real path to a misdirected
-  // payment, not just a cosmetic duplicate.
+  // Two same-named debts are indistinguishable in the Transactions "Debt
+  // Payment" picker, a real path to a misdirected payment, not just a
+  // cosmetic duplicate.
   if(state.debts.some(d=>d.name.toLowerCase()===name.toLowerCase())){ setNote("debtFormNote", "A debt with that name already exists.", "error"); return; }
   if(startBalance<0 || creditLimit<0 || apr<0 || minPayment<0){ setNote("debtFormNote", "Enter values of 0 or more.", "error"); return; }
+  if(await demoStructureLimitReached()) return;
   // Every debt owns exactly one liability account - created transparently
   // here so the Add Debt form itself never has to mention "accounts" at
   // all. "Current balance" the user just typed becomes that account's
@@ -2767,6 +2783,7 @@ document.getElementById("addDebtBtn").addEventListener("click", ()=>{
   const acct = {id:uid(), name, type: type==="Credit Card" ? "Credit Card" : "Other", kind:"liability", startingBalance:startBalance};
   state.accounts.push(acct);
   state.debts.push({id:uid(), name, type, apr, minPayment, creditLimit: creditLimit||null, accountId:acct.id});
+  recordDemoStructureAdd();
   document.getElementById("debtName").value = ""; document.getElementById("debtBalance").value = "";
   document.getElementById("debtCreditLimit").value = "";
   document.getElementById("debtApr").value = ""; document.getElementById("debtMin").value = "";
@@ -2839,7 +2856,7 @@ document.getElementById("debtCards").addEventListener("click", async (e)=>{
     return;
   }
   state.transactions.push({id:uid(), date:todayISO(), type:"Debt Payment", category:d.name, targetId:d.id, accountId:d.accountId, sourceAccountId:assetAccounts[0].id, amount:amt, note:"Payment"});
-  if(IS_DEMO) recordDemoTransactionAdd();
+  recordDemoTransactionAdd();
   saveState(); renderAll();
   if(postNote) setNote(noteId, postNote, "info");
 });
@@ -2850,7 +2867,7 @@ document.getElementById("debtStrategyToggle").addEventListener("click",(e)=>{
 });
 
 /* ---- Goals events ---- */
-document.getElementById("addGoalBtn").addEventListener("click", ()=>{
+document.getElementById("addGoalBtn").addEventListener("click", async ()=>{
   const name = document.getElementById("goalName").value.trim();
   const target = parseFloat(document.getElementById("goalTarget").value) || 0;
   const startDate = document.getElementById("goalStart").value || todayISO();
@@ -2869,7 +2886,9 @@ document.getElementById("addGoalBtn").addEventListener("click", ()=>{
   // negative day-span), instead of being rejected at the one place that
   // could actually explain the problem to the user.
   if(targetDate <= startDate){ setNote("goalFormNote", "Target date must be after the start date.", "error"); return; }
+  if(await demoStructureLimitReached()) return;
   state.goals.push({id:uid(), name, target, startDate, targetDate, startingSaved});
+  recordDemoStructureAdd();
   document.getElementById("goalName").value = ""; document.getElementById("goalTarget").value = "";
   document.getElementById("goalTargetDate").value = ""; document.getElementById("goalSaved").value = "";
   saveState(); renderGoalsView(); renderDashboard();
@@ -2901,12 +2920,10 @@ document.getElementById("goalTableBody").addEventListener("change",(e)=>{
 });
 document.getElementById("goalCards").addEventListener("click", async (e)=>{
   const btn = e.target.closest("[data-contribute]"); if(!btn) return;
-  // The one transaction-creating path that historically never called
-  // demoLimitReached()/recordDemoTransactionAdd() - a real bypass letting
-  // unlimited Goal Contributions through the demo's 3-transaction cap
-  // (found by ChatGPT's code review, 2026-08-11). Same gate, same order
-  // (check before validation-exits, record only after a transaction is
-  // actually pushed) as Quick Entry and the Debt card's quick-pay handler.
+  // Same gate, same order (check before validation-exits, record only
+  // after a transaction is actually pushed) as Quick Entry and the Debt
+  // card's quick-pay handler - every transaction-creating path goes
+  // through the one centralized gate, never its own copy of the check.
   if(await demoLimitReached()) return;
   const g = state.goals.find(g=>g.id===btn.dataset.contribute); if(!g) return;
   const input = document.getElementById(`contribAmt-${g.id}`);
@@ -2919,26 +2936,23 @@ document.getElementById("goalCards").addEventListener("click", async (e)=>{
     postNote = `Goal reached — you're now ${fmt(saved+amt-g.target)} over your ${fmt(g.target)} target.`;
   }
   state.transactions.push({id:uid(), date:todayISO(), type:"Goal Contribution", category:g.name, targetId:g.id, amount:amt, note:"Contribution"});
-  if(IS_DEMO) recordDemoTransactionAdd();
+  recordDemoTransactionAdd();
   saveState(); renderAll();
   if(postNote) setNote(noteId, postNote, "success");
 });
 
 /* ---- Accounts events (Reports > Manage Accounts) ---- */
-document.getElementById("addAcctBtn").addEventListener("click", ()=>{
+document.getElementById("addAcctBtn").addEventListener("click", async ()=>{
   const name = document.getElementById("acctName").value.trim();
   const type = document.getElementById("acctType").value;
   const startingBalance = parseFloat(document.getElementById("acctBalance").value) || 0;
   if(!name){ setNote("acctFormNote", "Give the account a name.", "error"); return; }
-  // The one creation form in the file missing this guard - every sibling
-  // (Add Debt/Goal/Category, and this same field's own inline-edit
-  // counterpart) already rejects a negative value. A negative starting
-  // balance here silently corrupted Net Worth with no floor and no
-  // warning (found by an independent Inspector-Standing review, 2026-08-10).
   if(startingBalance<0){ setNote("acctFormNote", "Starting balance can't be negative.", "error"); return; }
   if(state.accounts.some(a=>a.name.toLowerCase()===name.toLowerCase())){ setNote("acctFormNote", "An account with that name already exists.", "error"); return; }
+  if(await demoStructureLimitReached()) return;
   const kind = ACCOUNT_LIABILITY_TYPES.includes(type) ? "liability" : "asset";
   state.accounts.push({id:uid(), name, type, kind, startingBalance});
+  recordDemoStructureAdd();
   document.getElementById("acctName").value = ""; document.getElementById("acctBalance").value = "";
   saveState(); renderReportsView();
 });
@@ -3010,88 +3024,26 @@ document.getElementById("themeToggle").addEventListener("click", ()=>{
   saveState(); applyTheme();
 });
 
-/* ---- Export / Import ---- */
+/* ---- Export / Import ----
+   The showcase build ships no backup engine at all - not gated behind a
+   flag, not present to be re-enabled. Both buttons stay visible (a buyer
+   should see the full product has this) but only ever show where to get
+   it. */
 document.getElementById("exportBtn").addEventListener("click", ()=>{
-  // Demo-only restriction: the demo is for evaluation, not for maintaining
-  // a real personal finance ledger - exporting would let a visitor turn
-  // the demo into a working backup/restore workflow for data that was
-  // never meant to be a real ledger in the first place.
-  if(IS_DEMO){ setNote("exportNote", "Backup export is available in the full version.", "info"); return; }
-  const blob = new Blob([JSON.stringify(state,null,2)], {type:"application/json"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a"); a.href = url; a.download = `finance-os-backup-${todayISO()}.json`;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  setNote("exportNote", "Backup export is available in the full version.", "info");
 });
 document.getElementById("importBtn").addEventListener("click", ()=>{
-  // Demo-only restriction: Import is the main bypass vector for the
-  // transaction limit above (load a backup with hundreds of transactions,
-  // or one that resets state entirely) - never open the file picker here.
-  if(IS_DEMO){ setNote("importNote", "Import is available in the full version.", "info"); return; }
-  document.getElementById("importFile").click();
-});
-document.getElementById("importFile").addEventListener("change", (e)=>{
-  // Defense in depth: even if this handler is somehow triggered without
-  // going through importBtn above (e.g. devtools), never parse or apply
-  // an imported file in demo mode.
-  if(IS_DEMO){ e.target.value = ""; return; }
-  const file = e.target.files[0]; if(!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    // saveState() (writes to disk) must be the LAST thing that happens,
-    // only once parsing, shape-checking, migration, AND a real render have
-    // ALL succeeded. The previous version of this comment claimed exactly
-    // that but the code didn't actually do it - saveState() ran BEFORE
-    // renderAll(), so a file that parsed as JSON and passed the shallow
-    // shape check but broke a later render (e.g. a transaction with no
-    // .date, which transaction-sort code dereferences) had ALREADY been
-    // written to disk by the time the render threw. The in-memory `state`
-    // got rolled back by the catch block below, but disk didn't - the next
-    // reload silently restored the corrupted data, with the on-screen
-    // "This doesn't look like a valid backup" message implying nothing had
-    // changed. Found live (not just by reading code) by an independent
-    // Inspector-Standing review, 2026-08-10, using exactly that kind of
-    // file - a real, realistic failure mode for a hand-edited or partially
-    // corrupted backup, not a hypothetical.
-    const previousState = state;
-    try{
-      const parsed = JSON.parse(reader.result);
-      if(!parsed || typeof parsed !== "object") throw new Error("shape");
-      if(!Array.isArray(parsed.categories) || !Array.isArray(parsed.transactions)) throw new Error("shape");
-      state = parsed;
-      migrateState();
-      applyTheme();
-      renderAll(); // must succeed before ANYTHING is persisted
-      saveState(); // only reached once every step above has actually succeeded
-      setNote("importNote", "Backup imported successfully.", "success");
-    }catch(err){
-      state = previousState;
-      // renderAll() above may have thrown partway through, leaving some
-      // views showing fragments of the bad parsed data - re-render from
-      // the restored state so the screen, not just memory, is genuinely
-      // back to where it was before the import was attempted.
-      applyTheme();
-      renderAll();
-      // Both a raw JSON syntax error and a wrong-shape/broken-content file
-      // land here - a non-technical buyer doesn't need to see "Expected
-      // property name or '}' in JSON at position 1", just that the file
-      // isn't a real backup.
-      setNote("importNote", "This doesn't look like a valid Finance OS backup file.", "error");
-    }
-  };
-  reader.readAsText(file); e.target.value = "";
+  setNote("importNote", "Import is available in the full version.", "info");
 });
 
 /* ---- Reset Demo ----
    confirmModal() is used deliberately here, same as the debt/goal cascade-
    delete - a genuinely destructive, hard-to-reverse action still needs a
    real confirmation, just not a native OS dialog (see confirmModal() above).
-   Demo version: "Start Fresh" (which wipes to an EMPTY budget - the right
-   behavior for a real buyer) is replaced with "Reset Demo" (which restores
-   the polished SAMPLE data instead - an empty demo would show nothing and
-   defeat the point of evaluating the product). Critically, this never
-   touches DEMO_USAGE_KEY - resetting the sample data a visitor is looking
-   at must not refund their transaction allowance, or Reset Demo becomes
-   the exact bypass this whole hardening pass exists to close. */
+   Restores the polished sample dataset (the showcase build never offers an
+   empty "Start Fresh" - an empty demo defeats the point of evaluating the
+   product). Deliberately never touches DEMO_USAGE_KEY - the interaction
+   allowance is independent of the sample data itself. */
 document.getElementById("resetBtn").addEventListener("click", async ()=>{
   const ok = await confirmModal(
     "This restores the demo to its original sample data. Your demo transaction allowance is not affected.",
