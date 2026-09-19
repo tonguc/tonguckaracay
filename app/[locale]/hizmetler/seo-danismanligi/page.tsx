@@ -7,10 +7,19 @@ export const metadata: Metadata = {
   title: "SEO Danışmanlığı Hizmeti | Google'da Üst Sıralara Çıkın | Tonguç Karaçay",
   description: "Profesyonel SEO danışmanlığı ile organik trafiğinizi artırın. Teknik SEO, içerik stratejisi, link building. 25+ yıl deneyim, ölçülebilir sonuçlar. Ücretsiz SEO analizi için iletişime geçin.",
   keywords: ["SEO danışmanlığı", "SEO ajansı", "arama motoru optimizasyonu", "teknik SEO", "içerik stratejisi", "link building", "Google sıralama", "organik trafik"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/hizmetler/seo-danismanligi",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/seo-danismanligi",
+      en: "https://tonguckaracay.com/en/services/seo-consulting",
+      "x-default": "https://tonguckaracay.com/en/services/seo-consulting",
+    },
+  },
   openGraph: {
     title: "SEO Danışmanlığı Hizmeti | Google'da Üst Sıralara Çıkın",
     description: "Profesyonel SEO danışmanlığı ile organik trafiğinizi artırın. 25+ yıl deneyim, ölçülebilir sonuçlar.",
     type: "website",
+    url: "https://tonguckaracay.com/hizmetler/seo-danismanligi",
   },
 };
 
@@ -550,6 +559,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
+            "url": "https://tonguckaracay.com/hizmetler/seo-danismanligi",
             "name": "SEO Danışmanlığı Hizmeti",
             "description": "Profesyonel SEO danışmanlığı ile organik trafiğinizi artırın. Teknik SEO, içerik stratejisi, link building.",
             "provider": {

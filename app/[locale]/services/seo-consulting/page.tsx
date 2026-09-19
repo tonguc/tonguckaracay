@@ -7,10 +7,19 @@ export const metadata: Metadata = {
   title: "SEO Consulting Services | Increase Organic Traffic | Tonguç Karaçay",
   description: "Professional SEO consulting to boost your search rankings. Technical SEO, content strategy, link building. 25+ years experience, measurable results. Get your free SEO audit today.",
   keywords: ["SEO consulting", "SEO services", "search engine optimization", "technical SEO", "content strategy", "link building", "Google ranking", "organic traffic"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/en/services/seo-consulting",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/seo-danismanligi",
+      en: "https://tonguckaracay.com/en/services/seo-consulting",
+      "x-default": "https://tonguckaracay.com/en/services/seo-consulting",
+    },
+  },
   openGraph: {
     title: "SEO Consulting Services | Increase Organic Traffic",
     description: "Professional SEO consulting to boost your search rankings. 25+ years experience, measurable results.",
     type: "website",
+    url: "https://tonguckaracay.com/en/services/seo-consulting",
   },
 };
 
@@ -550,6 +559,7 @@ export default function SEOConsultingPage({ params: { locale } }: Props) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
+            "url": "https://tonguckaracay.com/en/services/seo-consulting",
             "name": "SEO Consulting Services",
             "description": "Professional SEO consulting to boost your search rankings. Technical SEO, content strategy, link building.",
             "provider": {

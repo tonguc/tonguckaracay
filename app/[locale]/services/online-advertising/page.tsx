@@ -7,10 +7,19 @@ export const metadata: Metadata = {
   title: "Online Advertising Services | Google Ads & Meta Ads Management | Tonguç Karaçay",
   description: "Professional Google Ads and Meta Ads management to maximize your ad budget ROI. ROAS-focused campaigns, A/B testing, remarketing. 25+ years experience.",
   keywords: ["Google Ads management", "Meta Ads", "PPC advertising", "paid search", "performance marketing", "remarketing", "ROAS optimization", "digital advertising"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/en/services/online-advertising",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/online-reklamcilik",
+      en: "https://tonguckaracay.com/en/services/online-advertising",
+      "x-default": "https://tonguckaracay.com/en/services/online-advertising",
+    },
+  },
   openGraph: {
     title: "Online Advertising Services | Google Ads & Meta Ads Management",
     description: "Professional Google Ads and Meta Ads management to maximize your ad budget ROI. 25+ years experience.",
     type: "website",
+    url: "https://tonguckaracay.com/en/services/online-advertising",
   },
 };
 
@@ -597,6 +606,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
+            "url": "https://tonguckaracay.com/en/services/online-advertising",
             "name": "Online Advertising Services",
             "description": "Professional Google Ads and Meta Ads management to maximize your ad budget ROI.",
             "provider": {

@@ -4,13 +4,22 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Bot, Brain, Zap, MessageSquare, Database, Cpu, FileText, Image, Code, Settings, AlertTriangle, Clock, TrendingUp, Users, Building2, ShoppingCart, Briefcase, HeartPulse, Lightbulb, Workflow } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Yapay Zeka Çözümleri | AI Otomasyon & ChatGPT Entegrasyonu | Tonguç Karaçay",
-  description: "İş süreçlerinizi AI ile dönüştürün. ChatGPT entegrasyonu, AI chatbot, içerik üretimi, süreç otomasyonu. KOBİ'ler için uygun maliyetli yapay zeka danışmanlığı.",
+  title: "KOBİ'ler İçin AI Otomasyon Danışmanlığı | Tonguç Karaçay",
+  description: "KOBİ'ler için ihtiyaç analizi, ölçümlü pilot, CRM ve iş akışı entegrasyonu, ekip eğitimi ve bakım odaklı yapay zeka otomasyon danışmanlığı.",
   keywords: ["yapay zeka danışmanlığı", "ChatGPT entegrasyonu", "AI otomasyon", "chatbot geliştirme", "AI içerik üretimi", "süreç otomasyonu", "generative AI"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri",
+      en: "https://tonguckaracay.com/en/services/ai-solutions",
+      "x-default": "https://tonguckaracay.com/en/services/ai-solutions",
+    },
+  },
   openGraph: {
-    title: "Yapay Zeka Çözümleri | AI Otomasyon & ChatGPT Entegrasyonu",
-    description: "İş süreçlerinizi AI ile dönüştürün. KOBİ'ler için uygun maliyetli yapay zeka danışmanlığı.",
+    title: "KOBİ'ler İçin AI Otomasyon Danışmanlığı",
+    description: "İhtiyaç analizinden ölçümlü pilota, entegrasyondan ekip eğitimine kadar insan onaylı AI iş akışları.",
     type: "website",
+    url: "https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri",
   },
 };
 
@@ -113,6 +122,13 @@ const process = [
   }
 ];
 
+const deliverables = [
+  { phase: "Keşif", output: "Süreç haritası, veri sınıflandırması ve risk sicili", acceptance: "Pilot süreci, başlangıç metriği, insan onayı ve kapsam dışı işler yazılıdır." },
+  { phase: "Pilot", output: "Sınırlandırılmış çalışan prototip ve test senaryoları", acceptance: "Kalite, süre, hata ve maliyet sonuçları başlangıç değeriyle karşılaştırılır." },
+  { phase: "Entegrasyon", output: "Onaylı sistem bağlantıları, erişim rolleri ve hata akışı", acceptance: "Normal akış, insan devri ve geri alma senaryoları kullanıcı kabulünden geçer." },
+  { phase: "Devir ve bakım", output: "Kullanım dokümanı, ekip eğitimi ve izleme planı", acceptance: "Sorumlular, maliyet limiti, saklama/silme ve değişiklik süreci bellidir." },
+];
+
 const useCases = [
   { icon: MessageSquare, name: "Müşteri Hizmetleri", desc: "AI chatbot ile 7/24 destek" },
   { icon: FileText, name: "İçerik Üretimi", desc: "Blog, sosyal medya, ürün açıklamaları" },
@@ -154,16 +170,16 @@ const advantages = [
 
 const faqs = [
   {
-    question: "AI çözümleri için minimum bütçe ne kadar?",
-    answer: "Basit bir ChatGPT entegrasyonu veya chatbot için 10.000-25.000 TL arasında başlangıç maliyeti olabilir. Daha kapsamlı otomasyon projeleri için bütçe ihtiyaca göre değişir. İlk görüşmede ihtiyaç analizi yapılıp net fiyat sunulur."
+    question: "AI otomasyon projesinin bütçesi nasıl belirlenir?",
+    answer: "Bütçe; otomasyona alınacak süreç sayısı, işlem hacmi, veri hassasiyeti, entegrasyonlar, insan onayı ve bakım ihtiyacına göre belirlenir. Keşif görüşmesinden sonra önce sınırları ve başarı metriği belli küçük bir pilot kapsamı çıkarılır; fiyat bu kapsama göre şeffaf biçimde sunulur."
   },
   {
     question: "AI projesi ne kadar sürede tamamlanır?",
-    answer: "Basit entegrasyonlar 1-2 hafta, orta ölçekli projeler 4-6 hafta, kapsamlı dönüşüm projeleri 2-3 ay sürebilir. Her proje için net zaman çizelgesi başlangıçta belirlenir."
+    answer: "Dar kapsamlı bir pilot çoğu zaman birkaç hafta içinde tasarlanıp test edilebilir; üretim süresi veri hazırlığına, entegrasyonlara, güvenlik kontrollerine ve kullanıcı kabulüne bağlıdır. Takvim, keşif sonunda aşama ve kabul koşullarıyla birlikte verilir."
   },
   {
     question: "Veri güvenliği nasıl sağlanıyor?",
-    answer: "Şirket verileriniz OpenAI veya diğer AI sağlayıcılarıyla model eğitimi için paylaşılmaz. API kullanımında veri şifreleme ve güvenli bağlantılar tercih edilir. KVKK uyumlu çözümler sunulur."
+    answer: "Önce işlenecek veri sınıflandırılır ve gereksiz kişisel veri akışın dışında bırakılır. Sağlayıcı, hesap ve saklama ayarları proje özelinde doğrulanır; erişim, şifreleme, kayıt, silme ve insan onayı kontrolleri tasarlanır. KVKK uyumu tek bir araç özelliğiyle garanti edilemez; veri sorumlusu yükümlülükleri ve gerektiğinde hukuk uzmanı incelemesi ayrıca yürütülmelidir."
   },
   {
     question: "Teknik ekibim olmadan AI kullanabilir miyim?",
@@ -192,16 +208,16 @@ export default function YapayZekaCozumleriPage({ params: { locale } }: Props) {
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
             <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
             <span>/</span>
-            <span className="text-white">Yapay Zeka Çözümleri</span>
+            <span className="text-white">AI Otomasyon Danışmanlığı</span>
           </nav>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                <span className="text-gradient">Yapay Zeka</span> Çözümleri
+                KOBİ'ler için <span className="text-gradient">AI Otomasyon Danışmanlığı</span>
               </h1>
               <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
-                İş süreçlerinizi AI ile dönüştürün. ChatGPT entegrasyonu, özel chatbot'lar, içerik otomasyonu ve veri analizi ile verimliliğinizi artırın. KOBİ'ler için uygun maliyetli, hızlı uygulanabilir yapay zeka çözümleri sunuyorum.
+                Tekrarlayan satış, müşteri hizmetleri, içerik ve operasyon süreçlerinizi analiz ediyor; küçük bir pilotla başlayıp CRM, e-posta, WhatsApp, takvim veya raporlama sistemlerine insan onaylı AI iş akışları kuruyorum. Hizmet; ihtiyaç analizi, risk ve veri sınıflandırması, prototip, entegrasyon, ekip eğitimi ve ölçüm planını kapsar.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -218,11 +234,11 @@ export default function YapayZekaCozumleriPage({ params: { locale } }: Props) {
               <div className="flex flex-wrap gap-6 text-sm text-primary-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>No-Code Çözümler</span>
+                  <span>İnsan Onaylı Akışlar</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>Hızlı ROI</span>
+                  <span>Ölçümlü Pilot</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
@@ -231,39 +247,24 @@ export default function YapayZekaCozumleriPage({ params: { locale } }: Props) {
               </div>
             </div>
 
-            {/* Stats Card */}
+            {/* Pilot readiness card */}
             <div className="card p-8">
-              <h2 className="text-xl font-semibold text-white mb-6">AI'ın iş dünyasındaki etkisi</h2>
+              <h2 className="text-xl font-semibold text-white mb-6">Bir süreç otomasyona uygun mu?</h2>
               <div className="space-y-6">
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">En az bir iş fonksiyonunda AI kullanan şirket</span>
-                    <span className="text-accent-500 font-bold">%72</span>
-                  </div>
-                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '72%' }} />
-                  </div>
+                  <h3 className="font-semibold text-white mb-2">Tekrarlı ve ölçülebilir</h3>
+                  <p className="text-primary-300">Girdi, beklenen çıktı, işlem hacmi ve mevcut süre biliniyorsa pilot için başlangıç metriği kurulabilir.</p>
                 </div>
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Chatbotların yanıtlayabildiği rutin müşteri sorusu</span>
-                    <span className="text-accent-500 font-bold">~%80</span>
-                  </div>
-                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '80%' }} />
-                  </div>
+                  <h3 className="font-semibold text-white mb-2">İnsan onayı tanımlı</h3>
+                  <p className="text-primary-300">Finansal, hukuki, sağlık veya itibar riski taşıyan kararlar otomatik bırakılmaz; devir ve onay noktaları baştan belirlenir.</p>
                 </div>
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Üretken AI ile otomatikleşebilen çalışma zamanı</span>
-                    <span className="text-accent-500 font-bold">%60-70</span>
-                  </div>
-                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '70%' }} />
-                  </div>
+                  <h3 className="font-semibold text-white mb-2">Veri sınırı kurulabilir</h3>
+                  <p className="text-primary-300">Yalnız gerekli veri işlenir; erişim, saklama, silme, maliyet limiti ve hata durumunda geri alma yöntemi belgelenir.</p>
                 </div>
               </div>
-              <p className="text-xs text-primary-500 mt-4">Kaynak: McKinsey State of AI & Generative AI raporları, IBM</p>
+              <p className="text-xs text-primary-500 mt-6">Bu üç koşul net değilse önce otomasyon değil, süreç ve veri hazırlığı yapılır.</p>
             </div>
           </div>
         </div>
@@ -399,6 +400,36 @@ export default function YapayZekaCozumleriPage({ params: { locale } }: Props) {
                 Projenizin ihtiyacına göre en uygun AI araçları ve platformları seçiliyor.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Deliverables */}
+      <section className="py-16 md:py-20 bg-surface-card/30">
+        <div className="container-custom">
+          <div className="max-w-3xl mb-10">
+            <h2 className="section-title mb-4">Danışmanlık kapsamında <span className="text-gradient">ne teslim edilir?</span></h2>
+            <p className="text-primary-300 text-lg">Her aşama yalnız faaliyet listesiyle değil, müşteri tarafından doğrulanabilir bir çıktı ve kabul koşuluyla kapanır.</p>
+          </div>
+          <div className="overflow-x-auto rounded-2xl border border-surface-border">
+            <table className="w-full min-w-[760px] text-left">
+              <thead className="bg-surface-card">
+                <tr>
+                  <th className="p-4 text-white font-semibold">Aşama</th>
+                  <th className="p-4 text-white font-semibold">Teslim edilen çıktı</th>
+                  <th className="p-4 text-white font-semibold">Kabul kanıtı</th>
+                </tr>
+              </thead>
+              <tbody>
+                {deliverables.map((item) => (
+                  <tr key={item.phase} className="border-t border-surface-border align-top">
+                    <th scope="row" className="p-4 text-accent-400 font-medium">{item.phase}</th>
+                    <td className="p-4 text-primary-200">{item.output}</td>
+                    <td className="p-4 text-primary-300">{item.acceptance}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -569,15 +600,16 @@ export default function YapayZekaCozumleriPage({ params: { locale } }: Props) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
-            "name": "Yapay Zeka Çözümleri",
-            "description": "İş süreçlerinizi AI ile dönüştürün. ChatGPT entegrasyonu, AI chatbot, içerik üretimi, süreç otomasyonu.",
+            "url": "https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri",
+            "name": "KOBİ'ler İçin AI Otomasyon Danışmanlığı",
+            "description": "KOBİ'ler için ihtiyaç analizi, ölçümlü pilot, iş akışı entegrasyonu, ekip eğitimi ve bakım odaklı yapay zeka otomasyon danışmanlığı.",
             "provider": {
               "@type": "Person",
               "name": "Tonguç Karaçay",
               "url": "https://tonguckaracay.com"
             },
             "areaServed": "TR",
-            "serviceType": "AI Consulting"
+            "serviceType": "AI Otomasyon Danışmanlığı"
           })
         }}
       />

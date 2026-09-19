@@ -7,10 +7,19 @@ export const metadata: Metadata = {
   title: "Online Reklamcılık Hizmeti | Google Ads & Meta Ads Yönetimi | Tonguç Karaçay",
   description: "Profesyonel Google Ads ve Meta Ads yönetimi ile reklam bütçenizden maksimum verim alın. ROAS odaklı kampanya yönetimi, A/B testi, remarketing. 25+ yıl deneyim.",
   keywords: ["Google Ads yönetimi", "Meta Ads", "dijital reklam", "PPC", "performans pazarlama", "remarketing", "ROAS optimizasyonu", "reklam danışmanlığı"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/hizmetler/online-reklamcilik",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/online-reklamcilik",
+      en: "https://tonguckaracay.com/en/services/online-advertising",
+      "x-default": "https://tonguckaracay.com/en/services/online-advertising",
+    },
+  },
   openGraph: {
     title: "Online Reklamcılık Hizmeti | Google Ads & Meta Ads Yönetimi",
     description: "Profesyonel Google Ads ve Meta Ads yönetimi ile reklam bütçenizden maksimum verim alın. 25+ yıl deneyim.",
     type: "website",
+    url: "https://tonguckaracay.com/hizmetler/online-reklamcilik",
   },
 };
 
@@ -596,6 +605,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
+            "url": "https://tonguckaracay.com/hizmetler/online-reklamcilik",
             "name": "Online Reklamcılık Hizmeti",
             "description": "Profesyonel Google Ads ve Meta Ads yönetimi ile reklam bütçenizden maksimum verim alın.",
             "provider": {

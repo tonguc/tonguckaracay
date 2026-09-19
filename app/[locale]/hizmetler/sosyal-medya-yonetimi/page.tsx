@@ -7,10 +7,19 @@ export const metadata: Metadata = {
   title: "Sosyal Medya Yönetimi | Instagram, TikTok, LinkedIn | Tonguç Karaçay",
   description: "Profesyonel sosyal medya yönetimi ile markanızı büyütün. İçerik stratejisi, organik büyüme, topluluk yönetimi. Instagram, TikTok, LinkedIn, Facebook yönetimi.",
   keywords: ["sosyal medya yönetimi", "Instagram yönetimi", "TikTok yönetimi", "LinkedIn yönetimi", "içerik stratejisi", "topluluk yönetimi", "sosyal medya danışmanlığı"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/hizmetler/sosyal-medya-yonetimi",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/sosyal-medya-yonetimi",
+      en: "https://tonguckaracay.com/en/services/social-media-management",
+      "x-default": "https://tonguckaracay.com/en/services/social-media-management",
+    },
+  },
   openGraph: {
     title: "Sosyal Medya Yönetimi | Instagram, TikTok, LinkedIn",
     description: "Profesyonel sosyal medya yönetimi ile markanızı büyütün. İçerik stratejisi ve organik büyüme.",
     type: "website",
+    url: "https://tonguckaracay.com/hizmetler/sosyal-medya-yonetimi",
   },
 };
 
@@ -603,6 +612,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
+            "url": "https://tonguckaracay.com/hizmetler/sosyal-medya-yonetimi",
             "name": "Sosyal Medya Yönetimi",
             "description": "Profesyonel sosyal medya yönetimi ile markanızı büyütün. İçerik stratejisi, organik büyüme, topluluk yönetimi.",
             "provider": {

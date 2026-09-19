@@ -8,10 +8,19 @@ export const metadata: Metadata = {
   title: "UI/UX Design Services | Conversion-Focused Interface Design | Tonguç Karaçay",
   description: "Professional UI/UX design services to transform your digital products. Research-driven approach, 25+ years experience, proven track record with enterprise clients. Book a free discovery call.",
   keywords: ["UI UX design services", "user experience agency", "interface design consulting", "UX design company", "mobile app design", "web interface design", "SaaS product design"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/en/services/ui-ux-design",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/ui-ux-tasarim",
+      en: "https://tonguckaracay.com/en/services/ui-ux-design",
+      "x-default": "https://tonguckaracay.com/en/services/ui-ux-design",
+    },
+  },
   openGraph: {
     title: "UI/UX Design Services | Conversion-Focused Interface Design",
     description: "Professional UI/UX design services to transform your digital products. Research-driven approach, 25+ years experience.",
     type: "website",
+    url: "https://tonguckaracay.com/en/services/ui-ux-design",
   },
 };
 
@@ -529,6 +538,7 @@ export default function UIUXDesignPage({ params: { locale } }: Props) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
+            "url": "https://tonguckaracay.com/en/services/ui-ux-design",
             "name": "UI/UX Design Services",
             "description": "Professional UI/UX design services to transform your digital products with research-driven, conversion-focused interface design.",
             "provider": {

@@ -4,13 +4,22 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Bot, Brain, Zap, MessageSquare, Database, Cpu, FileText, Image, Code, Settings, AlertTriangle, Clock, TrendingUp, Users, Building2, ShoppingCart, Briefcase, HeartPulse, Lightbulb, Workflow } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI Solutions | ChatGPT Integration & Business Automation | Tonguç Karaçay",
-  description: "Transform your business with AI. ChatGPT integration, custom chatbots, content automation, workflow optimization. Cost-effective AI consulting for SMBs.",
+  title: "AI Automation Consulting for SMBs | Tonguç Karaçay",
+  description: "AI automation consulting for SMBs: process discovery, measurable pilots, CRM and workflow integration, team training, governance, and maintenance.",
   keywords: ["AI consulting", "ChatGPT integration", "business automation", "chatbot development", "AI content generation", "workflow automation", "generative AI"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/en/services/ai-solutions",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri",
+      en: "https://tonguckaracay.com/en/services/ai-solutions",
+      "x-default": "https://tonguckaracay.com/en/services/ai-solutions",
+    },
+  },
   openGraph: {
-    title: "AI Solutions | ChatGPT Integration & Business Automation",
-    description: "Transform your business with AI. Cost-effective AI consulting for SMBs.",
+    title: "AI Automation Consulting for SMBs",
+    description: "Human-reviewed AI workflows from process discovery and measurable pilots to integration and team enablement.",
     type: "website",
+    url: "https://tonguckaracay.com/en/services/ai-solutions",
   },
 };
 
@@ -113,6 +122,13 @@ const process = [
   }
 ];
 
+const deliverables = [
+  { phase: "Discovery", output: "Process map, data classification, and risk register", acceptance: "The pilot process, baseline metric, human review, and exclusions are documented." },
+  { phase: "Pilot", output: "A bounded working prototype and test scenarios", acceptance: "Quality, handling time, errors, and cost are compared with the baseline." },
+  { phase: "Integration", output: "Approved system connections, access roles, and failure flow", acceptance: "Normal operation, human escalation, and rollback pass user acceptance." },
+  { phase: "Handover and maintenance", output: "Operating guide, team training, and monitoring plan", acceptance: "Owners, cost limits, retention/deletion, and change procedures are explicit." },
+];
+
 const useCases = [
   { icon: MessageSquare, name: "Customer Service", desc: "AI chatbot for 24/7 support" },
   { icon: FileText, name: "Content Creation", desc: "Blogs, social media, product descriptions" },
@@ -154,16 +170,16 @@ const advantages = [
 
 const faqs = [
   {
-    question: "What's the minimum budget for AI solutions?",
-    answer: "A simple ChatGPT integration or chatbot can start from $500-1,500. More comprehensive automation projects vary based on requirements. I provide detailed pricing after the initial needs assessment."
+    question: "How is an AI automation project budget determined?",
+    answer: "The budget depends on the number of processes, transaction volume, data sensitivity, integrations, human-review requirements, and ongoing support. After discovery, I define a small pilot with explicit boundaries and success metrics, then price that scope transparently."
   },
   {
     question: "How long does an AI project take?",
-    answer: "Simple integrations take 1-2 weeks, mid-scale projects 4-6 weeks, and comprehensive transformation projects 2-3 months. Every project gets a clear timeline at the start."
+    answer: "A narrow pilot can often be designed and tested within a few weeks. Production timing depends on data preparation, integrations, security controls, and user acceptance. The schedule is provided after discovery with stages and acceptance criteria."
   },
   {
     question: "How do you ensure data security?",
-    answer: "Your company data is not shared with OpenAI or other providers for model training. I use encrypted API connections and secure data handling practices. GDPR-compliant solutions are available."
+    answer: "I first classify the data and keep unnecessary personal data out of the workflow. Provider, account, and retention settings are verified for the specific project, with access, encryption, logging, deletion, and human-review controls. GDPR compliance cannot be guaranteed by a tool setting alone; controller obligations and legal review must be handled separately when required."
   },
   {
     question: "Can I use AI without a technical team?",
@@ -192,16 +208,16 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
             <Link href="/en" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-white">AI Solutions</span>
+            <span className="text-white">AI Automation Consulting</span>
           </nav>
           
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                <span className="text-gradient">AI Solutions</span> for Business
+                <span className="text-gradient">AI Automation Consulting</span> for SMBs
               </h1>
               <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
-                Transform your business processes with AI. ChatGPT integration, custom chatbots, content automation, and data analysis to boost your efficiency. Cost-effective, rapidly deployable AI solutions designed for SMBs.
+                I analyze repetitive sales, customer service, content, and operations work, then start with a small pilot and connect human-reviewed AI workflows to CRM, email, messaging, calendars, or reporting systems. The engagement covers process discovery, data and risk classification, prototyping, integration, team training, and a measurement plan.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -218,11 +234,11 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
               <div className="flex flex-wrap gap-6 text-sm text-primary-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>No-Code Solutions</span>
+                  <span>Human-Reviewed Workflows</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>Fast ROI</span>
+                  <span>Measurable Pilot</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
@@ -231,39 +247,24 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
               </div>
             </div>
 
-            {/* Stats Card */}
+            {/* Pilot readiness card */}
             <div className="card p-8">
-              <h2 className="text-xl font-semibold text-white mb-6">AI's business impact</h2>
+              <h2 className="text-xl font-semibold text-white mb-6">Is a process ready for automation?</h2>
               <div className="space-y-6">
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Companies using AI in at least one function</span>
-                    <span className="text-accent-500 font-bold">72%</span>
-                  </div>
-                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '72%' }} />
-                  </div>
+                  <h3 className="font-semibold text-white mb-2">Repeatable and measurable</h3>
+                  <p className="text-primary-300">A pilot can establish a baseline when the inputs, expected output, volume, and current handling time are known.</p>
                 </div>
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Routine customer questions answerable by chatbots</span>
-                    <span className="text-accent-500 font-bold">~80%</span>
-                  </div>
-                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '80%' }} />
-                  </div>
+                  <h3 className="font-semibold text-white mb-2">Human review is explicit</h3>
+                  <p className="text-primary-300">Financial, legal, health, and reputational decisions are not left fully automated; escalation and approval points are defined first.</p>
                 </div>
                 <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-primary-300">Work time automatable with generative AI</span>
-                    <span className="text-accent-500 font-bold">60-70%</span>
-                  </div>
-                  <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-accent-500 rounded-full" style={{ width: '70%' }} />
-                  </div>
+                  <h3 className="font-semibold text-white mb-2">The data boundary is controllable</h3>
+                  <p className="text-primary-300">Only necessary data is processed, with documented access, retention, deletion, cost limits, and rollback for failures.</p>
                 </div>
               </div>
-              <p className="text-xs text-primary-500 mt-4">Source: McKinsey State of AI & Generative AI reports, IBM</p>
+              <p className="text-xs text-primary-500 mt-6">If these conditions are unclear, process and data preparation comes before automation.</p>
             </div>
           </div>
         </div>
@@ -399,6 +400,36 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
                 The right AI tools and platforms are selected based on your project requirements.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Deliverables */}
+      <section className="py-16 md:py-20 bg-surface-card/30">
+        <div className="container-custom">
+          <div className="max-w-3xl mb-10">
+            <h2 className="section-title mb-4">What does the consulting engagement <span className="text-gradient">deliver?</span></h2>
+            <p className="text-primary-300 text-lg">Each stage closes with a customer-verifiable output and acceptance condition, not just a list of activities.</p>
+          </div>
+          <div className="overflow-x-auto rounded-2xl border border-surface-border">
+            <table className="w-full min-w-[760px] text-left">
+              <thead className="bg-surface-card">
+                <tr>
+                  <th className="p-4 text-white font-semibold">Stage</th>
+                  <th className="p-4 text-white font-semibold">Delivered output</th>
+                  <th className="p-4 text-white font-semibold">Acceptance evidence</th>
+                </tr>
+              </thead>
+              <tbody>
+                {deliverables.map((item) => (
+                  <tr key={item.phase} className="border-t border-surface-border align-top">
+                    <th scope="row" className="p-4 text-accent-400 font-medium">{item.phase}</th>
+                    <td className="p-4 text-primary-200">{item.output}</td>
+                    <td className="p-4 text-primary-300">{item.acceptance}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -569,15 +600,16 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
-            "name": "AI Solutions",
-            "description": "Transform your business with AI. ChatGPT integration, custom chatbots, content automation, workflow optimization.",
+            "url": "https://tonguckaracay.com/en/services/ai-solutions",
+            "name": "AI Automation Consulting for SMBs",
+            "description": "AI automation consulting for SMBs covering process discovery, measurable pilots, workflow integration, team training, governance, and maintenance.",
             "provider": {
               "@type": "Person",
               "name": "Tonguç Karaçay",
               "url": "https://tonguckaracay.com"
             },
             "areaServed": "Worldwide",
-            "serviceType": "AI Consulting"
+            "serviceType": "AI Automation Consulting"
           })
         }}
       />

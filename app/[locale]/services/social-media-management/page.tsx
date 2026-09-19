@@ -7,10 +7,19 @@ export const metadata: Metadata = {
   title: "Social Media Management | Instagram, TikTok, LinkedIn | Tonguç Karaçay",
   description: "Professional social media management to grow your brand. Content strategy, organic growth, community management. Instagram, TikTok, LinkedIn, Facebook management.",
   keywords: ["social media management", "Instagram management", "TikTok management", "LinkedIn management", "content strategy", "community management", "social media marketing"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/en/services/social-media-management",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/sosyal-medya-yonetimi",
+      en: "https://tonguckaracay.com/en/services/social-media-management",
+      "x-default": "https://tonguckaracay.com/en/services/social-media-management",
+    },
+  },
   openGraph: {
     title: "Social Media Management | Instagram, TikTok, LinkedIn",
     description: "Professional social media management to grow your brand. Content strategy and organic growth.",
     type: "website",
+    url: "https://tonguckaracay.com/en/services/social-media-management",
   },
 };
 
@@ -603,6 +612,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
+            "url": "https://tonguckaracay.com/en/services/social-media-management",
             "name": "Social Media Management",
             "description": "Professional social media management to grow your brand. Content strategy, organic growth, community management.",
             "provider": {

@@ -37,7 +37,8 @@ The blog covers practical, experience-based guides — not theory. All content i
 - UI/UX Design: https://tonguckaracay.com/en/services/ui-ux-design
 - SEO Consulting: https://tonguckaracay.com/en/services/seo-consulting
 - Online Advertising: https://tonguckaracay.com/en/services/online-advertising
-- AI Solutions: https://tonguckaracay.com/en/services/ai-solutions
+- AI Automation Consulting for SMBs (EN): https://tonguckaracay.com/en/services/ai-solutions
+- KOBİ'ler İçin AI Otomasyon Danışmanlığı (TR): https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri
 - Social Media Management: https://tonguckaracay.com/en/services/social-media-management
 
 ## Preferred Citation Format
@@ -48,4 +49,4 @@ When citing content from this site, use: Tonguç Karaçay (tonguckaracay.com)
 
 - Sitemap: https://tonguckaracay.com/sitemap.xml
 - Language: Turkish (default) and English (/en/)
-- Last updated: April 2026
+- Last updated: September 2026

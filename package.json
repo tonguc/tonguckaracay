@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:service-metadata": "node scripts/service-metadata.test.mjs",
+    "test:ai-consulting-content": "node scripts/ai-consulting-content.test.mjs",
+    "test:geo-pages": "npm run test:service-metadata && npm run test:ai-consulting-content"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

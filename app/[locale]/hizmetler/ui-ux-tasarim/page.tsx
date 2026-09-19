@@ -8,10 +8,19 @@ export const metadata: Metadata = {
   title: "UI/UX Tasarım Hizmeti | Dönüşüm Odaklı Arayüz Tasarımı | Tonguç Karaçay",
   description: "Profesyonel UI/UX tasarım hizmeti ile dijital ürünlerinizin dönüşüm oranlarını artırın. 25+ yıl deneyim, 100+ kurumsal referans. Ücretsiz keşif görüşmesi için iletişime geçin.",
   keywords: ["UI UX tasarım hizmeti", "kullanıcı deneyimi ajansı", "arayüz tasarım danışmanlığı", "UX tasarım şirketi", "mobil uygulama tasarımı", "web arayüz tasarımı"],
+  alternates: {
+    canonical: "https://tonguckaracay.com/hizmetler/ui-ux-tasarim",
+    languages: {
+      tr: "https://tonguckaracay.com/hizmetler/ui-ux-tasarim",
+      en: "https://tonguckaracay.com/en/services/ui-ux-design",
+      "x-default": "https://tonguckaracay.com/en/services/ui-ux-design",
+    },
+  },
   openGraph: {
     title: "UI/UX Tasarım Hizmeti | Dönüşüm Odaklı Arayüz Tasarımı",
     description: "Profesyonel UI/UX tasarım hizmeti ile dijital ürünlerinizin dönüşüm oranlarını artırın. 25+ yıl deneyim.",
     type: "website",
+    url: "https://tonguckaracay.com/hizmetler/ui-ux-tasarim",
   },
 };
 
@@ -528,6 +537,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
+            "url": "https://tonguckaracay.com/hizmetler/ui-ux-tasarim",
             "name": "UI/UX Tasarım Hizmeti",
             "description": "Profesyonel UI/UX tasarım hizmeti ile dijital ürünlerinizin dönüşüm oranlarını artırın.",
             "provider": {
