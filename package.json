@@ -10,7 +10,8 @@
     "test:service-metadata": "node scripts/service-metadata.test.mjs",
     "test:ai-consulting-content": "node scripts/ai-consulting-content.test.mjs",
     "test:healthcare-content": "node scripts/healthcare-content.test.mjs",
-    "test:geo-pages": "npm run test:service-metadata && npm run test:ai-consulting-content && npm run test:healthcare-content"
+    "test:token-cost-content": "node scripts/token-cost-content.test.mjs",
+    "test:geo-pages": "npm run test:service-metadata && npm run test:ai-consulting-content && npm run test:healthcare-content && npm run test:token-cost-content"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
