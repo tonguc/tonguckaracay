@@ -1,168 +1,107 @@
 ---
-title: "Google Ads Campaign Optimization: Complete Guide"
+title: "Google Ads Campaign Optimization: Measurement and Experiments"
 slug: "google-ads-campaign-optimization-guide"
-description: "Google Ads campaign optimization with 12 proven strategies. Improve optimization score, targeting, and budget management to increase your ROAS."
-date: "2026-04-10"
+description: "Optimize Google Ads with defined conversions, search-term evidence, controlled experiments and documented decisions."
+date: "2026-09-21"
 category: "Digital Marketing"
-tags: ["Google Ads", "PPC optimization", "digital advertising", "ROAS improvement"]
-readTime: "8 min"
+tags: ["Google Ads", "PPC optimization", "conversion measurement", "campaign experiments"]
+readTime: "11 min"
+featured: false
 image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "google-ads-kampanya-optimizasyonu-rehberi"
+faq:
+  - question: "Should optimization score be a business KPI?"
+    answer: "No. Google describes optimization score as an estimate of how well an account is set to perform. Review recommendations against business goals, margins, conversion quality and experiment evidence."
+  - question: "Should every recommendation be applied immediately?"
+    answer: "No. Review scope, budget impact and rollback conditions. Test material changes with a campaign experiment that isolates one variable."
+  - question: "How should negative keywords be selected?"
+    answer: "Use the account's search terms report and the business's actual exclusions rather than a generic list. Review match type and false-positive risk before applying them."
+  - question: "Which conversions should automated bidding use?"
+    answer: "Mark actions that represent the real business outcome as primary. Keep diagnostic micro-actions secondary, and deduplicate sales with transaction IDs."
+  - question: "When can an optimization result be published?"
+    answer: "Publish only a bounded result with the hypothesis, dates, control and treatment, primary metric, spend, conversion delay and uncertainty."
 ---
 
-# Google Ads Campaign Optimization: Complete Guide
+## Updated September 21, 2026
 
-Google Ads campaign optimization is the systematic process of improving bid strategies, targeting settings, ad copy, and landing pages to maximize conversions from your existing ad spend. Properly implemented optimization can deliver 30-50% more conversions with the same budget.
+This guide removes undocumented client outcomes, universal performance percentages and unsupported case narratives. The revised method does not treat an interface score as a business result. It uses measurement integrity, controlled experiments and a documented decision trail.
 
-## What Is Optimization Score and Why Does It Matter?
+## Quick answer
 
-Optimization score is a metric that shows your Google Ads account's performance potential on a scale from 0% to 100%. Google calculates this score by analyzing your statistics, settings, and the potential impact of available recommendations.
+Optimization is not the volume of settings changed. It is the process of measuring the right business outcome and testing one hypothesis at a time. Stabilize conversion definitions and data quality before changing bidding, targeting, ads or landing pages.
 
-**Critical insight:** A 100% score doesn't always mean the best results. In our client accounts, we've observed that scores between 70-85% typically represent the optimal balance. Some Google recommendations focus on increasing your budget, which may not be appropriate for every business.
+## Write the measurement contract
 
-To check your optimization score:
-1. Log into your Google Ads account
-2. Click "Recommendations" in the left menu
-3. View your overall score at the top
-4. Review the percentage impact next to each recommendation
+Google explains that primary conversion actions are used in the Conversions column and bidding, while secondary actions are observation-only. See [primary and secondary conversion actions](https://support.google.com/google-ads/answer/11461796?hl=en) and [understanding conversion data](https://support.google.com/google-ads/answer/6270625?hl=en).
 
-## How Does Optimized Targeting Work?
+| Decision | Definition to record | Verification |
+|---|---|---|
+| Primary outcome | Sale, qualified lead or completed booking | Does it reconcile with CRM or order data? |
+| Secondary signal | Form start, page view or micro-action | Could it misdirect bidding? |
+| Value | Revenue, margin or approved proxy | Are refunds and cancellations included? |
+| Counting | One or every conversion | Does it match lead or sales behavior? |
+| Deduplication | Transaction identifier | Can a refresh create a duplicate? |
 
-Optimized targeting uses Google's machine learning to find users with the highest conversion probability. It discovers new audience segments beyond your manual targeting settings.
+When measurement is broken, automated bidding can optimize the wrong target more efficiently. Validate tags, consent behavior, CRM imports and refund handling before a campaign change.
 
-**Practical considerations:**
+## Read optimization score correctly
 
-- Particularly effective for Display Network and Video campaigns
-- Requires minimum 50 conversions or 2 weeks of active campaign runtime
-- Your brand safety settings (content exclusions) remain protected
+Google's [optimization score documentation](https://support.google.com/google-ads/answer/9061547?hl=en) describes a dynamic estimate based on account statistics, settings and available recommendations. Applying or dismissing recommendations changes the score. That change is not proof of profit or causal performance improvement.
 
-In our B2B client campaigns, optimized targeting delivered an average 23% reduction in cost per conversion. However, for niche industries, manual targeting may still yield more accurate results.
+| Recommendation class | Review question | Decision record |
+|---|---|---|
+| Budget | Does added spend fit margin and cash limits? | Approver and upper bound |
+| Bidding | Is primary-conversion data trustworthy? | Starting target and rollback rule |
+| Keywords and targeting | Is added reach relevant to the actual offer? | Excluded intent |
+| Ads and assets | Does the landing page support every claim? | Approved claim source |
+| Repairs | Does the issue block serving or measurement? | Evidence after the fix |
 
-## Bid Strategy Selection: Which One and When?
+## Build negatives from search-term evidence
 
-Choosing the right bid strategy determines approximately 40% of your campaign success. Here's a comprehensive strategy guide:
+The [search terms report](https://support.google.com/google-ads/answer/2472708?hl=en) shows queries that triggered ads. Google's [negative keyword workflow](https://support.google.com/google-ads/answer/7102466?hl=en) explains how to turn relevant report findings into exclusions.
 
-| Goal | Recommended Strategy | When to Use |
-|------|---------------------|-------------|
-| Increase conversions | Maximize Conversions | 30+ monthly conversions |
-| Specific cost target | Target CPA | Known profitability margins |
-| Revenue-focused | Target ROAS | E-commerce, varying product values |
-| Site traffic | Maximize Clicks | Awareness stage campaigns |
-| Brand visibility | Target Impression Share | Competing against rival brands |
+Do not apply a universal negative list blindly. A query should conflict with the business's actual offer, and the negative match type must not block valuable searches.
 
-**Professional tip:** For new campaigns, start with "Maximize Conversions" for the first 2 weeks, then transition to Target CPA once you've collected sufficient data.
+| Query class | Action | Review question |
+|---|---|---|
+| Clearly irrelevant | Negative candidate | Does the catalog confirm it is not offered? |
+| Research intent | Observe or serve educational content | Does it contribute later in the journey? |
+| High commercial intent | Align ad and landing page | Can the offer satisfy the query? |
+| Ambiguous or low-volume | Gather more evidence | Could privacy thresholds hide detail? |
 
-## Keyword Optimization: Why Are Negative Keywords Critical?
+The report does not expose every low-volume query. Preserve that limitation when describing coverage.
 
-The most neglected area in keyword optimization is negative keywords. Terms like "free," "cheap," "jobs," "salary," and "internship" cause budget waste in most commercial campaigns.
+## Run a one-variable experiment
 
-**Weekly maintenance checklist:**
+Google's [experiments guidance](https://support.google.com/google-ads/answer/7281575?hl=en) calls for a business-linked hypothesis, one isolated variable, a preselected success metric and a recorded result. Avoid unplanned edits to the base campaign during the experiment.
 
-1. Review search terms report
-2. Identify keywords with low quality scores (<5)
-3. Add non-converting matches to negative lists
-4. Move high-performing terms to exact match in separate ad groups
+| Experiment area | Example hypothesis | Hold constant |
+|---|---|---|
+| Bid strategy | The treatment improves the primary business metric | Ads, page and conversion definition |
+| Ad message | The treatment increases qualified demand | Bidding, targeting and page |
+| Landing page | The treatment improves completed outcomes | Traffic source and ad |
+| Match or targeting | The treatment finds additional valuable demand | Budget rule and bidding |
 
-For one e-commerce client, adding 500 negative keywords reduced cost-per-click by 35% while increasing conversion rate by 18%.
+Do not choose a winner from a platform micro-conversion alone. Check qualified leads, net revenue, margin and cancellations or refunds. If the result remains inconclusive, report it as inconclusive.
 
-## How to Optimize Ad Copy and Extensions?
+## Protect interpretation from attribution errors
 
-Google recommends minimum 3 responsive search ads (RSAs) per ad group. However, quality matters more than quantity.
+Google's [data-driven attribution documentation](https://support.google.com/google-ads/answer/6394265?hl=en) explains that credit can be distributed across interactions and that the model is specific to an advertiser's data. Changing attribution, conversion goals or counting during a campaign test changes the meaning of the reported metric.
 
-**Effective ad copy formula:**
+| Risk | Symptom | Control |
+|---|---|---|
+| Duplicate conversions | Platform sales exceed order records | Transaction-ID reconciliation |
+| Mixed lead quality | Cheap leads do not become opportunities | CRM stage import and offline review |
+| Conversion lag | Recent periods look artificially weak | Fixed reporting cutoff |
+| Goal drift | Bidding shifts toward an easy micro-action | Primary/secondary audit |
+| Concurrent edits | No clear cause for the result | Change log and experiment freeze |
 
-- **Headline 1:** Primary keyword + benefit (e.g., "Google Ads Management | 50% More Conversions")
-- **Headline 2:** Trust element (e.g., "10 Years Experience" or "500+ Happy Clients")
-- **Headline 3:** Call to action (e.g., "Get Free Analysis")
-- **Description:** Problem-solution-result structure
+## Use a documented operating rhythm
 
-**Essential extensions:**
-- Sitelink extensions (minimum 4)
-- Callout extensions (2-4)
-- Structured snippets
-- Call extensions (critical for B2B)
+1. Check measurement and spend anomalies.
+2. Compare search terms with the real offer.
+3. Avoid unplanned changes to an active experiment.
+4. Queue a new hypothesis only after the current test closes.
+5. Record the decision, date, approver and rollback threshold.
 
-Ads using extensions achieve approximately 15% higher click-through rates compared to those without extensions.
-
-## Budget and Schedule Optimization
-
-Peak conversion hours vary by industry. Understanding your audience's behavior patterns is essential:
-
-- **B2B services:** Weekdays 10:00-12:00 and 14:00-17:00
-- **E-commerce:** 20:00-23:00 and weekends
-- **Local businesses:** 09:00-11:00 and 17:00-19:00
-
-**Budget optimization steps:**
-
-1. Analyze conversion columns by hour and day
-2. Reduce bids by 20-30% during low-performance hours
-3. Increase bids by 15-25% during peak periods
-4. Redistribute campaign budgets weekly based on performance
-
-## Improving Landing Page Experience Score
-
-Landing page experience is one of three components of Google Ads quality score and directly impacts your cost-per-click.
-
-**Audit checklist:**
-
-- [ ] Page load time under 3 seconds?
-- [ ] Mobile compatibility score 90+?
-- [ ] Ad copy aligned with page content?
-- [ ] CTA (call-to-action) in visible position?
-- [ ] Trust elements (testimonials, certifications) present?
-
-Measure your Core Web Vitals scores using Google PageSpeed Insights. LCP (Largest Contentful Paint) should be under 2.5 seconds.
-
-## Advanced Audience Strategies
-
-Beyond basic demographics, leverage these audience tactics:
-
-**Remarketing lists for search ads (RLSA):**
-- Bid 20-50% higher on past visitors
-- Create separate campaigns for cart abandoners
-- Use 540-day membership duration for high-value products
-
-**Customer match:**
-- Upload existing customer emails
-- Create similar audiences from best customers
-- Exclude current customers from acquisition campaigns
-
-**In-market audiences:**
-- Layer on top of keyword targeting
-- Test as observation first, then targeting
-- Combine with custom intent audiences
-
-## Conversion Tracking Best Practices
-
-Accurate conversion tracking is the foundation of all optimization efforts. Without proper data, automated strategies cannot function effectively.
-
-**Essential setup:**
-
-1. Implement Google Ads conversion tracking (not just GA4 imports)
-2. Set appropriate conversion windows (30 days for most B2B)
-3. Assign conversion values, even for lead generation
-4. Use enhanced conversions for improved attribution
-
-**Data-driven attribution** requires minimum 300 conversions and 3,000 ad interactions in 30 days. Until reaching this threshold, use position-based attribution for more balanced credit distribution.
-
-## Performance Max Campaign Considerations
-
-Performance Max (PMax) campaigns offer access to all Google inventory but require careful management:
-
-**When to use PMax:**
-- Established conversion tracking with 30+ monthly conversions
-- Strong creative assets across formats
-- Willingness to provide Google algorithmic control
-
-**When to avoid PMax:**
-- Need granular search query control
-- Limited budget (<$1,500/month)
-- Strict brand safety requirements
-
-Run PMax alongside standard Search campaigns rather than replacing them entirely. This maintains search query visibility while accessing additional inventory.
-
-## Next Steps
-
-Google Ads campaign optimization is an ongoing process, not a one-time task. Accounts that dedicate minimum 2 hours weekly to optimization outperform others by an average of 45%.
-
-To understand your campaigns' current state and improvement opportunities, request a free Google Ads account analysis. With over 10 years of experience, I can provide optimization recommendations specific to your account and business goals.
+Publishable evidence is not a perfect-looking score or an undocumented anecdote. It is a reproducible experiment record tied to a verified business outcome and bounded to the account, market and dates actually observed.

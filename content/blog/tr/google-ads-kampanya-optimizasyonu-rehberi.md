@@ -1,143 +1,93 @@
 ---
-title: "Google Ads Kampanya Optimizasyonu: Kapsamlı Rehber"
+title: "Google Ads Kampanya Optimizasyonu: Ölçüm ve Deney Rehberi"
 slug: "google-ads-kampanya-optimizasyonu-rehberi"
-description: "Google Ads kampanya optimizasyonu için 12 kanıtlanmış strateji. Optimizasyon puanı, hedefleme ve bütçe yönetimi adımlarıyla ROAS'ınızı artırın."
-date: "2026-04-10"
+description: "Google Ads optimizasyonunu doğru dönüşüm tanımı, arama terimleri, kontrollü deney ve kayıtlı kararlarla yönetin."
+date: "2026-09-21"
 category: "Dijital Pazarlama"
-tags: ["Google Ads", "PPC optimizasyonu", "dijital reklamcılık", "ROAS artırma"]
-readTime: "8 dk"
+tags: ["Google Ads", "PPC optimizasyonu", "dönüşüm ölçümü", "kampanya deneyi"]
+readTime: "11 dk"
+featured: false
 image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "google-ads-campaign-optimization-guide"
 faq:
-  - question: "Google Ads optimizasyon puanı kaç olmalı?"
-    answer: "Optimizasyon puanının %70-85 arasında olması genellikle optimal dengeyi temsil eder. %100 puan her zaman en iyi sonuç anlamına gelmez çünkü bazı Google önerileri bütçe artışına yöneliktir."
-  - question: "Google Ads'te negatif anahtar kelimeler neden önemli?"
-    answer: "Negatif anahtar kelimeler, alakasız aramalarda reklamınızın gösterilmesini engelleyerek bütçe israfını önler. Türkiye'de 'ucuz', 'bedava', 'ücretsiz' gibi kelimeler çoğu ticari kampanyada gereksiz harcamaya neden olur."
-  - question: "Hangi teklif stratejisini seçmeliyim?"
-    answer: "Aylık 30+ dönüşümünüz varsa 'Dönüşümleri Artırma', karlılık oranınızı biliyorsanız 'Hedef EBM', e-ticarette farklı ürün değerleri için 'Hedef ROAS' stratejisi uygundur."
-  - question: "Google Ads açılış sayfası deneyimi puanı nasıl artırılır?"
-    answer: "Sayfa yükleme süresini 3 saniyenin altına indirin, mobil uyumluluk skorunu 90+ yapın, reklam metniyle sayfa içeriğini uyumlu hale getirin ve CTA'yı görünür konuma yerleştirin."
-  - question: "Optimize hedefleme ne zaman kullanılmalı?"
-    answer: "Optimize hedefleme özellikle Görüntülü Reklam Ağı ve Video kampanyalarında etkilidir. Minimum 50 dönüşüm veya 2 hafta aktif kampanya süresi gerektirir."
-  - question: "Google Ads'te haftalık ne kadar optimizasyon çalışması yapılmalı?"
-    answer: "Haftada minimum 2 saat optimizasyon çalışması yapan hesaplar, yapmayanlardan ortalama %45 daha iyi performans gösterir. Arama terimleri raporu incelemesi ve teklif ayarlamaları öncelikli olmalıdır."
-  - question: "Reklam uzantıları tıklama oranını ne kadar etkiler?"
-    answer: "Uzantı kullanan reklamlar, kullanmayanlara göre ortalama %15 daha yüksek tıklama oranı elde eder. Site bağlantısı, açıklama ve telefon uzantıları zorunlu kabul edilmelidir."
+  - question: "Google Ads optimizasyon puanı hedef KPI olabilir mi?"
+    answer: "Hayır. Google optimizasyon puanını hesabın performans potansiyeline ilişkin bir tahmin olarak tanımlar. Önerileri iş hedefi, marj, dönüşüm kalitesi ve deney sonucu ile birlikte inceleyin."
+  - question: "Bir öneriyi hemen uygulamalı mıyım?"
+    answer: "Hayır. Etki alanını, bütçeyi ve geri alma planını inceleyin. Önemli değişiklikleri tek değişkenli bir kampanya deneyiyle sınayın."
+  - question: "Negatif anahtar kelimeler nasıl seçilir?"
+    answer: "Varsayımsal genel listelerden değil, hesabın arama terimleri raporundan ve işletmenin sunmadığı niyetlerden seçilir. Eşleme türünü ve yanlış pozitif riskini kontrol edin."
+  - question: "Hangi dönüşümler teklif vermede kullanılmalı?"
+    answer: "Gerçek iş sonucunu temsil eden eylemleri birincil olarak tanımlayın. Mikro eylemleri ikincil gözlem olarak tutun; yinelenen satışları işlem kimliğiyle tekilleştirin."
+  - question: "Optimizasyon sonucunu ne zaman yayımlayabilirim?"
+    answer: "Hipotez, tarih aralığı, kontrol ve deney kolları, ana metrik, harcama, dönüşüm gecikmesi ve belirsizlik kayıtlıysa; sonuç yalnız bu kapsamla sınırlı olarak yayımlanabilir."
 ---
 
-# Google Ads Kampanya Optimizasyonu: Kapsamlı Rehber
+## 21 Eylül 2026 güncellemesi
 
-Google Ads kampanya optimizasyonu, teklif stratejileri, hedefleme ayarları, reklam metinleri ve açılış sayfalarını sistematik olarak iyileştirerek mevcut reklam bütçenizden maksimum dönüşüm elde etme sürecidir. Doğru uygulanan optimizasyon teknikleri, aynı harcamayla %30-50 daha fazla dönüşüm sağlayabilir. Türkiye'deki müşteri portföyümüzde bu oranın B2B sektöründe %40'a, e-ticarette %55'e kadar çıktığını gözlemledik. Bu rehberde, Google Ads platformunun sunduğu optimizasyon araçlarını ve Türkiye pazarına özel stratejileri adım adım inceleyeceğiz.
+Bu rehberdeki belgesiz müşteri sonuçları, evrensel performans yüzdeleri ve kanıtsız vaka anlatıları kaldırıldı. Yeni sürüm, Google Ads arayüzündeki bir puanı başarı sonucu saymak yerine ölçüm doğruluğu, kontrollü deney ve kayıtlı karar akışı kullanır.
 
-## Optimizasyon Puanı Nedir ve Neden Önemlidir?
+## Kısa cevap
 
-Optimizasyon puanı, Google Ads hesabınızın performans potansiyelini %0 ile %100 arasında gösteren bir metriktir. Google, bu puanı hesaplarken istatistiklerinizi, ayarlarınızı ve mevcut önerilerin potansiyel etkisini analiz eder.
+Optimizasyon; daha fazla ayar değiştirmek değil, doğru iş sonucunu ölçmek ve tek bir hipotezi kontrollü biçimde sınamaktır. Önce dönüşüm tanımını ve veri kalitesini sabitleyin. Sonra arama terimleri, bütçe, teklif, reklam ve açılış sayfası kararlarını aynı iş metriğine bağlayın.
 
-**Kritik nokta:** %100 puan her zaman en iyi sonuç demek değildir. Müşterilerimizde gözlemlediğimize göre, %70-85 arası puan genellikle optimal dengeyi temsil eder. Çünkü bazı Google önerileri bütçenizi artırmaya yönelik olup, her işletme için uygun olmayabilir.
+## Ölçüm sözleşmesini yazın
 
-Optimizasyon puanınızı kontrol etmek için:
-1. Google Ads hesabınıza giriş yapın
-2. Sol menüden "Öneriler" sekmesine tıklayın
-3. Üst kısımda genel puanınızı görün
-4. Her öneri yanındaki yüzdelik etki oranını inceleyin
+Google, birincil dönüşümlerin raporlama ve teklif için, ikincil dönüşümlerin ise gözlem için kullanıldığını açıklar. Ayrıntılar [birincil ve ikincil dönüşüm işlemleri](https://support.google.com/google-ads/answer/11461796?hl=tr) ile [dönüşüm verilerini anlama](https://support.google.com/google-ads/answer/6270625?hl=tr) belgelerinde bulunur.
 
-## Optimize Hedefleme Nasıl Çalışır?
+| Karar | Kaydedilecek tanım | Doğrulama |
+|---|---|---|
+| Birincil sonuç | Satış, nitelikli lead veya rezervasyon | CRM ya da sipariş kaydıyla eşleşiyor mu? |
+| İkincil sinyal | Form başlatma, sayfa veya mikro etkileşim | Teklif algoritmasını yanlış yönlendiriyor mu? |
+| Değer | Gelir, marj veya onaylı vekil değer | İade ve iptal hesaba katılıyor mu? |
+| Sayım | Bir veya her işlem | Lead ve satış davranışına uygun mu? |
+| Tekilleştirme | İşlem kimliği | Yenilenen sayfa çift kayıt oluşturuyor mu? |
 
-Optimize hedefleme, Google'ın makine öğrenimi kullanarak dönüşüm olasılığı en yüksek kullanıcıları bulmasını sağlar. Manuel hedeflemenizin ötesine geçerek yeni kitle segmentleri keşfeder.
+Ölçüm kırıksa otomatik teklif, yanlış hedefi daha hızlı optimize edebilir. Kampanya değişikliğinden önce etiket, izin, CRM aktarımı ve iade akışını kontrol edin.
 
-**Uygulamada dikkat edilmesi gerekenler:**
+## Optimizasyon puanını doğru okuyun
 
-- Özellikle Görüntülü Reklam Ağı ve Video kampanyalarında etkili
-- Minimum 50 dönüşüm veya 2 hafta aktif kampanya süresi gerektirir
-- Marka güvenliği ayarlarınız (içerik hariç tutmaları) korunur
+[Google'ın optimizasyon puanı belgesi](https://support.google.com/google-ads/answer/9061547?hl=tr), puanı hesap ve kampanya ayarlarına dayalı dinamik bir tahmin olarak açıklar. Bir öneriyi uygulamak veya reddetmek puanı değiştirebilir; bu, kâr veya nedensel performans artışı kanıtı değildir.
 
-Türkiye pazarında B2B müşterilerimizde optimize hedefleme ile ortalama %23 dönüşüm maliyeti düşüşü gözlemledik. Ancak niş sektörlerde manuel hedefleme hâlâ daha isabetli sonuç verebilir.
+| Öneri türü | İnceleme sorusu | Karar kaydı |
+|---|---|---|
+| Bütçe | Ek harcama marj ve nakit sınırına uyuyor mu? | Onaylayan ve üst sınır |
+| Teklif | Birincil dönüşüm verisi yeterince temiz mi? | Başlangıç hedefi ve geri alma kuralı |
+| Anahtar kelime/hedefleme | Yeni erişim işletmenin sunduğu şeyle ilgili mi? | Hariç tutulan niyetler |
+| Reklam ve varlık | Mesaj açılış sayfasında karşılanıyor mu? | Onaylı iddia kaynağı |
+| Onarım | Yayını veya ölçümü engelleyen hata mı? | Düzeltme kanıtı |
 
-## Teklif Stratejisi Seçimi: Hangi Durumda Hangisi?
+## Arama terimlerinden negatif liste üretin
 
-Doğru teklif stratejisi seçimi, kampanya başarısının %40'ını belirler. İşte Türkiye piyasasına uygun strateji rehberi:
+[Arama terimleri raporu](https://support.google.com/google-ads/answer/2472708?hl=tr), reklamı tetikleyen gerçek sorguları gösterir. [Negatif anahtar kelime rehberi](https://support.google.com/google-ads/answer/7102466?hl=tr) ise bu sorgulardan hariç tutma adayı oluşturma akışını açıklar.
 
-| Hedef | Önerilen Strateji | Ne Zaman Kullanmalı |
-|-------|-------------------|---------------------|
-| Dönüşüm sayısını artırma | Dönüşümleri Artırma | Aylık 30+ dönüşümünüz varsa |
-| Belirli maliyet hedefi | Hedef EBM | Karlılık oranınızı biliyorsanız |
-| Gelir odaklı | Hedef ROAS | E-ticaret, farklı ürün değerleri |
-| Site trafiği | Tıklamaları Artırma | Farkındalık aşamasında |
-| Marka bilinirliği | Hedef Gösterim Payı | Rakip markalara karşı |
+Her terimi körlemesine hariç tutmayın. Sorgu, teklif edilen ürün veya hizmete gerçekten aykırı olmalı; negatif eşleme türünün değerli sorguları engellemediği kontrol edilmelidir.
 
-**Profesyonel ipucu:** Yeni kampanyalarda ilk 2 hafta "Dönüşümleri Artırma" stratejisiyle başlayın, yeterli veri topladıktan sonra Hedef EBM'ye geçiş yapın.
+| Sorgu sınıfı | Eylem | İnceleme |
+|---|---|---|
+| Açıkça alakasız | Negatif adayı | Ürün kataloğuyla çelişiyor mu? |
+| Araştırma niyeti | Ayrı içerik veya gözlem | Daha sonra ticari sonuca katkısı var mı? |
+| Yüksek ticari niyet | Reklam ve sayfa uyumu | Gerçek teklif sorguyu karşılıyor mu? |
+| Belirsiz veya düşük hacim | Veri biriktir | Gizlilik nedeniyle eksik raporlanıyor olabilir mi? |
 
-## Anahtar Kelime Optimizasyonu: Negatif Kelimeler Neden Kritik?
+## Tek değişkenli deney kurun
 
-Anahtar kelime optimizasyonunda en çok ihmal edilen alan negatif anahtar kelimelerdir. Türkiye'de "ucuz", "bedava", "ücretsiz", "staj", "iş ilanı" gibi kelimeler çoğu ticari kampanyada bütçe israfına neden olur.
+[Google Ads Denemeler rehberi](https://support.google.com/google-ads/answer/7281575?hl=tr), iş hedefine bağlı açık hipotez, tek değişken, önceden seçilmiş başarı metriği ve kayıtlı sonuç ister. Deney sürerken kontrol kampanyasında plansız değişiklik yapmayın.
 
-**Haftalık yapılması gereken kontroller:**
+| Deney alanı | Örnek hipotez | Sabit tutulacaklar |
+|---|---|---|
+| Teklif stratejisi | Yeni strateji ana iş metriğini iyileştirir | Reklam, sayfa ve dönüşüm tanımı |
+| Reklam mesajı | Yeni mesaj nitelikli talebi artırır | Teklif, hedefleme ve sayfa |
+| Açılış sayfası | Yeni sayfa tamamlanan sonucu iyileştirir | Trafik kaynağı ve reklam |
+| Eşleme/hedefleme | Yeni kapsam ek değerli talep bulur | Bütçe kuralı ve teklif |
 
-1. Arama terimleri raporunu inceleyin
-2. Düşük kalite puanlı (<5) anahtar kelimeleri tespit edin
-3. Dönüşüm getirmeyen eşleşmeleri negatif listeye ekleyin
-4. Yüksek performanslı terimleri tam eşleşme olarak ayrı reklam grubuna alın
+Sonucu seçerken yalnız platform içi mikro dönüşüme bakmayın. Nitelikli lead, net gelir, marj ve iptal/iade gibi iş sonucunu kontrol edin. Sonuç belirsizse kazanan ilan etmeyin.
 
-Bir e-ticaret müşterimizde 500 negatif anahtar kelime ekleyerek tıklama başı maliyeti %35 düşürdük, dönüşüm oranı ise %18 arttı.
+## Haftalık karar ritmi
 
-## Reklam Metni ve Uzantıları Nasıl Optimize Edilir?
+1. Ölçüm ve harcama anomalisini kontrol edin.
+2. Arama terimlerini işletmenin gerçek teklifiyle eşleştirin.
+3. Aktif deneyde plansız değişiklik yapmayın.
+4. Yeni bir hipotezi ancak mevcut deney tamamlanınca kuyruğa alın.
+5. Kararı, tarihi, onaylayıcıyı ve geri alma eşiğini kaydedin.
 
-Google, her reklam grubunda minimum 3 duyarlı arama ağı reklamı (RSA) öneriyor. Ancak sayıdan çok kalite önemli.
-
-**Etkili reklam metni formülü:**
-
-- **Başlık 1:** Ana anahtar kelime + fayda (ör: "Google Ads Yönetimi | %50 Daha Fazla Dönüşüm")
-- **Başlık 2:** Güven unsuru (ör: "10 Yıllık Deneyim" veya "500+ Mutlu Müşteri")
-- **Başlık 3:** Aksiyon çağrısı (ör: "Ücretsiz Analiz Alın")
-- **Açıklama:** Sorun-çözüm-sonuç yapısı
-
-**Zorunlu uzantılar:**
-- Site bağlantısı uzantıları (minimum 4 adet)
-- Açıklama uzantıları (2-4 adet)
-- Yapılandırılmış snippet'lar
-- Telefon uzantısı (B2B için kritik)
-
-Uzantı kullanan reklamlar, kullanmayanlara göre ortalama %15 daha yüksek tıklama oranı elde eder.
-
-## Bütçe ve Zamanlama Optimizasyonu
-
-Türkiye'de sektöre göre en yoğun dönüşüm saatleri:
-- **B2B hizmetler:** Hafta içi 10:00-12:00 ve 14:00-17:00
-- **E-ticaret:** 20:00-23:00 ve hafta sonları
-- **Yerel işletmeler:** 09:00-11:00 ve 17:00-19:00
-
-**Bütçe optimizasyonu için:**
-
-1. Dönüşüm sütunlarını saat ve gün bazında analiz edin
-2. Düşük performanslı saatlerde teklifleri %20-30 azaltın
-3. Yüksek performanslı dönemlerde teklifleri %15-25 artırın
-4. Kampanya bütçelerini performansa göre haftalık yeniden dağıtın
-
-## Açılış Sayfası Deneyimi Puanını Artırma
-
-Google Ads kalite puanının üç bileşeninden biri olan açılış sayfası deneyimi, tıklama maliyetinizi doğrudan etkiler.
-
-**Kontrol listesi:**
-
-- [ ] Sayfa yükleme süresi 3 saniyenin altında mı?
-- [ ] Mobil uyumluluk skoru 90+ mı?
-- [ ] Reklam metniyle sayfa içeriği uyumlu mu?
-- [ ] CTA (eylem çağrısı) görünür konumda mı?
-- [ ] Güven unsurları (referanslar, sertifikalar) mevcut mu?
-
-Google PageSpeed Insights aracıyla Core Web Vitals skorlarınızı ölçün. LCP (Largest Contentful Paint) 2.5 saniyenin altında olmalı.
-
-## Türkiye'ye Özel Optimizasyon İpuçları
-
-Türkiye pazarında Google Ads yönetirken dikkat edilmesi gereken faktörler:
-
-- **Dil hedeflemesi:** Sadece Türkçe değil, "Türkçe veya herhangi bir dil" seçeneği daha geniş erişim sağlar
-- **Konum hedeflemesi:** "Bu konumdaki veya ilgilenen kişiler" yerine "Bu konumdaki kişiler" seçin
-- **Mevsimsellik:** Bayram dönemlerinde teklif stratejilerini manuel kontrole alın
-- **Para birimi:** TL bazlı bütçe dalgalanmalarını USD referansıyla takip edin
-
-## Sonraki Adımlar
-
-Google Ads kampanya optimizasyonu, tek seferlik değil sürekli bir süreçtir. Haftada minimum 2 saat optimizasyon çalışması yapan hesaplar, yapmayanlardan ortalama %45 daha iyi performans gösterir.
-
-Kampanyalarınızın mevcut durumunu ve iyileştirme fırsatlarını öğrenmek için ücretsiz Google Ads hesap analizi talep edebilirsiniz. 10 yılı aşkın deneyimimle, hesabınıza özel optimizasyon önerileri sunabilirim.
+Kampanya optimizasyonunun yayınlanabilir kanıtı, tek bir puan veya belgesiz vaka değil; yeniden üretilebilir deney kaydı ve doğrulanmış iş sonucudur.
