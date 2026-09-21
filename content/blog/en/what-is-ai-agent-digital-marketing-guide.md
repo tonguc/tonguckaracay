@@ -94,3 +94,10 @@ These sources are not automatic compliance certificates. The specific data, tool
 ## When should the agent move to production?
 
 Move an agent up one permission level only after the acceptance criteria pass in two separate rounds, no critical incident occurs, rollback works, and the accountable owner reviews the logs. If the pilot fails, narrow the task or keep the agent in recommendation mode; do not estimate a replacement success percentage.
+
+## From guide to implementation
+
+If your team will build the agent workflow, [AI training](/en/ai-training)
+provides a practical starting point. For permission design, a controlled pilot,
+integration, and maintenance delivered as a project, review
+[AI automation consulting for SMBs](/en/services/ai-solutions).

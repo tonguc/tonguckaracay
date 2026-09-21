@@ -114,3 +114,7 @@ The [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-managem
 The pilot should end with one of three decisions: expand, revise and retest, or stop. Expansion requires the quality threshold to pass, no serious privacy incident, and a positive net benefit after human review is counted. If the result is weak, review the task definition and scoring rubric before switching tools.
 
 This page does not announce a training outcome in advance. The first study establishes the company's baseline; a second matched measurement can begin to show the direction of change.
+
+## The next step after this guide
+
+Review the [AI training page](/en/ai-training) for the applied program and participation options. If the need is process discovery, a controlled pilot, integration, and maintenance rather than training, start with [AI automation consulting for SMBs](/en/services/ai-solutions).

@@ -114,3 +114,7 @@ Risk değerlendirmesi için [NIST AI Risk Management Framework](https://www.nist
 Pilot sonunda üç karardan biri verilmelidir: yaygınlaştır, düzeltip yeniden dene veya durdur. Yaygınlaştırma için kalite eşiği karşılanmalı, ciddi gizlilik olayı yaşanmamalı ve insan incelemesi dahil net fayda pozitif olmalıdır. Ölçüm sonucu zayıfsa farklı araca geçmeden önce görev tanımı ve kabul rubriği gözden geçirilmelidir.
 
 Bu sayfa bir eğitim programının sonucunu önceden ilan etmez. İlk çalışma, işletmenin başlangıç değerini üretir; ancak aynı yöntemle yapılan ikinci ölçüm değişimin yönünü göstermeye başlayabilir.
+
+## Programdan sonraki adım
+
+Uygulamalı program ve katılım seçenekleri için [AI eğitimi sayfasını](/ai-egitimi) inceleyin. Eğitim yerine süreç analizi, kontrollü pilot, entegrasyon ve bakım gerekiyorsa [KOBİ'ler için AI otomasyon danışmanlığı](/hizmetler/yapay-zeka-cozumleri) daha uygun başlangıçtır.

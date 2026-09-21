@@ -96,3 +96,7 @@ araştırma + veri hazırlama + model kullanımı + insan incelemesi
 Bunu kabul edilen ve yayımlanan içerik sayısına bölün. Zaman kazancı, performans artışı veya viral başarı önceden verilmiş bir sonuç değildir; kendi süreç verinizle kanıtlanmalıdır.
 
 Yapay zekanın en yararlı rolü trend ilan etmek değil, tarihli kanıtları düzenlemek, alternatif hipotezler üretmek ve deney kaydını tutarlı hale getirmektir. Yayın kararı, bağlamı ve sorumluluğu taşıyan insanda kalır.
+
+## Rehberden uygulamaya
+
+Ekibiniz araştırma ve yayın akışını kendi kuracaksa [AI eğitimi](/ai-egitimi) uygulamalı bir başlangıç sunar. Tarihli veri toplama, insan onayı, platform entegrasyonu ve ölçümü pilot olarak yürütmek için [KOBİ'ler için AI otomasyon danışmanlığını](/hizmetler/yapay-zeka-cozumleri) inceleyin.

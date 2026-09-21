@@ -126,3 +126,10 @@ Her kalem fatura veya kullanım kaydıyla desteklenmeli, güncel fiyat sağlayı
 Yeni bağlantıda, yüksek riskli kampanyada, düzenlemeye tabi iddiada veya yetki kapsamı belirsizse Claude MCP yalnızca taslak üretmelidir. Yayın otomasyonu; izin testi, kalite kapısı, işlem kaydı ve geri alma denemesi tamamlandıktan sonra düşük riskli içeriklerde açılabilir.
 
 Claude MCP'nin değeri, içerik üretimini bütünüyle insansızlaştırmak değil, sınırları ve sorumlusu belli bir iş akışını hızlandırıp hızlandırmadığını ölçülebilir hale getirmektir.
+
+## Rehberden uygulamaya
+
+Ekibiniz MCP tabanlı akışı kendi kuracaksa [AI eğitimi](/ai-egitimi)
+uygulamalı bir başlangıç sunar. Yetki testi, taslak/yayın kapısı,
+entegrasyon ve bakımı proje olarak yürütmek için [KOBİ'ler için AI
+otomasyon danışmanlığını](/hizmetler/yapay-zeka-cozumleri) inceleyin.

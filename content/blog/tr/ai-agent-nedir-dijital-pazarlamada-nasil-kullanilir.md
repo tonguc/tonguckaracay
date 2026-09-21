@@ -94,3 +94,10 @@ Bu kaynaklar otomatik uygunluk belgesi değildir. Kullanılan veri, araç ve ül
 ## Ne zaman üretime geçilir?
 
 Agent yalnız şu koşullarda bir üst yetki seviyesine geçmelidir: kabul ölçütü iki ayrı turda karşılanmış, kritik olay yaşanmamış, geri alma testi çalışmış ve sorumlu kişi kayıtları incelemiş olmalıdır. Başarısız pilotta yeni bir başarı yüzdesi tahmin edilmez; görev daraltılır veya agent yalnız öneri modunda tutulur.
+
+## Rehberden uygulamaya
+
+Ekibiniz agent iş akışını kendi kuracaksa [AI eğitimi](/ai-egitimi)
+uygulamalı bir başlangıç sunar. Yetki sınırı, kontrollü pilot,
+entegrasyon ve bakımı proje olarak yürütmek için [KOBİ'ler için AI
+otomasyon danışmanlığını](/hizmetler/yapay-zeka-cozumleri) inceleyin.

@@ -96,3 +96,7 @@ research + data preparation + model usage + human review
 Divide this by accepted, published items. Time savings, performance lifts and viral reach are not predetermined outcomes; they require evidence from your own process and account.
 
 AI is most useful here not as a trend oracle, but as a way to organize dated evidence, generate alternative hypotheses and keep experiment records consistent. A responsible human remains accountable for context and publication.
+
+## From guide to implementation
+
+If your team will build the research and publishing workflow, [AI training](/en/ai-training) provides a practical starting point. To pilot dated data collection, human approval, platform integration, and measurement, review [AI automation consulting for SMBs](/en/services/ai-solutions).

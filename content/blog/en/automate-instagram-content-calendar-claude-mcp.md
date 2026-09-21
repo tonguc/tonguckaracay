@@ -126,3 +126,10 @@ Support each item with a bill or usage record and retrieve current prices from o
 Keep Claude MCP in draft-only mode for a new connection, a high-risk campaign, a regulated claim, or unclear permissions. Consider publishing automation for low-risk content only after the permission test, quality gate, audit log, and recovery exercise pass.
 
 The purpose of Claude MCP is not to remove people from publishing. It is to make a bounded workflow measurable and determine whether the workflow saves time without lowering editorial control.
+
+## From guide to implementation
+
+If your team will build the MCP workflow, [AI training](/en/ai-training)
+provides a practical starting point. For permission testing, draft and publish
+gates, integration, and maintenance delivered as a project, review
+[AI automation consulting for SMBs](/en/services/ai-solutions).

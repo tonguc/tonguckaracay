@@ -40,13 +40,21 @@ const articlePairs = [
   ['content/blog/en/how-to-reduce-token-costs-in-customer-service-chatbots.md', '/en/services/ai-solutions', '/en/ai-training'],
   ['content/blog/tr/chatgpt-ile-e-ticaret-urun-aciklamasi-yazma.md', '/hizmetler/yapay-zeka-cozumleri', '/ai-egitimi'],
   ['content/blog/en/chatgpt-ecommerce-product-descriptions-guide.md', '/en/services/ai-solutions', '/en/ai-training'],
+  ['content/blog/tr/ai-agent-nedir-dijital-pazarlamada-nasil-kullanilir.md', '/hizmetler/yapay-zeka-cozumleri', '/ai-egitimi'],
+  ['content/blog/en/what-is-ai-agent-digital-marketing-guide.md', '/en/services/ai-solutions', '/en/ai-training'],
+  ['content/blog/tr/claude-mcp-instagram-icerik-takvimi-otomasyonu.md', '/hizmetler/yapay-zeka-cozumleri', '/ai-egitimi'],
+  ['content/blog/en/automate-instagram-content-calendar-claude-mcp.md', '/en/services/ai-solutions', '/en/ai-training'],
+  ['content/blog/tr/instagram-reels-yapay-zeka-trend-analizi-icerik-planlama.md', '/hizmetler/yapay-zeka-cozumleri', '/ai-egitimi'],
+  ['content/blog/en/ai-trend-analysis-instagram-reels-content-planning.md', '/en/services/ai-solutions', '/en/ai-training'],
+  ['content/blog/tr/kobi-yapay-zeka-egitim-programi.md', '/hizmetler/yapay-zeka-cozumleri', '/ai-egitimi'],
+  ['content/blog/en/ai-tools-small-business-owners-training.md', '/en/services/ai-solutions', '/en/ai-training'],
 ];
 
 for (const [file, servicePath, trainingPath] of articlePairs) {
   const source = read(file);
   assert.ok(source.includes(`](${servicePath})`), `${file} must link to the locale-matched consulting page`);
   assert.ok(source.includes(`](${trainingPath})`), `${file} must link to the locale-matched training page`);
-  assert.match(source, /Rehberden uygulamaya|From guide to implementation/, `${file} must expose a visible decision block`);
+  assert.match(source, /Rehberden uygulamaya|From guide to implementation|Programdan sonraki adım|The next step after this guide/, `${file} must expose a visible decision block`);
   assert.doesNotMatch(
     source,
     /\b(?:delve|seamless(?:ly)?|groundbreaking|revolutionary|game-changer|tapestry|plethora|myriad)\b|in conclusion|it is important to note/i,
@@ -54,4 +62,4 @@ for (const [file, servicePath, trainingPath] of articlePairs) {
   );
 }
 
-console.log('GEO internal-link fixtures passed for consulting, training, and four matched use-case pairs.');
+console.log('GEO internal-link fixtures passed for consulting, training, and eight matched use-case pairs.');
