@@ -178,3 +178,10 @@ Token optimizasyonu bir yüzde vaadi değildir. Doğru karar; güncel resmi fiya
 gerçek kullanım kaydını, görev başarısını ve insan desteği maliyetini aynı deney
 içinde karşılaştırmaktır. En düşük token sayısı değil, kabul edilen kaliteyle
 tamamlanan görevin toplam maliyeti optimize edilmelidir.
+
+## Rehberden uygulamaya
+
+Ekibiniz maliyet ve kalite testlerini kendi yürütecekse [AI eğitimi](/ai-egitimi)
+uygulamalı bir başlangıç sunar. Mevcut kullanımı ölçmek, aday mimariyi pilotta
+karşılaştırmak ve entegrasyonu yürütmek için [KOBİ'ler için AI otomasyon danışmanlığını](/hizmetler/yapay-zeka-cozumleri)
+inceleyin.

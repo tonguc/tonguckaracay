@@ -99,3 +99,10 @@ Dönüşüm, organik görünürlük veya gelir artışı evrensel bir sonuç de�
 Ürün gerçeği değiştiğinde açıklamayı yeniden inceleyecek bir tetikleyici kurun. Fiyat ve stok gibi sık değişen verileri serbest metin yerine ticaret sisteminden gösterin. Kayıt altında prompt sürümü, kaynak kaydı, model çıktısı, editör değişikliği ve onaylayan kişi bulunsun. Böylece hatalı bir iddianın nerede eklendiği izlenebilir.
 
 Özetle: hız vaadiyle yüzlerce taslağı doğrudan yayımlamak yerine, önce kaynak şemasını, ardından insan onayını ve ölçümü kurun. İyi sonuç, daha çok metin değil; doğru ürün gerçeğiyle daha az yeniden çalışmadır.
+
+## Rehberden uygulamaya
+
+Ekibiniz kaynak şemasını ve onay akışını kendi kuracaksa [AI eğitimi](/ai-egitimi)
+uygulamalı bir başlangıç sunar. Ürün verisi, taslak üretimi, insan onayı ve
+ticaret sistemi entegrasyonunu pilot olarak yürütmek için [KOBİ'ler için AI otomasyon danışmanlığını](/hizmetler/yapay-zeka-cozumleri)
+inceleyin.

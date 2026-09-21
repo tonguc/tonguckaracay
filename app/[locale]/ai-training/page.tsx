@@ -867,6 +867,27 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
         </div>
       </section>
 
+      {/* CONSULTING ALTERNATIVE */}
+      <section className="py-12">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto bg-surface-card border border-surface-border rounded-2xl p-6 md:p-8">
+            <h2 className="font-display text-2xl font-bold text-white mb-3">
+              Training or consulting?
+            </h2>
+            <p className="text-primary-300 leading-relaxed mb-5">
+              Training fits teams that will build the system themselves. If you
+              need process discovery, a controlled pilot, integration, and
+              maintenance delivered as a project, review AI automation
+              consulting instead.
+            </p>
+            <Link href="/en/services/ai-solutions" className="text-indigo-400 font-semibold hover:underline">
+              AI automation consulting for SMBs
+              <ArrowRight className="inline-block ml-2 w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* DISCLAIMER */}
       <section className="py-8">
         <div className="container-custom">

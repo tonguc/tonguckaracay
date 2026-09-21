@@ -95,3 +95,10 @@ Compare the metrics with a manual process using the same request mix and period 
 Production requires all three conditions: the quality threshold passes, no critical incident occurs, and cost per accepted task remains acceptable after human review. The [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) provides a lifecycle structure for governance, measurement, and risk management.
 
 A successful pilot does not prove that an AI agent can solve every request. It records which request type works with which source, permission, and human handoff rule.
+
+## From guide to implementation
+
+If your team will build the workflow, [AI training](/en/ai-training) provides a
+practical starting point. If you need process discovery, a controlled pilot,
+integration, and maintenance delivered as a project, review
+[AI automation consulting for SMBs](/en/services/ai-solutions).

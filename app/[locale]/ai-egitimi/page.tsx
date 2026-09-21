@@ -868,6 +868,26 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
         </div>
       </section>
 
+      {/* CONSULTING ALTERNATIVE */}
+      <section className="py-12">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto bg-surface-card border border-surface-border rounded-2xl p-6 md:p-8">
+            <h2 className="font-display text-2xl font-bold text-white mb-3">
+              Eğitim mi, danışmanlık mı?
+            </h2>
+            <p className="text-primary-300 leading-relaxed mb-5">
+              Ekibiniz sistemi kendi kuracaksa eğitim uygundur. Süreç analizi,
+              kontrollü pilot, entegrasyon ve bakımın proje olarak yürütülmesi
+              gerekiyorsa AI otomasyon danışmanlığını inceleyin.
+            </p>
+            <Link href="/hizmetler/yapay-zeka-cozumleri" className="text-indigo-400 font-semibold hover:underline">
+              KOBİ'ler için AI otomasyon danışmanlığı
+              <ArrowRight className="inline-block ml-2 w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* DISCLAIMER */}
       <section className="py-8">
         <div className="container-custom">

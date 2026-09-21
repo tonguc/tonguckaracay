@@ -95,3 +95,10 @@ Metrikler manuel süreçle aynı talep karışımı ve dönem koşullarında kar
 Üretime geçiş için üç koşul birlikte sağlanmalıdır: kalite eşiği geçmeli, kritik olay yaşanmamalı ve insan incelemesi dahil görev başı maliyet kabul edilebilir olmalıdır. [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework), yönetişim, ölçüm ve risk yönetimini sistem yaşam döngüsü boyunca ele almak için kullanılabilir.
 
 Başarılı pilotun çıktısı “AI agent her şeyi çözer” değildir. Doğru çıktı; hangi talep türünün, hangi kaynak ve yetkiyle, hangi insan devri altında kabul edilebilir sonuç verdiğinin kayıtlı olmasıdır.
+
+## Rehberden uygulamaya
+
+Ekibiniz bu iş akışını kendi kuracaksa [AI eğitimi](/ai-egitimi) uygulamalı
+bir başlangıç sunar. Süreç analizi, kontrollü pilot, entegrasyon ve bakımı
+proje olarak yürütmek için [KOBİ'ler için AI otomasyon danışmanlığını](/hizmetler/yapay-zeka-cozumleri)
+inceleyin.

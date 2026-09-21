@@ -99,3 +99,10 @@ Conversion, search visibility and revenue are not universal outcomes. Test them 
 Trigger review whenever the approved product record changes. Render volatile values such as price and inventory from the commerce system instead of freezing them into prose. Keep the prompt version, source record, model output, editor changes and approver in an audit trail.
 
 The objective is not to publish more text. It is to reduce rework while preserving accurate product facts, useful customer answers and accountable approval.
+
+## From guide to implementation
+
+If your team will build the source schema and approval workflow,
+[AI training](/en/ai-training) provides a practical starting point. To pilot
+product data, drafting, human approval, and commerce-system integration, review
+[AI automation consulting for SMBs](/en/services/ai-solutions).

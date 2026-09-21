@@ -177,3 +177,10 @@ Token optimization is not a promised percentage. Compare current official
 pricing, measured usage, task success, and human-support cost in one controlled
 evaluation. Optimize total cost per accepted completed task, not the smallest
 token count.
+
+## From guide to implementation
+
+If your team will run the cost and quality tests, [AI training](/en/ai-training)
+provides a practical starting point. To measure current usage, compare a
+candidate architecture in a pilot, and deliver the integration, review
+[AI automation consulting for SMBs](/en/services/ai-solutions).

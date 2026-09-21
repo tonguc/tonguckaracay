@@ -526,6 +526,27 @@ export default function YapayZekaCozumleriPage({ params: { locale } }: Props) {
         </div>
       </section>
 
+      {/* TRAINING ALTERNATIVE */}
+      <section className="py-12">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto card p-6 md:p-8">
+            <h2 className="text-2xl font-display font-bold text-white mb-3">
+              Danışmanlık mı, AI eğitimi mi?
+            </h2>
+            <p className="text-primary-300 leading-relaxed mb-5">
+              Süreç analizi, pilot, entegrasyon ve bakımı birlikte yürütmek
+              istiyorsanız bu danışmanlık hizmeti uygundur. Ekibiniz sistemi
+              kendi kuracak ve öncelikle uygulamalı yetkinlik kazanacaksa AI
+              eğitimi daha doğru başlangıçtır.
+            </p>
+            <Link href="/ai-egitimi" className="text-accent-400 font-semibold hover:underline">
+              Bireysel ve kurumsal AI eğitimini inceleyin
+              <ArrowRight className="inline-block ml-2 w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">

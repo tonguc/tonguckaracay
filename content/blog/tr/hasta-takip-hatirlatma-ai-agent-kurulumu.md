@@ -149,3 +149,10 @@ kurumun kendi başlangıç verisiyle karşılaştırıldığında anlamlıdır.
 
 Bu içerik teknik ve operasyonel çerçevedir; tıbbi veya hukuki danışmanlık
 değildir.
+
+## Rehberden uygulamaya
+
+Ekibiniz bu iş akışını kendi kuracaksa [AI eğitimi](/ai-egitimi) uygulamalı
+bir başlangıç sunar. Veri sınıflandırması, kontrollü pilot, entegrasyon ve
+bakımı proje olarak yürütmek için [KOBİ'ler için AI otomasyon danışmanlığını](/hizmetler/yapay-zeka-cozumleri)
+inceleyin. Sağlık iş akışları ayrı hukuk ve güvenlik incelemesi gerektirir.

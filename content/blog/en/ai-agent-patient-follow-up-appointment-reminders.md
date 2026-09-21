@@ -149,3 +149,11 @@ and compares results with the provider's own baseline.
 
 This article provides a technical and operational framework, not medical or
 legal advice.
+
+## From guide to implementation
+
+If your team will build the workflow, [AI training](/en/ai-training) provides a
+practical starting point. For data classification, a controlled pilot,
+integration, and maintenance delivered as a project, review
+[AI automation consulting for SMBs](/en/services/ai-solutions). Healthcare
+workflows still require separate legal and security review.

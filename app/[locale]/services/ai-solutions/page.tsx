@@ -526,6 +526,27 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
         </div>
       </section>
 
+      {/* TRAINING ALTERNATIVE */}
+      <section className="py-12">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto card p-6 md:p-8">
+            <h2 className="text-2xl font-display font-bold text-white mb-3">
+              Consulting or AI training?
+            </h2>
+            <p className="text-primary-300 leading-relaxed mb-5">
+              Choose consulting when you need process discovery, a pilot,
+              integration, and maintenance delivered with your team. Choose AI
+              training when your team will build the system and first needs
+              practical skills, exercises, and implementation guidance.
+            </p>
+            <Link href="/en/ai-training" className="text-accent-400 font-semibold hover:underline">
+              Review individual and corporate AI training
+              <ArrowRight className="inline-block ml-2 w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
