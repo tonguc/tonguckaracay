@@ -15,7 +15,8 @@
     "test:ai-agent-claims-content": "node scripts/ai-agent-claims-content.test.mjs",
     "test:ecommerce-reels-content": "node scripts/ecommerce-reels-content.test.mjs",
     "test:commercial-claims-content": "node scripts/commercial-claims-content.test.mjs",
-    "test:geo-pages": "npm run test:service-metadata && npm run test:ai-consulting-content && npm run test:healthcare-content && npm run test:token-cost-content && npm run test:training-instagram-content && npm run test:ai-agent-claims-content && npm run test:ecommerce-reels-content && npm run test:commercial-claims-content"
+    "test:claims-wave4-content": "node scripts/claims-wave4-content.test.mjs",
+    "test:geo-pages": "npm run test:service-metadata && npm run test:ai-consulting-content && npm run test:healthcare-content && npm run test:token-cost-content && npm run test:training-instagram-content && npm run test:ai-agent-claims-content && npm run test:ecommerce-reels-content && npm run test:commercial-claims-content && npm run test:claims-wave4-content"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
