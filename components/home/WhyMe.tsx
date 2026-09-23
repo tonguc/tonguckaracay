@@ -14,35 +14,35 @@ export default function WhyMe({ locale }: Props) {
     ? [
         {
           icon: Award,
-          title: "25+ Yıl Deneyim",
-          desc: "Çeyrek asırlık saha deneyimi: otomotivden medyaya, kamudan startup'a yüzlerce projeyle test edilmiş yargı.",
+          title: "THY'den BMW'ye Küresel Marka Deneyimi",
+          desc: "Türkiye'nin lider markalarından çok uluslu şirketlere, ABD ve İngiltere'deki projelere kadar 25+ yılda yüzlerce markaya yön verdim.",
         },
         {
           icon: Layers,
-          title: "Teknik + İş Zihniyeti",
-          desc: "Hem kodu/SEO'yu/analitiği hem de gelir, marj ve büyüme dilini konuşuyorum — strateji ile uygulama arasındaki köprü.",
+          title: "Stratejiden Sonuca Tam Sorumluluk",
+          desc: "Sadece rapor yazmıyorum — koda, SEO'ya, reklam hesaplarına kendim giriyorum. Strateji rafta kalmaz, doğrudan gelire dönüşür.",
         },
         {
           icon: Cpu,
-          title: "AI-First Yaklaşım",
-          desc: "Yapay zekayı süs olarak değil, iş akışlarını otomatikleştiren ve ölçek kazandıran bir kaldıraç olarak kuruyorum.",
+          title: "Yapay Zekayı Büyüme Motoruna Çeviriyorum",
+          desc: "AI'ı vitrin süsü değil, iş akışlarını otomatikleştirip ölçeği katlayan gerçek bir kaldıraç olarak kuruyorum.",
         },
       ]
     : [
         {
           icon: Award,
-          title: "25+ Years Experience",
-          desc: "A quarter-century in the field — judgment tested across hundreds of projects, from automotive and media to government and startups.",
+          title: "Global Brand Experience, From THY to BMW",
+          desc: "From Turkey's leading brands to multinational companies, with projects across the US and UK — 25+ years shaping growth for hundreds of brands.",
         },
         {
           icon: Layers,
-          title: "Technical + Business Mindset",
-          desc: "I speak code, SEO and analytics as fluently as revenue, margin and growth — the bridge between strategy and execution.",
+          title: "Full Accountability, Strategy to Results",
+          desc: "I don't just hand over a report — I get into the code, the SEO, the ad accounts myself. Strategy doesn't sit on a shelf, it turns into revenue.",
         },
         {
           icon: Cpu,
-          title: "AI-First Approach",
-          desc: "I treat AI not as decoration but as leverage: automating workflows and unlocking scale that compounds over time.",
+          title: "I Turn AI Into a Growth Engine",
+          desc: "I treat AI not as decoration but as real leverage — automating workflows and compounding scale over time.",
         },
       ];
 
