@@ -19,13 +19,13 @@ export default async function Home({ params: { locale } }: Props) {
     <>
       {/* 1 — Dinamik Hero */}
       <HeroDynamic locale={locale} />
-      {/* 2 — Trusted By */}
-      <TrustedBy locale={locale} />
-      {/* 3 — Tipik Çalışma Süreci (timeline) */}
+      {/* 2 — Tipik Çalışma Süreci (timeline) */}
       <Engagement locale={locale} />
-      {/* 4 — Neden Benimle */}
+      {/* 3 — Neden Benimle */}
       <WhyMe locale={locale} />
-      {/* 5 — Sonuçlar & Vaka Çalışmaları (güvenilirlik kurulduktan sonra) */}
+      {/* 4 — Trusted By (sonuçlardan hemen önce, "kiminle çalıştım" bağlamı) */}
+      <TrustedBy locale={locale} />
+      {/* 5 — Sonuçlar & Vaka Çalışmaları */}
       <CaseStudies locale={locale} />
       {/* 6 — İçgörüler / Blog (Referanslar gerçek yorum gelince eklenecek) */}
       <Insights locale={locale} />
