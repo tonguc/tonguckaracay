@@ -129,7 +129,7 @@ export default function CaseStudies({ locale }: Props) {
                   href={contactPath}
                   className="mt-7 inline-flex items-center gap-1.5 font-semibold text-accent-400 transition-colors hover:text-accent-300"
                 >
-                  {isTr ? "Vaka İncele" : "View Case Study"}
+                  {isTr ? "Benzer Bir Proje İçin Görüşelim" : "Discuss a Similar Project"}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
