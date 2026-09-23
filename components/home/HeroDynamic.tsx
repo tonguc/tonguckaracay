@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Clock } from "lucide-react";
+import { getAllPosts } from "@/lib/blog-utils";
 
 interface Props {
   locale: string;
@@ -8,13 +9,15 @@ interface Props {
 
 /**
  * Bölüm 1 — Hero.
- * Tek odak: değer önermesi + CTA. "Son İçgörü" kartı buradan çıkarıldı
- * (Insights bölümünde zaten en yeni yazı olarak görünüyor) — hero artık
- * tek bir mesaja odaklanıyor, farklı öğelerin (yazı önizleme + değer
- * önermesi + istatistik) yan yana yarıştığı parçalı görünüm kalkıyor.
+ * Tek akış, tek odak sırası: rozet → H1 (değer önermesi) → alt başlık → CTA →
+ * son yazı (küçük, yatay, şık şerit — H1 ile yarışmaz) → istatistik bar → profil.
+ * Önceki sürümde yazı önizlemesi + değer önermesi + istatistik yan yana yarışıyordu;
+ * şimdi hepsi tek dikey akışta, boyut hiyerarşisiyle sıralı.
  */
 export default function HeroDynamic({ locale }: Props) {
   const isTr = locale === "tr";
+  const latest = getAllPosts(isTr ? "tr" : "en")[0];
+  const postPath = latest ? (isTr ? `/${latest.slug}` : `/en/${latest.slug}`) : null;
   const contactPath = isTr ? "/iletisim" : "/en/contact";
   const casesPath = "#case-studies";
 
@@ -78,8 +81,41 @@ export default function HeroDynamic({ locale }: Props) {
             </Link>
           </div>
 
+          {/* Son yazı — küçük, yatay şerit; H1'in altında ikincil öğe olarak */}
+          {latest && (
+            <Link
+              href={postPath!}
+              className="card group mt-10 flex w-full items-center gap-4 p-3 text-left transition-all duration-300 hover:-translate-y-0.5 md:p-4"
+            >
+              {latest.image && (
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg md:h-20 md:w-20">
+                  <Image
+                    src={latest.image}
+                    alt={latest.title}
+                    fill
+                    sizes="80px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-accent-400">
+                  {isTr ? "Son Yazı" : "Latest Article"}
+                </span>
+                <h2 className="mt-1 truncate font-display text-sm font-semibold text-white transition-colors group-hover:text-accent-400 md:text-base">
+                  {latest.title}
+                </h2>
+                <span className="mt-1 inline-flex items-center gap-1.5 text-xs text-primary-400">
+                  <Clock className="h-3.5 w-3.5" />
+                  {latest.readTime || (isTr ? "5 dk okuma" : "5 min read")}
+                </span>
+              </div>
+              <ArrowRight className="h-5 w-5 shrink-0 text-primary-400 transition-transform group-hover:translate-x-1 group-hover:text-accent-400" />
+            </Link>
+          )}
+
           {/* İstatistikler — tek bar, bölücülerle ayrılmış */}
-          <div className="mt-10 flex h-[100px] w-full items-stretch divide-x divide-surface-border/50 rounded-xl border border-surface-border/50 bg-surface-card/40 backdrop-blur-sm">
+          <div className="mt-6 flex h-[100px] w-full items-stretch divide-x divide-surface-border/50 rounded-xl border border-surface-border/50 bg-surface-card/40 backdrop-blur-sm">
             {stats.map((s) => (
               <div key={s.label} className="flex flex-1 flex-col items-center justify-center px-2 text-center">
                 <div className="text-gradient font-display text-2xl font-bold md:text-3xl">{s.value}</div>
