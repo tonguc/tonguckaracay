@@ -15,7 +15,7 @@ interface Props {
 export default function ValueProposition({ locale }: Props) {
   const isTr = locale === "tr";
   const contactPath = isTr ? "/iletisim" : "/en/contact";
-  const casesPath = "#case-studies";
+  const casesPath = "#trusted-by";
 
   const skills = isTr
     ? ["UX Tasarım", "SEO", "GEO (AI Arama)", "Yapay Zeka", "Reklam Yönetimi"]
@@ -78,7 +78,7 @@ export default function ValueProposition({ locale }: Props) {
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link href={casesPath} className="btn-secondary group text-sm md:text-base">
-                {isTr ? "Vaka Çalışmaları" : "View Case Studies"}
+                {isTr ? "Kimlerle Çalıştım" : "Who I've Worked With"}
                 <ArrowUpRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>

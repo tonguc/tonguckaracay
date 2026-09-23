@@ -51,7 +51,7 @@ export default function TrustedBy({ locale }: Props) {
   const isTr = locale === "tr";
 
   return (
-    <section className="border-y border-surface-border/40 bg-surface-card/20 py-14 md:py-20">
+    <section id="trusted-by" className="border-y border-surface-border/40 bg-surface-card/20 py-14 md:py-20">
       <div className="container-custom">
         <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.2em] text-primary-400 md:text-sm">
           {isTr ? "Birlikte Çalıştığım Marka ve Kurumlar" : "Brands & Organizations I've Worked With"}

@@ -2,7 +2,6 @@ import { setRequestLocale } from 'next-intl/server';
 import HeroSlider from "@/components/home/HeroSlider";
 import ValueProposition from "@/components/home/ValueProposition";
 import TrustedBy from "@/components/home/TrustedBy";
-import CaseStudies from "@/components/home/CaseStudies";
 import Engagement from "@/components/home/Engagement";
 import WhyMe from "@/components/home/WhyMe";
 import Insights from "@/components/home/Insights";
@@ -38,11 +37,9 @@ export default async function Home({ params: { locale } }: Props) {
       <Engagement locale={locale} />
       {/* 4 — Neden Benimle */}
       <WhyMe locale={locale} />
-      {/* 5 — Trusted By (sonuçlardan hemen önce, "kiminle çalıştım" bağlamı) */}
+      {/* 5 — Trusted By ("kiminle çalıştım" — gerçek vaka verisi gelene kadar asıl güven kanıtı bu) */}
       <TrustedBy locale={locale} />
-      {/* 6 — Sonuçlar & Vaka Çalışmaları */}
-      <CaseStudies locale={locale} />
-      {/* 7 — İçgörüler / Blog (Referanslar gerçek yorum gelince eklenecek) */}
+      {/* 6 — İçgörüler / Blog (Referanslar gerçek yorum gelince eklenecek) */}
       <Insights locale={locale} />
       {/* 8 — Kişisel Hikaye */}
       <PersonalStory locale={locale} />

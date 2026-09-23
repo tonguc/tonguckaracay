@@ -98,7 +98,7 @@ export default function HeroSlider({ locale, posts }: Props) {
               type="button"
               aria-label={isTr ? "Önceki" : "Previous"}
               onClick={prev}
-              className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-surface-darker/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-surface-darker/80 md:left-6 md:p-3"
+              className="absolute left-3 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-surface-darker/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-surface-darker/80 md:left-6 md:block md:p-3"
             >
               <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
             </button>
@@ -106,7 +106,7 @@ export default function HeroSlider({ locale, posts }: Props) {
               type="button"
               aria-label={isTr ? "Sonraki" : "Next"}
               onClick={next}
-              className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-surface-darker/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-surface-darker/80 md:right-6 md:p-3"
+              className="absolute right-3 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-surface-darker/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-surface-darker/80 md:right-6 md:block md:p-3"
             >
               <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
             </button>
