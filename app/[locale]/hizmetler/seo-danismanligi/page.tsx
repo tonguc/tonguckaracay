@@ -476,8 +476,8 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
               <p className="text-primary-300 mb-6">
                 ChatGPT, Google SGE ve diğer AI destekli arama motorları oyunun kurallarını değiştiriyor. Geleneksel SEO'nun yanı sıra, içeriklerinizin yapay zeka tarafından kaynak gösterilmesi için GEO stratejileri de uyguluyorum.
               </p>
-              <Link href="/geo-nedir-nasil-yapilir" className="text-accent-400 hover:underline inline-flex items-center">
-                GEO hakkında daha fazla bilgi
+              <Link href="/hizmetler/geo-optimizasyonu" className="text-accent-400 hover:underline inline-flex items-center">
+                GEO danışmanlığı hakkında daha fazla bilgi
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </div>

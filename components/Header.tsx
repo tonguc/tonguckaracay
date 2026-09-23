@@ -20,12 +20,14 @@ export default function Header() {
   const services = locale === 'tr' ? [
     { name: "UI/UX Tasarım", href: "/hizmetler/ui-ux-tasarim" },
     { name: "SEO Danışmanlığı", href: "/hizmetler/seo-danismanligi" },
+    { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" },
     { name: "Online Reklamcılık", href: "/hizmetler/online-reklamcilik" },
     { name: "Yapay Zeka Çözümleri", href: "/hizmetler/yapay-zeka-cozumleri" },
     { name: "Sosyal Medya Yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
   ] : [
     { name: "UI/UX Design", href: "/en/services/ui-ux-design" },
     { name: "SEO Consulting", href: "/en/services/seo-consulting" },
+    { name: "GEO Optimization", href: "/en/services/geo-optimization" },
     { name: "Online Advertising", href: "/en/services/online-advertising" },
     { name: "AI Solutions", href: "/en/services/ai-solutions" },
     { name: "Social Media Management", href: "/en/services/social-media-management" },

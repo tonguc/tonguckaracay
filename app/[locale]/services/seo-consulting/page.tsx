@@ -476,8 +476,8 @@ export default function SEOConsultingPage({ params: { locale } }: Props) {
               <p className="text-primary-300 mb-6">
                 ChatGPT, Google SGE, and other AI-powered search engines are changing the game. Beyond traditional SEO, I also implement GEO strategies to ensure your content gets cited as a source by artificial intelligence systems.
               </p>
-              <Link href="/en/what-is-geo-generative-engine-optimization" className="text-accent-400 hover:underline inline-flex items-center">
-                Learn more about GEO
+              <Link href="/en/services/geo-optimization" className="text-accent-400 hover:underline inline-flex items-center">
+                Learn more about GEO consulting
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </div>
