@@ -24,18 +24,18 @@ const config: Config = {
           900: '#102a43',
           950: '#0a1929',
         },
-        // Accent - Warm amber/gold
+        // Accent - Warm orange (custom ramp, not stock Tailwind amber)
         accent: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b',
-          600: '#d97706',
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
+          50: '#fef6ee',
+          100: '#fce9d3',
+          200: '#f8cea3',
+          300: '#f2ad6e',
+          400: '#ec8f3f',
+          500: '#db7420',
+          600: '#b85c16',
+          700: '#944813',
+          800: '#783a14',
+          900: '#632f13',
         },
         // Surface colors
         surface: {
@@ -74,8 +74,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-10px)' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 20px rgba(251, 191, 36, 0.1)' },
-          '100%': { boxShadow: '0 0 40px rgba(251, 191, 36, 0.2)' },
+          '0%': { boxShadow: '0 0 20px rgba(236, 143, 63, 0.1)' },
+          '100%': { boxShadow: '0 0 40px rgba(236, 143, 63, 0.2)' },
         },
       },
     },

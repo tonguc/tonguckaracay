@@ -152,7 +152,7 @@ export default function HeroDynamic({ locale }: Props) {
 
             {/* Altta küçük profil fotoğrafı + isim */}
             <div className="mt-8 flex items-center gap-3 border-t border-surface-border/40 pt-6">
-              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_30%,rgba(245,158,11,0.20),transparent_70%)] ring-1 ring-accent-500/30">
+              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_30%,rgba(219,116,32,0.20),transparent_70%)] ring-1 ring-accent-500/30">
                 <Image
                   src="/tonguckaracay-ux-seo-ai.png"
                   alt="Tonguç Karaçay"

@@ -34,7 +34,7 @@ export default function PersonalStory({ locale }: Props) {
           {/* Portre — saydam cutout; kutu yok, yumuşak ışık zemini + alta erime (editoryal his) */}
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             {/* Derinlik için yumuşak ışık zemini (düz siyah kutu yerine) */}
-            <div className="absolute left-1/2 top-1/2 h-[120%] w-[118%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_50%_38%,rgba(245,158,11,0.18),rgba(99,102,241,0.06)_45%,transparent_68%)] blur-2xl" />
+            <div className="absolute left-1/2 top-1/2 h-[120%] w-[118%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_50%_38%,rgba(219,116,32,0.18),rgba(99,102,241,0.06)_45%,transparent_68%)] blur-2xl" />
             <div className="absolute inset-x-8 bottom-4 h-44 rounded-[45%] bg-accent-500/10 blur-3xl" />
             {/* Figür: kareyle letterbox yok, alt kenar sayfaya erir */}
             <div className="relative aspect-square">

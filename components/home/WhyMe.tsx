@@ -49,7 +49,7 @@ export default function WhyMe({ locale }: Props) {
   // Anlamına göre ayrık (discrete) renk tonları — sıra cols ile aynı:
   // Deneyim → amber, Teknik+İş → sky, AI-First → violet
   const tones = [
-    "bg-amber-500/10 text-amber-400 ring-1 ring-amber-500/20",
+    "bg-accent-500/10 text-accent-400 ring-1 ring-accent-500/20",
     "bg-sky-500/10 text-sky-400 ring-1 ring-sky-500/20",
     "bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20",
   ];
