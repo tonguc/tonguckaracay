@@ -127,7 +127,7 @@ export default function Header() {
       <header className={`fixed top-1 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
           ? "bg-surface-card/90 backdrop-blur-xl border-b border-accent-500/10 shadow-[0_4px_24px_rgba(219,116,32,0.04)] py-3"
-          : "bg-transparent py-5"
+          : "bg-surface-darker/70 backdrop-blur-md border-b border-white/5 py-5"
       }`}>
       <div className="container-custom">
         <nav className="flex items-center justify-between">
