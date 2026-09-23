@@ -21,12 +21,12 @@ export default async function Home({ params: { locale } }: Props) {
       <HeroDynamic locale={locale} />
       {/* 2 — Trusted By */}
       <TrustedBy locale={locale} />
-      {/* 3 — Sonuçlar & Vaka Çalışmaları */}
-      <CaseStudies locale={locale} />
-      {/* 4 — Tipik Çalışma Süreci (timeline) */}
+      {/* 3 — Tipik Çalışma Süreci (timeline) */}
       <Engagement locale={locale} />
-      {/* 5 — Neden Benimle */}
+      {/* 4 — Neden Benimle */}
       <WhyMe locale={locale} />
+      {/* 5 — Sonuçlar & Vaka Çalışmaları (güvenilirlik kurulduktan sonra) */}
+      <CaseStudies locale={locale} />
       {/* 6 — İçgörüler / Blog (Referanslar gerçek yorum gelince eklenecek) */}
       <Insights locale={locale} />
       {/* 8 — Kişisel Hikaye */}

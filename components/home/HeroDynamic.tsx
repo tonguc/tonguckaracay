@@ -140,10 +140,10 @@ export default function HeroDynamic({ locale }: Props) {
               </Link>
             </div>
 
-            {/* İstatistikler */}
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {/* İstatistikler — tek bar, bölücülerle ayrılmış */}
+            <div className="mt-8 flex h-[100px] items-stretch divide-x divide-surface-border/50 rounded-xl border border-surface-border/50 bg-surface-card/40 backdrop-blur-sm">
               {stats.map((s) => (
-                <div key={s.label} className="rounded-xl border border-surface-border/50 bg-surface-card/40 px-3 py-4 text-center backdrop-blur-sm">
+                <div key={s.label} className="flex flex-1 flex-col items-center justify-center px-2 text-center">
                   <div className="text-gradient font-display text-2xl font-bold md:text-3xl">{s.value}</div>
                   <div className="mt-1 text-[11px] leading-tight text-primary-400 md:text-xs">{s.label}</div>
                 </div>

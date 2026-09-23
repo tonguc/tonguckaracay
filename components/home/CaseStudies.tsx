@@ -78,12 +78,9 @@ export default function CaseStudies({ locale }: Props) {
     <section id="case-studies" className="py-14 md:py-24">
       <div className="container-custom">
         <div className="mb-10 text-center md:mb-14">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-            {isTr ? "Kanıtlanmış Etki" : "Proven Impact"}
-          </p>
           <h2 className="section-title mx-auto">
-            {isTr ? "Gerçek " : "Real "}
-            <span className="text-gradient">{isTr ? "İş Sonuçları" : "Business Results"}</span>
+            {isTr ? "Öne Çıkan " : "Featured "}
+            <span className="text-gradient">{isTr ? "Vaka Çalışmaları" : "Case Studies"}</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-primary-300">
             {isTr
