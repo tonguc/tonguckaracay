@@ -8,10 +8,8 @@ interface Props {
 
 /**
  * Bölüm 2 — Değer Önermesi.
- * Manşet slider'ın hemen altında: kısa özet + CTA + istatistikler.
- * Genişlik diğer bölümlerle (container-custom) birebir aynı — ayrı bir
- * max-w ile daraltılmıyor. H1 kaldırıldı, yeni bir başlık netleşince
- * eklenecek (bkz. konuşma).
+ * Manşet slider'ın hemen altında: net, jargonsuz başlık + CTA + istatistikler.
+ * Genişlik diğer bölümlerle (container-custom) birebir aynı.
  */
 export default function ValueProposition({ locale }: Props) {
   const isTr = locale === "tr";
@@ -44,7 +42,19 @@ export default function ValueProposition({ locale }: Props) {
               </span>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-1.5 md:justify-start">
+            <h1 className="font-display text-xl font-bold leading-snug text-white sm:text-2xl md:text-[26px]">
+              {isTr ? (
+                <>
+                  Web Sitenizi Daha Fazla <span className="text-gradient">Müşteriye ve Satışa</span> Dönüştürüyorum
+                </>
+              ) : (
+                <>
+                  I Turn Your Website Into <span className="text-gradient">More Customers and Sales</span>
+                </>
+              )}
+            </h1>
+
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5 md:justify-start">
               {skills.map((skill) => (
                 <span
                   key={skill}
@@ -95,9 +105,9 @@ export default function ValueProposition({ locale }: Props) {
             />
           </div>
           <div className="text-left">
-            <h1 className="text-sm font-semibold text-white">Tonguç Karaçay</h1>
+            <div className="text-sm font-semibold text-white">Tonguç Karaçay</div>
             <div className="text-xs text-primary-400">
-              {isTr ? "UX • SEO • AI Büyüme Danışmanı" : "UX • SEO • AI Growth Consultant"}
+              {isTr ? "Dijital Büyüme Danışmanı" : "Digital Growth Consultant"}
             </div>
           </div>
         </div>
