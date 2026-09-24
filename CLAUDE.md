@@ -62,13 +62,13 @@ Ana sayfa premium kişisel-marka / danışmanlık formatında yeniden tasarland�
 
 ### Bölüm sırası (`app/[locale]/page.tsx`) — Eylül 2026 dönüşüm revizyonu
 Persona: **e-ticaret + hizmet şirketleri**. İş modeli: **hibrit** (Ücretsiz Ön Analiz → Yol Haritası → Aylık Büyüme Ortaklığı).
-1. `ValueProposition` — tek H1 ("Daha Fazla Trafik, Daha Fazla Gelir"), persona cümlesi, 3 teklif etiketi, CTA: Ücretsiz Ön Analiz + Vakalar. Mobilde kompakt tutulur.
+1. `ValueProposition` — (müsaitlik rozeti YOK — kullanıcı istemedi) tek H1 ("Daha Fazla Trafik, Daha Fazla Gelir"), persona cümlesi, 3 teklif etiketi, CTA: Ücretsiz Ön Analiz + Vakalar. Mobilde kompakt tutulur.
 2. `TrustedBy` — kompakt marka şeridi (tam liste Hakkımda sayfasında)
 3. `Offers` — 3 ana teklif kartı (`lib/offers.ts`: SEO & GEO Büyüme / UX & Dönüşüm / AI Büyüme Sistemleri) + "Ayrıca" diğer hizmetler
 4. `CaseHighlights` — 6 vaka carousel'ı (compact) + `PortfolioMarquee` akan portfolyo şeridi
 5. `Engagement` — 1. Hafta → 2. Hafta → 3–6. Hafta → 2. Ay+ süreci (KORUNACAK)
 6. `WhyMe`
-7. `PreAudit` — lead magnet + hibrit başlangıç modeli
+7. `PreAudit` — "SEO + GEO + Dönüşüm Ön Analizi" lead magnet (GEO ayrı madde — önemli) + hibrit başlangıç modeli
 8. `Testimonials` — liste boşken render edilmez
 9. `Insights` — en yeni 3 yazı (filtresiz — yeni yazı hemen görünür)
 10. `PersonalStory`, 11. `FinalCTASection`

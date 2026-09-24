@@ -4,7 +4,7 @@ import { preAuditPath } from "@/lib/offers";
 import type { Locale } from "@/lib/cases";
 
 /**
- * Lead magnet + hibrit iş modeli: Ücretsiz Ön Analiz → Yol Haritası → Aylık danışmanlık.
+ * Lead magnet (SEO + GEO + Dönüşüm) + hibrit iş modeli: Ücretsiz Ön Analiz → Yol Haritası → Aylık danışmanlık.
  * Güven eşiğini düşüren ilk adım; fiyat yerine başlangıç modeli anlatılır.
  */
 export default function PreAudit({ locale }: { locale: string }) {
@@ -12,17 +12,27 @@ export default function PreAudit({ locale }: { locale: string }) {
   const isTr = loc === "tr";
 
   const includes = isTr
-    ? ["SEO ve AI arama (GEO) görünürlüğü kontrolü", "Dönüşümü engelleyen 3 büyük UX sürtünmesi", "Önceliklendirilmiş, yazılı fırsat listesi"]
-    : ["SEO and AI search (GEO) visibility check", "The 3 biggest UX frictions blocking conversion", "A prioritised, written list of opportunities"];
+    ? [
+        "SEO: Google'da sizi geri tutan teknik ve içerik sorunları",
+        "GEO: ChatGPT, Gemini ve Perplexity'nin markanızı önerip önermediği",
+        "Dönüşüm: ziyaretçiyi kaçıran en büyük 3 UX sürtünmesi",
+        "Önceliklendirilmiş, yazılı fırsat listesi",
+      ]
+    : [
+        "SEO: the technical and content issues holding you back on Google",
+        "GEO: whether ChatGPT, Gemini and Perplexity recommend your brand",
+        "Conversion: the 3 biggest UX frictions losing you visitors",
+        "A prioritised, written list of opportunities",
+      ];
 
   const model = isTr
     ? [
-        { step: "1", title: "Ücretsiz Ön Analiz", desc: "Sitenizi inceliyorum, en büyük 3 fırsatı yazılı iletiyorum. Taahhüt yok." },
+        { step: "1", title: "Ücretsiz Ön Analiz", desc: "SEO, GEO ve dönüşüm tarafında sitenizi inceliyorum, en büyük fırsatları yazılı iletiyorum. Taahhüt yok." },
         { step: "2", title: "Yol Haritası", desc: "Sabit kapsamlı denetim ve strateji: neyi, hangi sırayla, hangi etkiyle yapacağımız." },
         { step: "3", title: "Aylık Büyüme Ortaklığı", desc: "Uygulama ve optimizasyonu bizzat yürütüyorum; kapsam ihtiyaca göre belirlenir." },
       ]
     : [
-        { step: "1", title: "Free Pre-Audit", desc: "I review your site and send the 3 biggest opportunities in writing. No commitment." },
+        { step: "1", title: "Free Pre-Audit", desc: "I review your site across SEO, GEO and conversion and send the biggest opportunities in writing. No commitment." },
         { step: "2", title: "Roadmap", desc: "Fixed-scope audit and strategy: what we do, in what order, with what impact." },
         { step: "3", title: "Monthly Growth Partnership", desc: "I run implementation and optimisation myself; scope is tailored to your needs." },
       ];
@@ -36,13 +46,13 @@ export default function PreAudit({ locale }: { locale: string }) {
               {isTr ? "Ücretsiz · Taahhütsüz" : "Free · No commitment"}
             </p>
             <h2 className="font-display text-2xl font-bold leading-tight text-white md:text-4xl">
-              {isTr ? "SEO + Dönüşüm " : "SEO + Conversion "}
+              {isTr ? "SEO + GEO + Dönüşüm " : "SEO + GEO + Conversion "}
               <span className="text-gradient">{isTr ? "Ön Analizi" : "Pre-Audit"}</span>
             </h2>
             <p className="mt-3 leading-relaxed text-primary-300">
               {isTr
-                ? "Nereden başlayacağınızı bilmiyorsanız ilk adım bu. Sitenizin adresini gönderin, birkaç iş günü içinde size özel bulgularla dönüyorum."
-                : "If you're not sure where to start, start here. Send your site address and I'll get back to you within a few business days with findings specific to you."}
+                ? "Müşterileriniz artık yalnızca Google'da değil, yapay zekaya sorarak da arıyor. Sitenizin adresini gönderin; üç cephede de nerede kaybettiğinizi birkaç iş günü içinde yazılı iletiyorum."
+                : "Your customers no longer search only on Google — they ask AI too. Send your site address and within a few business days I'll show you, in writing, where you're losing on all three fronts."}
             </p>
             <ul className="mt-5 space-y-2.5">
               {includes.map((i) => (

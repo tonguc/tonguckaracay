@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { offers, preAuditPath } from "@/lib/offers";
 import { casesPath } from "@/lib/cases";
+import StatCounter from "./StatCounter";
 
 interface Props {
   locale: string;
@@ -19,11 +20,12 @@ export default function ValueProposition({ locale }: Props) {
   const loc = isTr ? "tr" : "en";
   const skills = offers.map((o) => o.name[loc]);
 
+  // Her rakamın altında kanıt satırı — sadece sitede zaten yer alan bilgiler.
   const stats = [
-    { value: "25+", label: isTr ? "Yıl Deneyim" : "Years Experience" },
-    { value: "500+", label: isTr ? "Proje" : "Projects" },
-    { value: "100+", label: isTr ? "Marka" : "Brands" },
-    { value: "12+", label: isTr ? "Ülke" : "Countries" },
+    { to: 25, label: isTr ? "Yıl Deneyim" : "Years of Experience", proof: isTr ? "Türk Hava Yolları'ndan BMW'ye" : "From Turkish Airlines to BMW" },
+    { to: 500, label: isTr ? "Teslim Edilen Proje" : "Projects Delivered", proof: isTr ? "Web, mobil, tablet ve Smart TV" : "Web, mobile, tablet and Smart TV" },
+    { to: 100, label: isTr ? "Marka" : "Brands", proof: isTr ? "Medya, otomotiv, fintech, kamu" : "Media, automotive, fintech, public" },
+    { to: 12, label: isTr ? "Ülke" : "Countries", proof: isTr ? "ABD, İngiltere, Almanya, Kanada…" : "US, UK, Germany, Canada…" },
   ];
 
   return (
@@ -31,16 +33,6 @@ export default function ValueProposition({ locale }: Props) {
       <div className="container-custom relative z-10">
         <div className="card flex flex-col items-center gap-4 px-5 py-5 text-center md:flex-row md:justify-between md:gap-8 md:px-10 md:py-7 md:text-left">
           <div className="flex flex-col items-center md:items-start">
-            <div className="mb-3 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-              </span>
-              <span className="text-xs font-medium text-emerald-300">
-                {isTr ? "Yeni danışmanlık projelerine açık" : "Available for consulting"}
-              </span>
-            </div>
-
             <h1 className="font-display text-2xl font-bold leading-tight text-white sm:text-3xl md:text-[32px]">
               {isTr ? (
                 <>
@@ -84,17 +76,28 @@ export default function ValueProposition({ locale }: Props) {
             </div>
           </div>
 
-          <div className="grid w-full grid-cols-4 gap-2 border-t border-surface-border/40 pt-4 sm:gap-4 sm:pt-5 md:w-auto md:grid-cols-2 md:gap-x-8 md:gap-y-4 md:border-l md:border-t-0 md:pl-8 md:pt-0">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center md:text-left">
-                <div className="text-gradient font-display text-lg font-bold md:text-2xl">{s.value}</div>
-                <div className="mt-0.5 text-[10px] leading-tight text-primary-400 sm:text-[11px] md:text-xs">{s.label}</div>
-              </div>
-            ))}
+          {/* Masaüstü: portre + isim (kişisel marka). Mobilde kartın altındaki küçük satır kullanılır. */}
+          <div className="relative hidden shrink-0 flex-col items-center md:flex">
+            <div className="absolute left-1/2 top-[40%] h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(219,116,32,0.22),transparent_68%)] blur-xl" />
+            <div className="relative h-44 w-44 overflow-hidden rounded-full ring-1 ring-accent-500/30 lg:h-52 lg:w-52">
+              <Image
+                src="/tonguckaracay-ux-seo-ai.png"
+                alt="Tonguç Karaçay"
+                fill
+                priority
+                sizes="208px"
+                className="object-cover"
+                style={{ transform: "scale(1.35)", transformOrigin: "50% 20%" }}
+              />
+            </div>
+            <div className="relative mt-3 text-center">
+              <div className="font-display font-semibold text-white">Tonguç Karaçay</div>
+              <div className="text-xs text-primary-400">{isTr ? "Dijital Büyüme Danışmanı" : "Digital Growth Consultant"}</div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-3 flex items-center justify-center gap-3 md:mt-4 md:justify-start md:pl-10">
+        <div className="mt-3 flex items-center justify-center gap-3 md:hidden">
           <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_30%,rgba(219,116,32,0.20),transparent_70%)] ring-1 ring-accent-500/30">
             <Image
               src="/tonguckaracay-ux-seo-ai.png"
@@ -111,6 +114,23 @@ export default function ValueProposition({ locale }: Props) {
               {isTr ? "Dijital Büyüme Danışmanı" : "Digital Growth Consultant"}
             </div>
           </div>
+        </div>
+
+        {/* İstatistikler — ayrı, büyük rakamlı kutular + kanıt satırı */}
+        <div className="mt-3 grid grid-cols-2 gap-2.5 md:mt-6 md:grid-cols-4 md:gap-4">
+          {stats.map((st) => (
+            <div
+              key={st.label}
+              className="group relative overflow-hidden rounded-2xl border border-surface-border/60 bg-surface-card/50 px-4 py-3 transition-colors hover:border-accent-500/40 md:p-6"
+            >
+              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-accent-500/10 blur-2xl transition-colors group-hover:bg-accent-500/25" />
+              <p className="text-gradient font-display text-[28px] font-extrabold leading-none md:text-5xl">
+                <StatCounter to={st.to} suffix="+" />
+              </p>
+              <p className="mt-1.5 text-xs font-semibold text-white md:mt-2 md:text-base">{st.label}</p>
+              <p className="mt-1 hidden text-xs leading-snug text-primary-400 sm:block md:text-sm">{st.proof}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

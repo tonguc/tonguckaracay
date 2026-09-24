@@ -57,8 +57,8 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
           </h2>
           <p className="max-w-xl text-primary-300">
             {isTr
-              ? "Sitenizi SEO, AI arama görünürlüğü ve dönüşüm açısından ücretsiz inceleyip en büyük 3 fırsatı size yazılı olarak iletiyorum."
-              : "I'll review your site for SEO, AI search visibility and conversion for free and send you the 3 biggest opportunities in writing."}
+              ? "Sitenizi SEO, GEO (ChatGPT, Gemini gibi AI aramalarında görünürlük) ve dönüşüm açısından ücretsiz inceleyip en büyük fırsatları size yazılı olarak iletiyorum."
+              : "I'll review your site for SEO, GEO (visibility in AI search like ChatGPT and Gemini) and conversion for free and send you the biggest opportunities in writing."}
           </p>
           <Link href={preAuditPath(locale)} className="btn-primary group">
             {isTr ? "Ücretsiz Ön Analiz Al" : "Get a Free Pre-Audit"}
