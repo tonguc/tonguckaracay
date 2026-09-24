@@ -1,24 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { offers, preAuditPath } from "@/lib/offers";
+import { casesPath } from "@/lib/cases";
 
 interface Props {
   locale: string;
 }
 
 /**
- * Bölüm 2 — Değer Önermesi.
- * Manşet slider'ın hemen altında: net, jargonsuz başlık + CTA + istatistikler.
+ * Bölüm 1 — Hero / Değer Önermesi (tek H1).
+ * Persona: e-ticaret + hizmet şirketleri. 3 ana teklif etiketi, düşük eşikli
+ * ilk adım (Ücretsiz Ön Analiz) + vakalar. Mobilde kompakt tutulur.
  * Genişlik diğer bölümlerle (container-custom) birebir aynı.
  */
 export default function ValueProposition({ locale }: Props) {
   const isTr = locale === "tr";
-  const contactPath = isTr ? "/iletisim" : "/en/contact";
-  const casesPath = "#trusted-by";
-
-  const skills = isTr
-    ? ["UX Tasarım", "SEO", "GEO (AI Arama)", "Yapay Zeka", "Reklam Yönetimi"]
-    : ["UX Design", "SEO", "GEO (AI Search)", "AI Automation", "Ad Management"];
+  const loc = isTr ? "tr" : "en";
+  const skills = offers.map((o) => o.name[loc]);
 
   const stats = [
     { value: "25+", label: isTr ? "Yıl Deneyim" : "Years Experience" },
@@ -28,7 +27,7 @@ export default function ValueProposition({ locale }: Props) {
   ];
 
   return (
-    <section className="relative overflow-hidden py-6 md:py-10">
+    <section className="relative overflow-hidden pt-24 pb-6 md:pt-36 md:pb-10">
       <div className="container-custom relative z-10">
         <div className="card flex flex-col items-center gap-4 px-5 py-5 text-center md:flex-row md:justify-between md:gap-8 md:px-10 md:py-7 md:text-left">
           <div className="flex flex-col items-center md:items-start">
@@ -67,19 +66,19 @@ export default function ValueProposition({ locale }: Props) {
 
             <p className="mt-2 max-w-md text-sm leading-relaxed text-primary-300 md:mt-3 md:text-base">
               {isTr
-                ? "UX, SEO ve yapay zekayla sitenize daha fazla ziyaretçi çekiyor, o ziyaretçiyi gelire dönüştürüyorum."
-                : "With UX, SEO and AI, I bring more visitors to your site and turn them into revenue."}
+                ? "E-ticaret ve hizmet şirketleri için UX, SEO/GEO ve yapay zekayla trafik ve gelir büyümesi. Ajans değil, işin içine bizzat giren kıdemli bir danışman."
+                : "Traffic and revenue growth for e-commerce and service businesses through UX, SEO/GEO and AI. Not an agency: one senior consultant who does the work."}
             </p>
 
             <div className="mt-4 grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:gap-3">
-              <Link href={contactPath} className="btn-primary group whitespace-nowrap !px-3 text-[13px] sm:!px-6 sm:text-sm md:text-base">
-                <span className="sm:hidden">{isTr ? "Ücretsiz Görüşme" : "Free Consultation"}</span>
-                <span className="hidden sm:inline">{isTr ? "Ücretsiz Görüşme Al" : "Book Free Consultation"}</span>
+              <Link href={preAuditPath(loc)} className="btn-primary group whitespace-nowrap !px-3 text-[13px] sm:!px-6 sm:text-sm md:text-base">
+                <span className="sm:hidden">{isTr ? "Ücretsiz Analiz" : "Free Pre-Audit"}</span>
+                <span className="hidden sm:inline">{isTr ? "Ücretsiz Ön Analiz Al" : "Get a Free Pre-Audit"}</span>
                 <ArrowRight className="ml-1.5 hidden h-4 w-4 sm:inline transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link href={casesPath} className="btn-secondary group whitespace-nowrap !px-3 text-[13px] sm:!px-6 sm:text-sm md:text-base">
-                <span className="sm:hidden">{isTr ? "Referanslar" : "My Clients"}</span>
-                <span className="hidden sm:inline">{isTr ? "Kimlerle Çalıştım" : "Who I've Worked With"}</span>
+              <Link href={casesPath(loc)} className="btn-secondary group whitespace-nowrap !px-3 text-[13px] sm:!px-6 sm:text-sm md:text-base">
+                <span className="sm:hidden">{isTr ? "Vakalar" : "Case Studies"}</span>
+                <span className="hidden sm:inline">{isTr ? "Vakaları İncele" : "See Case Studies"}</span>
                 <ArrowUpRight className="ml-1.5 hidden h-4 w-4 sm:inline transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>

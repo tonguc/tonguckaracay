@@ -29,6 +29,11 @@ function extractHeadings(content: string): Heading[] {
 type Locale = 'tr' | 'en';
 type Props = { params: { locale: Locale; slug: string } };
 
+// Bilinmeyen slug'lar runtime'da render edilmeye çalışılınca (headers erişimi yüzünden)
+// 500 dönüyordu. Tüm yazılar build'de üretildiği için bilinmeyen slug = doğrudan 404.
+// Yanlış-locale slug yönlendirmesi middleware'de (301) yapılıyor.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const trSlugs = getAllSlugs('tr');
   const enSlugs = getAllSlugs('en');

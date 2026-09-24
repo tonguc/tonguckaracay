@@ -1,15 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
+import ContactForm from "@/components/ContactForm";
 import {
   Mail,
   MapPin,
   Linkedin,
-  ExternalLink,
-  Send,
-  CheckCircle2,
-  Loader2
+  ExternalLink
 } from "lucide-react";
 
 const InstagramIcon = () => (
@@ -19,68 +16,9 @@ const InstagramIcon = () => (
 );
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    service: "",
-    message: ""
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const topic = params.get('topic');
-    if (topic?.startsWith('ai-training')) {
-      setFormData(prev => ({ ...prev, service: 'AI Training' }));
-    }
-  }, []);
-
-  const services = [
-    "UI/UX Design",
-    "SEO Consulting",
-    "Online Advertising",
-    "AI Solutions",
-    "Social Media Management",
-    "AI Training",
-    "Other"
-  ];
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setIsSubmitted(true);
-        setFormData({ name: "", email: "", phone: "", company: "", service: "", message: "" });
-      } else {
-        alert(data.error || 'An error occurred while sending the form.');
-      }
-    } catch (error) {
-      alert('An error occurred while sending the form.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <main className="pt-20">
-      <section className="relative py-20 md:py-28 overflow-hidden">
+      <section className="relative py-12 md:py-28 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
@@ -153,70 +91,9 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="lg:col-span-2">
-              <div className="bg-surface-card border border-surface-border rounded-2xl p-8">
-                {isSubmitted ? (
-                  <div className="text-center py-12">
-                    <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
-                    <h3 className="text-2xl font-display font-bold text-white mb-3">Message Sent!</h3>
-                    <p className="text-primary-300 mb-6">I'll get back to you as soon as possible.</p>
-                    <button onClick={() => setIsSubmitted(false)} className="text-accent-400 hover:text-accent-300 font-medium transition-colors">
-                      Send another message
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <h2 className="text-2xl font-display font-bold text-white mb-6">Share Your Project Details</h2>
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <label htmlFor="name" className="block text-sm font-medium text-primary-300 mb-2">Full Name *</label>
-                          <input type="text" id="name" name="name" required value={formData.name} onChange={handleChange} className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors" placeholder="Your name" />
-                        </div>
-                        <div>
-                          <label htmlFor="email" className="block text-sm font-medium text-primary-300 mb-2">Email *</label>
-                          <input type="email" id="email" name="email" required value={formData.email} onChange={handleChange} className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors" placeholder="example@email.com" />
-                        </div>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <label htmlFor="phone" className="block text-sm font-medium text-primary-300 mb-2">Phone</label>
-                          <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors" placeholder="+1 234 567 8900" />
-                        </div>
-                        <div>
-                          <label htmlFor="company" className="block text-sm font-medium text-primary-300 mb-2">Company</label>
-                          <input type="text" id="company" name="company" value={formData.company} onChange={handleChange} className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors" placeholder="Company name (optional)" />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label htmlFor="service" className="block text-sm font-medium text-primary-300 mb-2">Service of Interest</label>
-                        <select id="service" name="service" value={formData.service} onChange={handleChange} className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white focus:outline-none focus:border-accent-500 transition-colors">
-                          <option value="">Select</option>
-                          {services.map((service) => (
-                            <option key={service} value={service}>{service}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-medium text-primary-300 mb-2">Your Message *</label>
-                        <textarea id="message" name="message" required rows={5} value={formData.message} onChange={handleChange} className="w-full px-4 py-3 bg-surface-darker border border-surface-border rounded-xl text-white placeholder-primary-500 focus:outline-none focus:border-accent-500 transition-colors resize-none" placeholder="Tell me briefly about your project..." />
-                      </div>
-
-                      <button type="submit" disabled={isSubmitting} className="w-full btn-primary py-4 text-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
-                        {isSubmitting ? (
-                          <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Sending...</>
-                        ) : (
-                          <><Send className="w-5 h-5 mr-2" />Send Message</>
-                        )}
-                      </button>
-
-                      <p className="text-sm text-primary-400 text-center">* Required fields</p>
-                    </form>
-                  </>
-                )}
+            <div className="order-first lg:order-none lg:col-span-2">
+              <div className="bg-surface-card border border-surface-border rounded-2xl p-5 md:p-8">
+                <ContactForm locale="en" />
               </div>
             </div>
           </div>

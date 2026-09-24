@@ -1,13 +1,15 @@
 import { setRequestLocale } from 'next-intl/server';
-import HeroSlider from "@/components/home/HeroSlider";
 import ValueProposition from "@/components/home/ValueProposition";
 import TrustedBy from "@/components/home/TrustedBy";
+import Offers from "@/components/home/Offers";
+import CaseHighlights from "@/components/home/CaseHighlights";
 import Engagement from "@/components/home/Engagement";
 import WhyMe from "@/components/home/WhyMe";
+import PreAudit from "@/components/home/PreAudit";
+import Testimonials from "@/components/home/Testimonials";
 import Insights from "@/components/home/Insights";
 import PersonalStory from "@/components/home/PersonalStory";
 import FinalCTASection from "@/components/home/FinalCTASection";
-import { getAllPosts } from "@/lib/blog-utils";
 
 type Props = {
   params: { locale: string };
@@ -16,34 +18,29 @@ type Props = {
 export default async function Home({ params: { locale } }: Props) {
   setRequestLocale(locale);
 
-  const isTr = locale === "tr";
-  const sliderPosts = getAllPosts(isTr ? "tr" : "en")
-    .slice(0, 5)
-    .map((p) => ({
-      slug: p.slug,
-      title: p.title,
-      description: p.description,
-      category: p.category,
-      image: p.image,
-    }));
-
   return (
     <>
-      {/* 1 — Hero Manşet Slider (en yeni yazılar) */}
-      <HeroSlider locale={locale} posts={sliderPosts} />
-      {/* 2 — Değer Önermesi (kim, ne, CTA, istatistikler) */}
+      {/* 1 — Hero: persona + vaat + 3 teklif + Ön Analiz / Vakalar CTA (tek H1) */}
       <ValueProposition locale={locale} />
-      {/* 3 — Tipik Çalışma Süreci (timeline) */}
-      <Engagement locale={locale} />
-      {/* 4 — Neden Benimle */}
-      <WhyMe locale={locale} />
-      {/* 5 — Trusted By ("kiminle çalıştım" — gerçek vaka verisi gelene kadar asıl güven kanıtı bu) */}
+      {/* 2 — Kompakt marka şeridi */}
       <TrustedBy locale={locale} />
-      {/* 6 — İçgörüler / Blog (Referanslar gerçek yorum gelince eklenecek) */}
+      {/* 3 — 3 ana teklif kartı */}
+      <Offers locale={locale} />
+      {/* 4 — 2 mini vaka (lib/cases.ts featured) */}
+      <CaseHighlights locale={locale} />
+      {/* 5 — Tipik Çalışma Süreci (Week 1-2-3 — korunur) */}
+      <Engagement locale={locale} />
+      {/* 6 — Neden Benimle */}
+      <WhyMe locale={locale} />
+      {/* 7 — Lead magnet + hibrit başlangıç modeli */}
+      <PreAudit locale={locale} />
+      {/* 8 — Müşteri yorumları (gerçek veri gelene kadar render edilmez) */}
+      <Testimonials locale={locale} />
+      {/* 9 — İşletme odaklı son yazılar (AI Lab hariç) */}
       <Insights locale={locale} />
-      {/* 8 — Kişisel Hikaye */}
+      {/* 10 — Kişisel Hikaye */}
       <PersonalStory locale={locale} />
-      {/* 9 — Final CTA */}
+      {/* 11 — Final CTA */}
       <FinalCTASection locale={locale} />
     </>
   );

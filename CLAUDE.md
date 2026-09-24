@@ -1,6 +1,6 @@
 # tonguckaracay.com — Claude Agent Kılavuzu
 
-Son güncelleme: 2026-06-05
+Son güncelleme: 2026-09-24
 
 ---
 
@@ -60,21 +60,31 @@ x-default → EN (hedef kitle: yurt dışı, ABD ağırlıklı)
 
 Ana sayfa premium kişisel-marka / danışmanlık formatında yeniden tasarlandı. **Tüm bölümler `components/home/` altında**; `app/[locale]/page.tsx` bunları sırayla render eder. TR/EN inline `locale` ternary ile yazılır (mevcut desen). Tasarım sistemi: deep-navy bg + amber/gold accent (`accent-*`), glassmorphism (`.card`), `.text-gradient` (sarı→hafif turuncu, `accent-400→accent-500`), Poppins.
 
-### Bölüm sırası (`app/[locale]/page.tsx`)
-1. `HeroDynamic` — sol: **otomatik güncellenen "Son Yazı" kartı** (`getAllPosts()[0]` — manuel güncelleme YOK, yeni yazı yayınlanınca kendi değişir) · sağ: **H1 değer önermesi** + müsaitlik rozeti + CTA + istatistik + altta küçük cutout portre
-2. `TrustedBy` — 34 markanın wordmark duvarı (kutu/buton DEĞİL, tıklanmaz)
-3. `CaseStudies` — 3 temsili sonuç kartı (sözel/nitel vurgu; uydurma kesin rakam YOK) → "Vaka İncele" iletişime
-4. `Engagement` — kartsız premium timeline ("A Typical Engagement" / "Nasıl Çalışıyorum"); desktop yatay, mobil dikey
-5. `WhyMe` — 3 sütun (anlama göre renkli ikonlar)
-6. `Insights` — en yeni 6 blog yazısı grid ("Son Yazılar")
-7. `PersonalStory` — büyük cutout portre + timeline ("Hakkımda")
-8. `FinalCTASection` — görüşme + mesaj
+### Bölüm sırası (`app/[locale]/page.tsx`) — Eylül 2026 dönüşüm revizyonu
+Persona: **e-ticaret + hizmet şirketleri**. İş modeli: **hibrit** (Ücretsiz Ön Analiz → Yol Haritası → Aylık Büyüme Ortaklığı).
+1. `ValueProposition` — tek H1 ("Daha Fazla Trafik, Daha Fazla Gelir"), persona cümlesi, 3 teklif etiketi, CTA: Ücretsiz Ön Analiz + Vakalar. Mobilde kompakt tutulur.
+2. `TrustedBy` — kompakt marka şeridi (tam liste Hakkımda sayfasında)
+3. `Offers` — 3 ana teklif kartı (`lib/offers.ts`: SEO & GEO Büyüme / UX & Dönüşüm / AI Büyüme Sistemleri) + "Ayrıca" diğer hizmetler
+4. `CaseHighlights` — 2 mini vaka (`lib/cases.ts` içinde `featured: true`)
+5. `Engagement` — 1. Hafta → 2. Hafta → 3–6. Hafta → 2. Ay+ süreci (KORUNACAK)
+6. `WhyMe`
+7. `PreAudit` — lead magnet + hibrit başlangıç modeli
+8. `Testimonials` — liste boşken render edilmez
+9. `Insights` — işletme odaklı son 3 yazı (AI Lab yazıları hariç)
+10. `PersonalStory`, 11. `FinalCTASection`
+
+### Vakalar, blog ayrımı, form
+- **Vakalar:** `lib/cases.ts` tek kaynak → `/vaka-calismalari` + `/en/case-studies` (`components/cases/`). İçerik behance.net/tonguc'taki teslim edilmiş işlerden; görseller `public/cases/*.webp` (CSP sadece yerel img'e izin verir). Şablon Hedef → Müdahale → Sonuç → Yorum; `results` / `testimonial` **gerçek, müşteri onaylı veri gelene kadar boş** — boşken UI'da görünmez.
+- **Blog ikiye ayrıldı:** `/blog` = İşletmeler İçin, `/blog?bolum=lab` (`/en/blog?section=lab`) = AI Lab. Ayrım `isLabPost()` (`lib/blog-utils.ts`): AI kategorisi + başlıkta model/araç/API anahtar kelimesi. Frontmatter `section: lab|business` ile elle ezilebilir. URL'ler değişmedi.
+- **Nav:** Hizmetler (3 ana teklif + diğerleri) / Vakalar / Blog / Hakkımda / İletişim. Ürünler + AI Eğitimi + AI Lab → footer "Lab" sütunu (sayfalar canlı).
+- **İletişim formu:** `components/ContactForm.tsx` (TR/EN ortak): site URL, aylık trafik, hedef, bütçe aralığı. `?konu=on-analiz` / `?topic=pre-audit` ön analizi seçer. `NEXT_PUBLIC_BOOKING_URL` (Calendly vb.) env'i tanımlanırsa form üstünde randevu linki çıkar (CSP yüzünden iframe değil, link). API girdileri HTML-escape eder.
+- `app/[locale]/[slug]/page.tsx`: `dynamicParams = false` — bilinmeyen URL'ler 500 yerine 404 döner.
 
 ### Kurallar / notlar
 - **Portre görseli:** `public/tonguckaracay-ux-seo-ai.png` = arka planı silinmiş (transparent) cutout; Hero avatarı + PersonalStory bunu kullanır (yumuşak ışık zemini + alta fade, montaj hissi yok). Eski `public/tonguc-karacay.jpg` artık homepage'de kullanılmıyor.
-- **Tek H1:** sayfada yalnızca `HeroDynamic` H1'i (değer önermesi); featured kart başlığı `h2`. Layout'a/başka yere ikinci H1 ekleme.
+- **Tek H1:** sayfada yalnızca `ValueProposition` H1'i (değer önermesi). Layout'a/başka yere ikinci H1 ekleme.
 - **Eski component'ler** (`Hero, Services, About, BlogPreview, FinalCTA, Expertise`) artık homepage'de kullanılmıyor; geri dönüş için repoda duruyor (silinmedi).
-- **Referanslar/testimonials bölümü YOK** — gerçek müşteri yorumu/foto gelene kadar eklenmedi. **Uydurma referans/metrik yayınlama** (FTC/AB sahte yorum yasağı + itibar riski). Gerçek veri gelince `components/home/` altına eklenir.
+- **Testimonials:** `components/home/Testimonials.tsx` hazır ama liste boş — gerçek, izinli yorum gelince eklenir. **Uydurma referans/metrik yayınlama** (FTC/AB sahte yorum yasağı + itibar riski). Gerçek veri gelince `components/home/` altına eklenir.
 - **Vaka metrikleri temsilidir** — gerçek vaka verisiyle güncellenecek.
 - Footer logosu: **"Tonguç Karaçay."** (`components/Footer.tsx`).
 

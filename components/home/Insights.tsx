@@ -1,18 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import { getAllPosts } from "@/lib/blog-utils";
+import { getAllPosts, isLabPost } from "@/lib/blog-utils";
 
 interface Props {
   locale: string;
 }
 
 /**
- * Bölüm 7 — Insights & Articles. Otorite bölümlerinden SONRA, en yeni 6 yazı grid'i.
+ * Insights — işletme odaklı en yeni 3 yazı (teknik AI yazıları AI Lab'da, burada gösterilmez).
  */
 export default function Insights({ locale }: Props) {
   const isTr = locale === "tr";
-  const posts = getAllPosts(isTr ? "tr" : "en").slice(0, 6);
+  const posts = getAllPosts(isTr ? "tr" : "en").filter((p) => !isLabPost(p)).slice(0, 3);
   const blogPath = isTr ? "/blog" : "/en/blog";
 
   if (posts.length === 0) return null;

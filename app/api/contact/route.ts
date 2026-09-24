@@ -1,9 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Kullanıcı girdisi e-posta HTML'ine gömülmeden önce escape edilir (HTML enjeksiyonu önlenir).
+const esc = (v: unknown) =>
+  String(v ?? '')
+    .slice(0, 5000)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, company, service, message } = body;
+    const { name, email, phone, company, service, message, website, traffic, goal, budget } = body;
+
+    if (!name || !email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ success: false, error: 'Geçersiz ad veya e-posta.' }, { status: 400 });
+    }
+
+    const isPreAudit = /ön analiz|pre-audit/i.test(String(service || ''));
+    const row = (label: string, value: unknown) =>
+      `<p style="margin: 10px 0;"><strong>${label}:</strong> ${esc(value) || 'Belirtilmedi'}</p>`;
 
     // Resend API key kontrolü
     const resendApiKey = process.env.RESEND_API_KEY;
@@ -30,7 +48,7 @@ export async function POST(request: NextRequest) {
         from: 'İletişim Formu <onboarding@resend.dev>', // Resend'in test email adresi
         to: ['tonguckaracay@gmail.com'],
         reply_to: email,
-        subject: `İletişim Formu - ${name}`,
+        subject: `${isPreAudit ? 'ÖN ANALİZ TALEBİ' : 'İletişim Formu'} - ${String(name).slice(0, 100)}${website ? ` (${String(website).slice(0, 100)})` : ''}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px;">
@@ -38,16 +56,20 @@ export async function POST(request: NextRequest) {
             </h2>
             
             <div style="background: #f7fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <p style="margin: 10px 0;"><strong>Ad Soyad:</strong> ${name}</p>
-              <p style="margin: 10px 0;"><strong>E-posta:</strong> ${email}</p>
-              <p style="margin: 10px 0;"><strong>Telefon:</strong> ${phone || 'Belirtilmedi'}</p>
-              <p style="margin: 10px 0;"><strong>Şirket:</strong> ${company || 'Belirtilmedi'}</p>
-              <p style="margin: 10px 0;"><strong>İlgilendiği Hizmet:</strong> ${service || 'Belirtilmedi'}</p>
+              ${row('Ad Soyad', name)}
+              ${row('E-posta', email)}
+              ${row('Web Sitesi', website)}
+              ${row('İlgilendiği Hizmet', service)}
+              ${row('Aylık Ziyaretçi', traffic)}
+              ${row('Ana Hedef', goal)}
+              ${row('Bütçe Aralığı', budget)}
+              ${row('Telefon', phone)}
+              ${company ? row('Şirket', company) : ''}
             </div>
             
             <div style="background: #fff; padding: 20px; border-left: 4px solid #667eea; margin: 20px 0;">
               <p style="margin: 0 0 10px 0;"><strong>Mesaj:</strong></p>
-              <p style="color: #555; line-height: 1.6; margin: 0;">${message}</p>
+              <p style="color: #555; line-height: 1.6; margin: 0; white-space: pre-wrap;">${esc(message) || '—'}</p>
             </div>
             
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #718096; font-size: 12px;">
@@ -65,8 +87,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Email gönderilemedi. Lütfen daha sonra tekrar deneyin.',
-          details: data 
+          error: 'Email gönderilemedi. Lütfen daha sonra tekrar deneyin.' 
         },
         { status: 500 }
       );

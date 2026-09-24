@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLocale, useTranslations } from 'next-intl';
 import { Mail, Linkedin, ExternalLink } from "lucide-react";
+import { offers } from "@/lib/offers";
 
 const InstagramIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -20,36 +21,35 @@ export default function Footer() {
   const t = useTranslations('footer');
   const locale = useLocale();
   
-  const services = locale === 'tr' ? [
-    { name: "UI/UX Tasarım", href: "/hizmetler/ui-ux-tasarim" },
-    { name: "SEO Danışmanlığı", href: "/hizmetler/seo-danismanligi" },
-    { name: "Online Reklamcılık", href: "/hizmetler/online-reklamcilik" },
-    { name: "Yapay Zeka Çözümleri", href: "/hizmetler/yapay-zeka-cozumleri" },
-    { name: "Sosyal Medya Yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
-  ] : [
-    { name: "UI/UX Design", href: "/en/services/ui-ux-design" },
-    { name: "SEO Consulting", href: "/en/services/seo-consulting" },
-    { name: "Online Advertising", href: "/en/services/online-advertising" },
-    { name: "AI Solutions", href: "/en/services/ai-solutions" },
-    { name: "Social Media Management", href: "/en/services/social-media-management" },
+  const loc = locale === 'tr' ? 'tr' : 'en';
+  const services = [
+    ...offers.map((o) => ({ name: o.name[loc], href: o.href[loc] })),
+    ...(locale === 'tr' ? [
+      { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" },
+      { name: "Online Reklamcılık", href: "/hizmetler/online-reklamcilik" },
+      { name: "Sosyal Medya Yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
+    ] : [
+      { name: "GEO Optimization", href: "/en/services/geo-optimization" },
+      { name: "Online Advertising", href: "/en/services/online-advertising" },
+      { name: "Social Media Management", href: "/en/services/social-media-management" },
+    ]),
   ];
 
-  const blogCategories = locale === 'tr' ? [
-    { name: "UI/UX Tasarım", href: "/blog?kategori=ui-ux" },
-    { name: "SEO", href: "/blog?kategori=seo" },
-    { name: "Dijital Pazarlama", href: "/blog?kategori=dijital-pazarlama" },
-    { name: "Yapay Zeka", href: "/blog?kategori=yapay-zeka" },
+  // Lab — danışmanlık alıcısının ana yolundan çıkarılan ürünler, eğitim ve teknik AI yazıları
+  const labLinks = locale === 'tr' ? [
+    { name: "Ürünler", href: "/urunler" },
+    { name: "AI Eğitimi", href: "/ai-egitimi" },
+    { name: "AI Lab Yazıları", href: "/blog?bolum=lab" },
   ] : [
-    { name: "UI/UX Design", href: "/en/blog?category=ui-ux" },
-    { name: "SEO", href: "/en/blog?category=seo" },
-    { name: "Digital Marketing", href: "/en/blog?category=digital-marketing" },
-    { name: "AI", href: "/en/blog?category=ai" },
+    { name: "Products", href: "/en/products" },
+    { name: "AI Training", href: "/en/ai-training" },
+    { name: "AI Lab Articles", href: "/en/blog?section=lab" },
   ];
 
   const navLinks = locale === 'tr' ? {
-    about: '/hakkimda', contact: '/iletisim', home: '/', privacy: '/gizlilik-politikasi', terms: '/kullanim-sartlari', products: '/urunler'
+    about: '/hakkimda', contact: '/iletisim', home: '/', privacy: '/privacy-policy', terms: '/terms-of-service', cases: '/vaka-calismalari', blog: '/blog'
   } : {
-    about: '/en/about', contact: '/en/contact', home: '/en', privacy: '/en/privacy-policy', terms: '/en/terms-of-service', products: '/en/products'
+    about: '/en/about', contact: '/en/contact', home: '/en', privacy: '/en/privacy-policy', terms: '/en/terms-of-service', cases: '/en/case-studies', blog: '/en/blog'
   };
 
   return (
@@ -82,18 +82,16 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          {locale === 'tr' && (
-            <div>
-              <h3 className="font-display font-semibold text-white mb-4">{t('blog')}</h3>
-              <ul className="space-y-3">
-                {blogCategories.map((category) => (
-                  <li key={category.href}>
-                    <Link href={category.href} className="text-primary-400 hover:text-accent-500 transition-colors">{category.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <div>
+            <h3 className="font-display font-semibold text-white mb-4">Lab</h3>
+            <ul className="space-y-3">
+              {labLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-primary-400 hover:text-accent-500 transition-colors">{l.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
           <div>
             <h3 className="font-display font-semibold text-white mb-4">{t('contact')}</h3>
             <ul className="space-y-3">
@@ -102,7 +100,8 @@ export default function Footer() {
                   <Mail className="w-4 h-4" />tonguckaracay@gmail.com
                 </a>
               </li>
-              <li><Link href={navLinks.products} className="text-primary-400 hover:text-accent-500 transition-colors">{locale === 'tr' ? 'Ürünler' : 'Products'}</Link></li>
+              <li><Link href={navLinks.cases} className="text-primary-400 hover:text-accent-500 transition-colors">{locale === 'tr' ? 'Vaka Çalışmaları' : 'Case Studies'}</Link></li>
+              <li><Link href={navLinks.blog} className="text-primary-400 hover:text-accent-500 transition-colors">Blog</Link></li>
               <li><Link href={navLinks.about} className="text-primary-400 hover:text-accent-500 transition-colors">{locale === 'tr' ? 'Hakkımda' : 'About'}</Link></li>
               <li><Link href={navLinks.contact} className="text-primary-400 hover:text-accent-500 transition-colors">{t('contactForm')}</Link></li>
             </ul>

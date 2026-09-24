@@ -20,6 +20,8 @@ export interface BlogPost {
   content: string;
   translationSlug?: string;
   faq?: FAQItem[];
+  /** "lab" = teknik AI içerikleri (AI Lab), "business" = işletme odaklı. Frontmatter `section` ile ezilebilir. */
+  section?: "lab" | "business";
 }
 
 const contentDirectory = path.join(process.cwd(), 'content/blog');
@@ -57,6 +59,7 @@ export function getAllPosts(locale: 'tr' | 'en' = 'tr'): BlogPost[] {
         content: content,
         translationSlug: data.translationSlug,
         faq: data.faq || undefined,
+        section: data.section,
       } as BlogPost;
     });
   
@@ -183,4 +186,18 @@ export function getTranslatedSlug(slug: string, fromLocale: 'tr' | 'en', toLocal
   }
   
   return slug;
+}
+
+/**
+ * Blog iki bölüm: işletme odaklı içerikler (ana blog) ve teknik AI içerikleri (AI Lab).
+ * Frontmatter `section: lab|business` varsa o geçerli; yoksa AI kategorisinde olup
+ * başlığı belirli bir model/araç/API'ye odaklanan yazılar Lab sayılır.
+ */
+const AI_CATEGORIES = ['yapay zeka', 'artificial intelligence', 'ai'];
+const LAB_TITLE_RE = /\b(mimo|claude|openai|anthropic|gemini|deepseek|qwen|grok|llama|mistral|kimi|api|token|mcp|prompt|llm|vps|sunucu(m|su)?|server|astra|model(ler|i|leri)?|models?)\b/i;
+
+export function isLabPost(post: Pick<BlogPost, 'category' | 'title' | 'section'>): boolean {
+  if (post.section === 'lab') return true;
+  if (post.section === 'business') return false;
+  return AI_CATEGORIES.includes(post.category.toLowerCase()) && LAB_TITLE_RE.test(post.title);
 }

@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from "lucide-react";
 import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/slug-mappings';
+import { offers } from '@/lib/offers';
 
 export default function Header() {
   const t = useTranslations('nav');
@@ -17,40 +18,35 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  const services = locale === 'tr' ? [
-    { name: "UI/UX Tasarım", href: "/hizmetler/ui-ux-tasarim" },
-    { name: "SEO Danışmanlığı", href: "/hizmetler/seo-danismanligi" },
+  // Üstte 3 ana teklif (lib/offers.ts), altta diğer hizmetler
+  const loc = locale === 'tr' ? 'tr' : 'en';
+  const mainServices = offers.map((o) => ({ name: o.name[loc], href: o.href[loc] }));
+  const otherServices = locale === 'tr' ? [
     { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" },
     { name: "Online Reklamcılık", href: "/hizmetler/online-reklamcilik" },
-    { name: "Yapay Zeka Çözümleri", href: "/hizmetler/yapay-zeka-cozumleri" },
     { name: "Sosyal Medya Yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
   ] : [
-    { name: "UI/UX Design", href: "/en/services/ui-ux-design" },
-    { name: "SEO Consulting", href: "/en/services/seo-consulting" },
     { name: "GEO Optimization", href: "/en/services/geo-optimization" },
     { name: "Online Advertising", href: "/en/services/online-advertising" },
-    { name: "AI Solutions", href: "/en/services/ai-solutions" },
     { name: "Social Media Management", href: "/en/services/social-media-management" },
   ];
+  const otherLabel = locale === 'tr' ? 'Diğer hizmetler' : 'Other services';
 
   const navLinks = locale === 'tr' ? {
     blog: '/blog',
     about: '/hakkimda',
     contact: '/iletisim',
-    aiTraining: '/ai-egitimi',
-    products: '/urunler',
+    cases: '/vaka-calismalari',
     home: '/'
   } : {
     blog: '/en/blog',
     about: '/en/about',
     contact: '/en/contact',
-    aiTraining: '/en/ai-training',
-    products: '/en/products',
+    cases: '/en/case-studies',
     home: '/en'
   };
 
-  const aiTrainingLabel = locale === 'tr' ? 'AI Eğitimi' : 'AI Training';
-  const newBadge = locale === 'tr' ? 'YENİ' : 'NEW';
+  const casesLabel = locale === 'tr' ? 'Vakalar' : 'Case Studies';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -91,6 +87,10 @@ export default function Header() {
       '/services/ai-solutions': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
       '/hizmetler/sosyal-medya-yonetimi': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
       '/services/social-media-management': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
+      '/vaka-calismalari': { tr: '/vaka-calismalari', en: '/en/case-studies' },
+      '/case-studies': { tr: '/vaka-calismalari', en: '/en/case-studies' },
+      '/hizmetler/geo-optimizasyonu': { tr: '/hizmetler/geo-optimizasyonu', en: '/en/services/geo-optimization' },
+      '/services/geo-optimization': { tr: '/hizmetler/geo-optimizasyonu', en: '/en/services/geo-optimization' },
       '/ai-egitimi': { tr: '/ai-egitimi', en: '/en/ai-training' },
       '/ai-training': { tr: '/ai-egitimi', en: '/en/ai-training' },
       '/urunler': { tr: '/urunler', en: '/en/products' },
@@ -157,12 +157,22 @@ export default function Header() {
               </button>
               {activeDropdown === "services" && (
                 <div className="absolute top-full left-0 pt-2 animate-fade-in">
-                  <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-2 min-w-[220px] shadow-2xl">
-                    {services.map((service) => (
+                  <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-2 min-w-[240px] shadow-2xl">
+                    {mainServices.map((service) => (
                       <Link
                         key={service.href}
                         href={service.href}
-                        className="block px-4 py-2.5 text-primary-200 hover:text-white hover:bg-surface-border/50 rounded-lg transition-colors"
+                        className="block px-4 py-2.5 font-medium text-white hover:bg-surface-border/50 rounded-lg transition-colors"
+                      >
+                        {service.name}
+                      </Link>
+                    ))}
+                    <p className="mt-1 border-t border-surface-border/60 px-4 pt-3 pb-1 text-[11px] uppercase tracking-wider text-primary-500">{otherLabel}</p>
+                    {otherServices.map((service) => (
+                      <Link
+                        key={service.href}
+                        href={service.href}
+                        className="block px-4 py-2 text-sm text-primary-300 hover:text-white hover:bg-surface-border/50 rounded-lg transition-colors"
                       >
                         {service.name}
                       </Link>
@@ -172,20 +182,8 @@ export default function Header() {
               )}
             </div>
 
-            <Link
-              href={navLinks.aiTraining}
-              className="group relative inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/20 to-violet-500/20 border border-indigo-400/40 text-indigo-100 hover:text-white hover:from-indigo-500/30 hover:to-violet-500/30 hover:border-indigo-300/60 transition-all font-medium text-sm"
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75"></span>
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-300"></span>
-              </span>
-              {aiTrainingLabel}
-              <span className="ml-0.5 px-1.5 py-0.5 text-[9px] font-bold leading-none bg-indigo-500 text-white rounded">{newBadge}</span>
-            </Link>
-
-            <Link href={navLinks.products} className="text-primary-200 hover:text-white transition-colors font-medium">
-              {t('products')}
+            <Link href={navLinks.cases} className="text-primary-200 hover:text-white transition-colors font-medium">
+              {casesLabel}
             </Link>
 
             <Link href={navLinks.blog} className="text-primary-200 hover:text-white transition-colors font-medium">
@@ -248,26 +246,19 @@ export default function Header() {
             <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-4">
               <div className="mb-4">
                 <p className="text-xs uppercase tracking-wider text-primary-400 mb-2 px-2">{t('services')}</p>
-                {services.map((service) => (
-                  <Link key={service.href} href={service.href} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>
+                {mainServices.map((service) => (
+                  <Link key={service.href} href={service.href} className="block px-2 py-2 font-medium text-white" onClick={() => setIsMobileMenuOpen(false)}>
+                    {service.name}
+                  </Link>
+                ))}
+                {otherServices.map((service) => (
+                  <Link key={service.href} href={service.href} className="block px-2 py-1.5 text-sm text-primary-400 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>
                     {service.name}
                   </Link>
                 ))}
               </div>
               <div className="pt-4 border-t border-surface-border space-y-2">
-                <Link
-                  href={navLinks.aiTraining}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-gradient-to-r from-indigo-500/20 to-violet-500/20 border border-indigo-400/40 text-indigo-100 hover:text-white font-medium"
-                >
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75"></span>
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-300"></span>
-                  </span>
-                  {aiTrainingLabel}
-                  <span className="ml-auto px-1.5 py-0.5 text-[9px] font-bold leading-none bg-indigo-500 text-white rounded">{newBadge}</span>
-                </Link>
-                <Link href={navLinks.products} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('products')}</Link>
+                <Link href={navLinks.cases} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{casesLabel}</Link>
                 <Link href={navLinks.blog} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('blog')}</Link>
                 <Link href={navLinks.about} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('about')}</Link>
                 

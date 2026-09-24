@@ -28,7 +28,7 @@ export default function PersonalStory({ locale }: Props) {
       ];
 
   return (
-    <section className="py-14 md:py-24">
+    <section className="overflow-x-clip py-14 md:py-24">
       <div className="container-custom">
         <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           {/* Portre — saydam cutout; kutu yok, yumuşak ışık zemini + alta erime (editoryal his) */}

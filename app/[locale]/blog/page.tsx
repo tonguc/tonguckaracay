@@ -3,7 +3,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowUpRight, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
-import { getAllPosts, BlogPost } from '@/lib/blog-utils';
+import { getAllPosts, isLabPost, BlogPost } from '@/lib/blog-utils';
 
 type Locale = 'tr' | 'en';
 
@@ -11,22 +11,33 @@ const POSTS_PER_PAGE = 12;
 
 type Props = {
   params: { locale: Locale };
-  searchParams: { page?: string };
+  searchParams: { page?: string; bolum?: string; section?: string };
 };
+
+// Blog iki bölüm: işletme içerikleri (varsayılan) ve teknik AI içerikleri (AI Lab).
+const sectionParam = (locale: Locale) => (locale === 'tr' ? 'bolum' : 'section');
+const isLabView = (locale: Locale, sp: Props['searchParams']) => (locale === 'tr' ? sp.bolum : sp.section) === 'lab';
+const postsFor = (locale: Locale, lab: boolean) => getAllPosts(locale).filter((p) => isLabPost(p) === lab);
 
 export async function generateMetadata({ params: { locale }, searchParams }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'blog' });
-  const allPosts = getAllPosts(locale);
-  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const lab = isLabView(locale, searchParams);
   const currentPage = Math.max(1, parseInt(searchParams.page || '1', 10));
-  const basePath = locale === 'tr' ? 'https://tonguckaracay.com/blog' : 'https://tonguckaracay.com/en/blog';
-  const canonical = currentPage === 1 ? basePath : `${basePath}?page=${currentPage}`;
+  const root = locale === 'tr' ? 'https://tonguckaracay.com/blog' : 'https://tonguckaracay.com/en/blog';
+  const basePath = lab ? `${root}?${sectionParam(locale)}=lab` : root;
+  const canonical = currentPage === 1 ? basePath : `${basePath}${lab ? '&' : '?'}page=${currentPage}`;
 
   return {
-    title: locale === 'tr'
-      ? 'SEO ve Dijital Pazarlama Blogu | Tonguç Karaçay'
-      : 'SEO, Digital Marketing & AI Blog | Tonguç Karaçay',
-    description: t('subtitle'),
+    title: lab
+      ? 'AI Lab | Tonguç Karaçay'
+      : locale === 'tr'
+        ? 'SEO ve Dijital Pazarlama Blogu | Tonguç Karaçay'
+        : 'SEO, Digital Marketing & AI Blog | Tonguç Karaçay',
+    description: lab
+      ? (locale === 'tr'
+          ? 'Yapay zeka modelleri, API maliyetleri, MCP ve prompt mühendisliği üzerine teknik notlar ve deneyler.'
+          : 'Technical notes and experiments on AI models, API costs, MCP and prompt engineering.')
+      : t('subtitle'),
     alternates: { canonical },
   };
 }
@@ -34,7 +45,13 @@ export async function generateMetadata({ params: { locale }, searchParams }: Pro
 export default async function BlogPage({ params: { locale }, searchParams }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('blog');
-  const allPosts = getAllPosts(locale);
+  const lab = isLabView(locale, searchParams);
+  const allPosts = postsFor(locale, lab);
+  const blogRoot = locale === 'tr' ? '/blog' : '/en/blog';
+  const tabs = [
+    { label: locale === 'tr' ? 'İşletmeler İçin' : 'For Businesses', href: blogRoot, active: !lab },
+    { label: 'AI Lab', href: `${blogRoot}?${sectionParam(locale)}=lab`, active: lab },
+  ];
 
   // Pagination
   const currentPage = Math.max(1, parseInt(searchParams.page || '1', 10));
@@ -49,11 +66,27 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
         {/* Header */}
         <div className="text-center mb-10">
           <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
-            {t('title')}
+            {lab ? 'AI Lab' : t('title')}
           </h1>
           <p className="text-lg text-primary-300 max-w-2xl mx-auto">
-            {t('subtitle')}
+            {lab
+              ? (locale === 'tr'
+                  ? 'Modeller, API maliyetleri, MCP ve prompt mühendisliği üzerine teknik notlar ve deneyler.'
+                  : 'Technical notes and experiments on models, API costs, MCP and prompt engineering.')
+              : t('subtitle')}
           </p>
+          <nav className="mt-8 inline-flex gap-1 rounded-full border border-surface-border bg-surface-card/60 p-1" aria-label={locale === 'tr' ? 'Blog bölümleri' : 'Blog sections'}>
+            {tabs.map((tab) => (
+              <Link
+                key={tab.href}
+                href={tab.href}
+                aria-current={tab.active ? 'page' : undefined}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${tab.active ? 'bg-accent-500 text-primary-950' : 'text-primary-300 hover:text-white'}`}
+              >
+                {tab.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
         {/* Featured Post — sadece 1. sayfada */}
@@ -78,7 +111,7 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <Pagination currentPage={currentPage} totalPages={totalPages} locale={locale} />
+          <Pagination currentPage={currentPage} totalPages={totalPages} locale={locale} lab={lab} />
         )}
       </div>
     </div>
@@ -193,15 +226,17 @@ function BlogCard({ post, index, locale, t }: {
   );
 }
 
-function Pagination({ currentPage, totalPages, locale }: {
+function Pagination({ currentPage, totalPages, locale, lab }: {
   currentPage: number;
   totalPages: number;
   locale: Locale;
+  lab: boolean;
 }) {
-  const basePath = locale === 'tr' ? '/blog' : '/en/blog';
+  const root = locale === 'tr' ? '/blog' : '/en/blog';
+  const basePath = lab ? `${root}?${sectionParam(locale)}=lab` : root;
   const getPageUrl = (page: number) => {
     if (page === 1) return basePath;
-    return `${basePath}?page=${page}`;
+    return `${basePath}${lab ? '&' : '?'}page=${page}`;
   };
   const pages = [];
   for (let i = 1; i <= totalPages; i++) { pages.push(i); }
