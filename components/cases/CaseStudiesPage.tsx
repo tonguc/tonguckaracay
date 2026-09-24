@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cases, type Locale } from "@/lib/cases";
 import { preAuditPath } from "@/lib/offers";
-import CaseCard from "./CaseCard";
+import CaseCarousel from "./CaseCarousel";
 import PortfolioGrid from "./PortfolioGrid";
 
 export const caseStudiesMeta = (locale: Locale) => ({
@@ -45,10 +45,8 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
           </p>
         </header>
 
-        <div className="grid gap-6 md:grid-cols-2 md:gap-8 xl:grid-cols-3">
-          {cases.map((c, i) => (
-            <CaseCard key={c.slug} item={c} locale={locale} index={i} />
-          ))}
+        <div className="-mx-2 md:-mx-3">
+          <CaseCarousel items={cases} locale={locale} />
         </div>
 
         <PortfolioGrid locale={locale} />

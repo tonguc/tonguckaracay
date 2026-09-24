@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { featuredCases, casesPath, type Locale } from "@/lib/cases";
-import CaseCard from "@/components/cases/CaseCard";
+import { cases, casesPath, type Locale } from "@/lib/cases";
+import CaseCarousel from "@/components/cases/CaseCarousel";
+import PortfolioMarquee from "./PortfolioMarquee";
 
 /**
- * Ana sayfa — 2 mini vaka (lib/cases.ts içinde featured: true olanlar).
+ * Ana sayfa — 6 vaka carousel'ı (projeler kayar) + altında 500+ projeden kayan portfolyo şeridi.
  */
 export default function CaseHighlights({ locale }: { locale: string }) {
   const loc = (locale === "tr" ? "tr" : "en") as Locale;
   const isTr = loc === "tr";
-  if (featuredCases.length === 0) return null;
+  if (cases.length === 0) return null;
 
   return (
     <section id="case-studies" className="border-y border-surface-border/40 bg-surface-card/20 py-12 md:py-20">
@@ -33,12 +34,12 @@ export default function CaseHighlights({ locale }: { locale: string }) {
           </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-          {featuredCases.slice(0, 2).map((c, i) => (
-            <CaseCard key={c.slug} item={c} locale={loc} variant="compact" index={i} />
-          ))}
+        <div className="-mx-2 md:-mx-3">
+          <CaseCarousel items={cases} locale={loc} variant="compact" />
         </div>
       </div>
+
+      <PortfolioMarquee locale={loc} />
     </section>
   );
 }

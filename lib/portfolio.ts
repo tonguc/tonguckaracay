@@ -83,3 +83,10 @@ export const portfolio: PortfolioItem[] = [
   { id: "18582403", title: { tr: "Smart TV Uygulaması", en: "Smart TV App" }, kind: "tv", url: "https://www.behance.net/gallery/18582403/smart-TV-app" },
   { id: "18582569", title: { tr: "Smart TV Uygulaması (2)", en: "Smart TV App (2)" }, kind: "tv", url: "https://www.behance.net/gallery/18582569/smart-TV-app" },
 ];
+
+/** Ana sayfadaki kayan şerit — tanınır markalar (ana sayfa mini vakalarındaki BMW uygulaması ve Shopify hariç). */
+export const marqueeIds = [
+  "73080587", "73080939", "83025685", "83026773", "83025545", "18576975", "125628811", "83863797",
+  "130734383", "68080669", "38120387", "84459823", "83026455", "186196915", "73081745", "104381259",
+  "186195331", "73079831", "87174227", "251295577",
+];

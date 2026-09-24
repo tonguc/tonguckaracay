@@ -65,7 +65,7 @@ Persona: **e-ticaret + hizmet şirketleri**. İş modeli: **hibrit** (Ücretsiz 
 1. `ValueProposition` — tek H1 ("Daha Fazla Trafik, Daha Fazla Gelir"), persona cümlesi, 3 teklif etiketi, CTA: Ücretsiz Ön Analiz + Vakalar. Mobilde kompakt tutulur.
 2. `TrustedBy` — kompakt marka şeridi (tam liste Hakkımda sayfasında)
 3. `Offers` — 3 ana teklif kartı (`lib/offers.ts`: SEO & GEO Büyüme / UX & Dönüşüm / AI Büyüme Sistemleri) + "Ayrıca" diğer hizmetler
-4. `CaseHighlights` — 2 mini vaka (`lib/cases.ts` içinde `featured: true`)
+4. `CaseHighlights` — 6 vaka carousel'ı (compact) + `PortfolioMarquee` akan portfolyo şeridi
 5. `Engagement` — 1. Hafta → 2. Hafta → 3–6. Hafta → 2. Ay+ süreci (KORUNACAK)
 6. `WhyMe`
 7. `PreAudit` — lead magnet + hibrit başlangıç modeli
@@ -77,7 +77,7 @@ Persona: **e-ticaret + hizmet şirketleri**. İş modeli: **hibrit** (Ücretsiz 
 - **Vakalar:** `lib/cases.ts` tek kaynak → `/vaka-calismalari` + `/en/case-studies` (`components/cases/`). İçerik behance.net/tonguc'taki teslim edilmiş işlerden; görseller `public/cases/*.webp` (CSP sadece yerel img'e izin verir). Şablon Hedef → Müdahale → Sonuç → Yorum; `results` / `testimonial` **gerçek, müşteri onaylı veri gelene kadar boş** — boşken UI'da görünmez.
 - **Blog sekmeleri:** `/blog` = **Tümü (varsayılan, en yeni üstte — yeni yazılar asla gizlenmez)**, `/blog?bolum=isletme` (`/en/blog?section=business`) = İşletmeler İçin, `/blog?bolum=lab` (`/en/blog?section=lab`) = AI Lab. Ayrım `isLabPost()` (`lib/blog-utils.ts`): AI kategorisi + başlıkta model/araç/API anahtar kelimesi. Frontmatter `section: lab|business` ile elle ezilebilir. URL'ler değişmedi.
 - **Nav:** Hizmetler (3 ana teklif + diğerleri) / Vakalar / **AI Eğitimi (YENİ rozetli pill — kullanıcı isteğiyle KALACAK)** / Blog / Hakkımda / İletişim. Ürünler + AI Lab → footer "Lab" sütunu (sayfalar canlı).
-- **Portfolyo:** `/vaka-calismalari` altında Behance'teki tüm projeler (`lib/portfolio.ts`, kapaklar `public/portfolio/<id>.webp`), tür filtreli 2/3/4 sütun grid (`components/cases/PortfolioGrid.tsx`). Başlık "Seçili Çalışmalar — 500+ projeden bir seçki"; toplam proje SAYISI yazılmaz (500+ iddiasıyla çelişir). 6 detaylı vakanın görseli `CaseSlider` ile sürekli döner (`gallery` alanı, `public/cases/<slug>-N.webp`).
+- **Portfolyo:** `/vaka-calismalari` altında Behance'teki tüm projeler (`lib/portfolio.ts`, kapaklar `public/portfolio/<id>.webp`), tür filtreli 2/3/4 sütun grid (`components/cases/PortfolioGrid.tsx`). Başlık "Seçili Çalışmalar — 500+ projeden bir seçki"; toplam proje SAYISI yazılmaz (500+ iddiasıyla çelişir). 6 detaylı vaka `CaseCarousel` ile PROJE BAZLI döner (kartın kendi görselleri değil — kullanıcı isteği): masaüstü 3 / tablet 2 / mobil 1, 5 sn'de bir. Ana sayfada aynı carousel (compact) + altında `PortfolioMarquee` (lib/portfolio.ts `marqueeIds`, 4-5 kart görünür, sürekli akar).
 - **İletişim formu:** `components/ContactForm.tsx` (TR/EN ortak): site URL, aylık trafik, hedef, bütçe aralığı. `?konu=on-analiz` / `?topic=pre-audit` ön analizi seçer. `NEXT_PUBLIC_BOOKING_URL` (Calendly vb.) env'i tanımlanırsa form üstünde randevu linki çıkar (CSP yüzünden iframe değil, link). API girdileri HTML-escape eder.
 - `app/[locale]/[slug]/page.tsx`: `dynamicParams = false` — bilinmeyen URL'ler 500 yerine 404 döner.
 
