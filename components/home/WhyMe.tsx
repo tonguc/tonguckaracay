@@ -14,7 +14,7 @@ export default function WhyMe({ locale }: Props) {
     ? [
         {
           icon: Award,
-          title: "THY'den BMW'ye Küresel Marka Deneyimi",
+          title: "Türk Hava Yolları'ndan BMW'ye Küresel Marka Deneyimi",
           desc: "Türkiye'nin lider markalarından çok uluslu şirketlere, ABD ve İngiltere'deki projelere kadar 25+ yılda yüzlerce markaya yön verdim.",
         },
         {
@@ -31,7 +31,7 @@ export default function WhyMe({ locale }: Props) {
     : [
         {
           icon: Award,
-          title: "Global Brand Experience, From THY to BMW",
+          title: "Global Brand Experience, From Turkish Airlines to BMW",
           desc: "From Turkey's leading brands to multinational companies, with projects across the US and UK — 25+ years shaping growth for hundreds of brands.",
         },
         {

@@ -28,9 +28,9 @@ export default function ValueProposition({ locale }: Props) {
   ];
 
   return (
-    <section className="relative overflow-hidden py-8 md:py-10">
+    <section className="relative overflow-hidden py-6 md:py-10">
       <div className="container-custom relative z-10">
-        <div className="card flex flex-col items-center gap-5 px-6 py-6 text-center md:flex-row md:justify-between md:gap-8 md:px-10 md:py-7 md:text-left">
+        <div className="card flex flex-col items-center gap-4 px-5 py-5 text-center md:flex-row md:justify-between md:gap-8 md:px-10 md:py-7 md:text-left">
           <div className="flex flex-col items-center md:items-start">
             <div className="mb-3 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1">
               <span className="relative flex h-2 w-2">
@@ -42,19 +42,19 @@ export default function ValueProposition({ locale }: Props) {
               </span>
             </div>
 
-            <h1 className="font-display text-xl font-bold leading-snug text-white sm:text-2xl md:text-[26px]">
+            <h1 className="font-display text-2xl font-bold leading-tight text-white sm:text-3xl md:text-[32px]">
               {isTr ? (
                 <>
-                  Web Sitenizi Daha Fazla <span className="text-gradient">Müşteriye ve Satışa</span> Dönüştürüyorum
+                  Trafiği Değil, <span className="text-gradient">Satışı Büyütüyorum</span>
                 </>
               ) : (
                 <>
-                  I Turn Your Website Into <span className="text-gradient">More Customers and Sales</span>
+                  I Grow <span className="text-gradient">Sales</span>, Not Just Traffic
                 </>
               )}
             </h1>
 
-            <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5 md:justify-start">
+            <div className="mt-3 hidden flex-wrap items-center justify-center gap-1.5 sm:flex md:justify-start">
               {skills.map((skill) => (
                 <span
                   key={skill}
@@ -65,35 +65,37 @@ export default function ValueProposition({ locale }: Props) {
               ))}
             </div>
 
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-primary-300 md:text-base">
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-primary-300 md:mt-3 md:text-base">
               {isTr
-                ? "25+ yıldır işletmelerin trafiğini, dönüşümlerini ve müşteri deneyimini birlikte büyütüyorum."
-                : "Helping businesses improve traffic, conversions and customer experience for 25+ years."}
+                ? "UX, SEO ve yapay zekayla web sitenizi müşteri getiren bir satış kanalına dönüştürüyorum."
+                : "With UX, SEO and AI, I turn your website into a sales channel that brings in customers."}
             </p>
 
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-              <Link href={contactPath} className="btn-primary group text-sm md:text-base">
-                {isTr ? "Ücretsiz Görüşme Al" : "Book Free Consultation"}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <div className="mt-4 grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:gap-3">
+              <Link href={contactPath} className="btn-primary group whitespace-nowrap !px-3 text-[13px] sm:!px-6 sm:text-sm md:text-base">
+                <span className="sm:hidden">{isTr ? "Ücretsiz Görüşme" : "Free Consultation"}</span>
+                <span className="hidden sm:inline">{isTr ? "Ücretsiz Görüşme Al" : "Book Free Consultation"}</span>
+                <ArrowRight className="ml-1.5 hidden h-4 w-4 sm:inline transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link href={casesPath} className="btn-secondary group text-sm md:text-base">
-                {isTr ? "Kimlerle Çalıştım" : "Who I've Worked With"}
-                <ArrowUpRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <Link href={casesPath} className="btn-secondary group whitespace-nowrap !px-3 text-[13px] sm:!px-6 sm:text-sm md:text-base">
+                <span className="sm:hidden">{isTr ? "Referanslar" : "My Clients"}</span>
+                <span className="hidden sm:inline">{isTr ? "Kimlerle Çalıştım" : "Who I've Worked With"}</span>
+                <ArrowUpRight className="ml-1.5 hidden h-4 w-4 sm:inline transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
           </div>
 
-          <div className="grid w-full grid-cols-2 gap-4 border-t border-surface-border/40 pt-5 sm:grid-cols-4 md:w-auto md:grid-cols-2 md:gap-x-8 md:gap-y-4 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+          <div className="grid w-full grid-cols-4 gap-2 border-t border-surface-border/40 pt-4 sm:gap-4 sm:pt-5 md:w-auto md:grid-cols-2 md:gap-x-8 md:gap-y-4 md:border-l md:border-t-0 md:pl-8 md:pt-0">
             {stats.map((s) => (
               <div key={s.label} className="text-center md:text-left">
-                <div className="text-gradient font-display text-xl font-bold md:text-2xl">{s.value}</div>
-                <div className="mt-0.5 text-[11px] text-primary-400 md:text-xs">{s.label}</div>
+                <div className="text-gradient font-display text-lg font-bold md:text-2xl">{s.value}</div>
+                <div className="mt-0.5 text-[10px] leading-tight text-primary-400 sm:text-[11px] md:text-xs">{s.label}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-center gap-3 md:justify-start md:pl-10">
+        <div className="mt-3 flex items-center justify-center gap-3 md:mt-4 md:justify-start md:pl-10">
           <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_30%,rgba(219,116,32,0.20),transparent_70%)] ring-1 ring-accent-500/30">
             <Image
               src="/tonguckaracay-ux-seo-ai.png"
