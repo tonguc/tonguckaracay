@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { cases, type Locale } from "@/lib/cases";
 import { preAuditPath } from "@/lib/offers";
 import CaseCard from "./CaseCard";
+import PortfolioGrid from "./PortfolioGrid";
 
 export const caseStudiesMeta = (locale: Locale) => ({
   title:
@@ -44,11 +45,13 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
           </p>
         </header>
 
-        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+        <div className="grid gap-6 md:grid-cols-2 md:gap-8 xl:grid-cols-3">
           {cases.map((c) => (
             <CaseCard key={c.slug} item={c} locale={locale} />
           ))}
         </div>
+
+        <PortfolioGrid locale={locale} />
 
         <div className="card mx-auto mt-14 flex max-w-3xl flex-col items-center gap-4 px-6 py-8 text-center md:py-10">
           <h2 className="font-display text-2xl font-bold text-white md:text-3xl">
