@@ -5,6 +5,10 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://tonguckaracay.com/urunler",
+    languages: { tr: "https://tonguckaracay.com/urunler", en: "https://tonguckaracay.com/en/products", "x-default": "https://tonguckaracay.com/en/products" },
+  },
   title: "Ürünler | Tonguç Karaçay",
   description: "Geliştirdiğim dijital ürünler: kişisel finans, üretkenlik ve iş araçları.",
   openGraph: {

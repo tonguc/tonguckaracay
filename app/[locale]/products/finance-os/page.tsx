@@ -6,6 +6,10 @@ import { ArrowRight, Wallet, TrendingDown, PieChart, Target, ShieldCheck, Downlo
 import { FINANCE_OS_ETSY_URL, FINANCE_OS_DEMO_URL } from "@/lib/products/finance-os";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://tonguckaracay.com/en/products/finance-os",
+    languages: { tr: "https://tonguckaracay.com/urunler/finance-os", en: "https://tonguckaracay.com/en/products/finance-os", "x-default": "https://tonguckaracay.com/en/products/finance-os" },
+  },
   title: "Finance OS — Personal Budget & Net Worth Tracker | Tonguç Karaçay",
   description: "Track your budget, debt payoff, and net worth in one single-file, fully offline app. No account required, your data stays on your device.",
   keywords: ["budget app", "personal finance tracker", "net worth tracker", "debt payoff planner", "offline budget app"],

@@ -8,12 +8,12 @@ import PortfolioGrid from "./PortfolioGrid";
 export const caseStudiesMeta = (locale: Locale) => ({
   title:
     locale === "tr"
-      ? "Vaka Çalışmaları | Tonguç Karaçay"
-      : "Case Studies | Tonguç Karaçay",
+      ? "Vaka Çalışmaları ve Portfolyo | Tonguç Karaçay"
+      : "Case Studies & Portfolio | Tonguç Karaçay",
   description:
     locale === "tr"
-      ? "BMW, Borusan Otomotiv, Fotomaç ve e-ticaret markaları için yaptığım UX ve dijital ürün çalışmaları: hedef, müdahale ve teslim edilen tasarım."
-      : "UX and digital product work for BMW, Borusan Otomotiv, Fotomaç and e-commerce brands: goal, intervention and delivered design.",
+      ? "Türk Hava Yolları, BMW, Borusan Otomotiv, Fotomaç ve e-ticaret markaları için UX ve dijital ürün vakaları: hedef, müdahale ve teslim edilen tasarım."
+      : "UX and digital product case studies for Turkish Airlines, BMW, Borusan Otomotiv, Fotomaç and e-commerce brands: goal, intervention and delivered design.",
   alternates: {
     canonical: locale === "tr" ? "https://tonguckaracay.com/vaka-calismalari" : "https://tonguckaracay.com/en/case-studies",
     languages: {

@@ -83,20 +83,21 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
               "name": "Tonguç Karaçay",
               "url": "https://tonguckaracay.com",
               "image": "https://tonguckaracay.com/tonguc-karacay.jpg",
-              "jobTitle": "AI-Driven UX & Growth Consultant",
-              "description": "25+ yıllık dijital pazarlama, SEO ve UI/UX deneyimiyle işletmelerin büyümesine yardımcı olan bağımsız danışman.",
+              "jobTitle": "SEO, GEO & UX Growth Consultant",
+              "description": "E-ticaret ve hizmet şirketlerine SEO, GEO, UX ve yapay zeka otomasyonuyla trafik ve gelir büyümesi sağlayan, 25+ yıllık deneyime sahip bağımsız danışman. Türk Hava Yolları, BMW ve Borusan Otomotiv gibi markalarla çalıştı.",
               "knowsAbout": [
-                "SEO", "Digital Marketing", "UI/UX Design",
-                "Google Ads", "Artificial Intelligence", "E-commerce",
-                "Content Marketing", "Web Analytics"
+                "SEO", "Generative Engine Optimization", "UX Design",
+                "Conversion Rate Optimization", "AI Automation", "Google Ads",
+                "Social Media Management", "E-commerce", "Web Analytics"
               ],
               "worksFor": {
                 "@type": "Organization",
                 "name": "Tonguç Karaçay Danışmanlık"
               },
               "sameAs": [
-                "https://www.linkedin.com/in/tonguckaracay",
-                "https://twitter.com/tonguckaracay"
+                "https://www.linkedin.com/in/tongu%C3%A7-kara%C3%A7ay-36311040/",
+                "https://www.instagram.com/tonguckaracay",
+                "https://www.behance.net/tonguc"
               ]
             })
           }}
@@ -113,8 +114,9 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
               "url": "https://tonguckaracay.com",
               "logo": "https://tonguckaracay.com/logo.png",
               "sameAs": [
-                "https://www.linkedin.com/in/tonguckaracay",
-                "https://twitter.com/tonguckaracay"
+                "https://www.linkedin.com/in/tongu%C3%A7-kara%C3%A7ay-36311040/",
+                "https://www.instagram.com/tonguckaracay",
+                "https://www.behance.net/tonguc"
               ],
               "contactPoint": {
                 "@type": "ContactPoint",

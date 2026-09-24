@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Target, TrendingUp, DollarSign, Users, BarChart3, RefreshCw, Search, Play, ShoppingCart, Smartphone, Clock, AlertTriangle, Eye, Zap, Building2, Briefcase, HeartPulse, Scale, Utensils, MousePointer } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Online Advertising Services | Google Ads & Meta Ads Management | Tonguç Karaçay",
-  description: "Professional Google Ads and Meta Ads management to maximize your ad budget ROI. ROAS-focused campaigns, A/B testing, remarketing. 25+ years experience.",
+  title: "Google Ads Management Services | AI-Powered PPC | Tonguç Karaçay",
+  description: "Google Ads, Meta and YouTube ads management with AI-assisted targeting, creative testing and conversion tracking. ROAS-focused campaigns, every dollar measured.",
   keywords: ["Google Ads management", "Meta Ads", "PPC advertising", "paid search", "performance marketing", "remarketing", "ROAS optimization", "digital advertising"],
   alternates: {
     canonical: "https://tonguckaracay.com/en/services/online-advertising",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Online Advertising Services | Google Ads & Meta Ads Management",
-    description: "Professional Google Ads and Meta Ads management to maximize your ad budget ROI. 25+ years experience.",
+    title: "Google Ads Management Services | AI-Powered PPC | Tonguç Karaçay",
+    description: "Google Ads, Meta and YouTube ads management with AI-assisted targeting, creative testing and conversion tracking. ROAS-focused campaigns, every dollar measured.",
     type: "website",
     url: "https://tonguckaracay.com/en/services/online-advertising",
   },

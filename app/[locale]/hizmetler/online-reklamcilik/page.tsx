@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Target, TrendingUp, DollarSign, Users, BarChart3, RefreshCw, Search, Play, ShoppingCart, Smartphone, Clock, AlertTriangle, Eye, Zap, Building2, Briefcase, HeartPulse, Scale, Utensils, MousePointer } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Online Reklamcılık Hizmeti | Google Ads & Meta Ads Yönetimi | Tonguç Karaçay",
-  description: "Profesyonel Google Ads ve Meta Ads yönetimi ile reklam bütçenizden maksimum verim alın. ROAS odaklı kampanya yönetimi, A/B testi, remarketing. 25+ yıl deneyim.",
+  title: "Google Ads Uzmanı | AI Destekli Reklam Yönetimi | Tonguç Karaçay",
+  description: "Google Ads, Meta ve YouTube reklam yönetimi: AI destekli hedefleme, kreatif testleri ve dönüşüm takibi. ROAS odaklı kampanyalar, her lira ölçülür.",
   keywords: ["Google Ads yönetimi", "Meta Ads", "dijital reklam", "PPC", "performans pazarlama", "remarketing", "ROAS optimizasyonu", "reklam danışmanlığı"],
   alternates: {
     canonical: "https://tonguckaracay.com/hizmetler/online-reklamcilik",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Online Reklamcılık Hizmeti | Google Ads & Meta Ads Yönetimi",
-    description: "Profesyonel Google Ads ve Meta Ads yönetimi ile reklam bütçenizden maksimum verim alın. 25+ yıl deneyim.",
+    title: "Google Ads Uzmanı | AI Destekli Reklam Yönetimi | Tonguç Karaçay",
+    description: "Google Ads, Meta ve YouTube reklam yönetimi: AI destekli hedefleme, kreatif testleri ve dönüşüm takibi. ROAS odaklı kampanyalar, her lira ölçülür.",
     type: "website",
     url: "https://tonguckaracay.com/hizmetler/online-reklamcilik",
   },

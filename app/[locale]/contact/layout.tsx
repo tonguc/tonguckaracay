@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Free SEO Consulting | Contact | Tonguç Karaçay',
-  description: 'Request a free consultation for your digital marketing, SEO, or UI/UX project. 25+ years of experience and measurable results. Get in touch today.',
+  title: "Contact & Free SEO Pre-Audit | Tonguç Karaçay",
+  description: "Request a free SEO, GEO and conversion pre-audit of your website, or tell me about your project. I reply within 24 hours.",
   alternates: {
     canonical: 'https://tonguckaracay.com/en/contact',
   },

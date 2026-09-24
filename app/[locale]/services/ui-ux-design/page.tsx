@@ -5,8 +5,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Users, Layers, MousePointer2, BarChart3, Sparkles, Target, Zap, Award, TrendingUp, Clock, Shield, Lightbulb, Building2, ShoppingCart, Briefcase, HeartPulse, Plane, GraduationCap } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "UI/UX Design Services | Conversion-Focused Interface Design | Tonguç Karaçay",
-  description: "Professional UI/UX design services to transform your digital products. Research-driven approach, 25+ years experience, proven track record with enterprise clients. Book a free discovery call.",
+  title: "UX Consultant | UI/UX Design & CRO | Tonguç Karaçay",
+  description: "Conversion-focused UX consulting and UI/UX design, backed by Turkish Airlines and BMW work: friction-free flows, CRO and user testing that drive sales.",
   keywords: ["UI UX design services", "user experience agency", "interface design consulting", "UX design company", "mobile app design", "web interface design", "SaaS product design"],
   alternates: {
     canonical: "https://tonguckaracay.com/en/services/ui-ux-design",
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "UI/UX Design Services | Conversion-Focused Interface Design",
-    description: "Professional UI/UX design services to transform your digital products. Research-driven approach, 25+ years experience.",
+    title: "UX Consultant | UI/UX Design & CRO | Tonguç Karaçay",
+    description: "Conversion-focused UX consulting and UI/UX design, backed by Turkish Airlines and BMW work: friction-free flows, CRO and user testing that drive sales.",
     type: "website",
     url: "https://tonguckaracay.com/en/services/ui-ux-design",
   },

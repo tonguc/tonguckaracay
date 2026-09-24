@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Sparkles, FileSearch, Quote, ListChecks, ShieldCheck, BarChart3, Clock, Users, AlertTriangle, Building2, ShoppingCart, Briefcase, HeartPulse, Scale, Utensils } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "GEO Danışmanlığı | Yapay Zeka Aramalarında Görünürlük | Tonguç Karaçay",
-  description: "ChatGPT, Perplexity, Google AI Overviews ve Claude gibi yapay zeka araçlarında markanızın kaynak gösterilmesi için GEO (Generative Engine Optimization) danışmanlığı. 25+ yıl deneyim.",
+  title: "GEO Danışmanlığı | ChatGPT'de Görünür Olun | Tonguç Karaçay",
+  description: "Markanızın ChatGPT, Gemini, Perplexity ve Google AI Overviews'da kaynak gösterilip önerilmesi için GEO danışmanlığı. Yapay zeka SEO'su ile görünürlük.",
   keywords: ["GEO", "Generative Engine Optimization", "AI arama optimizasyonu", "ChatGPT görünürlük", "yapay zeka SEO", "AI Overviews", "Perplexity optimizasyon"],
   alternates: {
     canonical: "https://tonguckaracay.com/hizmetler/geo-optimizasyonu",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "GEO Danışmanlığı | Yapay Zeka Aramalarında Görünürlük",
-    description: "ChatGPT, Perplexity ve Google AI Overviews'da markanızın kaynak gösterilmesi için GEO stratejisi.",
+    title: "GEO Danışmanlığı | ChatGPT'de Görünür Olun | Tonguç Karaçay",
+    description: "Markanızın ChatGPT, Gemini, Perplexity ve Google AI Overviews'da kaynak gösterilip önerilmesi için GEO danışmanlığı. Yapay zeka SEO'su ile görünürlük.",
     type: "website",
     url: "https://tonguckaracay.com/hizmetler/geo-optimizasyonu",
   },

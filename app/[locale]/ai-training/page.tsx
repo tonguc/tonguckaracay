@@ -39,8 +39,8 @@ const WhatsAppIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 );
 
 export const metadata: Metadata = {
-  title: "AI Training | Tonguç Karaçay — Learn to Build AI Systems for Your Business",
-  description: "Individual and corporate AI training. Learn to build systems that speed up your content, ads, and operations. Message on WhatsApp.",
+  title: "AI Training for Teams & Individuals | Tonguç Karaçay",
+  description: "Hands-on AI training for teams and individuals: learn to build ChatGPT, Claude and automation systems that speed up your content, ads and operations.",
   keywords: ["AI training", "ChatGPT training", "corporate AI training", "AI for business", "AI workflow automation", "learn to build AI systems"],
   alternates: {
     canonical: 'https://tonguckaracay.com/en/ai-training',
@@ -51,8 +51,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Training | Learn to Build AI Systems for Your Business — Tonguç Karaçay",
-    description: "Not tools — systems. Learn to make your content, ads, and operations semi-automated.",
+    title: "AI Training for Teams & Individuals | Tonguç Karaçay",
+    description: "Hands-on AI training for teams and individuals: learn to build ChatGPT, Claude and automation systems that speed up your content, ads and operations.",
     url: 'https://tonguckaracay.com/en/ai-training',
     type: 'website',
   },

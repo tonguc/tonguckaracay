@@ -6,6 +6,10 @@ import { ArrowRight, Wallet, TrendingDown, PieChart, Target, ShieldCheck, Downlo
 import { FINANCE_OS_ETSY_URL, FINANCE_OS_DEMO_URL } from "@/lib/products/finance-os";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://tonguckaracay.com/urunler/finance-os",
+    languages: { tr: "https://tonguckaracay.com/urunler/finance-os", en: "https://tonguckaracay.com/en/products/finance-os", "x-default": "https://tonguckaracay.com/en/products/finance-os" },
+  },
   title: "Finance OS — Kişisel Bütçe & Net Değer Takibi | Tonguç Karaçay",
   description: "Bütçe, borç ödeme ve net değerinizi tek dosyalık, tamamen çevrimdışı bir uygulamada takip edin. Hesap gerektirmez, verileriniz cihazınızda kalır.",
   keywords: ["bütçe uygulaması", "kişisel finans", "net değer takibi", "borç ödeme planlayıcı", "çevrimdışı bütçe"],

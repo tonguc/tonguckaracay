@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Share2, Users, Calendar, TrendingUp, MessageCircle, BarChart3, Instagram, Youtube, Linkedin, Twitter, Video, Image, PenTool, Target, Clock, AlertTriangle, Heart, Eye, Building2, ShoppingCart, Briefcase, Utensils, HeartPulse } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Sosyal Medya Yönetimi | Instagram, TikTok, LinkedIn | Tonguç Karaçay",
-  description: "Profesyonel sosyal medya yönetimi ile markanızı büyütün. İçerik stratejisi, organik büyüme, topluluk yönetimi. Instagram, TikTok, LinkedIn, Facebook yönetimi.",
+  title: "Sosyal Medya Yönetimi Hizmeti | Tonguç Karaçay",
+  description: "Sosyal medya yönetimi: strateji, AI destekli içerik üretimi, paylaşım takvimi ve topluluk yönetimi. Instagram, TikTok ve LinkedIn'de ölçülebilir büyüme.",
   keywords: ["sosyal medya yönetimi", "Instagram yönetimi", "TikTok yönetimi", "LinkedIn yönetimi", "içerik stratejisi", "topluluk yönetimi", "sosyal medya danışmanlığı"],
   alternates: {
     canonical: "https://tonguckaracay.com/hizmetler/sosyal-medya-yonetimi",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Sosyal Medya Yönetimi | Instagram, TikTok, LinkedIn",
-    description: "Profesyonel sosyal medya yönetimi ile markanızı büyütün. İçerik stratejisi ve organik büyüme.",
+    title: "Sosyal Medya Yönetimi Hizmeti | Tonguç Karaçay",
+    description: "Sosyal medya yönetimi: strateji, AI destekli içerik üretimi, paylaşım takvimi ve topluluk yönetimi. Instagram, TikTok ve LinkedIn'de ölçülebilir büyüme.",
     type: "website",
     url: "https://tonguckaracay.com/hizmetler/sosyal-medya-yonetimi",
   },

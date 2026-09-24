@@ -49,13 +49,15 @@ export async function generateMetadata({ params: { locale }, searchParams }: Pro
     title: lab
       ? 'AI Lab | Tonguç Karaçay'
       : locale === 'tr'
-        ? 'SEO ve Dijital Pazarlama Blogu | Tonguç Karaçay'
-        : 'SEO, Digital Marketing & AI Blog | Tonguç Karaçay',
+        ? 'SEO, GEO ve Yapay Zeka Blogu | Tonguç Karaçay'
+        : 'SEO, GEO & AI Blog | Tonguç Karaçay',
     description: lab
       ? (locale === 'tr'
           ? 'Yapay zeka modelleri, API maliyetleri, MCP ve prompt mühendisliği üzerine teknik notlar ve deneyler.'
           : 'Technical notes and experiments on AI models, API costs, MCP and prompt engineering.')
-      : t('subtitle'),
+      : (locale === 'tr'
+          ? 'SEO, GEO (yapay zeka aramaları), UX ve AI otomasyonu üzerine uygulamalı rehberler: işletmenizin trafiğini ve gelirini büyütmek için adım adım.'
+          : 'Hands-on guides on SEO, GEO (AI search), UX and AI automation: step-by-step ways to grow your business traffic and revenue.'),
     alternates: { canonical },
   };
 }

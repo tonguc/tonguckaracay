@@ -40,8 +40,8 @@ const WhatsAppIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 );
 
 export const metadata: Metadata = {
-  title: "AI Eğitimi | Tonguç Karaçay — İşinize AI Sistemi Kurmayı Öğretir",
-  description: "Bireysel ve kurumsal AI eğitimi. İçerik, reklam ve operasyon süreçlerinizi hızlandıracak sistemler kurmayı öğrenin. WhatsApp'tan bilgi alın.",
+  title: "Yapay Zeka Eğitimi (Bireysel & Kurumsal) | Tonguç Karaçay",
+  description: "İşinize özel yapay zeka eğitimi: ChatGPT, Claude ve otomasyonla içerik, reklam ve operasyonu hızlandıran sistemler kurmayı öğrenin. Kurumsal ve bireysel.",
   keywords: ["AI eğitimi", "yapay zeka eğitimi", "ChatGPT eğitimi", "kurumsal AI eğitimi", "sektörel yapay zeka", "AI sistemi kurmayı öğren"],
   alternates: {
     canonical: 'https://tonguckaracay.com/ai-egitimi',
@@ -51,8 +51,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Eğitimi | İşinize AI Sistemi Kurmayı Öğretir — Tonguç Karaçay",
-    description: "Araç değil sistem. İçerik, reklam ve operasyon süreçlerinizi yarı-otomatik hale getirmeyi öğrenin.",
+    title: "Yapay Zeka Eğitimi (Bireysel & Kurumsal) | Tonguç Karaçay",
+    description: "İşinize özel yapay zeka eğitimi: ChatGPT, Claude ve otomasyonla içerik, reklam ve operasyonu hızlandıran sistemler kurmayı öğrenin. Kurumsal ve bireysel.",
     url: 'https://tonguckaracay.com/ai-egitimi',
     type: 'website',
   },

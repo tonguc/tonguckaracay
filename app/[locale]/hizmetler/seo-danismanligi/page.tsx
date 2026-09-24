@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Search, Globe, Link2, BarChart3, FileText, Zap, TrendingUp, Clock, Users, Shield, Target, Layers, AlertTriangle, Building2, ShoppingCart, Briefcase, HeartPulse, Scale, Utensils } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "SEO Danışmanlığı Hizmeti | Google'da Üst Sıralara Çıkın | Tonguç Karaçay",
-  description: "Profesyonel SEO danışmanlığı ile organik trafiğinizi artırın. Teknik SEO, içerik stratejisi, link building. 25+ yıl deneyim, ölçülebilir sonuçlar. Ücretsiz SEO analizi için iletişime geçin.",
+  title: "SEO Danışmanlığı | Freelance SEO Uzmanı | Tonguç Karaçay",
+  description: "E-ticaret ve hizmet şirketleri için SEO danışmanlığı: teknik SEO, içerik ve GEO ile Google'da ve yapay zeka aramalarında kalıcı trafik. Ücretsiz SEO ön analizi.",
   keywords: ["SEO danışmanlığı", "SEO ajansı", "arama motoru optimizasyonu", "teknik SEO", "içerik stratejisi", "link building", "Google sıralama", "organik trafik"],
   alternates: {
     canonical: "https://tonguckaracay.com/hizmetler/seo-danismanligi",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "SEO Danışmanlığı Hizmeti | Google'da Üst Sıralara Çıkın",
-    description: "Profesyonel SEO danışmanlığı ile organik trafiğinizi artırın. 25+ yıl deneyim, ölçülebilir sonuçlar.",
+    title: "SEO Danışmanlığı | Freelance SEO Uzmanı | Tonguç Karaçay",
+    description: "E-ticaret ve hizmet şirketleri için SEO danışmanlığı: teknik SEO, içerik ve GEO ile Google'da ve yapay zeka aramalarında kalıcı trafik. Ücretsiz SEO ön analizi.",
     type: "website",
     url: "https://tonguckaracay.com/hizmetler/seo-danismanligi",
   },

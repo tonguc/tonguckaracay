@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Sparkles, FileSearch, Quote, ListChecks, ShieldCheck, BarChart3, Building2, ShoppingCart, Briefcase, HeartPulse, Scale, Utensils } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "GEO Consulting | Visibility in AI Search | Tonguç Karaçay",
-  description: "Generative Engine Optimization (GEO) consulting so your brand gets cited by ChatGPT, Perplexity, Google AI Overviews and Claude. 25+ years of experience.",
+  title: "Generative Engine Optimization (GEO) Services | Tonguç Karaçay",
+  description: "GEO services to get your brand cited and recommended by ChatGPT, Gemini, Perplexity and Google AI Overviews. Measurable visibility in AI search.",
   keywords: ["GEO", "Generative Engine Optimization", "AI search optimization", "ChatGPT visibility", "AI SEO", "AI Overviews", "Perplexity optimization"],
   alternates: {
     canonical: "https://tonguckaracay.com/en/services/geo-optimization",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "GEO Consulting | Visibility in AI Search",
-    description: "Get your brand cited in ChatGPT, Perplexity and Google AI Overviews.",
+    title: "Generative Engine Optimization (GEO) Services | Tonguç Karaçay",
+    description: "GEO services to get your brand cited and recommended by ChatGPT, Gemini, Perplexity and Google AI Overviews. Measurable visibility in AI search.",
     type: "website",
     url: "https://tonguckaracay.com/en/services/geo-optimization",
   },

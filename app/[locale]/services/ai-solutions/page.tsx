@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Bot, Brain, Zap, MessageSquare, Database, Cpu, FileText, Image, Code, Settings, AlertTriangle, Clock, TrendingUp, Users, Building2, ShoppingCart, Briefcase, HeartPulse, Lightbulb, Workflow } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI Automation Consulting for SMBs | Tonguç Karaçay",
-  description: "AI automation consulting for SMBs: process discovery, measurable pilots, CRM and workflow integration, team training, governance, and maintenance.",
+  title: "AI Automation Consultant for SMBs | Tonguç Karaçay",
+  description: "AI automation consulting for SMBs: AI chatbots, content and process automation, measurable pilots and team training. Human-approved, measurable AI workflows.",
   keywords: ["AI consulting", "ChatGPT integration", "business automation", "chatbot development", "AI content generation", "workflow automation", "generative AI"],
   alternates: {
     canonical: "https://tonguckaracay.com/en/services/ai-solutions",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Automation Consulting for SMBs",
-    description: "Human-reviewed AI workflows from process discovery and measurable pilots to integration and team enablement.",
+    title: "AI Automation Consultant for SMBs | Tonguç Karaçay",
+    description: "AI automation consulting for SMBs: AI chatbots, content and process automation, measurable pilots and team training. Human-approved, measurable AI workflows.",
     type: "website",
     url: "https://tonguckaracay.com/en/services/ai-solutions",
   },

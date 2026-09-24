@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Share2, Users, Calendar, TrendingUp, MessageCircle, BarChart3, Instagram, Youtube, Linkedin, Twitter, Video, Image, PenTool, Target, Clock, AlertTriangle, Heart, Eye, Building2, ShoppingCart, Briefcase, Utensils, HeartPulse } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Social Media Management | Instagram, TikTok, LinkedIn | Tonguç Karaçay",
-  description: "Professional social media management to grow your brand. Content strategy, organic growth, community management. Instagram, TikTok, LinkedIn, Facebook management.",
+  title: "Social Media Management Services | Tonguç Karaçay",
+  description: "Social media management services: strategy, AI-assisted content, posting calendar and community management on Instagram, TikTok and LinkedIn.",
   keywords: ["social media management", "Instagram management", "TikTok management", "LinkedIn management", "content strategy", "community management", "social media marketing"],
   alternates: {
     canonical: "https://tonguckaracay.com/en/services/social-media-management",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Social Media Management | Instagram, TikTok, LinkedIn",
-    description: "Professional social media management to grow your brand. Content strategy and organic growth.",
+    title: "Social Media Management Services | Tonguç Karaçay",
+    description: "Social media management services: strategy, AI-assisted content, posting calendar and community management on Instagram, TikTok and LinkedIn.",
     type: "website",
     url: "https://tonguckaracay.com/en/services/social-media-management",
   },

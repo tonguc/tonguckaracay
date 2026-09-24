@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Search, Globe, Link2, BarChart3, FileText, Zap, TrendingUp, Clock, Users, Shield, Target, Layers, AlertTriangle, Building2, ShoppingCart, Briefcase, HeartPulse, Scale, Utensils } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "SEO Consulting Services | Increase Organic Traffic | Tonguç Karaçay",
-  description: "Professional SEO consulting to boost your search rankings. Technical SEO, content strategy, link building. 25+ years experience, measurable results. Get your free SEO audit today.",
+  title: "SEO Consultant Services | Freelance SEO Expert | Tonguç Karaçay",
+  description: "SEO consulting for e-commerce and service businesses: technical SEO, content and GEO for lasting traffic from Google and AI search. Get a free SEO pre-audit.",
   keywords: ["SEO consulting", "SEO services", "search engine optimization", "technical SEO", "content strategy", "link building", "Google ranking", "organic traffic"],
   alternates: {
     canonical: "https://tonguckaracay.com/en/services/seo-consulting",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "SEO Consulting Services | Increase Organic Traffic",
-    description: "Professional SEO consulting to boost your search rankings. 25+ years experience, measurable results.",
+    title: "SEO Consultant Services | Freelance SEO Expert | Tonguç Karaçay",
+    description: "SEO consulting for e-commerce and service businesses: technical SEO, content and GEO for lasting traffic from Google and AI search. Get a free SEO pre-audit.",
     type: "website",
     url: "https://tonguckaracay.com/en/services/seo-consulting",
   },

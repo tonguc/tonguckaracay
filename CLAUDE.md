@@ -79,6 +79,7 @@ Persona: **e-ticaret + hizmet şirketleri**. İş modeli: **hibrit** (Ücretsiz 
 - **Nav:** Hizmetler (3 ana teklif + diğerleri) / Vakalar / **AI Eğitimi (YENİ rozetli pill — kullanıcı isteğiyle KALACAK)** / Blog / Hakkımda / İletişim. Ürünler + AI Lab → footer "Lab" sütunu (sayfalar canlı).
 - **Portfolyo:** `/vaka-calismalari` altında Behance'teki tüm projeler (`lib/portfolio.ts`, kapaklar `public/portfolio/<id>.webp`), tür filtreli 2/3/4 sütun grid (`components/cases/PortfolioGrid.tsx`). Başlık "Seçili Çalışmalar — 500+ projeden bir seçki"; toplam proje SAYISI yazılmaz (500+ iddiasıyla çelişir). 6 detaylı vaka `CaseCarousel` ile PROJE BAZLI döner (kartın kendi görselleri değil — kullanıcı isteği): masaüstü 3 / tablet 2 / mobil 1, 5 sn'de bir. Ana sayfada aynı carousel (compact) + altında `PortfolioMarquee` (lib/portfolio.ts `marqueeIds`, 4-5 kart görünür, sürekli akar).
 - **İletişim formu:** `components/ContactForm.tsx` (TR/EN ortak): site URL, aylık trafik, hedef, bütçe aralığı. `?konu=on-analiz` / `?topic=pre-audit` ön analizi seçer. `NEXT_PUBLIC_BOOKING_URL` (Calendly vb.) env'i tanımlanırsa form üstünde randevu linki çıkar (CSP yüzünden iframe değil, link). API girdileri HTML-escape eder.
+- **Hakkımda:** `components/about/AboutPage.tsx` (TR+EN ortak): uzmanlık = `lib/offers.ts` + GEO; "Çalıştığım Firmalar" = Behance kapaklarıyla marka portfolyosu (`brandWork`), kalanlar etiket.
 - `app/[locale]/[slug]/page.tsx`: `dynamicParams = false` — bilinmeyen URL'ler 500 yerine 404 döner.
 
 ### Kurallar / notlar
@@ -88,6 +89,21 @@ Persona: **e-ticaret + hizmet şirketleri**. İş modeli: **hibrit** (Ücretsiz 
 - **Testimonials:** `components/home/Testimonials.tsx` hazır ama liste boş — gerçek, izinli yorum gelince eklenir. **Uydurma referans/metrik yayınlama** (FTC/AB sahte yorum yasağı + itibar riski). Gerçek veri gelince `components/home/` altına eklenir.
 - **Vaka metrikleri temsilidir** — gerçek vaka verisiyle güncellenecek.
 - Footer logosu: **"Tonguç Karaçay."** (`components/Footer.tsx`).
+
+---
+
+## SEO Metadata Haritası (Eylül 2026 — GSC + Ubersuggest verisiyle)
+
+Title'lar ≤~60, description'lar ≤160 karakter. Hedef anahtar kelimeler (aylık hacim TR / US):
+- Ana sayfa: "SEO uzmanı" (1.900) / "SEO consultant" (8.100)
+- SEO: "seo danışmanlığı" (1.000), "seo danışmanı" (880), "freelance seo uzmanı" / "seo consultant services" (5.400)
+- GEO: TR'de hacim ~0 (erken pazar, "yapay zeka seo" 210) / "generative engine optimization" (4.400), "GEO services" (590)
+- Reklam: "google ads uzmanı" (880) / "google ads management services" (720)
+- Sosyal: "sosyal medya yönetimi" (2.900) / "social media management services" (2.400)
+- AI: "yapay zeka danışmanlığı" (170), AI eğitimi: "yapay zeka eğitimi" (2.900) / "ai automation consultant" (480)
+- UX: "ui ux tasarım" (320) / "ux consultant" (260)
+**KRİTİK:** `app/[locale]/layout.tsx` her sayfaya varsayılan olarak ANA SAYFA canonical'ı verir. Yeni sayfa eklerken kendi `alternates.canonical`'ını MUTLAKA tanımla (Eylül 2026'da /urunler ve Finance OS bu yüzden ana sayfaya canonical veriyordu — düzeltildi).
+GSC erişimi: Chrome'da ana Google hesabı (u/0), URL-prefix mülkü `https://tonguckaracay.com/` (domain mülkü erişilemez).
 
 ---
 

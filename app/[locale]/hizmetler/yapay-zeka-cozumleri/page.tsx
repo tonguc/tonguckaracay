@@ -4,8 +4,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Bot, Brain, Zap, MessageSquare, Database, Cpu, FileText, Image, Code, Settings, AlertTriangle, Clock, TrendingUp, Users, Building2, ShoppingCart, Briefcase, HeartPulse, Lightbulb, Workflow } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "KOBİ'ler İçin AI Otomasyon Danışmanlığı | Tonguç Karaçay",
-  description: "KOBİ'ler için ihtiyaç analizi, ölçümlü pilot, CRM ve iş akışı entegrasyonu, ekip eğitimi ve bakım odaklı yapay zeka otomasyon danışmanlığı.",
+  title: "Yapay Zeka Danışmanlığı & AI Otomasyon | Tonguç Karaçay",
+  description: "KOBİ'ler için yapay zeka danışmanlığı: AI chatbot, içerik ve süreç otomasyonu, ölçümlü pilot ve ekip eğitimi. İnsan onaylı, ölçülebilir AI iş akışları.",
   keywords: ["yapay zeka danışmanlığı", "ChatGPT entegrasyonu", "AI otomasyon", "chatbot geliştirme", "AI içerik üretimi", "süreç otomasyonu", "generative AI"],
   alternates: {
     canonical: "https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri",
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "KOBİ'ler İçin AI Otomasyon Danışmanlığı",
-    description: "İhtiyaç analizinden ölçümlü pilota, entegrasyondan ekip eğitimine kadar insan onaylı AI iş akışları.",
+    title: "Yapay Zeka Danışmanlığı & AI Otomasyon | Tonguç Karaçay",
+    description: "KOBİ'ler için yapay zeka danışmanlığı: AI chatbot, içerik ve süreç otomasyonu, ölçümlü pilot ve ekip eğitimi. İnsan onaylı, ölçülebilir AI iş akışları.",
     type: "website",
     url: "https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri",
   },

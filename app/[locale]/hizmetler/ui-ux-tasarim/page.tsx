@@ -5,8 +5,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { ArrowRight, CheckCircle2, Users, Layers, MousePointer2, BarChart3, Sparkles, Target, Zap, Award, TrendingUp, Clock, Shield, Lightbulb, Building2, ShoppingCart, Briefcase, HeartPulse, Plane, GraduationCap } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "UI/UX Tasarım Hizmeti | Dönüşüm Odaklı Arayüz Tasarımı | Tonguç Karaçay",
-  description: "Profesyonel UI/UX tasarım hizmeti ile dijital ürünlerinizin dönüşüm oranlarını artırın. 25+ yıl deneyim, 100+ kurumsal referans. Ücretsiz keşif görüşmesi için iletişime geçin.",
+  title: "UI/UX Tasarım ve Dönüşüm Optimizasyonu | Tonguç Karaçay",
+  description: "Türk Hava Yolları ve BMW deneyimiyle dönüşüm odaklı UI/UX tasarım: sürtünmeyi kaldıran akışlar, CRO ve kullanıcı testi. Mevcut ziyaretçiden daha fazla satış.",
   keywords: ["UI UX tasarım hizmeti", "kullanıcı deneyimi ajansı", "arayüz tasarım danışmanlığı", "UX tasarım şirketi", "mobil uygulama tasarımı", "web arayüz tasarımı"],
   alternates: {
     canonical: "https://tonguckaracay.com/hizmetler/ui-ux-tasarim",
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "UI/UX Tasarım Hizmeti | Dönüşüm Odaklı Arayüz Tasarımı",
-    description: "Profesyonel UI/UX tasarım hizmeti ile dijital ürünlerinizin dönüşüm oranlarını artırın. 25+ yıl deneyim.",
+    title: "UI/UX Tasarım ve Dönüşüm Optimizasyonu | Tonguç Karaçay",
+    description: "Türk Hava Yolları ve BMW deneyimiyle dönüşüm odaklı UI/UX tasarım: sürtünmeyi kaldıran akışlar, CRO ve kullanıcı testi. Mevcut ziyaretçiden daha fazla satış.",
     type: "website",
     url: "https://tonguckaracay.com/hizmetler/ui-ux-tasarim",
   },
