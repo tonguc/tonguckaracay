@@ -19,12 +19,11 @@ export default function PortfolioGrid({ locale }: { locale: Locale }) {
   const kinds = (Object.keys(portfolioKindLabel) as PortfolioKind[]).filter((k) =>
     portfolio.some((p) => p.kind === k)
   );
-  const filters: { key: Filter; label: string; count: number }[] = [
-    { key: "all", label: isTr ? "Tümü" : "All", count: portfolio.length },
+  const filters: { key: Filter; label: string }[] = [
+    { key: "all", label: isTr ? "Tümü" : "All" },
     ...kinds.map((k) => ({
       key: k as Filter,
       label: portfolioKindLabel[k][locale],
-      count: portfolio.filter((p) => p.kind === k).length,
     })),
   ];
   const items = filter === "all" ? portfolio : portfolio.filter((p) => p.kind === filter);
@@ -34,13 +33,13 @@ export default function PortfolioGrid({ locale }: { locale: Locale }) {
       <div className="mb-8 text-center">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">Behance</p>
         <h2 id="portfolio-title" className="section-title mx-auto">
-          {isTr ? "Tüm " : "Full "}
-          <span className="text-gradient">{isTr ? "Portfolyo" : "Portfolio"}</span>
+          {isTr ? "Seçili " : "Selected "}
+          <span className="text-gradient">{isTr ? "Çalışmalar" : "Work"}</span>
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-primary-300">
           {isTr
-            ? `Medyadan otomotive, fintech'ten kamuya ${portfolio.length} proje. Her kart Behance'teki proje sayfasını açar.`
-            : `${portfolio.length} projects across media, automotive, fintech and public sector. Each card opens the project on Behance.`}
+            ? "25 yılda teslim ettiğim 500+ projeden bir seçki: medya, otomotiv, fintech ve kamu. Her kart Behance'teki proje sayfasını açar."
+            : "A selection from 500+ projects delivered over 25 years: media, automotive, fintech and public sector. Each card opens the project on Behance."}
         </p>
       </div>
 
@@ -57,7 +56,7 @@ export default function PortfolioGrid({ locale }: { locale: Locale }) {
                 : "border-surface-border text-primary-300 hover:border-accent-500/50 hover:text-white"
             }`}
           >
-            {f.label} <span className="opacity-60">{f.count}</span>
+            {f.label}
           </button>
         ))}
       </div>
@@ -99,7 +98,7 @@ export default function PortfolioGrid({ locale }: { locale: Locale }) {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 text-sm font-medium text-accent-400 hover:text-accent-300"
         >
-          {isTr ? "Behance profilinin tamamı" : "Full Behance profile"}
+          {isTr ? "Behance profilime göz atın" : "Visit my Behance profile"}
           <ArrowUpRight className="h-4 w-4" />
         </a>
       </p>

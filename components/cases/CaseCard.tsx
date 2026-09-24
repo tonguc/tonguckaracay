@@ -1,4 +1,4 @@
-import Image from "next/image";
+import CaseSlider from "./CaseSlider";
 import { ArrowUpRight, Quote } from "lucide-react";
 import type { CaseStudy, Locale } from "@/lib/cases";
 
@@ -7,28 +7,26 @@ interface Props {
   locale: Locale;
   /** compact = ana sayfa mini vaka; full = /vaka-calismalari */
   variant?: "compact" | "full";
+  /** Slayt başlangıç gecikmesi — kartlar aynı anda değişmesin */
+  index?: number;
 }
 
 /**
  * Vaka şablonu: Hedef → Müdahale → Sonuç → Müşteri yorumu.
  * Sonuç ve yorum sadece gerçek veri varsa render edilir (lib/cases.ts kuralı).
  */
-export default function CaseCard({ item, locale, variant = "full" }: Props) {
+export default function CaseCard({ item, locale, variant = "full", index = 0 }: Props) {
   const isTr = locale === "tr";
   const compact = variant === "compact";
   const steps = compact ? item.intervention[locale].slice(0, 2) : item.intervention[locale];
 
   return (
     <article className="card flex h-full flex-col overflow-hidden">
-      <div className="relative aspect-[3/2] w-full overflow-hidden bg-surface-darker">
-        <Image
-          src={item.image}
-          alt={`${item.title[locale]} — ${item.client}`}
-          fill
-          sizes="(min-width: 1024px) 560px, 100vw"
-          className="object-cover object-top"
-        />
-      </div>
+      <CaseSlider
+        images={item.gallery && item.gallery.length > 0 ? item.gallery : [item.image]}
+        alt={`${item.title[locale]} — ${item.client}`}
+        offset={index * 700}
+      />
 
       <div className="flex flex-1 flex-col p-5 md:p-7">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">

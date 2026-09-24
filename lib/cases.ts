@@ -35,6 +35,8 @@ export interface CaseStudy {
   intervention: L<string[]>;
   tools: string[];
   image: string;
+  /** Kartta sürekli dönen slayt görselleri (ilk eleman = image). */
+  gallery?: string[];
   behanceUrl: string;
   featured?: boolean; // ana sayfada mini vaka olarak gösterilir
   results?: CaseResult[];
@@ -67,6 +69,7 @@ export const cases: CaseStudy[] = [
     },
     tools: ["Figma", "Photoshop"],
     image: "/cases/bmw-mobil-uygulama.webp",
+    gallery: ["/cases/bmw-mobil-uygulama.webp", "/cases/bmw-mobil-uygulama-2.webp", "/cases/bmw-mobil-uygulama-3.webp", "/cases/bmw-mobil-uygulama-4.webp"],
     behanceUrl: "https://www.behance.net/gallery/139240279/BMW-Mobile-Application",
   },
   {
@@ -94,6 +97,7 @@ export const cases: CaseStudy[] = [
     },
     tools: ["Shopify", "UI/UX", "Web Design"],
     image: "/cases/shopify-e-ticaret.webp",
+    gallery: ["/cases/shopify-e-ticaret.webp", "/cases/shopify-e-ticaret-2.webp", "/cases/shopify-e-ticaret-3.webp", "/cases/shopify-e-ticaret-4.webp"],
     behanceUrl: "https://www.behance.net/gallery/186197781/shopify-ecommerce-design",
   },
   {
@@ -120,6 +124,7 @@ export const cases: CaseStudy[] = [
     },
     tools: ["UI/UX", "Illustration", "Web Design"],
     image: "/cases/sigorta-sirketi.webp",
+    gallery: ["/cases/sigorta-sirketi.webp", "/cases/sigorta-sirketi-2.webp", "/cases/sigorta-sirketi-3.webp", "/cases/sigorta-sirketi-4.webp"],
     behanceUrl: "https://www.behance.net/gallery/186196915/Insurance-Company",
   },
   {
@@ -146,6 +151,7 @@ export const cases: CaseStudy[] = [
     },
     tools: ["UI/UX", "Web Design"],
     image: "/cases/borusan-otomotiv.webp",
+    gallery: ["/cases/borusan-otomotiv.webp", "/cases/borusan-otomotiv-2.webp", "/cases/borusan-otomotiv-3.webp"],
     behanceUrl: "https://www.behance.net/gallery/83863797/Borusan-Otomotiv",
   },
   {
@@ -172,6 +178,7 @@ export const cases: CaseStudy[] = [
     },
     tools: ["Sketch", "InVision", "Photoshop"],
     image: "/cases/e-cuzdan.webp",
+    gallery: ["/cases/e-cuzdan.webp", "/cases/e-cuzdan-2.webp", "/cases/e-cuzdan-3.webp", "/cases/e-cuzdan-4.webp"],
     behanceUrl: "https://www.behance.net/gallery/125628811/E-Wallet",
   },
   {
@@ -198,6 +205,7 @@ export const cases: CaseStudy[] = [
     },
     tools: ["Sketch", "InVision"],
     image: "/cases/fotomac.webp",
+    gallery: ["/cases/fotomac.webp", "/cases/fotomac-2.webp", "/cases/fotomac-3.webp"],
     behanceUrl: "https://www.behance.net/gallery/18576975/wwwfotomaccomtr",
   },
 ];

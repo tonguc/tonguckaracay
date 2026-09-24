@@ -34,8 +34,8 @@ export default function CaseHighlights({ locale }: { locale: string }) {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-          {featuredCases.slice(0, 2).map((c) => (
-            <CaseCard key={c.slug} item={c} locale={loc} variant="compact" />
+          {featuredCases.slice(0, 2).map((c, i) => (
+            <CaseCard key={c.slug} item={c} locale={loc} variant="compact" index={i} />
           ))}
         </div>
       </div>

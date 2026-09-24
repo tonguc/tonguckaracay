@@ -46,8 +46,8 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
         </header>
 
         <div className="grid gap-6 md:grid-cols-2 md:gap-8 xl:grid-cols-3">
-          {cases.map((c) => (
-            <CaseCard key={c.slug} item={c} locale={locale} />
+          {cases.map((c, i) => (
+            <CaseCard key={c.slug} item={c} locale={locale} index={i} />
           ))}
         </div>
 
