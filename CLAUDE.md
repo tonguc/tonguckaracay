@@ -70,12 +70,12 @@ Persona: **e-ticaret + hizmet şirketleri**. İş modeli: **hibrit** (Ücretsiz 
 6. `WhyMe`
 7. `PreAudit` — lead magnet + hibrit başlangıç modeli
 8. `Testimonials` — liste boşken render edilmez
-9. `Insights` — işletme odaklı son 3 yazı (AI Lab yazıları hariç)
+9. `Insights` — en yeni 3 yazı (filtresiz — yeni yazı hemen görünür)
 10. `PersonalStory`, 11. `FinalCTASection`
 
 ### Vakalar, blog ayrımı, form
 - **Vakalar:** `lib/cases.ts` tek kaynak → `/vaka-calismalari` + `/en/case-studies` (`components/cases/`). İçerik behance.net/tonguc'taki teslim edilmiş işlerden; görseller `public/cases/*.webp` (CSP sadece yerel img'e izin verir). Şablon Hedef → Müdahale → Sonuç → Yorum; `results` / `testimonial` **gerçek, müşteri onaylı veri gelene kadar boş** — boşken UI'da görünmez.
-- **Blog ikiye ayrıldı:** `/blog` = İşletmeler İçin, `/blog?bolum=lab` (`/en/blog?section=lab`) = AI Lab. Ayrım `isLabPost()` (`lib/blog-utils.ts`): AI kategorisi + başlıkta model/araç/API anahtar kelimesi. Frontmatter `section: lab|business` ile elle ezilebilir. URL'ler değişmedi.
+- **Blog sekmeleri:** `/blog` = **Tümü (varsayılan, en yeni üstte — yeni yazılar asla gizlenmez)**, `/blog?bolum=isletme` (`/en/blog?section=business`) = İşletmeler İçin, `/blog?bolum=lab` (`/en/blog?section=lab`) = AI Lab. Ayrım `isLabPost()` (`lib/blog-utils.ts`): AI kategorisi + başlıkta model/araç/API anahtar kelimesi. Frontmatter `section: lab|business` ile elle ezilebilir. URL'ler değişmedi.
 - **Nav:** Hizmetler (3 ana teklif + diğerleri) / Vakalar / Blog / Hakkımda / İletişim. Ürünler + AI Eğitimi + AI Lab → footer "Lab" sütunu (sayfalar canlı).
 - **İletişim formu:** `components/ContactForm.tsx` (TR/EN ortak): site URL, aylık trafik, hedef, bütçe aralığı. `?konu=on-analiz` / `?topic=pre-audit` ön analizi seçer. `NEXT_PUBLIC_BOOKING_URL` (Calendly vb.) env'i tanımlanırsa form üstünde randevu linki çıkar (CSP yüzünden iframe değil, link). API girdileri HTML-escape eder.
 - `app/[locale]/[slug]/page.tsx`: `dynamicParams = false` — bilinmeyen URL'ler 500 yerine 404 döner.

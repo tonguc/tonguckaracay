@@ -14,18 +14,36 @@ type Props = {
   searchParams: { page?: string; bolum?: string; section?: string };
 };
 
-// Blog iki bölüm: işletme içerikleri (varsayılan) ve teknik AI içerikleri (AI Lab).
+// Varsayılan görünüm TÜM yazılar (en yeni en üstte). "İşletmeler İçin" ve "AI Lab" sadece filtre sekmeleri —
+// yeni yazılar (çoğu AI) varsayılan listeden asla düşmemeli.
+type View = 'all' | 'business' | 'lab';
 const sectionParam = (locale: Locale) => (locale === 'tr' ? 'bolum' : 'section');
-const isLabView = (locale: Locale, sp: Props['searchParams']) => (locale === 'tr' ? sp.bolum : sp.section) === 'lab';
-const postsFor = (locale: Locale, lab: boolean) => getAllPosts(locale).filter((p) => isLabPost(p) === lab);
+const businessValue = (locale: Locale) => (locale === 'tr' ? 'isletme' : 'business');
+const getView = (locale: Locale, sp: Props['searchParams']): View => {
+  const v = locale === 'tr' ? sp.bolum : sp.section;
+  if (v === 'lab') return 'lab';
+  if (v === businessValue(locale)) return 'business';
+  return 'all';
+};
+const viewQuery = (locale: Locale, view: View) =>
+  view === 'all' ? '' : `${sectionParam(locale)}=${view === 'lab' ? 'lab' : businessValue(locale)}`;
+const withQuery = (path: string, query: string, page = 1) => {
+  const parts = [query, page > 1 ? `page=${page}` : ''].filter(Boolean);
+  return parts.length ? `${path}?${parts.join('&')}` : path;
+};
+const postsFor = (locale: Locale, view: View) => {
+  const all = getAllPosts(locale);
+  if (view === 'all') return all;
+  return all.filter((p) => isLabPost(p) === (view === 'lab'));
+};
 
 export async function generateMetadata({ params: { locale }, searchParams }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'blog' });
-  const lab = isLabView(locale, searchParams);
+  const view = getView(locale, searchParams);
+  const lab = view === 'lab';
   const currentPage = Math.max(1, parseInt(searchParams.page || '1', 10));
   const root = locale === 'tr' ? 'https://tonguckaracay.com/blog' : 'https://tonguckaracay.com/en/blog';
-  const basePath = lab ? `${root}?${sectionParam(locale)}=lab` : root;
-  const canonical = currentPage === 1 ? basePath : `${basePath}${lab ? '&' : '?'}page=${currentPage}`;
+  const canonical = withQuery(root, viewQuery(locale, view), currentPage);
 
   return {
     title: lab
@@ -45,13 +63,15 @@ export async function generateMetadata({ params: { locale }, searchParams }: Pro
 export default async function BlogPage({ params: { locale }, searchParams }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('blog');
-  const lab = isLabView(locale, searchParams);
-  const allPosts = postsFor(locale, lab);
+  const view = getView(locale, searchParams);
+  const lab = view === 'lab';
+  const allPosts = postsFor(locale, view);
   const blogRoot = locale === 'tr' ? '/blog' : '/en/blog';
-  const tabs = [
-    { label: locale === 'tr' ? 'İşletmeler İçin' : 'For Businesses', href: blogRoot, active: !lab },
-    { label: 'AI Lab', href: `${blogRoot}?${sectionParam(locale)}=lab`, active: lab },
-  ];
+  const tabs = (['all', 'business', 'lab'] as View[]).map((v) => ({
+    label: v === 'all' ? (locale === 'tr' ? 'Tümü' : 'All') : v === 'business' ? (locale === 'tr' ? 'İşletmeler İçin' : 'For Businesses') : 'AI Lab',
+    href: withQuery(blogRoot, viewQuery(locale, v)),
+    active: view === v,
+  }));
 
   // Pagination
   const currentPage = Math.max(1, parseInt(searchParams.page || '1', 10));
@@ -111,7 +131,7 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <Pagination currentPage={currentPage} totalPages={totalPages} locale={locale} lab={lab} />
+          <Pagination currentPage={currentPage} totalPages={totalPages} locale={locale} query={viewQuery(locale, view)} />
         )}
       </div>
     </div>
@@ -226,18 +246,14 @@ function BlogCard({ post, index, locale, t }: {
   );
 }
 
-function Pagination({ currentPage, totalPages, locale, lab }: {
+function Pagination({ currentPage, totalPages, locale, query }: {
   currentPage: number;
   totalPages: number;
   locale: Locale;
-  lab: boolean;
+  query: string;
 }) {
   const root = locale === 'tr' ? '/blog' : '/en/blog';
-  const basePath = lab ? `${root}?${sectionParam(locale)}=lab` : root;
-  const getPageUrl = (page: number) => {
-    if (page === 1) return basePath;
-    return `${basePath}${lab ? '&' : '?'}page=${page}`;
-  };
+  const getPageUrl = (page: number) => withQuery(root, query, page);
   const pages = [];
   for (let i = 1; i <= totalPages; i++) { pages.push(i); }
 

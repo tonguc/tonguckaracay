@@ -1,18 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import { getAllPosts, isLabPost } from "@/lib/blog-utils";
+import { getAllPosts } from "@/lib/blog-utils";
 
 interface Props {
   locale: string;
 }
 
 /**
- * Insights — işletme odaklı en yeni 3 yazı (teknik AI yazıları AI Lab'da, burada gösterilmez).
+ * Insights — en yeni 3 yazı (filtre yok; yeni yayınlanan yazı her zaman burada görünür).
  */
 export default function Insights({ locale }: Props) {
   const isTr = locale === "tr";
-  const posts = getAllPosts(isTr ? "tr" : "en").filter((p) => !isLabPost(p)).slice(0, 3);
+  const posts = getAllPosts(isTr ? "tr" : "en").slice(0, 3);
   const blogPath = isTr ? "/blog" : "/en/blog";
 
   if (posts.length === 0) return null;
