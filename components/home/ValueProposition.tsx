@@ -45,11 +45,11 @@ export default function ValueProposition({ locale }: Props) {
             <h1 className="font-display text-2xl font-bold leading-tight text-white sm:text-3xl md:text-[32px]">
               {isTr ? (
                 <>
-                  Trafiği Değil, <span className="text-gradient">Satışı Büyütüyorum</span>
+                  Daha Fazla Trafik, <span className="text-gradient">Daha Fazla Gelir</span>
                 </>
               ) : (
                 <>
-                  I Grow <span className="text-gradient">Sales</span>, Not Just Traffic
+                  More Traffic, <span className="text-gradient">More Revenue</span>
                 </>
               )}
             </h1>
@@ -67,8 +67,8 @@ export default function ValueProposition({ locale }: Props) {
 
             <p className="mt-2 max-w-md text-sm leading-relaxed text-primary-300 md:mt-3 md:text-base">
               {isTr
-                ? "UX, SEO ve yapay zekayla web sitenizi müşteri getiren bir satış kanalına dönüştürüyorum."
-                : "With UX, SEO and AI, I turn your website into a sales channel that brings in customers."}
+                ? "UX, SEO ve yapay zekayla sitenize daha fazla ziyaretçi çekiyor, o ziyaretçiyi gelire dönüştürüyorum."
+                : "With UX, SEO and AI, I bring more visitors to your site and turn them into revenue."}
             </p>
 
             <div className="mt-4 grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:gap-3">
