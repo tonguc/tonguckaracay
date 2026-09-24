@@ -26,13 +26,9 @@ export default function Footer() {
     ...offers.map((o) => ({ name: o.name[loc], href: o.href[loc] })),
     ...(locale === 'tr' ? [
       { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" },
-      { name: "Online Reklamcılık", href: "/hizmetler/online-reklamcilik" },
-      { name: "Sosyal Medya Yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
-    ] : [
+        ] : [
       { name: "GEO Optimization", href: "/en/services/geo-optimization" },
-      { name: "Online Advertising", href: "/en/services/online-advertising" },
-      { name: "Social Media Management", href: "/en/services/social-media-management" },
-    ]),
+        ]),
   ];
 
   // Lab — danışmanlık alıcısının ana yolundan çıkarılan ürünler, eğitim ve teknik AI yazıları

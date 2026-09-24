@@ -18,14 +18,14 @@ interface Props {
 export default function ValueProposition({ locale }: Props) {
   const isTr = locale === "tr";
   const loc = isTr ? "tr" : "en";
-  const skills = offers.map((o) => o.name[loc]);
+  const skills = offers.map((o) => o.short[loc]);
 
   // Her rakamın altında kanıt satırı — sadece sitede zaten yer alan bilgiler.
   const stats = [
-    { to: 25, label: isTr ? "Yıl Deneyim" : "Years of Experience", proof: isTr ? "Türk Hava Yolları'ndan BMW'ye" : "From Turkish Airlines to BMW" },
-    { to: 500, label: isTr ? "Teslim Edilen Proje" : "Projects Delivered", proof: isTr ? "Web, mobil, tablet ve Smart TV" : "Web, mobile, tablet and Smart TV" },
-    { to: 100, label: isTr ? "Marka" : "Brands", proof: isTr ? "Medya, otomotiv, fintech, kamu" : "Media, automotive, fintech, public" },
-    { to: 12, label: isTr ? "Ülke" : "Countries", proof: isTr ? "ABD, İngiltere, Almanya, Kanada…" : "US, UK, Germany, Canada…" },
+    { to: 25, short: isTr ? "Yıl" : "Years", label: isTr ? "Yıl Deneyim" : "Years of Experience", proof: isTr ? "Türk Hava Yolları'ndan BMW'ye" : "From Turkish Airlines to BMW" },
+    { to: 500, short: isTr ? "Proje" : "Projects", label: isTr ? "Teslim Edilen Proje" : "Projects Delivered", proof: isTr ? "Web, mobil, tablet ve Smart TV" : "Web, mobile, tablet and Smart TV" },
+    { to: 100, short: isTr ? "Marka" : "Brands", label: isTr ? "Marka" : "Brands", proof: isTr ? "Medya, otomotiv, fintech, kamu" : "Media, automotive, fintech, public" },
+    { to: 12, short: isTr ? "Ülke" : "Countries", label: isTr ? "Ülke" : "Countries", proof: isTr ? "ABD, İngiltere, Almanya, Kanada…" : "US, UK, Germany, Canada…" },
   ];
 
   return (
@@ -117,17 +117,19 @@ export default function ValueProposition({ locale }: Props) {
         </div>
 
         {/* İstatistikler — ayrı, büyük rakamlı kutular + kanıt satırı */}
-        <div className="mt-3 grid grid-cols-2 gap-2.5 md:mt-6 md:grid-cols-4 md:gap-4">
+        <div className="mt-3 grid grid-cols-4 gap-1.5 sm:gap-2.5 md:mt-6 md:gap-4">
           {stats.map((st) => (
             <div
               key={st.label}
-              className="group relative overflow-hidden rounded-2xl border border-surface-border/60 bg-surface-card/50 px-4 py-3 transition-colors hover:border-accent-500/40 md:p-6"
+              className="group relative overflow-hidden rounded-xl border border-surface-border/60 bg-surface-card/50 sm:rounded-2xl px-1 py-2.5 text-center transition-colors hover:border-accent-500/40 sm:px-4 sm:py-3 md:p-6 md:text-left"
             >
               <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-accent-500/10 blur-2xl transition-colors group-hover:bg-accent-500/25" />
-              <p className="text-gradient font-display text-[28px] font-extrabold leading-none md:text-5xl">
+              <p className="text-gradient font-display text-xl font-extrabold leading-none sm:text-3xl md:text-5xl">
                 <StatCounter to={st.to} suffix="+" />
               </p>
-              <p className="mt-1.5 text-xs font-semibold text-white md:mt-2 md:text-base">{st.label}</p>
+              <p className="mt-1 text-[10px] font-semibold leading-tight text-white sm:mt-1.5 sm:text-xs md:mt-2 md:text-base"><span className="sm:hidden">{st.short}</span>
+                <span className="hidden sm:inline">{st.label}</span>
+              </p>
               <p className="mt-1 hidden text-xs leading-snug text-primary-400 sm:block md:text-sm">{st.proof}</p>
             </div>
           ))}

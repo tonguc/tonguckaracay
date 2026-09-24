@@ -12,7 +12,7 @@
 export type Locale = "tr" | "en";
 type L<T = string> = Record<Locale, T>;
 
-export type OfferKey = "seo-geo" | "ux-conversion" | "ai-growth";
+export type OfferKey = "seo-geo" | "ux-conversion" | "ai-growth" | "social" | "ai-ads";
 
 export interface CaseResult {
   value: string; // örn. "+38%"

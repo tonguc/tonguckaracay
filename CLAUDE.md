@@ -64,7 +64,7 @@ Ana sayfa premium kişisel-marka / danışmanlık formatında yeniden tasarland�
 Persona: **e-ticaret + hizmet şirketleri**. İş modeli: **hibrit** (Ücretsiz Ön Analiz → Yol Haritası → Aylık Büyüme Ortaklığı).
 1. `ValueProposition` — (müsaitlik rozeti YOK — kullanıcı istemedi) tek H1 ("Daha Fazla Trafik, Daha Fazla Gelir"), persona cümlesi, 3 teklif etiketi, CTA: Ücretsiz Ön Analiz + Vakalar. Mobilde kompakt tutulur.
 2. `TrustedBy` — kompakt marka şeridi (tam liste Hakkımda sayfasında)
-3. `Offers` — 3 ana teklif kartı (`lib/offers.ts`: SEO & GEO Büyüme / UX & Dönüşüm / AI Büyüme Sistemleri) + "Ayrıca" diğer hizmetler
+3. `Offers` — başlık "Hangi Alanda Büyümek İstiyorsunuz?"; AI Otomasyon Sistemleri üstte tam genişlik öne çıkan kart (+ AI Eğitimi linki), altında 4 eşit kutu: SEO & GEO / UX & Dönüşüm / Sosyal Medya / AI Destekli Reklam (`lib/offers.ts`)
 4. `CaseHighlights` — 6 vaka carousel'ı (compact) + `PortfolioMarquee` akan portfolyo şeridi
 5. `Engagement` — 1. Hafta → 2. Hafta → 3–6. Hafta → 2. Ay+ süreci (KORUNACAK)
 6. `WhyMe`

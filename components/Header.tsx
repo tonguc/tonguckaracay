@@ -18,17 +18,13 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  // Üstte 3 ana teklif (lib/offers.ts), altta diğer hizmetler
+  // Üstte ana teklifler (lib/offers.ts), altta diğer hizmetler
   const loc = locale === 'tr' ? 'tr' : 'en';
   const mainServices = offers.map((o) => ({ name: o.name[loc], href: o.href[loc] }));
   const otherServices = locale === 'tr' ? [
     { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" },
-    { name: "Online Reklamcılık", href: "/hizmetler/online-reklamcilik" },
-    { name: "Sosyal Medya Yönetimi", href: "/hizmetler/sosyal-medya-yonetimi" },
   ] : [
     { name: "GEO Optimization", href: "/en/services/geo-optimization" },
-    { name: "Online Advertising", href: "/en/services/online-advertising" },
-    { name: "Social Media Management", href: "/en/services/social-media-management" },
   ];
   const otherLabel = locale === 'tr' ? 'Diğer hizmetler' : 'Other services';
 
