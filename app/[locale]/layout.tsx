@@ -83,8 +83,8 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
               "name": "Tonguç Karaçay",
               "url": "https://tonguckaracay.com",
               "image": "https://tonguckaracay.com/tonguc-karacay.jpg",
-              "jobTitle": "SEO, GEO & UX Growth Consultant",
-              "description": "E-ticaret ve hizmet şirketlerine SEO, GEO, UX ve yapay zeka otomasyonuyla trafik ve gelir büyümesi sağlayan, 25+ yıllık deneyime sahip bağımsız danışman. Türk Hava Yolları, BMW ve Borusan Otomotiv gibi markalarla çalıştı.",
+              "jobTitle": "UX Design, SEO & GEO Consultant",
+              "description": "UX/UI tasarım, SEO, GEO ve dijital pazarlama alanlarında 25+ yıllık deneyime sahip bağımsız danışman. Markaların Google’da ve yapay zeka aramalarında görünür olmasını sağlar.",
               "knowsAbout": [
                 "SEO", "Generative Engine Optimization", "UX Design",
                 "Conversion Rate Optimization", "AI Automation", "Google Ads",
