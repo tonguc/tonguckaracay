@@ -42,6 +42,7 @@ def load_config(path="config-tc.env"):
         pass
     for key in ['TELEGRAM_BOT_TOKEN','TELEGRAM_ALLOWED_IDS','ANTHROPIC_API_KEY',
                 'GITHUB_TOKEN','GITHUB_REPO','GITHUB_BRANCH','SERPAPI_KEY',
+                'DATAFORSEO_LOGIN','DATAFORSEO_PASSWORD',
                 'DAILY_POST_HOUR','DAILY_POST_MINUTE']:
         if os.environ.get(key):
             cfg[key] = os.environ[key]
@@ -60,6 +61,8 @@ GH_REPO    = config.get("GITHUB_REPO","tonguc/tonguckaracay")
 GH_BRANCH  = config.get("GITHUB_BRANCH","main")
 GH_TOKEN   = config.get("GITHUB_TOKEN","")
 SERP_KEY   = config.get("SERPAPI_KEY","")
+DFS_LOGIN  = config.get("DATAFORSEO_LOGIN","")
+DFS_PASS   = config.get("DATAFORSEO_PASSWORD","")
 DAILY_H    = int(config.get("DAILY_POST_HOUR","7"))
 DAILY_M    = int(config.get("DAILY_POST_MINUTE","0"))
 
@@ -338,6 +341,81 @@ def fetch_competitor(url: str, max_chars: int = 4000) -> tuple[str, int]:
         logger.warning(f"Rakip fetch hatası {url}: {e}")
         return "", 0
 
+def fetch_outline(url: str, max_headings: int = 14) -> tuple[list[str], int]:
+    """Rakip sayfanın H2/H3 iskeleti + kelime sayısı. /fikir'deki gap iddialarını
+    başlık tahmini yerine rakibin GERÇEK içerik yapısına dayandırmak için."""
+    try:
+        headers = {"User-Agent": "Mozilla/5.0 (compatible; research-bot/1.0)"}
+        r = requests.get(url, headers=headers, timeout=10)
+        soup = BeautifulSoup(r.text, "html.parser")
+        for tag in soup(["script","style","nav","footer","header","aside","form"]):
+            tag.decompose()
+        heads = []
+        for h in soup.find_all(["h2", "h3"]):
+            t = re.sub(r'\s+', ' ', h.get_text(" ", strip=True))
+            if 3 <= len(t) <= 120 and t not in heads:
+                heads.append(t)
+            if len(heads) >= max_headings:
+                break
+        word_count = len(soup.get_text(" ", strip=True).split())
+        return heads, word_count
+    except Exception as e:
+        logger.warning(f"Rakip outline hatası {url}: {e}")
+        return [], 0
+
+# ── ARAMA HACMİ (DataForSEO — Google Ads verisi) ─────────────────────────────
+# SerpAPI gerçek sorguları verir ama HACİM vermez. Hacim için DataForSEO
+# Google Ads search_volume endpoint'i kullanılır. Kimlik bilgisi yoksa sessizce
+# atlanır (bot hacimsiz eski davranışla çalışmaya devam eder).
+
+_DFS_LOC = {"tr": (2792, "tr"), "en": (2840, "en")}   # Türkiye / ABD
+
+def _clean_kw(kw: str) -> str:
+    """Google Ads'in reddettiği karakterleri at, 80 karakter / 10 kelime sınırı."""
+    kw = re.sub(r"[^\w\s\-']", " ", kw or "", flags=re.UNICODE)
+    kw = re.sub(r"\s+", " ", kw).strip().lower()
+    return " ".join(kw.split()[:10])[:80]
+
+def keyword_volumes(keywords: list[str], lang: str = "tr") -> dict:
+    """{temizlenmiş_kw: aylık_hacim|None} döner. None = Google Ads'te veri yok.
+    Kimlik yoksa veya API hatasında {} döner."""
+    if not (DFS_LOGIN and DFS_PASS):
+        return {}
+    clean = []
+    for k in keywords:
+        c = _clean_kw(k)
+        if c and c not in clean:
+            clean.append(c)
+    if not clean:
+        return {}
+    loc, lang_code = _DFS_LOC.get(lang, _DFS_LOC["tr"])
+    try:
+        r = requests.post(
+            "https://api.dataforseo.com/v3/keywords_data/google_ads/search_volume/live",
+            auth=(DFS_LOGIN, DFS_PASS), timeout=60,
+            json=[{"keywords": clean[:700], "location_code": loc, "language_code": lang_code}])
+        data = r.json()
+        task = (data.get("tasks") or [{}])[0]
+        if task.get("status_code") != 20000:
+            logger.warning(f"DataForSEO hatası: {task.get('status_code')} {task.get('status_message')}")
+            return {}
+        out = {c: None for c in clean}
+        for item in task.get("result") or []:
+            out[_clean_kw(item.get("keyword", ""))] = item.get("search_volume")
+        return out
+    except Exception as e:
+        logger.warning(f"DataForSEO isteği başarısız: {e}")
+        return {}
+
+def fmt_volume(vols: dict, kw: str) -> str:
+    """Hacim etiketini insan-okur formatta döner ('1.900/ay', '<10/ay', 'veri yok')."""
+    v = vols.get(_clean_kw(kw), "yok")
+    if v == "yok" or v is None:
+        return "veri yok"
+    if v < 10:
+        return "<10/ay"
+    return f"{v:,}".replace(",", ".") + "/ay"
+
 def _classify_intent(titles: list[str], related: list[str]) -> str:
     """SERP başlık ve sorgulardan search intent çıkarır."""
     all_text = " ".join(titles + related).lower()
@@ -433,7 +511,7 @@ def harvest_keyword_pool(seeds: list[str], lang: str = "tr", expand: int = 0) ->
     expand>0 ise 2-aşamalı: ilk turdan sonra en güçlü `expand` ilgili sorgu
     ikinci-seviye seed olarak da taranır → çok daha fazla FARKLI gerçek sorgu
     (tek-seed konularda keyword cannibalization'ı önler)."""
-    titles, questions, searches = [], [], []
+    titles, questions, searches, urls = [], [], [], []
     seen_t, seen_q, seen_seed = set(), set(), set()
 
     def _scan(seed: str):
@@ -445,6 +523,9 @@ def harvest_keyword_pool(seeds: list[str], lang: str = "tr", expand: int = 0) ->
         if not serp:
             return
         for res in serp.get("results", []):
+            # Rakip URL'leri sadece İLK (asıl) seed'den — gap kanıtı için outline çekilir
+            if len(seen_seed) == 1 and res.get("url") and len(urls) < 3:
+                urls.append((res.get("title", ""), res["url"]))
             t = (res.get("title") or "").strip()
             tk = t.lower()
             if t and tk not in seen_t:
@@ -464,7 +545,7 @@ def harvest_keyword_pool(seeds: list[str], lang: str = "tr", expand: int = 0) ->
         # ilk turun en güçlü ilgili sorgularını ikinci-seviye seed yap (PAA önce)
         for s in (questions + searches)[:expand]:
             _scan(s)
-    return {"titles": titles, "questions": questions, "searches": searches}
+    return {"titles": titles, "questions": questions, "searches": searches, "urls": urls}
 
 def _chunk_telegram(text: str, limit: int = 4000) -> list[str]:
     """Telegram 4096 karakter limiti için metni TAM fikir sınırlarından böler —
@@ -1104,6 +1185,7 @@ async def cmd_durum(u, _):
         f"🇹🇷 TR: `{len(tr)}` yazı\n"
         f"🇬🇧 EN: `{len(en)}` yazı\n"
         f"🔍 SerpAPI: `{'aktif' if SERP_KEY else 'pasif'}`\n"
+        f"📊 Hacim (DataForSEO): `{'aktif' if (DFS_LOGIN and DFS_PASS) else 'pasif'}`\n"
         f"🕐 UTC: `{datetime.utcnow().strftime('%H:%M')}`\n",
         parse_mode="Markdown")
 
@@ -1646,6 +1728,27 @@ async def cmd_hero(u, ctx):
         await msg.edit_text("⚠️ Push başarısız. `agent.log` kontrol et.")
 
 
+_TARGET_RE = re.compile(r"^(🔑 Hedef sorgu:\s*)(.+?)\s*$", re.MULTILINE)
+
+def annotate_volumes(ideas: str, vols: dict) -> str:
+    """Her '🔑 Hedef sorgu' satırının altına Google Ads TR hacmini ekler.
+    Model varyant sorgu türetmiş olabilir → havuzda olmayan hedefler için ikinci
+    bir hacim sorgusu yapılır. Hacim modelden DEĞİL, API'den gelir."""
+    if not (DFS_LOGIN and DFS_PASS):
+        return ideas
+    strip_q = lambda t: t.strip().strip("\"'`*")
+    targets = [strip_q(m.group(2)) for m in _TARGET_RE.finditer(ideas)]
+    missing = [t for t in targets if _clean_kw(t) not in vols]
+    if missing:
+        vols = {**vols, **keyword_volumes(missing, "tr")}
+    if not vols:
+        return ideas
+    def _sub(m):
+        vol = fmt_volume(vols, strip_q(m.group(2)))
+        return f"{m.group(1)}{m.group(2)}\n📊 Hacim (Google Ads TR): {vol}"
+    return _TARGET_RE.sub(_sub, ideas)
+
+
 async def cmd_fikir(u, ctx):
     if not auth(u): return await deny(u)
     konu = " ".join(ctx.args).strip() if ctx.args else ""
@@ -1663,18 +1766,58 @@ async def cmd_fikir(u, ctx):
     expand = 3 if konu else 0
     pool = await loop.run_in_executor(None, lambda: harvest_keyword_pool(seeds, "tr", expand))
 
+    # ARAMA HACMİ — havuzdaki gerçek sorgular (+ tohum konu) için Google Ads hacmi.
+    qs, ss = pool["questions"][:18], pool["searches"][:18]
+    vols = await loop.run_in_executor(
+        None, lambda: keyword_volumes(([konu] if konu else []) + qs + ss, "tr"))
+    vtag = (lambda q: f" [hacim: {fmt_volume(vols, q)}]") if vols else (lambda q: "")
+
+    # GAP KANITI — asıl seed'in ilk 3 rakibinin gerçek H2/H3 iskeleti.
+    outlines = []
+    for title, url in pool.get("urls", [])[:3]:
+        heads, wc = await loop.run_in_executor(None, lambda url=url: fetch_outline(url))
+        if heads:
+            outlines.append((title, url, heads, wc))
+
     pool_block = ""
     if pool["questions"] or pool["searches"] or pool["titles"]:
         pool_block = "GERÇEK ARAMA VERİSİ (SERP'ten toplandı — fikirler BUNLARA dayanmalı):\n"
-        if pool["questions"]:
+        if konu and vols:
+            pool_block += f"\nTohum konu hacmi: {konu}{vtag(konu)}\n"
+        if qs:
             pool_block += "\nİnsanların sorduğu sorular (PAA):\n" + \
-                "\n".join(f"- {q}" for q in pool["questions"][:18])
-        if pool["searches"]:
+                "\n".join(f"- {q}{vtag(q)}" for q in qs)
+        if ss:
             pool_block += "\n\nİlgili aramalar:\n" + \
-                "\n".join(f"- {s}" for s in pool["searches"][:18])
+                "\n".join(f"- {s}{vtag(s)}" for s in ss)
         if pool["titles"]:
             pool_block += "\n\nİlk sıradaki rakip başlıkları:\n" + \
                 "\n".join(f"- {t}" for t in pool["titles"][:10])
+    if outlines:
+        pool_block += "\n\nRAKİP İÇERİK KANITI (ilk sıradaki sayfaların GERÇEK H2/H3 başlıkları):"
+        for i, (title, url, heads, wc) in enumerate(outlines, 1):
+            pool_block += f"\nRakip #{i}: {title} (~{wc} kelime)\n" + \
+                "\n".join(f"  · {h}" for h in heads)
+
+    # Tohum niyeti: kullanıcının yazdığı konu zaten bir arama niyeti. Liste/sayı
+    # içeriyorsa ("claude için önemli 20 mcp") 1. öneri o formatı birebir karşılamalı —
+    # yoksa uzun-kuyruk + açı çeşitliliği kuralları asıl istenen yazıyı eliyordu.
+    seed_rule = ""
+    if konu:
+        is_list = bool(re.search(r"\b\d+\b", konu)) or any(
+            w in konu.lower() for w in ("en iyi", "önemli", "liste", "top ", "best ", "araçları", "örnekleri"))
+        fmt_hint = ("LİSTE formatında (örn. 'X için En İyi/Önemli N Y' — konudaki sayıyı koru)"
+                    if is_list else "konunun kendi arama niyetini birebir karşılayan formatta")
+        seed_rule = f"""0. TOHUM NİYETİNİ KORU (EN ÖNCELİKLİ): Kullanıcının yazdığı "{konu}" kendisi bir arama niyeti. 1. öneri bu konuyu {fmt_hint} doğrudan hedeflesin; 🔑 Hedef sorgu konunun kendisi ya da en yakın gerçek varyantı olsun. Kural 3 (4+ kelime) ve kural 8 (açı çeşitliliği) SADECE bu 1. öneri için geçerli değildir. Bu konu zaten yazılmışsa bunu açıkça belirtip atla.
+"""
+
+    vol_rule = ""
+    if vols:
+        vol_rule = """10. HACİM (Google Ads, Türkiye aylık): Sorguların yanındaki [hacim: ...] gerçek veridir. Hacmi olan sorguları önceliklendir; "<10/ay" veya "veri yok" sorguyu ancak BOFU + net iş değeri varsa seç ve bunu 💼 satırında gerekçelendir. Hacim uydurma — rakam yazma, sistem kendisi ekleyecek.
+"""
+    gap_rule = ("GAP İDDİASI KANITLI OLMALI: '🏆' satırında rakip eksikliği iddia ediyorsan RAKİP İÇERİK KANITI'ndaki başlıklara dayandır ve 'Kanıt: Rakip #N ...' diye belirt. Kanıtta görünmüyorsa 'doğrulanmadı' yaz; 'hiçbir rakip X'e değinmiyor' gibi mutlak iddiayı sadece 3 rakibin başlıkları da bunu gösteriyorsa kur."
+                if outlines else
+                "GAP İDDİASI: Rakip içerik gövdesi çekilemedi — eksiklik iddialarını 'başlıklara göre, doğrulanmadı' diye işaretle, mutlak iddia kurma.")
 
     # Zaten yazılmış sluglar — tekrar önermemek için (content gap analizi)
     used_slugs = gh_slugs("tr")
@@ -1693,7 +1836,7 @@ Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimc
 {used_block}
 
 ÇALIŞMA YÖNTEMİ — KESİN KURALLAR:
-1. KAYNAK GERÇEK VERİ: Her öneri YUKARIDAKİ gerçek arama verisindeki bir soru/sorguya dayanmalı. Uydurma "tahmini keyword" YASAK — hangi gerçek sorguyu hedeflediğini birebir yaz. Veri zayıfsa o sorgunun mantıklı uzun-kuyruk varyantını türet.
+{seed_rule}1. KAYNAK GERÇEK VERİ: Her öneri YUKARIDAKİ gerçek arama verisindeki bir soru/sorguya dayanmalı. Uydurma "tahmini keyword" YASAK — hangi gerçek sorguyu hedeflediğini birebir yaz. Veri zayıfsa o sorgunun mantıklı uzun-kuyruk varyantını türet.
 2. HER FİKİR AYRI SERP: 7 öneri 7 FARKLI arama sorgusunu/SERP'i hedeflesin. Aynı yazının sadece kitlesini değiştirme — "küçük şirketler için", "X sektörü için" gibi yüzeysel kitle-varyasyonu YASAK.
 3. UZUN KUYRUK + DÜŞÜK REKABET + YÜKSEK NİYET: 4+ kelimeli spesifik sorgular; büyük medya/markaların doymadığı nişler; arayanın danışmanlık/satın alma niyeti yüksek olsun.
 4. CONTENT GAP: Rakiplerin zayıf/eksik bıraktığı VE sitede zaten yazılmamış açıları seç.
@@ -1711,6 +1854,8 @@ Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimc
    • Karar çerçevesi / framework
    ZORUNLU: 7 önerinin EN FAZLA 2'si bir kitle-persona'sı (KOBİ/e-ticaret/freelancer) etrafında kurulabilir. Geri kalanı persona-bağımsız olsun. Başlıkları "...ler için" kalıbıyla BAŞLATMA.
 9. SORGU YAMYAMLIĞI (CANNIBALIZATION) YASAK: Aynı kök/head sorguyu (örn. "yapay zeka mühendisliği") BİRDEN FAZLA öneride hedefleme — Google'da yazılar birbirini yer. Her öneri AYRI bir kök sorgu + long-tail almalı. Parantez içine "(uygulama sırasında karşılaşılan problem)" gibi niyet ekleyerek aynı head sorguyu farklı gösterme KESİNLİKLE YASAK; `🔑 Hedef sorgu` gerçekten farklı bir kelime öbeği olmalı. Havuzda yeterli sayıda FARKLI gerçek sorgu yoksa, 7'ye zorlama — 4-5 gerçekten ayrık öneri, 7 çakışan öneriden iyidir.
+{vol_rule}
+{gap_rule}
 
 Her öneri için TAM OLARAK şu format (başlık ** ile sarılı, BAŞLIKTA YIL YOK):
 
@@ -1718,7 +1863,7 @@ Her öneri için TAM OLARAK şu format (başlık ** ile sarılı, BAŞLIKTA YIL 
 🎬 Açı: (problem / hata / karşılaştırma / süreç / veri-benchmark / vaka / tanım / framework — kural 8'den, her öneri farklı olsun)
 🔑 Hedef sorgu: (yukarıdaki veriden birebir veya çok yakın varyant)
 🧭 Intent/Funnel: informational|commercial|transactional / TOFU|MOFU|BOFU
-🏆 SERP fırsatı + gap: (featured snippet / PAA / zayıf rakip — eksik açı tek cümle)
+🏆 SERP fırsatı + gap: (featured snippet / PAA / zayıf rakip — eksik açı tek cümle + 'Kanıt: Rakip #N …' veya 'doğrulanmadı')
 🔗 Cluster + iç link: (hangi ana/pillar konuya bağlanır, hangi mevcut yazıya link)
 💼 İş değeri: (bu yazı danışmanlık satışına nasıl hizmet eder — tek cümle)
 
@@ -1726,10 +1871,11 @@ Sadece 7 öneriyi bu formatta listele, başka açıklama ekleme."""
 
     try:
         resp = await loop.run_in_executor(None, lambda: _claude_create(
-            model="claude-sonnet-4-5", max_tokens=2600,
+            model="claude-sonnet-4-5", max_tokens=3400,
             messages=[{"role": "user", "content": prompt}]
         ))
         ideas = resp.content[0].text.strip()
+        ideas = await loop.run_in_executor(None, lambda: annotate_volumes(ideas, vols))
 
         # Başlıkları parse et ve hafızaya kaydet (sayı ile seçim için)
         titles = re.findall(r'\*\*\d+\.\s+(.+?)\*\*', ideas)
