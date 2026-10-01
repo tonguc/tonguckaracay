@@ -2,11 +2,11 @@
 title: "Yapay Zeka ve SEO: Uygulanabilir Stratejiler ve Araçlar"
 slug: "yapay-zeka-seo-uygulama-rehberi"
 description: "Yapay zeka ile SEO nasıl yapılır? ChatGPT, Gemini ve Perplexity için içerik optimizasyonu, hazır promptlar, şablonlar ve kanıtlanmış stratejiler."
-date: "2026-10-01"
+date: "2026-10-01T18:23:23Z"
 category: "SEO"
 readTime: "11 dk"
 featured: false
-image: "https://images.unsplash.com/photo-1516116216624-53ad697a8648?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "ai-seo-strategy-implementation-guide"
 tags: ["Yapay Zeka", "SEO", "ChatGPT", "GEO", "İçerik Optimizasyonu"]
 faq:

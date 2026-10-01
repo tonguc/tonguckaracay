@@ -2,11 +2,11 @@
 title: "AI SEO Strategy: Implementation Guide for Search Success"
 slug: "ai-seo-strategy-implementation-guide"
 description: "Master AI-powered SEO with actionable strategies, ready-to-use prompts, and proven frameworks for Google AI Overviews, semantic search, and content automation."
-date: "2026-10-01"
+date: "2026-10-01T18:23:23Z"
 category: "SEO"
 readTime: "14 min"
 featured: false
-image: "https://images.unsplash.com/photo-1516116216624-53ad697a8648?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "yapay-zeka-seo-uygulama-rehberi"
 faq:
   - question: "How does AI SEO differ from traditional SEO practices?"

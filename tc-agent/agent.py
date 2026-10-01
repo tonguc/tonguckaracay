@@ -849,7 +849,8 @@ def get_internal_links(lang="tr") -> str:
         return ""
 
 # ── BLOG ÜRETİCİ ─────────────────────────────────────────────────────────────
-# Kategori bazlı görsel havuzu. Her kategoride 6 ID var.
+# Kategori bazlı görsel havuzu (Ekim 2026: Unsplash'ten kaldırılan 11 ID temizlendi;
+# pick_image ayrıca seçtiği görselin açıldığını kontrol eder).
 # pick_image(topic, index): kategoriye uygun görsel seçer, index ile offset
 # verir → aynı kategoride bile farklı yazılar farklı görsel alır.
 CATEGORY_IMAGES: dict[str, list[str]] = {
@@ -857,13 +858,10 @@ CATEGORY_IMAGES: dict[str, list[str]] = {
         "1504868584819-f8e8b4b6d7e3",
         "1432888498266-38ffec3eaf0a",
         "1519389950473-47ba0277781c",
-        "1571721795195-a2ca2d3370e9",
         "1553877522-43269d4ea984",
-        "1516116216624-53ad697a8648",
     ],
     "google": [
         "1611162617213-7d7a39e9b1d7",
-        "1549924231-f129b911d442",
         "1497366811353-6870744d04b2",
         "1516251193007-45ef944ab0c6",
         "1520333789090-1afc82db536a",
@@ -873,9 +871,6 @@ CATEGORY_IMAGES: dict[str, list[str]] = {
         "1563986768609-322da13575f3",
         "1516251193007-45ef944ab0c6",
         "1520333789090-1afc82db536a",
-        "1526178613658-3f1622045557",
-        "1562577309-4f401e5e5b31",
-        "1553484771-047a44eab61a",
     ],
     "market": [
         "1533750349088-cd871a92f312",
@@ -887,11 +882,8 @@ CATEGORY_IMAGES: dict[str, list[str]] = {
     ],
     "design": [
         "1561070791-2526d30994b5",
-        "1558655702-b1a49a557e15",
         "1541462608143-67571c6738dd",
-        "1507238691740-187a5b1d37b7",
         "1517976487492-5750f3195933",
-        "1563237819-2aefb2a12e56",
     ],
     "ai": [
         "1677442136019-21780ecad995",
@@ -903,11 +895,9 @@ CATEGORY_IMAGES: dict[str, list[str]] = {
     ],
     "content": [
         "1542744094-3a31f272c490",
-        "1499750310-25496d3e5ed6",
         "1486312338219-ce68d2c6f44d",
         "1504711434969-e33886168f5c",
         "1432888498266-38ffec3eaf0a",
-        "1571721795195-a2ca2d3370e9",
     ],
     "analytic": [
         "1551288049-bebda4e38f71",
@@ -915,20 +905,13 @@ CATEGORY_IMAGES: dict[str, list[str]] = {
         "1553877522-43269d4ea984",
         "1551434678-e076c223a692",
         "1497366216548-37526070297c",
-        "1516116216624-53ad697a8648",
     ],
     "email": [
-        "1596526131083-e8c633360a4c",
         "1517976487492-5750f3195933",
-        "1526178613658-3f1622045557",
-        "1563237819-2aefb2a12e56",
-        "1499750310-25496d3e5ed6",
         "1486312338219-ce68d2c6f44d",
     ],
     "ads": [
         "1611974789855-9c2a0a7236a3",
-        "1562577309-4f401e5e5b31",
-        "1553484771-047a44eab61a",
         "1556761175-b413da4baf72",
         "1552664730-d307ca884978",
         "1454165804606-c3d57bc86b40",
@@ -942,16 +925,33 @@ _FALLBACK_POOL = [
 ]
 
 
+def _unsplash_url(pid: str) -> str:
+    return f"https://images.unsplash.com/photo-{pid}?w=1200&auto=format&fit=crop&q=80"
+
+def _image_ok(url: str) -> bool:
+    """Unsplash fotoğrafı kaldırınca URL 404 döner → yazı görselsiz yayınlanır. Yayından önce kontrol."""
+    try:
+        return requests.head(url, timeout=10, allow_redirects=True).status_code == 200
+    except Exception:
+        return False
+
 def pick_image(topic: str, post_index: int) -> str:
-    """Konuya uygun kategoriden, post_index ile offset'li görsel seçer."""
+    """Konuya uygun kategoriden, post_index ile offset'li görsel seçer; açılmayanı atlayıp
+    sıradakine, kategori tükenirse genel havuza geçer."""
     t = topic.lower()
     pool = _FALLBACK_POOL
     for cat, ids in CATEGORY_IMAGES.items():
         if cat in t:
             pool = ids
             break
-    pid = pool[post_index % len(pool)]
-    return f"https://images.unsplash.com/photo-{pid}?w=1200&auto=format&fit=crop&q=80"
+    candidates = [pool[(post_index + i) % len(pool)] for i in range(len(pool))]
+    candidates += [p for p in _FALLBACK_POOL if p not in candidates]
+    for pid in candidates:
+        url = _unsplash_url(pid)
+        if _image_ok(url):
+            return url
+        logger.warning(f"Görsel açılmıyor, atlandı: photo-{pid}")
+    return _unsplash_url(candidates[0])   # ağ sorunu → eski davranış
 
 
 def extract_paa(serp_data: str) -> list[str]:
@@ -1302,6 +1302,12 @@ faq:
     img = pick_image(topic, post_index)
     tr_file = re.sub(r'^image_keyword:.*$', f'image: "{img}"', tr_file, flags=re.MULTILINE)
     en_file = re.sub(r'^image_keyword:.*$', f'image: "{img}"', en_file, flags=re.MULTILINE)
+
+    # Yayın zamanı saatle birlikte (UTC ISO): blog aynı günün yazılarını yalnızca tarihe göre
+    # sıralayınca alfabetik sıraya düşüyordu → yeni yazı en üstte görünmüyordu.
+    published = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    tr_file = re.sub(r'^date:.*$', f'date: "{published}"', tr_file, count=1, flags=re.MULTILINE)
+    en_file = re.sub(r'^date:.*$', f'date: "{published}"', en_file, count=1, flags=re.MULTILINE)
 
     # Frontmatter güvenliği: LLM'in ürettiği YAML'i onar + doğrula.
     # Geçersizse fırlatır → bozuk yazı push edilmez, site deploy'u kilitlenmez.

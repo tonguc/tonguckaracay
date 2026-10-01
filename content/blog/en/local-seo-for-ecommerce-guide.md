@@ -5,7 +5,7 @@ description: "A policy-safe local SEO workflow for ecommerce stores with verifie
 date: "2026-09-21"
 category: "SEO"
 readTime: "12 min"
-image: "https://images.unsplash.com/photo-1571721795195-a2ca2d3370e9?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "e-ticaret-yerel-seo-rehberi"
 tags: ["local SEO", "e-commerce", "Google Business Profile", "location-based search"]
 faq:
