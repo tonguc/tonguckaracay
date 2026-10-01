@@ -31,3 +31,6 @@ yarn-error.log*
 tc-agent/config-tc.env
 tc-agent/ubersuggest_token.json
 tc-agent/ubersuggest_token.json.tmp
+tc-agent/pending_ideas.json
+tc-agent/idea_history.json
+tc-agent/agent.log

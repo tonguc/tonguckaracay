@@ -3,8 +3,9 @@
 Growth Agent v2.0 - tonguckaracay.com
 SERP Analizi + Rakip İçerik + GEO/AEO/E-E-A-T
 
-Not: Bu dosya değiştiğinde /root/tc-agent/auto-deploy.sh (cron, 5 dk) main'den
-çekip `pm2 restart bot` ile otomatik devreye alır — elle restart gerekmez.
+Not: OVH VPS'te systemd `tc-agent.service` olarak çalışır (kod
+/home/ubuntu/tonguckaracay/tc-agent, main'in git checkout'u). main'e push sonrası
+sunucu otomatik çekip servisi yeniden başlatır — elle restart gerekmez.
 """
 
 import os, json, asyncio, logging, re, base64, time, random, threading
@@ -385,6 +386,9 @@ def volume_source() -> str:
     if UBER_RT or os.path.exists(_UBER_STATE):
         return "ubersuggest"
     return ""
+
+def volume_source_label() -> str:
+    return {"ubersuggest": "Ubersuggest", "dataforseo": "Google Ads"}.get(volume_source(), "")
 
 def keyword_volumes(keywords: list[str], lang: str = "tr") -> dict:
     """{temizlenmiş_kw: aylık_hacim|None} döner. None = veri yok.
@@ -1365,8 +1369,8 @@ async def cmd_start(u, _):
     await u.message.reply_text(
         "👋 *tonguckaracay.com Growth Agent v2*\n\n"
         "📝 `/yazi [konu]` — SERP analizi yapıp yazı üret\n"
-        "💡 `/fikir [konu]` — Trafik getirecek 7 konu önerisi\n"
-        "🔢 `/fikirler` — Son fikir listesini tekrar göster (numara seç)\n"
+        "💡 `/fikir [konu]` — Trafik getirecek 10 konu önerisi\n"
+        "🗂 `/fikirler` — Geçmiş araştırmalar · `/fikirler 2` ile birini aç, sonra numara gönder\n"
         "🌐 `/site hero [talimat]` — Ana sayfa slider metnini güncelle\n"
         "✏️ `/revize [slug] [istek]` — Mevcut yazıyı düzenle\n"
         "🤖 `/gunluk` — Otomatik konu seç ve yaz\n"
@@ -1851,6 +1855,40 @@ def _save_ideas(data: dict) -> None:
 
 _pending_ideas: dict[int, list[str]] = _load_ideas()
 
+# Geçmiş /fikir araştırmaları: {user_id: [{"ts": "...", "konu": "...", "titles": [...]}, ...]}
+# (en yeni sonda, en fazla _HISTORY_MAX). `/fikirler` listeler, `/fikirler N` o listeyi
+# aktif yapar → sonra numara gönderilerek o eski listeden yazı yazdırılır.
+_HISTORY_FILE = "idea_history.json"
+_HISTORY_MAX = 30
+
+def _load_history() -> dict:
+    try:
+        with open(_HISTORY_FILE, encoding="utf-8") as f:
+            return {int(k): v for k, v in json.load(f).items()}
+    except (FileNotFoundError, ValueError, OSError):
+        return {}
+
+def _save_history(data: dict) -> None:
+    try:
+        with open(_HISTORY_FILE, "w", encoding="utf-8") as f:
+            json.dump({str(k): v for k, v in data.items()}, f, ensure_ascii=False)
+    except OSError:
+        logger.warning("idea_history.json yazılamadı")
+
+_idea_history: dict[int, list[dict]] = _load_history()
+# İlk kurulum: geçmiş yoksa mevcut son listeyi geçmişe al (kaybolmasın)
+for _uid, _titles in _pending_ideas.items():
+    if _titles and not _idea_history.get(_uid):
+        _idea_history[_uid] = [{"ts": "", "konu": "(önceki liste)", "titles": _titles}]
+
+def _remember_ideas(uid: int, konu: str, titles: list[str]) -> None:
+    _pending_ideas[uid] = titles
+    _save_ideas(_pending_ideas)
+    hist = _idea_history.setdefault(uid, [])
+    hist.append({"ts": datetime.utcnow().strftime("%Y-%m-%d %H:%M"), "konu": konu or "genel", "titles": titles})
+    del hist[:-_HISTORY_MAX]
+    _save_history(_idea_history)
+
 async def cmd_hero(u, ctx):
     """Blog yazısını hero'ya öne çıkar: /hero <tr-slug>"""
     if not auth(u): return await deny(u)
@@ -1944,7 +1982,7 @@ def top_volumes_block(vols: dict, n: int = 6) -> str:
                     key=lambda kv: -kv[1])[:n]
     if not ranked:
         return ""
-    src = "Ubersuggest" if volume_source() == "ubersuggest" else "Google Ads"
+    src = volume_source_label() or "hacim"
     rows = "\n".join(f"• {k.replace('_', ' ').replace('*', '')} — {fmt_volume(vols, k)}" for k, _ in ranked)
     return f"📈 *En çok aranan sorgular ({src}, TR):*\n{rows}\n\n"
 
@@ -1963,7 +2001,7 @@ def annotate_volumes(ideas: str, vols: dict) -> str:
         return ideas
     def _sub(m):
         vol = fmt_volume(vols, strip_q(m.group(2)))
-        return f"{m.group(1)}{m.group(2)}\n📊 Hacim (TR): {vol}"
+        return f"{m.group(1)}{m.group(2)}\n📊 Hacim ({volume_source_label()}, TR): {vol}"
     return _TARGET_RE.sub(_sub, ideas)
 
 
@@ -2062,7 +2100,7 @@ async def cmd_fikir(u, ctx):
     konu_block = f'"{konu}" konusuna odaklanarak' if konu else \
         "dijital pazarlama, SEO, UI/UX, yapay zeka, Google Ads ve içerik pazarlaması nişlerinde"
 
-    prompt = f"""tonguckaracay.com için {konu_block} trafik getirecek 7 blog yazısı öner.
+    prompt = f"""tonguckaracay.com için {konu_block} trafik getirecek 10 blog yazısı öner.
 
 Site: Tonguç Karaçay — dijital pazarlama & SEO danışmanlığı. NİHAİ İŞ HEDEFİ: danışmanlık satışı.
 Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimcileri.
@@ -2072,12 +2110,12 @@ Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimc
 
 ÇALIŞMA YÖNTEMİ — KESİN KURALLAR:
 {seed_rule}1. KAYNAK GERÇEK VERİ: Her öneri YUKARIDAKİ gerçek arama verisindeki bir soru/sorguya dayanmalı. Uydurma "tahmini keyword" YASAK — hangi gerçek sorguyu hedeflediğini birebir yaz. Veri zayıfsa o sorgunun mantıklı uzun-kuyruk varyantını türet.
-2. HER FİKİR AYRI SERP: 7 öneri 7 FARKLI arama sorgusunu/SERP'i hedeflesin. Aynı yazının sadece kitlesini değiştirme — "küçük şirketler için", "X sektörü için" gibi yüzeysel kitle-varyasyonu YASAK.
+2. HER FİKİR AYRI SERP: 10 öneri 10 FARKLI arama sorgusunu/SERP'i hedeflesin. Aynı yazının sadece kitlesini değiştirme — "küçük şirketler için", "X sektörü için" gibi yüzeysel kitle-varyasyonu YASAK.
 3. UZUN KUYRUK + DÜŞÜK REKABET + YÜKSEK NİYET: 4+ kelimeli spesifik sorgular; büyük medya/markaların doymadığı nişler; arayanın danışmanlık/satın alma niyeti yüksek olsun.
 4. CONTENT GAP: Rakiplerin zayıf/eksik bıraktığı VE sitede zaten yazılmamış açıları seç.
 5. SERP FIRSATI: Featured snippet / PAA kutusu / AEO (yapay zeka cevabı) kazanılabilecek, net cevaplanabilir sorgular avantajlı.
 6. YIL/TARİH YASAK: Başlıkta veya keyword'de "2024", "2025", "2026" gibi yıl/tarih KESİNLİKLE yazma — site otomatik güncel kalır, yıl içerikleri eskitir.
-7. ÇERÇEVE TEKRARI YOK: Aynı içerik çerçevesini (örn. "yapmak mı satın almak mı / mühendis mi araç mı", "X mi Y mi karşılaştırması") 7 öneri içinde EN FAZLA 1 kez kullan. Format çeşitlendir (how-to, liste, vaka, rehber, tablo).
+7. ÇERÇEVE TEKRARI YOK: Aynı içerik çerçevesini (örn. "yapmak mı satın almak mı / mühendis mi araç mı", "X mi Y mi karşılaştırması") 10 öneri içinde EN FAZLA 2 kez kullan. Format çeşitlendir (how-to, liste, vaka, rehber, tablo).
 8. KİTLE-PERSONA TUZAĞINA DÜŞME (EN ÖNEMLİ): Önerileri "KOBİ için / e-ticaret için / freelancer için" gibi KİTLE ekseninde dizme — bu klasik, şablon ve sıkıcı. Çeşitliliği İÇERİK AÇISI ekseninde kur. En az 5 farklı açı kullan:
    • Problem/semptom ("X neden çalışmıyor / düşük dönüşümün gerçek sebebi")
    • Hata/anti-pattern ("en sık yapılan X hatası ve düzeltmesi")
@@ -2087,8 +2125,8 @@ Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimc
    • Vaka/sonuç ("X ile Y sonucunu nasıl aldık")
    • Tanım/kavram (AEO — "X nedir, nasıl çalışır")
    • Karar çerçevesi / framework
-   ZORUNLU: 7 önerinin EN FAZLA 2'si bir kitle-persona'sı (KOBİ/e-ticaret/freelancer) etrafında kurulabilir. Geri kalanı persona-bağımsız olsun. Başlıkları "...ler için" kalıbıyla BAŞLATMA.
-9. SORGU YAMYAMLIĞI (CANNIBALIZATION) YASAK: Aynı kök/head sorguyu (örn. "yapay zeka mühendisliği") BİRDEN FAZLA öneride hedefleme — Google'da yazılar birbirini yer. Her öneri AYRI bir kök sorgu + long-tail almalı. Parantez içine "(uygulama sırasında karşılaşılan problem)" gibi niyet ekleyerek aynı head sorguyu farklı gösterme KESİNLİKLE YASAK; `🔑 Hedef sorgu` gerçekten farklı bir kelime öbeği olmalı. Havuzda yeterli sayıda FARKLI gerçek sorgu yoksa, 7'ye zorlama — 4-5 gerçekten ayrık öneri, 7 çakışan öneriden iyidir.
+   ZORUNLU: 10 önerinin EN FAZLA 3'ü bir kitle-persona'sı (KOBİ/e-ticaret/freelancer) etrafında kurulabilir. Geri kalanı persona-bağımsız olsun. Başlıkları "...ler için" kalıbıyla BAŞLATMA.
+9. SORGU YAMYAMLIĞI (CANNIBALIZATION) YASAK: Aynı kök/head sorguyu (örn. "yapay zeka mühendisliği") BİRDEN FAZLA öneride hedefleme — Google'da yazılar birbirini yer. Her öneri AYRI bir kök sorgu + long-tail almalı. Parantez içine "(uygulama sırasında karşılaşılan problem)" gibi niyet ekleyerek aynı head sorguyu farklı gösterme KESİNLİKLE YASAK; `🔑 Hedef sorgu` gerçekten farklı bir kelime öbeği olmalı. Havuzda yeterli sayıda FARKLI gerçek sorgu yoksa, 10'a zorlama — 6-7 gerçekten ayrık öneri, 10 çakışan öneriden iyidir.
 {vol_rule}{ac_rule}
 {gap_rule}
 
@@ -2102,11 +2140,11 @@ Her öneri için TAM OLARAK şu format (başlık ** ile sarılı, BAŞLIKTA YIL 
 🔗 Cluster + iç link: (hangi ana/pillar konuya bağlanır, hangi mevcut yazıya link)
 💼 İş değeri: (bu yazı danışmanlık satışına nasıl hizmet eder — tek cümle)
 
-Sadece 7 öneriyi bu formatta listele, başka açıklama ekleme."""
+Sadece önerileri (en fazla 10) bu formatta listele, başka açıklama ekleme."""
 
     try:
         resp = await loop.run_in_executor(None, lambda: _claude_create(
-            model="claude-sonnet-4-5", max_tokens=3400,
+            model="claude-sonnet-4-5", max_tokens=5200,
             messages=[{"role": "user", "content": prompt}]
         ))
         ideas = strip_years(resp.content[0].text.strip())
@@ -2116,11 +2154,11 @@ Sadece 7 öneriyi bu formatta listele, başka açıklama ekleme."""
         # Başlıkları parse et ve hafızaya kaydet (sayı ile seçim için)
         titles = re.findall(r'\*\*\d+\.\s+(.+?)\*\*', ideas)
         if titles:
-            _pending_ideas[u.effective_user.id] = titles
-            _save_ideas(_pending_ideas)
+            _remember_ideas(u.effective_user.id, konu, titles)
 
         baslik = f"💡 *{konu_label} İçerik Fikirleri*\n\n" + top_volumes_block(vols)
-        footer = "\n\n_Yazmak için sadece numara gönder: `1`, `2` ... `7`_" if titles else ""
+        footer = (f"\n\n_Yazmak için sadece numara gönder: `1` … `{len(titles)}`. "
+                  f"Eski listeler: /fikirler_") if titles else ""
         text = baslik + ideas + footer
         # Telegram 4096 limiti: tam fikir sınırından böl, hiçbir öneriyi kesme
         chunks = _chunk_telegram(text)
@@ -2133,16 +2171,33 @@ Sadece 7 öneriyi bu formatta listele, başka açıklama ekleme."""
 
 
 async def cmd_fikirler(u, ctx):
-    """Son /fikir listesini numaralarıyla tekrar gösterir (restart sonrası da çalışır)."""
+    """`/fikirler` → geçmiş araştırmaları listeler; `/fikirler N` → N. araştırmayı açıp
+    aktif liste yapar (sonra numara göndererek o listeden yazı yazdırılır)."""
     if not auth(u): return await deny(u)
-    titles = _pending_ideas.get(u.effective_user.id, [])
-    if not titles:
+    uid = u.effective_user.id
+    hist = _idea_history.get(uid, [])
+    if not hist:
         return await u.message.reply_text(
-            "❌ Kayıtlı fikir yok. Önce `/fikir [konu]` ile liste al.", parse_mode="Markdown")
-    lines = "\n".join(f"*{i}.* {t}" for i, t in enumerate(titles, 1))
+            "❌ Kayıtlı araştırma yok. Önce `/fikir [konu]` ile liste al.", parse_mode="Markdown")
+    newest_first = list(reversed(hist))
+    arg = (ctx.args[0] if ctx.args else "").strip()
+    if not arg:
+        rows = "\n".join(
+            f"*{i}.* {h['konu']} — {len(h['titles'])} fikir" + (f" _({h['ts']} UTC)_" if h.get("ts") else "")
+            for i, h in enumerate(newest_first, 1))
+        return await u.message.reply_text(
+            f"🗂 *Geçmiş Araştırmalar* (en yeni üstte)\n\n{rows}\n\n"
+            f"_Birini açmak için:_ `/fikirler 2`", parse_mode="Markdown")
+    if not arg.isdigit() or not (1 <= int(arg) <= len(newest_first)):
+        return await u.message.reply_text(f"❌ 1-{len(newest_first)} arası bir numara gir: `/fikirler 2`",
+                                          parse_mode="Markdown")
+    h = newest_first[int(arg) - 1]
+    _pending_ideas[uid] = h["titles"]
+    _save_ideas(_pending_ideas)
+    lines = "\n".join(f"*{i}.* {t}" for i, t in enumerate(h["titles"], 1))
     await u.message.reply_text(
-        f"💡 *Son İçerik Fikirleri*\n\n{lines}\n\n"
-        f"_Yazmak için numara gönder: `1` … `{len(titles)}`_",
+        f"💡 *{h['konu']}* araştırması açıldı\n\n{lines}\n\n"
+        f"_Bu listeden yazdırmak için numara gönder: `1` … `{len(h['titles'])}`_",
         parse_mode="Markdown")
 
 
@@ -2152,7 +2207,7 @@ async def handle_idea_selection(u, ctx):
     bot restart olsa bile eski liste korunur."""
     if not auth(u): return
     text = (u.message.text or "").strip()
-    m = re.match(r'^([1-7])', text)
+    m = re.fullmatch(r'(\d{1,2})\.?', text)
     if not m: return
     idx = int(m.group(1)) - 1
     titles = _pending_ideas.get(u.effective_user.id, [])
