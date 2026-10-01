@@ -26,3 +26,8 @@ tsconfig.tsbuildinfo
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# tc-agent secrets / runtime state
+tc-agent/config-tc.env
+tc-agent/ubersuggest_token.json
+tc-agent/ubersuggest_token.json.tmp

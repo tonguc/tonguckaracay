@@ -7,7 +7,8 @@ Not: Bu dosya değiştiğinde /root/tc-agent/auto-deploy.sh (cron, 5 dk) main'de
 çekip `pm2 restart bot` ile otomatik devreye alır — elle restart gerekmez.
 """
 
-import os, json, asyncio, logging, re, base64, time, random
+import os, json, asyncio, logging, re, base64, time, random, threading
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 
@@ -42,7 +43,7 @@ def load_config(path="config-tc.env"):
         pass
     for key in ['TELEGRAM_BOT_TOKEN','TELEGRAM_ALLOWED_IDS','ANTHROPIC_API_KEY',
                 'GITHUB_TOKEN','GITHUB_REPO','GITHUB_BRANCH','SERPAPI_KEY',
-                'DATAFORSEO_LOGIN','DATAFORSEO_PASSWORD',
+                'DATAFORSEO_LOGIN','DATAFORSEO_PASSWORD','UBERSUGGEST_REFRESH_TOKEN',
                 'DAILY_POST_HOUR','DAILY_POST_MINUTE']:
         if os.environ.get(key):
             cfg[key] = os.environ[key]
@@ -63,6 +64,7 @@ GH_TOKEN   = config.get("GITHUB_TOKEN","")
 SERP_KEY   = config.get("SERPAPI_KEY","")
 DFS_LOGIN  = config.get("DATAFORSEO_LOGIN","")
 DFS_PASS   = config.get("DATAFORSEO_PASSWORD","")
+UBER_RT    = config.get("UBERSUGGEST_REFRESH_TOKEN","")
 DAILY_H    = int(config.get("DAILY_POST_HOUR","7"))
 DAILY_M    = int(config.get("DAILY_POST_MINUTE","0"))
 
@@ -376,10 +378,21 @@ def _clean_kw(kw: str) -> str:
     kw = re.sub(r"\s+", " ", kw).strip().lower()
     return " ".join(kw.split()[:10])[:80]
 
+def volume_source() -> str:
+    """Aktif hacim kaynağı: 'dataforseo' | 'ubersuggest' | ''."""
+    if DFS_LOGIN and DFS_PASS:
+        return "dataforseo"
+    if UBER_RT or os.path.exists(_UBER_STATE):
+        return "ubersuggest"
+    return ""
+
 def keyword_volumes(keywords: list[str], lang: str = "tr") -> dict:
-    """{temizlenmiş_kw: aylık_hacim|None} döner. None = Google Ads'te veri yok.
-    Kimlik yoksa veya API hatasında {} döner."""
-    if not (DFS_LOGIN and DFS_PASS):
+    """{temizlenmiş_kw: aylık_hacim|None} döner. None = veri yok.
+    Kaynak yoksa veya API hatasında {} döner."""
+    src = volume_source()
+    if src == "ubersuggest":
+        return uber_volumes(keywords, lang)
+    if src != "dataforseo":
         return {}
     clean = []
     for k in keywords:
@@ -408,13 +421,116 @@ def keyword_volumes(keywords: list[str], lang: str = "tr") -> dict:
         return {}
 
 def fmt_volume(vols: dict, kw: str) -> str:
-    """Hacim etiketini insan-okur formatta döner ('1.900/ay', '<10/ay', 'veri yok')."""
-    v = vols.get(_clean_kw(kw), "yok")
+    """Hacim etiketini insan-okur formatta döner ('1.900/ay · zorluk 8', '<10/ay', 'veri yok')."""
+    c = _clean_kw(kw)
+    v = vols.get(c, "yok")
     if v == "yok" or v is None:
         return "veri yok"
-    if v < 10:
-        return "<10/ay"
-    return f"{v:,}".replace(",", ".") + "/ay"
+    label = "<10/ay" if v < 10 else f"{v:,}".replace(",", ".") + "/ay"
+    sd = _KW_SD.get(c)
+    return f"{label} · zorluk {sd}" if sd is not None else label
+
+# ── ARAMA HACMİ (Ubersuggest MCP — kullanıcının mevcut ücretli planı) ─────────
+# OAuth: tek seferlik tarayıcı girişiyle alınan refresh token config'e
+# (UBERSUGGEST_REFRESH_TOKEN) girilir. Sunucu her yenilemede refresh token'ı
+# DÖNDÜRÜR (rotation) → güncel token _UBER_STATE dosyasında tutulur; config'teki
+# değer yalnızca ilk kurulum / yeniden giriş içindir.
+
+UBER_BASE   = "https://ubersuggest-mcp.neilpatelapi.com"
+_UBER_STATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ubersuggest_token.json")
+_UBER_LOC   = {"tr": (2792, "tr"), "en": (2840, "en")}   # Türkiye / ABD
+_uber_lock  = threading.Lock()
+_KW_SD: dict = {}   # temizlenmiş_kw -> SEO zorluğu (Ubersuggest verirse)
+
+def _uber_token() -> str | None:
+    with _uber_lock:
+        st = {}
+        try:
+            with open(_UBER_STATE, encoding="utf-8") as f:
+                st = json.load(f)
+        except (FileNotFoundError, ValueError):
+            pass
+        # Config'e YENİ bir token girildiyse (yeniden giriş) state'i onunla sıfırla
+        if UBER_RT and UBER_RT != st.get("bootstrap"):
+            st = {"bootstrap": UBER_RT, "refresh_token": UBER_RT}
+        if not st.get("refresh_token"):
+            return None
+        if st.get("access_token") and st.get("expires_at", 0) > time.time() + 300:
+            return st["access_token"]
+        try:
+            r = requests.post(f"{UBER_BASE}/token", timeout=30, data={
+                "grant_type": "refresh_token", "refresh_token": st["refresh_token"],
+                "client_id": st.get("client_id", "ubersuggest-mcp"), "resource": f"{UBER_BASE}/mcp"})
+            if r.status_code != 200:
+                logger.warning(f"Ubersuggest token yenilenemedi: {r.status_code} {r.text[:200]} — yeniden giriş gerekebilir")
+                return None
+            t = r.json()
+        except Exception as e:
+            logger.warning(f"Ubersuggest token hatası: {e}")
+            return None
+        st.update({"access_token": t["access_token"],
+                   "refresh_token": t.get("refresh_token") or st["refresh_token"],
+                   "expires_at": time.time() + int(t.get("expires_in", 3600))})
+        tmp = _UBER_STATE + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(st, f)
+        os.replace(tmp, _UBER_STATE)
+        return st["access_token"]
+
+def _uber_call(tool: str, args: dict, token: str):
+    """Tek MCP tools/call (stateless HTTP). JSON sonucu ya da None döner."""
+    h = {"Authorization": f"Bearer {token}", "Content-Type": "application/json",
+         "Accept": "application/json, text/event-stream"}
+    r = requests.post(f"{UBER_BASE}/mcp", headers=h, timeout=90, json={
+        "jsonrpc": "2.0", "id": 1, "method": "tools/call",
+        "params": {"name": tool, "arguments": args}})
+    body = r.text
+    if "text/event-stream" in r.headers.get("content-type", ""):
+        datas = [l[5:].strip() for l in body.splitlines() if l.startswith("data:")]
+        body = datas[-1] if datas else ""
+    if r.status_code != 200 or not body.strip():
+        logger.warning(f"Ubersuggest {tool} HTTP {r.status_code}: {body[:200]}")
+        return None
+    res = json.loads(body).get("result") or {}
+    if res.get("isError"):
+        logger.warning(f"Ubersuggest {tool} hatası: {str(res.get('content'))[:200]}")
+        return None
+    text = "".join(c.get("text", "") for c in res.get("content", []))
+    try:
+        return json.loads(text)
+    except ValueError:
+        return None
+
+def uber_volumes(keywords: list[str], lang: str = "tr", cap: int = 20) -> dict:
+    """keyword_overview ile {temizlenmiş_kw: hacim|None}; SEO zorluğunu _KW_SD'ye yazar.
+    Kelime başına 1 rapor harcar → en fazla `cap` kelime."""
+    token = _uber_token()
+    if not token:
+        return {}
+    clean = []
+    for k in keywords:
+        c = _clean_kw(k)
+        if c and c not in clean:
+            clean.append(c)
+    loc, lang_code = _UBER_LOC.get(lang, _UBER_LOC["tr"])
+    def one(kw):
+        try:
+            d = _uber_call("keyword_overview", {"keyword": kw, "language": lang_code, "locId": loc}, token)
+        except Exception as e:
+            logger.warning(f"Ubersuggest isteği başarısız ({kw}): {e}")
+            return kw, "err", None
+        if not isinstance(d, dict):
+            return kw, "err", None
+        return kw, d.get("search_volume"), d.get("seo_difficulty")
+    out = {}
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        for kw, vol, sd in ex.map(one, clean[:cap]):
+            if vol == "err":
+                continue          # hata → anahtar yok, 'veri yok' sayılmasın
+            out[kw] = vol
+            if sd is not None:
+                _KW_SD[kw] = sd
+    return out
 
 # ── TALEP SİNYALİ (Google Autocomplete — ücretsiz, anahtarsız) ────────────────
 # Hacim RAKAMI vermez; "Google bu ifadeyi öneriyor mu" sinyali verir. Hiç önerilmeyen
@@ -1268,7 +1384,7 @@ async def cmd_durum(u, _):
         f"🇹🇷 TR: `{len(tr)}` yazı\n"
         f"🇬🇧 EN: `{len(en)}` yazı\n"
         f"🔍 SerpAPI: `{'aktif' if SERP_KEY else 'pasif'}`\n"
-        f"📊 Hacim (DataForSEO): `{'aktif' if (DFS_LOGIN and DFS_PASS) else 'pasif'}`\n"
+        f"📊 Hacim: `{volume_source() or 'pasif'}`\n"
         f"🔎 Talep sinyali (Google Autocomplete): `aktif`\n"
         f"🕐 UTC: `{datetime.utcnow().strftime('%H:%M')}`\n",
         parse_mode="Markdown")
@@ -1815,10 +1931,10 @@ async def cmd_hero(u, ctx):
 _TARGET_RE = re.compile(r"^(🔑 Hedef sorgu:\s*)(.+?)\s*$", re.MULTILINE)
 
 def annotate_volumes(ideas: str, vols: dict) -> str:
-    """Her '🔑 Hedef sorgu' satırının altına Google Ads TR hacmini ekler.
+    """Her '🔑 Hedef sorgu' satırının altına TR aylık hacmini ekler.
     Model varyant sorgu türetmiş olabilir → havuzda olmayan hedefler için ikinci
     bir hacim sorgusu yapılır. Hacim modelden DEĞİL, API'den gelir."""
-    if not (DFS_LOGIN and DFS_PASS):
+    if not volume_source():
         return ideas
     strip_q = lambda t: t.strip().strip("\"'`*")
     targets = [strip_q(m.group(2)) for m in _TARGET_RE.finditer(ideas)]
@@ -1829,7 +1945,7 @@ def annotate_volumes(ideas: str, vols: dict) -> str:
         return ideas
     def _sub(m):
         vol = fmt_volume(vols, strip_q(m.group(2)))
-        return f"{m.group(1)}{m.group(2)}\n📊 Hacim (Google Ads TR): {vol}"
+        return f"{m.group(1)}{m.group(2)}\n📊 Hacim (TR): {vol}"
     return _TARGET_RE.sub(_sub, ideas)
 
 
@@ -1852,8 +1968,10 @@ async def cmd_fikir(u, ctx):
 
     # ARAMA HACMİ — havuzdaki gerçek sorgular (+ tohum konu) için Google Ads hacmi.
     qs, ss = pool["questions"][:18], pool["searches"][:18]
-    vols = await loop.run_in_executor(
-        None, lambda: keyword_volumes(([konu] if konu else []) + qs + ss, "tr"))
+    vol_kws = ([konu] if konu else []) + qs + ss
+    if volume_source() == "ubersuggest":
+        vol_kws = ([konu] if konu else []) + qs[:6] + ss[:6]
+    vols = await loop.run_in_executor(None, lambda: keyword_volumes(vol_kws, "tr"))
     vtag = (lambda q: f" [hacim: {fmt_volume(vols, q)}]") if vols else (lambda q: "")
 
     # TALEP HAVUZU — Google otomatik tamamlama (ücretsiz). Önerilen ifade = biri bunu arıyor.
@@ -1903,7 +2021,7 @@ async def cmd_fikir(u, ctx):
 
     vol_rule = ""
     if vols:
-        vol_rule = """10. HACİM (Google Ads, Türkiye aylık): Sorguların yanındaki [hacim: ...] gerçek veridir. Hacmi olan sorguları önceliklendir; "<10/ay" veya "veri yok" sorguyu ancak BOFU + net iş değeri varsa seç ve bunu 💼 satırında gerekçelendir. Hacim uydurma — rakam yazma, sistem kendisi ekleyecek.
+        vol_rule = """10. HACİM (Türkiye aylık): Sorguların yanındaki [hacim: ...] gerçek veridir. Hacmi olan sorguları önceliklendir; "<10/ay" veya "veri yok" sorguyu ancak BOFU + net iş değeri varsa seç ve bunu 💼 satırında gerekçelendir. Hacim uydurma — rakam yazma, sistem kendisi ekleyecek.
 """
     ac_rule = ("""11. TALEP SİNYALİ: 🔑 Hedef sorgu mümkünse 'Google otomatik tamamlama' listesindeki bir ifade ya da onun doğal uzantısı olsun. Google'ın hiç önermeyeceği kadar uzun/özgün bir cümle hedef sorgu OLAMAZ — başlık uzun olabilir, hedef sorgu insanların gerçekten yazdığı kısa ifade olmalı. Sistem her hedefi Google'da kontrol edip işaretleyecek.
 """ if ac else "")
