@@ -1929,6 +1929,24 @@ async def cmd_hero(u, ctx):
 
 
 _TARGET_RE = re.compile(r"^(🔑 Hedef sorgu:\s*)(.+?)\s*$", re.MULTILINE)
+_TITLE_LINE_RE = re.compile(r"^(\*\*\d+\.\s+)(.+?)(\*\*)\s*$", re.MULTILINE)
+_YEAR_RE = re.compile(r"\s*[\(\[]?\b(?:19|20)\d{2}\b[\)\]]?")
+
+def strip_years(ideas: str) -> str:
+    """Kural 6 (yıl yasağı) modelden bağımsız uygulanır: başlık ve hedef sorgu satırlarından yılı siler."""
+    clean = lambda t: re.sub(r"\s{2,}", " ", _YEAR_RE.sub("", t)).strip(" -–—:")
+    ideas = _TITLE_LINE_RE.sub(lambda m: f"{m.group(1)}{clean(m.group(2))}{m.group(3)}", ideas)
+    return _TARGET_RE.sub(lambda m: f"{m.group(1)}{clean(m.group(2))}", ideas)
+
+def top_volumes_block(vols: dict, n: int = 6) -> str:
+    """Havuzdaki en çok aranan sorgular — hacim verisini mesajın başında görünür kılar."""
+    ranked = sorted(((k, v) for k, v in vols.items() if isinstance(v, int) and v > 0),
+                    key=lambda kv: -kv[1])[:n]
+    if not ranked:
+        return ""
+    src = "Ubersuggest" if volume_source() == "ubersuggest" else "Google Ads"
+    rows = "\n".join(f"• {k.replace('_', ' ').replace('*', '')} — {fmt_volume(vols, k)}" for k, _ in ranked)
+    return f"📈 *En çok aranan sorgular ({src}, TR):*\n{rows}\n\n"
 
 def annotate_volumes(ideas: str, vols: dict) -> str:
     """Her '🔑 Hedef sorgu' satırının altına TR aylık hacmini ekler.
@@ -2016,7 +2034,14 @@ async def cmd_fikir(u, ctx):
             w in konu.lower() for w in ("en iyi", "önemli", "liste", "top ", "best ", "araçları", "örnekleri"))
         fmt_hint = ("LİSTE formatında (örn. 'X için En İyi/Önemli N Y' — konudaki sayıyı koru)"
                     if is_list else "konunun kendi arama niyetini birebir karşılayan formatta")
-        seed_rule = f"""0. TOHUM NİYETİNİ KORU (EN ÖNCELİKLİ): Kullanıcının yazdığı "{konu}" kendisi bir arama niyeti. 1. öneri bu konuyu {fmt_hint} doğrudan hedeflesin; 🔑 Hedef sorgu konunun kendisi ya da en yakın gerçek varyantı olsun. Kural 3 (4+ kelime) ve kural 8 (açı çeşitliliği) SADECE bu 1. öneri için geçerli değildir. Bu konu zaten yazılmışsa bunu açıkça belirtip atla.
+        seed_vol = vols.get(_clean_kw(konu)) if vols else None
+        if seed_vol and seed_vol >= 30:
+            # Tohumun kendisi gerçek hacimli → model daha uzun ama hacimsiz bir varyanta kaçmasın
+            target_hint = (f'🔑 Hedef sorgu TAM OLARAK "{_clean_kw(konu)}" olsun (aylık {seed_vol} arama — '
+                           f'havuzdaki en güçlü sorgulardan); daha uzun bir varyanta KAÇMA, başlık uzun olabilir')
+        else:
+            target_hint = "🔑 Hedef sorgu konunun kendisi ya da en yakın gerçek varyantı olsun"
+        seed_rule = f"""0. TOHUM NİYETİNİ KORU (EN ÖNCELİKLİ): Kullanıcının yazdığı "{konu}" kendisi bir arama niyeti. 1. öneri bu konuyu {fmt_hint} doğrudan hedeflesin; {target_hint}. Kural 3 (4+ kelime) ve kural 8 (açı çeşitliliği) SADECE bu 1. öneri için geçerli değildir. Bu konu zaten yazılmışsa bunu açıkça belirtip atla.
 """
 
     vol_rule = ""
@@ -2084,7 +2109,7 @@ Sadece 7 öneriyi bu formatta listele, başka açıklama ekleme."""
             model="claude-sonnet-4-5", max_tokens=3400,
             messages=[{"role": "user", "content": prompt}]
         ))
-        ideas = resp.content[0].text.strip()
+        ideas = strip_years(resp.content[0].text.strip())
         ideas = await loop.run_in_executor(None, lambda: annotate_volumes(ideas, vols))
         ideas = await loop.run_in_executor(None, lambda: annotate_demand(ideas, "tr"))
 
@@ -2094,7 +2119,7 @@ Sadece 7 öneriyi bu formatta listele, başka açıklama ekleme."""
             _pending_ideas[u.effective_user.id] = titles
             _save_ideas(_pending_ideas)
 
-        baslik = f"💡 *{konu_label} İçerik Fikirleri*\n\n"
+        baslik = f"💡 *{konu_label} İçerik Fikirleri*\n\n" + top_volumes_block(vols)
         footer = "\n\n_Yazmak için sadece numara gönder: `1`, `2` ... `7`_" if titles else ""
         text = baslik + ideas + footer
         # Telegram 4096 limiti: tam fikir sınırından böl, hiçbir öneriyi kesme
