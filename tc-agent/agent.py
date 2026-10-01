@@ -957,13 +957,19 @@ CATEGORY_ALIASES: list[tuple[str, tuple[str, ...]]] = [
 
 def _image_category(topic: str) -> list[str] | None:
     t = topic.lower()
-    for cat, words in CATEGORY_ALIASES:
+    # Sıra: özel eş anlamlılar → kategori adları → en son genel "ai" (neredeyse her başlıkta
+    # yapay zeka geçtiği için önce gelirse "Yapay Zeka ve SEO" bile AI görseli alıyordu)
+    specific = [(c, w) for c, w in CATEGORY_ALIASES if c != "ai"]
+    for cat, words in specific:
         if any(w in t for w in words) and cat in CATEGORY_IMAGES:
             return CATEGORY_IMAGES[cat]
     for cat, ids in CATEGORY_IMAGES.items():
-        if cat in t:
+        if cat != "ai" and cat in t:
             return ids
-    return None
+    for cat, words in CATEGORY_ALIASES:
+        if cat == "ai" and any(w in t for w in words):
+            return CATEGORY_IMAGES["ai"]
+    return CATEGORY_IMAGES["ai"] if re.search(r"\bai\b", t) else None
 
 def pick_image(topic: str, post_index: int) -> str:
     """Konuya uygun kategoriden, post_index ile offset'li görsel seçer; açılmayanı atlayıp
