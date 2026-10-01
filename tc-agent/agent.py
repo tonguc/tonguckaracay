@@ -1976,6 +1976,43 @@ def strip_years(ideas: str) -> str:
     ideas = _TITLE_LINE_RE.sub(lambda m: f"{m.group(1)}{clean(m.group(2))}{m.group(3)}", ideas)
     return _TARGET_RE.sub(lambda m: f"{m.group(1)}{clean(m.group(2))}", ideas)
 
+_IDEA_START_RE = re.compile(r"^\*\*\d+\.\s+", re.MULTILINE)
+_DEMAND_RANK = {"✅": 0, "🟡": 1, "❔": 2, "❌": 3}
+
+def _idea_volume(block: str) -> int:
+    m = re.search(r"📊 Hacim[^:\n]*:\s*(\S+)", block)
+    if not m:
+        return 0
+    v = m.group(1)
+    if v.startswith("<10"):
+        return 5
+    n = re.match(r"([\d.]+)/ay", v)
+    return int(n.group(1).replace(".", "")) if n else 0
+
+def _idea_demand(block: str) -> int:
+    m = re.search(r"🔎 Talep:\s*(✅|🟡|❌|❔)", block)
+    return _DEMAND_RANK[m.group(1)] if m else 2
+
+def sort_ideas(ideas: str) -> str:
+    """Önerileri hacme göre (yüksekten düşüğe; eşitlikte ✅ → 🟡 → ❔) sıralar, yeniden
+    numaralar; Google'da talep sinyali olmayanlar (❌) en altta ayrı başlık altında kalır.
+    Modelin kendi başlık satırı (örn. '# 7 Blog Yazısı Önerisi') ve eski uyarı atılır."""
+    starts = [m.start() for m in _IDEA_START_RE.finditer(ideas)]
+    if len(starts) < 2:
+        return ideas
+    body = ideas.split("\n\n⚠️ *", 1)[0]   # annotate_demand'in sondaki uyarısı → başlıkla değişiyor
+    blocks = [body[a:b].strip() for a, b in zip(starts, starts[1:] + [len(body)])]
+    # ❌ grubu en altta; geri kalanında hacim asıl sinyal (40/ay 🟡 > <10/ay ✅), eşitlikte talep sinyali
+    ranked = sorted(enumerate(blocks), key=lambda ib: (
+        _idea_demand(ib[1]) == 3, -_idea_volume(ib[1]), _idea_demand(ib[1]), ib[0]))
+    out, sep_added = [], False
+    for new_no, (_, block) in enumerate(ranked, 1):
+        if _idea_demand(block) == 3 and not sep_added:
+            out.append("❌ *Google'da talep sinyali olmayanlar* — yazmadan önce hedef sorguyu değiştir:")
+            sep_added = True
+        out.append(_IDEA_START_RE.sub(f"**{new_no}. ", block, count=1))
+    return "\n\n".join(out)
+
 def top_volumes_block(vols: dict, n: int = 6) -> str:
     """Havuzdaki en çok aranan sorgular — hacim verisini mesajın başında görünür kılar."""
     ranked = sorted(((k, v) for k, v in vols.items() if isinstance(v, int) and v > 0),
@@ -2150,6 +2187,7 @@ Sadece önerileri (en fazla 10) bu formatta listele, başka açıklama ekleme.""
         ideas = strip_years(resp.content[0].text.strip())
         ideas = await loop.run_in_executor(None, lambda: annotate_volumes(ideas, vols))
         ideas = await loop.run_in_executor(None, lambda: annotate_demand(ideas, "tr"))
+        ideas = sort_ideas(ideas)
 
         # Başlıkları parse et ve hafızaya kaydet (sayı ile seçim için)
         titles = re.findall(r'\*\*\d+\.\s+(.+?)\*\*', ideas)
