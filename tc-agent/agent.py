@@ -952,6 +952,7 @@ CATEGORY_ALIASES: list[tuple[str, tuple[str, ...]]] = [
     ("ads",       ("google ads", "meta ads", "reklam", "ppc")),
     ("email",     ("e-posta", "newsletter", "bülten")),
     ("analytic",  ("analytics", "ga4", "analiz", "raporlama", "dashboard")),
+    ("market",    ("pazarlama", "marketing", "inbound", "dropshipping")),
     ("ai",        ("yapay zeka", "claude", "chatgpt", "gpt", "gemini", "mcp", "llm", "ai agent", "prompt")),
 ]
 
