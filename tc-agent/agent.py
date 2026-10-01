@@ -416,6 +416,89 @@ def fmt_volume(vols: dict, kw: str) -> str:
         return "<10/ay"
     return f"{v:,}".replace(",", ".") + "/ay"
 
+# ── TALEP SİNYALİ (Google Autocomplete — ücretsiz, anahtarsız) ────────────────
+# Hacim RAKAMI vermez; "Google bu ifadeyi öneriyor mu" sinyali verir. Hiç önerilmeyen
+# hedef sorgu = muhtemelen kimse aramıyor (GSC'de 0 gösterim alan yazıların çoğu böyle).
+
+_AC_MODIFIERS = {"tr": ["", "nasıl", "nedir", "en iyi", "neden"],
+                 "en": ["", "how to", "what is", "best", "vs"]}
+
+def autocomplete(q: str, lang: str = "tr") -> list[str] | None:
+    """Google önerileri. Hata/erişim sorununda None (= bilinmiyor), öneri yoksa []."""
+    try:
+        r = requests.get(
+            "https://suggestqueries.google.com/complete/search",
+            params={"client": "firefox", "hl": lang, "gl": "tr" if lang == "tr" else "us",
+                    "ie": "utf-8", "oe": "utf-8", "q": q},
+            headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
+        if r.status_code != 200:
+            logger.warning(f"Autocomplete HTTP {r.status_code}")
+            return None
+        return [s.lower() for s in json.loads(r.content.decode("utf-8"))[1]]
+    except Exception as e:
+        logger.warning(f"Autocomplete hatası: {e}")
+        return None
+
+def autocomplete_pool(seeds: list[str], lang: str = "tr", limit: int = 25) -> list[str]:
+    """Tohumlar + soru kalıpları için Google önerileri (gerçek talep havuzu)."""
+    out: list[str] = []
+    for seed in seeds:
+        base = _clean_kw(seed)
+        if not base:
+            continue
+        for mod in _AC_MODIFIERS.get(lang, _AC_MODIFIERS["tr"]):
+            for s in autocomplete(f"{base} {mod}".strip(), lang) or []:
+                if s not in out:
+                    out.append(s)
+            time.sleep(0.2)
+    return out[:limit]
+
+def demand_signal(q: str, lang: str = "tr") -> tuple[str, str]:
+    """('strong'|'partial'|'none'|'unknown', önerilen kısa ifade).
+    strong = sorgunun kendisi öneriliyor; partial = yalnızca kısaltılmış hali öneriliyor."""
+    norm = _clean_kw(q)
+    if not norm:
+        return "unknown", ""
+    sugg = autocomplete(norm, lang)
+    if sugg is None:
+        return "unknown", ""
+    if any(s == norm or s.startswith(norm + " ") for s in sugg):
+        return "strong", norm
+    words = norm.split()
+    while len(words) > 2:
+        words = words[:-1]
+        prefix = " ".join(words)
+        sugg = autocomplete(prefix, lang)
+        if sugg is None:
+            return "unknown", ""
+        if any(s == prefix or s.startswith(prefix + " ") for s in sugg):
+            return "partial", prefix
+        time.sleep(0.2)
+    return "none", ""
+
+def annotate_demand(ideas: str, lang: str = "tr") -> str:
+    """Her '🔑 Hedef sorgu' satırına Google talep sinyalini ekler; talepsizleri sonda özetler."""
+    strip_q = lambda t: t.strip().strip("\"'`*")
+    cache: dict[str, tuple[str, str]] = {}
+    weak: list[str] = []
+    def _sub(m):
+        q = strip_q(m.group(2))
+        if q not in cache:
+            cache[q] = demand_signal(q, lang)
+        level, prefix = cache[q]
+        label = {"strong": "✅ Google öneriyor — gerçek talep var",
+                 "partial": f"🟡 Sadece kısa hali öneriliyor: \"{prefix}\" — hedefi buna yaklaştır",
+                 "none": "❌ Google önermiyor — talep sinyali yok",
+                 "unknown": "❔ kontrol edilemedi"}[level]
+        if level == "none":
+            weak.append(q)
+        return f"{m.group(0)}\n🔎 Talep: {label}"
+    out = _TARGET_RE.sub(_sub, ideas)
+    if weak:
+        out += (f"\n\n⚠️ *{len(weak)} önerinin hedef sorgusu Google'da hiç önerilmiyor* — "
+                "büyük ihtimalle aranmıyor. Bunları yazmadan önce hedefi değiştir.")
+    return out
+
 def _classify_intent(titles: list[str], related: list[str]) -> str:
     """SERP başlık ve sorgulardan search intent çıkarır."""
     all_text = " ".join(titles + related).lower()
@@ -1186,6 +1269,7 @@ async def cmd_durum(u, _):
         f"🇬🇧 EN: `{len(en)}` yazı\n"
         f"🔍 SerpAPI: `{'aktif' if SERP_KEY else 'pasif'}`\n"
         f"📊 Hacim (DataForSEO): `{'aktif' if (DFS_LOGIN and DFS_PASS) else 'pasif'}`\n"
+        f"🔎 Talep sinyali (Google Autocomplete): `aktif`\n"
         f"🕐 UTC: `{datetime.utcnow().strftime('%H:%M')}`\n",
         parse_mode="Markdown")
 
@@ -1772,6 +1856,9 @@ async def cmd_fikir(u, ctx):
         None, lambda: keyword_volumes(([konu] if konu else []) + qs + ss, "tr"))
     vtag = (lambda q: f" [hacim: {fmt_volume(vols, q)}]") if vols else (lambda q: "")
 
+    # TALEP HAVUZU — Google otomatik tamamlama (ücretsiz). Önerilen ifade = biri bunu arıyor.
+    ac = await loop.run_in_executor(None, lambda: autocomplete_pool(seeds, "tr"))
+
     # GAP KANITI — asıl seed'in ilk 3 rakibinin gerçek H2/H3 iskeleti.
     outlines = []
     for title, url in pool.get("urls", [])[:3]:
@@ -1793,6 +1880,9 @@ async def cmd_fikir(u, ctx):
         if pool["titles"]:
             pool_block += "\n\nİlk sıradaki rakip başlıkları:\n" + \
                 "\n".join(f"- {t}" for t in pool["titles"][:10])
+    if ac:
+        pool_block += ("\n\nGoogle otomatik tamamlama (GERÇEK TALEP SİNYALİ — Google bunları öneriyor):\n"
+                       + "\n".join(f"- {s}" for s in ac))
     if outlines:
         pool_block += "\n\nRAKİP İÇERİK KANITI (ilk sıradaki sayfaların GERÇEK H2/H3 başlıkları):"
         for i, (title, url, heads, wc) in enumerate(outlines, 1):
@@ -1815,6 +1905,8 @@ async def cmd_fikir(u, ctx):
     if vols:
         vol_rule = """10. HACİM (Google Ads, Türkiye aylık): Sorguların yanındaki [hacim: ...] gerçek veridir. Hacmi olan sorguları önceliklendir; "<10/ay" veya "veri yok" sorguyu ancak BOFU + net iş değeri varsa seç ve bunu 💼 satırında gerekçelendir. Hacim uydurma — rakam yazma, sistem kendisi ekleyecek.
 """
+    ac_rule = ("""11. TALEP SİNYALİ: 🔑 Hedef sorgu mümkünse 'Google otomatik tamamlama' listesindeki bir ifade ya da onun doğal uzantısı olsun. Google'ın hiç önermeyeceği kadar uzun/özgün bir cümle hedef sorgu OLAMAZ — başlık uzun olabilir, hedef sorgu insanların gerçekten yazdığı kısa ifade olmalı. Sistem her hedefi Google'da kontrol edip işaretleyecek.
+""" if ac else "")
     gap_rule = ("GAP İDDİASI KANITLI OLMALI: '🏆' satırında rakip eksikliği iddia ediyorsan RAKİP İÇERİK KANITI'ndaki başlıklara dayandır ve 'Kanıt: Rakip #N ...' diye belirt. Kanıtta görünmüyorsa 'doğrulanmadı' yaz; 'hiçbir rakip X'e değinmiyor' gibi mutlak iddiayı sadece 3 rakibin başlıkları da bunu gösteriyorsa kur."
                 if outlines else
                 "GAP İDDİASI: Rakip içerik gövdesi çekilemedi — eksiklik iddialarını 'başlıklara göre, doğrulanmadı' diye işaretle, mutlak iddia kurma.")
@@ -1854,7 +1946,7 @@ Hedef kitle: Türk dijital pazarlamacılar, KOBİ sahipleri, e-ticaret girişimc
    • Karar çerçevesi / framework
    ZORUNLU: 7 önerinin EN FAZLA 2'si bir kitle-persona'sı (KOBİ/e-ticaret/freelancer) etrafında kurulabilir. Geri kalanı persona-bağımsız olsun. Başlıkları "...ler için" kalıbıyla BAŞLATMA.
 9. SORGU YAMYAMLIĞI (CANNIBALIZATION) YASAK: Aynı kök/head sorguyu (örn. "yapay zeka mühendisliği") BİRDEN FAZLA öneride hedefleme — Google'da yazılar birbirini yer. Her öneri AYRI bir kök sorgu + long-tail almalı. Parantez içine "(uygulama sırasında karşılaşılan problem)" gibi niyet ekleyerek aynı head sorguyu farklı gösterme KESİNLİKLE YASAK; `🔑 Hedef sorgu` gerçekten farklı bir kelime öbeği olmalı. Havuzda yeterli sayıda FARKLI gerçek sorgu yoksa, 7'ye zorlama — 4-5 gerçekten ayrık öneri, 7 çakışan öneriden iyidir.
-{vol_rule}
+{vol_rule}{ac_rule}
 {gap_rule}
 
 Her öneri için TAM OLARAK şu format (başlık ** ile sarılı, BAŞLIKTA YIL YOK):
@@ -1876,6 +1968,7 @@ Sadece 7 öneriyi bu formatta listele, başka açıklama ekleme."""
         ))
         ideas = resp.content[0].text.strip()
         ideas = await loop.run_in_executor(None, lambda: annotate_volumes(ideas, vols))
+        ideas = await loop.run_in_executor(None, lambda: annotate_demand(ideas, "tr"))
 
         # Başlıkları parse et ve hafızaya kaydet (sayı ile seçim için)
         titles = re.findall(r'\*\*\d+\.\s+(.+?)\*\*', ideas)
