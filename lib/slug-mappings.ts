@@ -42,6 +42,7 @@ export const slugMappingTrToEn: Record<string, string> = {
   "chatgpt-astra-otomasyon-uygun-gorevler": "ai-business-process-automation-tasks-worth-automating",
   "mimo-ai-chat-ucretsiz-kullanim-hangi-ozellikler-bedava": "mimo-ai-chat-free-features-paid-comparison",
   "mimo-chatgpt-claude-ayni-anda-kullanma": "use-chatgpt-claude-together-ai-stack-guide",
+  "claude-mcp-token-maliyeti-olcum": "claude-mcp-integration-token-cost-comparison-chart",
 };
 export const slugMappingEnToTr: Record<string, string> = Object.fromEntries(
   Object.entries(slugMappingTrToEn).map(([tr, en]) => [en, tr])
