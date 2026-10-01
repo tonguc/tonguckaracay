@@ -6,7 +6,7 @@ date: "2026-09-20"
 category: "Artificial Intelligence"
 tags: ["ChatGPT", "E-commerce", "Product Descriptions", "Content Quality"]
 readTime: "10 min"
-image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1612425626229-632fab8bfc02?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "chatgpt-ile-e-ticaret-urun-aciklamasi-yazma"
 faq:
   - question: "Can ChatGPT publish product descriptions without review?"

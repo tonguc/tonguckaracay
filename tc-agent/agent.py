@@ -867,7 +867,13 @@ CATEGORY_IMAGES: dict[str, list[str]] = {
         "1520333789090-1afc82db536a",
         "1563986768609-322da13575f3",
     ],
+    "ecommerce": [
+        "1612425626229-632fab8bfc02",   # dizüstünde online mağaza ürün sayfası
+        "1563013544-824ae1b704d3",      # laptop + kartla online alışveriş
+    ],
     "social": [
+        "1690883793939-f8cca2f28ee0",   # elde telefon, sosyal medya uygulamaları
+        "1611926653458-09294b3142bf",   # telefonda sosyal medya ikonları
         "1563986768609-322da13575f3",
         "1516251193007-45ef944ab0c6",
         "1520333789090-1afc82db536a",
@@ -935,15 +941,34 @@ def _image_ok(url: str) -> bool:
     except Exception:
         return False
 
+# Başlıkta bu kelimelerden biri varsa o kategori seçilir (CATEGORY_IMAGES anahtarlarından ÖNCE
+# bakılır). Eskiden "Instagram Reels" / "e-ticaret" başlıkları hiçbir kategoriye uymayıp aynı
+# genel görsele düşüyordu.
+CATEGORY_ALIASES: list[tuple[str, tuple[str, ...]]] = [
+    ("ecommerce", ("e-ticaret", "eticaret", "e-commerce", "ecommerce", "ürün açıklama", "product description",
+                   "shopify", "trendyol", "hepsiburada", "amazon", "etsy", "online mağaza", "online store")),
+    ("social",    ("instagram", "reels", "tiktok", "linkedin", "youtube", "sosyal medya", "social media",
+                   "influencer", "facebook")),
+    ("ads",       ("google ads", "meta ads", "reklam", "ppc")),
+    ("email",     ("e-posta", "newsletter", "bülten")),
+    ("analytic",  ("analytics", "ga4", "analiz", "raporlama", "dashboard")),
+    ("ai",        ("yapay zeka", "claude", "chatgpt", "gpt", "gemini", "mcp", "llm", "ai agent", "prompt")),
+]
+
+def _image_category(topic: str) -> list[str] | None:
+    t = topic.lower()
+    for cat, words in CATEGORY_ALIASES:
+        if any(w in t for w in words) and cat in CATEGORY_IMAGES:
+            return CATEGORY_IMAGES[cat]
+    for cat, ids in CATEGORY_IMAGES.items():
+        if cat in t:
+            return ids
+    return None
+
 def pick_image(topic: str, post_index: int) -> str:
     """Konuya uygun kategoriden, post_index ile offset'li görsel seçer; açılmayanı atlayıp
     sıradakine, kategori tükenirse genel havuza geçer."""
-    t = topic.lower()
-    pool = _FALLBACK_POOL
-    for cat, ids in CATEGORY_IMAGES.items():
-        if cat in t:
-            pool = ids
-            break
+    pool = _image_category(topic) or _FALLBACK_POOL
     candidates = [pool[(post_index + i) % len(pool)] for i in range(len(pool))]
     candidates += [p for p in _FALLBACK_POOL if p not in candidates]
     for pid in candidates:

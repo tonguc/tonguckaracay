@@ -7,7 +7,7 @@ category: "Yapay Zeka"
 tags: ["instagram reels", "yapay zeka", "trend analizi", "içerik planlama"]
 readTime: "10 dk"
 featured: false
-image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1690883793939-f8cca2f28ee0?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "ai-trend-analysis-instagram-reels-content-planning"
 faq:
   - question: "Yapay zeka Instagram Reels trendlerini gerçek zamanlı görebilir mi?"

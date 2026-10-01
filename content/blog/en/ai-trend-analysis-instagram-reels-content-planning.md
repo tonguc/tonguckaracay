@@ -7,7 +7,7 @@ category: "Social Media"
 tags: ["Instagram Reels", "AI", "Trend Analysis", "Content Planning"]
 readTime: "10 min"
 featured: false
-image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1690883793939-f8cca2f28ee0?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "instagram-reels-yapay-zeka-trend-analizi-icerik-planlama"
 faq:
   - question: "Can AI see current Instagram Reels trends in real time?"

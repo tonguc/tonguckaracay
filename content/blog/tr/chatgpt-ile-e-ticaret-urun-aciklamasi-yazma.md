@@ -6,7 +6,7 @@ date: "2026-09-20"
 category: "Yapay Zeka"
 tags: ["ChatGPT", "E-ticaret", "Ürün Açıklaması", "İçerik Kalitesi"]
 readTime: "10 dk"
-image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&auto=format&fit=crop&q=80"
+image: "https://images.unsplash.com/photo-1612425626229-632fab8bfc02?w=1200&auto=format&fit=crop&q=80"
 translationSlug: "chatgpt-ecommerce-product-descriptions-guide"
 faq:
   - question: "ChatGPT ürün açıklamasını tek başına yayımlayabilir mi?"
