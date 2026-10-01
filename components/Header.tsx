@@ -18,21 +18,22 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  // Üstte ana teklifler (lib/offers.ts), altta diğer hizmetler
+  // Tüm hizmetler tek liste (lib/offers.ts); GEO, SEO'nun hemen altında eşit hizmet olarak yer alır
   const loc = locale === 'tr' ? 'tr' : 'en';
-  const mainServices = offers.map((o) => ({ name: o.name[loc], href: o.href[loc] }));
-  const otherServices = locale === 'tr' ? [
-    { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" },
-  ] : [
-    { name: "GEO Optimization", href: "/en/services/geo-optimization" },
-  ];
-  const otherLabel = locale === 'tr' ? 'Diğer hizmetler' : 'Other services';
+  const geoService = locale === 'tr'
+    ? { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" }
+    : { name: "GEO Optimization", href: "/en/services/geo-optimization" };
+  const mainServices = offers.flatMap((o) =>
+    o.key === 'seo-geo'
+      ? [{ name: locale === 'tr' ? 'SEO Danışmanlığı' : 'SEO Consulting', href: o.href[loc] }, geoService]
+      : [{ name: o.name[loc], href: o.href[loc] }]
+  );
 
   const navLinks = locale === 'tr' ? {
     blog: '/blog',
     about: '/hakkimda',
     contact: '/iletisim',
-    cases: '/vaka-calismalari',
+    cases: '/projeler',
     aiTraining: '/ai-egitimi',
     home: '/'
   } : {
@@ -44,7 +45,7 @@ export default function Header() {
     home: '/en'
   };
 
-  const casesLabel = locale === 'tr' ? 'Vakalar' : 'Case Studies';
+  const casesLabel = locale === 'tr' ? 'Projeler' : 'Case Studies';
   const aiTrainingLabel = locale === 'tr' ? 'AI Eğitimi' : 'AI Training';
   const newBadge = locale === 'tr' ? 'YENİ' : 'NEW';
 
@@ -87,8 +88,8 @@ export default function Header() {
       '/services/ai-solutions': { tr: '/hizmetler/yapay-zeka-cozumleri', en: '/en/services/ai-solutions' },
       '/hizmetler/sosyal-medya-yonetimi': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
       '/services/social-media-management': { tr: '/hizmetler/sosyal-medya-yonetimi', en: '/en/services/social-media-management' },
-      '/vaka-calismalari': { tr: '/vaka-calismalari', en: '/en/case-studies' },
-      '/case-studies': { tr: '/vaka-calismalari', en: '/en/case-studies' },
+      '/projeler': { tr: '/projeler', en: '/en/case-studies' },
+      '/case-studies': { tr: '/projeler', en: '/en/case-studies' },
       '/hizmetler/geo-optimizasyonu': { tr: '/hizmetler/geo-optimizasyonu', en: '/en/services/geo-optimization' },
       '/services/geo-optimization': { tr: '/hizmetler/geo-optimizasyonu', en: '/en/services/geo-optimization' },
       '/ai-egitimi': { tr: '/ai-egitimi', en: '/en/ai-training' },
@@ -163,16 +164,6 @@ export default function Header() {
                         key={service.href}
                         href={service.href}
                         className="block px-4 py-2.5 font-medium text-white hover:bg-surface-border/50 rounded-lg transition-colors"
-                      >
-                        {service.name}
-                      </Link>
-                    ))}
-                    <p className="mt-1 border-t border-surface-border/60 px-4 pt-3 pb-1 text-[11px] uppercase tracking-wider text-primary-500">{otherLabel}</p>
-                    {otherServices.map((service) => (
-                      <Link
-                        key={service.href}
-                        href={service.href}
-                        className="block px-4 py-2 text-sm text-primary-300 hover:text-white hover:bg-surface-border/50 rounded-lg transition-colors"
                       >
                         {service.name}
                       </Link>
@@ -260,11 +251,6 @@ export default function Header() {
                 <p className="text-xs uppercase tracking-wider text-primary-400 mb-2 px-2">{t('services')}</p>
                 {mainServices.map((service) => (
                   <Link key={service.href} href={service.href} className="block px-2 py-2 font-medium text-white" onClick={() => setIsMobileMenuOpen(false)}>
-                    {service.name}
-                  </Link>
-                ))}
-                {otherServices.map((service) => (
-                  <Link key={service.href} href={service.href} className="block px-2 py-1.5 text-sm text-primary-400 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>
                     {service.name}
                   </Link>
                 ))}

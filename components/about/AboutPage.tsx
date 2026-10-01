@@ -207,7 +207,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
               </h2>
             </div>
             <Link href={casesPath(locale)} className="inline-flex items-center gap-2 font-semibold text-accent-400 hover:text-accent-300">
-              {isTr ? "Vakalar ve tüm portfolyo" : "Case studies & full portfolio"}
+              {isTr ? "Projeler ve tüm portfolyo" : "Case studies & full portfolio"}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

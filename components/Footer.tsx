@@ -22,14 +22,15 @@ export default function Footer() {
   const locale = useLocale();
   
   const loc = locale === 'tr' ? 'tr' : 'en';
-  const services = [
-    ...offers.map((o) => ({ name: o.name[loc], href: o.href[loc] })),
-    ...(locale === 'tr' ? [
-      { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" },
-        ] : [
-      { name: "GEO Optimization", href: "/en/services/geo-optimization" },
-        ]),
-  ];
+  // Header ile aynı sıra: GEO, SEO'nun hemen altında eşit hizmet
+  const geoService = locale === 'tr'
+    ? { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" }
+    : { name: "GEO Optimization", href: "/en/services/geo-optimization" };
+  const services = offers.flatMap((o) =>
+    o.key === 'seo-geo'
+      ? [{ name: locale === 'tr' ? 'SEO Danışmanlığı' : 'SEO Consulting', href: o.href[loc] }, geoService]
+      : [{ name: o.name[loc], href: o.href[loc] }]
+  );
 
   // Lab — danışmanlık alıcısının ana yolundan çıkarılan ürünler, eğitim ve teknik AI yazıları
   const labLinks = locale === 'tr' ? [
@@ -41,7 +42,7 @@ export default function Footer() {
   ];
 
   const navLinks = locale === 'tr' ? {
-    about: '/hakkimda', contact: '/iletisim', home: '/', privacy: '/privacy-policy', terms: '/terms-of-service', cases: '/vaka-calismalari', blog: '/blog'
+    about: '/hakkimda', contact: '/iletisim', home: '/', privacy: '/privacy-policy', terms: '/terms-of-service', cases: '/projeler', blog: '/blog'
   } : {
     about: '/en/about', contact: '/en/contact', home: '/en', privacy: '/en/privacy-policy', terms: '/en/terms-of-service', cases: '/en/case-studies', blog: '/en/blog'
   };
@@ -94,7 +95,7 @@ export default function Footer() {
                   <Mail className="w-4 h-4" />tonguckaracay@gmail.com
                 </a>
               </li>
-              <li><Link href={navLinks.cases} className="text-primary-400 hover:text-accent-500 transition-colors">{locale === 'tr' ? 'Vaka Çalışmaları' : 'Case Studies'}</Link></li>
+              <li><Link href={navLinks.cases} className="text-primary-400 hover:text-accent-500 transition-colors">{locale === 'tr' ? 'Projeler' : 'Case Studies'}</Link></li>
               <li><Link href={navLinks.blog} className="text-primary-400 hover:text-accent-500 transition-colors">Blog</Link></li>
               <li><Link href={navLinks.about} className="text-primary-400 hover:text-accent-500 transition-colors">{locale === 'tr' ? 'Hakkımda' : 'About'}</Link></li>
               <li><Link href={navLinks.contact} className="text-primary-400 hover:text-accent-500 transition-colors">{t('contactForm')}</Link></li>

@@ -5,7 +5,7 @@ import type { CaseStudy, Locale } from "@/lib/cases";
 interface Props {
   item: CaseStudy;
   locale: Locale;
-  /** compact = ana sayfa mini vaka; full = /vaka-calismalari */
+  /** compact = ana sayfa mini vaka; full = /projeler */
   variant?: "compact" | "full";
 }
 

@@ -18,7 +18,7 @@ export default function CaseHighlights({ locale }: { locale: string }) {
         <div className="mb-8 flex flex-col items-center gap-3 text-center md:mb-12 md:flex-row md:items-end md:justify-between md:text-left">
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-              {isTr ? "Vakalar" : "Case Studies"}
+              {isTr ? "Projeler" : "Case Studies"}
             </p>
             <h2 className="section-title">
               {isTr ? "Teslim Edilmiş " : "Delivered "}
@@ -29,7 +29,7 @@ export default function CaseHighlights({ locale }: { locale: string }) {
             href={casesPath(loc)}
             className="inline-flex items-center gap-2 font-semibold text-accent-400 transition-colors hover:text-accent-300"
           >
-            {isTr ? "Tüm Vakalar" : "All Case Studies"}
+            {isTr ? "Tüm Projeler" : "All Case Studies"}
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

@@ -1,5 +1,5 @@
 /**
- * Vaka çalışmaları — tek veri kaynağı (ana sayfa mini vakaları + /vaka-calismalari).
+ * Vaka çalışmaları — tek veri kaynağı (ana sayfa mini vakaları + /projeler).
  *
  * Şablon: Hedef → Müdahale → Sonuç (metrik) → Müşteri yorumu.
  * KURAL: Sadece doğrulanabilir bilgi. Mevcut içerik behance.net/tonguc
@@ -204,4 +204,4 @@ export const cases: CaseStudy[] = [
 
 export const featuredCases = cases.filter((c) => c.featured);
 
-export const casesPath = (locale: Locale) => (locale === "tr" ? "/vaka-calismalari" : "/en/case-studies");
+export const casesPath = (locale: Locale) => (locale === "tr" ? "/projeler" : "/en/case-studies");

@@ -1,5 +1,5 @@
 /**
- * Behance portfolyosunun tamamı (behance.net/tonguc) — /vaka-calismalari altındaki portfolyo grid'i.
+ * Behance portfolyosunun tamamı (behance.net/tonguc) — /projeler altındaki portfolyo grid'i.
  * Sıra Behance profilindeki sırayla aynı. Kapaklar public/portfolio/<id>.webp.
  * Yeni proje eklenince: kapağı public/portfolio'ya koy, listeye ekle.
  */

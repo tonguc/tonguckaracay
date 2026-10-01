@@ -69,8 +69,8 @@ export default function ValueProposition({ locale }: Props) {
                 <ArrowRight className="ml-1.5 hidden h-4 w-4 sm:inline transition-transform group-hover:translate-x-1" />
               </Link>
               <Link href={casesPath(loc)} className="btn-secondary group whitespace-nowrap !px-3 text-[13px] sm:!px-6 sm:text-sm md:text-base">
-                <span className="sm:hidden">{isTr ? "Vakalar" : "Case Studies"}</span>
-                <span className="hidden sm:inline">{isTr ? "Vakaları İncele" : "See Case Studies"}</span>
+                <span className="sm:hidden">{isTr ? "Projeler" : "Case Studies"}</span>
+                <span className="hidden sm:inline">{isTr ? "Projeleri İncele" : "See Case Studies"}</span>
                 <ArrowUpRight className="ml-1.5 hidden h-4 w-4 sm:inline transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>

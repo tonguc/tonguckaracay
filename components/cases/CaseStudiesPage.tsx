@@ -8,16 +8,16 @@ import PortfolioGrid from "./PortfolioGrid";
 export const caseStudiesMeta = (locale: Locale) => ({
   title:
     locale === "tr"
-      ? "Vaka Çalışmaları ve Portfolyo | Tonguç Karaçay"
+      ? "Projeler ve Portfolyo | Tonguç Karaçay"
       : "Case Studies & Portfolio | Tonguç Karaçay",
   description:
     locale === "tr"
-      ? "Türk Hava Yolları, BMW, Borusan Otomotiv, Fotomaç ve e-ticaret markaları için UX ve dijital ürün vakaları: hedef, müdahale ve teslim edilen tasarım."
+      ? "Türk Hava Yolları, BMW, Borusan Otomotiv, Fotomaç ve e-ticaret markaları için UX ve dijital ürün projeleri: hedef, müdahale ve teslim edilen tasarım."
       : "UX and digital product case studies for Turkish Airlines, BMW, Borusan Otomotiv, Fotomaç and e-commerce brands: goal, intervention and delivered design.",
   alternates: {
-    canonical: locale === "tr" ? "https://tonguckaracay.com/vaka-calismalari" : "https://tonguckaracay.com/en/case-studies",
+    canonical: locale === "tr" ? "https://tonguckaracay.com/projeler" : "https://tonguckaracay.com/en/case-studies",
     languages: {
-      tr: "https://tonguckaracay.com/vaka-calismalari",
+      tr: "https://tonguckaracay.com/projeler",
       en: "https://tonguckaracay.com/en/case-studies",
       "x-default": "https://tonguckaracay.com/en/case-studies",
     },
@@ -35,8 +35,8 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
             {isTr ? "Portfolyo" : "Portfolio"}
           </p>
           <h1 className="font-display text-3xl font-bold leading-tight text-white md:text-5xl">
-            {isTr ? "Vaka " : "Case "}
-            <span className="text-gradient">{isTr ? "Çalışmaları" : "Studies"}</span>
+            {isTr ? "Seçili " : "Case "}
+            <span className="text-gradient">{isTr ? "Projeler" : "Studies"}</span>
           </h1>
           <p className="mt-4 text-base leading-relaxed text-primary-300 md:text-lg">
             {isTr
@@ -53,7 +53,7 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
 
         <div className="card mx-auto mt-14 flex max-w-3xl flex-col items-center gap-4 px-6 py-8 text-center md:py-10">
           <h2 className="font-display text-2xl font-bold text-white md:text-3xl">
-            {isTr ? "Sıradaki vaka sizin siteniz olsun" : "Let your site be the next case"}
+            {isTr ? "Sıradaki proje sizin siteniz olsun" : "Let your site be the next case"}
           </h2>
           <p className="max-w-xl text-primary-300">
             {isTr

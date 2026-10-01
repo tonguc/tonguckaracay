@@ -94,7 +94,7 @@ export default function HeroDynamic({ locale }: Props) {
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link href={casesPath} className="btn-secondary group text-base md:text-lg">
-                {isTr ? "Vaka Çalışmaları" : "View Case Studies"}
+                {isTr ? "Projeler" : "View Case Studies"}
                 <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>

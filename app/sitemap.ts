@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/hakkimda`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/iletisim`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.7 },
     { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
-    { url: `${baseUrl}/vaka-calismalari`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.9 },
+    { url: `${baseUrl}/projeler`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${baseUrl}/hizmetler/geo-optimizasyonu`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/hizmetler/ui-ux-tasarim`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
     { url: `${baseUrl}/hizmetler/seo-danismanligi`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },

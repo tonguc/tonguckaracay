@@ -71,6 +71,7 @@ const nextConfig = {
 
       // Yazar sayfası
       { source: '/author/tkaracay', destination: '/hakkimda', permanent: true },
+      { source: '/vaka-calismalari', destination: '/projeler', permanent: true },
 
       // Blog URL yapısı değişikliği: /blog/[slug] → /[slug]
       { source: '/blog/:slug+', destination: '/:slug+', permanent: true },
