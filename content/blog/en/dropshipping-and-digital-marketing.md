@@ -36,4 +36,4 @@ Therefore, digital marketing paths like social media marketing need to be used e
 
 You can overcome this hesitation point of customers looking for trust for online shopping with digital marketing work. You get the opportunity to reach a larger customer base with better promotion and correct information.
 
-For digital marketing consulting, [get in touch](/contact).
+For digital marketing consulting, [get in touch](/en/contact).
