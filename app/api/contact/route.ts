@@ -37,6 +37,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Verified sender domain can be configured in Vercel without editing code.
+    // Until configured, preserve the existing Resend sandbox sender so we
+    // do not silently break a form that may already be receiving submissions.
+    const configuredSender = process.env.RESEND_FROM_EMAIL?.trim();
+    const sender = configuredSender || 'İletişim Formu <onboarding@resend.dev>';
+    if (process.env.NODE_ENV === 'production' && !configuredSender) {
+      console.warn('CONTACT_MAIL_SENDER_TEST_MODE: Configure RESEND_FROM_EMAIL using a verified Resend sending domain.');
+    }
+
     // Resend API'ye istek
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -45,7 +54,7 @@ export async function POST(request: NextRequest) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'İletişim Formu <onboarding@resend.dev>', // Resend'in test email adresi
+        from: sender,
         to: ['tonguckaracay@gmail.com'],
         reply_to: email,
         subject: `${isPreAudit ? 'ÖN ANALİZ TALEBİ' : 'İletişim Formu'} - ${String(name).slice(0, 100)}${website ? ` (${String(website).slice(0, 100)})` : ''}`,
