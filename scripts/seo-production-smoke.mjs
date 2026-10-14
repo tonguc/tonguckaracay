@@ -45,7 +45,8 @@ for (const [path, expected] of pages) {
     const {response, text} = await request(path);
     const href = canonical(text);
     const actual = href ? attr(href, 'href') : null;
-    const success = response.status === 200 && actual === base + expected;
+    const canonicalUrl = actual ? new URL(actual, base) : null;
+    const success = response.status === 200 && canonicalUrl?.origin === base && canonicalUrl.pathname === expected;
     results.push({path, status: response.status, canonical: actual, pass: success});
     if (!success) problems.push(`${path}: ${response.status}, canonical=${actual}`);
   } catch (error) {
