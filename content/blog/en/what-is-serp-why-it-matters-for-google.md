@@ -43,4 +43,4 @@ A website that uses SERP features takes up more space on the search results page
 
 The main purpose of using SERP features is both to take up more space in search results and to increase your site's click-through rate. On ad results pages, you can determine future planning and strategies by reviewing statistics. Whatever industry you operate in, you can find a feature among SERP features to make these plans.
 
-For professional SEO consulting, [get in touch](/contact).
+For professional SEO consulting, [get in touch](/en/contact).
