@@ -60,4 +60,4 @@ SEO, a rising star expertise area, is considered the golden bracelet of the digi
 - Backlink Risk Management
 - User Behavior Analysis with Google Analytics
 
-For professional SEO consulting, [get in touch](/contact).
+For professional SEO consulting, [get in touch](/en/contact).
