@@ -20,7 +20,8 @@ async function worker(){
       if(res.status!==200){problems.push({url,error:"HTTP "+res.status});continue;}
       const htmlTag=html.match(/<html\b[^>]*>/i)?.[0]||"";
       const lang=attr(htmlTag,"lang");
-      const expected=new URL(url).pathname.startsWith("/en")?"en":"tr";
+      const pathname=new URL(url).pathname;
+      const expected=(pathname==="/en"||pathname.startsWith("/en/"))?"en":"tr";
       if(lang!==expected)problems.push({url,error:"HTML lang "+lang+" expected "+expected});
       const xRobots=res.headers.get("x-robots-tag");
       if(/\bnoindex\b/i.test(xRobots||"")) problems.push({url,error:"X-Robots-Tag noindex"});
@@ -54,5 +55,6 @@ for(const path of ["/robots.txt","/llms.txt","/llms-full.txt"]){
 }
 const summary={sitemapUrls:urls.length,inspected:results.size,criticalIssues:problems.length,reciprocalWarnings:warnings.length,problems:problems.slice(0,40),warnings:warnings.slice(0,45),fileStatus:files};
 console.log(JSON.stringify(summary,null,2));
+if (problems.length) process.exitCode=1;
 // Diagnostic only: no index/noindex, hreflang and X-Robots anomalies are
 // reported for review; no automatic changes to the site's SEO policy here.
