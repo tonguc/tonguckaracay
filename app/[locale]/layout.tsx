@@ -127,7 +127,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
           }}
         />
 
-        {/* WebSite Schema with SearchAction */}
+        {/* WebSite schema: no SearchAction until an actual site-search endpoint exists. */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -135,15 +135,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "Tonguç Karaçay",
-              "url": "https://tonguckaracay.com",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": {
-                  "@type": "EntryPoint",
-                  "urlTemplate": "https://tonguckaracay.com/blog?q={search_term_string}"
-                },
-                "query-input": "required name=search_term_string"
-              }
+              "url": "https://tonguckaracay.com"
             })
           }}
         />

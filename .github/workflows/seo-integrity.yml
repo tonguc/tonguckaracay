@@ -15,7 +15,14 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - name: Verify P0 canonical locale routes and robots
+        run: node --test scripts/seo-p0-crawl-routes.test.mjs
       - name: Verify blog locale mappings
         run: node --test scripts/seo-p1-blog-hreflang.test.mjs
+      - name: Verify P2 schema and prototype index policy
+        run: node --test scripts/seo-p2-schema.test.mjs
       - name: Build site
         run: npm run build
+      - name: Live production SEO smoke check (diagnostic only)
+        continue-on-error: true
+        run: node scripts/seo-production-smoke.mjs
