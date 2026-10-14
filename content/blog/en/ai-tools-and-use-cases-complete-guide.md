@@ -64,7 +64,7 @@ Midjourney has emerged as the leading AI image generator for creative and artist
 
 DALL-E from OpenAI provides similar capabilities with strong integration options for developers. Adobe Firefly integrates directly into Creative Cloud applications, allowing designers to incorporate AI generation into existing workflows.
 
-For businesses exploring [AI UI design tools](/en/blog/ai-ui-design-tools), these platforms offer significant productivity gains in creating mockups, illustrations, and visual assets.
+For businesses exploring [AI UI design tools](/en/ai-ui-design-tools), these platforms offer significant productivity gains in creating mockups, illustrations, and visual assets.
 
 ### Code Generation and Development
 
