@@ -26,3 +26,6 @@ jobs:
       - name: Live production SEO smoke check (diagnostic only)
         continue-on-error: true
         run: node scripts/seo-production-smoke.mjs
+      - name: Full sitemap HTTP and canonical audit (diagnostic only)
+        continue-on-error: true
+        run: node scripts/seo-sitemap-audit.mjs
