@@ -39,4 +39,4 @@ When conducting SEO work with social media accounts, it's quite possible to say 
 - Try to increase your activities by making new campaigns and important announcements on these platforms.
 - For image or video content, include content that best promotes the brand, product, or service.
 
-For digital marketing consulting, [get in touch](/contact).
+For digital marketing consulting, [get in touch](/en/contact).

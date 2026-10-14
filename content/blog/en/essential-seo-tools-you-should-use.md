@@ -40,4 +40,4 @@ Among the most well-known professional SEO tools favored by SEO experts are webm
 
 **10. Screaming Frog:** An indispensable tool for technical SEO analysis. It crawls your site to identify errors.
 
-For professional SEO consulting, [get in touch](/contact).
+For professional SEO consulting, [get in touch](/en/contact).

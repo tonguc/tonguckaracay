@@ -32,4 +32,4 @@ However, search results have been evolving over the past several years to give u
 
 Also note that features like rich results and Knowledge Panels in search results can increase visibility and provide users with more information about your company directly in results.
 
-For professional SEO consulting, [get in touch](/contact).
+For professional SEO consulting, [get in touch](/en/contact).

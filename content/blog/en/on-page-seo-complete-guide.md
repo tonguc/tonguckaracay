@@ -48,4 +48,4 @@ Google's biggest weapon in search criteria is understanding what users are actua
 
 **10. User Engagement:** Improving your website's on-page SEO elements is only half the battle. Focus on site speed, user experience, and content optimization to ensure users don't bounce immediately.
 
-For professional SEO consulting, [get in touch](/contact).
+For professional SEO consulting, [get in touch](/en/contact).

@@ -38,4 +38,4 @@ Of course, not only original and quality content but also targeted keyword work 
 - Ensure your content stays in visitors' minds with an introduction-development-conclusion structure.
 - Use social media and forums effectively to promote the quality content you've prepared.
 
-For professional SEO consulting, [get in touch](/contact).
+For professional SEO consulting, [get in touch](/en/contact).

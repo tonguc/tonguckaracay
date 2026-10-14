@@ -32,4 +32,4 @@ In short, instead of effective advertising work, through effective SEO work you 
 
 **Use SEO Tools and Google Webmaster Tools:** Analyzing your website at regular intervals is important for identifying problems and improving your site. There are many free tools on the internet for SEO analysis, as well as tools offered by search engine giant Google that give the best results.
 
-For professional SEO consulting, [get in touch](/contact).
+For professional SEO consulting, [get in touch](/en/contact).

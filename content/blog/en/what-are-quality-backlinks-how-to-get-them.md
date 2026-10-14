@@ -47,4 +47,4 @@ To get quality backlinks, you first need to produce quality content. Other sites
 
 When working on backlinks, be patient and focus on building a natural link profile. Getting too many backlinks in a short time can be seen as suspicious by search engines.
 
-For professional SEO and backlink consulting, [get in touch](/contact).
+For professional SEO and backlink consulting, [get in touch](/en/contact).

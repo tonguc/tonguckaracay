@@ -41,4 +41,4 @@ An inbound marketing strategy consists of four main stages:
 
 **4. Delight:** Satisfy your customers and turn them into brand advocates. Build customer loyalty and develop referral programs.
 
-For digital marketing consulting, [get in touch](/contact).
+For digital marketing consulting, [get in touch](/en/contact).

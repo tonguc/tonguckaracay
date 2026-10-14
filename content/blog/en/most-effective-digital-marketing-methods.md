@@ -28,4 +28,4 @@ No matter how perfect your product or service is, you can't achieve success if y
 
 **Influencer Marketing:** It's a fact that among the first points of reference for people wanting to buy a product or service are other consumers. Influencer marketing focuses on this point. To promote and sell products or services, an Influencer with an audience that will be interested is identified. Through this path, brand awareness is increased and new customer segments are gained with increases in sales.
 
-For digital marketing consulting, [get in touch](/contact).
+For digital marketing consulting, [get in touch](/en/contact).

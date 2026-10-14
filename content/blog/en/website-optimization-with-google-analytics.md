@@ -38,4 +38,4 @@ Data usage is crucial in UX design. Since UX Designers propose data-driven chang
 
 When combined with Google Analytics data, A/B tests, and user feedback, it creates a powerful foundation for continuously improving user experience.
 
-For more information, check out our [UI-UX design services](/services/ui-ux-design).
+For more information, check out our [UI-UX design services](/en/services/ui-ux-design).
