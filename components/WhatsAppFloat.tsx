@@ -1,3 +1,7 @@
+"use client";
+
+import { trackLeadEvent } from "@/lib/lead-analytics";
+
 interface Props {
   locale: string;
 }
@@ -18,6 +22,7 @@ export default function WhatsAppFloat({ locale }: Props) {
   return (
     <a
       href={href}
+      onClick={() => trackLeadEvent("contact_channel_click", { locale: isTr ? "tr" : "en", method: "whatsapp" })}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
