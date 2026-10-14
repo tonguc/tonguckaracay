@@ -211,7 +211,7 @@ AI tools are transforming UI design processes but not replacing designers. The m
 
 ---
 
-For professional UI/UX design support and AI integration strategies, [get in touch](/contact).
+For professional UI/UX design support and AI integration strategies, [get in touch](/en/contact).
 
 **Sources:**
 - Figma 2025 AI Report
