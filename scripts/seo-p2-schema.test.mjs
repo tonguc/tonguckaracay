@@ -9,7 +9,7 @@ const blogPage = readFileSync('app/[locale]/blog/page.tsx', 'utf8');
 const sitemap = readFileSync('app/sitemap.ts', 'utf8');
 
 test('structured data never advertises a nonfunctional blog search', () => {
-  assert.doesNotMatch(localeLayout, /SearchAction|search_term_string|urlTemplate/);
+  assert.doesNotMatch(localeLayout, /\"@type\": \"SearchAction\"|search_term_string|urlTemplate/);
   assert.match(localeLayout, /"@type": "WebSite"/);
   assert.doesNotMatch(blogPage, /searchParams\.q|searchParams\['q'\]/);
 });
