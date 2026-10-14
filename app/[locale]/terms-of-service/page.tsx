@@ -18,10 +18,11 @@ export async function generateMetadata({ params: { locale } }: Props): Promise<M
     alternates: {
       canonical: isEN
         ? 'https://tonguckaracay.com/en/terms-of-service'
-        : 'https://tonguckaracay.com/kullanim-kosullari',
+        : 'https://tonguckaracay.com/terms-of-service',
       languages: {
-        tr: 'https://tonguckaracay.com/kullanim-kosullari',
+        tr: 'https://tonguckaracay.com/terms-of-service',
         en: 'https://tonguckaracay.com/en/terms-of-service',
+        'x-default': 'https://tonguckaracay.com/en/terms-of-service',
       },
     },
   };

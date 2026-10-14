@@ -1,58 +1,62 @@
 import { MetadataRoute } from 'next';
-import { getAllSlugs } from '@/lib/blog-utils';
+import { getAllPosts } from '@/lib/blog-utils';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://tonguckaracay.com';
-  const now = new Date();
+  // Only signal an actual publication/update date, never the deployment time.
+  const modifiedDate = (value: string | undefined): Date | undefined => {
+    if (!value) return undefined;
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? undefined : date;
+  };
 
   // Static pages - TR
   const staticPagesTR = [
-    { url: baseUrl, lastModified: now, changeFrequency: 'weekly' as const, priority: 1.0 },
-    { url: `${baseUrl}/hakkimda`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/iletisim`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.7 },
-    { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
-    { url: `${baseUrl}/projeler`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${baseUrl}/hizmetler/geo-optimizasyonu`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/hizmetler/ui-ux-tasarim`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/hizmetler/seo-danismanligi`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/hizmetler/online-reklamcilik`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/hizmetler/yapay-zeka-cozumleri`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/hizmetler/sosyal-medya-yonetimi`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/ai-egitimi`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.9 },
+    { url: baseUrl, changeFrequency: 'weekly' as const, priority: 1.0 },
+    { url: `${baseUrl}/hakkimda`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/iletisim`, changeFrequency: 'monthly' as const, priority: 0.7 },
+    { url: `${baseUrl}/privacy-policy`, changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/terms-of-service`, changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/blog`, changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: `${baseUrl}/projeler`, changeFrequency: 'monthly' as const, priority: 0.9 },
+    { url: `${baseUrl}/hizmetler/geo-optimizasyonu`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/hizmetler/ui-ux-tasarim`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/hizmetler/seo-danismanligi`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/hizmetler/online-reklamcilik`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/hizmetler/yapay-zeka-cozumleri`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/hizmetler/sosyal-medya-yonetimi`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/ai-egitimi`, changeFrequency: 'monthly' as const, priority: 0.9 },
   ];
 
   // Static pages - EN
   const staticPagesEN = [
-    { url: `${baseUrl}/en`, lastModified: now, changeFrequency: 'weekly' as const, priority: 1.0 },
-    { url: `${baseUrl}/en/about`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/en/contact`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.7 },
-    { url: `${baseUrl}/en/blog`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.9 },
-    { url: `${baseUrl}/en/case-studies`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.9 },
-    { url: `${baseUrl}/en/services/geo-optimization`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/en/privacy-policy`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
-    { url: `${baseUrl}/en/terms-of-service`, lastModified: now, changeFrequency: 'yearly' as const, priority: 0.3 },
-    { url: `${baseUrl}/en/services/ui-ux-design`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/en/services/seo-consulting`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/en/services/online-advertising`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/en/services/ai-solutions`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/en/services/social-media-management`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/en/ai-training`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.9 },
+    { url: `${baseUrl}/en`, changeFrequency: 'weekly' as const, priority: 1.0 },
+    { url: `${baseUrl}/en/about`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/en/contact`, changeFrequency: 'monthly' as const, priority: 0.7 },
+    { url: `${baseUrl}/en/blog`, changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: `${baseUrl}/en/case-studies`, changeFrequency: 'monthly' as const, priority: 0.9 },
+    { url: `${baseUrl}/en/services/geo-optimization`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/en/privacy-policy`, changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/en/terms-of-service`, changeFrequency: 'yearly' as const, priority: 0.3 },
+    { url: `${baseUrl}/en/services/ui-ux-design`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/en/services/seo-consulting`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/en/services/online-advertising`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/en/services/ai-solutions`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/en/services/social-media-management`, changeFrequency: 'monthly' as const, priority: 0.8 },
+    { url: `${baseUrl}/en/ai-training`, changeFrequency: 'monthly' as const, priority: 0.9 },
   ];
 
-  // Blog posts - TR (canonical: /slug, no /blog/ prefix)
-  const trSlugs = getAllSlugs('tr');
-  const blogPostsTR = trSlugs.map(slug => ({
-    url: `${baseUrl}/${slug}`,
-    lastModified: now,
+  // Blog posts use frontmatter dates, not deployment timestamps.
+  const blogPostsTR = getAllPosts('tr').map(post => ({
+    url: `${baseUrl}/${post.slug}`,
+    lastModified: modifiedDate(post.updatedDate || post.date),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
 
-  // Blog posts - EN (canonical: /en/slug, no /en/blog/ prefix)
-  const enSlugs = getAllSlugs('en');
-  const blogPostsEN = enSlugs.map(slug => ({
-    url: `${baseUrl}/en/${slug}`,
-    lastModified: now,
+  const blogPostsEN = getAllPosts('en').map(post => ({
+    url: `${baseUrl}/en/${post.slug}`,
+    lastModified: modifiedDate(post.updatedDate || post.date),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));

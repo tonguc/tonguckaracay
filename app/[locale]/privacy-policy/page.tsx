@@ -18,10 +18,11 @@ export async function generateMetadata({ params: { locale } }: Props): Promise<M
     alternates: {
       canonical: isEN
         ? 'https://tonguckaracay.com/en/privacy-policy'
-        : 'https://tonguckaracay.com/gizlilik-politikasi',
+        : 'https://tonguckaracay.com/privacy-policy',
       languages: {
-        tr: 'https://tonguckaracay.com/gizlilik-politikasi',
+        tr: 'https://tonguckaracay.com/privacy-policy',
         en: 'https://tonguckaracay.com/en/privacy-policy',
+        'x-default': 'https://tonguckaracay.com/en/privacy-policy',
       },
     },
   };
