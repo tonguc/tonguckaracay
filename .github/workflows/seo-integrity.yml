@@ -21,6 +21,8 @@ jobs:
         run: node --test scripts/seo-p1-blog-hreflang.test.mjs
       - name: Verify P2 schema and prototype index policy
         run: node --test scripts/seo-p2-schema.test.mjs
+      - name: Verify GA4 lead events and privacy boundaries
+        run: node --test scripts/ga4-lead-tracking.test.mjs
       - name: Build site
         run: npm run build
       - name: Live production SEO smoke check (diagnostic only)

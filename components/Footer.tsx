@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLocale, useTranslations } from 'next-intl';
 import { Mail, Linkedin, ExternalLink } from "lucide-react";
+import { trackLeadEvent } from "@/lib/lead-analytics";
 import { offers } from "@/lib/offers";
 
 const InstagramIcon = () => (
@@ -91,7 +92,7 @@ export default function Footer() {
             <h3 className="font-display font-semibold text-white mb-4">{t('contact')}</h3>
             <ul className="space-y-3">
               <li>
-                <a href="mailto:tonguckaracay@gmail.com" className="flex items-center gap-2 text-primary-400 hover:text-accent-500 transition-colors">
+                <a href="mailto:tonguckaracay@gmail.com" onClick={() => trackLeadEvent("contact_channel_click", { locale: locale === "tr" ? "tr" : "en", method: "email" })} className="flex items-center gap-2 text-primary-400 hover:text-accent-500 transition-colors">
                   <Mail className="w-4 h-4" />tonguckaracay@gmail.com
                 </a>
               </li>
