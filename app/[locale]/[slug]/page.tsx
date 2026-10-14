@@ -62,6 +62,8 @@ export async function generateMetadata({ params: { locale, slug } }: Props): Pro
     : `${baseUrl}/en/${slug}`;
 
   // Resolve sibling slug for hreflang
+  // Only output hreflang for an existing mapped translation.
+  // Falling back to the same slug in another locale can emit non-existent URLs.
   const trSlug = locale === 'en' ? (slugMappingEnToTr[slug] ?? null) : slug;
   const enSlug = locale === 'tr' ? (slugMappingTrToEn[slug] ?? null) : slug;
 
