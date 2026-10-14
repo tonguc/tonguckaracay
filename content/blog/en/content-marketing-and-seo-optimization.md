@@ -36,4 +36,4 @@ Those who continue SEO and content marketing work together can always achieve mo
 
 **Video Usage in Content:** The importance of content enriched with video is increasing every day. Therefore, when enriching your content, pay attention to using video in addition to visuals or graphics.
 
-For professional SEO consulting, [get in touch](/contact).
+For professional SEO consulting, [get in touch](/en/contact).
