@@ -161,7 +161,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       {BOOKING_URL && (
         <a
           href={BOOKING_URL}
-          onClick={() => trackLeadEvent("contact_channel_click", { locale, method: "booking" })}
+          data-contact-method="booking"
           target="_blank"
           rel="noopener noreferrer"
           className="mb-6 flex items-center gap-3 rounded-xl border border-accent-500/30 bg-accent-500/5 px-4 py-3 text-sm font-medium text-accent-200 transition-colors hover:border-accent-500/60 hover:text-white"

@@ -7,6 +7,7 @@ import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import ContactLinkAnalytics from "@/components/ContactLinkAnalytics";
 
 const GA_ID = "G-0YHTLZPKKZ";
 
@@ -166,6 +167,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
           </main>
           <Footer />
           <WhatsAppFloat locale={locale} />
+          <ContactLinkAnalytics locale={locale as Locale} />
         </NextIntlClientProvider>
       </body>
     </html>
