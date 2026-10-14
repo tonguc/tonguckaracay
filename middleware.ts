@@ -2,6 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 import { locales, defaultLocale } from './i18n.config';
 import { slugMappingTrToEn, slugMappingEnToTr } from './lib/slug-mappings';
+import localeRoutePairs from './lib/locale-route-pairs.json';
 
 const intlMiddleware = createMiddleware({
   locales,
@@ -41,6 +42,25 @@ export default function middleware(request: NextRequest) {
     pathname.includes('.')
   ) {
     return NextResponse.next();
+  }
+
+  // Canonical cross-language aliases. Never serve a translated static page
+  // beneath the wrong locale: it would reuse metadata for another URL.
+  // The target path is always a known canonical route in the other language.
+  for (const [trPath, enPath] of localeRoutePairs) {
+    const wrongEnglishPath = `/en${trPath}`;
+    const wrongTurkishPath = enPath.slice(3); // Remove /en prefix.
+    const destination = pathname === wrongEnglishPath
+      ? enPath
+      : pathname === wrongTurkishPath
+        ? trPath
+        : null;
+
+    if (destination) {
+      const target = request.nextUrl.clone();
+      target.pathname = destination;
+      return NextResponse.redirect(target, { status: 301 });
+    }
   }
 
   // Defense in depth: if a request lands on the wrong-locale URL for a
