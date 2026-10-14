@@ -11,7 +11,9 @@ test("analytics contract restricts event names and parameters to non-personal va
   for (const evt of ["contact_form_started", "contact_form_failed", "contact_channel_click", "generate_lead"]) {
     assert.ok(contract.includes('"' + evt + '"'), evt);
   }
-  assert.doesNotMatch(contract, /\b(name|email|phone|message|website|budget|traffic|goal)\s*:/);
+  const eventFields = contract.split("export type LeadEventParams = {")[1]?.split("};")[0] || "";
+  assert.ok(eventFields.includes("locale:") && eventFields.includes("method:"));
+  assert.doesNotMatch(eventFields, /\b(name|email|phone|message|website|budget|traffic|goal)\s*:/);
   assert.match(contract, /typeof window === "undefined"/);
 });
 
