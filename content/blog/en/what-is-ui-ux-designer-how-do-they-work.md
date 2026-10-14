@@ -28,4 +28,4 @@ On the other hand, UI Designers must maintain consistency across all visual elem
 
 UI Designers work in the trenches with development teams. They work until their designs are ready for handoff and progress to the end of the process. With workflows that include preparing visual interface layouts, style-appropriate visual designs, typography, color schemes, and buttons, they're responsible for the visual quality of application areas.
 
-For more information, check out our [UI-UX design services](/services/ui-ux-design).
+For more information, check out our [UI-UX design services](/en/services/ui-ux-design).
