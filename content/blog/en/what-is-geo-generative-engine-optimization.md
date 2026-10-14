@@ -283,7 +283,7 @@ By implementing these strategies, you can maintain and increase your visibility 
 
 ---
 
-For GEO consulting and AI-focused digital marketing strategies, [get in touch](/contact).
+For GEO consulting and AI-focused digital marketing strategies, [get in touch](/en/contact).
 
 **Sources:**
 - Princeton University GEO Research, Aggarwal et al. (2023)
