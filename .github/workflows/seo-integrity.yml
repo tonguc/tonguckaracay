@@ -23,6 +23,8 @@ jobs:
         run: node --test scripts/seo-p2-schema.test.mjs
       - name: Verify GA4 lead events and privacy boundaries
         run: node --test scripts/ga4-lead-tracking.test.mjs
+      - name: Validate production mail sender config
+        run: node --test scripts/contact-resend-config.test.mjs
       - name: Build site
         run: npm run build
       - name: Live production SEO smoke check (diagnostic only)
