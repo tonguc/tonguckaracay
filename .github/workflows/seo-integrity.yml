@@ -35,3 +35,5 @@ jobs:
       - name: Full sitemap HTTP and canonical audit (diagnostic only)
         continue-on-error: true
         run: node scripts/seo-sitemap-audit.mjs
+      - name: Historical GSC 79 URL server and redirect regression
+        run: node scripts/seo-historical-gsc-audit.mjs
