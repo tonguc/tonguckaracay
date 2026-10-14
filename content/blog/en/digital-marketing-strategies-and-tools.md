@@ -40,4 +40,4 @@ Tools you can use for search engine optimization and marketing:
 
 **Google Search Console:** A free tool from Google that allows you to monitor your site's search performance.
 
-For digital marketing consulting, [get in touch](/contact).
+For digital marketing consulting, [get in touch](/en/contact).
