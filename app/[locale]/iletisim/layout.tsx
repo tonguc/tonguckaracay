@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   description: "Sitenizin SEO, GEO ve dönüşüm tarafındaki en büyük fırsatları için ücretsiz ön analiz isteyin ya da projenizi anlatın. 24 saat içinde dönüş yapıyorum.",
   alternates: {
     canonical: 'https://tonguckaracay.com/iletisim',
+    languages: {
+      tr: 'https://tonguckaracay.com/iletisim',
+      en: 'https://tonguckaracay.com/en/contact',
+      'x-default': 'https://tonguckaracay.com/en/contact',
+    },
   },
 };
 
