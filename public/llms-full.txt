@@ -1,0 +1,45 @@
+# Tonguç Karaçay — Extended Public Website Index
+
+This is a machine-readable directory of selected public resources from tonguckaracay.com, maintained alongside the site's original `/llms.txt`. It is not a complete copy of the website, and inclusion does not imply search-engine or AI citation priority.
+
+## Author and website
+
+Tonguç Karaçay is an Istanbul-based UI/UX design, SEO, GEO, digital marketing and AI automation consultant.
+
+- Turkish home: https://tonguckaracay.com/
+- English home: https://tonguckaracay.com/en
+- About (Turkish): https://tonguckaracay.com/hakkimda
+- About (English): https://tonguckaracay.com/en/about
+- Contact (Turkish): https://tonguckaracay.com/iletisim
+- Contact (English): https://tonguckaracay.com/en/contact
+
+## Services
+
+- SEO consultancy (TR): https://tonguckaracay.com/hizmetler/seo-danismanligi
+- SEO consultancy (EN): https://tonguckaracay.com/en/services/seo-consulting
+- GEO consulting (TR): https://tonguckaracay.com/hizmetler/geo-optimizasyonu
+- GEO consulting (EN): https://tonguckaracay.com/en/services/geo-optimization
+- AI automation (TR): https://tonguckaracay.com/hizmetler/yapay-zeka-cozumleri
+- AI automation (EN): https://tonguckaracay.com/en/services/ai-solutions
+- UI/UX design (TR): https://tonguckaracay.com/hizmetler/ui-ux-tasarim
+- UI/UX design (EN): https://tonguckaracay.com/en/services/ui-ux-design
+- AI training (TR): https://tonguckaracay.com/ai-egitimi
+- AI training (EN): https://tonguckaracay.com/en/ai-training
+
+## Guides and research
+
+- GEO overview (TR): https://tonguckaracay.com/geo-nedir-nasil-yapilir
+- ChatGPT GEO (TR): https://tonguckaracay.com/chatgpt-geo-nasil-yapilir
+- ChatGPT citation guide (EN): https://tonguckaracay.com/en/how-to-get-cited-in-chatgpt
+- GEO optimization checklist (EN): https://tonguckaracay.com/en/geo-targeted-content-optimization-checklist
+- AI SEO implementation (EN): https://tonguckaracay.com/en/ai-seo-strategy-implementation-guide
+- AI agent customer service (TR): https://tonguckaracay.com/ai-agent-musteri-hizmetleri-otomasyonu
+- AI agent customer service (EN): https://tonguckaracay.com/en/ai-agent-customer-service-automation
+
+## Complete canonical URL list and policies
+
+- Current XML sitemap: https://tonguckaracay.com/sitemap.xml
+- Original site description: https://tonguckaracay.com/llms.txt
+- Robots policy: https://tonguckaracay.com/robots.txt
+
+Turkish canonical pages use the root path; English canonical pages use the /en path. Refer to each page's canonical and hreflang metadata for preferred URLs.
