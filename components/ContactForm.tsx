@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { trackLeadEvent } from "@/lib/lead-analytics";
 import { Send, CheckCircle2, Loader2, CalendarDays } from "lucide-react";
 
 type Locale = "tr" | "en";
@@ -71,6 +72,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const hasStarted = useRef(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -85,6 +87,10 @@ export default function ContactForm({ locale }: { locale: Locale }) {
   const isPre = form.service === c.preAudit;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    if (!hasStarted.current) {
+      hasStarted.current = true;
+      trackLeadEvent("contact_form_started", { locale, method: "form" });
+    }
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -92,6 +98,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
+    const leadType = form.service === c.preAudit ? "pre_audit" : form.service === c.aiTraining ? "ai_training" : "general";
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -100,12 +107,17 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.success) {
+        // Confirmed backend acceptance only. Clicks are tracked separately.
+        trackLeadEvent("generate_lead", { locale, method: "form", lead_type: leadType });
         setIsSubmitted(true);
+        hasStarted.current = false;
         setForm(empty);
       } else {
+        trackLeadEvent("contact_form_failed", { locale, method: "form", result: "api_rejected" });
         setError(c.error);
       }
     } catch {
+      trackLeadEvent("contact_form_failed", { locale, method: "form", result: "network_error" });
       setError(c.error);
     } finally {
       setIsSubmitting(false);
@@ -149,6 +161,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       {BOOKING_URL && (
         <a
           href={BOOKING_URL}
+          onClick={() => trackLeadEvent("contact_channel_click", { locale, method: "booking" })}
           target="_blank"
           rel="noopener noreferrer"
           className="mb-6 flex items-center gap-3 rounded-xl border border-accent-500/30 bg-accent-500/5 px-4 py-3 text-sm font-medium text-accent-200 transition-colors hover:border-accent-500/60 hover:text-white"
