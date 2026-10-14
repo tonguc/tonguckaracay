@@ -58,7 +58,20 @@ export async function generateMetadata({ params: { locale }, searchParams }: Pro
       : (locale === 'tr'
           ? 'SEO, GEO (yapay zeka aramaları), UX ve AI otomasyonu üzerine uygulamalı rehberler: işletmenizin trafiğini ve gelirini büyütmek için adım adım.'
           : 'Hands-on guides on SEO, GEO (AI search), UX and AI automation: step-by-step ways to grow your business traffic and revenue.'),
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      // Pagination and filtered views may contain different sets between
+      // locales. Only the unfiltered root listing has a reliable pair.
+      ...(view === 'all' && currentPage === 1
+        ? {
+            languages: {
+              tr: 'https://tonguckaracay.com/blog',
+              en: 'https://tonguckaracay.com/en/blog',
+              'x-default': 'https://tonguckaracay.com/en/blog',
+            },
+          }
+        : {}),
+    },
   };
 }
 
