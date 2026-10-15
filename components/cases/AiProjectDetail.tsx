@@ -26,7 +26,7 @@ export default function AiProjectDetail({ locale, slug }: { locale: ProjectLocal
         {p.image?.endsWith(".svg") && p.slug !== "whattime-city"
           ? (isTr ? "Görsel, proje akışını anlatan temsili bir diyagramdır; gerçek uygulama ekran görüntüsü değildir." : "This is a conceptual project workflow diagram, not a live application screenshot.")
           : (isTr ? "Görsel, projeye ait portfolyo veya uygulama dosyalarından alınmıştır." : "Visual from existing portfolio or project files.")}
-      </p>}
+      </p>
 
       <div className="mt-12 grid max-w-5xl gap-8 lg:grid-cols-[1fr_0.65fr]">
         <div>
