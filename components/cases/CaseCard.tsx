@@ -105,7 +105,7 @@ export default function CaseCard({ item, locale, variant = "full" }: Props) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm font-medium text-accent-400 transition-colors hover:text-accent-300"
           >
-            {isTr ? "Tasarımı Behance'te gör" : "See the design on Behance"}
+            {isTr ? "Projeyi Behance'te incele" : "View the project on Behance"}
             <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
