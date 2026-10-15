@@ -75,7 +75,7 @@ export const cases: CaseStudy[] = [
     sector: { tr: "E-ticaret · Elektronik", en: "E-commerce · Electronics" },
     offer: "ux-conversion",
     featured: true,
-    title: { tr: "E-ticaret Platformu Kurulumu ve Operasyon Liderliği", en: "E-commerce Platform Launch & Operations Leadership" },
+    title: { tr: "E-ticaret Platformu Stratejisi, Kurulumu ve Ekip Yönetimi", en: "E-commerce Platform Strategy, Launch & Team Leadership" },
     goal: {
       tr: "Network Hardwares için Shopify tabanlı e-ticaret yapısının kurulumu, mağaza operasyonları, ürün kataloğu ve ekip koordinasyonunu uçtan uca yönetmek.",
       en: "Lead the Shopify e-commerce setup, storefront operations, product catalogue and cross-functional delivery for Network Hardwares.",
@@ -102,7 +102,7 @@ export const cases: CaseStudy[] = [
     sector: { tr: "SaaS · SEO, GEO & UX", en: "SaaS · SEO, GEO & UX" },
     offer: "ai-growth",
     featured: true,
-    title: { tr: "SEO, GEO ve UX Denetim Platformu", en: "SEO, GEO & UX Audit Platform" },
+    title: { tr: "AI ile Geliştirilen SEO, GEO ve UX Denetim Platformu", en: "AI-Assisted SEO, GEO & UX Audit Platform" },
     goal: {
       tr: "Teknik SEO, yapay zeka arama görünürlüğü ve kullanıcı deneyimi kontrollerini tek bir dijital ürün altında birleştirmek.",
       en: "Unify technical SEO, AI search visibility and user experience assessments in one digital product.",

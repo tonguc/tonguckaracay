@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/blog-utils';
+import { aiProjects } from '@/lib/ai-projects';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://tonguckaracay.com';
@@ -66,5 +67,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPagesEN,
     ...blogPostsTR,
     ...blogPostsEN,
+    ...aiProjects.flatMap((p) => ([
+      { url: `${baseUrl}/ai-projects/${p.slug}`, changeFrequency: 'monthly' as const, priority: 0.6 },
+      { url: `${baseUrl}/en/ai-projects/${p.slug}`, changeFrequency: 'monthly' as const, priority: 0.6 },
+    ])),
   ];
      }

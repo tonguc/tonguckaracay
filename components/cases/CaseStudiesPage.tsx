@@ -1,6 +1,7 @@
 import { cases, type Locale } from "@/lib/cases";
 import CaseCarousel from "./CaseCarousel";
 import PortfolioGrid from "./PortfolioGrid";
+import AiProjectsGallery from "./AiProjectsGallery";
 
 export const caseStudiesMeta = (locale: Locale) => ({
   title:
@@ -46,6 +47,7 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
           <CaseCarousel items={cases} locale={locale} />
         </div>
 
+        <AiProjectsGallery locale={locale} />
         <PortfolioGrid locale={locale} />
 
 
