@@ -42,6 +42,9 @@ const nextConfig = {
   // 301 Redirects - Eski URL'lerden yeni URL'lere
   async redirects() {
     return [
+      // Legacy Turkish legal URL found as 404 in the 2026-10-15 GSC 5xx samples.
+      { source: '/kullanim-kosullari', destination: '/terms-of-service', permanent: true },
+
       // Blog yazıları redirect'leri
       { source: '/seo-nedir-seo-calismalari-nasil-yapilir', destination: '/seo-nedir-nasil-yapilir', permanent: true },
       { source: '/kaliteli-backlink-nedir-nasil-alinir-old', destination: '/kaliteli-backlink-nedir-nasil-alinir', permanent: true },
