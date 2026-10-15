@@ -17,6 +17,8 @@ jobs:
       - run: npm ci
       - name: Verify P0 canonical locale routes and robots
         run: node --test scripts/seo-p0-crawl-routes.test.mjs
+      - name: Verify GSC legacy legal redirect route
+        run: node --test scripts/seo-gsc-5xx-six.test.mjs
       - name: Verify blog locale mappings
         run: node --test scripts/seo-p1-blog-hreflang.test.mjs
       - name: Verify English blog link locale
