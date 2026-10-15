@@ -42,6 +42,11 @@ const nextConfig = {
   // 301 Redirects - Eski URL'lerden yeni URL'lere
   async redirects() {
     return [
+      // The old unprefixed English on-page SEO URL is Google's historical
+      // selected canonical. Preserve EN content by redirecting to its EN URL,
+      // rather than the generic wrong-locale middleware redirect to TR.
+      { source: '/on-page-seo-complete-guide', destination: '/en/on-page-seo-complete-guide', permanent: true },
+
       // Legacy Turkish legal URL found as 404 in the 2026-10-15 GSC 5xx samples.
       { source: '/kullanim-kosullari', destination: '/terms-of-service', permanent: true },
 
