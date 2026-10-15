@@ -21,7 +21,7 @@ export function generateMetadata({ params: { locale, slug } }: Props): Metadata 
     title,
     description: item.summary["tr"],
     alternates: {
-      canonical: "tr" === "tr" ? tr : en,
+      canonical: tr,
       languages: { tr, en, "x-default": en },
     },
     openGraph: { title, description: item.summary["tr"] },
