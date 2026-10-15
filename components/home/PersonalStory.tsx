@@ -13,18 +13,19 @@ export default function PersonalStory({ locale }: Props) {
   const isTr = locale === "tr";
   const aboutPath = isTr ? "/hakkimda" : "/en/about";
 
+  // Kariyer ve liderlik perspektifi: bağımsız danışmanlık hizmeti teklifi değil, CV odaklı özet.
   const timeline = isTr
     ? [
-        { period: "UX & Tasarım", desc: "25+ yıl kullanıcı deneyimi tasarımı ve ürün düşüncesi." },
-        { period: "Dijital Pazarlama", desc: "Marka ve performans pazarlamasında liderlik." },
-        { period: "SEO Danışmanlığı", desc: "Teknik SEO ve içerik stratejisiyle organik büyüme." },
-        { period: "AI Dönüşümü", desc: "İşletmeler için yapay zeka benimseme ve otomasyon danışmanlığı." },
+        { period: "Dijital Ürün & UX Liderliği", desc: "B2B SaaS, e-ticaret ve kurumsal platformlarda kullanıcı deneyimi stratejisi, tasarım sistemleri ve ürün ekiplerine liderlik." },
+        { period: "AI Ürünleri & İnovasyon", desc: "AI destekli ürün özellikleri, otomasyonlar ve karmaşık iş akışlarını fikir aşamasından canlı ortama taşıma." },
+        { period: "Dijital Büyüme & Analitik", desc: "SEO, GEO, performans pazarlaması ve dönüşüm optimizasyonunu veriyle ve ürün hedefleriyle buluşturma." },
+        { period: "Strateji & Ekip Yönetimi", desc: "Disiplinler arası ekiplerin yönetimi, ürün yol haritası, önceliklendirme ve uçtan uca teslim süreçleri." },
       ]
     : [
-        { period: "UX & Design", desc: "25+ years of user experience design and product thinking." },
-        { period: "Digital Marketing", desc: "Leadership across brand and performance marketing." },
-        { period: "SEO Consulting", desc: "Organic growth through technical SEO and content strategy." },
-        { period: "AI Transformation", desc: "AI adoption and automation consulting for businesses." },
+        { period: "Digital Product & UX Leadership", desc: "Leading user experience strategy, design systems and product teams across B2B SaaS, e-commerce and enterprise platforms." },
+        { period: "AI Products & Innovation", desc: "Taking AI-powered product features, automation and complex workflows from concept through production." },
+        { period: "Digital Growth & Analytics", desc: "Connecting SEO, GEO, performance marketing and conversion optimization to product goals and measurable insights." },
+        { period: "Strategy & Team Leadership", desc: "Leading cross-functional teams, product roadmaps, prioritization and end-to-end delivery." },
       ];
 
   return (
@@ -40,7 +41,7 @@ export default function PersonalStory({ locale }: Props) {
             <div className="relative aspect-square">
               <Image
                 src="/tonguckaracay-ux-seo-ai.png"
-                alt="Tonguç Karaçay — UX, SEO & AI Danışmanı"
+                alt={isTr ? "Tonguç Karaçay — Dijital Ürün ve UX Liderliği" : "Tonguç Karaçay — Digital Product and UX Leadership"}
                 fill
                 priority
                 sizes="(max-width: 1024px) 90vw, 40vw"
@@ -64,8 +65,8 @@ export default function PersonalStory({ locale }: Props) {
             </h2>
             <p className="mt-3 max-w-xl leading-relaxed text-primary-300">
               {isTr
-                ? "Türkiye, ABD, Almanya ve Kanada'da; otomotivden medyaya, kamudan startup'a kadar uzanan 25+ yıllık bir yolculuk. UX, dijital pazarlama, SEO ve yapay zeka dönüşümünü tek bir büyüme bakışında birleştiriyorum."
-                : "A 25+ year journey across Turkey, the USA, Germany and Canada — from automotive and media to government and startups. I combine UX, digital marketing, SEO and AI transformation into a single growth lens."}
+                ? "26 yılı aşkın deneyimimle kurumsal dijital platformlar, B2B SaaS ve e-ticaret alanlarında ürün, kullanıcı deneyimi ve büyüme stratejilerine liderlik ettim. Tasarımı, analitiği ve yapay zekayı güçlü ekiplerle birlikte ölçülebilir dijital ürünlere dönüştürmeye odaklanıyorum."
+                : "With over 26 years of experience, I have led product, UX and growth initiatives across enterprise digital platforms, B2B SaaS and e-commerce. My focus is aligning design, analytics and AI with strong teams to deliver measurable digital product outcomes."}
             </p>
 
             {/* Timeline */}
@@ -80,7 +81,7 @@ export default function PersonalStory({ locale }: Props) {
             </div>
 
             <Link href={aboutPath} className="btn-primary group mt-9">
-              {isTr ? "Hakkımda Daha Fazla" : "More About Me"}
+              {isTr ? "Kariyerimi İncele" : "Explore My Background"}
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>

@@ -18,10 +18,10 @@ type Props = {
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
   const isTr = locale === "tr";
   const title = isTr
-    ? "Tonguç Karaçay | UX, SEO, Yapay Zekâ ve Dijital Ürünler"
+    ? "Tonguç Karaçay | UX, SEO, Yapay Zeka ve Dijital Ürünler"
     : "Tonguç Karaçay | UX, SEO, AI & Digital Products";
   const description = isTr
-    ? "Tonguç Karaçay'ın UX, dijital ürün tasarımı, SEO ve yapay zekâ alanlarındaki projeleri, deneyimleri ve teknik yazıları."
+    ? "Tonguç Karaçay'ın UX, dijital ürün tasarımı, SEO ve yapay zeka alanlarındaki projeleri, deneyimleri ve teknik yazıları."
     : "Explore Tonguç Karaçay's work, projects and technical writing on UX, digital product design, SEO and AI.";
 
   return {

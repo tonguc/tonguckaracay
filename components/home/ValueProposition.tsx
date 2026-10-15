@@ -33,27 +33,14 @@ export default function ValueProposition({ locale }: Props) {
           <div className="relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400 md:text-sm">
-                {isTr ? "Portfolyo · Teknoloji · Yayınlar" : "Portfolio · Technology · Writing"}
+                {isTr ? "UX, SEO ve Yapay Zeka Üzerine" : "UX, SEO & Artificial Intelligence"}
               </p>
-              <h1 className="max-w-2xl font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-                {isTr ? (
-                  <>UX, SEO ve <span className="text-gradient">Yapay Zekâ</span> Üzerine</>
-                ) : (
-                  <>Exploring UX, SEO & <span className="text-gradient">Artificial Intelligence</span></>
-                )}
-              </h1>
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-primary-300 sm:text-base">
-                {isTr
-                  ? "Dijital ürün tasarımı, kullanıcı deneyimi ve yapay zekâ alanındaki deneyimlerim, araştırmalarım ve uygulama notlarım."
-                  : "Research, practical notes and insights from my work in digital product design, user experience and artificial intelligence."}
-              </p>
-
-              {latest && (
-                <div className="mt-7 border-t border-surface-border/80 pt-6">
+              {latest ? (
+                <>
                   <div className="flex flex-wrap items-center gap-3 text-xs text-primary-400">
                     <span className="inline-flex items-center gap-1.5 font-semibold text-accent-300">
                       <BookOpen className="h-4 w-4" />
-                      {isTr ? "En Güncel Yazı" : "Latest Article"}
+                      {isTr ? "En Son Blog Yazısı" : "Latest Blog Article"}
                     </span>
                     <span className="inline-flex items-center gap-1">
                       <CalendarDays className="h-3.5 w-3.5" />
@@ -68,12 +55,12 @@ export default function ValueProposition({ locale }: Props) {
                       </span>
                     )}
                   </div>
-                  <h2 className="mt-3 max-w-2xl font-display text-xl font-semibold leading-snug text-white md:text-2xl">
-                    <Link href={articlePath} className="transition-colors hover:text-accent-400">
+                  <h1 className="mt-4 max-w-2xl font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+                    <Link href={articlePath} className="transition-colors hover:text-accent-300">
                       {latest.title}
                     </Link>
-                  </h2>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-primary-300 md:text-base">
+                  </h1>
+                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-primary-300 md:text-base">
                     {latest.description}
                   </p>
                   <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -85,10 +72,14 @@ export default function ValueProposition({ locale }: Props) {
                       {isTr ? "Tüm Yazılar" : "All Articles"}
                     </Link>
                   </div>
-                </div>
+                </>
+              ) : (
+                <h1 className="max-w-2xl font-display text-3xl font-bold text-white">
+                  {isTr ? "UX, SEO ve Yapay Zeka Üzerine" : "UX, SEO & AI"}
+                </h1>
               )}
             </div>
-            <div className="relative min-h-[230px] overflow-hidden rounded-2xl border border-surface-border/60 bg-surface-darker/60 sm:min-h-[340px] lg:min-h-[420px]">
+            <div className="relative min-h-[230px]" overflow-hidden rounded-2xl border border-surface-border/60 bg-surface-darker/60 sm:min-h-[340px] lg:min-h-[420px]">
               {latest?.image ? (
                 <Link href={articlePath} className="group absolute inset-0" aria-label={latest.title}>
                   <Image
