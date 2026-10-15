@@ -22,12 +22,11 @@ export default function AiProjectDetail({ locale, slug }: { locale: ProjectLocal
       <div className="relative mt-8 aspect-[16/9] max-w-5xl overflow-hidden rounded-2xl border border-surface-border bg-surface-darker">
         <ProjectCover item={p} locale={locale} sizes="(min-width: 1024px) 1100px, 100vw" />
       </div>
-      {p.source==="etsy" && (
-        <p className="mt-2 max-w-5xl text-xs text-primary-400">
-          {isTr?"Görsel: SnapixDesign ürün sunumundan. Tanıtım mockup'ı gerçek ürün ekranından farklı olabilir.":"Image: SnapixDesign product artwork; presentation mockups may differ from actual screens."}
-        </p>
-      )}
-      {!p.image && <p className="mt-2 text-xs text-primary-400">{isTr?"Gerçek arayüz ekran görüntüsü yerine proje kimliği gösteriliyor.":"Project identity shown in place of an unavailable UI screenshot."}</p>}
+      <p className="mt-2 max-w-5xl text-xs text-primary-400">
+        {p.image?.endsWith(".svg") && p.slug !== "whattime-city"
+          ? (isTr ? "Görsel, proje akışını anlatan temsili bir diyagramdır; gerçek uygulama ekran görüntüsü değildir." : "This is a conceptual project workflow diagram, not a live application screenshot.")
+          : (isTr ? "Görsel, projeye ait portfolyo veya uygulama dosyalarından alınmıştır." : "Visual from existing portfolio or project files.")}
+      </p>}
 
       <div className="mt-12 grid max-w-5xl gap-8 lg:grid-cols-[1fr_0.65fr]">
         <div>
@@ -50,10 +49,10 @@ export default function AiProjectDetail({ locale, slug }: { locale: ProjectLocal
             </div>
           </div>
           <div className="card p-6">
-            <div className="flex items-center gap-2 text-white"><Bot className="h-5 w-5 text-accent-400"/><h2 className="text-lg font-semibold">{isTr?"AI ile Geliştirme":"AI-Assisted Development"}</h2></div>
+            <div className="flex items-center gap-2 text-white"><Bot className="h-5 w-5 text-accent-400"/><h2 className="text-lg font-semibold">{isTr?"Yapay Zeka ile Geliştirme":"AI-Assisted Development"}</h2></div>
             <p className="mt-3 text-sm leading-relaxed text-primary-300">
               {isTr
-                ? "Genel geliştirme ekosistemim: Claude, OpenAI Codex, MiMo, Qwen ve görev odaklı AI agent iş akışları. Araştırma, prototipleme, kod geliştirme ve bağımsız kontrol süreçlerinde farklı araçlardan yararlanıyorum."
+                ? "Genel geliştirme ekosistemim: Claude, OpenAI Codex, MiMo, Qwen ve görev odaklı yapay zeka ajanı iş akışları. Araştırma, prototipleme, kod geliştirme ve bağımsız kontrol süreçlerinde farklı araçlardan yararlanıyorum."
                 : "My wider development toolkit includes Claude, OpenAI Codex, MiMo, Qwen and task-oriented AI agent workflows for research, prototyping, implementation and review."}
             </p>
             {p.confirmedAiTools && <p className="mt-3 text-xs font-semibold text-accent-300">{isTr?"Bu projede doğrulanan araç":"Tool confirmed on this project"}: {p.confirmedAiTools.join(", ")}</p>}
@@ -62,8 +61,8 @@ export default function AiProjectDetail({ locale, slug }: { locale: ProjectLocal
             </p>
             <p className="mt-3 text-xs leading-relaxed text-primary-400">
               {p.status==="ai-assisted"
-                ? (isTr?"AI geliştirme sürecine katkı sağladı; ürünün kendisinin canlı AI modeli çalıştırdığı iddia edilmez.":"AI supported development; this does not imply the end product runs a live AI model.")
-                : (isTr?"AI / agent işlevlerinin kapsamı proje açıklamasında belirtilmiştir.":"AI or agent functionality is described within this project's scope.")}
+                ? (isTr?"Yapay zeka geliştirme sürecine katkı sağladı; ürünün kendisinin canlı yapay zeka modeli çalıştırdığı iddia edilmez.":"AI supported development; this does not imply the end product runs a live AI model.")
+                : (isTr?"Yapay zeka ve ajan işlevlerinin kapsamı proje açıklamasında belirtilmiştir.":"AI or agent functionality is described within this project's scope.")}
             </p>
           </div>
           {p.externalUrl && p.source !== "etsy" && (

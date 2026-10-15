@@ -102,7 +102,7 @@ export const cases: CaseStudy[] = [
     sector: { tr: "SaaS · SEO, GEO & UX", en: "SaaS · SEO, GEO & UX" },
     offer: "ai-growth",
     featured: true,
-    title: { tr: "AI ile Geliştirilen SEO, GEO ve UX Denetim Platformu", en: "AI-Assisted SEO, GEO & UX Audit Platform" },
+    title: { tr: "Yapay Zeka ile Geliştirilen SEO, GEO ve UX Denetim Platformu", en: "AI-Assisted SEO, GEO & UX Audit Platform" },
     goal: {
       tr: "Teknik SEO, yapay zeka arama görünürlüğü ve kullanıcı deneyimi kontrollerini tek bir dijital ürün altında birleştirmek.",
       en: "Unify technical SEO, AI search visibility and user experience assessments in one digital product.",
