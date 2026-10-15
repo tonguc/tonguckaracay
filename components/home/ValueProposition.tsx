@@ -9,12 +9,15 @@ interface Props {
 }
 
 /**
- * Geçici portfolyo/yayın modu: ticari teklif yerine en yeni blog yazısını öne çıkarır.
- * getAllPosts tarih sırasına göre gelir; yeni yazı yayımlandığında hero da güncellenir.
+ * Geçici portfolyo/yayın modu: editoryal olarak seçilmiş Claude MCP yazısı.
+ * Blog listesi güncel tarih sırasını korur; hero bilerek sabitlenmiştir.
  */
 export default function ValueProposition({ locale }: Props) {
   const isTr = locale === "tr";
-  const latest = getAllPosts(isTr ? "tr" : "en")[0];
+  const pinnedSlug = isTr
+    ? "claude-mcp-token-maliyeti-olcum"
+    : "claude-mcp-integration-token-cost-comparison-chart";
+  const latest = getAllPosts(isTr ? "tr" : "en").find((post) => post.slug === pinnedSlug);
   const blogPath = isTr ? "/blog" : "/en/blog";
   const articlePath = latest ? (isTr ? "/" : "/en/") + latest.slug : blogPath;
 
@@ -40,7 +43,7 @@ export default function ValueProposition({ locale }: Props) {
                   <div className="flex flex-wrap items-center gap-3 text-xs text-primary-400">
                     <span className="inline-flex items-center gap-1.5 font-semibold text-accent-300">
                       <BookOpen className="h-4 w-4" />
-                      {isTr ? "En Son Blog Yazısı" : "Latest Blog Article"}
+                      {isTr ? "Öne Çıkan Yazı" : "Featured Article"}
                     </span>
                     <span className="inline-flex items-center gap-1">
                       <CalendarDays className="h-3.5 w-3.5" />

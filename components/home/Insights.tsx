@@ -8,11 +8,16 @@ interface Props {
 }
 
 /**
- * Insights — hero en yeni yazıyı gösterir; burada sonraki 3 yazı yer alır.
+ * Insights — ana sayfada sabitlenen yazı tekrarlanmaz; kalan en yeni 3 yazı gösterilir.
  */
 export default function Insights({ locale }: Props) {
   const isTr = locale === "tr";
-  const posts = getAllPosts(isTr ? "tr" : "en").slice(1, 4);
+  const pinnedSlug = isTr
+    ? "claude-mcp-token-maliyeti-olcum"
+    : "claude-mcp-integration-token-cost-comparison-chart";
+  const posts = getAllPosts(isTr ? "tr" : "en")
+    .filter((post) => post.slug !== pinnedSlug)
+    .slice(0, 3);
   const blogPath = isTr ? "/blog" : "/en/blog";
 
   if (posts.length === 0) return null;
