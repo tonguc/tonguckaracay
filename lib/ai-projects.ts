@@ -17,8 +17,8 @@ export interface AiProject {
   initials: string;
 }
 const etsy = (id: string, path: string) => "https://www.etsy.com/listing/" + id + "/" + path;
-export const aiProjects: AiProject[
-{
+export const aiProjects: AiProject[] = [
+  {
     slug:"auditpro",name:"AuditPro",initials:"AP",source:"etsy",status:"ai-assisted",
     title:{tr:"Yapay Zeka ile Geliştirilen AuditPro: 211 Maddelik SEO, GEO ve UX Denetimi",en:"AI-Assisted AuditPro: 211-Point SEO, GEO & UX Audit Toolkit"},
     summary:{tr:"Manuel web sitesi denetimini puanlama, önceliklendirme, markalı PDF rapor, teklif ve sunuma dönüştüren çevrimdışı ürün.",en:"An offline toolkit turning manual website reviews into scoring, prioritized findings, branded PDF reports, proposals and presentations."},
