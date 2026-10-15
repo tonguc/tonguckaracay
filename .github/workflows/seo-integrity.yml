@@ -45,8 +45,7 @@ jobs:
         run: node scripts/seo-gsc-5xx-six-audit.mjs
       - name: Diagnose two GSC Google-selected canonical conflicts
         run: node scripts/seo-gsc-two-google-canonical-audit.mjs
-      - name: Live old English canonical alias check (diagnostic before deployment)
-        continue-on-error: true
+      - name: Verify Google-selected old English canonical alias resolves to EN
         run: node scripts/seo-gsc-onpage-legacy-live.mjs
       - name: Verify live internal link integrity (all sitemap pages)
         run: node scripts/seo-internal-link-audit.mjs
