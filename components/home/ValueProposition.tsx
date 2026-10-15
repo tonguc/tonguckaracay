@@ -79,7 +79,7 @@ export default function ValueProposition({ locale }: Props) {
                 </h1>
               )}
             </div>
-            <div className="relative min-h-[230px]" overflow-hidden rounded-2xl border border-surface-border/60 bg-surface-darker/60 sm:min-h-[340px] lg:min-h-[420px]">
+            <div className="relative min-h-[230px] overflow-hidden rounded-2xl border border-surface-border/60 bg-surface-darker/60 sm:min-h-[340px] lg:min-h-[420px]">
               {latest?.image ? (
                 <Link href={articlePath} className="group absolute inset-0" aria-label={latest.title}>
                   <Image
