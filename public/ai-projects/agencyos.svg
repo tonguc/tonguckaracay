@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+    <title id="title">AGENCYOS workflow illustration</title>
+    <desc id="desc">Concept diagram illustrating three project workflows, not a screenshot of an application.</desc>
+    <defs>
+      <linearGradient id="bgagencyos" x1="0" x2="1" y1="1" y2="0"><stop offset="0" stop-color="#08111F"/><stop offset=".55" stop-color="#11192E"/><stop offset="1" stop-color="#1B2140"/></linearGradient>
+      <linearGradient id="haloagencyos" x1="0" x2="1"><stop offset="0" stop-color="#B28AFF" stop-opacity=".52"/><stop offset="1" stop-color="#E27DC7" stop-opacity=".16"/></linearGradient>
+      <radialGradient id="glowagencyos"><stop offset="0" stop-color="#B28AFF" stop-opacity=".21"/><stop offset="1" stop-color="#B28AFF" stop-opacity="0"/></radialGradient>
+      <filter id="bluragencyos"><feGaussianBlur stdDeviation="45"/></filter>
+    </defs>
+    <rect width="1200" height="780" fill="url(#bgagencyos)"/>
+    <circle cx="980" cy="104" r="294" fill="url(#glowagencyos)"/>
+    <circle cx="252" cy="704" r="190" fill="#E27DC7" fill-opacity=".09" filter="url(#bluragencyos)"/>
+    <path d="M 0 620 L1200 405" stroke="#577196" stroke-opacity=".11"/>
+    <path d="M 0 690 L1200 475" stroke="#577196" stroke-opacity=".11"/>
+    <rect x="52" y="58" width="145" height="33" rx="12" fill="#B28AFF" fill-opacity=".13" stroke="#B28AFF" stroke-opacity=".45"/>
+    <text x="70" y="79" fill="#B28AFF" font-family="Arial,sans-serif" font-size="13" letter-spacing="2" font-weight="700">PRODUCT CASE</text>
+    <text x="52" y="170" fill="#F1F6FF" font-family="Arial,sans-serif" font-size="44" font-weight="800">AGENCYOS</text>
+    <text x="55" y="210" fill="#96AEC7" font-family="Arial,sans-serif" font-size="15" letter-spacing="2.8">AGENT-LED RESEARCH</text>
+    <path d="M52 252 H338" stroke="#405776" stroke-width="2"/>
+    <rect x="52" y="298" width="296" height="277" rx="20" fill="#152239" stroke="#364B69"/>
+    <text x="74" y="335" font-size="14" letter-spacing="1.5" fill="#8FA8C8" font-family="Arial,sans-serif">PRODUCT SYSTEM</text>
+    <circle cx="113" cy="412" r="48" fill="url(#haloagencyos)"/>
+    <path d="M88 413 L106 431 L141 394" fill="none" stroke="#F3FBFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="74" y="484" width="225" height="9" rx="4.5" fill="#344A65"/>
+    <rect x="74" y="484" width="182" height="9" rx="4.5" fill="#B28AFF" opacity=".7"/>
+    <rect x="74" y="510" width="180" height="7" rx="3.5" fill="#2A405A"/>
+    <rect x="74" y="537" width="140" height="7" rx="3.5" fill="#2A405A"/>
+    <rect x="422" y="144" width="724" height="425" rx="25" fill="#0F1A2D" stroke="#425977" stroke-width="1.5"/>
+    <rect x="422" y="144" width="724" height="61" rx="25" fill="#1A2940"/>
+    <rect x="422" y="183" width="724" height="23" fill="#1A2940"/>
+    <circle cx="453" cy="174" r="6" fill="#E17B7B"/><circle cx="475" cy="174" r="6" fill="#E1BE76"/><circle cx="497" cy="174" r="6" fill="#77CBA9"/>
+    <text x="549" y="180" fill="#B1C3DA" font-size="14" letter-spacing="1.6" font-family="Arial,sans-serif">WORKFLOW BLUEPRINT</text>
+    <path d="M651 370 H673 M864 370 H886" stroke="#B28AFF" stroke-width="4" stroke-linecap="round"/>
+    <path d="M664 363 L673 370 L664 377 M877 363 L886 370 L877 377" stroke="#B28AFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <g>
+      <rect x="460" y="260" width="194" height="214" rx="18" fill="#111C32" stroke="#344967" stroke-width="1.4"/>
+      <rect x="478" y="278" width="158" height="31" rx="10" fill="#B28AFF" fill-opacity=".12"/>
+      <text x="490" y="299" fill="#B28AFF" font-family="Arial,sans-serif" font-size="14" font-weight="700">01 / RESEARCH</text>
+      <circle cx="506" cy="351" r="18" fill="#B28AFF" fill-opacity=".19" stroke="#B28AFF" stroke-opacity=".65"/>
+      <path d="M 496 351 h20 m-10 -10 v20" stroke="#B28AFF" stroke-width="2.5" opacity=".9"/>
+      <text x="480" y="400" fill="#ECF3FF" font-family="Arial,sans-serif" font-size="18" font-weight="700">Business Data</text>
+      <rect x="480" y="425" width="138" height="8" rx="4" fill="#28374E"/>
+      <rect x="480" y="425" width="112" height="8" rx="4" fill="#B28AFF" opacity=".77"/>
+      <rect x="480" y="443" width="91" height="5" rx="2.5" fill="#385072"/>
+      </g>
+<g>
+      <rect x="673" y="260" width="194" height="214" rx="18" fill="#111C32" stroke="#344967" stroke-width="1.4"/>
+      <rect x="691" y="278" width="158" height="31" rx="10" fill="#B28AFF" fill-opacity=".12"/>
+      <text x="703" y="299" fill="#B28AFF" font-family="Arial,sans-serif" font-size="14" font-weight="700">02 / ANALYZE</text>
+      <circle cx="719" cy="351" r="18" fill="#B28AFF" fill-opacity=".19" stroke="#B28AFF" stroke-opacity=".65"/>
+      <path d="M 709 351 h20 m-10 -10 v20" stroke="#B28AFF" stroke-width="2.5" opacity=".9"/>
+      <text x="693" y="400" fill="#ECF3FF" font-family="Arial,sans-serif" font-size="18" font-weight="700">Agent Research</text>
+      <rect x="693" y="425" width="138" height="8" rx="4" fill="#28374E"/>
+      <rect x="693" y="425" width="98" height="8" rx="4" fill="#B28AFF" opacity=".77"/>
+      <rect x="693" y="443" width="91" height="5" rx="2.5" fill="#385072"/>
+      </g>
+<g>
+      <rect x="886" y="260" width="194" height="214" rx="18" fill="#111C32" stroke="#344967" stroke-width="1.4"/>
+      <rect x="904" y="278" width="158" height="31" rx="10" fill="#B28AFF" fill-opacity=".12"/>
+      <text x="916" y="299" fill="#B28AFF" font-family="Arial,sans-serif" font-size="14" font-weight="700">03 / PLAN</text>
+      <circle cx="932" cy="351" r="18" fill="#B28AFF" fill-opacity=".19" stroke="#B28AFF" stroke-opacity=".65"/>
+      <path d="M 922 351 h20 m-10 -10 v20" stroke="#B28AFF" stroke-width="2.5" opacity=".9"/>
+      <text x="906" y="400" fill="#ECF3FF" font-family="Arial,sans-serif" font-size="18" font-weight="700">Opportunities</text>
+      <rect x="906" y="425" width="138" height="8" rx="4" fill="#28374E"/>
+      <rect x="906" y="425" width="126" height="8" rx="4" fill="#B28AFF" opacity=".77"/>
+      <rect x="906" y="443" width="91" height="5" rx="2.5" fill="#385072"/>
+      </g>
+    <text x="56" y="681" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#D7E8F5">PRODUCT STRATEGY <tspan fill="#B28AFF">/</tspan> EXPERIENCE <tspan fill="#B28AFF">/</tspan> DELIVERY</text>
+    <text x="56" y="733" font-family="Arial,sans-serif" font-size="14" letter-spacing="1.5" fill="#8CA3BD">CONCEPT DIAGRAM — NOT AN APPLICATION SCREENSHOT</text>
+    <rect x="1058" y="678" width="85" height="33" rx="16" fill="#B28AFF" fill-opacity=".18" stroke="#B28AFF" stroke-opacity=".4"/>
+    <text x="1080" y="700" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#B28AFF">AI / UX</text>
+  </svg>
