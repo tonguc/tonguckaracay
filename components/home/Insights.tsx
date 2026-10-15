@@ -8,11 +8,11 @@ interface Props {
 }
 
 /**
- * Insights — en yeni 3 yazı (filtre yok; yeni yayınlanan yazı her zaman burada görünür).
+ * Insights — hero en yeni yazıyı gösterir; burada sonraki 3 yazı yer alır.
  */
 export default function Insights({ locale }: Props) {
   const isTr = locale === "tr";
-  const posts = getAllPosts(isTr ? "tr" : "en").slice(0, 3);
+  const posts = getAllPosts(isTr ? "tr" : "en").slice(1, 4);
   const blogPath = isTr ? "/blog" : "/en/blog";
 
   if (posts.length === 0) return null;

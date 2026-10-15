@@ -1,8 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { offers, preAuditPath } from "@/lib/offers";
-import { casesPath } from "@/lib/cases";
+import Link from "next/link";
+import { ArrowRight, CalendarDays, Clock3, BookOpen } from "lucide-react";
+import { getAllPosts } from "@/lib/blog-utils";
 import StatCounter from "./StatCounter";
 
 interface Props {
@@ -10,127 +9,119 @@ interface Props {
 }
 
 /**
- * Bölüm 1 — Hero / Değer Önermesi (tek H1).
- * Persona: e-ticaret + hizmet şirketleri. 3 ana teklif etiketi, düşük eşikli
- * ilk adım (Ücretsiz Ön Analiz) + vakalar. Mobilde kompakt tutulur.
- * Genişlik diğer bölümlerle (container-custom) birebir aynı.
+ * Geçici portfolyo/yayın modu: ticari teklif yerine en yeni blog yazısını öne çıkarır.
+ * getAllPosts tarih sırasına göre gelir; yeni yazı yayımlandığında hero da güncellenir.
  */
 export default function ValueProposition({ locale }: Props) {
   const isTr = locale === "tr";
-  const loc = isTr ? "tr" : "en";
-  const skills = offers.map((o) => o.short[loc]);
+  const latest = getAllPosts(isTr ? "tr" : "en")[0];
+  const blogPath = isTr ? "/blog" : "/en/blog";
+  const articlePath = latest ? (isTr ? "/" : "/en/") + latest.slug : blogPath;
 
-  // Her rakamın altında kanıt satırı — sadece sitede zaten yer alan bilgiler.
   const stats = [
-    { to: 25, short: isTr ? "Yıl" : "Years", label: isTr ? "Yıl Deneyim" : "Years of Experience", proof: isTr ? "Türk Hava Yolları'ndan BMW'ye" : "From Turkish Airlines to BMW" },
-    { to: 500, short: isTr ? "Proje" : "Projects", label: isTr ? "Teslim Edilen Proje" : "Projects Delivered", proof: isTr ? "Web, mobil, tablet ve Smart TV" : "Web, mobile, tablet and Smart TV" },
-    { to: 100, short: isTr ? "Marka" : "Brands", label: isTr ? "Marka" : "Brands", proof: isTr ? "Medya, otomotiv, fintech, kamu" : "Media, automotive, fintech, public" },
-    { to: 12, short: isTr ? "Ülke" : "Countries", label: isTr ? "Ülke" : "Countries", proof: isTr ? "ABD, İngiltere, Almanya, Kanada…" : "US, UK, Germany, Canada…" },
+    { to: 25, short: isTr ? "Yıl" : "Years", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
+    { to: 500, short: isTr ? "Proje" : "Projects", label: isTr ? "Proje" : "Projects" },
+    { to: 100, short: isTr ? "Marka" : "Brands", label: isTr ? "Marka" : "Brands" },
+    { to: 12, short: isTr ? "Ülke" : "Countries", label: isTr ? "Ülke" : "Countries" },
   ];
 
   return (
-    <section className="relative overflow-hidden pt-24 pb-6 md:pt-36 md:pb-10">
+    <section className="relative overflow-hidden pt-24 pb-8 md:pt-36 md:pb-12">
       <div className="container-custom relative z-10">
-        <div className="card flex flex-col items-center gap-4 px-5 py-5 text-center md:flex-row md:justify-between md:gap-8 md:px-10 md:py-7 md:text-left">
-          <div className="flex flex-col items-center md:items-start">
-            <h1 className="font-display text-2xl font-bold leading-tight text-white sm:text-3xl md:text-[32px]">
-              {isTr ? (
-                <>
-                  Daha Fazla Trafik, <span className="text-gradient">Daha Fazla Gelir</span>
-                </>
-              ) : (
-                <>
-                  More Traffic, <span className="text-gradient">More Revenue</span>
-                </>
+        <div className="card relative overflow-hidden p-6 md:p-10">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl" />
+          <div className="relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+            <div>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400 md:text-sm">
+                {isTr ? "Portfolyo · Teknoloji · Yayınlar" : "Portfolio · Technology · Writing"}
+              </p>
+              <h1 className="max-w-2xl font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+                {isTr ? (
+                  <>UX, SEO ve <span className="text-gradient">Yapay Zekâ</span> Üzerine</>
+                ) : (
+                  <>Exploring UX, SEO & <span className="text-gradient">Artificial Intelligence</span></>
+                )}
+              </h1>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-primary-300 sm:text-base">
+                {isTr
+                  ? "Dijital ürün tasarımı, kullanıcı deneyimi ve yapay zekâ alanındaki deneyimlerim, araştırmalarım ve uygulama notlarım."
+                  : "Research, practical notes and insights from my work in digital product design, user experience and artificial intelligence."}
+              </p>
+
+              {latest && (
+                <div className="mt-7 border-t border-surface-border/80 pt-6">
+                  <div className="flex flex-wrap items-center gap-3 text-xs text-primary-400">
+                    <span className="inline-flex items-center gap-1.5 font-semibold text-accent-300">
+                      <BookOpen className="h-4 w-4" />
+                      {isTr ? "En Güncel Yazı" : "Latest Article"}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <CalendarDays className="h-3.5 w-3.5" />
+                      {new Date(latest.date).toLocaleDateString(isTr ? "tr-TR" : "en-US", {
+                        day: "numeric", month: "long", year: "numeric",
+                      })}
+                    </span>
+                    {latest.readTime && (
+                      <span className="inline-flex items-center gap-1">
+                        <Clock3 className="h-3.5 w-3.5" />
+                        {latest.readTime}
+                      </span>
+                    )}
+                  </div>
+                  <h2 className="mt-3 max-w-2xl font-display text-xl font-semibold leading-snug text-white md:text-2xl">
+                    <Link href={articlePath} className="transition-colors hover:text-accent-400">
+                      {latest.title}
+                    </Link>
+                  </h2>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-primary-300 md:text-base">
+                    {latest.description}
+                  </p>
+                  <div className="mt-6 flex flex-wrap items-center gap-3">
+                    <Link href={articlePath} className="btn-primary group">
+                      {isTr ? "Yazıyı Oku" : "Read Article"}
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                    <Link href={blogPath} className="btn-secondary">
+                      {isTr ? "Tüm Yazılar" : "All Articles"}
+                    </Link>
+                  </div>
+                </div>
               )}
-            </h1>
-
-            <div className="mt-3 hidden flex-wrap items-center justify-center gap-1.5 sm:flex md:justify-start">
-              {skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full border border-accent-500/20 bg-accent-500/5 px-2.5 py-0.5 text-[11px] font-medium text-accent-200 md:text-xs"
-                >
-                  {skill}
-                </span>
-              ))}
             </div>
-
-            <p className="mt-2 max-w-md text-sm leading-relaxed text-primary-300 md:mt-3 md:text-base">
-              {isTr
-                ? "E-ticaret ve hizmet şirketleri için UX, SEO/GEO ve yapay zekayla trafik ve gelir büyümesi. Ajans değil, işin içine bizzat giren kıdemli bir danışman."
-                : "Traffic and revenue growth for e-commerce and service businesses through UX, SEO/GEO and AI. Not an agency: one senior consultant who does the work."}
-            </p>
-
-            <div className="mt-4 grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:gap-3">
-              <Link href={preAuditPath(loc)} className="btn-primary group whitespace-nowrap !px-3 text-[13px] sm:!px-6 sm:text-sm md:text-base">
-                <span className="sm:hidden">{isTr ? "Ücretsiz Analiz" : "Free Pre-Audit"}</span>
-                <span className="hidden sm:inline">{isTr ? "Ücretsiz Ön Analiz Al" : "Get a Free Pre-Audit"}</span>
-                <ArrowRight className="ml-1.5 hidden h-4 w-4 sm:inline transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link href={casesPath(loc)} className="btn-secondary group whitespace-nowrap !px-3 text-[13px] sm:!px-6 sm:text-sm md:text-base">
-                <span className="sm:hidden">{isTr ? "Projeler" : "Case Studies"}</span>
-                <span className="hidden sm:inline">{isTr ? "Projeleri İncele" : "See Case Studies"}</span>
-                <ArrowUpRight className="ml-1.5 hidden h-4 w-4 sm:inline transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Masaüstü: portre + isim (kişisel marka). Mobilde kartın altındaki küçük satır kullanılır. */}
-          <div className="relative hidden shrink-0 flex-col items-center md:flex">
-            <div className="absolute left-1/2 top-[40%] h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(219,116,32,0.22),transparent_68%)] blur-xl" />
-            <div className="relative h-44 w-44 overflow-hidden rounded-full ring-1 ring-accent-500/30 lg:h-52 lg:w-52">
-              <Image
-                src="/tonguckaracay-ux-seo-ai.png"
-                alt="Tonguç Karaçay"
-                fill
-                priority
-                sizes="208px"
-                className="object-cover"
-                style={{ transform: "scale(1.35)", transformOrigin: "50% 20%" }}
-              />
-            </div>
-            <div className="relative mt-3 text-center">
-              <div className="font-display font-semibold text-white">Tonguç Karaçay</div>
-              <div className="text-xs text-primary-400">{isTr ? "Dijital Büyüme Danışmanı" : "Digital Growth Consultant"}</div>
+            <div className="relative min-h-[230px] overflow-hidden rounded-2xl border border-surface-border/60 bg-surface-darker/60 sm:min-h-[340px] lg:min-h-[420px]">
+              {latest?.image ? (
+                <Link href={articlePath} className="group absolute inset-0" aria-label={latest.title}>
+                  <Image
+                    src={latest.image}
+                    alt={latest.title}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 45vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-surface-darker/70 via-transparent to-transparent" />
+                  <span className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-surface-darker/80 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
+                    {latest.category}
+                  </span>
+                </Link>
+              ) : (
+                <div className="flex h-full min-h-[230px] items-center justify-center text-accent-400">
+                  <BookOpen className="h-16 w-16" />
+                </div>
+              )}
             </div>
           </div>
         </div>
 
-        <div className="mt-3 flex items-center justify-center gap-3 md:hidden">
-          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[radial-gradient(circle_at_50%_30%,rgba(219,116,32,0.20),transparent_70%)] ring-1 ring-accent-500/30">
-            <Image
-              src="/tonguckaracay-ux-seo-ai.png"
-              alt="Tonguç Karaçay"
-              fill
-              sizes="40px"
-              className="object-cover"
-              style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
-            />
-          </div>
-          <div className="text-left">
-            <div className="text-sm font-semibold text-white">Tonguç Karaçay</div>
-            <div className="text-xs text-primary-400">
-              {isTr ? "Dijital Büyüme Danışmanı" : "Digital Growth Consultant"}
-            </div>
-          </div>
-        </div>
-
-        {/* İstatistikler — ayrı, büyük rakamlı kutular + kanıt satırı */}
-        <div className="mt-3 grid grid-cols-4 gap-1.5 sm:gap-2.5 md:mt-6 md:gap-4">
+        <div className="mt-4 grid grid-cols-4 gap-1.5 sm:gap-2.5 md:mt-6 md:gap-4">
           {stats.map((st) => (
-            <div
-              key={st.label}
-              className="group relative overflow-hidden rounded-xl border border-surface-border/60 bg-surface-card/50 sm:rounded-2xl px-1 py-2.5 text-center transition-colors hover:border-accent-500/40 sm:px-4 sm:py-3 md:p-6 md:text-left"
-            >
-              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-accent-500/10 blur-2xl transition-colors group-hover:bg-accent-500/25" />
-              <p className="text-gradient font-display text-xl font-extrabold leading-none sm:text-3xl md:text-5xl">
+            <div key={st.label} className="relative overflow-hidden rounded-xl border border-surface-border/60 bg-surface-card/50 px-1 py-3 text-center sm:rounded-2xl sm:px-4 md:p-5">
+              <p className="text-gradient font-display text-xl font-extrabold leading-none sm:text-3xl md:text-4xl">
                 <StatCounter to={st.to} suffix="+" />
               </p>
-              <p className="mt-1 text-[10px] font-semibold leading-tight text-white sm:mt-1.5 sm:text-xs md:mt-2 md:text-base"><span className="sm:hidden">{st.short}</span>
-                <span className="hidden sm:inline">{st.label}</span>
+              <p className="mt-2 text-[10px] font-semibold leading-tight text-white sm:text-xs md:text-base">
+                {st.short}
               </p>
-              <p className="mt-1 hidden text-xs leading-snug text-primary-400 sm:block md:text-sm">{st.proof}</p>
             </div>
           ))}
         </div>

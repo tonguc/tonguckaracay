@@ -5,9 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/slug-mappings';
-import { offers } from '@/lib/offers';
 
 export default function Header() {
   const t = useTranslations('nav');
@@ -16,38 +15,24 @@ export default function Header() {
   
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-
-  // Tüm hizmetler tek liste (lib/offers.ts); GEO, SEO'nun hemen altında eşit hizmet olarak yer alır
-  const loc = locale === 'tr' ? 'tr' : 'en';
-  const geoService = locale === 'tr'
-    ? { name: "GEO Optimizasyonu", href: "/hizmetler/geo-optimizasyonu" }
-    : { name: "GEO Optimization", href: "/en/services/geo-optimization" };
-  const mainServices = offers.flatMap((o) =>
-    o.key === 'seo-geo'
-      ? [{ name: locale === 'tr' ? 'SEO Danışmanlığı' : 'SEO Consulting', href: o.href[loc] }, geoService]
-      : [{ name: o.name[loc], href: o.href[loc] }]
-  );
 
   const navLinks = locale === 'tr' ? {
     blog: '/blog',
     about: '/hakkimda',
     contact: '/iletisim',
     cases: '/projeler',
-    aiTraining: '/ai-egitimi',
+
     home: '/'
   } : {
     blog: '/en/blog',
     about: '/en/about',
     contact: '/en/contact',
     cases: '/en/case-studies',
-    aiTraining: '/en/ai-training',
+
     home: '/en'
   };
 
   const casesLabel = locale === 'tr' ? 'Projeler' : 'Case Studies';
-  const aiTrainingLabel = locale === 'tr' ? 'AI Eğitimi' : 'AI Training';
-  const newBadge = locale === 'tr' ? 'YENİ' : 'NEW';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -146,47 +131,8 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-6">
-            {/* Services Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveDropdown("services")}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="flex items-center gap-1 text-primary-200 hover:text-white transition-colors font-medium">
-                {t('services')}
-                <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "services" ? "rotate-180" : ""}`} />
-              </button>
-              {activeDropdown === "services" && (
-                <div className="absolute top-full left-0 pt-2 animate-fade-in">
-                  <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-2 min-w-[240px] shadow-2xl">
-                    {mainServices.map((service) => (
-                      <Link
-                        key={service.href}
-                        href={service.href}
-                        className="block px-4 py-2.5 font-medium text-white hover:bg-surface-border/50 rounded-lg transition-colors"
-                      >
-                        {service.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
             <Link href={navLinks.cases} className="text-primary-200 hover:text-white transition-colors font-medium">
               {casesLabel}
-            </Link>
-
-            <Link
-              href={navLinks.aiTraining}
-              className="group relative inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/20 to-violet-500/20 border border-indigo-400/40 text-indigo-100 hover:text-white hover:from-indigo-500/30 hover:to-violet-500/30 hover:border-indigo-300/60 transition-all font-medium text-sm"
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75"></span>
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-300"></span>
-              </span>
-              {aiTrainingLabel}
-              <span className="ml-0.5 px-1.5 py-0.5 text-[9px] font-bold leading-none bg-indigo-500 text-white rounded">{newBadge}</span>
             </Link>
 
             <Link href={navLinks.blog} className="text-primary-200 hover:text-white transition-colors font-medium">
@@ -247,27 +193,7 @@ export default function Header() {
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 animate-fade-in">
             <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-4">
-              <div className="mb-4">
-                <p className="text-xs uppercase tracking-wider text-primary-400 mb-2 px-2">{t('services')}</p>
-                {mainServices.map((service) => (
-                  <Link key={service.href} href={service.href} className="block px-2 py-2 font-medium text-white" onClick={() => setIsMobileMenuOpen(false)}>
-                    {service.name}
-                  </Link>
-                ))}
-              </div>
               <div className="pt-4 border-t border-surface-border space-y-2">
-                <Link
-                  href={navLinks.aiTraining}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-gradient-to-r from-indigo-500/20 to-violet-500/20 border border-indigo-400/40 text-indigo-100 hover:text-white font-medium"
-                >
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75"></span>
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-300"></span>
-                  </span>
-                  {aiTrainingLabel}
-                  <span className="ml-auto px-1.5 py-0.5 text-[9px] font-bold leading-none bg-indigo-500 text-white rounded">{newBadge}</span>
-                </Link>
                 <Link href={navLinks.cases} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{casesLabel}</Link>
                 <Link href={navLinks.blog} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('blog')}</Link>
                 <Link href={navLinks.about} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('about')}</Link>

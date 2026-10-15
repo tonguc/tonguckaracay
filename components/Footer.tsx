@@ -68,7 +68,7 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">{t('services')}</h3>
+            <h3 className="font-display font-semibold text-white mb-4">{locale === 'tr' ? 'Uzmanlık Alanları' : 'Areas of Expertise'}</h3>
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service.href}>
