@@ -17,8 +17,108 @@ export interface AiProject {
   initials: string;
 }
 const etsy = (id: string, path: string) => "https://www.etsy.com/listing/" + id + "/" + path;
-export const aiProjects: AiProject[] = [
-  {
+export const aiProjects: AiProject[
+{
+    slug:"auditpro",name:"AuditPro",initials:"AP",source:"etsy",status:"ai-assisted",
+    title:{tr:"Yapay Zeka ile Geliştirilen AuditPro: 211 Maddelik SEO, GEO ve UX Denetimi",en:"AI-Assisted AuditPro: 211-Point SEO, GEO & UX Audit Toolkit"},
+    summary:{tr:"Manuel web sitesi denetimini puanlama, önceliklendirme, markalı PDF rapor, teklif ve sunuma dönüştüren çevrimdışı ürün.",en:"An offline toolkit turning manual website reviews into scoring, prioritized findings, branded PDF reports, proposals and presentations."},
+    responsibility:{tr:"Ürün kapsamı, bilgi mimarisi, UI/UX, raporlama modülleri ve teslim süreçlerinin yönetimi.",en:"Product scope, information architecture, UX, reporting features and delivery leadership."},
+    highlights:{tr:["211 kontrol noktası: teknik SEO, içerik, UX, CRO ve AI görünürlüğü","Markalı PDF rapor, müşteri teklifi ve sunum akışları","Denetim kontrolü manuel; yazılım otomatik AI taraması yapıyor olarak sunulmuyor"],en:["211 checkpoints covering SEO, content, UX, CRO and AI visibility","Branded PDF reports, proposals and presentation workflows","Manual checkpoint review; not presented as an automated AI scanner"]},
+    stack:["Product Design","UX","HTML/JavaScript","SEO","GEO","Claude"],
+    confirmedAiTools:["Claude"],
+
+    image: "https://i.etsystatic.com/54551047/r/il/ed6f99/8402700086/il_794xN.8402700086_sz8k.jpg",
+    externalUrl:etsy("4510766367","white-label-website-audit-toolkit-for")
+  },
+{
+    slug:"ai-visibility-scorecard",name:"AI Visibility Scorecard",initials:"AI",source:"etsy",status:"ai-assisted",
+    title:{tr:"Yapay Zeka ile Geliştirilen AI Visibility Scorecard: Marka Görünürlük Analizi",en:"AI-Assisted AI Visibility Scorecard: Brand Visibility Assessment"},
+    summary:{tr:"ChatGPT, Claude, Gemini ve diğer AI arama ortamları için işletmenin görünürlük hazırlığını ölçen rehberli değerlendirme ve iyileştirme aracı.",en:"A guided self-assessment of business readiness for AI-powered discovery channels including ChatGPT, Claude and Gemini."},
+    responsibility:{tr:"Değerlendirme modeli, soru akışları, karşılaştırma deneyimi, rapor ve yol haritasının ürünleştirilmesi.",en:"Designing the assessment model, question flows, comparison experience, reporting and improvement roadmap."},
+    highlights:{tr:["Görünürlük skoru ve platform bazlı hazırlık değerlendirmesi","Rehberli analiz ve altı adımlı iyileştirme planı","Canlı AI yanıtlarını otomatik sorgulayan sistem değil; öz değerlendirme aracıdır"],en:["Visibility score and platform readiness assessment","Guided diagnosis with a six-step roadmap","A self-assessment, not a live AI response-tracking engine"]},
+    stack:["AI Search","GEO","UX","Product Strategy","PDF Reports"],
+
+    image: "https://i.etsystatic.com/54551047/r/il/03c880/8601230336/il_794xN.8601230336_lufe.jpg",
+    externalUrl:etsy("4515236980","why-ai-recommends-your-competitors-ai")
+  },
+{
+    slug:"hostiq",name:"HostIQ / Airbnb Host Dashboard",initials:"HI",source:"etsy",status:"ai-assisted",
+    title:{tr:"Yapay Zeka ile Geliştirilen HostIQ: Airbnb Performans ve Fiyatlama Ürünü",en:"AI-Assisted HostIQ: Airbnb Performance & Pricing Product"},
+    summary:{tr:"Kısa dönem konaklama işletmeleri için değerlendirme puanı, fiyatlama senaryoları ve rezervasyon iyileştirme yol haritası sunan ürün.",en:"A vacation-rental product combining performance assessment, pricing scenarios and booking improvement guidance."},
+    responsibility:{tr:"Ürün kurgusu, skor modeli, fiyatlama karar ekranları ve kullanıcı yolculuğunun yönetimi.",en:"Owning the product concept, scoring model, pricing decisions and user journeys."},
+    highlights:{tr:["Konaklama performansının farklı başlıklarda puanlanması","Hafta içi, hafta sonu ve sezonluk fiyatlama senaryoları","Çıktıları eylem planına dönüştüren kullanıcı deneyimi"],en:["Performance scoring across hosting dimensions","Weekday, weekend and seasonal pricing scenarios","A user flow turning results into actionable plans"]},
+    stack:["Product Design","UX","Pricing Models","Hospitality Analytics"],
+
+    image: "https://i.etsystatic.com/54551047/r/il/1b4936/8155997739/il_794xN.8155997739_cbb8.jpg",
+    externalUrl:etsy("4517682128","airbnb-host-dashboard-pricing-calculator")
+  },
+{
+    slug:"finance-os",name:"Finance OS",initials:"FO",source:"etsy",status:"ai-assisted",
+    title:{tr:"Yapay Zeka ile Geliştirilen Finance OS: Finansal Yönetim Dashboard'u",en:"AI-Assisted Finance OS: Personal Finance Management Dashboard"},
+    summary:{tr:"Bütçe, borç kapatma, tasarruf hedefleri ve net varlığı ortak bir etkileşimli arayüzde birleştiren çevrimdışı ürün.",en:"An offline interactive app unifying budgets, debt payoff, savings goals and net worth."},
+    responsibility:{tr:"Ürün stratejisi, finansal bilgi mimarisi, dashboard ve karar destek deneyimlerinin tasarlanması.",en:"Product strategy, financial information architecture, dashboard and decision-support UX."},
+    highlights:{tr:["Güvenli harcama limiti ve bütçe sağlığı görünümü","Snowball/Avalanche borç planlama ve tasarruf hedefleri","Çevrimdışı çalışan, abonelik gerektirmeyen ürün yapısı"],en:["Safe-to-spend and budget health dashboard","Snowball/Avalanche debt planning and savings goals","Offline-first experience without a recurring app subscription"]},
+    stack:["Finance UX","Dashboards","Offline Web App","Product Design"],
+
+    image: "https://i.etsystatic.com/54551047/r/il/33dc86/8429601003/il_794xN.8429601003_9z8k.jpg",
+    externalUrl:etsy("4553936660","finance-os-budget-dashboard-debt-payoff")
+  },
+{
+    slug:"clearpath",name:"ClearPath",initials:"CP",source:"etsy",status:"ai-assisted",
+    title:{tr:"Yapay Zeka ile Geliştirilen ClearPath: Borç Yönetimi ve Ödeme Simülasyonu",en:"AI-Assisted ClearPath: Debt Payoff Planning & Simulation"},
+    summary:{tr:"Borç kartopu ve çığ yöntemlerini karşılaştıran, ödeme takvimi ve tahmini kapanış tarihi sunan etkileşimli planlama uygulaması.",en:"An interactive debt-payoff tool comparing snowball and avalanche approaches with payment timelines."},
+    responsibility:{tr:"Finansal karar akışlarının ürünleştirilmesi, senaryo karşılaştırma ve görselleştirme tasarımı.",en:"Turning financial decision scenarios into a comparison and visualization product."},
+    highlights:{tr:["Snowball ve Avalanche karşılaştırması","Tahmini borç bitiş tarihi ve aylık yol haritası","Çevrimdışı HTML deneyimi ve CSV çıktı"],en:["Snowball versus avalanche comparisons","Estimated payoff date and monthly milestones","Offline HTML experience with CSV output"]},
+    stack:["Simulation UX","JavaScript","Offline App","Product Design"],
+
+    image: "https://i.etsystatic.com/54551047/r/il/7764c1/8605883744/il_794xN.8605883744_2njl.jpg",
+    externalUrl:etsy("4586244352","debt-payoff-planner-app-snowball")
+  },
+{
+    slug:"renewly",name:"Renewly",initials:"RL",source:"etsy",status:"ai-assisted",
+    title:{tr:"Yapay Zeka ile Geliştirilen Renewly: Abonelik ve Yenileme Yönetimi",en:"AI-Assisted Renewly: Subscription & Renewal Management"},
+    summary:{tr:"Yenileme takvimi, yıllık maliyet, 12 aylık nakit akışı ve iptal planlamasını tek ekranda birleştiren uygulama.",en:"An offline subscription organizer combining renewals, annual costs, cash-flow forecasting and cancellation planning."},
+    responsibility:{tr:"Ürün gereksinimleri, finansal takvim akışı, veri saklama ve raporlama deneyiminin yönetimi.",en:"Product requirements, renewal calendar, local data handling and reporting UX."},
+    highlights:{tr:["12 aylık ödeme öngörüsü ve yenileme takvimi","Abonelik maliyetleri ve iptal adaylarının takibi","Yerel saklama, JSON yedekleme ve CSV dışa aktarma"],en:["12-month scheduled-cost outlook and renewal calendar","Tracking recurring costs and potential cancellations","Local storage with JSON backups and CSV reports"]},
+    stack:["Offline Web App","Dashboard UX","Data Visualization"],
+
+    image: "https://i.etsystatic.com/54551047/r/il/01b495/8624056716/il_794xN.8624056716_dzyu.jpg",
+    externalUrl:etsy("4588598046","subscription-tracker-app-offline-bill")
+  },
+{
+    slug:"renewary",name:"Renewary",initials:"RY",source:"etsy",status:"ai-assisted",
+    title:{tr:"Yapay Zeka ile Geliştirilen Renewary: Abonelik Kontrol Paneli",en:"AI-Assisted Renewary: Subscription Control Dashboard"},
+    summary:{tr:"Düzenli ödemeler, yenileme günleri ve olası iptal tasarrufları için tasarlanan abonelik kontrol paneli.",en:"A browser-based subscription dashboard for recurring charges, renewal dates and cancellation savings."},
+    responsibility:{tr:"Ürün akışları, kullanıcı deneyimi, filtreleme ve abonelik yaşam döngüsünün yönetimi.",en:"Product flows, user experience, filtering and subscription lifecycle design."},
+    highlights:{tr:["Yenileme takvimi ve maliyet özetleri","İptal listesi, yenileme işaretleme ve geri alma","Çevrimdışı kullanım ve JSON yedekleme"],en:["Renewal calendar and expense summaries","Cancellation shortlist and renewal tracking","Offline usage and JSON backups"]},
+    stack:["UX","Offline Web App","Subscription Planning"],
+
+    image: "https://i.etsystatic.com/54551047/r/il/3d6344/8640121815/il_794xN.8640121815_jfgz.jpg",
+    externalUrl:etsy("4584443956","subscription-tracker-dashboard-renewal")
+  },
+{
+    slug:"paycheck-budget",name:"Paycheck Budget Tracker",initials:"PB",source:"etsy",status:"ai-assisted",
+    title:{tr:"Yapay Zeka ile Geliştirilen Paycheck Budget: Gelir Dönemi Bütçe Yönetimi",en:"AI-Assisted Paycheck Budget: Pay-Period Finance Tracker"},
+    summary:{tr:"Haftalık ve aylık ödeme dönemlerine göre gelir, gider ve kategori bütçesini izleyen etkileşimli dashboard.",en:"An interactive dashboard tracking income, spending and category budgets by pay period."},
+    responsibility:{tr:"Bütçeleme deneyimi, farklı ödeme sıklıkları ve mobil uyumlu dashboard yapısının tasarımı.",en:"Designing budgeting flows for multiple pay frequencies and a responsive dashboard."},
+    highlights:{tr:["Haftalık, iki haftalık ve aylık gelir dönemleri","Kategori bazlı grafikler ve bütçe görünümü","Yerel veri saklama ve CSV dışa aktarma"],en:["Weekly, biweekly and monthly pay-period views","Category charts and budget status","Local data handling and CSV export"]},
+    stack:["Dashboard UX","Offline Web App","Budgeting"],
+
+    image: "https://i.etsystatic.com/54551047/r/il/d3e4e4/8400892798/il_794xN.8400892798_mun4.jpg",
+    externalUrl:etsy("4556511586","paycheck-budget-tracker-digital-budget")
+  },
+{
+    slug:"simple-budget",name:"Simple Budget Spreadsheet",initials:"SB",source:"etsy",status:"ai-assisted",
+    title:{tr:"Yapay Zeka ile Hazırlanan Simple Budget: Google Sheets Bütçe Şablonu",en:"AI-Assisted Simple Budget: Google Sheets Tracker"},
+    summary:{tr:"Gelir, gider ve tasarrufları otomatik hesaplayan, erişilebilir bir Google Sheets bütçe aracı.",en:"A Google Sheets template tracking income, expenses and savings with automatic calculations."},
+    responsibility:{tr:"Bilgi yapısı, kategori sistemi ve görsel raporlama mantığının oluşturulması.",en:"Designing the information structure, budget categories and visual reporting logic."},
+    highlights:{tr:["Aylık gelir ve gider takibi","Otomatik formüller ve basit grafikler","Google Sheets üzerinde kolay düzenlenebilir şablon"],en:["Monthly income and expense tracking","Automatic calculations and simple charts","Editable Google Sheets template"]},
+    stack:["Google Sheets","Spreadsheet UX","Finance"],
+
+    image: "https://i.etsystatic.com/54551047/r/il/9eece9/8381859928/il_794xN.8381859928_lxhp.jpg",
+    externalUrl:etsy("4555536650","simple-budget-spreadsheet-google-sheets")
+  },
+{
     slug: "povlex", name: "Povlex", initials: "PV", source: "independent", status: "ai-product",
     title: {tr:"Yapay Zeka Destekli Povlex: SEO, GEO ve UX Analiz Platformu",en:"AI-Powered Povlex: SEO, GEO & UX Analysis Platform"},
     summary: {tr:"Web sitelerinin teknik SEO, yapay zeka arama görünürlüğü ve kullanıcı deneyimi sorunlarını değerlendirip iyileştirme alanlarını sunmak için geliştirilen ürün.",en:"A product initiative evaluating technical SEO, AI-search visibility and UX issues to highlight areas for improvement."},
@@ -27,7 +127,7 @@ export const aiProjects: AiProject[] = [
     stack:["Product Management","SEO","GEO","UX","AI Workflows"],
     image: "/ai-projects/povlex.svg"
   },
-  {
+{
     slug:"agencyos",name:"AgencyOS",initials:"AO",source:"independent",status:"ai-product",
     title:{tr:"Yapay Zeka Ajanı Tabanlı AgencyOS: Dijital Fırsat Analizi",en:"AI Agent-Based AgencyOS: Digital Opportunity Analysis"},
     summary:{tr:"İşletmelerde dijital dönüşüm fırsatlarını belirlemeye ve araştırma çıktılarından önceliklendirilebilir iş listeleri oluşturmaya yönelik agent sistemi.",en:"An agent-oriented initiative to find digital transformation gaps and turn business research into prioritized opportunities."},
@@ -37,50 +137,7 @@ export const aiProjects: AiProject[] = [
     externalUrl:"https://github.com/tonguc/agencyos-bot",
     image: "/ai-projects/agencyos.svg"
   },
-  {
-    "slug": "seo-content-agent",
-    "name": "SEO Content Growth Agent",
-    "initials": "GA",
-    "source": "independent",
-    "status": "ai-product",
-    "title": {
-      "tr": "Claude Tabanlı Yapay Zeka Ajanı ile SEO Araştırma ve Yayın Otomasyonu",
-      "en": "Claude AI Agent for SEO Research & Publishing"
-    },
-    "summary": {
-      "tr": "Telegram, SERP araştırması, çok dilli içerik ve GitHub yayınını birleştiren agent iş akışı.",
-      "en": "Agent workflow connecting Telegram, SERP research, bilingual content and GitHub publication."
-    },
-    "responsibility": {
-      "tr": "Agent mimarisi, içerik kalite kontrolü ve çok dilli yayın süreci yönetimi.",
-      "en": "Agent architecture, quality checks and bilingual publishing."
-    },
-    "highlights": {
-      "tr": [
-        "Claude ile TR/EN içerik üretimi",
-        "Anahtar kelime, SERP ve rakip araştırması",
-        "Frontmatter doğrulama ve GitHub yayını"
-      ],
-      "en": [
-        "Claude-based bilingual writing",
-        "SERP and keyword research",
-        "Frontmatter validation and GitHub publication"
-      ]
-    },
-    "stack": [
-      "Claude",
-      "Python",
-      "Telegram",
-      "GitHub",
-      "SEO"
-    ],
-    "confirmedAiTools": [
-      "Claude"
-    ],
-    "externalUrl": "https://github.com/tonguc/tonguckaracay/tree/main/tc-agent",
-    image: "/ai-projects/seo-content-agent.svg"
-  },
-  {
+{
     "slug": "n8n-task-agent",
     "name": "n8n / Telegram Task Agent",
     "initials": "n8n",
@@ -117,44 +174,7 @@ export const aiProjects: AiProject[] = [
     ],
     image: "/ai-projects/n8n-task-agent.svg"
   },
-  {
-    "slug": "hr-tech-leave",
-    "name": "HR Tech",
-    "initials": "HR",
-    "source": "independent",
-    "status": "ai-assisted",
-    "title": {
-      "tr": "Yapay Zeka Destekli HR Tech: İzin ve Devam Takibi Prototipi",
-      "en": "AI-Assisted HR Tech: Leave & Attendance Prototype"
-    },
-    "summary": {
-      "tr": "İşe giriş tarihi, izin hakları, kalan izin ve devam bilgilerini düzenlemeye yönelik ürün prototipi.",
-      "en": "Prototype for employment dates, leave balances and attendance."
-    },
-    "responsibility": {
-      "tr": "İK süreç analizi ve kullanıcı akışlarının yönetimi.",
-      "en": "HR process modeling and UX flows."
-    },
-    "highlights": {
-      "tr": [
-        "İzin ve devamsızlık modellemesi",
-        "Çalışan bazlı kayıt akışları",
-        "Canlı İK ürünü değil; prototip çalışması"
-      ],
-      "en": [
-        "Leave and absence model",
-        "Employee record flows",
-        "Prototype, not a deployed HR system"
-      ]
-    },
-    "stack": [
-      "HR Tech",
-      "UX",
-      "Product Strategy"
-    ],
-    image: "/ai-projects/hr-tech-leave.svg"
-  },
-  {
+{
     "slug": "network-hardwares-ai",
     "name": "Network Hardwares AI",
     "initials": "NH",
@@ -191,107 +211,7 @@ export const aiProjects: AiProject[] = [
     ],
     image: "/ai-projects/network-hardwares-ai.svg"
   },
-  {
-    slug:"auditpro",name:"AuditPro",initials:"AP",source:"etsy",status:"ai-assisted",
-    title:{tr:"Yapay Zeka ile Geliştirilen AuditPro: 211 Maddelik SEO, GEO ve UX Denetimi",en:"AI-Assisted AuditPro: 211-Point SEO, GEO & UX Audit Toolkit"},
-    summary:{tr:"Manuel web sitesi denetimini puanlama, önceliklendirme, markalı PDF rapor, teklif ve sunuma dönüştüren çevrimdışı ürün.",en:"An offline toolkit turning manual website reviews into scoring, prioritized findings, branded PDF reports, proposals and presentations."},
-    responsibility:{tr:"Ürün kapsamı, bilgi mimarisi, UI/UX, raporlama modülleri ve teslim süreçlerinin yönetimi.",en:"Product scope, information architecture, UX, reporting features and delivery leadership."},
-    highlights:{tr:["211 kontrol noktası: teknik SEO, içerik, UX, CRO ve AI görünürlüğü","Markalı PDF rapor, müşteri teklifi ve sunum akışları","Denetim kontrolü manuel; yazılım otomatik AI taraması yapıyor olarak sunulmuyor"],en:["211 checkpoints covering SEO, content, UX, CRO and AI visibility","Branded PDF reports, proposals and presentation workflows","Manual checkpoint review; not presented as an automated AI scanner"]},
-    stack:["Product Design","UX","HTML/JavaScript","SEO","GEO","Claude"],
-    confirmedAiTools:["Claude"],
-
-    image: "/portfolio/251295211.webp",
-    externalUrl:etsy("4510766367","white-label-website-audit-toolkit-for")
-  },
-  {
-    slug:"ai-visibility-scorecard",name:"AI Visibility Scorecard",initials:"AI",source:"etsy",status:"ai-assisted",
-    title:{tr:"Yapay Zeka ile Geliştirilen AI Visibility Scorecard: Marka Görünürlük Analizi",en:"AI-Assisted AI Visibility Scorecard: Brand Visibility Assessment"},
-    summary:{tr:"ChatGPT, Claude, Gemini ve diğer AI arama ortamları için işletmenin görünürlük hazırlığını ölçen rehberli değerlendirme ve iyileştirme aracı.",en:"A guided self-assessment of business readiness for AI-powered discovery channels including ChatGPT, Claude and Gemini."},
-    responsibility:{tr:"Değerlendirme modeli, soru akışları, karşılaştırma deneyimi, rapor ve yol haritasının ürünleştirilmesi.",en:"Designing the assessment model, question flows, comparison experience, reporting and improvement roadmap."},
-    highlights:{tr:["Görünürlük skoru ve platform bazlı hazırlık değerlendirmesi","Rehberli analiz ve altı adımlı iyileştirme planı","Canlı AI yanıtlarını otomatik sorgulayan sistem değil; öz değerlendirme aracıdır"],en:["Visibility score and platform readiness assessment","Guided diagnosis with a six-step roadmap","A self-assessment, not a live AI response-tracking engine"]},
-    stack:["AI Search","GEO","UX","Product Strategy","PDF Reports"],
-
-    image: "/portfolio/251295577.webp",
-    externalUrl:etsy("4515236980","why-ai-recommends-your-competitors-ai")
-  },
-  {
-    slug:"hostiq",name:"HostIQ / Airbnb Host Dashboard",initials:"HI",source:"etsy",status:"ai-assisted",
-    title:{tr:"Yapay Zeka ile Geliştirilen HostIQ: Airbnb Performans ve Fiyatlama Ürünü",en:"AI-Assisted HostIQ: Airbnb Performance & Pricing Product"},
-    summary:{tr:"Kısa dönem konaklama işletmeleri için değerlendirme puanı, fiyatlama senaryoları ve rezervasyon iyileştirme yol haritası sunan ürün.",en:"A vacation-rental product combining performance assessment, pricing scenarios and booking improvement guidance."},
-    responsibility:{tr:"Ürün kurgusu, skor modeli, fiyatlama karar ekranları ve kullanıcı yolculuğunun yönetimi.",en:"Owning the product concept, scoring model, pricing decisions and user journeys."},
-    highlights:{tr:["Konaklama performansının farklı başlıklarda puanlanması","Hafta içi, hafta sonu ve sezonluk fiyatlama senaryoları","Çıktıları eylem planına dönüştüren kullanıcı deneyimi"],en:["Performance scoring across hosting dimensions","Weekday, weekend and seasonal pricing scenarios","A user flow turning results into actionable plans"]},
-    stack:["Product Design","UX","Pricing Models","Hospitality Analytics"],
-
-    image: "/portfolio/251295727.webp",
-    externalUrl:etsy("4517682128","airbnb-host-dashboard-pricing-calculator")
-  },
-  {
-    slug:"finance-os",name:"Finance OS",initials:"FO",source:"etsy",status:"ai-assisted",
-    title:{tr:"Yapay Zeka ile Geliştirilen Finance OS: Finansal Yönetim Dashboard'u",en:"AI-Assisted Finance OS: Personal Finance Management Dashboard"},
-    summary:{tr:"Bütçe, borç kapatma, tasarruf hedefleri ve net varlığı ortak bir etkileşimli arayüzde birleştiren çevrimdışı ürün.",en:"An offline interactive app unifying budgets, debt payoff, savings goals and net worth."},
-    responsibility:{tr:"Ürün stratejisi, finansal bilgi mimarisi, dashboard ve karar destek deneyimlerinin tasarlanması.",en:"Product strategy, financial information architecture, dashboard and decision-support UX."},
-    highlights:{tr:["Güvenli harcama limiti ve bütçe sağlığı görünümü","Snowball/Avalanche borç planlama ve tasarruf hedefleri","Çevrimdışı çalışan, abonelik gerektirmeyen ürün yapısı"],en:["Safe-to-spend and budget health dashboard","Snowball/Avalanche debt planning and savings goals","Offline-first experience without a recurring app subscription"]},
-    stack:["Finance UX","Dashboards","Offline Web App","Product Design"],
-
-    image: "/products/finance-os/dashboard.jpg",
-    externalUrl:etsy("4553936660","finance-os-budget-dashboard-debt-payoff")
-  },
-  {
-    slug:"clearpath",name:"ClearPath",initials:"CP",source:"etsy",status:"ai-assisted",
-    title:{tr:"Yapay Zeka ile Geliştirilen ClearPath: Borç Yönetimi ve Ödeme Simülasyonu",en:"AI-Assisted ClearPath: Debt Payoff Planning & Simulation"},
-    summary:{tr:"Borç kartopu ve çığ yöntemlerini karşılaştıran, ödeme takvimi ve tahmini kapanış tarihi sunan etkileşimli planlama uygulaması.",en:"An interactive debt-payoff tool comparing snowball and avalanche approaches with payment timelines."},
-    responsibility:{tr:"Finansal karar akışlarının ürünleştirilmesi, senaryo karşılaştırma ve görselleştirme tasarımı.",en:"Turning financial decision scenarios into a comparison and visualization product."},
-    highlights:{tr:["Snowball ve Avalanche karşılaştırması","Tahmini borç bitiş tarihi ve aylık yol haritası","Çevrimdışı HTML deneyimi ve CSV çıktı"],en:["Snowball versus avalanche comparisons","Estimated payoff date and monthly milestones","Offline HTML experience with CSV output"]},
-    stack:["Simulation UX","JavaScript","Offline App","Product Design"],
-
-    image: "/ai-projects/clearpath-plan.png",
-    externalUrl:etsy("4586244352","debt-payoff-planner-app-snowball")
-  },
-  {
-    slug:"renewly",name:"Renewly",initials:"RL",source:"etsy",status:"ai-assisted",
-    title:{tr:"Yapay Zeka ile Geliştirilen Renewly: Abonelik ve Yenileme Yönetimi",en:"AI-Assisted Renewly: Subscription & Renewal Management"},
-    summary:{tr:"Yenileme takvimi, yıllık maliyet, 12 aylık nakit akışı ve iptal planlamasını tek ekranda birleştiren uygulama.",en:"An offline subscription organizer combining renewals, annual costs, cash-flow forecasting and cancellation planning."},
-    responsibility:{tr:"Ürün gereksinimleri, finansal takvim akışı, veri saklama ve raporlama deneyiminin yönetimi.",en:"Product requirements, renewal calendar, local data handling and reporting UX."},
-    highlights:{tr:["12 aylık ödeme öngörüsü ve yenileme takvimi","Abonelik maliyetleri ve iptal adaylarının takibi","Yerel saklama, JSON yedekleme ve CSV dışa aktarma"],en:["12-month scheduled-cost outlook and renewal calendar","Tracking recurring costs and potential cancellations","Local storage with JSON backups and CSV reports"]},
-    stack:["Offline Web App","Dashboard UX","Data Visualization"],
-
-    image: "/ai-projects/renewly-cover.png",
-    externalUrl:etsy("4588598046","subscription-tracker-app-offline-bill")
-  },
-  {
-    slug:"renewary",name:"Renewary",initials:"RY",source:"etsy",status:"ai-assisted",
-    title:{tr:"Yapay Zeka ile Geliştirilen Renewary: Abonelik Kontrol Paneli",en:"AI-Assisted Renewary: Subscription Control Dashboard"},
-    summary:{tr:"Düzenli ödemeler, yenileme günleri ve olası iptal tasarrufları için tasarlanan abonelik kontrol paneli.",en:"A browser-based subscription dashboard for recurring charges, renewal dates and cancellation savings."},
-    responsibility:{tr:"Ürün akışları, kullanıcı deneyimi, filtreleme ve abonelik yaşam döngüsünün yönetimi.",en:"Product flows, user experience, filtering and subscription lifecycle design."},
-    highlights:{tr:["Yenileme takvimi ve maliyet özetleri","İptal listesi, yenileme işaretleme ve geri alma","Çevrimdışı kullanım ve JSON yedekleme"],en:["Renewal calendar and expense summaries","Cancellation shortlist and renewal tracking","Offline usage and JSON backups"]},
-    stack:["UX","Offline Web App","Subscription Planning"],
-
-    image: "/ai-projects/renewary.svg",
-    externalUrl:etsy("4584443956","subscription-tracker-dashboard-renewal")
-  },
-  {
-    slug:"paycheck-budget",name:"Paycheck Budget Tracker",initials:"PB",source:"etsy",status:"ai-assisted",
-    title:{tr:"Yapay Zeka ile Geliştirilen Paycheck Budget: Gelir Dönemi Bütçe Yönetimi",en:"AI-Assisted Paycheck Budget: Pay-Period Finance Tracker"},
-    summary:{tr:"Haftalık ve aylık ödeme dönemlerine göre gelir, gider ve kategori bütçesini izleyen etkileşimli dashboard.",en:"An interactive dashboard tracking income, spending and category budgets by pay period."},
-    responsibility:{tr:"Bütçeleme deneyimi, farklı ödeme sıklıkları ve mobil uyumlu dashboard yapısının tasarımı.",en:"Designing budgeting flows for multiple pay frequencies and a responsive dashboard."},
-    highlights:{tr:["Haftalık, iki haftalık ve aylık gelir dönemleri","Kategori bazlı grafikler ve bütçe görünümü","Yerel veri saklama ve CSV dışa aktarma"],en:["Weekly, biweekly and monthly pay-period views","Category charts and budget status","Local data handling and CSV export"]},
-    stack:["Dashboard UX","Offline Web App","Budgeting"],
-
-    image: "/ai-projects/paycheck-budget.svg",
-    externalUrl:etsy("4556511586","paycheck-budget-tracker-digital-budget")
-  },
-  {
-    slug:"simple-budget",name:"Simple Budget Spreadsheet",initials:"SB",source:"etsy",status:"ai-assisted",
-    title:{tr:"Yapay Zeka ile Hazırlanan Simple Budget: Google Sheets Bütçe Şablonu",en:"AI-Assisted Simple Budget: Google Sheets Tracker"},
-    summary:{tr:"Gelir, gider ve tasarrufları otomatik hesaplayan, erişilebilir bir Google Sheets bütçe aracı.",en:"A Google Sheets template tracking income, expenses and savings with automatic calculations."},
-    responsibility:{tr:"Bilgi yapısı, kategori sistemi ve görsel raporlama mantığının oluşturulması.",en:"Designing the information structure, budget categories and visual reporting logic."},
-    highlights:{tr:["Aylık gelir ve gider takibi","Otomatik formüller ve basit grafikler","Google Sheets üzerinde kolay düzenlenebilir şablon"],en:["Monthly income and expense tracking","Automatic calculations and simple charts","Editable Google Sheets template"]},
-    stack:["Google Sheets","Spreadsheet UX","Finance"],
-
-    image: "/ai-projects/simple-budget.svg",
-    externalUrl:etsy("4555536650","simple-budget-spreadsheet-google-sheets")
-  },
-  {
+{
     slug:"whattime-city",name:"whattime.city",initials:"WT",source:"independent",status:"ai-assisted",
     title:{tr:"Yapay Zeka ile Geliştirilen whattime.city: Küresel Saat ve Zaman Dilimi Platformu",en:"AI-Assisted whattime.city: World Clock & Time Zone Platform"},
     summary:{tr:"Dünya saati, şehir karşılaştırmaları, toplantı saati planlama ve zaman dilimi dönüşümleri sunan içerik ve araç platformu.",en:"A world-clock, city comparison, meeting-planner and time-zone conversion platform."},
@@ -302,7 +222,7 @@ export const aiProjects: AiProject[] = [
     image: "/ai-projects/whattime-og.svg",
     externalUrl:"https://whattime.city"
   },
-  {
+{
     slug:"hastaonay",name:"hastaOnay",initials:"HO",source:"independent",status:"ai-assisted",
     title:{tr:"Yapay Zeka ile Prototiplenen hastaOnay: Dijital Hasta Onay Süreçleri",en:"AI-Assisted hastaOnay Prototype: Digital Patient Consent Workflow"},
     summary:{tr:"Hasta bilgilendirme, onay akışı, kayıt ve doğrulama adımlarını dijitalleştirmeye yönelik ürün çalışması.",en:"A product concept for digitizing patient information, consent, recordkeeping and verification workflows."},
@@ -311,7 +231,7 @@ export const aiProjects: AiProject[] = [
     stack:["Product Strategy","Healthcare UX","Workflow Automation","Prototype"],
     image: "/ai-projects/hastaonay.svg"
   },
-  {
+{
     slug:"inventory-profit",name:"Inventory & Profit Tracker",initials:"IP",source:"independent",status:"ai-assisted",
     title:{tr:"Yapay Zeka ile Geliştirilen Stok ve Kârlılık Takip Uygulaması",en:"AI-Assisted Inventory & Profit Tracking App"},
     summary:{tr:"Küçük işletmelerin stok hareketlerini, ürün bazlı kârlılığı ve satış verilerini izleyebilmesi için geliştirilen dashboard.",en:"A small-business dashboard for inventory movements, product profitability and sales tracking."},
@@ -320,6 +240,7 @@ export const aiProjects: AiProject[] = [
     stack:["Product Design","Inventory Analytics","Dashboard UX"],
     image: "/ai-projects/inventory-overview.png"
   }
+
 ];
 export function findAiProject(slug: string) { return aiProjects.find(p=>p.slug===slug); }
 export function aiProjectHref(locale: ProjectLocale, slug: string) {

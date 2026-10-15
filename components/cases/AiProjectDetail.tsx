@@ -23,9 +23,11 @@ export default function AiProjectDetail({ locale, slug }: { locale: ProjectLocal
         <ProjectCover item={p} locale={locale} sizes="(min-width: 1024px) 1100px, 100vw" />
       </div>
       <p className="mt-2 max-w-5xl text-xs text-primary-400">
-        {p.image?.endsWith(".svg") && p.slug !== "whattime-city"
-          ? (isTr ? "Görsel, proje akışını anlatan temsili bir diyagramdır; gerçek uygulama ekran görüntüsü değildir." : "This is a conceptual project workflow diagram, not a live application screenshot.")
-          : (isTr ? "Görsel, projeye ait portfolyo veya uygulama dosyalarından alınmıştır." : "Visual from existing portfolio or project files.")}
+        {p.source==="etsy"
+          ? (isTr ? "Görsel, SnapixDesign Etsy ilanındaki gerçek ürün kapağıdır." : "Original product cover from the SnapixDesign Etsy listing.")
+          : p.image?.endsWith(".svg") && p.slug !== "whattime-city"
+            ? (isTr ? "Görsel, proje akışını anlatan temsili bir diyagramdır; gerçek uygulama ekran görüntüsü değildir." : "Conceptual workflow diagram, not a live screenshot.")
+            : (isTr ? "Görsel, projeye ait dosyalardan alınmıştır." : "Visual from the project's own files.")}
       </p>
 
       <div className="mt-12 grid max-w-5xl gap-8 lg:grid-cols-[1fr_0.65fr]">
@@ -65,9 +67,9 @@ export default function AiProjectDetail({ locale, slug }: { locale: ProjectLocal
                 : (isTr?"Yapay zeka ve ajan işlevlerinin kapsamı proje açıklamasında belirtilmiştir.":"AI or agent functionality is described within this project's scope.")}
             </p>
           </div>
-          {p.externalUrl && p.source !== "etsy" && (
+          {p.externalUrl && (
             <a href={p.externalUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-accent-400 hover:text-accent-300">
-              {isTr?"Proje Kaynağını Gör":"View Project Source"} <ArrowUpRight className="h-4 w-4"/>
+              {p.source==="etsy" ? (isTr?"Etsy'de Ürünü Gör":"View Product on Etsy") : (isTr?"Proje Kaynağını Gör":"View Project Source")} <ArrowUpRight className="h-4 w-4"/>
             </a>
           )}
         </aside>

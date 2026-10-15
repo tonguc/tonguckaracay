@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Bot, Sparkles } from "lucide-react";
@@ -6,31 +9,35 @@ import { aiProjects, aiProjectHref, type AiProject, type ProjectLocale } from "@
 export function ProjectCover({ item, locale, sizes = "(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw" }: {
   item: AiProject; locale: ProjectLocale; sizes?: string;
 }) {
-  // SVG project diagrams are labeled as concepts. Product imagery is stored locally
-  // to avoid broken external marketplace hotlinks.
-  if (item.image?.endsWith(".svg")) {
-    return <img src={item.image} alt={item.name} loading="lazy" decoding="async"
-      className="h-full w-full object-contain bg-[#0b1326]" />;
-  }
-  if (item.image?.startsWith("/")) {
-    return <Image src={item.image} alt={item.name} fill sizes={sizes}
-      className="object-contain bg-[#10182a] p-1.5" />;
-  }
-  return (
-    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-800">
-      <div className="text-center">
-        <Bot className="mx-auto h-12 w-12 text-accent-400" />
-        <p className="mt-4 font-display text-2xl font-semibold text-white">{item.name}</p>
-        <p className="mt-2 text-xs text-primary-300">{locale === "tr" ? "Proje görseli" : "Project visualization"}</p>
+  const [imageFailed, setImageFailed] = useState(false);
+  useEffect(() => setImageFailed(false), [item.slug, item.image]);
+  if (imageFailed || !item.image) {
+    return (
+      <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-[#0e1726] p-5 text-center">
+        <span className="text-xl font-bold text-white">{item.name}</span>
+        <span className="text-xs text-primary-300">
+          {locale === "tr" ? "Görsel yüklenemedi. Ürün bağlantısından inceleyebilirsiniz." : "Image unavailable. View the original listing."}
+        </span>
       </div>
-    </div>
-  );
+    );
+  }
+  if (item.source === "etsy") {
+    return <img src={item.image} alt={item.name + " Etsy ürün görseli"} loading="lazy"
+      decoding="async" referrerPolicy="no-referrer" onError={() => setImageFailed(true)}
+      className="h-full w-full object-contain bg-[#121b2b]" />;
+  }
+  if (item.image.endsWith(".svg")) {
+    return <img src={item.image} alt={item.name} loading="lazy" decoding="async"
+      onError={() => setImageFailed(true)} className="h-full w-full object-contain bg-[#0b1326]" />;
+  }
+  return <Image src={item.image} alt={item.name} fill sizes={sizes}
+    className="object-contain bg-[#10182a] p-1.5" />;
 }
 
 export default function AiProjectsGallery({ locale }: { locale: ProjectLocale }) {
   const isTr = locale === "tr";
-  const core = aiProjects.filter(p=>p.status==="ai-product");
-  const other = aiProjects.filter(p=>p.status==="ai-assisted");
+  const etsyProducts = aiProjects.filter(p=>p.source==="etsy");
+  const other = aiProjects.filter(p=>p.source!=="etsy");
   const card = (p: AiProject) => (
     <li key={p.slug} className="card group flex h-full flex-col overflow-hidden transition-colors hover:border-accent-500/40">
       <Link href={aiProjectHref(locale,p.slug)} className="block" aria-label={p.title[locale]}>
@@ -47,9 +54,17 @@ export default function AiProjectsGallery({ locale }: { locale: ProjectLocale })
           <Link href={aiProjectHref(locale,p.slug)} className="hover:text-accent-300">{p.title[locale]}</Link>
         </h3>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-primary-300">{p.summary[locale]}</p>
-        <Link href={aiProjectHref(locale,p.slug)} className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-400">
-          {isTr?"Proje Detayı":"Project Details"} <ArrowUpRight className="h-4 w-4" />
-        </Link>
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <Link href={aiProjectHref(locale,p.slug)} className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-400">
+            {isTr?"Proje Detayı":"Project Details"} <ArrowUpRight className="h-4 w-4" />
+          </Link>
+          {p.source==="etsy" && p.externalUrl && (
+            <a href={p.externalUrl} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:text-accent-300">
+              {isTr?"Etsy'de Ürünü Gör":"View on Etsy"} <ArrowUpRight className="h-4 w-4" />
+            </a>
+          )}
+        </div>
       </div>
     </li>
   );
@@ -69,20 +84,20 @@ export default function AiProjectsGallery({ locale }: { locale: ProjectLocale })
         </p>
         <p className="mt-2 text-xs leading-relaxed text-primary-400">
           {isTr
-            ? "Not: Yapay zeka ile geliştirilmiş ürünlerin tümü kullanıcıya canlı yapay zeka yanıtı sunmaz. Araç isimleri portfolyo genelindeki çalışma biçimini gösterir; her modelin her projede kullanıldığı iddia edilmez."
+            ? "Etsy kartlarındaki görseller gerçek ilan kapaklarına bağlıdır. Yapay zeka ile geliştirilmiş her ürün kendi içinde canlı bir yapay zeka modeli çalıştırmaz."
             : "AI-assisted builds do not necessarily run AI models at runtime. The tool names describe my portfolio-wide workflow, not verified per-project use of every model."}
         </p>
       </div>
 
       <div className="mb-8 flex items-center gap-2 text-white">
-        <Bot className="h-5 w-5 text-accent-400"/>
-        <h3 className="font-display text-xl font-semibold">{isTr?"Yapay Zeka ve Ajan Sistemleri":"AI & Agent Systems"}</h3>
+        <Sparkles className="h-5 w-5 text-accent-400"/>
+        <h3 className="font-display text-xl font-semibold">{isTr?"SnapixDesign · Etsy'deki Dijital Ürünler":"SnapixDesign · Etsy Digital Products"}</h3>
       </div>
-      <ul className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">{core.map(card)}</ul>
+      <ul className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">{etsyProducts.map(card)}</ul>
 
       <div className="mb-8 mt-12 flex items-center gap-2 text-white">
-        <Sparkles className="h-5 w-5 text-accent-400"/>
-        <h3 className="font-display text-xl font-semibold">{isTr?"Yapay Zeka Destekli Ürün Geliştirme":"AI-Assisted Product Development"}</h3>
+        <Bot className="h-5 w-5 text-accent-400"/>
+        <h3 className="font-display text-xl font-semibold">{isTr?"Diğer Dijital Projeler ve Otomasyonlar":"Other Digital Products & Automations"}</h3>
       </div>
       <ul className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">{other.map(card)}</ul>
     </section>
