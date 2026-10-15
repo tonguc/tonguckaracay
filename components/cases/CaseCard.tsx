@@ -1,114 +1,67 @@
 import Image from "next/image";
-import { ArrowUpRight, Quote } from "lucide-react";
-import type { CaseStudy, Locale } from "@/lib/cases";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { caseDetailPath, type CaseStudy, type Locale } from "@/lib/cases";
 
 interface Props {
   item: CaseStudy;
   locale: Locale;
-  /** compact = ana sayfa mini vaka; full = /projeler */
   variant?: "compact" | "full";
 }
 
 /**
- * Vaka şablonu: Proje hedefi → Liderlik ve teslim kapsamı → Sonuç → Müşteri yorumu.
- * Sonuç ve yorum sadece gerçek veri varsa render edilir (lib/cases.ts kuralı).
+ * Ana sayfa ve projeler listesindeki kompakt proje kartı.
+ * Hedefler, tüm sorumluluklar, teknolojiler ve Behance kaynağı ayrı detay sayfasında.
  */
-export default function CaseCard({ item, locale, variant = "full" }: Props) {
-  const isTr = locale === "tr";
-  const compact = variant === "compact";
-  const steps = compact ? item.intervention[locale].slice(0, 2) : item.intervention[locale];
+export default function CaseCard({ item, locale }: Props) {
+  const tr = locale === "tr";
+  const href = caseDetailPath(locale, item.slug);
 
   return (
-    <article className="card flex h-full flex-col overflow-hidden">
-      <div className="relative aspect-[3/2] w-full overflow-hidden bg-surface-darker">
+    <article className="card group flex h-full min-h-[475px] flex-col overflow-hidden lg:h-[540px] lg:min-h-0">
+      <Link
+        href={href}
+        className="relative block h-[185px] shrink-0 overflow-hidden bg-surface-darker"
+        aria-label={item.shortTitle[locale]}
+      >
         <Image
           src={item.image}
-          alt={`${item.title[locale]} — ${item.client}`}
+          alt={item.title[locale] + " — " + item.client}
           fill
           sizes="(min-width: 1280px) 400px, (min-width: 768px) 50vw, 100vw"
-          className="object-cover object-top"
+          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
-      </div>
+      </Link>
 
-      <div className="flex flex-1 flex-col p-5 md:p-7">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-          <span className="font-semibold uppercase tracking-[0.15em] text-accent-400">{item.client}</span>
-          <span className="text-primary-500">{item.sector[locale]}</span>
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-5 md:px-6 md:pb-6">
+        <div className="flex items-center gap-2">
+          <span className="truncate text-[11px] font-bold uppercase tracking-[0.11em] text-accent-400">
+            {item.client}
+          </span>
         </div>
-        <h3 className="mt-2 font-display text-xl font-bold text-white md:text-2xl">{item.title[locale]}</h3>
-
-        <dl className="mt-5 space-y-4 text-sm">
-          <div>
-            <dt className="text-[11px] font-semibold uppercase tracking-widest text-primary-400">
-              {isTr ? "Proje Hedefi" : "Project Goal"}
-            </dt>
-            <dd className="mt-1 leading-relaxed text-primary-200">{item.goal[locale]}</dd>
-          </div>
-          <div>
-            <dt className="text-[11px] font-semibold uppercase tracking-widest text-primary-400">
-              {isTr ? "Sorumluluklar ve Kapsam" : "Responsibilities & Scope"}
-            </dt>
-            <dd className="mt-1">
-              <ul className="space-y-1.5">
-                {steps.map((s) => (
-                  <li key={s} className="flex gap-2 leading-relaxed text-primary-300">
-                    <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
-                    {s}
-                  </li>
-                ))}
-              </ul>
-            </dd>
-          </div>
-
-          {item.results && item.results.length > 0 && (
-            <div>
-              <dt className="text-[11px] font-semibold uppercase tracking-widest text-primary-400">
-                {isTr ? "Sonuç" : "Result"}
-              </dt>
-              <dd className="mt-2 flex flex-wrap gap-5">
-                {item.results.map((r) => (
-                  <div key={r.label[locale]}>
-                    <div className="text-gradient font-display text-2xl font-bold">{r.value}</div>
-                    <div className="text-xs text-primary-400">{r.label[locale]}</div>
-                  </div>
-                ))}
-              </dd>
-            </div>
-          )}
-        </dl>
-
-        {!compact && item.testimonial && (
-          <figure className="mt-5 rounded-xl border border-surface-border/60 bg-surface-darker/60 p-4">
-            <Quote className="h-4 w-4 text-accent-500" />
-            <blockquote className="mt-2 text-sm italic leading-relaxed text-primary-200">
-              {item.testimonial.quote[locale]}
-            </blockquote>
-            <figcaption className="mt-2 text-xs text-primary-400">
-              {item.testimonial.name} · {item.testimonial.role[locale]}
-            </figcaption>
-          </figure>
-        )}
-
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6">
-          {!compact && (
-            <div className="flex flex-wrap gap-1.5">
-              {item.tools.map((t) => (
-                <span key={t} className="rounded-full border border-surface-border px-2.5 py-0.5 text-[11px] text-primary-400">
-                  {t}
-                </span>
-              ))}
-            </div>
-          )}
-          <a
-            href={item.behanceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm font-medium text-accent-400 transition-colors hover:text-accent-300"
-          >
-            {isTr ? "Projeyi Behance'te incele" : "View the project on Behance"}
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
+        <h3 className="mt-3 line-clamp-2 font-display text-xl font-bold leading-snug text-white">
+          <Link href={href} className="transition-colors hover:text-accent-300">
+            {item.shortTitle[locale]}
+          </Link>
+        </h3>
+        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-primary-300">
+          {item.summary[locale]}
+        </p>
+        <div className="mt-4 border-t border-surface-border/60 pt-3">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-400">
+            {tr ? "Proje kapsamı" : "Project scope"}
+          </p>
+          <p className="mt-1.5 line-clamp-2 text-[13px] leading-relaxed text-primary-200">
+            {item.responsibilitySummary[locale]}
+          </p>
         </div>
+        <Link
+          href={href}
+          className="mt-auto inline-flex items-center gap-1.5 self-start pt-5 text-sm font-semibold text-accent-400 transition-colors hover:text-accent-300"
+        >
+          {tr ? "Projeyi İncele" : "View Project"}
+          <ArrowUpRight className="h-4 w-4" />
+        </Link>
       </div>
     </article>
   );

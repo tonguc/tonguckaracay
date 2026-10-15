@@ -44,7 +44,7 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
         </header>
 
         <div className="-mx-2 md:-mx-3">
-          <CaseCarousel items={cases} locale={locale} />
+          <CaseCarousel items={cases} locale={locale} variant="compact" />
         </div>
 
         <AiProjectsGallery locale={locale} />

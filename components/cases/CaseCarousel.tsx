@@ -18,7 +18,7 @@ interface Props {
  * Vaka carousel'ı — projeler kendiliğinden birer birer kayar.
  * Üzerine gelince / odakta durur; prefers-reduced-motion'da otomatik kaymaz.
  */
-export default function CaseCarousel({ items, locale, variant = "full", maxPerView = 3, interval = 5000 }: Props) {
+export default function CaseCarousel({ items, locale, variant = "compact", maxPerView = 3, interval = 5000 }: Props) {
   const isTr = locale === "tr";
   const [perView, setPerView] = useState(1);
   const [index, setIndex] = useState(0);
@@ -65,7 +65,7 @@ export default function CaseCarousel({ items, locale, variant = "full", maxPerVi
           {items.map((c, i) => (
             <li
               key={c.slug}
-              className="shrink-0 px-2 md:px-3"
+              className="flex shrink-0 px-2 md:px-3"
               style={{ width: `${100 / perView}%` }}
               aria-hidden={i < current || i >= current + perView}
             >

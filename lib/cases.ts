@@ -31,6 +31,9 @@ export interface CaseStudy {
   sector: L;
   offer: OfferKey;
   title: L;
+  shortTitle: L;
+  summary: L;
+  responsibilitySummary: L;
   goal: L;
   intervention: L<string[]>;
   tools: string[];
@@ -48,6 +51,9 @@ export const cases: CaseStudy[] = [
     sector: { tr: "Otomotiv · Satış sonrası hizmet", en: "Automotive · After-sales service" },
     offer: "ux-conversion",
     featured: true,
+    shortTitle: { tr: "BMW Servis Mobil Uygulaması", en: "BMW Service Mobile App" },
+    summary: { tr: "Servis randevusu, yetkili servis seçimi ve araç bilgilerinin tek mobil deneyimde birleşmesi.", en: "A unified mobile experience for service bookings, dealer selection and vehicle information." },
+    responsibilitySummary: { tr: "Ürün deneyimi · UX akışları · Mobil ürün", en: "Product experience · UX flows · Mobile product" },
     title: { tr: "BMW Servis Mobil Uygulaması", en: "BMW Service Mobile App" },
     goal: {
       tr: "Servis randevusu, yetkili servis seçimi ve araca ait tüm bilgileri tek bir mobil deneyimde toplamak.",
@@ -75,6 +81,9 @@ export const cases: CaseStudy[] = [
     sector: { tr: "E-ticaret · Elektronik", en: "E-commerce · Electronics" },
     offer: "ux-conversion",
     featured: true,
+    shortTitle: { tr: "E-ticaret Platformu ve Ekip Yönetimi", en: "E-commerce Platform & Team Leadership" },
+    summary: { tr: "Network Hardwares için Shopify tabanlı e-ticaret yapısının kurulumu ve uçtan uca yönetimi.", en: "Leading the Shopify e-commerce platform setup and delivery for Network Hardwares." },
+    responsibilitySummary: { tr: "Platform stratejisi · Kurulum · Ekip yönetimi", en: "Platform strategy · Launch · Team leadership" },
     title: { tr: "E-ticaret Platformu Stratejisi, Kurulumu ve Ekip Yönetimi", en: "E-commerce Platform Strategy, Launch & Team Leadership" },
     goal: {
       tr: "Network Hardwares için Shopify tabanlı e-ticaret yapısının kurulumu, mağaza operasyonları, ürün kataloğu ve ekip koordinasyonunu uçtan uca yönetmek.",
@@ -102,6 +111,9 @@ export const cases: CaseStudy[] = [
     sector: { tr: "SaaS · SEO, GEO & UX", en: "SaaS · SEO, GEO & UX" },
     offer: "ai-growth",
     featured: true,
+    shortTitle: { tr: "Yapay Zeka ile Geliştirilen AuditPro", en: "AI-Assisted AuditPro Platform" },
+    summary: { tr: "Teknik SEO, GEO ve UX kontrollerini ortak raporlama deneyiminde buluşturan dijital ürün.", en: "A digital product unifying technical SEO, GEO and UX assessments in one reporting experience." },
+    responsibilitySummary: { tr: "Ürün stratejisi · Denetim akışları · Raporlama", en: "Product strategy · Audit workflows · Reporting" },
     title: { tr: "Yapay Zeka ile Geliştirilen SEO, GEO ve UX Denetim Platformu", en: "AI-Assisted SEO, GEO & UX Audit Platform" },
     goal: {
       tr: "Teknik SEO, yapay zeka arama görünürlüğü ve kullanıcı deneyimi kontrollerini tek bir dijital ürün altında birleştirmek.",
@@ -128,6 +140,9 @@ export const cases: CaseStudy[] = [
     client: "Sigorta 7",
     sector: { tr: "Sigorta · Hizmet", en: "Insurance · Services" },
     offer: "ux-conversion",
+    shortTitle: { tr: "Sigorta 7 Dijital Platformu", en: "Sigorta 7 Digital Platform" },
+    summary: { tr: "Farklı sigorta ürünlerinin teklif ve başvuru deneyiminde bir araya getirilmesi.", en: "Bringing insurance products together through a clear quotation and application journey." },
+    responsibilitySummary: { tr: "Bilgi mimarisi · UX · Başvuru akışları", en: "Information architecture · UX · Application flows" },
     title: { tr: "Sigorta Şirketi Web Sitesi", en: "Insurance Company Website" },
     goal: {
       tr: "Çok sayıda sigorta ürününü sade bir yapıda sunup ziyaretçiyi teklif ve başvuru formuna yönlendirmek.",
@@ -154,6 +169,9 @@ export const cases: CaseStudy[] = [
     client: "Borusan Otomotiv",
     sector: { tr: "Otomotiv · Kurumsal", en: "Automotive · Corporate" },
     offer: "ux-conversion",
+    shortTitle: { tr: "Borusan Otomotiv Dijital Platformu", en: "Borusan Otomotiv Digital Platform" },
+    summary: { tr: "Otomotiv markalarını, satış ve servis girişlerini bir araya getiren kurumsal dijital deneyim.", en: "A corporate digital experience connecting automotive brands, sales and service journeys." },
+    responsibilitySummary: { tr: "Kurumsal platform · UX · Servis akışları", en: "Corporate platform · UX · Service flows" },
     title: { tr: "Borusan Otomotiv Kurumsal Web Sitesi", en: "Borusan Otomotiv Corporate Website" },
     goal: {
       tr: "BMW, MINI, Land Rover ve Jaguar markalarını tek çatı altında toplayan, satış ve servis taleplerine yönlendiren kurumsal site.",
@@ -180,6 +198,9 @@ export const cases: CaseStudy[] = [
     client: "Kayseri Cüzdan",
     sector: { tr: "Fintech · Belediye", en: "Fintech · Municipal" },
     offer: "ux-conversion",
+    shortTitle: { tr: "Dijital Cüzdan Mobil Uygulaması", en: "Digital Wallet Mobile App" },
+    summary: { tr: "Bakiye, ödeme ve para transferi süreçlerini sadeleştiren mobil finans deneyimi.", en: "A streamlined mobile finance experience for balances, payments and transfers." },
+    responsibilitySummary: { tr: "Ürün deneyimi · Mobil UX · İşlem akışları", en: "Product experience · Mobile UX · Transaction flows" },
     title: { tr: "Dijital Cüzdan Mobil Uygulaması", en: "Digital Wallet Mobile App" },
     goal: {
       tr: "Para yükleme, ödeme ve transfer işlemlerini herkesin kullanabileceği sadelikte bir mobil cüzdana dönüştürmek.",
@@ -206,6 +227,9 @@ export const cases: CaseStudy[] = [
     client: "Fotomaç",
     sector: { tr: "Medya · Spor yayıncılığı", en: "Media · Sports publishing" },
     offer: "ux-conversion",
+    shortTitle: { tr: "Fotomaç Dijital Yayın Platformu", en: "Fotomaç Digital Publishing Platform" },
+    summary: { tr: "Yüksek trafikli spor yayıncılığı için masaüstü ve mobil haber deneyimi.", en: "Desktop and mobile news experiences for high-traffic sports publishing." },
+    responsibilitySummary: { tr: "Dijital yayın · UX · İçerik mimarisi", en: "Digital publishing · UX · Content architecture" },
     title: { tr: "fotomac.com.tr Haber Sitesi", en: "fotomac.com.tr News Site" },
     goal: {
       tr: "Yüksek trafikli bir spor gazetesinin sitesinde manşet ve haber akışını masaüstü ve mobilde okunur kılmak.",
@@ -232,3 +256,7 @@ export const cases: CaseStudy[] = [
 export const featuredCases = cases.filter((c) => c.featured);
 
 export const casesPath = (locale: Locale) => (locale === "tr" ? "/projeler" : "/en/case-studies");
+
+/** Türkçe ve İngilizce vaka detay sayfaları için tek URL kaynağı. */
+export const caseDetailPath = (locale: Locale, slug: string) =>
+  locale === "tr" ? `/projeler/${slug}` : `/en/case-studies/${slug}`;
