@@ -21,8 +21,8 @@ export default function CaseHighlights({ locale }: { locale: string }) {
               {isTr ? "Projeler" : "Case Studies"}
             </p>
             <h2 className="section-title">
-              {isTr ? "Teslim Edilmiş " : "Delivered "}
-              <span className="text-gradient">{isTr ? "İşlerden Örnekler" : "Work"}</span>
+              {isTr ? "Yönettiğim " : "Projects I "}
+              <span className="text-gradient">{isTr ? "Dijital Projeler" : "Have Led"}</span>
             </h2>
           </div>
           <Link

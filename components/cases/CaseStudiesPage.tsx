@@ -1,7 +1,4 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { cases, type Locale } from "@/lib/cases";
-import { preAuditPath } from "@/lib/offers";
 import CaseCarousel from "./CaseCarousel";
 import PortfolioGrid from "./PortfolioGrid";
 
@@ -12,8 +9,8 @@ export const caseStudiesMeta = (locale: Locale) => ({
       : "Case Studies & Portfolio | Tonguç Karaçay",
   description:
     locale === "tr"
-      ? "Türk Hava Yolları, BMW, Borusan Otomotiv, Fotomaç ve e-ticaret markaları için UX ve dijital ürün projeleri: hedef, müdahale ve teslim edilen tasarım."
-      : "UX and digital product case studies for Turkish Airlines, BMW, Borusan Otomotiv, Fotomaç and e-commerce brands: goal, intervention and delivered design.",
+      ? "BMW, Türk Hava Yolları ve e-ticaret projelerinde dijital ürün liderliği, ekip yönetimi, proje stratejisi ve uçtan uca teslim deneyimi."
+      : "Digital product leadership, team management, project strategy and end-to-end delivery experience across BMW, Turkish Airlines and e-commerce.",
   alternates: {
     canonical: locale === "tr" ? "https://tonguckaracay.com/projeler" : "https://tonguckaracay.com/en/case-studies",
     languages: {
@@ -40,8 +37,8 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
           </h1>
           <p className="mt-4 text-base leading-relaxed text-primary-300 md:text-lg">
             {isTr
-              ? "Otomotivden e-ticarete, sigortadan medyaya: her projede hedefi, yaptığım müdahaleyi ve teslim edilen tasarımı görebilirsiniz."
-              : "From automotive to e-commerce, insurance to media: for each project you can see the goal, what I did and the delivered design."}
+              ? "Otomotiv, e-ticaret, teknoloji ve medya alanlarında; dijital ürün stratejisinden proje planlamasına, disiplinler arası ekiplerin koordinasyonundan canlıya geçişe kadar yönettiğim süreçler ve ortaya çıkan ürünler."
+              : "Across automotive, e-commerce, technology and media, these projects reflect my leadership in digital product strategy, project planning, cross-functional team coordination and end-to-end delivery."}
           </p>
         </header>
 
@@ -51,20 +48,7 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
 
         <PortfolioGrid locale={locale} />
 
-        <div className="card mx-auto mt-14 flex max-w-3xl flex-col items-center gap-4 px-6 py-8 text-center md:py-10">
-          <h2 className="font-display text-2xl font-bold text-white md:text-3xl">
-            {isTr ? "Sıradaki proje sizin siteniz olsun" : "Let your site be the next case"}
-          </h2>
-          <p className="max-w-xl text-primary-300">
-            {isTr
-              ? "Sitenizi SEO, GEO (ChatGPT, Gemini gibi AI aramalarında görünürlük) ve dönüşüm açısından ücretsiz inceleyip en büyük fırsatları size yazılı olarak iletiyorum."
-              : "I'll review your site for SEO, GEO (visibility in AI search like ChatGPT and Gemini) and conversion for free and send you the biggest opportunities in writing."}
-          </p>
-          <Link href={preAuditPath(locale)} className="btn-primary group">
-            {isTr ? "Ücretsiz Ön Analiz Al" : "Get a Free Pre-Audit"}
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
+
       </div>
     </main>
   );

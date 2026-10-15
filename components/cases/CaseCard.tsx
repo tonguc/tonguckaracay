@@ -10,7 +10,7 @@ interface Props {
 }
 
 /**
- * Vaka şablonu: Hedef → Müdahale → Sonuç → Müşteri yorumu.
+ * Vaka şablonu: Proje hedefi → Liderlik ve teslim kapsamı → Sonuç → Müşteri yorumu.
  * Sonuç ve yorum sadece gerçek veri varsa render edilir (lib/cases.ts kuralı).
  */
 export default function CaseCard({ item, locale, variant = "full" }: Props) {
@@ -40,13 +40,13 @@ export default function CaseCard({ item, locale, variant = "full" }: Props) {
         <dl className="mt-5 space-y-4 text-sm">
           <div>
             <dt className="text-[11px] font-semibold uppercase tracking-widest text-primary-400">
-              {isTr ? "Hedef" : "Goal"}
+              {isTr ? "Proje Hedefi" : "Project Goal"}
             </dt>
             <dd className="mt-1 leading-relaxed text-primary-200">{item.goal[locale]}</dd>
           </div>
           <div>
             <dt className="text-[11px] font-semibold uppercase tracking-widest text-primary-400">
-              {isTr ? "Müdahale" : "What I did"}
+              {isTr ? "Sorumluluklar ve Kapsam" : "Responsibilities & Scope"}
             </dt>
             <dd className="mt-1">
               <ul className="space-y-1.5">
