@@ -37,6 +37,9 @@ jobs:
         run: node scripts/seo-sitemap-audit.mjs
       - name: Historical GSC 79 URL server and redirect regression
         run: node scripts/seo-historical-gsc-audit.mjs
+      - name: Six GSC 5xx example URLs (diagnostic until verified)
+        continue-on-error: true
+        run: node scripts/seo-gsc-5xx-six-audit.mjs
       - name: Verify live internal link integrity (all sitemap pages)
         run: node scripts/seo-internal-link-audit.mjs
       - name: Live hreflang and response-header audit (diagnostic only)
