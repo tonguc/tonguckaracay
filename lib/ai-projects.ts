@@ -37,6 +37,156 @@ export const aiProjects: AiProject[] = [
     externalUrl:"https://github.com/tonguc/agencyos-bot"
   },
   {
+    "slug": "seo-content-agent",
+    "name": "SEO Content Growth Agent",
+    "initials": "GA",
+    "source": "independent",
+    "status": "ai-product",
+    "title": {
+      "tr": "Claude AI Agent ile SEO Araştırma ve Yayın Otomasyonu",
+      "en": "Claude AI Agent for SEO Research & Publishing"
+    },
+    "summary": {
+      "tr": "Telegram, SERP araştırması, çok dilli içerik ve GitHub yayınını birleştiren agent iş akışı.",
+      "en": "Agent workflow connecting Telegram, SERP research, bilingual content and GitHub publication."
+    },
+    "responsibility": {
+      "tr": "Agent mimarisi, içerik kalite kontrolü ve çok dilli yayın süreci yönetimi.",
+      "en": "Agent architecture, quality checks and bilingual publishing."
+    },
+    "highlights": {
+      "tr": [
+        "Claude ile TR/EN içerik üretimi",
+        "Anahtar kelime, SERP ve rakip araştırması",
+        "Frontmatter doğrulama ve GitHub yayını"
+      ],
+      "en": [
+        "Claude-based bilingual writing",
+        "SERP and keyword research",
+        "Frontmatter validation and GitHub publication"
+      ]
+    },
+    "stack": [
+      "Claude",
+      "Python",
+      "Telegram",
+      "GitHub",
+      "SEO"
+    ],
+    "confirmedAiTools": [
+      "Claude"
+    ],
+    "externalUrl": "https://github.com/tonguc/tonguckaracay/tree/main/tc-agent"
+  },
+  {
+    "slug": "n8n-task-agent",
+    "name": "n8n / Telegram Task Agent",
+    "initials": "n8n",
+    "source": "independent",
+    "status": "ai-assisted",
+    "title": {
+      "tr": "AI ile Kurulan n8n & Telegram İş Takibi Otomasyonu",
+      "en": "AI-Assisted n8n & Telegram Task Automation"
+    },
+    "summary": {
+      "tr": "Telegram görev komutları, kalıcı kayıt ve günlük iş raporlama otomasyonu.",
+      "en": "Telegram task commands, durable records and automated daily reporting."
+    },
+    "responsibility": {
+      "tr": "Görev hafızası, entegrasyon ve raporlama akışlarının tasarımı.",
+      "en": "Task memory, integrations and reporting flows."
+    },
+    "highlights": {
+      "tr": [
+        "Telegram görev girişleri",
+        "Kalıcı görev kaydı",
+        "Günlük rapor ve zamanlanmış tetikleyici"
+      ],
+      "en": [
+        "Telegram task intake",
+        "Persistent task store",
+        "Daily reporting and scheduled triggers"
+      ]
+    },
+    "stack": [
+      "n8n",
+      "Telegram",
+      "Automation"
+    ]
+  },
+  {
+    "slug": "hr-tech-leave",
+    "name": "HR Tech",
+    "initials": "HR",
+    "source": "independent",
+    "status": "ai-assisted",
+    "title": {
+      "tr": "AI Destekli HR Tech: İzin ve Devam Takibi Prototipi",
+      "en": "AI-Assisted HR Tech: Leave & Attendance Prototype"
+    },
+    "summary": {
+      "tr": "İşe giriş tarihi, izin hakları, kalan izin ve devam bilgilerini düzenlemeye yönelik ürün prototipi.",
+      "en": "Prototype for employment dates, leave balances and attendance."
+    },
+    "responsibility": {
+      "tr": "İK süreç analizi ve kullanıcı akışlarının yönetimi.",
+      "en": "HR process modeling and UX flows."
+    },
+    "highlights": {
+      "tr": [
+        "İzin ve devamsızlık modellemesi",
+        "Çalışan bazlı kayıt akışları",
+        "Canlı İK ürünü değil; prototip çalışması"
+      ],
+      "en": [
+        "Leave and absence model",
+        "Employee record flows",
+        "Prototype, not a deployed HR system"
+      ]
+    },
+    "stack": [
+      "HR Tech",
+      "UX",
+      "Product Strategy"
+    ]
+  },
+  {
+    "slug": "network-hardwares-ai",
+    "name": "Network Hardwares AI",
+    "initials": "NH",
+    "source": "independent",
+    "status": "ai-assisted",
+    "title": {
+      "tr": "AI ile E-ticaret Ürün Keşfi ve Görsel Üretimi",
+      "en": "AI-Assisted E-commerce Product Discovery & Imagery"
+    },
+    "summary": {
+      "tr": "Network Hardwares için AI destekli ürün seçimi ve görsel üretimi üzerine çalışma.",
+      "en": "AI-assisted product selection and image-generation workflows for Network Hardwares."
+    },
+    "responsibility": {
+      "tr": "E-ticaret katalog ihtiyaçları, keşif ve üretim akışlarının yönetimi.",
+      "en": "E-commerce catalogue requirements and AI workflow direction."
+    },
+    "highlights": {
+      "tr": [
+        "Ürün keşfi ve kategori gereksinimleri",
+        "Üretken AI görsel üretim süreçleri",
+        "Canlı bağımsız AI arama motoru iddiası yok"
+      ],
+      "en": [
+        "Product discovery and categorization",
+        "Generative AI imagery workflows",
+        "No claim of a deployed standalone AI engine"
+      ]
+    },
+    "stack": [
+      "Generative AI",
+      "E-commerce",
+      "Product Discovery"
+    ]
+  },
+  {
     slug:"auditpro",name:"AuditPro",initials:"AP",source:"etsy",status:"ai-assisted",
     title:{tr:"AI ile Geliştirilen AuditPro: 211 Maddelik SEO, GEO ve UX Denetimi",en:"AI-Assisted AuditPro: 211-Point SEO, GEO & UX Audit Toolkit"},
     summary:{tr:"Manuel web sitesi denetimini puanlama, önceliklendirme, markalı PDF rapor, teklif ve sunuma dönüştüren çevrimdışı ürün.",en:"An offline toolkit turning manual website reviews into scoring, prioritized findings, branded PDF reports, proposals and presentations."},
