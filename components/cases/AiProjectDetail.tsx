@@ -66,7 +66,7 @@ export default function AiProjectDetail({ locale, slug }: { locale: ProjectLocal
                 : (isTr?"AI / agent işlevlerinin kapsamı proje açıklamasında belirtilmiştir.":"AI or agent functionality is described within this project's scope.")}
             </p>
           </div>
-          {p.externalUrl && (
+          {p.externalUrl && p.source !== "etsy" && (
             <a href={p.externalUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-accent-400 hover:text-accent-300">
               {isTr?"Proje Kaynağını Gör":"View Project Source"} <ArrowUpRight className="h-4 w-4"/>
             </a>
