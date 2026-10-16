@@ -27,6 +27,8 @@ const brandWork: [string, string][] = [
   ["186196915", "Sigorta 7"],
 ];
 
+const earlyEmployers = ["Sabancı Holding", "MNG Holding", "Filli Boya"];
+
 const moreBrands = [
   "Star", "Sabah USA", "A Spor", "Güneş", "Takvim", "Akşam", "Yeni Asır", "24 TV", "360 TV", "Radyo Turkuvaz",
   "Alem FM", "Aktüel", "Ağaoğlu My Life", "Asis", "Burulaş", "LiveDoctor", "Callhealer",
@@ -119,8 +121,8 @@ export default function AboutPage({ locale }: { locale: Locale }) {
               </p>
               <p className="mb-5 leading-relaxed text-primary-300">
                 {isTr
-                  ? "Kariyerimin ilk döneminde Türkiye'nin önde gelen medya kuruluşlarında; Star, Akşam ve Güneş gibi gazetelerin haber platformları ile 24 TV ve 360 TV gibi kanalların dijital yayın projelerinde çalıştım. Web, mobil ve Smart TV deneyimleri üzerinden yüksek trafikli ürünlerin bilgi mimarisi, kullanıcı deneyimi ve çoklu platform geliştirme süreçlerinde sorumluluk üstlendim."
-                  : "Early in my career, I worked on digital publishing platforms at leading Turkish media organizations, including newspaper brands such as Star, Akşam and Güneş, and broadcasters such as 24 TV and 360 TV. Across web, mobile and Smart TV experiences, I gained hands-on responsibility for information architecture, user experience and multi-platform product delivery."}
+                  ? "Profesyonel kariyerime sırasıyla Sabancı Holding, MNG Holding ve Filli Boya'da başladım. Ardından dijital yayıncılığa yönelerek Star, Akşam ve Güneş gazeteleriyle 24 TV ve 360 TV gibi kanalların web, mobil ve Smart TV projelerinde yer aldım. Bu dönemde yüksek trafikli platformların bilgi mimarisi, kullanıcı deneyimi ve çoklu platform geliştirme süreçlerinde sorumluluk üstlendim."
+                  : "My professional career began, in order, at Sabancı Holding, MNG Holding and Filli Boya. I then moved into digital publishing, working on web, mobile and Smart TV projects for newspapers including Star, Akşam and Güneş, and broadcasters such as 24 TV and 360 TV. This period gave me responsibility across information architecture, user experience and multi-platform delivery for high-traffic products."}
               </p>
               <p className="mb-5 leading-relaxed text-primary-300">
                 {isTr
@@ -257,6 +259,16 @@ export default function AboutPage({ locale }: { locale: Locale }) {
             ))}
           </ul>
 
+          <div className="mt-10 text-center">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-400">{isTr ? "İlk Kurumsal Deneyimler" : "Early Corporate Experience"}</p>
+            <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
+              {earlyEmployers.map((employer) => (
+                <span key={employer} className="rounded-lg border border-accent-500/30 bg-accent-500/5 px-3 py-1.5 text-sm font-medium text-primary-200">
+                  {employer}
+                </span>
+              ))}
+            </div>
+          </div>
           <div className="mt-10 text-center">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-500">{isTr ? "Diğer projelerden markalar" : "More brands from past projects"}</p>
             <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
