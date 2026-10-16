@@ -24,7 +24,7 @@ export default function ValueProposition({ locale }: Props) {
 
   const stats = [
     { to: 26, suffix: "+", short: isTr ? "Yıl" : "Years", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
-    { to: 150, suffix: "+", short: isTr ? "Dijital Proje" : "Digital Projects", label: isTr ? "Dijital Proje" : "Digital Projects" },
+    { to: 200, suffix: "+", short: isTr ? "Dijital Proje" : "Digital Projects", label: isTr ? "Dijital Proje" : "Digital Projects" },
     { to: 100, suffix: "+", short: isTr ? "Marka" : "Brands", label: isTr ? "Marka" : "Brands" },
     { to: countriesWithProjectsCount, suffix: "", short: isTr ? "Ülke" : "Countries", label: isTr ? "Ülke" : "Countries" },
   ];
