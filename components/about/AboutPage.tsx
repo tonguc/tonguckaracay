@@ -119,8 +119,13 @@ export default function AboutPage({ locale }: { locale: Locale }) {
               </p>
               <p className="mb-5 leading-relaxed text-primary-300">
                 {isTr
-                  ? "Kariyerim, büyük medya gruplarının dijital yayın platformlarıyla başladı; Türk Hava Yolları, BMW, MINI, Jaguar, Land Rover ve Borusan Otomotiv gibi markaların projeleriyle ilerledi. Türkiye, ABD, Kanada ve Almanya'daki çalışmalarda ürün yol haritası, kullanıcı deneyimi ve teslim süreçlerini farklı ekiplerle birlikte şekillendirdim."
-                  : "I began my career with digital publishing platforms at major media groups, then contributed to projects for Turkish Airlines, BMW, MINI, Jaguar, Land Rover and Borusan Otomotiv. Across work in Turkey, the US, Canada and Germany, I have helped shape product roadmaps, user experience and delivery with multidisciplinary teams."}
+                  ? "Kariyerimin ilk döneminde Türkiye'nin önde gelen medya kuruluşlarında; Star, Akşam ve Güneş gibi gazetelerin haber platformları ile 24 TV ve 360 TV gibi kanalların dijital yayın projelerinde çalıştım. Web, mobil ve Smart TV deneyimleri üzerinden yüksek trafikli ürünlerin bilgi mimarisi, kullanıcı deneyimi ve çoklu platform geliştirme süreçlerinde sorumluluk üstlendim."
+                  : "Early in my career, I worked on digital publishing platforms at leading Turkish media organizations, including newspaper brands such as Star, Akşam and Güneş, and broadcasters such as 24 TV and 360 TV. Across web, mobile and Smart TV experiences, I gained hands-on responsibility for information architecture, user experience and multi-platform product delivery."}
+              </p>
+              <p className="mb-5 leading-relaxed text-primary-300">
+                {isTr
+                  ? "Bu birikimi daha sonra havacılık, otomotiv ve kurumsal dijital hizmetlere taşıdım. Türk Hava Yolları, BMW, MINI, Jaguar, Land Rover ve Borusan Otomotiv projelerinde web ve mobil ürünlerin deneyim, geliştirme ve teslim süreçlerinde yer aldım. Türkiye'nin yanı sıra ABD, Kanada ve Almanya'daki ekiplerle farklı ölçeklerde dijital ürün çalışmalarını sürdürdüm."
+                  : "I later brought that experience into aviation, automotive and enterprise digital services. On projects for Turkish Airlines, BMW, MINI, Jaguar, Land Rover and Borusan Otomotiv, I contributed to the experience, development and delivery of web and mobile products. I have also worked with teams in the US, Canada and Germany across digital products of different scales."}
               </p>
               <p className="mb-8 leading-relaxed text-primary-300">
                 {isTr
