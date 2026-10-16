@@ -133,8 +133,8 @@ export default function AboutPage({ locale }: { locale: Locale }) {
               </p>
               <p className="mb-8 leading-relaxed text-primary-300">
                 {isTr
-                  ? "Asis'in ardından ABD merkezli iki şirkette görev aldım: Network Hardwares'ta e-ticaret platformunun stratejisi, kurulumu ve ekip koordinasyonu; eva.guru'da Amazon reklam otomasyonu ürününün UX/UI ve ürün geliştirme süreçleri. Bugün dijital ürün liderliğini analitik, yapay zeka ve otomasyonla birleştiren çözümlere odaklanıyorum."
-                  : "After Asis, I worked at two US-based companies: Network Hardwares, focusing on e-commerce platform strategy, setup and team coordination; and eva.guru, working on UX/UI and product development for Amazon advertising automation. Today my focus is connecting digital product leadership with analytics, AI and automation."}
+                  ? "Asis'in ardından ABD merkezli iki teknoloji şirketinde çalıştım. Network Hardwares'ta e-ticaret platformunun stratejisi, kurulumu ve ekip koordinasyonunun yanı sıra AI destekli akıllı ürün bulma, ürün seçimi ve görsel üretim iş akışları üzerinde çalıştım. eva.guru'da ise AI destekli Amazon reklam otomasyonu platformunun UX/UI süreçlerine liderlik ederek teklif optimizasyonu, kampanya analitiği ve karar destek ekranlarına odaklandım."
+                  : "After Asis, I worked at two US-based technology companies. At Network Hardwares, I combined e-commerce platform strategy, launch and team coordination with AI-assisted product discovery, intelligent product selection and image-generation workflows. At eva.guru, I led UX/UI work on an AI-powered Amazon advertising automation platform, focusing on bidding optimization, campaign analytics and decision-support interfaces."}
               </p>
 
               <div className="mb-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-primary-300">
