@@ -23,10 +23,10 @@ export default function ValueProposition({ locale }: Props) {
   const articlePath = latest ? (isTr ? "/" : "/en/") + latest.slug : blogPath;
 
   const stats = [
-    { to: 25, short: isTr ? "Yıl" : "Years", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
-    { to: 500, short: isTr ? "Proje" : "Projects", label: isTr ? "Proje" : "Projects" },
-    { to: 100, short: isTr ? "Marka" : "Brands", label: isTr ? "Marka" : "Brands" },
-    { to: countriesWithProjectsCount, short: isTr ? "Ülke" : "Countries", label: isTr ? "Ülke" : "Countries" },
+    { to: 26, suffix: "+", short: isTr ? "Yıl" : "Years", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
+    { to: 150, suffix: "+", short: isTr ? "Dijital Proje" : "Digital Projects", label: isTr ? "Dijital Proje" : "Digital Projects" },
+    { to: 100, suffix: "+", short: isTr ? "Marka" : "Brands", label: isTr ? "Marka" : "Brands" },
+    { to: countriesWithProjectsCount, suffix: "", short: isTr ? "Ülke" : "Countries", label: isTr ? "Ülke" : "Countries" },
   ];
 
   return (
@@ -112,7 +112,7 @@ export default function ValueProposition({ locale }: Props) {
           {stats.map((st) => (
             <div key={st.label} className="relative overflow-hidden rounded-xl border border-surface-border/60 bg-surface-card/50 px-1 py-3 text-center sm:rounded-2xl sm:px-4 md:p-5">
               <p className="text-gradient font-display text-xl font-extrabold leading-none sm:text-3xl md:text-4xl">
-                <StatCounter to={st.to} suffix="+" />
+                <StatCounter to={st.to} suffix={st.suffix} />
               </p>
               <p className="mt-2 text-[10px] font-semibold leading-tight text-white sm:text-xs md:text-base">
                 {st.short}

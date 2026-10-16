@@ -47,7 +47,7 @@ export default function PortfolioMarquee({ locale }: { locale: string }) {
     <div className="mt-10 md:mt-14">
       <div className="container-custom mb-4 flex items-end justify-between gap-4">
         <p className="text-sm text-primary-300">
-          {isTr ? "500+ projeden seçili çalışmalar" : "Selected work from 500+ projects"}
+          {isTr ? "150+ dijital projeden seçili çalışmalar" : "Selected work from 150+ digital projects"}
         </p>
         <Link
           href={`${casesPath(loc)}#portfolio-title`}

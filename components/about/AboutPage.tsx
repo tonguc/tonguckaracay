@@ -79,9 +79,9 @@ export default function AboutPage({ locale }: { locale: Locale }) {
 
   const stats = [
     { value: "26+", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
-    { value: "500+", label: isTr ? "Proje Deneyimi" : "Projects" },
+    { value: "150+", label: isTr ? "Dijital Proje" : "Digital Projects" },
     { value: "100+", label: isTr ? "Marka" : "Brands" },
-    { value: `${countriesWithProjectsCount}+`, label: isTr ? "Ülke" : "Countries" },
+    { value: String(countriesWithProjectsCount), label: isTr ? "Ülke" : "Countries" },
   ];
 
   const work = brandWork
