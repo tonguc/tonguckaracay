@@ -29,11 +29,12 @@ const brandWork: [string, string][] = [
 ];
 
 const earlyEmployers = ["Sabancı Holding", "MNG Holding", "Filli Boya"];
+const laterEmployers = ["Borusan Otomotiv", "Asis", "Network Hardwares", "eva.guru"];
 
 const moreBrands = [
   "Star", "Sabah USA", "A Spor", "Güneş", "Takvim", "Akşam", "Yeni Asır", "24 TV", "360 TV", "Radyo Turkuvaz",
-  "Alem FM", "Aktüel", "Ağaoğlu My Life", "Asis", "Burulaş", "LiveDoctor", "Callhealer",
-  "Network Hardwares", "Leman", "Eva", "Otohaber",
+  "Alem FM", "Aktüel", "Ağaoğlu My Life", "Burulaş", "LiveDoctor", "Callhealer",
+  "Leman", "Otohaber",
 ];
 
 
@@ -127,13 +128,13 @@ export default function AboutPage({ locale }: { locale: Locale }) {
               </p>
               <p className="mb-5 leading-relaxed text-primary-300">
                 {isTr
-                  ? "Bu deneyimi havacılık, otomotiv ve kurumsal dijital hizmet projelerine taşıdım. Türk Hava Yolları, BMW, MINI, Jaguar, Land Rover ve Borusan Otomotiv projelerinde web ve mobil ürünlerin deneyim, geliştirme ve teslim süreçlerinde yer aldım. Uluslararası dijital ürün ve teknoloji projelerinde farklı ülkelerdeki ekip ve paydaşlarla çalıştım."
-                  : "I brought this experience into aviation, automotive and enterprise digital services. On projects for Turkish Airlines, BMW, MINI, Jaguar, Land Rover and Borusan Otomotiv, I contributed to the experience, development and delivery of web and mobile products. International digital product and technology initiatives also involved collaborating with teams and stakeholders across multiple countries."}
+                  ? "Medya alanındaki deneyimimin ardından Türk Hava Yolları, BMW, MINI, Jaguar, Land Rover ve Borusan Otomotiv'in web ve mobil ürün projelerinde görev aldım. Borusan Otomotiv sonrasında Asis'te uluslararası dijital ürün ve teknoloji projelerinin planlama, kullanıcı deneyimi ve geliştirme süreçlerinde çalıştım."
+                  : "After my media experience, I worked on web and mobile product projects for Turkish Airlines, BMW, MINI, Jaguar, Land Rover and Borusan Otomotiv. Following Borusan Otomotiv, I joined Asis, working on the planning, UX and development processes of international digital product and technology projects."}
               </p>
               <p className="mb-8 leading-relaxed text-primary-300">
                 {isTr
-                  ? "Son dönemde AI destekli reklam teknolojileri, analitik dashboard'lar, yapay zeka ajanları ve otomasyon akışları üzerinde çalışıyorum. Ürün, tasarım ve teknoloji perspektifini bir araya getirerek ekiplerin karmaşık problemleri daha anlaşılır ve yönetilebilir dijital deneyimlere dönüştürmesine odaklanıyorum."
-                  : "My recent work focuses on AI-assisted advertising technology, analytics dashboards, AI agents and automation workflows. I connect product, design and technology perspectives to help teams turn complex problems into clear, manageable digital experiences."}
+                  ? "Asis'in ardından ABD merkezli iki şirkette görev aldım: Network Hardwares'ta e-ticaret platformunun stratejisi, kurulumu ve ekip koordinasyonu; eva.guru'da Amazon reklam otomasyonu ürününün UX/UI ve ürün geliştirme süreçleri. Bugün dijital ürün liderliğini analitik, yapay zeka ve otomasyonla birleştiren çözümlere odaklanıyorum."
+                  : "After Asis, I worked at two US-based companies: Network Hardwares, focusing on e-commerce platform strategy, setup and team coordination; and eva.guru, working on UX/UI and product development for Amazon advertising automation. Today my focus is connecting digital product leadership with analytics, AI and automation."}
               </p>
 
               <div className="mb-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-primary-300">
@@ -285,6 +286,16 @@ export default function AboutPage({ locale }: { locale: Locale }) {
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-400">{isTr ? "İlk Kurumsal Deneyimler" : "Early Corporate Experience"}</p>
             <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
               {earlyEmployers.map((employer) => (
+                <span key={employer} className="rounded-lg border border-accent-500/30 bg-accent-500/5 px-3 py-1.5 text-sm font-medium text-primary-200">
+                  {employer}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="mt-8 text-center">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-400">{isTr ? "Sonraki Kurumsal Deneyimler" : "Later Corporate Experience"}</p>
+            <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
+              {laterEmployers.map((employer) => (
                 <span key={employer} className="rounded-lg border border-accent-500/30 bg-accent-500/5 px-3 py-1.5 text-sm font-medium text-primary-200">
                   {employer}
                 </span>
