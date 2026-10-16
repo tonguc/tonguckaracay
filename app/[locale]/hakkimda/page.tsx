@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import AboutPage from "@/components/about/AboutPage";
 
-const title = "Hakkımda | Tonguç Karaçay – SEO ve UX Danışmanı";
-const description = "25+ yıldır Türk Hava Yolları, BMW, Borusan ve medya markaları için UX, SEO ve dijital ürün geliştiren bağımsız danışman. Uzmanlık alanları ve seçili çalışmalar.";
+const title = "Hakkımda | Dijital Ürün ve UX Liderliği – Tonguç Karaçay";
+const description = "26+ yıllık dijital ürün, UX ve ekip liderliği deneyimi. Kurumsal platformlar, B2B SaaS, e-ticaret ve yapay zeka projeleri.";
 
 export const metadata: Metadata = {
   title,

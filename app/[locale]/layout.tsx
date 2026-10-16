@@ -83,17 +83,13 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
               "name": "Tonguç Karaçay",
               "url": "https://tonguckaracay.com",
               "image": "https://tonguckaracay.com/tonguc-karacay.jpg",
-              "jobTitle": "UX Design, SEO & GEO Consultant",
-              "description": "UX/UI tasarım, SEO, GEO ve dijital pazarlama alanlarında 25+ yıllık deneyime sahip bağımsız danışman. Markaların Google’da ve yapay zeka aramalarında görünür olmasını sağlar.",
+              "jobTitle": "Digital Product, UX & AI Leadership",
+              "description": "26+ yıllık dijital ürün geliştirme, kullanıcı deneyimi, ekip yönetimi ve yapay zeka destekli ürün deneyimi.",
               "knowsAbout": [
                 "SEO", "Generative Engine Optimization", "UX Design",
                 "Conversion Rate Optimization", "AI Automation", "Google Ads",
                 "Social Media Management", "E-commerce", "Web Analytics"
               ],
-              "worksFor": {
-                "@type": "Organization",
-                "name": "Tonguç Karaçay Danışmanlık"
-              },
               "sameAs": [
                 "https://www.linkedin.com/in/tongu%C3%A7-kara%C3%A7ay-36311040/",
                 "https://www.instagram.com/tonguckaracay",

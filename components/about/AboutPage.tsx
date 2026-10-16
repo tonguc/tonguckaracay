@@ -1,23 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ArrowUpRight, Globe, MapPin, Linkedin, Search, MousePointerClick, Cpu, Share2, Megaphone, Sparkles } from "lucide-react";
-import { offers } from "@/lib/offers";
+import { ArrowRight, ArrowUpRight, Globe, MapPin, Linkedin, Layers, Users, Cpu, BarChart3 } from "lucide-react";
 import { portfolio } from "@/lib/portfolio";
-import { casesPath, type Locale, type OfferKey } from "@/lib/cases";
+import { casesPath, type Locale } from "@/lib/cases";
 
 /**
- * Hakkımda / About — TR ve EN tek bileşen.
- * Uzmanlık alanları lib/offers.ts'ten (güncel 5 hizmet + GEO) gelir; "Çalıştığım Firmalar"
- * Behance kapaklarıyla portfolyo kartı olarak gösterilir (lib/portfolio.ts).
+ * Hakkımda: kişisel kariyer, ürün ve ekip liderliği odaklı portfolyo.
+ * Hizmet satışı, danışmanlık vaadi ve ücretsiz ön analiz CTA'sı bilerek yok.
  */
-const icons: Record<OfferKey, typeof Search> = {
-  "seo-geo": Search,
-  "ux-conversion": MousePointerClick,
-  "ai-growth": Cpu,
-  social: Share2,
-  "ai-ads": Megaphone,
-};
-
 // Marka portfolyosu — [portfolio id, marka adı]
 const brandWork: [string, string][] = [
   ["73080587", "Türk Hava Yolları"],
@@ -43,15 +33,50 @@ const moreBrands = [
   "Network Hardwares", "Leman", "Eva", "Otohaber",
 ];
 
+
+const focusAreas = [
+  {
+    icon: Layers,
+    title: { tr: "Dijital Ürün Stratejisi", en: "Digital Product Strategy" },
+    description: {
+      tr: "Ürün vizyonu, yol haritası, önceliklendirme ve fikirden yayına uzanan geliştirme sürecinin yönetimi.",
+      en: "Product vision, roadmaps, prioritization and leading development from concept through launch.",
+    },
+  },
+  {
+    icon: Users,
+    title: { tr: "UX ve Ekip Liderliği", en: "UX & Team Leadership" },
+    description: {
+      tr: "Kullanıcı araştırması, deneyim mimarisi ve tasarım sistemlerini disiplinler arası ekiplerle birlikte yönetme.",
+      en: "Leading user research, experience architecture and design systems with cross-functional teams.",
+    },
+  },
+  {
+    icon: Cpu,
+    title: { tr: "Yapay Zeka ve Otomasyon", en: "AI & Automation" },
+    description: {
+      tr: "AI destekli ürün deneyimleri, agent iş akışları ve iş süreçlerine entegre edilen otomasyon sistemleri.",
+      en: "AI-assisted product experiences, agent workflows and automation integrated into business processes.",
+    },
+  },
+  {
+    icon: BarChart3,
+    title: { tr: "Veri ve Dijital Büyüme", en: "Data & Digital Growth" },
+    description: {
+      tr: "Ürün analitiği, dönüşüm optimizasyonu ve SEO/GEO bilgisini ürün ve iş hedefleriyle ilişkilendirme.",
+      en: "Connecting product analytics, conversion optimization and SEO/GEO knowledge to product and business goals.",
+    },
+  },
+] as const;
+
 export default function AboutPage({ locale }: { locale: Locale }) {
   const isTr = locale === "tr";
-  const contactPath = isTr ? "/iletisim" : "/en/contact";
   const homePath = isTr ? "/" : "/en";
-  const geoHref = isTr ? "/hizmetler/geo-optimizasyonu" : "/en/services/geo-optimization";
+  const projectPath = casesPath(locale);
 
   const stats = [
-    { value: "25+", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
-    { value: "500+", label: isTr ? "Teslim Edilen Proje" : "Projects Delivered" },
+    { value: "26+", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
+    { value: "500+", label: isTr ? "Proje Deneyimi" : "Projects" },
     { value: "100+", label: isTr ? "Marka" : "Brands" },
     { value: "12+", label: isTr ? "Ülke" : "Countries" },
   ];
@@ -62,7 +87,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
 
   return (
     <main className="pt-20">
-      {/* Hero */}
+      {/* Kariyer ve liderlik odaklı giriş */}
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-accent-500/10 blur-3xl" />
@@ -76,38 +101,46 @@ export default function AboutPage({ locale }: { locale: Locale }) {
                 <span>/</span>
                 <span className="text-white">{isTr ? "Hakkımda" : "About"}</span>
               </nav>
-              <h1 className="mb-6 font-display text-4xl font-bold leading-tight text-white md:text-5xl">
-                {isTr ? "Merhaba, Ben " : "Hi, I'm "}
+
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400 md:text-sm">
+                {isTr ? "Dijital Ürün · UX · Yapay Zeka" : "Digital Product · UX · AI"}
+              </p>
+              <h1 className="mb-4 font-display text-4xl font-bold leading-tight text-white md:text-5xl">
                 <span className="text-gradient">Tonguç Karaçay</span>
               </h1>
-              <p className="mb-5 text-lg leading-relaxed text-primary-200 md:text-xl">
+              <h2 className="mb-6 max-w-xl font-display text-xl font-semibold leading-snug text-white md:text-2xl">
+                {isTr ? "Dijital ürün geliştirme, deneyim tasarımı ve ekip liderliği" : "Digital product development, experience design & team leadership"}
+              </h2>
+
+              <p className="mb-5 text-base leading-relaxed text-primary-200 md:text-lg">
                 {isTr
-                  ? "25 yılı aşkın süredir dijital ürün tasarlıyor ve büyütüyorum. Bugün e-ticaret ve hizmet şirketlerine UX, SEO/GEO ve yapay zekayla trafik ve gelir büyümesi sağlıyorum."
-                  : "I've been designing and growing digital products for over 25 years. Today I help e-commerce and service businesses grow traffic and revenue through UX, SEO/GEO and AI."}
+                  ? "26 yılı aşkın kariyerimde dijital ürünlerin yalnızca tasarımına değil; stratejisine, ekiplerin koordinasyonuna ve fikirden canlı ürüne uzanan geliştirme sürecine odaklandım. Yüksek trafikli medya platformlarından kurumsal uygulamalara, e-ticaretten B2B SaaS ürünlerine kadar farklı ölçeklerde sorumluluk üstlendim."
+                  : "Over more than 26 years, my work has extended beyond interface design to product strategy, cross-functional coordination and taking digital products from concept to launch. My experience spans high-traffic media, enterprise platforms, e-commerce and B2B SaaS."}
               </p>
               <p className="mb-5 leading-relaxed text-primary-300">
                 {isTr
-                  ? "Kariyerime Türkiye'nin en büyük medya gruplarında, ulusal TV kanalları ve gazete sitelerinin dijital ürünlerini tasarlayarak başladım. Ardından Türk Hava Yolları, BMW, MINI, Jaguar, Land Rover ve Borusan Otomotiv gibi markalarla çalıştım; Türkiye'nin yanı sıra ABD, Kanada ve Almanya'daki firmalara hizmet verdim."
-                  : "I started my career at Turkey's largest media groups, designing digital products for national TV channels and newspaper sites. I went on to work with brands such as Turkish Airlines, BMW, MINI, Jaguar, Land Rover and Borusan Otomotiv, serving companies in Turkey as well as the US, Canada and Germany."}
+                  ? "Kariyerim, büyük medya gruplarının dijital yayın platformlarıyla başladı; Türk Hava Yolları, BMW, MINI, Jaguar, Land Rover ve Borusan Otomotiv gibi markaların projeleriyle ilerledi. Türkiye, ABD, Kanada ve Almanya'daki çalışmalarda ürün yol haritası, kullanıcı deneyimi ve teslim süreçlerini farklı ekiplerle birlikte şekillendirdim."
+                  : "I began my career with digital publishing platforms at major media groups, then contributed to projects for Turkish Airlines, BMW, MINI, Jaguar, Land Rover and Borusan Otomotiv. Across work in Turkey, the US, Canada and Germany, I have helped shape product roadmaps, user experience and delivery with multidisciplinary teams."}
               </p>
               <p className="mb-8 leading-relaxed text-primary-300">
                 {isTr
-                  ? "Ajans değilim: stratejiyi kuran da, koda, SEO'ya ve reklam hesaplarına bizzat giren de benim. Yapay zekayı vitrin süsü olarak değil, ölçülebilir iş sonucu üreten bir kaldıraç olarak kullanıyorum."
-                  : "I'm not an agency: the person who sets the strategy is the same person who gets into the code, the SEO and the ad accounts. I use AI not as decoration but as leverage that produces measurable business results."}
+                  ? "Son dönemde AI destekli reklam teknolojileri, analitik dashboard'lar, yapay zeka ajanları ve otomasyon akışları üzerinde çalışıyorum. Ürün, tasarım ve teknoloji perspektifini bir araya getirerek ekiplerin karmaşık problemleri daha anlaşılır ve yönetilebilir dijital deneyimlere dönüştürmesine odaklanıyorum."
+                  : "My recent work focuses on AI-assisted advertising technology, analytics dashboards, AI agents and automation workflows. I connect product, design and technology perspectives to help teams turn complex problems into clear, manageable digital experiences."}
               </p>
-              <div className="mb-8 flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 text-primary-300">
+
+              <div className="mb-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-primary-300">
+                <div className="flex items-center gap-2">
                   <MapPin className="h-5 w-5 text-accent-400" />
                   <span>{isTr ? "İstanbul, Türkiye" : "Istanbul, Turkey"}</span>
                 </div>
-                <div className="flex items-center gap-2 text-primary-300">
+                <div className="flex items-center gap-2">
                   <Globe className="h-5 w-5 text-accent-400" />
-                  <span>{isTr ? "Uzaktan, dünya genelinde" : "Remote, worldwide"}</span>
+                  <span>{isTr ? "Uluslararası ürün ve ekip deneyimi" : "International product & team experience"}</span>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-4">
-                <Link href={contactPath} className="btn-primary group">
-                  {isTr ? "İletişime Geç" : "Get in Touch"}
+              <div className="flex flex-wrap gap-3">
+                <Link href={projectPath} className="btn-primary group">
+                  {isTr ? "Projelerimi İncele" : "Explore Projects"}
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <a href="https://www.linkedin.com/in/tongu%C3%A7-kara%C3%A7ay-36311040/" target="_blank" rel="noopener noreferrer" className="btn-secondary">
@@ -133,7 +166,6 @@ export default function AboutPage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Stats */}
       <section className="pb-8">
         <div className="container-custom">
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
@@ -147,67 +179,48 @@ export default function AboutPage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Uzmanlık alanları — güncel hizmetler */}
+      {/* Hizmet satışı değil, ürün ve liderlik yetkinlikleri */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
           <div className="mb-10 text-center md:mb-12">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">{isTr ? "Bugün Ne Yapıyorum" : "What I Do Today"}</p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
+              {isTr ? "Çalışma Alanları" : "Focus Areas"}
+            </p>
             <h2 className="section-title mx-auto">
-              {isTr ? "Uzmanlık " : "Areas of "}
-              <span className="text-gradient">{isTr ? "Alanlarım" : "Expertise"}</span>
+              {isTr ? "Ürün ve " : "Product & "}
+              <span className="text-gradient">{isTr ? "Liderlik Yetkinlikleri" : "Leadership Expertise"}</span>
             </h2>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {offers.map((o) => {
-              const Icon = icons[o.key];
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {focusAreas.map((area) => {
+              const Icon = area.icon;
               return (
-                <Link
-                  key={o.key}
-                  href={o.href[locale]}
-                  className={`card group flex flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-500/40 ${o.featured ? "border-violet-400/25" : ""}`}
-                >
+                <article key={area.title.tr} className="card flex flex-col p-6">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-500/10 text-accent-400 ring-1 ring-accent-500/20">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-4 font-display text-lg font-bold text-white">{o.name[locale]}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-primary-300">{o.value[locale]}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-400 transition-all group-hover:gap-2.5">
-                    {isTr ? "Detay" : "Details"} <ArrowRight className="h-4 w-4" />
-                  </span>
-                </Link>
+                  <h3 className="mt-4 font-display text-lg font-bold text-white">{area.title[locale]}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-primary-300">{area.description[locale]}</p>
+                </article>
               );
             })}
-            <Link href={geoHref} className="card group flex flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-500/40">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-500/10 text-accent-400 ring-1 ring-accent-500/20">
-                <Sparkles className="h-5 w-5" />
-              </div>
-              <h3 className="mt-4 font-display text-lg font-bold text-white">{isTr ? "GEO Optimizasyonu" : "GEO Optimization"}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-primary-300">
-                {isTr
-                  ? "Markanızın ChatGPT, Gemini ve Perplexity gibi yapay zeka aramalarında kaynak gösterilmesi ve önerilmesi."
-                  : "Getting your brand cited and recommended in AI search such as ChatGPT, Gemini and Perplexity."}
-              </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-accent-400 transition-all group-hover:gap-2.5">
-                {isTr ? "Detay" : "Details"} <ArrowRight className="h-4 w-4" />
-              </span>
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* Çalıştığım firmalar — portfolyo */}
+      {/* Kariyer boyunca yer alınan marka ve projeler */}
       <section className="border-y border-surface-border/40 bg-surface-card/20 py-16 md:py-20">
         <div className="container-custom">
           <div className="mb-10 flex flex-col items-center gap-3 text-center md:flex-row md:items-end md:justify-between md:text-left">
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">{isTr ? "Portfolyo" : "Portfolio"}</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">{isTr ? "Kariyer ve Portfolyo" : "Career & Portfolio"}</p>
               <h2 className="section-title">
-                {isTr ? "Çalıştığım " : "Brands I've "}
-                <span className="text-gradient">{isTr ? "Firmalar" : "Worked With"}</span>
+                {isTr ? "Seçili Marka ve " : "Selected Brands & "}
+                <span className="text-gradient">{isTr ? "Proje Deneyimi" : "Projects"}</span>
               </h2>
             </div>
-            <Link href={casesPath(locale)} className="inline-flex items-center gap-2 font-semibold text-accent-400 hover:text-accent-300">
-              {isTr ? "Projeler ve tüm portfolyo" : "Case studies & full portfolio"}
+            <Link href={projectPath} className="inline-flex items-center gap-2 font-semibold text-accent-400 hover:text-accent-300">
+              {isTr ? "Tüm projeler" : "Explore all projects"}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -240,32 +253,14 @@ export default function AboutPage({ locale }: { locale: Locale }) {
           </ul>
 
           <div className="mt-10 text-center">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-500">{isTr ? "ve daha fazlası" : "and more"}</p>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-500">{isTr ? "Diğer projelerden markalar" : "More brands from past projects"}</p>
             <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
-              {moreBrands.map((b) => (
-                <span key={b} className="rounded-lg border border-surface-border px-3 py-1.5 text-xs text-primary-300 md:text-sm">
-                  {b}
+              {moreBrands.map((brand) => (
+                <span key={brand} className="rounded-lg border border-surface-border px-3 py-1.5 text-xs text-primary-300 md:text-sm">
+                  {brand}
                 </span>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 md:py-20">
-        <div className="container-custom">
-          <div className="card mx-auto max-w-3xl px-6 py-10 text-center md:py-12">
-            <h2 className="mb-4 font-display text-3xl font-bold text-white md:text-4xl">{isTr ? "Birlikte Çalışalım" : "Let's Work Together"}</h2>
-            <p className="mb-8 text-lg text-primary-300">
-              {isTr
-                ? "Sitenizi SEO, GEO ve dönüşüm açısından ücretsiz inceleyip en büyük fırsatları yazılı olarak iletiyorum."
-                : "I'll review your site for SEO, GEO and conversion for free and send you the biggest opportunities in writing."}
-            </p>
-            <Link href={isTr ? "/iletisim?konu=on-analiz" : "/en/contact?topic=pre-audit"} className="btn-primary group px-8 py-4 text-lg">
-              {isTr ? "Ücretsiz Ön Analiz Al" : "Get a Free Pre-Audit"}
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Link>
           </div>
         </div>
       </section>
