@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Globe, MapPin, Linkedin, Layers, Users, Cpu, BarChart3 } from "lucide-react";
 import { portfolio } from "@/lib/portfolio";
 import { casesPath, type Locale } from "@/lib/cases";
+import { countriesWithProjects, countriesWithProjectsCount } from "@/lib/geography";
 
 /**
  * Hakkımda: kişisel kariyer, ürün ve ekip liderliği odaklı portfolyo.
@@ -80,7 +81,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
     { value: "26+", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
     { value: "500+", label: isTr ? "Proje Deneyimi" : "Projects" },
     { value: "100+", label: isTr ? "Marka" : "Brands" },
-    { value: "12+", label: isTr ? "Ülke" : "Countries" },
+    { value: `${countriesWithProjectsCount}+`, label: isTr ? "Ülke" : "Countries" },
   ];
 
   const work = brandWork
@@ -121,13 +122,13 @@ export default function AboutPage({ locale }: { locale: Locale }) {
               </p>
               <p className="mb-5 leading-relaxed text-primary-300">
                 {isTr
-                  ? "Profesyonel kariyerime sırasıyla Sabancı Holding, MNG Holding ve Filli Boya'da başladım. Ardından dijital yayıncılığa yönelerek Star, Akşam ve Güneş gazeteleriyle 24 TV ve 360 TV gibi kanalların web, mobil ve Smart TV projelerinde yer aldım. Bu dönemde yüksek trafikli platformların bilgi mimarisi, kullanıcı deneyimi ve çoklu platform geliştirme süreçlerinde sorumluluk üstlendim."
-                  : "My professional career began, in order, at Sabancı Holding, MNG Holding and Filli Boya. I then moved into digital publishing, working on web, mobile and Smart TV projects for newspapers including Star, Akşam and Güneş, and broadcasters such as 24 TV and 360 TV. This period gave me responsibility across information architecture, user experience and multi-platform delivery for high-traffic products."}
+                  ? "Profesyonel kariyerime sırasıyla Sabancı Holding, MNG Holding ve Filli Boya'da başladım. Medya sektöründe, Sabah gazetesi, ATV, Fotomaç ve Takvim başta olmak üzere Turkuvaz Medya'nın tüm dijital yayın projelerinde görev aldım. Star, Akşam, Güneş, 24 TV ve 360 TV gibi diğer medya markalarının projelerinde de çalıştım. Bu dönemde web, mobil ve Smart TV ürünlerinin planlama, kullanıcı deneyimi, geliştirme ve ekip koordinasyonu süreçlerinde sorumluluk üstlendim."
+                  : "My professional career began at Sabancı Holding, followed by MNG Holding and Filli Boya. In media, I worked across Turkuvaz Media's digital publishing projects, including Sabah newspaper, ATV, Fotomaç and Takvim, as well as projects for other media brands such as Star, Akşam, Güneş, 24 TV and 360 TV. My responsibilities covered product planning, UX, development delivery and team coordination across web, mobile and Smart TV platforms."}
               </p>
               <p className="mb-5 leading-relaxed text-primary-300">
                 {isTr
-                  ? "Bu birikimi daha sonra havacılık, otomotiv ve kurumsal dijital hizmetlere taşıdım. Türk Hava Yolları, BMW, MINI, Jaguar, Land Rover ve Borusan Otomotiv projelerinde web ve mobil ürünlerin deneyim, geliştirme ve teslim süreçlerinde yer aldım. Türkiye'nin yanı sıra ABD, Kanada ve Almanya'daki ekiplerle farklı ölçeklerde dijital ürün çalışmalarını sürdürdüm."
-                  : "I later brought that experience into aviation, automotive and enterprise digital services. On projects for Turkish Airlines, BMW, MINI, Jaguar, Land Rover and Borusan Otomotiv, I contributed to the experience, development and delivery of web and mobile products. I have also worked with teams in the US, Canada and Germany across digital products of different scales."}
+                  ? "Bu deneyimi havacılık, otomotiv ve kurumsal dijital hizmet projelerine taşıdım. Türk Hava Yolları, BMW, MINI, Jaguar, Land Rover ve Borusan Otomotiv projelerinde web ve mobil ürünlerin deneyim, geliştirme ve teslim süreçlerinde yer aldım. Uluslararası dijital ürün ve teknoloji projelerinde farklı ülkelerdeki ekip ve paydaşlarla çalıştım."
+                  : "I brought this experience into aviation, automotive and enterprise digital services. On projects for Turkish Airlines, BMW, MINI, Jaguar, Land Rover and Borusan Otomotiv, I contributed to the experience, development and delivery of web and mobile products. International digital product and technology initiatives also involved collaborating with teams and stakeholders across multiple countries."}
               </p>
               <p className="mb-8 leading-relaxed text-primary-300">
                 {isTr
@@ -182,6 +183,27 @@ export default function AboutPage({ locale }: { locale: Locale }) {
                 <div className="mt-2 text-sm font-semibold text-white">{s.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projelerde destek verilen ülkeler — şehir veya operasyon detayı gösterilmez */}
+      <section className="pb-8" aria-labelledby="global-projects-title">
+        <div className="container-custom">
+          <div className="rounded-2xl border border-surface-border/60 bg-surface-card/30 p-6 md:p-8">
+            <h2 id="global-projects-title" className="font-display text-xl font-bold text-white md:text-2xl">
+              {isTr ? "Uluslararası Proje Deneyimi" : "International Project Experience"}
+            </h2>
+            <p className="mt-2 text-sm text-primary-300">
+              {isTr ? "Projelerde destek verdiğim ülkeler" : "Countries supported through project work"}
+            </p>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {countriesWithProjects.map((country) => (
+                <li key={country.en} className="rounded-lg border border-surface-border bg-surface-darker/50 px-3 py-1.5 text-sm text-primary-200">
+                  {country[locale]}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

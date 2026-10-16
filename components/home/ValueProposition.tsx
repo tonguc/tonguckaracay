@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, Clock3, BookOpen } from "lucide-react";
 import { getAllPosts } from "@/lib/blog-utils";
+import { countriesWithProjectsCount } from "@/lib/geography";
 import StatCounter from "./StatCounter";
 
 interface Props {
@@ -25,7 +26,7 @@ export default function ValueProposition({ locale }: Props) {
     { to: 25, short: isTr ? "Yıl" : "Years", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
     { to: 500, short: isTr ? "Proje" : "Projects", label: isTr ? "Proje" : "Projects" },
     { to: 100, short: isTr ? "Marka" : "Brands", label: isTr ? "Marka" : "Brands" },
-    { to: 12, short: isTr ? "Ülke" : "Countries", label: isTr ? "Ülke" : "Countries" },
+    { to: countriesWithProjectsCount, short: isTr ? "Ülke" : "Countries", label: isTr ? "Ülke" : "Countries" },
   ];
 
   return (
