@@ -38,8 +38,8 @@ export default function Offers({ locale }: { locale: string }) {
             {isTr ? "Hizmetler" : "Services"}
           </p>
           <h2 className="section-title mx-auto">
-            {isTr ? "Hangi Alanda " : "Where Do You "}
-            <span className="text-gradient">{isTr ? "Büyümek İstiyorsunuz?" : "Want to Grow?"}</span>
+            {isTr ? "Dijital Ürün ve " : "Digital Products & "}
+            <span className="text-gradient">{isTr ? "Büyüme Çözümleri" : "Growth Solutions"}</span>
           </h2>
         </div>
 

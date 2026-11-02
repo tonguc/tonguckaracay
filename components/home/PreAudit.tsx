@@ -13,28 +13,27 @@ export default function PreAudit({ locale }: { locale: string }) {
 
   const includes = isTr
     ? [
-        "SEO: Google'da sizi geri tutan teknik ve içerik sorunları",
-        "GEO: ChatGPT, Gemini ve Perplexity'nin markanızı önerip önermediği",
-        "Dönüşüm: ziyaretçiyi kaçıran en büyük 3 UX sürtünmesi",
-        "Önceliklendirilmiş, yazılı fırsat listesi",
+        "Ürün: kullanıcı deneyimi ve kritik müşteri yolculukları",
+        "AI: otomasyon ve karar destek fırsatları",
+        "Analitik: ölçüm ve dönüşüm darboğazları",
+        "İlk görüşmede önceliklerin belirlenmesi",
       ]
     : [
-        "SEO: the technical and content issues holding you back on Google",
-        "GEO: whether ChatGPT, Gemini and Perplexity recommend your brand",
-        "Conversion: the 3 biggest UX frictions losing you visitors",
-        "A prioritised, written list of opportunities",
+        "Product: user experience and critical customer journeys",
+        "AI: automation and decision-support opportunities",
+        "Analytics: measurement gaps and conversion friction",
+        "Identifying initial priorities during the discussion",
       ];
-
   const model = isTr
     ? [
-        { step: "1", title: "Ücretsiz Ön Analiz", desc: "SEO, GEO ve dönüşüm tarafında sitenizi inceliyorum, en büyük fırsatları yazılı iletiyorum. Taahhüt yok." },
-        { step: "2", title: "Yol Haritası", desc: "Sabit kapsamlı denetim ve strateji: neyi, hangi sırayla, hangi etkiyle yapacağımız." },
-        { step: "3", title: "Aylık Büyüme Ortaklığı", desc: "Uygulama ve optimizasyonu bizzat yürütüyorum; kapsam ihtiyaca göre belirlenir." },
+        { step: "1", title: "İlk Değerlendirme", desc: "İhtiyacı kısa bir görüşmeyle netleştirip ilk fırsatları değerlendiriyoruz." },
+        { step: "2", title: "Yol Haritası", desc: "Ürün ve iş hedeflerine göre önceliklendirilmiş çalışma kapsamı." },
+        { step: "3", title: "Ürün ve Uygulama İş Birliği", desc: "Ürün, UX ve AI uygulamalarının ilgili ekiplerle koordinasyonu." },
       ]
     : [
-        { step: "1", title: "Free Pre-Audit", desc: "I review your site across SEO, GEO and conversion and send the biggest opportunities in writing. No commitment." },
-        { step: "2", title: "Roadmap", desc: "Fixed-scope audit and strategy: what we do, in what order, with what impact." },
-        { step: "3", title: "Monthly Growth Partnership", desc: "I run implementation and optimisation myself; scope is tailored to your needs." },
+        { step: "1", title: "Initial Discussion", desc: "A short conversation to understand needs and identify initial opportunities." },
+        { step: "2", title: "Roadmap", desc: "A prioritized product roadmap and scope aligned with business needs." },
+        { step: "3", title: "Product & Delivery Collaboration", desc: "Coordinating product, UX and AI delivery with relevant teams." },
       ];
 
   return (
@@ -43,16 +42,16 @@ export default function PreAudit({ locale }: { locale: string }) {
         <div className="card grid gap-8 p-6 md:grid-cols-2 md:gap-12 md:p-10">
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400 md:text-sm">
-              {isTr ? "Ücretsiz · Taahhütsüz" : "Free · No commitment"}
+              {isTr ? "İlk Görüşme · Taahhütsüz" : "Initial Discussion · No Commitment"}
             </p>
             <h2 className="font-display text-2xl font-bold leading-tight text-white md:text-4xl">
-              {isTr ? "SEO + GEO + Dönüşüm " : "SEO + GEO + Conversion "}
-              <span className="text-gradient">{isTr ? "Ön Analizi" : "Pre-Audit"}</span>
+              {isTr ? "Dijital Ürün ve AI " : "Digital Product & AI "}
+              <span className="text-gradient">{isTr ? "Ön Değerlendirme" : "Initial Review"}</span>
             </h2>
             <p className="mt-3 leading-relaxed text-primary-300">
               {isTr
-                ? "Müşterileriniz artık yalnızca Google'da değil, yapay zekaya sorarak da arıyor. Sitenizin adresini gönderin; üç cephede de nerede kaybettiğinizi birkaç iş günü içinde yazılı iletiyorum."
-                : "Your customers no longer search only on Google — they ask AI too. Send your site address and within a few business days I'll show you, in writing, where you're losing on all three fronts."}
+                ? "Dijital ürün, kullanıcı deneyimi veya AI dönüşümü ihtiyacınızı paylaşın; uygulanabilir fırsatları birlikte netleştirelim."
+                : "Share your digital product, UX or AI needs. We can start by clarifying goals and evaluating practical opportunities together."}
             </p>
             <ul className="mt-5 space-y-2.5">
               {includes.map((i) => (
@@ -63,7 +62,7 @@ export default function PreAudit({ locale }: { locale: string }) {
               ))}
             </ul>
             <Link href={preAuditPath(loc)} className="btn-primary group mt-7 w-full sm:w-auto">
-              {isTr ? "Ücretsiz Ön Analiz Al" : "Get a Free Pre-Audit"}
+              {isTr ? "Ön Değerlendirme Talep Et" : "Request an Initial Review"}
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>

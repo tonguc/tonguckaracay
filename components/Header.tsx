@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { slugMappingTrToEn, slugMappingEnToTr } from '@/lib/slug-mappings';
 
 export default function Header() {
@@ -21,6 +21,7 @@ export default function Header() {
     about: '/hakkimda',
     contact: '/iletisim',
     cases: '/projeler',
+    training: '/ai-egitimi',
 
     home: '/'
   } : {
@@ -28,11 +29,31 @@ export default function Header() {
     about: '/en/about',
     contact: '/en/contact',
     cases: '/en/case-studies',
+    training: '/en/ai-training',
 
     home: '/en'
   };
 
   const casesLabel = locale === 'tr' ? 'Projeler' : 'Case Studies';
+  const servicesLabel = locale === 'tr' ? 'Hizmetler' : 'Services';
+  const trainingLabel = locale === 'tr' ? 'AI Eğitimi' : 'AI Training';
+  const serviceLinks = locale === 'tr'
+    ? [
+        { label: 'Yapay Zeka Çözümleri', href: '/hizmetler/yapay-zeka-cozumleri' },
+        { label: 'UX / Ürün Deneyimi', href: '/hizmetler/ui-ux-tasarim' },
+        { label: 'SEO Danışmanlığı', href: '/hizmetler/seo-danismanligi' },
+        { label: 'GEO Optimizasyonu', href: '/hizmetler/geo-optimizasyonu' },
+        { label: 'Online Reklamcılık', href: '/hizmetler/online-reklamcilik' },
+        { label: 'Sosyal Medya Yönetimi', href: '/hizmetler/sosyal-medya-yonetimi' },
+      ]
+    : [
+        { label: 'AI Solutions', href: '/en/services/ai-solutions' },
+        { label: 'UX / Product Experience', href: '/en/services/ui-ux-design' },
+        { label: 'SEO Consulting', href: '/en/services/seo-consulting' },
+        { label: 'GEO Optimization', href: '/en/services/geo-optimization' },
+        { label: 'Online Advertising', href: '/en/services/online-advertising' },
+        { label: 'Social Media Management', href: '/en/services/social-media-management' },
+      ];
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -135,6 +156,19 @@ export default function Header() {
               {casesLabel}
             </Link>
 
+            <details className="group relative">
+              <summary className="flex cursor-pointer list-none items-center gap-1.5 font-medium text-primary-200 transition-colors hover:text-white [&::-webkit-details-marker]:hidden">
+                {servicesLabel}<ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="absolute left-1/2 top-full z-50 mt-4 w-[min(540px,90vw)] -translate-x-1/2 rounded-2xl border border-surface-border bg-surface-card p-3 shadow-2xl shadow-black/30">
+                <div className="grid grid-cols-2 gap-1">
+                  {serviceLinks.map((service) => (
+                    <Link key={service.href} href={service.href} className="rounded-xl px-4 py-3 text-sm font-medium text-primary-200 transition-colors hover:bg-accent-500/10 hover:text-white">{service.label}</Link>
+                  ))}
+                </div>
+              </div>
+            </details>
+            <Link href={navLinks.training} className="whitespace-nowrap font-medium text-primary-200 transition-colors hover:text-white">{trainingLabel}</Link>
             <Link href={navLinks.blog} className="text-primary-200 hover:text-white transition-colors font-medium">
               {t('blog')}
             </Link>
@@ -195,6 +229,13 @@ export default function Header() {
             <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-4">
               <div className="pt-4 border-t border-surface-border space-y-2">
                 <Link href={navLinks.cases} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{casesLabel}</Link>
+                <div className="px-2 pb-1 pt-3 text-xs font-semibold uppercase tracking-widest text-primary-400">{servicesLabel}</div>
+                <div className="grid grid-cols-2 gap-1">
+                  {serviceLinks.map((service) => (
+                    <Link key={service.href} href={service.href} className="rounded-lg px-2 py-2 text-sm text-primary-200 hover:bg-accent-500/10 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{service.label}</Link>
+                  ))}
+                </div>
+                <Link href={navLinks.training} className="block px-2 py-2 font-semibold text-accent-300 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{trainingLabel}</Link>
                 <Link href={navLinks.blog} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('blog')}</Link>
                 <Link href={navLinks.about} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('about')}</Link>
                 

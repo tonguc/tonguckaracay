@@ -17,8 +17,8 @@ export default function FinalCTASection({ locale }: Props) {
   const contactPath = isTr ? "/iletisim" : "/en/contact";
 
   const trustPoints = isTr
-    ? ["25+ Yıl Deneyim", "Ücretsiz İlk Görüşme", "Taahhüt Yok"]
-    : ["25+ Years Experience", "Free First Consultation", "No Commitment"];
+    ? ["26+ Yıl Deneyim", "Ürün ve UX Liderliği", "AI Deneyimi"]
+    : ["26+ Years Experience", "Product & UX Leadership", "AI Experience"];
 
   return (
     <section className="py-14 md:py-24">
@@ -48,22 +48,22 @@ export default function FinalCTASection({ locale }: Props) {
             </div>
 
             <h2 className="font-display text-3xl font-bold text-white md:text-5xl">
-              {isTr ? "İşinizi " : "Let's Grow "}
-              <span className="text-gradient">{isTr ? "Büyütelim" : "Your Business"}</span>
+              {isTr ? "Birlikte " : "Let's Build "}
+              <span className="text-gradient">{isTr ? "Değer Üretelim" : "What Matters"}</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base text-primary-300 md:text-lg">
               {isTr
-                ? "Ücretsiz bir görüşme planlayın; UX, SEO, GEO, sosyal medya, e-ticaret ve yapay zeka alanlarında büyüme fırsatlarınızı birlikte keşfedelim."
-                : "Schedule a free consultation and discover growth opportunities across UX, SEO, GEO, social media, e-commerce and AI."}
+                ? "Dijital ürün, UX, yapay zeka ve teknoloji projeleriniz için iş birliği fırsatlarını konuşalım."
+                : "Discuss collaboration opportunities across digital products, UX, AI and technology."}
             </p>
 
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link href={contactPath} className="btn-primary group w-full text-base sm:w-auto md:text-lg">
-                {isTr ? "Ücretsiz Görüşme Al" : "Book Free Consultation"}
+                {isTr ? "İletişime Geç" : "Get in Touch"}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <a
-                href="mailto:info@tonguckaracay.com"
+                href="mailto:tonguckaracay@gmail.com"
                 className="btn-secondary group w-full text-base sm:w-auto md:text-lg"
               >
                 {isTr ? "E-posta Gönder" : "Send an Email"}

@@ -15,64 +15,16 @@ export default function Engagement({ locale }: Props) {
 
   const steps = isTr
     ? [
-        {
-          num: "01",
-          time: "1. Hafta",
-          title: "Araştırma & Denetim",
-          desc: "UX, SEO, GEO (AI arama görünürlüğü), sosyal medya ve e-ticaret performansı, analitik ve müşteri yolculukları incelenir; sürtünme noktaları ve büyüme darboğazları tespit edilir.",
-          icon: Search,
-        },
-        {
-          num: "02",
-          time: "2. Hafta",
-          title: "Strateji Atölyesi",
-          desc: "Bulgular; UX, SEO/GEO, sosyal medya, e-ticaret ve reklam alanlarında net bir yol haritasına dönüşür. İnisiyatifler iş etkisi, efor ve ROI'ye göre önceliklendirilir.",
-          icon: Compass,
-        },
-        {
-          num: "03",
-          time: "3–6. Hafta",
-          title: "Uygulama",
-          desc: "Tasarım iyileştirmeleri, SEO ve GEO uygulaması, sosyal medya içerik/reklam yönetimi, e-ticaret optimizasyonu ve AI iş akışı entegrasyonu; gerektiğinde iç ekiplerle birlikte yürütülür.",
-          icon: Rocket,
-        },
-        {
-          num: "04",
-          time: "2. Ay+",
-          title: "Optimizasyon & Büyüme",
-          desc: "SEO, GEO, sosyal medya ve reklam KPI'ları izlenir, sonuçlar analiz edilir ve sürekli iyileştirilir; kısa vadeli kazanç değil sürdürülebilir büyüme hedeflenir.",
-          icon: LineChart,
-        },
+        { num: "01", time: "Aşama 1", title: "Keşif ve Ürün Analizi", desc: "Ürün hedefleri, kullanıcı yolculukları ve mevcut sistemler birlikte değerlendirilir.", icon: Search },
+        { num: "02", time: "Aşama 2", title: "Strateji ve Önceliklendirme", desc: "Yol haritası; kullanıcı değeri, iş etkisi ve teknik fizibiliteye göre şekillenir.", icon: Compass },
+        { num: "03", time: "Aşama 3", title: "Tasarım ve Uygulama", desc: "UX, analitik, dijital büyüme ve uygun AI otomasyonlarının teslim süreçleri koordine edilir.", icon: Rocket },
+        { num: "04", time: "Aşama 4", title: "Ölçüm ve İyileştirme", desc: "Ürün ve iş metriklerinden öğrenilenler yeni önceliklere dönüşür.", icon: LineChart },
       ]
     : [
-        {
-          num: "01",
-          time: "Week 1",
-          title: "Research & Audit",
-          desc: "Analyze UX, SEO, GEO (AI search visibility), social media and e-commerce performance, analytics and customer journeys — identifying friction points and growth bottlenecks.",
-          icon: Search,
-        },
-        {
-          num: "02",
-          time: "Week 2",
-          title: "Strategy Workshop",
-          desc: "Findings become a clear roadmap across UX, SEO/GEO, social media, e-commerce and advertising. Initiatives are prioritized by business impact, effort and ROI.",
-          icon: Compass,
-        },
-        {
-          num: "03",
-          time: "Weeks 3–6",
-          title: "Execution",
-          desc: "Design improvements, SEO and GEO execution, social media content/ad management, e-commerce optimization and AI workflow integration — collaborating with internal teams when needed.",
-          icon: Rocket,
-        },
-        {
-          num: "04",
-          time: "Month 2+",
-          title: "Optimization & Growth",
-          desc: "Track SEO, GEO, social media and advertising KPIs, analyze outcomes and continuously improve — focused on sustainable growth, not short-term wins.",
-          icon: LineChart,
-        },
+        { num: "01", time: "Stage 1", title: "Discovery & Product Analysis", desc: "Align product goals, user journeys and the existing technology landscape.", icon: Search },
+        { num: "02", time: "Stage 2", title: "Strategy & Prioritization", desc: "Shape roadmaps based on user value, business impact and technical feasibility.", icon: Compass },
+        { num: "03", time: "Stage 3", title: "Design & Delivery", desc: "Coordinate UX, analytics, digital growth and relevant AI automation through delivery.", icon: Rocket },
+        { num: "04", time: "Stage 4", title: "Measurement & Improvement", desc: "Turn product and business insights into the next priorities.", icon: LineChart },
       ];
 
   return (
@@ -80,7 +32,7 @@ export default function Engagement({ locale }: Props) {
       <div className="container-custom">
         <div className="mb-12 text-center md:mb-16">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-            {isTr ? "Süreç" : "How I Work"}
+            {isTr ? "Ürün ve İş Birliği Süreci" : "Product & Collaboration Process"}
           </p>
           <h2 className="section-title mx-auto">
             {isTr ? (
@@ -95,8 +47,8 @@ export default function Engagement({ locale }: Props) {
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-primary-300">
             {isTr
-              ? "UX, SEO, GEO, sosyal medya, e-ticaret ve AI otomasyonu dahil — ölçülebilir iş büyümesi sağlamak için kanıtlanmış bir çerçeve."
-              : "Covering UX, SEO, GEO, social media, e-commerce and AI automation — a proven framework for driving measurable business growth."}
+              ? "Ürün stratejisini, UX süreçlerini ve uygulamayı ekiplerle birlikte yönetmek için kullandığım yaklaşım."
+              : "My approach to aligning product strategy, UX and delivery with cross-functional teams."}
           </p>
         </div>
 
@@ -132,28 +84,9 @@ export default function Engagement({ locale }: Props) {
           })}
         </div>
 
-        {/* Uyarlanabilirlik cümlesi */}
-        <div className="mx-auto mt-16 max-w-2xl text-center md:mt-20">
-          <p className="text-lg leading-relaxed text-primary-300 md:text-xl">
-            {isTr ? (
-              <>
-                Her proje farklıdır. Kimi işletmenin UX optimizasyonuna, kiminin SEO ve GEO büyümesine,
-                kiminin sosyal medya veya e-ticaret performansına, kiminin AI otomasyonuna ihtiyacı vardır.{" "}
-                <span className="font-semibold text-white">
-                  Süreç işletmeye uyum sağlar; işletme sürece değil.
-                </span>
-              </>
-            ) : (
-              <>
-                Every project is different. Some businesses need UX optimization, others SEO and GEO growth,
-                others social media or e-commerce performance, others AI automation.{" "}
-                <span className="font-semibold text-white">
-                  The process adapts to the business, not the other way around.
-                </span>
-              </>
-            )}
-          </p>
-        </div>
+        <p className="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-primary-300 md:text-base">
+          {isTr ? "Çalışma modeli ve kapsam, ürünün ihtiyaçlarına ve ekibin yapısına göre belirlenir." : "The collaboration model and scope adapt to the product's needs and team structure."}
+        </p>
       </div>
     </section>
   );

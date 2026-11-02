@@ -34,9 +34,11 @@ export default function Footer() {
 
   // Lab — danışmanlık alıcısının ana yolundan çıkarılan ürünler, eğitim ve teknik AI yazıları
   const labLinks = locale === 'tr' ? [
+    { name: "AI Eğitimi", href: "/ai-egitimi" },
     { name: "Ürünler", href: "/urunler" },
     { name: "AI Lab Yazıları", href: "/blog?bolum=lab" },
   ] : [
+    { name: "AI Training", href: "/en/ai-training" },
     { name: "Products", href: "/en/products" },
     { name: "AI Lab Articles", href: "/en/blog?section=lab" },
   ];

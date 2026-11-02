@@ -12,38 +12,14 @@ export default function WhyMe({ locale }: Props) {
 
   const cols = isTr
     ? [
-        {
-          icon: Award,
-          title: "Türk Hava Yolları'ndan BMW'ye Küresel Marka Deneyimi",
-          desc: "Türkiye'nin lider markalarından çok uluslu şirketlere, ABD ve İngiltere'deki projelere kadar 25+ yılda yüzlerce markaya yön verdim.",
-        },
-        {
-          icon: Layers,
-          title: "Stratejiden Sonuca Tam Sorumluluk",
-          desc: "Sadece rapor yazmıyorum — koda, SEO'ya, reklam hesaplarına kendim giriyorum. Strateji rafta kalmaz, doğrudan gelire dönüşür.",
-        },
-        {
-          icon: Cpu,
-          title: "Yapay Zekayı Büyüme Motoruna Çeviriyorum",
-          desc: "AI'ı vitrin süsü değil, iş akışlarını otomatikleştirip ölçeği katlayan gerçek bir kaldıraç olarak kuruyorum.",
-        },
+        { icon: Award, title: "Kurumsal ve Uluslararası Deneyim", desc: "Medya, otomotiv, ulaşım ve B2B teknoloji alanlarında kurumsal ve uluslararası dijital ürün çalışmaları." },
+        { icon: Layers, title: "Ürün ve Ekip Liderliği", desc: "Ürün stratejisi, kullanıcı deneyimi, tasarım sistemleri ve disiplinler arası teslim süreçlerine bütüncül yaklaşım." },
+        { icon: Cpu, title: "Uygulanabilir AI Yaklaşımı", desc: "Network Hardwares ve eva.guru deneyimini AI destekli ürün akışları, veri analitiği ve otomasyonla birleştirme." },
       ]
     : [
-        {
-          icon: Award,
-          title: "Global Brand Experience, From Turkish Airlines to BMW",
-          desc: "From Turkey's leading brands to multinational companies, with projects across the US and UK — 25+ years shaping growth for hundreds of brands.",
-        },
-        {
-          icon: Layers,
-          title: "Full Accountability, Strategy to Results",
-          desc: "I don't just hand over a report — I get into the code, the SEO, the ad accounts myself. Strategy doesn't sit on a shelf, it turns into revenue.",
-        },
-        {
-          icon: Cpu,
-          title: "I Turn AI Into a Growth Engine",
-          desc: "I treat AI not as decoration but as real leverage — automating workflows and compounding scale over time.",
-        },
+        { icon: Award, title: "Enterprise & International Experience", desc: "Corporate and international digital product work across media, automotive, mobility and B2B technology." },
+        { icon: Layers, title: "Product & Team Leadership", desc: "An integrated approach to product strategy, UX, design systems and cross-functional delivery." },
+        { icon: Cpu, title: "Practical AI Experience", desc: "Combining Network Hardwares and eva.guru experience with AI-assisted workflows, analytics and automation." },
       ];
 
   // Anlamına göre ayrık (discrete) renk tonları — sıra cols ile aynı:
@@ -59,11 +35,11 @@ export default function WhyMe({ locale }: Props) {
       <div className="container-custom">
         <div className="mb-10 text-center md:mb-14">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-            {isTr ? "Fark" : "The Difference"}
+            {isTr ? "Deneyim ve Yaklaşım" : "Experience & Approach"}
           </p>
           <h2 className="section-title mx-auto">
-            {isTr ? "Neden " : "Why Companies "}
-            <span className="text-gradient">{isTr ? "Benimle Çalışıyorlar" : "Choose Me"}</span>
+            {isTr ? "Bir Arada " : "Connecting "}
+            <span className="text-gradient">{isTr ? "Ürün, Tasarım ve Teknoloji" : "Product, Design & Technology"}</span>
           </h2>
         </div>
 
