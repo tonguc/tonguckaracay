@@ -36,11 +36,32 @@ export default function ValueProposition({ locale }: Props) {
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl" />
           <div className="relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400 md:text-sm">
-                {isTr ? "UX, SEO ve Yapay Zeka Üzerine" : "UX, SEO & Artificial Intelligence"}
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400 md:text-sm">
+                {isTr ? "Dijital Ürün · UX · Yapay Zeka" : "Digital Product · UX · AI"}
               </p>
-              {latest ? (
-                <>
+              <h1 className="max-w-2xl font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+                {isTr ? (
+                  <>Dijital Ürün, UX ve Yapay Zeka ile <span className="text-gradient">Ölçülebilir Değer</span></>
+                ) : (
+                  <>Digital Products, UX & AI <span className="text-gradient">Built for Impact</span></>
+                )}
+              </h1>
+              <p className="mt-4 max-w-xl leading-relaxed text-primary-300 md:text-lg">
+                {isTr
+                  ? "Kurumsal platformlardan AI otomasyonuna, ürün stratejisini ve kullanıcı deneyimini ekiplerle birlikte fikirden yayına taşıyorum."
+                  : "From enterprise platforms to AI automation, I bring product strategy and user experience from concept to delivery with cross-functional teams."}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href={isTr ? "/iletisim" : "/en/contact"} className="btn-primary group">
+                  {isTr ? "İş Birliğini Konuşalım" : "Discuss Collaboration"}
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link href="#services" className="btn-secondary">
+                  {isTr ? "Çözümleri İncele" : "Explore Services"}
+                </Link>
+              </div>
+              {latest && (
+                <div className="mt-8 border-t border-surface-border/60 pt-5">
                   <div className="flex flex-wrap items-center gap-3 text-xs text-primary-400">
                     <span className="inline-flex items-center gap-1.5 font-semibold text-accent-300">
                       <BookOpen className="h-4 w-4" />
@@ -59,28 +80,17 @@ export default function ValueProposition({ locale }: Props) {
                       </span>
                     )}
                   </div>
-                  <h1 className="mt-4 max-w-2xl font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-                    <Link href={articlePath} className="transition-colors hover:text-accent-300">
-                      {latest.title}
-                    </Link>
-                  </h1>
-                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-primary-300 md:text-base">
+                  <h2 className="mt-3 font-display text-lg font-semibold leading-snug text-white md:text-xl">
+                    <Link href={articlePath} className="transition-colors hover:text-accent-300">{latest.title}</Link>
+                  </h2>
+                  <p className="mt-2 line-clamp-2 max-w-xl text-sm leading-relaxed text-primary-300">
                     {latest.description}
                   </p>
-                  <div className="mt-6 flex flex-wrap items-center gap-3">
-                    <Link href={articlePath} className="btn-primary group">
-                      {isTr ? "Yazıyı Oku" : "Read Article"}
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                    <Link href={blogPath} className="btn-secondary">
-                      {isTr ? "Tüm Yazılar" : "All Articles"}
-                    </Link>
-                  </div>
-                </>
-              ) : (
-                <h1 className="max-w-2xl font-display text-3xl font-bold text-white">
-                  {isTr ? "UX, SEO ve Yapay Zeka Üzerine" : "UX, SEO & AI"}
-                </h1>
+                  <Link href={articlePath} className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent-400 transition-colors hover:text-accent-300">
+                    {isTr ? "Yazıyı Oku" : "Read Article"}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
               )}
             </div>
             <div className="relative min-h-[230px] overflow-hidden rounded-2xl border border-surface-border/60 bg-surface-darker/60 sm:min-h-[340px] lg:min-h-[420px]">
