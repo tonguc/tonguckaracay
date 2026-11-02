@@ -336,7 +336,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   Bu sadece bir AI eğitimi değil.
                 </h2>
                 <p className="text-primary-300 leading-relaxed mb-6">
-                  25 yıllık UX deneyimi, SEO uzmanlığı, dijital reklam bilgisi ve AI pratiği bir arada.
+                  26 yılı aşkın dijital ürün ve UX deneyimi, SEO, dijital reklam ve AI pratiği bir arada.
                   Araç öğretmek değil — mevcut iş süreçlerinize oturan, gerçekten çalışan sistemler kurmayı öğretmek.
                 </p>
                 <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-3">
@@ -781,7 +781,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
                   {[
-                    { stat: "25+", label: "Yıl deneyim" },
+                    { stat: "26+", label: "Yıl deneyim" },
                     { stat: "4", label: "Disiplin: UX · SEO · Ads · AI" },
                     { stat: "TR + EN", label: "İçerik pazarları" },
                     { stat: "Global", label: "Müşteri portföyü" },
@@ -833,7 +833,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 </div>
 
                 <p className="text-primary-300 leading-relaxed">
-                  25 yıllık UX, SEO ve dijital pazarlama deneyimini AI ile birleştiren stratejist.
+                  26 yılı aşkın dijital ürün, UX ve dijital pazarlama deneyimini AI ile birleştiren profesyonel.
                   Türkiye, Avrupa ve ABD pazarlarına yönelik projelerde aktif olarak AI sistemleri kuruyor ve öğretiyor.
                 </p>
               </div>
