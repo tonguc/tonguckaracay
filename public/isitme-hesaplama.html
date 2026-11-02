@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f62fe">
+<title>Binaural İşitme Kaybı Hesaplama (ANSI 1969 – Tablo 1)</title>
+<style>
+  :root{
+    --bg:#f4f6f8; --card:#ffffff; --ink:#1c2733; --muted:#5b6b7b;
+    --line:#d7dee6; --accent:#0f62fe; --accent-ink:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.5 "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    padding:24px 14px 48px; -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:16px}
+  h1{font-size:20px; margin:0}
+  .sub{color:var(--muted); font-size:13px; margin-top:4px}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:16px; box-shadow:0 1px 2px rgba(16,24,40,.05);
+  }
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media (max-width:560px){ .grid{grid-template-columns:1fr} }
+  label{display:block; font-size:13px; color:var(--muted); margin-bottom:4px}
+  input[type=number]{
+    width:100%; padding:11px 10px; font-size:16px; border:1px solid var(--line);
+    border-radius:8px; background:#fff; color:var(--ink);
+  }
+  input[type=number]:focus{outline:2px solid var(--accent); outline-offset:-1px}
+  .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:12px}
+  button{
+    padding:11px 18px; font-size:15px; border-radius:8px; border:1px solid var(--accent);
+    background:var(--accent); color:var(--accent-ink); cursor:pointer;
+    touch-action:manipulation; min-height:44px;
+  }
+  button.ghost{background:#fff; color:var(--muted); border-color:var(--line)}
+  button:hover{filter:brightness(.96)}
+  .err{color:#b42318; font-size:13px; margin-top:0}
+  .err:not(:empty){margin-top:6px}
+  .result{display:none}
+  .result.show{display:block; border:1px solid var(--accent); margin-top:12px}
+  .res-grid{display:grid; grid-template-columns:1.15fr 1fr; gap:12px}
+  @media (max-width:640px){ .res-grid{grid-template-columns:1fr} }
+  .tile{border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:#fbfcfe}
+  .tile-title{font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); margin-bottom:8px}
+  .axis-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:7px 0}
+  .axis-row + .axis-row{border-top:1px dashed var(--line)}
+  .axis-tag{font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap}
+  .axis-tag.v{background:#e8f0fe; color:#1a56db}
+  .axis-tag.h{background:#f3e8ff; color:#7c3aed}
+  .axis-val{font-size:19px; font-weight:700; min-width:48px}
+  .deg-chips{display:flex; gap:6px; flex-wrap:wrap; margin-left:auto}
+  .chip{font-size:12px; padding:3px 10px; border-radius:999px; border:1px solid; white-space:nowrap}
+  .chip-e{background:#e8f6ee; border-color:#bfe3cd; color:#0e5c3a}
+  .chip-c{background:#fff4e0; border-color:#f2d9a6; color:#8a5a12}
+  .tile.bin{background:#fafbfc; display:flex; flex-direction:column; justify-content:center}
+  .bin-line{font-size:12px; font-weight:400; color:var(--muted)}
+  .bin-range{font-size:12px; color:var(--muted); margin-top:2px}
+  .tile.outcome{
+    width:100%; margin-top:12px; display:flex; flex-direction:column;
+    align-items:center; text-align:center;
+    background:linear-gradient(135deg,#0f62fe,#3f7bff); border-color:#0f62fe;
+  }
+  .tile.outcome .tile-title{color:rgba(255,255,255,.85)}
+  .outcome-val{font-size:46px; font-weight:800; color:#fff; line-height:1.1}
+  .note{font-size:12px; color:var(--muted); margin-top:8px}
+  table{width:100%; border-collapse:collapse; font-size:13px}
+  th,td{border:1px solid var(--line); padding:6px 8px; text-align:left; vertical-align:top}
+  th{background:#f0f3f7; font-weight:600; white-space:nowrap}
+  .scroll{overflow-x:auto}
+  .hist-head{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px}
+  .hist-head h2{font-size:16px; margin:0}
+  .empty{color:var(--muted); font-size:13px}
+  .footer{
+    display:flex; gap:10px; justify-content:center; align-items:center;
+    flex-wrap:wrap; font-size:13px; color:var(--muted); padding-top:4px;
+  }
+  .footer a{color:var(--accent); text-decoration:none; font-weight:600}
+  .footer a:hover{text-decoration:underline}
+  @media (max-width:560px){
+    body{padding:16px 10px 32px}
+    h1{font-size:18px}
+    .card{padding:12px}
+    button{min-height:48px}
+    #calc{width:100%; font-size:16px}
+    .outcome-val{font-size:38px}
+    .axis-val{font-size:17px}
+    table{font-size:12px}
+    th,td{padding:5px 6px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div>
+    <h1>Binaural İşitme Kaybı Hesaplama</h1>
+    <div class="sub">Büyük değer dikey, küçük değer yatay eksende aranır; kesişim hücresi binaural işitme engeli yüzdesini verir. Bu yüzde engel oranına, girilen değerler dereceye çevrilir.</div>
+  </div>
+
+  <div class="card">
+    <div class="grid">
+      <div>
+        <label for="v1">1. değer (kulak toplam eşiği)</label>
+        <input id="v1" type="number" step="any" inputmode="decimal" placeholder="örn. 245">
+      </div>
+      <div>
+        <label for="v2">2. değer (kulak toplam eşiği)</label>
+        <input id="v2" type="number" step="any" inputmode="decimal" placeholder="örn. 180">
+      </div>
+    </div>
+    <div class="row">
+      <button id="calc" type="button">Hesapla</button>
+    </div>
+    <div class="err" id="err"></div>
+    <div class="err" id="nojs">JavaScript çalışmıyor — sayfa büyük olasılıkla WhatsApp/Telegram önizlemesinde açık. Dosyayı Chrome veya Safari gibi gerçek bir tarayıcıda açın.</div>
+
+    <div class="result card" id="result">
+      <div class="res-grid">
+        <div class="tile">
+          <div class="tile-title">Eksenler ve dereceler</div>
+          <div class="axis-row">
+            <span class="axis-tag v">Dikey • büyük</span>
+            <span class="axis-val" id="rRow">–</span>
+            <span class="deg-chips" id="rDeg1"></span>
+          </div>
+          <div class="axis-row">
+            <span class="axis-tag h">Yatay • küçük</span>
+            <span class="axis-val" id="rCol">–</span>
+            <span class="deg-chips" id="rDeg2"></span>
+          </div>
+        </div>
+        <div class="tile bin">
+          <div class="bin-line">Binaural işitme kaybı değeri (Tablo 1A,1B) <span id="rBin">–</span></div>
+          <div class="bin-range" id="rRange">–</div>
+        </div>
+      </div>
+      <div class="tile outcome">
+        <div class="tile-title">Engel Oranı (Tablo 2)</div>
+        <div class="outcome-val" id="rOran">–</div>
+      </div>
+      <div class="note" id="rSnap"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="hist-head">
+      <h2>Son 10 işlem</h2>
+      <button class="ghost" type="button" id="clear">Geçmişi temizle</button>
+    </div>
+    <div class="scroll">
+      <table id="histTable" hidden>
+        <thead>
+          <tr><th>#</th><th>Zaman</th><th>Girilen (büyük / küçük)</th><th>Dikey</th><th>Yatay</th><th>Kesişim</th><th>Engel Oranı %</th></tr>
+        </thead>
+        <tbody id="histBody"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="histEmpty">Henüz işlem yok.</div>
+    <div class="note">Geçmiş yalnızca bu tarayıcıda saklanır; son 10 işlem tutulur.</div>
+  </div>
+
+  <div class="note">
+    Hesap, Tablo 1'i birebir üreten ANSI 1969 bağıntılarıyla yapılır; tablonun iki sayfaya bölünmüş basımı tek sürekli tablo olarak ele alınır
+    (dikey ≤100–≥370, yatay ≤100–≥368): tek kulak % = (toplam − 100) × 0,375 (en çok 100);
+    binaural % = (5 × iyi kulak % + kötü kulak %) / 6, sonuç 1 ondalığa yuvarlanır.
+    Eksen adımları 5'tir; ≤100 ve ≥370 (yatayda ≥368) uç değerlerdir.
+    Engel oranı ve derece eşlemeleri tablo görsellerinden birebir alınmıştır.
+    Dosya tek parçadır; internetsiz de çalışır.
+  </div>
+
+  <footer class="footer">
+    <a href="https://tonguckaracay.com" target="_blank" rel="noopener">tonguckaracay.com</a>
+    <span>•</span>
+    <a href="https://instagram.com/tonguckaracay" target="_blank" rel="noopener">instagram.com/tonguckaracay</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  document.getElementById("nojs").style.display = "none";
+  window.onerror = function(msg, src, line){
+    document.getElementById("err").textContent = "Hata: " + msg + " (satır " + line + ")";
+    return false;
+  };
+  var KEY = "binauralHistV1";
+
+  var TABLO2 = [
+    [0,1.7,0],[1.8,4.2,2],[4.3,7.4,4],[7.5,9.9,6],[10.0,13.1,8],
+    [13.2,15.9,10],[16.0,18.8,12],[18.9,21.4,14],[21.5,24.5,16],[24.6,27.1,18],
+    [27.2,30.0,20],[30.1,32.8,22],[32.9,35.9,24],[36.0,38.5,26],[38.6,41.7,30],
+    [41.8,44.2,31],[44.3,47.4,32],[47.5,49.9,33],[50.0,53.1,34],[53.2,55.7,35],
+    [55.8,58.8,36],[58.9,61.4,37],[61.5,64.5,38],[64.6,67.1,39],[67.2,70.0,40],
+    [70.1,72.8,41],[72.9,75.9,42],[76.0,78.5,43],[78.6,81.7,44],[81.8,84.2,45],
+    [84.3,87.4,46],[87.5,89.9,47],[90.0,93.1,48],[93.2,95.7,49],[95.8,98.8,50],
+    [98.9,100.0,52]
+  ];
+  function engelOrani(x){
+    for (var i = 0; i < TABLO2.length; i++){
+      if (x <= TABLO2[i][1] + 1e-9) return TABLO2[i];
+    }
+    return TABLO2[TABLO2.length - 1];
+  }
+  function derece(v, mode){
+    if (mode === "cocuk"){
+      if (v < 64) return "Tablo aralığı altında";
+      if (v <= 100) return "Çok Hafif";
+      if (v <= 160) return "Hafif";
+      if (v <= 220) return "Orta";
+      if (v <= 280) return "Orta-İleri";
+      if (v <= 360) return "İleri";
+      return "Çok İleri";
+    }
+    if (v < 84) return "Tablo aralığı altında";
+    if (v <= 140) return "Çok Hafif";
+    if (v <= 180) return "Hafif";
+    if (v <= 220) return "Orta";
+    if (v <= 280) return "Orta-İleri";
+    if (v <= 360) return "İleri";
+    return "Çok İleri";
+  }
+
+  function mono(v){
+    v = Math.min(Math.max(v, 100), 370);
+    return Math.min(100, Math.max(0, (v - 100) * 0.375));
+  }
+  function snapRow(v){
+    if (v <= 100) return 100;
+    if (v >= 370) return 370;
+    return Math.min(365, Math.max(105, Math.round(v / 5) * 5));
+  }
+  function snapCol(v){
+    if (v <= 100) return 100;
+    if (v >= 368) return 368;
+    return Math.min(365, Math.max(105, Math.round(v / 5) * 5));
+  }
+  function rowLabel(v){ return v === 100 ? "≤100" : (v === 370 ? "≥370" : String(v)); }
+  function colLabel(v){ return v === 100 ? "≤100" : (v === 368 ? "≥368" : String(v)); }
+  function fmt(x){ return x.toFixed(1).replace(".", ","); }
+  function rangeLabel(r){
+    var lo = r[0] === 0 ? "0" : r[0].toFixed(1).replace(".", ",");
+    return lo + "-" + r[1].toFixed(1).replace(".", ",");
+  }
+  function chip(txt, cls){ return '<span class="chip ' + cls + '">' + txt + '</span>'; }
+  function degreesHTML(v){
+    return chip("Erişkin: " + derece(v, "eriskin"), "chip-e") +
+      chip("Çocuk: " + derece(v, "cocuk"), "chip-c");
+  }
+
+  function load(){
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
+  }
+  function save(h){
+    try { localStorage.setItem(KEY, JSON.stringify(h.slice(0, 10))); } catch (e) {}
+  }
+  function normalize(it){
+    if (typeof it.resNum !== "number"){
+      it.resNum = parseFloat(String(it.res || "").replace("%", "").replace(",", "."));
+    }
+    if (typeof it.oran !== "number" && isFinite(it.resNum)){
+      it.oran = engelOrani(it.resNum)[2];
+    }
+    return it;
+  }
+  function render(){
+    var h = load();
+    var body = document.getElementById("histBody");
+    var table = document.getElementById("histTable");
+    var empty = document.getElementById("histEmpty");
+    body.innerHTML = "";
+    if (!h.length){ table.hidden = true; empty.hidden = false; return; }
+    table.hidden = false; empty.hidden = true;
+    h.forEach(function(raw, i){
+      var it = normalize(raw);
+      var tr = document.createElement("tr");
+      [String(i + 1), it.ts, it.big + " / " + it.small, it.row, it.col,
+       "%" + fmt(it.resNum), isFinite(it.oran) ? String(it.oran) : "—"]
+        .forEach(function(txt){
+          var td = document.createElement("td");
+          td.textContent = txt;
+          tr.appendChild(td);
+        });
+      body.appendChild(tr);
+    });
+  }
+
+  function calc(){
+    var err = document.getElementById("err");
+    err.textContent = "";
+    var a = parseFloat(document.getElementById("v1").value);
+    var b = parseFloat(document.getElementById("v2").value);
+    if (!isFinite(a) || !isFinite(b)){
+      err.textContent = "Lütfen iki alanı da sayı ile doldurun.";
+      return;
+    }
+    var big = Math.max(a, b), small = Math.min(a, b);
+    var rv = snapRow(big), cv = snapCol(small);
+    if (cv > rv){ var t = rv; rv = snapRow(cv); cv = snapCol(t); }
+    var res = Math.round((5 * mono(cv) + mono(rv)) / 6 * 10) / 10;
+    var r2 = engelOrani(res);
+
+    document.getElementById("rRow").textContent = rowLabel(rv);
+    document.getElementById("rCol").textContent = colLabel(cv);
+    document.getElementById("rBin").textContent = fmt(res);
+    document.getElementById("rRange").textContent = "İşitme engeli aralığı " + rangeLabel(r2);
+    document.getElementById("rOran").textContent = "%" + r2[2];
+    document.getElementById("rDeg1").innerHTML = degreesHTML(rv);
+    document.getElementById("rDeg2").innerHTML = degreesHTML(cv);
+    var snaps = [];
+    if (rv !== big) snaps.push("büyük değer " + big + " → dikey eksen " + rowLabel(rv));
+    if (cv !== small) snaps.push("küçük değer " + small + " → yatay eksen " + colLabel(cv));
+    document.getElementById("rSnap").textContent = snaps.length ? ("Eksene yuvarlama: " + snaps.join("; ")) : "";
+    document.getElementById("result").classList.add("show");
+
+    var h = load();
+    h.unshift({
+      ts: new Date().toLocaleString("tr-TR"),
+      big: String(big), small: String(small),
+      row: rowLabel(rv), col: colLabel(cv),
+      resNum: res, oran: r2[2]
+    });
+    save(h);
+    render();
+  }
+
+  document.getElementById("calc").addEventListener("click", calc);
+  ["v1", "v2"].forEach(function(id){
+    document.getElementById(id).addEventListener("keydown", function(e){
+      if (e.key === "Enter") calc();
+    });
+  });
+  document.getElementById("clear").addEventListener("click", function(){
+    if (confirm("Son 10 işlem geçmişi silinsin mi?")){
+      save([]);
+      render();
+    }
+  });
+  render();
+})();
+</script>
+</body>
+</html>
