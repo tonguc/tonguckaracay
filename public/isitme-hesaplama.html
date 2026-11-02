@@ -98,18 +98,18 @@
 <div class="wrap">
   <div>
     <h1>Binaural İşitme Kaybı Hesaplama</h1>
-    <div class="sub">"500,1000,2000 ve 4000 Hz"deki işitme düzeylerinin toplamını her iki kulak için hesaplayıp çıkan değeri aşağıya giriniz. Büyük olan değeri 1. alana, küçük değeri 2. alana yazabilirsiniz.</div>
+    <div class="sub">"500,1000,2000 ve 4000 Hz"deki işitme düzeylerinin ortalamasını her iki kulak için giriniz: sağ kulak 1. alana, sol kulak 2. alana. Her değer otomatik olarak 4 ile çarpılır; büyük olan dikey, küçük olan yatay eksende eşleştirilir.</div>
   </div>
 
   <div class="card">
     <div class="grid">
       <div>
-        <label for="v1">1. değer (kulak toplam eşiği)</label>
-        <input id="v1" type="number" step="any" inputmode="decimal" placeholder="örn. 245">
+        <label for="v1">Sağ kulak saf ses ortalaması</label>
+        <input id="v1" type="number" step="any" inputmode="decimal" placeholder="örn. 61">
       </div>
       <div>
-        <label for="v2">2. değer (kulak toplam eşiği)</label>
-        <input id="v2" type="number" step="any" inputmode="decimal" placeholder="örn. 180">
+        <label for="v2">Sol kulak saf ses ortalaması</label>
+        <input id="v2" type="number" step="any" inputmode="decimal" placeholder="örn. 45">
       </div>
     </div>
     <div class="row">
@@ -154,7 +154,7 @@
     <div class="scroll">
       <table id="histTable" hidden>
         <thead>
-          <tr><th>#</th><th>Zaman</th><th>Girilen (büyük / küçük)</th><th>Dikey</th><th>Yatay</th><th>Kesişim</th><th>Engel Oranı %</th></tr>
+          <tr><th>#</th><th>Zaman</th><th>Ortalama (büyük / küçük)</th><th>Dikey</th><th>Yatay</th><th>Kesişim</th><th>Engel Oranı %</th></tr>
         </thead>
         <tbody id="histBody"></tbody>
       </table>
@@ -164,7 +164,7 @@
   </div>
 
   <div class="note">
-    Hesap, Tablo 1'i birebir üreten ANSI 1969 bağıntılarıyla yapılır; tablonun iki sayfaya bölünmüş basımı tek sürekli tablo olarak ele alınır
+    Girilen saf ses ortalaması 4 ile çarpılır (500+1000+2000+4000 Hz toplamı). Hesap, Tablo 1'i birebir üreten ANSI 1969 bağıntılarıyla yapılır; tablonun iki sayfaya bölünmüş basımı tek sürekli tablo olarak ele alınır
     (dikey ≤100–≥370, yatay ≤100–≥368): tek kulak % = (toplam − 100) × 0,375 (en çok 100);
     binaural % = (5 × iyi kulak % + kötü kulak %) / 6, sonuç 1 ondalığa yuvarlanır.
     Eksen adımları 5'tir; ≤100 ve ≥370 (yatayda ≥368) uç değerlerdir.
@@ -297,29 +297,31 @@
       err.textContent = "Lütfen iki alanı da sayı ile doldurun.";
       return;
     }
-    var big = Math.max(a, b), small = Math.min(a, b);
+    var bigRaw = Math.max(a, b), smallRaw = Math.min(a, b);
+    var big = bigRaw * 4, small = smallRaw * 4;
     var rv = snapRow(big), cv = snapCol(small);
-    if (cv > rv){ var t = rv; rv = snapRow(cv); cv = snapCol(t); }
+    var rawV = bigRaw, rawH = smallRaw;
+    if (cv > rv){ var t = rv; rv = snapRow(cv); cv = snapCol(t); var tr = rawV; rawV = rawH; rawH = tr; }
     var res = Math.round((5 * mono(cv) + mono(rv)) / 6 * 10) / 10;
     var r2 = engelOrani(res);
 
-    document.getElementById("rRow").textContent = rowLabel(rv);
-    document.getElementById("rCol").textContent = colLabel(cv);
+    document.getElementById("rRow").textContent = rowLabel(rv) + " (" + rawV + " × 4)";
+    document.getElementById("rCol").textContent = colLabel(cv) + " (" + rawH + " × 4)";
     document.getElementById("rBin").textContent = fmt(res);
     document.getElementById("rRange").textContent = "İşitme engeli aralığı " + rangeLabel(r2);
     document.getElementById("rOran").textContent = "%" + r2[2];
     document.getElementById("rDeg1").innerHTML = degreesHTML(rv);
     document.getElementById("rDeg2").innerHTML = degreesHTML(cv);
     var snaps = [];
-    if (rv !== big) snaps.push("büyük değer " + big + " → dikey eksen " + rowLabel(rv));
-    if (cv !== small) snaps.push("küçük değer " + small + " → yatay eksen " + colLabel(cv));
+    if (rv !== big) snaps.push(bigRaw + " × 4 = " + big + " → dikey eksen " + rowLabel(rv));
+    if (cv !== small) snaps.push(smallRaw + " × 4 = " + small + " → yatay eksen " + colLabel(cv));
     document.getElementById("rSnap").textContent = snaps.length ? ("Eksene yuvarlama: " + snaps.join("; ")) : "";
     document.getElementById("result").classList.add("show");
 
     var h = load();
     h.unshift({
       ts: new Date().toLocaleString("tr-TR"),
-      big: String(big), small: String(small),
+      big: String(bigRaw), small: String(smallRaw),
       row: rowLabel(rv), col: colLabel(cv),
       resNum: res, oran: r2[2]
     });
