@@ -347,7 +347,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                   This isn't just another AI course.
                 </h2>
                 <p className="text-primary-300 leading-relaxed mb-6">
-                  25 years of UX experience, SEO expertise, digital advertising knowledge, and daily AI practice — in one program.
+                  26 years of UX experience, SEO expertise, digital advertising knowledge, and daily AI practice — in one program.
                   Not teaching tools — teaching you to build systems that actually fit your existing business.
                 </p>
                 <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-3">
@@ -834,7 +834,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
                   {[
-                    { stat: "25+", label: "Years of experience" },
+                    { stat: "26+", label: "Years of experience" },
                     { stat: "4", label: "Disciplines: UX · SEO · Ads · AI" },
                     { stat: "TR + EN", label: "Content markets" },
                     { stat: "Global", label: "Client portfolio" },
@@ -849,7 +849,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                 </div>
 
                 <p className="text-primary-300 leading-relaxed">
-                  Strategist combining 25 years of UX, SEO, and digital marketing with active AI practice.
+                  Strategist combining 26 years of UX, SEO, and digital marketing with active AI practice.
                   Builds and deploys AI systems across Turkey, Europe, and the US — and teaches you to do the same.
                 </p>
               </div>
