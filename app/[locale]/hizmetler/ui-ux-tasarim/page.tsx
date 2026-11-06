@@ -134,7 +134,7 @@ const brands = ["THY", "BMW", "Galatasaray", "Sabah", "ATV", "Star TV", "Hürriy
 const advantages = [
   {
     title: "Ajans Değil, Uzman",
-    description: "Büyük ajanslardaki koordinasyon kayıpları ve ekip değişiklikleri yok. Doğrudan 25+ yıl deneyimli bir uzmanla çalışıyorsunuz."
+    description: "Büyük ajanslardaki koordinasyon kayıpları ve ekip değişiklikleri yok. Doğrudan 26+ yıl deneyimli bir uzmanla çalışıyorsunuz."
   },
   {
     title: "Veriye Dayalı Tasarım",
@@ -199,7 +199,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
                 <span className="text-gradient">UI/UX Tasarım</span> Hizmeti
               </h1>
               <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
-                Dijital ürünlerinizi kullanıcı odaklı tasarımla dönüştürüyorum. Web siteleri, mobil uygulamalar ve SaaS platformları için araştırmaya dayalı, dönüşüm odaklı arayüz tasarımı. 25 yılı aşkın sektör deneyimi ve 100'den fazla kurumsal referansla projelerinize değer katıyorum.
+                Dijital ürünlerinizi kullanıcı odaklı tasarımla dönüştürüyorum. Web siteleri, mobil uygulamalar ve SaaS platformları için araştırmaya dayalı, dönüşüm odaklı arayüz tasarımı. 26 yılı aşkın sektör deneyimi ve 100'den fazla kurumsal referansla projelerinize değer katıyorum.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -216,7 +216,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
               <div className="flex flex-wrap gap-6 text-sm text-primary-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>25+ Yıl Deneyim</span>
+                  <span>26+ Yıl Deneyim</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
@@ -391,7 +391,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
                 Sektörel <span className="text-gradient">Deneyim</span>
               </h2>
               <p className="text-primary-300 mb-8">
-                Her sektörün kendine özgü kullanıcı beklentileri ve iş gereksinimleri var. 25 yılı aşkın kariyerimde farklı sektörlerde edindim deneyimle, sektörünüze özel çözümler sunuyorum.
+                Her sektörün kendine özgü kullanıcı beklentileri ve iş gereksinimleri var. 26 yılı aşkın kariyerimde farklı sektörlerde edindim deneyimle, sektörünüze özel çözümler sunuyorum.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {industries.map((industry, i) => (

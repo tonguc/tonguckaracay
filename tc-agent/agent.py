@@ -122,7 +122,7 @@ YIL KURALI — KESİNLİKLE UYULMASI ZORUNLU:
 - Gerçek istatistiklerde yıl zorunluysa sadece içerik metninde kullanabilirsin
 
 TONGUÇ KARAÇAY KİMDİR:
-- Türkiye merkezli kıdemli dijital pazarlama ve SEO danışmanı, 25+ yıl deneyim
+- Türkiye merkezli kıdemli dijital pazarlama ve SEO danışmanı, 26+ yıl deneyim
 - Google Ads, Meta Ads, sosyal medya, UI/UX ve yapay zeka araçlarında uzman
 - Türkiye'deki KOBİ ve e-ticaret işletmelerine danışmanlık yapıyor
 - Hedef kitlesi: pazarlama müdürleri, girişimciler, e-ticaret sahipleri

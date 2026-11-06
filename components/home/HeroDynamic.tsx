@@ -26,7 +26,7 @@ export default function HeroDynamic({ locale }: Props) {
     : ["UX Design", "SEO", "GEO (AI Search)", "AI Automation", "Ad Management"];
 
   const stats = [
-    { value: "25+", label: isTr ? "Yıl Deneyim" : "Years Experience" },
+    { value: "26+", label: isTr ? "Yıl Deneyim" : "Years Experience" },
     { value: "500+", label: isTr ? "Proje" : "Projects" },
     { value: "100+", label: isTr ? "Marka" : "Brands" },
     { value: "12+", label: isTr ? "Ülke" : "Countries" },
@@ -83,8 +83,8 @@ export default function HeroDynamic({ locale }: Props) {
             {/* Alt başlık */}
             <p className="mt-6 max-w-xl text-base leading-relaxed text-primary-300 md:text-lg">
               {isTr
-                ? "25+ yıldır işletmelerin trafiğini, dönüşümlerini ve müşteri deneyimini birlikte büyütüyorum."
-                : "Helping businesses improve traffic, conversions and customer experience for 25+ years."}
+                ? "26+ yıldır işletmelerin trafiğini, dönüşümlerini ve müşteri deneyimini birlikte büyütüyorum."
+                : "Helping businesses improve traffic, conversions and customer experience for 26+ years."}
             </p>
 
             {/* CTA'lar */}

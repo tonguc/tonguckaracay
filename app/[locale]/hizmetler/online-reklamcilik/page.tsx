@@ -139,7 +139,7 @@ const advantages = [
   },
   {
     title: "Ajans Değil, Uzman",
-    description: "Hesabınız junior çalışanlara devredilmez. 25+ yıl deneyimli tek bir uzmanla doğrudan çalışırsınız. Daha hızlı karar, daha az koordinasyon."
+    description: "Hesabınız junior çalışanlara devredilmez. 26+ yıl deneyimli tek bir uzmanla doğrudan çalışırsınız. Daha hızlı karar, daha az koordinasyon."
   },
   {
     title: "SEO & PPC Entegrasyonu",
@@ -200,7 +200,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
                 <span className="text-gradient">Online Reklamcılık</span> Hizmeti
               </h1>
               <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
-                Google Ads ve Meta Ads ile hedef kitlenize anında ulaşın. ROAS odaklı kampanya yönetimi, sürekli optimizasyon ve şeffaf raporlama ile reklam bütçenizden maksimum verim alın. 25 yılı aşkın dijital pazarlama deneyimiyle, veriye dayalı stratejiler sunuyorum.
+                Google Ads ve Meta Ads ile hedef kitlenize anında ulaşın. ROAS odaklı kampanya yönetimi, sürekli optimizasyon ve şeffaf raporlama ile reklam bütçenizden maksimum verim alın. 26 yılı aşkın dijital pazarlama deneyimiyle, veriye dayalı stratejiler sunuyorum.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -217,7 +217,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
               <div className="flex flex-wrap gap-6 text-sm text-primary-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>25+ Yıl Deneyim</span>
+                  <span>26+ Yıl Deneyim</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />

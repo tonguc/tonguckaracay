@@ -103,7 +103,7 @@ export default function Hero() {
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 pt-6 md:pt-8 border-t border-primary-800">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent-500" />
-              <span className="text-sm md:text-base text-primary-300">25+ {t('experience')}</span>
+              <span className="text-sm md:text-base text-primary-300">26+ {t('experience')}</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent-500" />

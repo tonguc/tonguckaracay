@@ -162,7 +162,7 @@ export default function GeoOptimizasyonuPage({ params: { locale } }: Props) {
               <div className="flex flex-wrap gap-6 text-sm text-primary-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>25+ Yıl Deneyim</span>
+                  <span>26+ Yıl Deneyim</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />

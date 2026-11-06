@@ -140,7 +140,7 @@ const advantages = [
   },
   {
     title: "Expert, Not Agency",
-    description: "Your account won't be handed off to junior staff. Work directly with a single senior professional with 25+ years experience. Faster decisions, less coordination overhead."
+    description: "Your account won't be handed off to junior staff. Work directly with a single senior professional with 26+ years experience. Faster decisions, less coordination overhead."
   },
   {
     title: "SEO & PPC Integration",
@@ -201,7 +201,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
                 <span className="text-gradient">Online Advertising</span> Services
               </h1>
               <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
-                Reach your target audience instantly with Google Ads and Meta Ads. ROAS-focused campaign management, continuous optimization, and transparent reporting to maximize your ad budget. With over 25 years of digital marketing experience, I deliver data-driven advertising strategies that produce measurable results.
+                Reach your target audience instantly with Google Ads and Meta Ads. ROAS-focused campaign management, continuous optimization, and transparent reporting to maximize your ad budget. With over 26 years of digital marketing experience, I deliver data-driven advertising strategies that produce measurable results.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -218,7 +218,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
               <div className="flex flex-wrap gap-6 text-sm text-primary-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>25+ Years Experience</span>
+                  <span>26+ Years Experience</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />

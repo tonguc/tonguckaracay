@@ -139,7 +139,7 @@ const advantages = [
   },
   {
     title: "Ajans Değil, Uzman",
-    description: "Büyük ajanslardaki ekip değişiklikleri ve koordinasyon sorunları yok. 25+ yıl deneyimli tek bir uzmanla doğrudan çalışıyorsunuz."
+    description: "Büyük ajanslardaki ekip değişiklikleri ve koordinasyon sorunları yok. 26+ yıl deneyimli tek bir uzmanla doğrudan çalışıyorsunuz."
   },
   {
     title: "UX & SEO Entegrasyonu",
@@ -200,7 +200,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
                 <span className="text-gradient">SEO Danışmanlığı</span> Hizmeti
               </h1>
               <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
-                Google'da üst sıralara çıkın, organik trafiğinizi artırın. Teknik SEO, içerik stratejisi ve link building ile dijital görünürlüğünüzü güçlendiriyorum. 25 yılı aşkın deneyim ve kurumsal referanslarla, veriye dayalı SEO stratejileri sunuyorum.
+                Google'da üst sıralara çıkın, organik trafiğinizi artırın. Teknik SEO, içerik stratejisi ve link building ile dijital görünürlüğünüzü güçlendiriyorum. 26 yılı aşkın deneyim ve kurumsal referanslarla, veriye dayalı SEO stratejileri sunuyorum.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -217,7 +217,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
               <div className="flex flex-wrap gap-6 text-sm text-primary-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>25+ Yıl Deneyim</span>
+                  <span>26+ Yıl Deneyim</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />

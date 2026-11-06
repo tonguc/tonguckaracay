@@ -9,11 +9,11 @@ export default function Stats() {
   const isLight = theme === 'light';
   
   const stats = locale === 'tr' ? [
-    { value: '25+', label: 'Yıl Deneyim' },
+    { value: '26+', label: 'Yıl Deneyim' },
     { value: '3', label: 'Ülke Pazarı' },
     { value: '35+', label: 'Marka' },
   ] : [
-    { value: '25+', label: 'Years Experience' },
+    { value: '26+', label: 'Years Experience' },
     { value: '3', label: 'Country Markets' },
     { value: '35+', label: 'Brands' },
   ];

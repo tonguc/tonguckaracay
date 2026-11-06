@@ -135,7 +135,7 @@ const brands = ["Turkish Airlines", "BMW", "Galatasaray", "Sabah Media", "ATV", 
 const advantages = [
   {
     title: "Expert, Not Agency",
-    description: "No coordination overhead or team turnover. You work directly with a senior professional with 25+ years of hands-on experience."
+    description: "No coordination overhead or team turnover. You work directly with a senior professional with 26+ years of hands-on experience."
   },
   {
     title: "Research-Driven Design",
@@ -200,7 +200,7 @@ export default function UIUXDesignPage({ params: { locale } }: Props) {
                 <span className="text-gradient">UI/UX Design</span> Services
               </h1>
               <p className="text-lg md:text-xl text-primary-300 mb-8 leading-relaxed">
-                Transform your digital products with user-centered design. Research-driven, conversion-focused interface design for websites, mobile apps, and SaaS platforms. Over 25 years of industry experience and 100+ enterprise projects delivering measurable results.
+                Transform your digital products with user-centered design. Research-driven, conversion-focused interface design for websites, mobile apps, and SaaS platforms. Over 26 years of industry experience and 100+ enterprise projects delivering measurable results.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -217,7 +217,7 @@ export default function UIUXDesignPage({ params: { locale } }: Props) {
               <div className="flex flex-wrap gap-6 text-sm text-primary-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                  <span>25+ Years Experience</span>
+                  <span>26+ Years Experience</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-accent-500" />
@@ -392,7 +392,7 @@ export default function UIUXDesignPage({ params: { locale } }: Props) {
                 Industry <span className="text-gradient">Experience</span>
               </h2>
               <p className="text-primary-300 mb-8">
-                Every industry has unique user expectations and business requirements. With over 25 years of experience across different sectors, I deliver solutions tailored to your specific industry context.
+                Every industry has unique user expectations and business requirements. With over 26 years of experience across different sectors, I deliver solutions tailored to your specific industry context.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {industries.map((industry, i) => (

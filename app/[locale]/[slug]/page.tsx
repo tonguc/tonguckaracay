@@ -260,7 +260,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
                 <div>
                   <h3 className="font-display font-semibold text-white">Tonguç Karaçay</h3>
                   <p className="text-sm text-primary-400">
-                    {locale === 'tr' ? 'AI-Driven UX & Growth Partner | 25+ Yıl Deneyim' : 'AI-Driven UX & Growth Partner | 25+ Years Experience'}
+                    {locale === 'tr' ? 'AI-Driven UX & Growth Partner | 26+ Yıl Deneyim' : 'AI-Driven UX & Growth Partner | 26+ Years Experience'}
                   </p>
                 </div>
               </div>
