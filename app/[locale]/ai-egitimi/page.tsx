@@ -1,12 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { setRequestLocale } from 'next-intl/server';
-import {
-  WhatTimeMockup,
-  UxSeoMockup,
-  OnayFormuMockup,
-  DijitalTespitMockup,
-} from "@/components/ShowcaseMockups";
+import { findAiProject, type AiProject } from "@/lib/ai-projects";
 import {
   ArrowRight,
   Sparkles,
@@ -166,35 +161,16 @@ const sectorDetails = [
   },
 ];
 
-const showcase = [
-  {
-    id: "whattime",
-    title: "whattime.city",
-    desc: "Şehir bazlı zaman ve toplantı planlayıcı. AI destekli içerik üretimi, çok dilli arayüz, otomatik şehir verisi.",
-    tools: ["Next.js", "Claude API", "Vercel"],
-    url: "https://whattime.city",
-  },
-  {
-    id: "ux-seo",
-    title: "UX SEO Audit Kit",
-    desc: "AI destekli, yarı-otomatik UX & SEO audit raporu üretim sistemi. Veri toplama → analiz → sunum.",
-    tools: ["Claude", "ChatGPT", "Sheets"],
-    url: null as string | null,
-  },
-  {
-    id: "onay-formu",
-    title: "Klinik Onay Formu + SMS",
-    desc: "Klinikler için onay formu üretimi, randevu öncesi yarı-otomatik SMS ve WhatsApp bilgilendirme akışı.",
-    tools: ["ChatGPT", "Claude", "Sheets"],
-    url: null as string | null,
-  },
-  {
-    id: "dijital-tespit",
-    title: "Sektörel Dijital Tespit",
-    desc: "Belirli sektörde dijital varlığı zayıf şirketleri yarı-otomatik tespit edip raporlayan sistem.",
-    tools: ["Claude", "ChatGPT", "Sheets"],
-    url: null as string | null,
-  },
+// Etsy'de satışta olan, yapay zekâ ile geliştirilmiş ürünler (tek kaynak: lib/ai-projects.ts)
+const showcase = ["auditpro", "ai-visibility-scorecard", "hostiq", "finance-os"]
+  .map((slug) => findAiProject(slug))
+  .filter((p): p is AiProject => Boolean(p?.image));
+
+const keyFacts = [
+  "4 hafta · toplam 12 saat",
+  "Online ya da yüz yüze",
+  "Kod bilmen gerekmiyor",
+  "İstediğin zaman başla",
 ];
 
 const faq = [
@@ -203,8 +179,16 @@ const faq = [
     a: "Hayır. Sıfırdan başlıyoruz. Bilgisayar kullanabiliyorsanız ve düzenli uygulama yapacaksanız yeterli.",
   },
   {
-    q: "Eğitim canlı mı kayıttan mı?",
-    a: "Bireysel programda canlı oturumlar var ve hepsi kayıt altına alınıyor. Kurumsal programlarda format şirkete göre planlanır.",
+    q: "Eğitim ne kadar sürüyor?",
+    a: "Bireysel program 4 hafta, toplam 12 saat. Oturumların arasında kendi işinize uygulama yapıyorsunuz.",
+  },
+  {
+    q: "Eğitim online mı, yüz yüze mi?",
+    a: "İkisi de mümkün; size hangisi uygunsa. Bireysel programda oturumlar canlı yapılır ve kayıt altına alınır. Kurumsal programlarda format şirkete göre planlanır.",
+  },
+  {
+    q: "Ne zaman başlayabilirim?",
+    a: "İstediğiniz zaman. Belirli bir dönem başlangıcı yok; başlangıç tarihini birlikte belirliyoruz.",
   },
   {
     q: "Sektörüm listede yok, yine de katılabilir miyim?",
@@ -290,9 +274,21 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               süreçlerinizi hızlandırın.
             </h1>
 
-            <p className="text-xl text-primary-300 mb-10 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-primary-300 mb-8 leading-relaxed max-w-2xl mx-auto">
               Bu programda sadece araç anlatılmaz. İşinize çalışan sistemler kurmayı öğrenirsiniz.
             </p>
+
+            <ul className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+              {keyFacts.map((fact) => (
+                <li
+                  key={fact}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-card border border-surface-border text-sm text-primary-200"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0" />
+                  {fact}
+                </li>
+              ))}
+            </ul>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -425,54 +421,54 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               <span>Gerçek örnekler</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-              Kurduğum sistemler
+              Yapay zekâyla geliştirdiğim ürünler
             </h2>
             <p className="text-lg text-primary-300 max-w-2xl mx-auto">
-              Eğitimde anlattığım sistemleri kendim de kullanıyorum. İşte birkaç örnek.
+              Eğitimde anlattığım yöntemlerle geliştirip Etsy&apos;de satışa sunduğum dijital ürünlerden birkaçı.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {showcase.map((item) => (
               <div
-                key={item.title}
+                key={item.slug}
                 className="bg-surface-card border border-surface-border rounded-2xl overflow-hidden hover:border-indigo-500/50 transition-all group"
               >
-                <div className="relative aspect-[16/10] bg-gradient-to-br from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-b border-surface-border overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-7 bg-surface-darker/80 backdrop-blur-sm border-b border-surface-border flex items-center px-3 gap-1.5 z-10">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-                    {item.url && (
-                      <div className="ml-3 text-[10px] text-primary-400 font-mono truncate">
-                        {item.url.replace(/^https?:\/\//, "")}
-                      </div>
-                    )}
-                  </div>
-                  {item.id === "whattime" && <WhatTimeMockup />}
-                  {item.id === "ux-seo" && <UxSeoMockup locale="tr" />}
-                  {item.id === "onay-formu" && <OnayFormuMockup locale="tr" />}
-                  {item.id === "dijital-tespit" && <DijitalTespitMockup locale="tr" />}
-                </div>
+                <a
+                  href={item.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block relative aspect-[4/3] bg-surface-darker border-b border-surface-border overflow-hidden"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image}
+                    alt={`${item.name} ekran görüntüsü`}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </a>
 
                 <div className="p-6">
                   <div className="flex items-start justify-between gap-4 mb-2">
-                    <h3 className="font-display text-xl font-bold text-white">{item.title}</h3>
-                    {item.url && (
+                    <h3 className="font-display text-xl font-bold text-white">{item.name}</h3>
+                    {item.externalUrl && (
                       <a
-                        href={item.url}
+                        href={item.externalUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Visit ${item.title}`}
+                        aria-label={`${item.name} — Etsy'de incele`}
                         className="text-indigo-400 hover:text-indigo-300 transition-colors flex-shrink-0"
                       >
                         <ArrowRight className="w-5 h-5 -rotate-45" />
                       </a>
                     )}
                   </div>
-                  <p className="text-primary-300 text-sm leading-relaxed mb-4">{item.desc}</p>
+                  <p className="text-primary-300 text-sm leading-relaxed mb-4">{item.summary.tr}</p>
                   <div className="flex flex-wrap gap-2">
-                    {item.tools.map((tool) => (
+                    {item.stack.slice(0, 4).map((tool) => (
                       <span
                         key={tool}
                         className="px-2.5 py-1 text-xs bg-indigo-500/10 text-indigo-300 rounded-md border border-indigo-500/20"
@@ -555,8 +551,9 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               <ul className="space-y-3 mb-8 flex-1">
                 {[
                   "Freelancer / tek çalışan",
-                  "6 haftalık program",
-                  "Canlı oturumlar + kayıt erişimi",
+                  "4 hafta · toplam 12 saat",
+                  "Online ya da yüz yüze, canlı oturumlar + kayıt erişimi",
+                  "İstediğin zaman başla",
                   "Sektöre özel prompt kütüphanesi",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-primary-300">
