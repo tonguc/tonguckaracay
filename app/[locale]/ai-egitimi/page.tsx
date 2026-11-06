@@ -849,43 +849,6 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   ))}
                 </div>
 
-                <div className="mb-8">
-                  <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-3">
-                    Projeler & çalışmalar
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      { label: "whattime.city", note: "Global SaaS", url: "https://whattime.city" },
-                      { label: "tonguckaracay.com/en", note: "EN pazarı", url: null },
-                      { label: "UX SEO Audit Kit", note: "AI sistem", url: null },
-                      { label: "Klinik Otomasyon", note: "n8n + SMS", url: null },
-                      { label: "Sektörel Lead Tespit", note: "Apify + AI", url: null },
-                    ].map(({ label, note, url }) =>
-                      url ? (
-                        <a
-                          key={label}
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 rounded-lg text-xs text-indigo-300 transition-colors"
-                        >
-                          {label}
-                          <span className="text-primary-500">· {note}</span>
-                          <ArrowRight className="w-3 h-3 -rotate-45" />
-                        </a>
-                      ) : (
-                        <span
-                          key={label}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-darker border border-surface-border rounded-lg text-xs text-primary-300"
-                        >
-                          {label}
-                          <span className="text-primary-500">· {note}</span>
-                        </span>
-                      )
-                    )}
-                  </div>
-                </div>
-
                 <p className="text-primary-300 leading-relaxed">
                   26 yılı aşkın dijital ürün, UX ve dijital pazarlama deneyimini AI ile birleştiren profesyonel.
                   Türkiye, Avrupa ve ABD pazarlarına yönelik projelerde aktif olarak AI sistemleri kuruyor ve öğretiyor.

@@ -1,12 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { setRequestLocale } from 'next-intl/server';
-import {
-  WhatTimeMockup,
-  UxSeoMockup,
-  OnayFormuMockup,
-  DijitalTespitMockup,
-} from "@/components/ShowcaseMockups";
+import { aiProjects, findAiProject, type AiProject } from "@/lib/ai-projects";
 import {
   ArrowRight,
   Sparkles,
@@ -25,6 +20,7 @@ import {
   Database,
   Shield,
   Target,
+  Lightbulb,
 } from "lucide-react";
 
 const WHATSAPP_NUMBER = "905323824838";
@@ -166,36 +162,32 @@ const sectorDetails = [
   },
 ];
 
-const showcase = [
-  {
-    id: "whattime",
-    title: "whattime.city",
-    desc: "City-based time and meeting planner. AI-powered content generation, multilingual UI, automated city data.",
-    tools: ["Next.js", "Claude API", "Vercel"],
-    url: "https://whattime.city",
-  },
-  {
-    id: "ux-seo",
-    title: "UX SEO Audit Kit",
-    desc: "AI-powered, semi-automated UX & SEO audit report system. Data collection → analysis → presentation.",
-    tools: ["Claude", "ChatGPT", "Sheets"],
-    url: null as string | null,
-  },
-  {
-    id: "onay-formu",
-    title: "Clinic Consent Form + SMS",
-    desc: "Patient consent form generation and pre-appointment semi-automated SMS / WhatsApp briefing flow for clinics.",
-    tools: ["ChatGPT", "Claude", "Sheets"],
-    url: null as string | null,
-  },
-  {
-    id: "dijital-tespit",
-    title: "Sector-Based Digital Audit",
-    desc: "Semi-automated system that identifies and reports companies with weak digital presence in a given sector.",
-    tools: ["Claude", "ChatGPT", "Sheets"],
-    url: null as string | null,
-  },
+// All AI-assisted products sold on Etsy (single source: lib/ai-projects.ts)
+const showcase = aiProjects.filter(
+  (p): p is AiProject & { image: string } => p.source === "etsy" && Boolean(p.image),
+);
+
+// Featured clinic project — real screenshot (clinician name blurred)
+const hastaOnay = findAiProject("hastaonay");
+const HASTAONAY_IMAGE = "/showcase/hastaonay-dashboard.png";
+
+const keyFacts = [
+  "4 weeks · 12 hours total",
+  "Online or in person",
+  "No coding required",
+  "Start anytime",
 ];
+
+// Color palette for cards (Tailwind classes must stay static)
+const tones = [
+  { card: "bg-gradient-to-br from-indigo-500/20 via-indigo-500/5 to-transparent border-indigo-400/30 hover:border-indigo-300/70", icon: "bg-indigo-500/25 text-indigo-200", chip: "bg-indigo-500/15 text-indigo-200 border-indigo-400/30", text: "text-indigo-300" },
+  { card: "bg-gradient-to-br from-emerald-500/20 via-emerald-500/5 to-transparent border-emerald-400/30 hover:border-emerald-300/70", icon: "bg-emerald-500/25 text-emerald-200", chip: "bg-emerald-500/15 text-emerald-200 border-emerald-400/30", text: "text-emerald-300" },
+  { card: "bg-gradient-to-br from-amber-500/20 via-amber-500/5 to-transparent border-amber-400/30 hover:border-amber-300/70", icon: "bg-amber-500/25 text-amber-200", chip: "bg-amber-500/15 text-amber-200 border-amber-400/30", text: "text-amber-300" },
+  { card: "bg-gradient-to-br from-rose-500/20 via-rose-500/5 to-transparent border-rose-400/30 hover:border-rose-300/70", icon: "bg-rose-500/25 text-rose-200", chip: "bg-rose-500/15 text-rose-200 border-rose-400/30", text: "text-rose-300" },
+  { card: "bg-gradient-to-br from-sky-500/20 via-sky-500/5 to-transparent border-sky-400/30 hover:border-sky-300/70", icon: "bg-sky-500/25 text-sky-200", chip: "bg-sky-500/15 text-sky-200 border-sky-400/30", text: "text-sky-300" },
+  { card: "bg-gradient-to-br from-fuchsia-500/20 via-fuchsia-500/5 to-transparent border-fuchsia-400/30 hover:border-fuchsia-300/70", icon: "bg-fuchsia-500/25 text-fuchsia-200", chip: "bg-fuchsia-500/15 text-fuchsia-200 border-fuchsia-400/30", text: "text-fuchsia-300" },
+];
+const tone = (i: number) => tones[i % tones.length];
 
 const faq = [
   {
@@ -203,8 +195,16 @@ const faq = [
     a: "No. We start from zero. If you can use a computer and commit to consistent practice, you're set.",
   },
   {
-    q: "Is the program live or recorded?",
-    a: "The individual program runs live with full recordings available. Corporate programs are scheduled around your team.",
+    q: "How long is the program?",
+    a: "The individual program runs 4 weeks, 12 hours in total. Between sessions you apply what you learn to your own business.",
+  },
+  {
+    q: "Is it online or in person?",
+    a: "Either works — whichever suits you. Individual sessions run live and are recorded. Corporate programs are scheduled around your team.",
+  },
+  {
+    q: "When can I start?",
+    a: "Anytime. There's no fixed cohort start date; we set your start date together.",
   },
   {
     q: "My sector isn't in the list. Can I still join?",
@@ -289,9 +289,21 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               </span>
             </h1>
 
-            <p className="text-xl text-primary-300 mb-10 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-primary-300 mb-8 leading-relaxed max-w-2xl mx-auto">
               This program isn't a tool tutorial. You'll learn to build systems that work in your business.
             </p>
+
+            <ul className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+              {keyFacts.map((fact, i) => (
+                <li
+                  key={fact}
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium ${tone([1, 4, 2, 5][i]).chip}`}
+                >
+                  <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+                  {fact}
+                </li>
+              ))}
+            </ul>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -370,9 +382,9 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            <div className="bg-surface-card border border-surface-border rounded-2xl p-8">
-              <h3 className="font-display text-lg font-bold text-primary-400 mb-6 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-surface-border flex items-center justify-center text-xs">✕</span>
+            <div className="bg-gradient-to-br from-rose-500/15 via-orange-500/5 to-transparent border border-rose-400/25 rounded-2xl p-8">
+              <h3 className="font-display text-lg font-bold text-rose-200 mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-rose-500/25 text-rose-200 flex items-center justify-center text-xs">✕</span>
                 Casual AI use
               </h3>
               <ul className="space-y-4">
@@ -383,17 +395,17 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                   "Stays in the curiosity phase, no real output",
                   "No clear idea which tool does what",
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-primary-400 text-sm">
-                    <XCircle className="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5" />
+                  <li key={item} className="flex items-start gap-3 text-primary-200 text-sm">
+                    <XCircle className="w-4 h-4 text-rose-300 flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="bg-gradient-to-br from-indigo-500/10 to-violet-500/10 border border-indigo-500/30 rounded-2xl p-8">
-              <h3 className="font-display text-lg font-bold text-indigo-300 mb-6 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-xs">✓</span>
+            <div className="bg-gradient-to-br from-emerald-500/20 via-sky-500/10 to-indigo-500/10 border border-emerald-400/35 rounded-2xl p-8 shadow-lg shadow-emerald-500/10">
+              <h3 className="font-display text-lg font-bold text-emerald-200 mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-emerald-500/25 text-emerald-200 flex items-center justify-center text-xs">✓</span>
                 Building a system
               </h3>
               <ul className="space-y-4">
@@ -404,8 +416,8 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                   "Real production output every week",
                   "Clear purpose for each tool",
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-primary-200 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                  <li key={item} className="flex items-start gap-3 text-primary-100 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-300 flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -424,57 +436,97 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               <span>Real examples</span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-              Systems I've built
+              Products I&apos;ve built with AI
             </h2>
             <p className="text-lg text-primary-300 max-w-2xl mx-auto">
-              I run these systems on my own work. Here are a few examples.
+              Real products built with the methods I teach: a clinic system and every digital product I sell on Etsy.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {showcase.map((item) => (
-              <div
-                key={item.title}
-                className="bg-surface-card border border-surface-border rounded-2xl overflow-hidden hover:border-indigo-500/50 transition-all group"
-              >
-                <div className="relative aspect-[16/10] bg-gradient-to-br from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border-b border-surface-border overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-7 bg-surface-darker/80 backdrop-blur-sm border-b border-surface-border flex items-center px-3 gap-1.5 z-10">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-                    {item.url && (
-                      <div className="ml-3 text-[10px] text-primary-400 font-mono truncate">
-                        {item.url.replace(/^https?:\/\//, "")}
-                      </div>
-                    )}
-                  </div>
-                  {item.id === "whattime" && <WhatTimeMockup />}
-                  {item.id === "ux-seo" && <UxSeoMockup locale="en" />}
-                  {item.id === "onay-formu" && <OnayFormuMockup locale="en" />}
-                  {item.id === "dijital-tespit" && <DijitalTespitMockup locale="en" />}
+          {hastaOnay && (
+            <div className="max-w-6xl mx-auto mb-8 grid lg:grid-cols-5 gap-0 rounded-3xl overflow-hidden border border-emerald-400/30 bg-gradient-to-br from-emerald-500/20 via-sky-500/10 to-indigo-500/10 shadow-xl shadow-emerald-500/10">
+              <div className="lg:col-span-3 p-3 sm:p-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={HASTAONAY_IMAGE}
+                  alt="hastaOnay clinic consent system dashboard screenshot"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto rounded-2xl border border-white/10 shadow-lg"
+                />
+              </div>
+              <div className="lg:col-span-2 p-6 md:p-8 flex flex-col justify-center">
+                <span className="inline-flex w-fit items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs font-semibold mb-4">
+                  <Stethoscope className="w-3.5 h-3.5" />
+                  For clinics
+                </span>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-white mb-3">
+                  hastaOnay — Digital patient consent system
+                </h3>
+                <p className="text-primary-200 leading-relaxed mb-5">{hastaOnay.summary.en}</p>
+                <ul className="space-y-2 mb-6">
+                  {hastaOnay.highlights.en.slice(0, 2).map((h) => (
+                    <li key={h} className="flex items-start gap-2 text-sm text-primary-200">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-300 flex-shrink-0 mt-0.5" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-2">
+                  {hastaOnay.stack.map((tool) => (
+                    <span key={tool} className="px-2.5 py-1 text-xs bg-emerald-500/15 text-emerald-200 rounded-md border border-emerald-400/30">
+                      {tool}
+                    </span>
+                  ))}
                 </div>
+              </div>
+            </div>
+          )}
 
-                <div className="p-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {showcase.map((item, i) => (
+              <div
+                key={item.slug}
+                className={`border rounded-2xl overflow-hidden transition-all group ${tone(i).card}`}
+              >
+                <a
+                  href={item.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block relative aspect-[4/3] bg-surface-darker overflow-hidden"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image}
+                    alt={`${item.name} screenshot`}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </a>
+
+                <div className="p-5">
                   <div className="flex items-start justify-between gap-4 mb-2">
-                    <h3 className="font-display text-xl font-bold text-white">{item.title}</h3>
-                    {item.url && (
+                    <h3 className="font-display text-lg font-bold text-white">{item.name}</h3>
+                    {item.externalUrl && (
                       <a
-                        href={item.url}
+                        href={item.externalUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Visit ${item.title}`}
-                        className="text-indigo-400 hover:text-indigo-300 transition-colors flex-shrink-0"
+                        aria-label={`View ${item.name} on Etsy`}
+                        className={`${tone(i).text} hover:text-white transition-colors flex-shrink-0`}
                       >
                         <ArrowRight className="w-5 h-5 -rotate-45" />
                       </a>
                     )}
                   </div>
-                  <p className="text-primary-300 text-sm leading-relaxed mb-4">{item.desc}</p>
+                  <p className="text-primary-200 text-sm leading-relaxed mb-4">{item.summary.en}</p>
                   <div className="flex flex-wrap gap-2">
-                    {item.tools.map((tool) => (
+                    {item.stack.slice(0, 3).map((tool) => (
                       <span
                         key={tool}
-                        className="px-2.5 py-1 text-xs bg-indigo-500/10 text-indigo-300 rounded-md border border-indigo-500/20"
+                        className={`px-2.5 py-1 text-xs rounded-md border ${tone(i).chip}`}
                       >
                         {tool}
                       </span>
@@ -504,16 +556,16 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {sectors.map((sector) => {
+            {sectors.map((sector, i) => {
               const Icon = sector.icon;
               return (
                 <Link
                   key={sector.anchor}
                   href={`#${sector.anchor}`}
-                  className="group bg-surface-card border border-surface-border hover:border-indigo-500/50 rounded-2xl p-6 transition-all"
+                  className={`group border rounded-2xl p-6 transition-all ${tone(i).card}`}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-indigo-300" />
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${tone(i).icon}`}>
+                    <Icon className="w-6 h-6" />
                   </div>
                   <h3 className="font-display text-lg font-bold text-white mb-2">{sector.name}</h3>
                   <p className="text-primary-300 text-sm leading-relaxed">{sector.output}</p>
@@ -541,7 +593,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            <div id="individual" className="bg-surface-card border border-indigo-500/30 rounded-2xl p-8 flex flex-col scroll-mt-24">
+            <div id="individual" className="bg-gradient-to-br from-indigo-500/25 via-sky-500/10 to-transparent border border-indigo-400/40 rounded-2xl p-8 flex flex-col scroll-mt-24 shadow-lg shadow-indigo-500/10">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
                   <Users className="w-6 h-6 text-indigo-300" />
@@ -554,8 +606,9 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               <ul className="space-y-3 mb-8 flex-1">
                 {[
                   "Freelancer / solo operator",
-                  "6-week program",
-                  "Live sessions + full recording access",
+                  "4 weeks · 12 hours total",
+                  "Online or in person, live sessions + full recording access",
+                  "Start anytime",
                   "Sector-specific prompt library",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-primary-300">
@@ -575,7 +628,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               </a>
             </div>
 
-            <div id="corporate" className="bg-surface-card border border-violet-500/30 rounded-2xl p-8 flex flex-col scroll-mt-24">
+            <div id="corporate" className="bg-gradient-to-br from-fuchsia-500/25 via-violet-500/10 to-transparent border border-fuchsia-400/40 rounded-2xl p-8 flex flex-col scroll-mt-24 shadow-lg shadow-fuchsia-500/10">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-violet-500/20 flex items-center justify-center">
                   <Building2 className="w-6 h-6 text-violet-300" />
@@ -628,9 +681,9 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             {curriculum.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={idx} className="bg-surface-card border border-surface-border rounded-2xl p-6">
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-indigo-300" />
+                <div key={idx} className={`border rounded-2xl p-6 transition-all ${tone(idx + 2).card}`}>
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${tone(idx + 2).icon}`}>
+                    <Icon className="w-5 h-5" />
                   </div>
                   <h3 className="font-display text-lg font-bold text-white mb-2">{item.title}</h3>
                   <p className="text-primary-300 text-sm leading-relaxed">{item.desc}</p>
@@ -654,17 +707,18 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
           </div>
 
           <div className="space-y-8 max-w-5xl mx-auto">
-            {sectorDetails.map((detail) => {
+            {sectorDetails.map((detail, i) => {
               const Icon = detail.icon;
+              const t = tone([0, 2, 3][i] ?? i);
               return (
                 <div
                   key={detail.anchor}
                   id={detail.anchor}
-                  className="bg-surface-card border border-surface-border rounded-2xl p-8 scroll-mt-24"
+                  className={`border rounded-2xl p-8 scroll-mt-24 ${t.card}`}
                 >
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-indigo-300" />
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${t.icon}`}>
+                      <Icon className="w-6 h-6" />
                     </div>
                     <h3 className="font-display text-2xl font-bold text-white">{detail.name}</h3>
                   </div>
@@ -706,38 +760,38 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10">
               <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                What this program <span className="text-amber-400">isn't</span>
+                Let&apos;s set <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">clear expectations</span>
               </h2>
               <p className="text-lg text-primary-300 max-w-2xl mx-auto">
-                Wrong expectations waste time. Let's be clear.
+                Start with the right expectations and you&apos;ll see results faster.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
-                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+              <div className="bg-gradient-to-br from-amber-500/20 via-amber-500/5 to-transparent border-amber-400/35 border rounded-2xl p-6">
+                <Lightbulb className="w-8 h-8 text-amber-300 mb-3" />
                 <h3 className="font-display text-lg font-bold text-white mb-2">
                   Not a get-rich-quick scheme
                 </h3>
-                <p className="text-primary-400 text-sm">
+                <p className="text-primary-200 text-sm">
                   No passive income promises. This is an infrastructure program that increases production speed in your craft.
                 </p>
               </div>
-              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
-                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+              <div className="bg-gradient-to-br from-sky-500/20 via-sky-500/5 to-transparent border-sky-400/35 border rounded-2xl p-6">
+                <Lightbulb className="w-8 h-8 text-sky-300 mb-3" />
                 <h3 className="font-display text-lg font-bold text-white mb-2">
                   Not a one-click solution
                 </h3>
-                <p className="text-primary-400 text-sm">
+                <p className="text-primary-200 text-sm">
                   AI doesn't run your business by itself. You build the system, you operate it, you approve outputs.
                 </p>
               </div>
-              <div className="bg-surface-card border border-amber-500/30 rounded-2xl p-6">
-                <XCircle className="w-8 h-8 text-amber-400 mb-3" />
+              <div className="bg-gradient-to-br from-emerald-500/20 via-emerald-500/5 to-transparent border-emerald-400/35 border rounded-2xl p-6">
+                <Lightbulb className="w-8 h-8 text-emerald-300 mb-3" />
                 <h3 className="font-display text-lg font-bold text-white mb-2">
                   Doesn't work without practice
                 </h3>
-                <p className="text-primary-400 text-sm">
+                <p className="text-primary-200 text-sm">
                   Watching alone won't cut it. Weekly application and adapting it to your own business is required.
                 </p>
               </div>
@@ -750,7 +804,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
       <section className="py-16 md:py-20">
         <div className="container-custom">
           <div className="max-w-5xl mx-auto">
-            <div className="relative bg-surface-card border border-surface-border rounded-2xl overflow-hidden">
+            <div className="relative bg-gradient-to-br from-indigo-500/20 via-violet-500/10 to-fuchsia-500/15 border border-indigo-400/30 rounded-2xl overflow-hidden">
               <div
                 className="absolute inset-0 opacity-[0.04] pointer-events-none"
                 style={{ backgroundImage: "radial-gradient(circle, #818cf8 1px, transparent 1px)", backgroundSize: "20px 20px" }}
@@ -765,7 +819,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                   <div className="flex-1">
                     <h2 className="font-display text-2xl font-bold text-white">Tonguç Karaçay</h2>
                     <p className="text-indigo-300 text-sm mt-0.5">AI-Driven UX & Growth Partner</p>
-                    <p className="text-primary-400 text-sm">Istanbul — Turkey, Europe, USA, Gulf markets</p>
+                    <p className="text-primary-200 text-sm">Istanbul — Turkey, Europe, USA, Gulf markets</p>
                   </div>
                   <a
                     href={waLink("Hi Tonguç, I have a question about the AI Training.")}
@@ -784,51 +838,14 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
                     { stat: "4", label: "Disciplines: UX · SEO · Ads · AI" },
                     { stat: "TR + EN", label: "Content markets" },
                     { stat: "Global", label: "Client portfolio" },
-                  ].map(({ stat, label }) => (
-                    <div key={label} className="bg-surface-darker/60 rounded-xl p-4 text-center">
-                      <div className="font-display text-2xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent mb-1">
+                  ].map(({ stat, label }, i) => (
+                    <div key={label} className={`border rounded-xl p-4 text-center ${tone([0, 1, 2, 5][i]).card}`}>
+                      <div className={`font-display text-2xl font-bold mb-1 ${tone([0, 1, 2, 5][i]).text}`}>
                         {stat}
                       </div>
-                      <p className="text-primary-400 text-xs leading-snug">{label}</p>
+                      <p className="text-primary-200 text-xs leading-snug">{label}</p>
                     </div>
                   ))}
-                </div>
-
-                <div className="mb-8">
-                  <p className="text-xs font-semibold text-primary-500 uppercase tracking-wider mb-3">
-                    Projects & work
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      { label: "whattime.city", note: "Global SaaS", url: "https://whattime.city" },
-                      { label: "tonguckaracay.com/en", note: "EN market", url: null },
-                      { label: "UX SEO Audit Kit", note: "AI system", url: null },
-                      { label: "Clinic Automation", note: "n8n + SMS", url: null },
-                      { label: "Sector Lead Detection", note: "Apify + AI", url: null },
-                    ].map(({ label, note, url }) =>
-                      url ? (
-                        <a
-                          key={label}
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 rounded-lg text-xs text-indigo-300 transition-colors"
-                        >
-                          {label}
-                          <span className="text-primary-500">· {note}</span>
-                          <ArrowRight className="w-3 h-3 -rotate-45" />
-                        </a>
-                      ) : (
-                        <span
-                          key={label}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-darker border border-surface-border rounded-lg text-xs text-primary-300"
-                        >
-                          {label}
-                          <span className="text-primary-500">· {note}</span>
-                        </span>
-                      )
-                    )}
-                  </div>
                 </div>
 
                 <p className="text-primary-300 leading-relaxed">
@@ -854,7 +871,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             {faq.map((item, idx) => (
               <details
                 key={idx}
-                className="group bg-surface-card border border-surface-border rounded-xl overflow-hidden"
+                className="group bg-gradient-to-r from-indigo-500/10 to-violet-500/5 border border-indigo-400/20 open:border-indigo-400/50 open:from-indigo-500/20 rounded-xl overflow-hidden transition-colors"
               >
                 <summary className="cursor-pointer px-6 py-4 flex items-center justify-between gap-4 text-white font-medium hover:bg-surface-border/30 transition-colors">
                   <span>{item.q}</span>
@@ -870,7 +887,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
       {/* CONSULTING ALTERNATIVE */}
       <section className="py-12">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto bg-surface-card border border-surface-border rounded-2xl p-6 md:p-8">
+          <div className="max-w-3xl mx-auto bg-gradient-to-br from-sky-500/20 via-sky-500/5 to-transparent border border-sky-400/30 rounded-2xl p-6 md:p-8">
             <h2 className="font-display text-2xl font-bold text-white mb-3">
               Training or consulting?
             </h2>
