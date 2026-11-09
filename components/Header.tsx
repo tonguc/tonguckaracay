@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from 'next-intl';
@@ -15,6 +15,33 @@ export default function Header() {
   
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const servicesRef = useRef<HTMLDivElement>(null);
+
+  // Header sayfalar arası mount kalır → rota değişince menüleri kapat
+  useEffect(() => {
+    setIsServicesOpen(false);
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Dışarı tıklama / Escape ile Hizmetler dropdown'ını kapat
+  useEffect(() => {
+    if (!isServicesOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
+        setIsServicesOpen(false);
+      }
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsServicesOpen(false);
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isServicesOpen]);
 
   const navLinks = locale === 'tr' ? {
     blog: '/blog',
@@ -156,18 +183,26 @@ export default function Header() {
               {casesLabel}
             </Link>
 
-            <details className="group relative">
-              <summary className="flex cursor-pointer list-none items-center gap-1.5 font-medium text-primary-200 transition-colors hover:text-white [&::-webkit-details-marker]:hidden">
-                {servicesLabel}<ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
-              </summary>
-              <div className="absolute left-1/2 top-full z-50 mt-4 w-[min(540px,90vw)] -translate-x-1/2 rounded-2xl border border-surface-border bg-surface-card p-3 shadow-2xl shadow-black/30">
-                <div className="grid grid-cols-2 gap-1">
-                  {serviceLinks.map((service) => (
-                    <Link key={service.href} href={service.href} className="rounded-xl px-4 py-3 text-sm font-medium text-primary-200 transition-colors hover:bg-accent-500/10 hover:text-white">{service.label}</Link>
-                  ))}
+            <div ref={servicesRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setIsServicesOpen((v) => !v)}
+                aria-expanded={isServicesOpen}
+                aria-haspopup="true"
+                className="flex cursor-pointer items-center gap-1.5 font-medium text-primary-200 transition-colors hover:text-white"
+              >
+                {servicesLabel}<ChevronDown className={`h-4 w-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isServicesOpen && (
+                <div className="absolute left-1/2 top-full z-50 mt-4 w-[min(540px,90vw)] -translate-x-1/2 rounded-2xl border border-surface-border bg-surface-card p-3 shadow-2xl shadow-black/30">
+                  <div className="grid grid-cols-2 gap-1">
+                    {serviceLinks.map((service) => (
+                      <Link key={service.href} href={service.href} onClick={() => setIsServicesOpen(false)} className="rounded-xl px-4 py-3 text-sm font-medium text-primary-200 transition-colors hover:bg-accent-500/10 hover:text-white">{service.label}</Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </details>
+              )}
+            </div>
             <Link href={navLinks.training} className="whitespace-nowrap font-medium text-primary-200 transition-colors hover:text-white">{trainingLabel}</Link>
             <Link href={navLinks.blog} className="text-primary-200 hover:text-white transition-colors font-medium">
               {t('blog')}
