@@ -10,15 +10,12 @@ interface Props {
 }
 
 /**
- * Geçici portfolyo/yayın modu: editoryal olarak seçilmiş Claude MCP yazısı.
- * Blog listesi güncel tarih sırasını korur; hero bilerek sabitlenmiştir.
+ * Hero her zaman en yeni blog yazısını gösterir (Telegram bot'tan yeni yazı
+ * girildiğinde otomatik olarak buraya düşer).
  */
 export default function ValueProposition({ locale }: Props) {
   const isTr = locale === "tr";
-  const pinnedSlug = isTr
-    ? "claude-mcp-token-maliyeti-olcum"
-    : "claude-mcp-integration-token-cost-comparison-chart";
-  const latest = getAllPosts(isTr ? "tr" : "en").find((post) => post.slug === pinnedSlug);
+  const latest = getAllPosts(isTr ? "tr" : "en")[0];
   const blogPath = isTr ? "/blog" : "/en/blog";
   const articlePath = latest ? (isTr ? "/" : "/en/") + latest.slug : blogPath;
 
