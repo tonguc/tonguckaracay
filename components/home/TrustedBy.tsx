@@ -3,30 +3,52 @@ interface Props {
 }
 
 /**
- * Trusted By — bilinçli olarak logosuz, tek satırlık sakin bir şerit (2026-11).
- * Sola yaslı etiket + marka adları; ortalanmış büyük harfli "eyebrow" yok.
+ * Trusted By — logosuz, iki satırlık marka listesi (2026-11, kullanıcı isteği: çift satır).
+ * Satır 1: havayolu + otomotiv. Satır 2: medya + spor.
+ * Yalnızca lib/portfolio.ts'te gerçek işi olan markalar yazılır.
  */
-const featured = ["THY", "BMW", "Jaguar", "Range Rover", "Mini", "Borusan Otomotiv", "Galatasaray", "Sabah", "ATV"];
+const rows: { tr: string; en: string }[][] = [
+  [
+    { tr: "Türk Hava Yolları", en: "Turkish Airlines" },
+    { tr: "BMW", en: "BMW" },
+    { tr: "MINI", en: "MINI" },
+    { tr: "Jaguar", en: "Jaguar" },
+    { tr: "Land Rover", en: "Land Rover" },
+    { tr: "Range Rover", en: "Range Rover" },
+    { tr: "Borusan Otomotiv", en: "Borusan Otomotiv" },
+  ],
+  [
+    { tr: "Galatasaray", en: "Galatasaray" },
+    { tr: "Sabah", en: "Sabah" },
+    { tr: "ATV", en: "ATV" },
+    { tr: "Fotomaç", en: "Fotomaç" },
+    { tr: "Hürriyet Bigpara", en: "Hürriyet Bigpara" },
+    { tr: "Star", en: "Star" },
+    { tr: "24 TV", en: "24 TV" },
+    { tr: "360 TV", en: "360 TV" },
+  ],
+];
 
 export default function TrustedBy({ locale }: Props) {
-  const isTr = locale === "tr";
+  const loc = locale === "tr" ? "tr" : "en";
 
   return (
-    <section id="trusted-by" className="border-y border-surface-border/70 py-7">
-      <div className="container-custom flex flex-col gap-4 md:flex-row md:items-center md:gap-12">
-        <p className="shrink-0 text-sm text-primary-400">
-          {isTr ? "Birlikte çalıştığım markalar" : "Brands I’ve worked with"}
+    <section id="trusted-by" className="border-y border-surface-border/70 py-8">
+      <div className="container-custom flex flex-col gap-4 md:flex-row md:items-start md:gap-12">
+        <p className="shrink-0 pt-1 text-sm text-primary-400 md:w-40">
+          {loc === "tr" ? "Birlikte çalıştığım markalar" : "Brands I’ve worked with"}
         </p>
-        <ul className="flex flex-wrap gap-x-8 gap-y-2 font-display text-base font-semibold text-primary-500 md:text-lg">
-          {featured.map((raw) => {
-            const name = raw === "THY" ? (isTr ? "Türk Hava Yolları" : "Turkish Airlines") : raw;
-            return (
-              <li key={name} className="whitespace-nowrap">
-                {name}
-              </li>
-            );
-          })}
-        </ul>
+        <div className="flex flex-col gap-2 md:gap-3">
+          {rows.map((row, i) => (
+            <ul key={i} className="flex flex-wrap gap-x-8 gap-y-2 font-display text-base font-semibold text-primary-500 md:text-lg">
+              {row.map((b) => (
+                <li key={b.tr} className="whitespace-nowrap">
+                  {b[loc]}
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
       </div>
     </section>
   );
