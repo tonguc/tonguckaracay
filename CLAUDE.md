@@ -56,22 +56,28 @@ x-default → EN (hedef kitle: yurt dışı, ABD ağırlıklı)
 
 ---
 
-## Ana Sayfa (Homepage) — Haziran 2026 Yeniden Tasarım
+## Ana Sayfa (Homepage) — Kasım 2026 Yeniden Tasarım (branch: redesign/ana-sayfa-v2)
 
-Ana sayfa premium kişisel-marka / danışmanlık formatında yeniden tasarlandı. **Tüm bölümler `components/home/` altında**; `app/[locale]/page.tsx` bunları sırayla render eder. TR/EN inline `locale` ternary ile yazılır (mevcut desen). Tasarım sistemi: deep-navy bg + amber/gold accent (`accent-*`), glassmorphism (`.card`), `.text-gradient` (sarı→hafif turuncu, `accent-400→accent-500`), Poppins.
+Amaç: "AI ile yapılmış şablon" görünümünden çıkmak. **Tüm bölümler `components/home/` altında**; `app/[locale]/page.tsx` sırayla render eder; TR/EN inline `locale` ternary.
 
-### Bölüm sırası (`app/[locale]/page.tsx`) — Eylül 2026 dönüşüm revizyonu
-Persona: **e-ticaret + hizmet şirketleri**. İş modeli: **hibrit** (Ücretsiz Ön Analiz → Yol Haritası → Aylık Büyüme Ortaklığı).
-1. `ValueProposition` — (müsaitlik rozeti YOK — kullanıcı istemedi) tek H1 ("Daha Fazla Trafik, Daha Fazla Gelir"), persona cümlesi, 3 teklif etiketi, CTA: Ücretsiz Ön Analiz + Projeler. Mobilde kompakt tutulur.
-2. `TrustedBy` — kompakt marka şeridi (tam liste Hakkımda sayfasında)
-3. `Offers` — başlık "Hangi Alanda Büyümek İstiyorsunuz?"; AI Otomasyon Sistemleri üstte tam genişlik öne çıkan kart (+ AI Eğitimi linki), altında 4 eşit kutu: SEO & GEO / UX & Dönüşüm / Sosyal Medya / AI Destekli Reklam (`lib/offers.ts`)
-4. `CaseHighlights` — 6 vaka carousel'ı (compact) + `PortfolioMarquee` akan portfolyo şeridi
-5. `Engagement` — 1. Hafta → 2. Hafta → 3–6. Hafta → 2. Ay+ süreci (KORUNACAK)
-6. `WhyMe`
-7. `PreAudit` — "SEO + GEO + Dönüşüm Ön Analizi" lead magnet (GEO ayrı madde — önemli) + hibrit başlangıç modeli
-8. `Testimonials` — liste boşken render edilmez
-9. `Insights` — en yeni 3 yazı (filtresiz — yeni yazı hemen görünür)
-10. `PersonalStory`, 11. `FinalCTASection`
+### Tasarım sistemi (global — `tailwind.config.ts` + `app/globals.css`)
+- Renk: mat siyah `surface-darker #0c0c0c`, koyu gri bant `surface-dark #121212`, açık bant `surface-paper #f2f0eb`; `primary-*` artık **nötr sıcak gri** (lacivert yok). Marka vurgusu yalnızca turuncu `accent-*`.
+- Font: başlık **Schibsted Grotesk**, gövde **Inter** (Poppins sadece Instagram şablonlarında).
+- YASAK (AI-şablon işaretleri): başlıkta turuncu/gradient vurgulu kelime, başlık üstü küçük büyük-harf "eyebrow" etiketleri, ikon-kutulu kart grid'leri, glassmorphism/blur, glow blob'lar, ortalanmış bölüm başlıkları. `.text-gradient` geriye uyumluluk için duruyor ama artık düz turuncu. Turuncu her ekranda tek yerde (buton/tek vurgu).
+- Bölüm ritmi: siyah → koyu gri → siyah → AÇIK → siyah → koyu gri → siyah → TURUNCU. Her bölüm üst+alt eşit boşluk (`py-20 md:py-28`).
+
+### Bölüm sırası
+1. `ValueProposition` — tek H1 (vurgusuz), KOBİ satırı, CTA, tek satır kanıt (26+ · 200+ · 100+ · ülke), sağda iki kolonlu zıt yönde kayan iş kolajı (`public/portfolio/*.webp`)
+2. `TrustedBy` — tek satır, sola yaslı marka şeridi
+3. `PortfolioMarquee` — kendi koyu gri bandında, büyük kartlı akan Behance şeridi (`id="projeler"`)
+4. `CaseHighlights` — `featuredCases` ilk 3, büyük görselli sağlı-sollu satırlar (carousel yok)
+5. `Offers` — AÇIK bant; AI Otomasyon siyah "öne çıkan" satır (+AI Eğitimi), diğerleri numaralı satır + sağda proje görseli; SEO satırında GEO linki
+6. `Engagement` — sade numaralı liste (KORUNUYOR; WhyMe mesajı açıklamaya katıldı)
+7. `PersonalStory` — gerçek portre `public/tonguc-karacay-portre.jpg`
+8. `Insights` — filtresiz en yeni 3 yazı, satır listesi
+9. `FinalCTASection` — TURUNCU bant; eski PreAudit'in "ilk görüşmede konuştuklarımız" maddeleri + `preAuditPath` birincil CTA + e-posta + WhatsApp
+- `WhyMe`, `PreAudit` dosyaları duruyor ama ana sayfada kullanılmıyor. Yüzen WhatsApp: `components/WhatsAppFloat.tsx` (layout).
+- Diğer sayfalar (hizmet, projeler, blog) yeni renk/fontu otomatik aldı ama eski desenleri (ortalı başlık, vurgulu kelime, ikonlu kartlar) henüz taşıyor — sırayla aynı kurallara geçirilecek.
 
 ### Vakalar, blog ayrımı, form
 - **Projeler (eski adı Vakalar):** `lib/cases.ts` tek kaynak → `/projeler` (eski `/vaka-calismalari` 301 → `/projeler`) + `/en/case-studies` (`components/cases/`). İçerik behance.net/tonguc'taki teslim edilmiş işlerden; görseller `public/cases/*.webp` (CSP sadece yerel img'e izin verir). Şablon Hedef → Müdahale → Sonuç → Yorum; `results` / `testimonial` **gerçek, müşteri onaylı veri gelene kadar boş** — boşken UI'da görünmez.
