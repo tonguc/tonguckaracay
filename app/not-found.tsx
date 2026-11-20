@@ -14,13 +14,13 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/"
-            className="inline-flex items-center justify-center px-6 py-3 bg-accent-500 text-primary-950 font-semibold rounded-xl hover:bg-accent-400 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 bg-accent-500 text-primary-950 font-semibold rounded-md hover:bg-accent-400 transition-colors"
           >
             Ana Sayfaya Dön
           </Link>
           <Link
             href="/blog"
-            className="inline-flex items-center justify-center px-6 py-3 border border-surface-border text-primary-300 font-semibold rounded-xl hover:text-white hover:border-accent-500/50 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 border border-surface-border text-primary-300 font-semibold rounded-md hover:text-white hover:border-accent-500/50 transition-colors"
           >
             Blog
           </Link>

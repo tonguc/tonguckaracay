@@ -30,9 +30,8 @@ export default function PortfolioGrid({ locale }: { locale: Locale }) {
 
   return (
     <section className="mt-16 md:mt-24" aria-labelledby="portfolio-title">
-      <div className="mb-8 text-center">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">Behance</p>
-        <h2 id="portfolio-title" className="section-title mx-auto">
+      <div className="mb-8">
+        <h2 id="portfolio-title" className="section-title">
           {isTr ? "Seçili " : "Selected "}
           <span className="text-gradient">{isTr ? "Çalışmalar" : "Work"}</span>
         </h2>
@@ -68,7 +67,7 @@ export default function PortfolioGrid({ locale }: { locale: Locale }) {
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block overflow-hidden rounded-xl border border-surface-border/60 bg-surface-card/40 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent-500/40"
+              className="group block overflow-hidden rounded-md border border-surface-border/60 bg-surface-card/40 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent-500/40"
             >
               <div className="relative aspect-[404/316] overflow-hidden bg-surface-darker">
                 <Image

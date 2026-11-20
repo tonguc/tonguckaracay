@@ -29,9 +29,6 @@ export default function CaseStudiesPage({ locale }: { locale: Locale }) {
     <main className="pt-28 pb-20 md:pt-36">
       <div className="container-custom">
         <header className="mx-auto mb-10 max-w-3xl text-center md:mb-14">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-            {isTr ? "Portfolyo" : "Portfolio"}
-          </p>
           <h1 className="font-display text-3xl font-bold leading-tight text-white md:text-5xl">
             {isTr ? "Seçili " : "Case "}
             <span className="text-gradient">{isTr ? "Projeler" : "Studies"}</span>

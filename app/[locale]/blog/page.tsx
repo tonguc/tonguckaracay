@@ -162,7 +162,7 @@ function FeaturedPost({ post, locale, t }: { post: BlogPost; locale: Locale; t: 
 
   return (
     <Link href={blogPath} className="group block mb-10">
-      <article className="relative rounded-2xl overflow-hidden border border-surface-border hover:border-accent-500/40 transition-all duration-300 bg-surface-card/30">
+      <article className="relative rounded-md overflow-hidden border border-surface-border hover:border-accent-500/40 transition-all duration-300 bg-surface-card/30">
         <div className="grid md:grid-cols-2 gap-0">
           {/* Image */}
           <div className="aspect-video md:aspect-auto md:h-80 overflow-hidden">

@@ -62,8 +62,8 @@ Amaç: "AI ile yapılmış şablon" görünümünden çıkmak. **Tüm bölümler
 
 ### Tasarım sistemi (global — `tailwind.config.ts` + `app/globals.css`)
 - Renk: mat siyah `surface-darker #0c0c0c`, koyu gri bant `surface-dark #121212`, açık bant `surface-paper #f2f0eb`; `primary-*` artık **nötr sıcak gri** (lacivert yok). Marka vurgusu yalnızca turuncu `accent-*`.
-- Font: başlık **Schibsted Grotesk**, gövde **Inter** (Poppins sadece Instagram şablonlarında).
-- YASAK (AI-şablon işaretleri): başlıkta turuncu/gradient vurgulu kelime, başlık üstü küçük büyük-harf "eyebrow" etiketleri, ikon-kutulu kart grid'leri, glassmorphism/blur, glow blob'lar, ortalanmış bölüm başlıkları. `.text-gradient` geriye uyumluluk için duruyor ama artık düz turuncu. Turuncu her ekranda tek yerde (buton/tek vurgu).
+- Font: **Poppins** (başlık + gövde; kullanıcı tercihi — değiştirme).
+- YASAK (AI-şablon işaretleri): başlıkta turuncu/gradient vurgulu kelime, başlık üstü küçük büyük-harf "eyebrow" etiketleri, ikon-kutulu kart grid'leri, glassmorphism/blur, glow blob'lar, ortalanmış bölüm başlıkları. `.text-gradient` geriye uyumluluk için duruyor ama artık çevre metnin rengini alır (vurgu yok). Turuncu her ekranda tek yerde (buton/tek vurgu).
 - Bölüm ritmi: siyah → koyu gri → siyah → AÇIK → siyah → koyu gri → siyah → TURUNCU. Her bölüm üst+alt eşit boşluk (`py-20 md:py-28`).
 
 ### Bölüm sırası
@@ -77,7 +77,7 @@ Amaç: "AI ile yapılmış şablon" görünümünden çıkmak. **Tüm bölümler
 8. `Insights` — filtresiz en yeni 3 yazı, satır listesi
 9. `FinalCTASection` — TURUNCU bant; eski PreAudit'in "ilk görüşmede konuştuklarımız" maddeleri + `preAuditPath` birincil CTA + e-posta + WhatsApp
 - `WhyMe`, `PreAudit` dosyaları duruyor ama ana sayfada kullanılmıyor. Yüzen WhatsApp: `components/WhatsAppFloat.tsx` (layout).
-- Diğer sayfalar (hizmet, projeler, blog) yeni renk/fontu otomatik aldı ama eski desenleri (ortalı başlık, vurgulu kelime, ikonlu kartlar) henüz taşıyor — sırayla aynı kurallara geçirilecek.
+- Tüm sayfalar aynı sisteme geçirildi (2026-11): blob/blur, renkli gradient, renkli ikon tonları, başlık üstü etiketler ve ortalı bölüm başlıkları kaldırıldı; köşeler rounded-md. Yeni sayfa yazarken aynı kurallar geçerli.
 
 ### Vakalar, blog ayrımı, form
 - **Projeler (eski adı Vakalar):** `lib/cases.ts` tek kaynak → `/projeler` (eski `/vaka-calismalari` 301 → `/projeler`) + `/en/case-studies` (`components/cases/`). İçerik behance.net/tonguc'taki teslim edilmiş işlerden; görseller `public/cases/*.webp` (CSP sadece yerel img'e izin verir). Şablon Hedef → Müdahale → Sonuç → Yorum; `results` / `testimonial` **gerçek, müşteri onaylı veri gelene kadar boş** — boşken UI'da görünmez.

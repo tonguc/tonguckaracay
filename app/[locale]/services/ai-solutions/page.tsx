@@ -201,8 +201,6 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -273,7 +271,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
       {/* Problem Section */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl">
             <h2 className="section-title mb-6">
               What Problems Does This <span className="text-gradient">Service Solve?</span>
             </h2>
@@ -284,48 +282,48 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Time Drain</h3>
               <p className="text-primary-400 text-sm mb-3">You're spending too much time on repetitive tasks.</p>
               <p className="text-accent-400 text-sm">→ AI automation completes repetitive work in seconds</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <MessageSquare className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <MessageSquare className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Support Limitations</h3>
               <p className="text-primary-400 text-sm mb-3">You can't respond to customer queries quickly; 24/7 support is expensive.</p>
               <p className="text-accent-400 text-sm">→ AI chatbot provides instant 24/7 customer support</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <FileText className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Content Bottleneck</h3>
               <p className="text-primary-400 text-sm mb-3">Writing blogs, social media, and product descriptions takes too long.</p>
               <p className="text-accent-400 text-sm">→ AI-assisted content generation for fast, quality output</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Database className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Database className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Data Overload</h3>
               <p className="text-primary-400 text-sm mb-3">You have data but can't extract meaningful insights.</p>
               <p className="text-accent-400 text-sm">→ AI-powered data analysis and automated reporting</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <AlertTriangle className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Competitive Pressure</h3>
               <p className="text-primary-400 text-sm mb-3">Your competitors are using AI; you're falling behind.</p>
               <p className="text-accent-400 text-sm">→ Quick, affordable AI adoption to stay competitive</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Settings className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Settings className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Technical Barriers</h3>
               <p className="text-primary-400 text-sm mb-3">You want to use AI but don't know where to start.</p>
@@ -338,7 +336,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
       {/* Services */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Service <span className="text-gradient">Scope</span>
             </h2>
@@ -350,7 +348,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-md bg-accent-500/20 flex items-center justify-center mb-4">
                   <service.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
@@ -411,7 +409,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">What does the consulting engagement <span className="text-gradient">deliver?</span></h2>
             <p className="text-primary-300 text-lg">Each stage closes with a customer-verifiable output and acceptance condition, not just a list of activities.</p>
           </div>
-          <div className="overflow-x-auto rounded-2xl border border-surface-border">
+          <div className="overflow-x-auto rounded-md border border-surface-border">
             <table className="w-full min-w-[760px] text-left">
               <thead className="bg-surface-card">
                 <tr>
@@ -437,7 +435,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
       {/* Process */}
       <section id="process" className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               My <span className="text-gradient">Process</span>
             </h2>
@@ -461,7 +459,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
       {/* Industries */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Industry <span className="text-gradient">Applications</span>
             </h2>
@@ -474,7 +472,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
             {industries.map((industry, i) => (
               <div key={i} className="card p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-md bg-accent-500/10 flex items-center justify-center flex-shrink-0">
                     <industry.icon className="w-6 h-6 text-accent-500" />
                   </div>
                   <div>
@@ -491,7 +489,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
       {/* Why Me */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Why <span className="text-gradient">Work With Me?</span>
             </h2>
@@ -550,7 +548,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Frequently Asked <span className="text-gradient">Questions</span>
             </h2>
@@ -575,8 +573,8 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-accent-500/10 to-purple-500/10">
-        <div className="container-custom text-center">
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Start Transforming Your Business with AI
           </h2>

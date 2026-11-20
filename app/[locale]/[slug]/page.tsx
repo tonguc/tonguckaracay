@@ -225,7 +225,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
         </header>
 
         <div className="max-w-4xl mx-auto mb-12">
-          <div className="aspect-video rounded-2xl overflow-hidden border border-surface-border">
+          <div className="aspect-video rounded-md overflow-hidden border border-surface-border">
             <img
               src={post.image}
               alt={post.title}
@@ -254,7 +254,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
                 ))}
               </div>
             </div>
-            <div className="mt-12 p-6 bg-surface-card border border-surface-border rounded-2xl">
+            <div className="mt-12 p-6 bg-surface-card border border-surface-border rounded-md">
               <div className="flex items-center gap-4">
                 <img src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" className="w-16 h-16 rounded-full object-cover" width={64} height={64} />
                 <div>
@@ -285,7 +285,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
                 <Link
                   key={relatedPost.slug}
                   href={locale === 'tr' ? `/${relatedPost.slug}` : `/en/${relatedPost.slug}`}
-                  className="group bg-surface-card/50 border border-surface-border rounded-2xl overflow-hidden hover:border-accent-500/30 transition-all"
+                  className="group bg-surface-card/50 border border-surface-border rounded-md overflow-hidden hover:border-accent-500/30 transition-all"
                 >
                   <div className="aspect-video overflow-hidden">
                     <img

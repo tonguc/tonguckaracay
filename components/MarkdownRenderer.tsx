@@ -50,7 +50,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           if (isInline) return <code className="bg-surface-card text-accent-500 px-1.5 py-0.5 rounded text-sm">{children}</code>;
           return <code className={className}>{children}</code>;
         },
-        pre: ({ children }) => <pre className="bg-surface-darker border border-surface-border rounded-xl p-4 overflow-x-auto mb-6">{children}</pre>,
+        pre: ({ children }) => <pre className="bg-surface-darker border border-surface-border rounded-md p-4 overflow-x-auto mb-6">{children}</pre>,
         table: ({ children }) => <div className="overflow-x-auto mb-6"><table className="w-full border-collapse">{children}</table></div>,
         thead: ({ children }) => <thead className="bg-surface-card">{children}</thead>,
         th: ({ children }) => <th className="text-white border-surface-border font-semibold p-3 text-left border">{children}</th>,

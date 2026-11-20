@@ -32,7 +32,7 @@ export default function FAQ({ items, title }: FAQProps) {
         {items.map((item, index) => (
           <div
             key={index}
-            className="bg-surface-card border border-surface-border rounded-xl overflow-hidden"
+            className="bg-surface-card border border-surface-border rounded-md overflow-hidden"
           >
             <button
               onClick={() => toggleItem(index)}

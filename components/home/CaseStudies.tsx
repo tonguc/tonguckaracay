@@ -77,8 +77,8 @@ export default function CaseStudies({ locale }: Props) {
   return (
     <section id="case-studies" className="py-14 md:py-24">
       <div className="container-custom">
-        <div className="mb-10 text-center md:mb-14">
-          <h2 className="section-title mx-auto">
+        <div className="mb-10 md:mb-14">
+          <h2 className="section-title">
             {isTr ? "Öne Çıkan " : "Featured "}
             <span className="text-gradient">{isTr ? "Vaka Çalışmaları" : "Case Studies"}</span>
           </h2>
@@ -98,7 +98,7 @@ export default function CaseStudies({ locale }: Props) {
                   <span className="rounded-full bg-surface-card/70 px-3 py-1 text-xs font-medium text-primary-300">
                     {c.industry}
                   </span>
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-500/20 text-accent-300 ring-1 ring-accent-500/30 transition-all group-hover:bg-accent-500/30 group-hover:text-accent-200">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-md bg-accent-500/20 text-accent-300 ring-1 ring-accent-500/30 transition-all group-hover:bg-accent-500/30 group-hover:text-accent-200">
                     <Icon className="h-6 w-6" strokeWidth={2.25} />
                   </div>
                 </div>

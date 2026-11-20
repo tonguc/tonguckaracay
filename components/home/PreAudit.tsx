@@ -41,9 +41,6 @@ export default function PreAudit({ locale }: { locale: string }) {
       <div className="container-custom">
         <div className="card grid gap-8 p-6 md:grid-cols-2 md:gap-12 md:p-10">
           <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400 md:text-sm">
-              {isTr ? "İlk Görüşme · Taahhütsüz" : "Initial Discussion · No Commitment"}
-            </p>
             <h2 className="font-display text-2xl font-bold leading-tight text-white md:text-4xl">
               {isTr ? "Dijital Ürün ve AI " : "Digital Product & AI "}
               <span className="text-gradient">{isTr ? "Ön Değerlendirme" : "Initial Review"}</span>
@@ -56,7 +53,7 @@ export default function PreAudit({ locale }: { locale: string }) {
             <ul className="mt-5 space-y-2.5">
               {includes.map((i) => (
                 <li key={i} className="flex gap-2.5 text-primary-200">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary-300" />
                   {i}
                 </li>
               ))}

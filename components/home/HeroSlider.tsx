@@ -75,9 +75,6 @@ export default function HeroSlider({ locale, posts }: Props) {
             <div className="absolute inset-0 bg-gradient-to-t from-surface-darker via-surface-darker/50 to-surface-darker/10" />
 
             <div className="container-custom relative z-10 flex h-full flex-col justify-end pb-16 md:pb-20">
-              <span className="mb-4 inline-flex w-fit items-center rounded-full bg-accent-500/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-surface-darker">
-                {post.category}
-              </span>
               <h2 className="max-w-3xl font-display text-3xl font-bold leading-[1.15] text-white drop-shadow-sm sm:text-4xl md:text-5xl">
                 {post.title}
               </h2>
@@ -98,7 +95,7 @@ export default function HeroSlider({ locale, posts }: Props) {
               type="button"
               aria-label={isTr ? "Önceki" : "Previous"}
               onClick={prev}
-              className="absolute left-3 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-surface-darker/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-surface-darker/80 md:left-6 md:block md:p-3"
+              className="absolute left-3 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-surface-darker/50 p-2 text-white transition-colors hover:bg-surface-darker/80 md:left-6 md:block md:p-3"
             >
               <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
             </button>
@@ -106,7 +103,7 @@ export default function HeroSlider({ locale, posts }: Props) {
               type="button"
               aria-label={isTr ? "Sonraki" : "Next"}
               onClick={next}
-              className="absolute right-3 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-surface-darker/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-surface-darker/80 md:right-6 md:block md:p-3"
+              className="absolute right-3 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-surface-darker/50 p-2 text-white transition-colors hover:bg-surface-darker/80 md:right-6 md:block md:p-3"
             >
               <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
             </button>

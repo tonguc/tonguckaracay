@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Schibsted+Grotesk:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 @tailwind base;
@@ -6,10 +6,9 @@
 @tailwind utilities;
 
 :root {
-  /* 2026-11 yeniden tasarım: Poppins yerine karakterli grotesk başlık + Inter gövde.
-     Poppins Instagram şablonlarında kalır; sitede kullanılmaz. */
-  --font-display: 'Schibsted Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  /* Marka fontu Poppins (site + Instagram) — kullanıcı tercihi, değiştirme. */
+  --font-display: 'Poppins', system-ui, sans-serif;
+  --font-body: 'Poppins', system-ui, sans-serif;
 }
 
 @layer base {
@@ -31,10 +30,10 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
-  /* Eski gradient metin artık düz turuncu (gradient yazı "AI şablonu" izlenimi veriyordu).
-     Sınıf adı geriye dönük uyumluluk için korunuyor. */
+  /* Başlıklardaki vurgulu/gradient kelime "AI şablonu" izlenimi veriyordu (2026-11).
+     Sınıf geriye dönük uyumluluk için duruyor ama artık çevredeki metin rengini alır — vurgu YOK. */
   .text-gradient {
-    @apply text-accent-400;
+    color: inherit;
   }
   
   .logo-text {

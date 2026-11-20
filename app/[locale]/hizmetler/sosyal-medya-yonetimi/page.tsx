@@ -216,8 +216,6 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -303,7 +301,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
       {/* Problem Section */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl">
             <h2 className="section-title mb-6">
               Bu Hizmet Hangi <span className="text-gradient">Sorunları Çözer?</span>
             </h2>
@@ -314,48 +312,48 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Zaman Yetersizliği</h3>
               <p className="text-primary-400 text-sm mb-3">Sosyal medyaya düzenli içerik üretecek zamanınız yok.</p>
               <p className="text-accent-400 text-sm">→ Tam kapsamlı yönetimle bu yükü üzerinizden alıyorum</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Eye className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Eye className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Düşük Görünürlük</h3>
               <p className="text-primary-400 text-sm mb-3">Paylaşımlarınız az kişiye ulaşıyor, etkileşim düşük.</p>
               <p className="text-accent-400 text-sm">→ Algoritma uyumlu strateji ve hashtag optimizasyonu</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <PenTool className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <PenTool className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">İçerik Fikri Eksikliği</h3>
               <p className="text-primary-400 text-sm mb-3">Ne paylaşacağınızı bilmiyorsunuz, içerik tükeniyor.</p>
               <p className="text-accent-400 text-sm">→ İçerik pillars ve aylık takvimle sürekli taze fikirler</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Heart className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Heart className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Düşük Etkileşim</h3>
               <p className="text-primary-400 text-sm mb-3">Takipçileriniz var ama etkileşim alamıyorsunuz.</p>
               <p className="text-accent-400 text-sm">→ Topluluk yönetimi ve engagement stratejileri</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <AlertTriangle className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Tutarsız Marka İmajı</h3>
               <p className="text-primary-400 text-sm mb-3">Farklı platformlarda farklı tonlar, karışık mesajlar.</p>
               <p className="text-accent-400 text-sm">→ Tutarlı marka sesi ve görsel kimlik rehberi</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <BarChart3 className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <BarChart3 className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Ölçüm Eksikliği</h3>
               <p className="text-primary-400 text-sm mb-3">Neyin işe yaradığını, neyin yaramadığını bilmiyorsunuz.</p>
@@ -368,7 +366,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
       {/* Platforms */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Yönettiğim <span className="text-gradient">Platformlar</span>
             </h2>
@@ -380,7 +378,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {platforms.map((platform, i) => (
               <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-md bg-accent-500/20 flex items-center justify-center mb-4">
                   <platform.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{platform.name}</h3>
@@ -394,7 +392,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
       {/* Services */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Hizmet <span className="text-gradient">Kapsamı</span>
             </h2>
@@ -406,7 +404,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <div key={i} className="card p-6">
-                <div className="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-md bg-accent-500/10 flex items-center justify-center mb-4">
                   <service.icon className="w-6 h-6 text-accent-500" />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">{service.title}</h3>
@@ -420,7 +418,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
       {/* Process */}
       <section id="süreç" className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Çalışma <span className="text-gradient">Sürecim</span>
             </h2>
@@ -471,20 +469,20 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
               <h3 className="text-xl font-semibold text-white mb-4">İçerik Türleri</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded bg-pink-500/20 flex items-center justify-center">
-                    <Image className="w-4 h-4 text-pink-400" />
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center">
+                    <Image className="w-4 h-4 text-primary-300" />
                   </div>
                   <span className="text-primary-200">Statik görseller & carousel'ler</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center">
-                    <Video className="w-4 h-4 text-blue-400" />
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center">
+                    <Video className="w-4 h-4 text-primary-300" />
                   </div>
                   <span className="text-primary-200">Reels, TikTok & Shorts videoları</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded bg-purple-500/20 flex items-center justify-center">
-                    <Share2 className="w-4 h-4 text-purple-400" />
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center">
+                    <Share2 className="w-4 h-4 text-primary-300" />
                   </div>
                   <span className="text-primary-200">Stories & interaktif içerikler</span>
                 </div>
@@ -503,7 +501,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
       {/* Why Me */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Neden <span className="text-gradient">Benimle Çalışmalısınız?</span>
             </h2>
@@ -541,7 +539,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Sıkça Sorulan <span className="text-gradient">Sorular</span>
             </h2>
@@ -566,8 +564,8 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-pink-500/10 to-blue-500/10">
-        <div className="container-custom text-center">
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Sosyal Medya Stratejinizi Oluşturalım
           </h2>

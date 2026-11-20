@@ -24,7 +24,7 @@ export default function Stats() {
         <div className="flex justify-center items-center gap-16 md:gap-24">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <p className="text-4xl md:text-5xl font-bold text-amber-500 mb-1">{stat.value}</p>
+              <p className="text-4xl md:text-5xl font-bold text-primary-400 mb-1">{stat.value}</p>
               <p className={`text-sm ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{stat.label}</p>
             </div>
           ))}

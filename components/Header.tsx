@@ -158,7 +158,7 @@ export default function Header() {
   return (
     <>
       {/* Top Accent Line */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-500 via-accent-400 to-accent-500 z-50" />
+      <div className="fixed top-0 left-0 right-0 h-1 z-50" />
       
       <header className={`fixed top-1 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
@@ -194,10 +194,10 @@ export default function Header() {
                 {servicesLabel}<ChevronDown className={`h-4 w-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
               </button>
               {isServicesOpen && (
-                <div className="absolute left-1/2 top-full z-50 mt-4 w-[min(540px,90vw)] -translate-x-1/2 rounded-2xl border border-surface-border bg-surface-card p-3 shadow-2xl shadow-black/30">
+                <div className="absolute left-1/2 top-full z-50 mt-4 w-[min(540px,90vw)] -translate-x-1/2 rounded-md border border-surface-border bg-surface-card p-3">
                   <div className="grid grid-cols-2 gap-1">
                     {serviceLinks.map((service) => (
-                      <Link key={service.href} href={service.href} onClick={() => setIsServicesOpen(false)} className="rounded-xl px-4 py-3 text-sm font-medium text-primary-200 transition-colors hover:bg-accent-500/10 hover:text-white">{service.label}</Link>
+                      <Link key={service.href} href={service.href} onClick={() => setIsServicesOpen(false)} className="rounded-md px-4 py-3 text-sm font-medium text-primary-200 transition-colors hover:bg-accent-500/10 hover:text-white">{service.label}</Link>
                     ))}
                   </div>
                 </div>
@@ -261,7 +261,7 @@ export default function Header() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 animate-fade-in">
-            <div className="bg-surface-card/95 backdrop-blur-lg border border-surface-border rounded-xl p-4">
+            <div className="bg-surface-card/95 border border-surface-border rounded-md p-4">
               <div className="pt-4 border-t border-surface-border space-y-2">
                 <Link href={navLinks.cases} className="block px-2 py-2 text-primary-200 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{casesLabel}</Link>
                 <div className="px-2 pb-1 pt-3 text-xs font-semibold uppercase tracking-widest text-primary-400">{servicesLabel}</div>

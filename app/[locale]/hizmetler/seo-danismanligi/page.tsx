@@ -184,8 +184,6 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -271,7 +269,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
       {/* Problem Section */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl">
             <h2 className="section-title mb-6">
               Bu Hizmet Hangi <span className="text-gradient">Sorunları Çözer?</span>
             </h2>
@@ -282,48 +280,48 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <TrendingUp className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <TrendingUp className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Google'da Görünmüyorsunuz</h3>
               <p className="text-primary-400 text-sm mb-3">Potansiyel müşteriler sizi aradığında rakiplerinizi buluyor.</p>
               <p className="text-accent-400 text-sm">→ Hedefli anahtar kelime stratejisi ve on-page optimizasyon</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Reklama Bağımlılık</h3>
               <p className="text-primary-400 text-sm mb-3">Trafik için sürekli reklam bütçesi harcamak zorunda kalıyorsunuz.</p>
               <p className="text-accent-400 text-sm">→ Sürdürülebilir organik trafik stratejisi</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <AlertTriangle className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Teknik Sorunlar</h3>
               <p className="text-primary-400 text-sm mb-3">Site yavaş, mobil uyumsuz veya Google tarafından düzgün indexlenmiyor.</p>
               <p className="text-accent-400 text-sm">→ Kapsamlı teknik SEO audit ve optimizasyon</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Rakipler Önde</h3>
               <p className="text-primary-400 text-sm mb-3">Aynı anahtar kelimelerde rakipleriniz sürekli üst sıralarda.</p>
               <p className="text-accent-400 text-sm">→ Rakip analizi ve rekabetçi strateji geliştirme</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <FileText className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">İçerik Performansı Düşük</h3>
               <p className="text-primary-400 text-sm mb-3">Blog yazıyorsunuz ama trafik gelmiyor, sıralama almıyor.</p>
               <p className="text-accent-400 text-sm">→ Veri odaklı içerik stratejisi ve optimizasyon</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Shield className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Algoritma Güncellemeleri</h3>
               <p className="text-primary-400 text-sm mb-3">Google güncellemelerinden sonra sıralamalarınız düştü.</p>
@@ -336,7 +334,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
       {/* Services */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Hizmet <span className="text-gradient">Kapsamı</span>
             </h2>
@@ -348,7 +346,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-md bg-accent-500/20 flex items-center justify-center mb-4">
                   <service.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
@@ -362,7 +360,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
       {/* Process */}
       <section id="süreç" className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Çalışma <span className="text-gradient">Sürecim</span>
             </h2>
@@ -429,7 +427,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
       {/* Why Me */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Neden <span className="text-gradient">Benimle Çalışmalısınız?</span>
             </h2>
@@ -467,7 +465,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
       {/* GEO Section */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="card p-8 md:p-12 bg-gradient-to-br from-accent-500/5 to-indigo-500/5 border-accent-500/20">
+          <div className="card p-8 md:p-12 border-accent-500/20">
             <div className="max-w-3xl">
               <span className="text-accent-400 text-sm font-medium mb-2 block">Yeni Trend</span>
               <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
@@ -488,7 +486,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Sıkça Sorulan <span className="text-gradient">Sorular</span>
             </h2>
@@ -513,8 +511,8 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-accent-500/10 to-indigo-500/10">
-        <div className="container-custom text-center">
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             SEO Stratejinizi Oluşturalım
           </h2>

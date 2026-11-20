@@ -71,9 +71,6 @@ export default function AiProjectsGallery({ locale }: { locale: ProjectLocale })
   return (
     <section id="ai-projects" className="mt-16 md:mt-24" aria-labelledby="ai-projects-title">
       <div className="mb-10 max-w-3xl">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400">
-          {isTr?"Yapay Zeka Ürün Geliştirme":"AI Product Development"}
-        </p>
         <h2 id="ai-projects-title" className="section-title">
           {isTr?"Yapay Zeka ile " :"Built with "}<span className="text-gradient">{isTr?"Geliştirdiğim Projeler":"AI-Assisted Workflows"}</span>
         </h2>

@@ -184,8 +184,6 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -271,7 +269,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
       {/* Problem Section */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl">
             <h2 className="section-title mb-6">
               Bu Hizmet Hangi <span className="text-gradient">Sorunları Çözer?</span>
             </h2>
@@ -282,48 +280,48 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <DollarSign className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <DollarSign className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Bütçe İsrafı</h3>
               <p className="text-primary-400 text-sm mb-3">Reklam harcıyorsunuz ama dönüşüm gelmiyor, para boşa gidiyor.</p>
               <p className="text-accent-400 text-sm">→ Dönüşüm odaklı kampanya yapısı ve sürekli optimizasyon</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Target className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Target className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Yanlış Hedefleme</h3>
               <p className="text-primary-400 text-sm mb-3">Reklamlarınız doğru kitleye ulaşmıyor, alakasız tıklamalar alıyorsunuz.</p>
               <p className="text-accent-400 text-sm">→ Detaylı hedef kitle analizi ve negatif anahtar kelime yönetimi</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Eye className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Eye className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Rakipler Önde</h3>
               <p className="text-primary-400 text-sm mb-3">Rakipleriniz sürekli üst sıralarda, siz görünmüyorsunuz.</p>
               <p className="text-accent-400 text-sm">→ Rekabet analizi ve akıllı teklif stratejileri</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <MousePointer className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <MousePointer className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Düşük Dönüşüm Oranı</h3>
               <p className="text-primary-400 text-sm mb-3">Tıklama alıyorsunuz ama satış/lead gelmiyor.</p>
               <p className="text-accent-400 text-sm">→ Landing page optimizasyonu ve conversion tracking</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Zaman Yetersizliği</h3>
               <p className="text-primary-400 text-sm mb-3">Kampanyaları yönetecek ve optimize edecek zamanınız yok.</p>
               <p className="text-accent-400 text-sm">→ Tam kapsamlı yönetim ve düzenli raporlama</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <AlertTriangle className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Ölçüm Eksikliği</h3>
               <p className="text-primary-400 text-sm mb-3">Hangi kampanya işe yarıyor, hangisi yaramıyor bilmiyorsunuz.</p>
@@ -336,7 +334,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
       {/* Services */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Hizmet <span className="text-gradient">Kapsamı</span>
             </h2>
@@ -348,7 +346,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-md bg-accent-500/20 flex items-center justify-center mb-4">
                   <service.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
@@ -362,7 +360,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
       {/* Process */}
       <section id="süreç" className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Çalışma <span className="text-gradient">Sürecim</span>
             </h2>
@@ -429,7 +427,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
       {/* Why Me */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Neden <span className="text-gradient">Benimle Çalışmalısınız?</span>
             </h2>
@@ -467,7 +465,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
       {/* Platform Comparison */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Platform <span className="text-gradient">Karşılaştırması</span>
             </h2>
@@ -476,8 +474,8 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="card p-8">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                  <Search className="w-6 h-6 text-blue-400" />
+                <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center">
+                  <Search className="w-6 h-6 text-primary-300" />
                 </div>
                 <h3 className="text-xl font-semibold text-white">Google Ads</h3>
               </div>
@@ -503,8 +501,8 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
 
             <div className="card p-8">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-purple-400" />
+                <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center">
+                  <Users className="w-6 h-6 text-primary-300" />
                 </div>
                 <h3 className="text-xl font-semibold text-white">Meta Ads</h3>
               </div>
@@ -534,7 +532,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Sıkça Sorulan <span className="text-gradient">Sorular</span>
             </h2>
@@ -559,8 +557,8 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-accent-500/10 to-indigo-500/10">
-        <div className="container-custom text-center">
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Reklam Stratejinizi Oluşturalım
           </h2>

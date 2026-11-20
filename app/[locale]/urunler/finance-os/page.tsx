@@ -90,8 +90,6 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
       {/* Hero */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -155,7 +153,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
       {/* Screenshots gallery */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">Uygulamadan <span className="text-gradient">Görüntüler</span></h2>
             <p className="text-primary-300 max-w-2xl mx-auto">Örnek verilerle - gerçek uygulama arayüzünden alınmış ekran görüntüleri.</p>
           </div>
@@ -177,13 +175,13 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
       {/* Features */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">Neler <span className="text-gradient">Yapabilirsiniz?</span></h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f, i) => (
               <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-md bg-accent-500/20 flex items-center justify-center mb-4">
                   <f.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{f.title}</h3>
@@ -197,7 +195,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
       {/* How it works */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">Nasıl <span className="text-gradient">Çalışır?</span></h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -215,7 +213,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
       {/* FAQ */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">Sıkça Sorulan <span className="text-gradient">Sorular</span></h2>
           </div>
           <div className="max-w-3xl mx-auto space-y-4">
@@ -237,8 +235,8 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-accent-500/10 to-indigo-500/10">
-        <div className="container-custom text-center">
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Bütçenizi Bugün Kontrol Altına Alın
           </h2>

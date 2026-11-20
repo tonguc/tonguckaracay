@@ -18,7 +18,7 @@ export default function Brands() {
   return (
     <section className={`py-20 ${isLight ? 'bg-slate-100' : 'bg-slate-800/50'}`}>
       <div className="container-custom">
-        <div className="text-center mb-12">
+        <div className="mb-12">
           <h2 className="section-title">
             {locale === 'tr' ? 'Çalıştığım ' : 'Companies I\'ve '}<span className="text-gradient">{locale === 'tr' ? 'Firmalar' : 'Worked With'}</span>
           </h2>

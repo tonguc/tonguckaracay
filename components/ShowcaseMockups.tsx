@@ -20,8 +20,8 @@ export const WhatTimeMockup = () => (
         </div>
       ))}
     </div>
-    <div className="mt-2 bg-indigo-600/30 border border-indigo-500/30 rounded-lg px-2 py-1.5">
-      <div className="text-[8px] text-indigo-300">Best overlap window</div>
+    <div className="mt-2 bg-white/5 border border-surface-border rounded-lg px-2 py-1.5">
+      <div className="text-[8px] text-primary-300">Best overlap window</div>
       <div className="text-[10px] font-semibold text-white">14:00 – 16:00 Istanbul</div>
     </div>
   </div>
@@ -42,11 +42,11 @@ export const UxSeoMockup = ({ locale = "tr" }: { locale?: Locale }) => {
         <div className="flex-1">
           <div className="text-[9px] text-primary-400">tonguckaracay.com</div>
           <div className="h-1 w-full bg-surface-border rounded mt-1">
-            <div className="h-1 w-[73%] bg-indigo-500 rounded" />
+            <div className="h-1 w-[73%] bg-surface-card rounded" />
           </div>
         </div>
         <div className="text-right">
-          <div className="font-bold text-xl text-indigo-300 leading-none">73</div>
+          <div className="font-bold text-xl text-primary-300 leading-none">73</div>
           <div className="text-[8px] text-primary-500">/100</div>
         </div>
       </div>
@@ -88,7 +88,7 @@ export const OnayFormuMockup = ({ locale = "tr" }: { locale?: Locale }) => {
             <div className="h-4 bg-surface-border/60 rounded border border-surface-border" />
           </div>
         ))}
-        <div className="mt-2 bg-indigo-500/80 rounded text-center py-1">
+        <div className="mt-2 bg-white/5 rounded text-center py-1">
           <span className="text-[9px] text-white font-medium">{buttonLabel}</span>
         </div>
       </div>
@@ -113,7 +113,7 @@ export const DijitalTespitMockup = ({ locale = "tr" }: { locale?: Locale }) => {
     <div className="absolute inset-0 pt-7 p-3 overflow-hidden">
       <div className="flex items-center justify-between mb-2">
         <div className="text-[9px] text-primary-400">{sector}</div>
-        <div className="text-[9px] text-indigo-300 bg-indigo-500/10 px-1.5 py-0.5 rounded">
+        <div className="text-[9px] text-primary-300 bg-white/5 px-1.5 py-0.5 rounded">
           {results}
         </div>
       </div>

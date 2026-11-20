@@ -126,8 +126,6 @@ export default function GeoOptimizasyonuPage({ params: { locale } }: Props) {
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -191,7 +189,7 @@ export default function GeoOptimizasyonuPage({ params: { locale } }: Props) {
       {/* Services */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Hizmet <span className="text-gradient">Kapsamı</span>
             </h2>
@@ -203,7 +201,7 @@ export default function GeoOptimizasyonuPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-md bg-accent-500/20 flex items-center justify-center mb-4">
                   <service.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
@@ -217,7 +215,7 @@ export default function GeoOptimizasyonuPage({ params: { locale } }: Props) {
       {/* Process */}
       <section id="süreç" className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Çalışma <span className="text-gradient">Sürecim</span>
             </h2>
@@ -284,7 +282,7 @@ export default function GeoOptimizasyonuPage({ params: { locale } }: Props) {
       {/* Why Me */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Neden <span className="text-gradient">Benimle Çalışmalısınız?</span>
             </h2>
@@ -322,7 +320,7 @@ export default function GeoOptimizasyonuPage({ params: { locale } }: Props) {
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Sıkça Sorulan <span className="text-gradient">Sorular</span>
             </h2>
@@ -347,8 +345,8 @@ export default function GeoOptimizasyonuPage({ params: { locale } }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-accent-500/10 to-indigo-500/10">
-        <div className="container-custom text-center">
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             AI Görünürlüğünüzü Değerlendirelim
           </h2>

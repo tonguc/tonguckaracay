@@ -36,7 +36,7 @@ export default function About() {
           {/* Sol - Fotoğraf ve İstatistikler */}
           <div className="relative">
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-2xl">
+              <div className="rounded-md overflow-hidden">
                 <Image
                   src="/tonguc-karacay.jpg"
                   alt="Tonguç Karaçay"
@@ -47,7 +47,7 @@ export default function About() {
               </div>
               
               {/* Floating Stats Card */}
-              <div className="absolute -bottom-4 right-2 md:-bottom-6 md:-right-6 bg-surface-card border border-primary-800 rounded-xl p-3 md:p-4 shadow-xl">
+              <div className="absolute -bottom-4 right-2 md:-bottom-6 md:-right-6 bg-surface-card border border-primary-800 rounded-md p-3 md:p-4">
                 <div className="grid grid-cols-2 gap-3 md:gap-4">
                   {stats.map((stat, index) => (
                     <div key={index} className="text-center">

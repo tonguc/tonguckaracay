@@ -12,7 +12,6 @@ export default function CaseDetail({ item, locale }: { item: CaseStudy; locale: 
         <ArrowLeft className="h-4 w-4" /> {tr ? "Projelere Dön" : "Back to Projects"}
       </Link>
       <div className="mt-8 max-w-4xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent-400">{item.client}</p>
         <h1 className="mt-3 font-display text-3xl font-bold leading-tight text-white md:text-5xl">
           {item.title[locale]}
         </h1>
@@ -21,7 +20,7 @@ export default function CaseDetail({ item, locale }: { item: CaseStudy; locale: 
         </p>
       </div>
 
-      <div className="relative mt-9 aspect-[16/9] w-full max-w-5xl overflow-hidden rounded-2xl border border-surface-border bg-surface-darker">
+      <div className="relative mt-9 aspect-[16/9] w-full max-w-5xl overflow-hidden rounded-md border border-surface-border bg-surface-darker">
         <Image
           src={item.image}
           alt={item.title[locale] + " — " + item.client}
@@ -63,7 +62,7 @@ export default function CaseDetail({ item, locale }: { item: CaseStudy; locale: 
             </section>
           )}
           {item.testimonial && (
-            <blockquote className="rounded-2xl border border-surface-border bg-surface-card/50 p-6 text-primary-200">
+            <blockquote className="rounded-md border border-surface-border bg-surface-card/50 p-6 text-primary-200">
               <p className="italic">{item.testimonial.quote[locale]}</p>
               <footer className="mt-3 text-sm text-primary-400">{item.testimonial.name} · {item.testimonial.role[locale]}</footer>
             </blockquote>

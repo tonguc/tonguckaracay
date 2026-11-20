@@ -19,7 +19,7 @@ export default function Services() {
   return (
     <section id="hizmetler" className="py-12 md:py-20">
       <div className="container-custom">
-        <div className="text-center mb-8 md:mb-12">
+        <div className="mb-8 md:mb-12">
           <h2 className="section-title">
             {locale === 'tr' ? 'Uzmanlık ' : 'Expertise '}<span className="text-gradient">{locale === 'tr' ? 'Alanlarım' : 'Areas'}</span>
           </h2>
@@ -35,12 +35,12 @@ export default function Services() {
               <Link 
                 key={service.titleKey} 
                 href={service.href}
-                className="card p-5 md:p-6 text-center group hover:shadow-xl hover:shadow-accent-500/10 hover:-translate-y-1 transition-all duration-300"
+                className="card p-5 md:p-6 text-center group hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-3 md:mb-4 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-500/20 transition-all duration-300">
-                  <Icon className="w-6 h-6 md:w-7 md:h-7 text-amber-500" />
+                <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-3 md:mb-4 rounded-md bg-white/5 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/5 transition-all duration-300">
+                  <Icon className="w-6 h-6 md:w-7 md:h-7 text-primary-400" />
                 </div>
-                <h3 className="font-semibold text-white mb-2 group-hover:text-amber-500 transition-colors">
+                <h3 className="font-semibold text-white mb-2 group-hover:text-primary-400 transition-colors">
                   {title}
                 </h3>
                 <p className="text-sm text-primary-400 line-clamp-3">

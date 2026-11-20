@@ -142,8 +142,8 @@ export default function ContactForm({ locale }: { locale: Locale }) {
 
   if (isSubmitted) {
     return (
-      <div className="text-center py-12">
-        <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
+      <div className="py-12">
+        <CheckCircle2 className="w-16 h-16 text-green-400 mb-4" />
         <h3 className="text-2xl font-display font-bold text-white mb-3">{c.doneTitle}</h3>
         <p className="text-primary-300 mb-6">{c.doneText}</p>
         <button onClick={() => setIsSubmitted(false)} className="text-accent-400 hover:text-accent-300 font-medium transition-colors">
@@ -164,7 +164,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
           data-contact-method="booking"
           target="_blank"
           rel="noopener noreferrer"
-          className="mb-6 flex items-center gap-3 rounded-xl border border-accent-500/30 bg-accent-500/5 px-4 py-3 text-sm font-medium text-accent-200 transition-colors hover:border-accent-500/60 hover:text-white"
+          className="mb-6 flex items-center gap-3 rounded-md border border-accent-500/30 bg-accent-500/5 px-4 py-3 text-sm font-medium text-accent-200 transition-colors hover:border-accent-500/60 hover:text-white"
         >
           <CalendarDays className="h-5 w-5 shrink-0 text-accent-400" />
           {c.booking} →
@@ -208,7 +208,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
         </div>
 
         {error && (
-          <p role="alert" className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+          <p role="alert" className="rounded-md border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
             {error}
           </p>
         )}

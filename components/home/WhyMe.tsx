@@ -33,11 +33,8 @@ export default function WhyMe({ locale }: Props) {
   return (
     <section className="border-y border-surface-border/40 bg-surface-card/20 py-14 md:py-24">
       <div className="container-custom">
-        <div className="mb-10 text-center md:mb-14">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-            {isTr ? "Deneyim ve Yaklaşım" : "Experience & Approach"}
-          </p>
-          <h2 className="section-title mx-auto">
+        <div className="mb-10 md:mb-14">
+          <h2 className="section-title">
             {isTr ? "Bir Arada " : "Connecting "}
             <span className="text-gradient">{isTr ? "Ürün, Tasarım ve Teknoloji" : "Product, Design & Technology"}</span>
           </h2>
@@ -48,7 +45,7 @@ export default function WhyMe({ locale }: Props) {
             const Icon = c.icon;
             return (
               <div key={c.title} className="text-center md:text-left">
-                <div className={`mx-auto flex h-14 w-14 items-center justify-center rounded-2xl md:mx-0 ${tones[i]}`}>
+                <div className={`mx-auto flex h-14 w-14 items-center justify-center rounded-md md:mx-0 ${tones[i]}`}>
                   <Icon className="h-7 w-7" />
                 </div>
                 <h3 className="mt-5 font-display text-xl font-bold text-white">{c.title}</h3>

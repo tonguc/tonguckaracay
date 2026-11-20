@@ -173,12 +173,12 @@ const HASTAONAY_IMAGE = "/showcase/hastaonay-dashboard.png";
 
 // Kartları renklendirmek için ton paleti (Tailwind sınıfları statik kalmalı)
 const tones = [
-  { card: "bg-gradient-to-br from-indigo-500/20 via-indigo-500/5 to-transparent border-indigo-400/30 hover:border-indigo-300/70", icon: "bg-indigo-500/25 text-indigo-200", chip: "bg-indigo-500/15 text-indigo-200 border-indigo-400/30", text: "text-indigo-300" },
-  { card: "bg-gradient-to-br from-emerald-500/20 via-emerald-500/5 to-transparent border-emerald-400/30 hover:border-emerald-300/70", icon: "bg-emerald-500/25 text-emerald-200", chip: "bg-emerald-500/15 text-emerald-200 border-emerald-400/30", text: "text-emerald-300" },
-  { card: "bg-gradient-to-br from-amber-500/20 via-amber-500/5 to-transparent border-amber-400/30 hover:border-amber-300/70", icon: "bg-amber-500/25 text-amber-200", chip: "bg-amber-500/15 text-amber-200 border-amber-400/30", text: "text-amber-300" },
-  { card: "bg-gradient-to-br from-rose-500/20 via-rose-500/5 to-transparent border-rose-400/30 hover:border-rose-300/70", icon: "bg-rose-500/25 text-rose-200", chip: "bg-rose-500/15 text-rose-200 border-rose-400/30", text: "text-rose-300" },
-  { card: "bg-gradient-to-br from-sky-500/20 via-sky-500/5 to-transparent border-sky-400/30 hover:border-sky-300/70", icon: "bg-sky-500/25 text-sky-200", chip: "bg-sky-500/15 text-sky-200 border-sky-400/30", text: "text-sky-300" },
-  { card: "bg-gradient-to-br from-fuchsia-500/20 via-fuchsia-500/5 to-transparent border-fuchsia-400/30 hover:border-fuchsia-300/70", icon: "bg-fuchsia-500/25 text-fuchsia-200", chip: "bg-fuchsia-500/15 text-fuchsia-200 border-fuchsia-400/30", text: "text-fuchsia-300" },
+  { card: "bg-surface-card border-surface-border hover:border-primary-600", icon: "bg-white/5 text-primary-200", chip: "bg-white/5 text-primary-200 border-surface-border", text: "text-primary-300" },
+  { card: "bg-surface-card border-surface-border hover:border-primary-600", icon: "bg-white/5 text-primary-200", chip: "bg-white/5 text-primary-200 border-surface-border", text: "text-primary-300" },
+  { card: "bg-surface-card border-surface-border hover:border-primary-600", icon: "bg-white/5 text-primary-200", chip: "bg-white/5 text-primary-200 border-surface-border", text: "text-primary-300" },
+  { card: "bg-surface-card border-surface-border hover:border-primary-600", icon: "bg-white/5 text-primary-200", chip: "bg-white/5 text-primary-200 border-surface-border", text: "text-primary-300" },
+  { card: "bg-surface-card border-surface-border hover:border-primary-600", icon: "bg-white/5 text-primary-200", chip: "bg-white/5 text-primary-200 border-surface-border", text: "text-primary-300" },
+  { card: "bg-surface-card border-surface-border hover:border-primary-600", icon: "bg-white/5 text-primary-200", chip: "bg-white/5 text-primary-200 border-surface-border", text: "text-primary-300" },
 ];
 const tone = (i: number) => tones[i % tones.length];
 
@@ -265,8 +265,6 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* HERO */}
       <section className="relative py-20 md:py-28 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl" />
         </div>
 
         <div className="container-custom relative z-10">
@@ -277,14 +275,14 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               <span className="text-white">AI Eğitimi</span>
             </nav>
 
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-surface-border text-primary-300 text-sm font-medium mb-8">
               <Sparkles className="w-4 h-4" />
               <span>Bireysel & Kurumsal AI Programları</span>
             </div>
 
             <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-6 leading-[1.1]">
               AI ile işinizi büyütün.{" "}
-              <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+              <span className="bg-clip-text text-transparent">
                 İçerik, reklam ve operasyon
               </span>{" "}
               süreçlerinizi hızlandırın.
@@ -311,21 +309,21 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 href={waLink("Merhaba, AI Eğitimi hakkında bilgi almak istiyorum.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all shadow-lg shadow-green-500/20"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md transition-all"
               >
                 <WhatsAppIcon className="w-5 h-5" />
                 WhatsApp'tan bilgi al
               </a>
               <Link
                 href="#bireysel"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-surface-card border border-surface-border hover:border-indigo-500/50 text-white font-semibold rounded-xl transition-all"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-surface-card border border-surface-border hover:border-surface-border text-white font-semibold rounded-md transition-all"
               >
                 <Users className="w-5 h-5" />
                 Bireysel katılım
               </Link>
               <Link
                 href="#kurumsal"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-surface-card border border-surface-border hover:border-violet-500/50 text-white font-semibold rounded-xl transition-all"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-surface-card border border-surface-border hover:border-surface-border text-white font-semibold rounded-md transition-all"
               >
                 <Building2 className="w-5 h-5" />
                 Şirketim için
@@ -338,10 +336,10 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* CALLOUT — Pozisyonlama */}
       <section className="py-12">
         <div className="container-custom">
-          <div className="max-w-5xl mx-auto bg-gradient-to-br from-indigo-500/10 via-violet-500/5 to-transparent border border-indigo-500/20 rounded-2xl p-8 md:p-10">
+          <div className="max-w-5xl border border-surface-border rounded-md p-8 md:p-10">
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                <Sparkles className="w-5 h-5 text-indigo-300" />
+              <div className="w-10 h-10 rounded-md bg-white/5 flex items-center justify-center flex-shrink-0 mt-1">
+                <Sparkles className="w-5 h-5 text-primary-300" />
               </div>
               <div className="flex-1">
                 <h2 className="font-display text-xl md:text-2xl font-bold text-white mb-3">
@@ -358,7 +356,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   {["ChatGPT", "Claude", "Google Gemini", "Midjourney", "Canva AI"].map((tool) => (
                     <span
                       key={tool}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/30 rounded-lg text-xs text-indigo-200 font-medium"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-surface-border rounded-lg text-xs text-primary-200 font-medium"
                     >
                       {tool}
                     </span>
@@ -373,7 +371,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* KARŞILAŞTIRMA — Sıradan vs Sistem */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Fark nerede?
             </h2>
@@ -383,9 +381,9 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-rose-500/15 via-orange-500/5 to-transparent border border-rose-400/25 rounded-2xl p-8">
-              <h3 className="font-display text-lg font-bold text-rose-200 mb-6 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-rose-500/25 text-rose-200 flex items-center justify-center text-xs">✕</span>
+            <div className="border border-surface-border rounded-md p-8">
+              <h3 className="font-display text-lg font-bold text-primary-200 mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-white/5 text-primary-200 flex items-center justify-center text-xs">✕</span>
                 Sıradan AI kullanımı
               </h3>
               <ul className="space-y-4">
@@ -397,16 +395,16 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   "Hangi araç ne işe yarar, belli değil",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-primary-200 text-sm">
-                    <XCircle className="w-4 h-4 text-rose-300 flex-shrink-0 mt-0.5" />
+                    <XCircle className="w-4 h-4 text-primary-300 flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="bg-gradient-to-br from-emerald-500/20 via-sky-500/10 to-indigo-500/10 border border-emerald-400/35 rounded-2xl p-8 shadow-lg shadow-emerald-500/10">
-              <h3 className="font-display text-lg font-bold text-emerald-200 mb-6 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-emerald-500/25 text-emerald-200 flex items-center justify-center text-xs">✓</span>
+            <div className="border border-surface-border rounded-md p-8">
+              <h3 className="font-display text-lg font-bold text-primary-200 mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-white/5 text-primary-200 flex items-center justify-center text-xs">✓</span>
                 Sistem kurma
               </h3>
               <ul className="space-y-4">
@@ -418,7 +416,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   "Her araç için net kullanım amacı",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-primary-100 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-300 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-primary-300 flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -432,7 +430,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-surface-border text-primary-300 text-sm font-medium mb-4">
               <Sparkles className="w-4 h-4" />
               <span>Gerçek örnekler</span>
             </div>
@@ -445,7 +443,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
           </div>
 
           {hastaOnay && (
-            <div className="max-w-6xl mx-auto mb-8 grid lg:grid-cols-5 gap-0 rounded-3xl overflow-hidden border border-emerald-400/30 bg-gradient-to-br from-emerald-500/20 via-sky-500/10 to-indigo-500/10 shadow-xl shadow-emerald-500/10">
+            <div className="max-w-6xl mx-auto mb-8 grid lg:grid-cols-5 gap-0 rounded-md overflow-hidden border border-surface-border">
               <div className="lg:col-span-3 p-3 sm:p-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -453,11 +451,11 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   alt="hastaOnay klinik onay sistemi panel ekran görüntüsü"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-auto rounded-2xl border border-white/10 shadow-lg"
+                  className="w-full h-auto rounded-md border border-white/10"
                 />
               </div>
               <div className="lg:col-span-2 p-6 md:p-8 flex flex-col justify-center">
-                <span className="inline-flex w-fit items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs font-semibold mb-4">
+                <span className="inline-flex w-fit items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-surface-border text-primary-200 text-xs font-semibold mb-4">
                   <Stethoscope className="w-3.5 h-3.5" />
                   Klinikler için
                 </span>
@@ -468,14 +466,14 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 <ul className="space-y-2 mb-6">
                   {hastaOnay.highlights.tr.slice(0, 2).map((h) => (
                     <li key={h} className="flex items-start gap-2 text-sm text-primary-200">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-300 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-primary-300 flex-shrink-0 mt-0.5" />
                       <span>{h}</span>
                     </li>
                   ))}
                 </ul>
                 <div className="flex flex-wrap gap-2">
                   {hastaOnay.stack.map((tool) => (
-                    <span key={tool} className="px-2.5 py-1 text-xs bg-emerald-500/15 text-emerald-200 rounded-md border border-emerald-400/30">
+                    <span key={tool} className="px-2.5 py-1 text-xs bg-white/5 text-primary-200 rounded-md border border-surface-border">
                       {tool}
                     </span>
                   ))}
@@ -488,7 +486,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             {showcase.map((item, i) => (
               <div
                 key={item.slug}
-                className={`border rounded-2xl overflow-hidden transition-all group ${tone(i).card}`}
+                className={`border rounded-md overflow-hidden transition-all group ${tone(i).card}`}
               >
                 <a
                   href={item.externalUrl}
@@ -547,7 +545,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* SEKTÖREL GRID */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Hangi sektördesiniz?
             </h2>
@@ -563,9 +561,9 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 <Link
                   key={sector.anchor}
                   href={`#${sector.anchor}`}
-                  className={`group border rounded-2xl p-6 transition-all ${tone(i).card}`}
+                  className={`group border rounded-md p-6 transition-all ${tone(i).card}`}
                 >
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${tone(i).icon}`}>
+                  <div className={`w-12 h-12 rounded-md flex items-center justify-center mb-4 ${tone(i).icon}`}>
                     <Icon className="w-6 h-6" />
                   </div>
                   <h3 className="font-display text-lg font-bold text-white mb-2">{sector.name}</h3>
@@ -584,7 +582,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* SEGMENT AYRIMI */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Size uygun olan hangisi?
             </h2>
@@ -594,10 +592,10 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            <div id="bireysel" className="bg-gradient-to-br from-indigo-500/25 via-sky-500/10 to-transparent border border-indigo-400/40 rounded-2xl p-8 flex flex-col scroll-mt-24 shadow-lg shadow-indigo-500/10">
+            <div id="bireysel" className="border border-surface-border rounded-md p-8 flex flex-col scroll-mt-24">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-indigo-300" />
+                <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center">
+                  <Users className="w-6 h-6 text-primary-300" />
                 </div>
                 <h3 className="font-display text-2xl font-bold text-white">Bireysel</h3>
               </div>
@@ -613,7 +611,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   "Sektöre özel prompt kütüphanesi",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-primary-300">
-                    <CheckCircle2 className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-primary-300 flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -622,17 +620,17 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 href={waLink("Merhaba, Bireysel AI Eğitimi için yer ayırtmak istiyorum.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md transition-all"
               >
                 <WhatsAppIcon className="w-5 h-5" />
                 WhatsApp'tan yerini ayırt
               </a>
             </div>
 
-            <div id="kurumsal" className="bg-gradient-to-br from-fuchsia-500/25 via-violet-500/10 to-transparent border border-fuchsia-400/40 rounded-2xl p-8 flex flex-col scroll-mt-24 shadow-lg shadow-fuchsia-500/10">
+            <div id="kurumsal" className="border border-surface-border rounded-md p-8 flex flex-col scroll-mt-24">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-violet-500/20 flex items-center justify-center">
-                  <Building2 className="w-6 h-6 text-violet-300" />
+                <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center">
+                  <Building2 className="w-6 h-6 text-primary-300" />
                 </div>
                 <h3 className="font-display text-2xl font-bold text-white">Kurumsal</h3>
               </div>
@@ -647,7 +645,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   "İhtiyaca göre özelleştirilmiş müfredat",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-primary-300">
-                    <CheckCircle2 className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-primary-300 flex-shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -656,7 +654,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 href={waLink("Merhaba, şirketim için Kurumsal AI Eğitimi teklifi almak istiyorum.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md transition-all"
               >
                 <WhatsAppIcon className="w-5 h-5" />
                 WhatsApp'tan teklif al
@@ -669,7 +667,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* MÜFREDAT */}
       <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Müfredat
             </h2>
@@ -682,8 +680,8 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             {curriculum.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={idx} className={`border rounded-2xl p-6 transition-all ${tone(idx + 2).card}`}>
-                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${tone(idx + 2).icon}`}>
+                <div key={idx} className={`border rounded-md p-6 transition-all ${tone(idx + 2).card}`}>
+                  <div className={`w-11 h-11 rounded-md flex items-center justify-center mb-4 ${tone(idx + 2).icon}`}>
                     <Icon className="w-5 h-5" />
                   </div>
                   <h3 className="font-display text-lg font-bold text-white mb-2">{item.title}</h3>
@@ -698,7 +696,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* SEKTÖREL DETAY */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Sektörel detay
             </h2>
@@ -715,10 +713,10 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                 <div
                   key={detail.anchor}
                   id={detail.anchor}
-                  className={`border rounded-2xl p-8 scroll-mt-24 ${t.card}`}
+                  className={`border rounded-md p-8 scroll-mt-24 ${t.card}`}
                 >
                   <div className="flex items-center gap-3 mb-6">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${t.icon}`}>
+                    <div className={`w-12 h-12 rounded-md flex items-center justify-center ${t.icon}`}>
                       <Icon className="w-6 h-6" />
                     </div>
                     <h3 className="font-display text-2xl font-bold text-white">{detail.name}</h3>
@@ -726,20 +724,20 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
 
                   <div className="grid md:grid-cols-2 gap-8">
                     <div>
-                      <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
+                      <h4 className="text-sm font-semibold text-primary-300 uppercase tracking-wider mb-3">
                         Ne üretilebilir
                       </h4>
                       <ul className="space-y-2">
                         {detail.produce.map((item) => (
                           <li key={item} className="text-primary-300 text-sm flex items-start gap-2">
-                            <span className="text-violet-400 flex-shrink-0">•</span>
+                            <span className="text-primary-300 flex-shrink-0">•</span>
                             <span>{item}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                     <div>
-                      <h4 className="text-sm font-semibold text-indigo-300 uppercase tracking-wider mb-3">
+                      <h4 className="text-sm font-semibold text-primary-300 uppercase tracking-wider mb-3">
                         Nasıl uygulanır
                       </h4>
                       <p className="text-primary-300 text-sm leading-relaxed">{detail.how}</p>
@@ -759,9 +757,9 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-10">
+            <div className="mb-10">
               <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                Beklentileri <span className="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">baştan netleştirelim</span>
+                Beklentileri <span className="bg-clip-text text-transparent">baştan netleştirelim</span>
               </h2>
               <p className="text-lg text-primary-300 max-w-2xl mx-auto">
                 Doğru beklentiyle başlayan, sonucu da hızlı görür.
@@ -769,8 +767,8 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-amber-500/20 via-amber-500/5 to-transparent border-amber-400/35 border rounded-2xl p-6">
-                <Lightbulb className="w-8 h-8 text-amber-300 mb-3" />
+              <div className="border-surface-border border rounded-md p-6">
+                <Lightbulb className="w-8 h-8 text-primary-300 mb-3" />
                 <h3 className="font-display text-lg font-bold text-white mb-2">
                   Kolay para kazanma yöntemi değil
                 </h3>
@@ -778,8 +776,8 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   Pasif gelir vaadi yok. Bu, mesleğinizdeki üretim hızınızı artıran bir altyapı kurma programı.
                 </p>
               </div>
-              <div className="bg-gradient-to-br from-sky-500/20 via-sky-500/5 to-transparent border-sky-400/35 border rounded-2xl p-6">
-                <Lightbulb className="w-8 h-8 text-sky-300 mb-3" />
+              <div className="border-surface-border border rounded-md p-6">
+                <Lightbulb className="w-8 h-8 text-primary-300 mb-3" />
                 <h3 className="font-display text-lg font-bold text-white mb-2">
                   Tek tuş çözüm değil
                 </h3>
@@ -787,8 +785,8 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                   AI işinizi tek başına yürütmez. Sistemi siz kurar, siz yönetir, siz onaylarsınız.
                 </p>
               </div>
-              <div className="bg-gradient-to-br from-emerald-500/20 via-emerald-500/5 to-transparent border-emerald-400/35 border rounded-2xl p-6">
-                <Lightbulb className="w-8 h-8 text-emerald-300 mb-3" />
+              <div className="border-surface-border border rounded-md p-6">
+                <Lightbulb className="w-8 h-8 text-primary-300 mb-3" />
                 <h3 className="font-display text-lg font-bold text-white mb-2">
                   Uygulama yapmadan sonuç vermez
                 </h3>
@@ -805,28 +803,28 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       <section className="py-16 md:py-20">
         <div className="container-custom">
           <div className="max-w-5xl mx-auto">
-            <div className="relative bg-gradient-to-br from-indigo-500/20 via-violet-500/10 to-fuchsia-500/15 border border-indigo-400/30 rounded-2xl overflow-hidden">
+            <div className="relative border border-surface-border rounded-md overflow-hidden">
               <div
                 className="absolute inset-0 opacity-[0.04] pointer-events-none"
                 style={{ backgroundImage: "radial-gradient(circle, #818cf8 1px, transparent 1px)", backgroundSize: "20px 20px" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-violet-500/5 pointer-events-none" />
+              <div className="absolute inset-0 pointer-events-none" />
 
               <div className="relative p-8 md:p-12">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-10 pb-10 border-b border-surface-border">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                  <div className="w-16 h-16 rounded-md flex items-center justify-center flex-shrink-0">
                     <span className="text-white font-bold text-2xl font-display">TK</span>
                   </div>
                   <div className="flex-1">
                     <h2 className="font-display text-2xl font-bold text-white">Tonguç Karaçay</h2>
-                    <p className="text-indigo-300 text-sm mt-0.5">AI-Driven UX & Growth Partner</p>
+                    <p className="text-primary-300 text-sm mt-0.5">AI-Driven UX & Growth Partner</p>
                     <p className="text-primary-200 text-sm">İstanbul — Türkiye, Avrupa, ABD, Körfez pazarları</p>
                   </div>
                   <a
                     href={waLink("Merhaba Tonguç, AI Eğitimi hakkında bir sorum var.")}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all text-sm flex-shrink-0"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md transition-all text-sm flex-shrink-0"
                   >
                     <WhatsAppIcon className="w-4 h-4" />
                     Yaz
@@ -840,7 +838,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
                     { stat: "TR + EN", label: "İçerik pazarları" },
                     { stat: "Global", label: "Müşteri portföyü" },
                   ].map(({ stat, label }, i) => (
-                    <div key={label} className={`border rounded-xl p-4 text-center ${tone([0, 1, 2, 5][i]).card}`}>
+                    <div key={label} className={`border rounded-md p-4 text-center ${tone([0, 1, 2, 5][i]).card}`}>
                       <div className={`font-display text-2xl font-bold mb-1 ${tone([0, 1, 2, 5][i]).text}`}>
                         {stat}
                       </div>
@@ -862,7 +860,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Sık sorulan sorular
             </h2>
@@ -872,11 +870,11 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             {faq.map((item, idx) => (
               <details
                 key={idx}
-                className="group bg-gradient-to-r from-indigo-500/10 to-violet-500/5 border border-indigo-400/20 open:border-indigo-400/50 open:from-indigo-500/20 rounded-xl overflow-hidden transition-colors"
+                className="group border border-surface-border open:border-surface-border rounded-md overflow-hidden transition-colors"
               >
                 <summary className="cursor-pointer px-6 py-4 flex items-center justify-between gap-4 text-white font-medium hover:bg-surface-border/30 transition-colors">
                   <span>{item.q}</span>
-                  <ArrowRight className="w-5 h-5 text-indigo-400 flex-shrink-0 transition-transform group-open:rotate-90" />
+                  <ArrowRight className="w-5 h-5 text-primary-300 flex-shrink-0 transition-transform group-open:rotate-90" />
                 </summary>
                 <div className="px-6 pb-5 text-primary-300 leading-relaxed">{item.a}</div>
               </details>
@@ -888,7 +886,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* CONSULTING ALTERNATIVE */}
       <section className="py-12">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto bg-gradient-to-br from-sky-500/20 via-sky-500/5 to-transparent border border-sky-400/30 rounded-2xl p-6 md:p-8">
+          <div className="max-w-3xl border border-surface-border rounded-md p-6 md:p-8">
             <h2 className="font-display text-2xl font-bold text-white mb-3">
               Eğitim mi, danışmanlık mı?
             </h2>
@@ -897,7 +895,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               kontrollü pilot, entegrasyon ve bakımın proje olarak yürütülmesi
               gerekiyorsa AI otomasyon danışmanlığını inceleyin.
             </p>
-            <Link href="/hizmetler/yapay-zeka-cozumleri" className="text-indigo-400 font-semibold hover:underline">
+            <Link href="/hizmetler/yapay-zeka-cozumleri" className="text-primary-300 font-semibold hover:underline">
               KOBİ'ler için AI otomasyon danışmanlığı
               <ArrowRight className="inline-block ml-2 w-4 h-4" />
             </Link>
@@ -917,7 +915,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
       {/* FINAL CTA */}
       <section className="py-16 md:py-24">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-indigo-500/10 via-violet-500/10 to-fuchsia-500/10 border border-indigo-500/30 rounded-3xl p-10 md:p-14">
+          <div className="max-w-3xl border border-surface-border rounded-md p-10 md:p-14">
             <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">
               Hazırsan başlayalım
             </h2>
@@ -928,7 +926,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               href={waLink("Merhaba, AI Eğitimi'ne katılmak istiyorum. Yer ayırtmak için yazıyorum.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl text-lg transition-all shadow-xl shadow-green-500/20"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md text-lg transition-all"
             >
               <WhatsAppIcon className="w-5 h-5" />
               WhatsApp'tan yaz ve yerini ayırt

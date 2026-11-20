@@ -53,8 +53,7 @@ export default function TableOfContents({ headings, locale, variant }: Props) {
             setOpen(false);
             document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className={`block py-1 text-sm transition-all duration-150 border-l-2 -ml-px
-            ${h.level === 3 ? 'pl-5' : 'pl-2'}
+          className={`block py-1 text-sm transition-all duration-150 border-l-2 -ml-px ${h.level === 3 ? 'pl-5' : 'pl-2'}
             ${activeId === h.id
               ? 'border-accent-500 text-accent-400 font-medium'
               : h.level === 3
@@ -71,7 +70,7 @@ export default function TableOfContents({ headings, locale, variant }: Props) {
   // Mobil: katlanabilir accordion
   if (variant === 'mobile') {
     return (
-      <div className="mb-8 bg-surface-card/50 border border-surface-border rounded-xl overflow-hidden">
+      <div className="mb-8 bg-surface-card/50 border border-surface-border rounded-md overflow-hidden">
         <button
           onClick={() => setOpen(!open)}
           className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold text-primary-300 hover:text-white transition-colors"

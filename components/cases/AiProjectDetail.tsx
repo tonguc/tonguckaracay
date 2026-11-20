@@ -19,7 +19,7 @@ export default function AiProjectDetail({ locale, slug }: { locale: ProjectLocal
         <p className="mt-5 text-lg leading-relaxed text-primary-300">{p.summary[locale]}</p>
       </header>
 
-      <div className="relative mt-8 aspect-[16/9] max-w-5xl overflow-hidden rounded-2xl border border-surface-border bg-surface-darker">
+      <div className="relative mt-8 aspect-[16/9] max-w-5xl overflow-hidden rounded-md border border-surface-border bg-surface-darker">
         <ProjectCover item={p} locale={locale} sizes="(min-width: 1024px) 1100px, 100vw" />
       </div>
       <p className="mt-2 max-w-5xl text-xs text-primary-400">

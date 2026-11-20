@@ -20,8 +20,6 @@ export default function IletisimPage() {
     <main className="pt-20">
       <section className="relative py-12 md:py-28 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container-custom relative z-10">
@@ -52,7 +50,7 @@ export default function IletisimPage() {
 
               <div className="space-y-6">
                 <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-md bg-accent-500/20 flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-accent-400" />
                   </div>
                   <div>
@@ -64,7 +62,7 @@ export default function IletisimPage() {
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-md bg-accent-500/20 flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-5 h-5 text-accent-400" />
                   </div>
                   <div>
@@ -92,7 +90,7 @@ export default function IletisimPage() {
             </div>
 
             <div className="order-first lg:order-none lg:col-span-2">
-              <div className="bg-surface-card border border-surface-border rounded-2xl p-5 md:p-8">
+              <div className="bg-surface-card border border-surface-border rounded-md p-5 md:p-8">
                 <ContactForm locale="tr" />
               </div>
             </div>

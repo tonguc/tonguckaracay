@@ -68,11 +68,8 @@ export default function Expertise({ locale }: Props) {
   return (
     <section id="expertise" className="py-14 md:py-24">
       <div className="container-custom">
-        <div className="mb-10 text-center md:mb-14">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-            {isTr ? "Uzmanlık" : "Expertise"}
-          </p>
-          <h2 className="section-title mx-auto">
+        <div className="mb-10 md:mb-14">
+          <h2 className="section-title">
             {isTr ? "Şirketleri Nasıl " : "How I Help "}
             <span className="text-gradient">{isTr ? "Büyütüyorum" : "Companies Grow"}</span>
           </h2>
@@ -87,8 +84,7 @@ export default function Expertise({ locale }: Props) {
                 href={c.href}
                 className="card group relative flex flex-col overflow-hidden p-7 md:p-9"
               >
-                <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-accent-500/5 blur-2xl transition-opacity duration-500 group-hover:opacity-100 md:opacity-0" />
-                <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-500/10 text-accent-500 transition-all duration-300 group-hover:scale-110 group-hover:bg-accent-500/20">
+                <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-md bg-accent-500/10 text-accent-500 transition-all duration-300 group-hover:scale-110 group-hover:bg-accent-500/20">
                   <Icon className="h-7 w-7" />
                 </div>
                 <h3 className="relative z-10 mt-5 font-display text-xl font-bold text-white transition-colors group-hover:text-accent-400 md:text-2xl">

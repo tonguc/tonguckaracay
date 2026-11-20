@@ -94,8 +94,6 @@ export default function AboutPage({ locale }: { locale: Locale }) {
       {/* Kariyer ve liderlik odaklı giriş */}
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-accent-500/10 blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -106,9 +104,6 @@ export default function AboutPage({ locale }: { locale: Locale }) {
                 <span className="text-white">{isTr ? "Hakkımda" : "About"}</span>
               </nav>
 
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400 md:text-sm">
-                {isTr ? "Dijital Ürün · UX · Yapay Zeka" : "Digital Product · UX · AI"}
-              </p>
               <h1 className="mb-4 font-display text-4xl font-bold leading-tight text-white md:text-5xl">
                 <span className="text-gradient">Tonguç Karaçay</span>
               </h1>
@@ -164,9 +159,9 @@ export default function AboutPage({ locale }: { locale: Locale }) {
             </div>
             <div className="relative">
               <div className="relative mx-auto max-w-md">
-                <div className="absolute inset-0 rotate-3 transform rounded-2xl bg-gradient-to-br from-accent-500/20 to-indigo-500/20" />
-                <div className="absolute inset-0 -rotate-3 transform rounded-2xl border border-surface-border bg-surface-card" />
-                <div className="relative overflow-hidden rounded-2xl border border-surface-border">
+                <div className="absolute inset-0 rotate-3 transform rounded-md" />
+                <div className="absolute inset-0 -rotate-3 transform rounded-md border border-surface-border bg-surface-card" />
+                <div className="relative overflow-hidden rounded-md border border-surface-border">
                   <Image src="/tonguc-karacay.jpg" alt="Tonguç Karaçay" width={500} height={500} className="h-auto w-full object-cover" priority />
                 </div>
               </div>
@@ -179,7 +174,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
         <div className="container-custom">
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
             {stats.map((s) => (
-              <div key={s.label} className="rounded-2xl border border-surface-border/60 bg-surface-card/50 p-5 text-center md:p-6">
+              <div key={s.label} className="rounded-md border border-surface-border/60 bg-surface-card/50 p-5 text-center md:p-6">
                 <div className="text-gradient font-display text-3xl font-extrabold md:text-5xl">{s.value}</div>
                 <div className="mt-2 text-sm font-semibold text-white">{s.label}</div>
               </div>
@@ -191,7 +186,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
       {/* Projelerde destek verilen ülkeler — şehir veya operasyon detayı gösterilmez */}
       <section className="pb-8" aria-labelledby="global-projects-title">
         <div className="container-custom">
-          <div className="rounded-2xl border border-surface-border/60 bg-surface-card/30 p-6 md:p-8">
+          <div className="rounded-md border border-surface-border/60 bg-surface-card/30 p-6 md:p-8">
             <h2 id="global-projects-title" className="font-display text-xl font-bold text-white md:text-2xl">
               {isTr ? "Uluslararası Proje Deneyimi" : "International Project Experience"}
             </h2>
@@ -212,11 +207,8 @@ export default function AboutPage({ locale }: { locale: Locale }) {
       {/* Hizmet satışı değil, ürün ve liderlik yetkinlikleri */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="mb-10 text-center md:mb-12">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-              {isTr ? "Çalışma Alanları" : "Focus Areas"}
-            </p>
-            <h2 className="section-title mx-auto">
+          <div className="mb-10 md:mb-12">
+            <h2 className="section-title">
               {isTr ? "Ürün ve " : "Product & "}
               <span className="text-gradient">{isTr ? "Liderlik Yetkinlikleri" : "Leadership Expertise"}</span>
             </h2>
@@ -226,7 +218,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
               const Icon = area.icon;
               return (
                 <article key={area.title.tr} className="card flex flex-col p-6">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-500/10 text-accent-400 ring-1 ring-accent-500/20">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-md bg-accent-500/10 text-accent-400 ring-1 ring-accent-500/20">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-4 font-display text-lg font-bold text-white">{area.title[locale]}</h3>
@@ -243,7 +235,6 @@ export default function AboutPage({ locale }: { locale: Locale }) {
         <div className="container-custom">
           <div className="mb-10 flex flex-col items-center gap-3 text-center md:flex-row md:items-end md:justify-between md:text-left">
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">{isTr ? "Kariyer ve Portfolyo" : "Career & Portfolio"}</p>
               <h2 className="section-title">
                 {isTr ? "Seçili Marka ve " : "Selected Brands & "}
                 <span className="text-gradient">{isTr ? "Proje Deneyimi" : "Projects"}</span>
@@ -262,7 +253,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block overflow-hidden rounded-xl border border-surface-border/60 bg-surface-card/40 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent-500/40"
+                  className="group block overflow-hidden rounded-md border border-surface-border/60 bg-surface-card/40 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent-500/40"
                 >
                   <div className="relative aspect-[404/316] overflow-hidden bg-surface-darker">
                     <Image

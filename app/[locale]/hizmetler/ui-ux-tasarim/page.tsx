@@ -183,8 +183,6 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -257,7 +255,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
                     <span className="text-accent-500 font-bold">%88</span>
                   </div>
                   <div className="h-2 bg-surface-border rounded-full overflow-hidden">
-                    <div className="h-full bg-red-500 rounded-full" style={{ width: '88%' }} />
+                    <div className="h-full bg-surface-card rounded-full" style={{ width: '88%' }} />
                   </div>
                 </div>
               </div>
@@ -270,7 +268,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
       {/* Problem Section */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl">
             <h2 className="section-title mb-6">
               Bu Hizmet Hangi <span className="text-gradient">Sorunları Çözer?</span>
             </h2>
@@ -281,48 +279,48 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <TrendingUp className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <TrendingUp className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Düşük Dönüşüm Oranları</h3>
               <p className="text-primary-400 text-sm mb-3">Ziyaretçiler sitenize geliyor ama satın almıyor, form doldurmuyorlar.</p>
               <p className="text-accent-400 text-sm">→ Dönüşüm odaklı tasarım ve kullanıcı akışı optimizasyonu</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Yüksek Terk Oranları</h3>
               <p className="text-primary-400 text-sm mb-3">Kullanıcılar siteye giriyor ama hemen ayrılıyorlar.</p>
               <p className="text-accent-400 text-sm">→ Kullanılabilirlik iyileştirmeleri ve bilgi mimarisi düzenlemesi</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Karmaşık Kullanıcı Deneyimi</h3>
               <p className="text-primary-400 text-sm mb-3">Müşteriler aradıklarını bulamıyor, destek talepleri artıyor.</p>
               <p className="text-accent-400 text-sm">→ Kullanıcı araştırması ve sezgisel arayüz tasarımı</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Layers className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Layers className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Tutarsız Marka Deneyimi</h3>
               <p className="text-primary-400 text-sm mb-3">Farklı sayfalarda farklı görünümler, marka algısı zayıflıyor.</p>
               <p className="text-accent-400 text-sm">→ Tasarım sistemi ve component kütüphanesi oluşturma</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Zap className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Zap className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Geliştirme Gecikmeleri</h3>
               <p className="text-primary-400 text-sm mb-3">Tasarım belirsizlikleri geliştirmeyi yavaşlatıyor, bütçe aşılıyor.</p>
               <p className="text-accent-400 text-sm">→ Detaylı prototip ve developer-ready handoff dosyaları</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Shield className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Rekabette Geri Kalma</h3>
               <p className="text-primary-400 text-sm mb-3">Rakiplerin dijital deneyimi sizinkinden daha iyi.</p>
@@ -335,7 +333,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
       {/* Services */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Hizmet <span className="text-gradient">Kapsamı</span>
             </h2>
@@ -347,7 +345,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-md bg-accent-500/20 flex items-center justify-center mb-4">
                   <service.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
@@ -361,7 +359,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
       {/* Process */}
       <section id="süreç" className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Çalışma <span className="text-gradient">Sürecim</span>
             </h2>
@@ -428,7 +426,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
       {/* Why Me */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Neden <span className="text-gradient">Benimle Çalışmalısınız?</span>
             </h2>
@@ -466,7 +464,7 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
       {/* FAQ */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Sıkça Sorulan <span className="text-gradient">Sorular</span>
             </h2>
@@ -491,8 +489,8 @@ export default function UIUXTasarimPage({ params: { locale } }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-accent-500/10 to-indigo-500/10">
-        <div className="container-custom text-center">
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Projenizi Değerlendirelim
           </h2>

@@ -36,8 +36,8 @@ export default function HeroDynamic({ locale }: Props) {
     <section className="relative overflow-hidden pt-32 pb-16 md:pt-44 md:pb-28">
       {/* Arka plan gradient blob'ları */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 left-1/4 h-72 w-72 md:h-[28rem] md:w-[28rem] rounded-full bg-accent-500/10 blur-3xl animate-pulse" style={{ animationDuration: "5s" }} />
-        <div className="absolute bottom-0 right-1/4 h-72 w-72 md:h-[28rem] md:w-[28rem] rounded-full bg-indigo-500/10 blur-3xl animate-pulse" style={{ animationDuration: "6s", animationDelay: "1s" }} />
+        <div className="absolute -top-24 left-1/4 h-72 w-72 md:h-[28rem] md:w-[28rem] rounded-full bg-accent-500/10 animate-pulse" style={{ animationDuration: "5s" }} />
+        <div className="absolute bottom-0 right-1/4 h-72 w-72 md:h-[28rem] md:w-[28rem] rounded-full bg-white/5 animate-pulse" style={{ animationDuration: "6s", animationDelay: "1s" }} />
       </div>
 
       <div className="container-custom relative z-10">
@@ -45,12 +45,12 @@ export default function HeroDynamic({ locale }: Props) {
           {/* Büyük hero paneli — H1 + alt başlık + servis etiketleri + CTA + istatistik, tek görsel bütün */}
           <div className="card flex flex-col items-center px-6 py-12 text-center md:px-14 md:py-16">
             {/* Müsaitlik rozeti */}
-            <div className="mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5">
+            <div className="mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-surface-border bg-white/5 px-3 py-1.5">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-surface-card opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-surface-card" />
               </span>
-              <span className="text-xs font-medium text-emerald-300">
+              <span className="text-xs font-medium text-primary-300">
                 {isTr ? "Yeni danışmanlık projelerine açık" : "Available for consulting"}
               </span>
             </div>
@@ -128,9 +128,6 @@ export default function HeroDynamic({ locale }: Props) {
                 </div>
               )}
               <div className="min-w-0 flex-1">
-                <span className="text-[11px] font-semibold uppercase tracking-widest text-accent-400">
-                  {isTr ? "Son Yazı" : "Latest Article"}
-                </span>
                 <h2 className="mt-1 truncate font-display text-sm font-semibold text-white transition-colors group-hover:text-accent-400 md:text-base">
                   {latest.title}
                 </h2>

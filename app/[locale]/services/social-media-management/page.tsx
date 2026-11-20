@@ -216,8 +216,6 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -303,7 +301,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
       {/* Problem Section */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl">
             <h2 className="section-title mb-6">
               What Problems Does This <span className="text-gradient">Service Solve?</span>
             </h2>
@@ -314,48 +312,48 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Time Constraints</h3>
               <p className="text-primary-400 text-sm mb-3">You don't have time to create regular social media content.</p>
               <p className="text-accent-400 text-sm">→ Full-service management takes this burden off your shoulders</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Eye className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Eye className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Low Visibility</h3>
               <p className="text-primary-400 text-sm mb-3">Your posts reach few people, engagement is low.</p>
               <p className="text-accent-400 text-sm">→ Algorithm-aligned strategy and hashtag optimization</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <PenTool className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <PenTool className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Content Idea Shortage</h3>
               <p className="text-primary-400 text-sm mb-3">You don't know what to post, content ideas run dry.</p>
               <p className="text-accent-400 text-sm">→ Content pillars and monthly calendars for fresh ideas</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Heart className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Heart className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Low Engagement</h3>
               <p className="text-primary-400 text-sm mb-3">You have followers but can't get engagement.</p>
               <p className="text-accent-400 text-sm">→ Community management and engagement strategies</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <AlertTriangle className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Inconsistent Brand Image</h3>
               <p className="text-primary-400 text-sm mb-3">Different tones across platforms, mixed messages.</p>
               <p className="text-accent-400 text-sm">→ Consistent brand voice and visual identity guidelines</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <BarChart3 className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <BarChart3 className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Measurement Gaps</h3>
               <p className="text-primary-400 text-sm mb-3">You don't know what's working and what isn't.</p>
@@ -368,7 +366,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
       {/* Platforms */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Platforms I <span className="text-gradient">Manage</span>
             </h2>
@@ -380,7 +378,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {platforms.map((platform, i) => (
               <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-md bg-accent-500/20 flex items-center justify-center mb-4">
                   <platform.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{platform.name}</h3>
@@ -394,7 +392,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
       {/* Services */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Service <span className="text-gradient">Scope</span>
             </h2>
@@ -406,7 +404,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <div key={i} className="card p-6">
-                <div className="w-12 h-12 rounded-xl bg-accent-500/10 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-md bg-accent-500/10 flex items-center justify-center mb-4">
                   <service.icon className="w-6 h-6 text-accent-500" />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">{service.title}</h3>
@@ -420,7 +418,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
       {/* Process */}
       <section id="process" className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               My <span className="text-gradient">Process</span>
             </h2>
@@ -471,20 +469,20 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
               <h3 className="text-xl font-semibold text-white mb-4">Content Types</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded bg-pink-500/20 flex items-center justify-center">
-                    <Image className="w-4 h-4 text-pink-400" />
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center">
+                    <Image className="w-4 h-4 text-primary-300" />
                   </div>
                   <span className="text-primary-200">Static images & carousels</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center">
-                    <Video className="w-4 h-4 text-blue-400" />
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center">
+                    <Video className="w-4 h-4 text-primary-300" />
                   </div>
                   <span className="text-primary-200">Reels, TikTok & Shorts videos</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded bg-purple-500/20 flex items-center justify-center">
-                    <Share2 className="w-4 h-4 text-purple-400" />
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center">
+                    <Share2 className="w-4 h-4 text-primary-300" />
                   </div>
                   <span className="text-primary-200">Stories & interactive content</span>
                 </div>
@@ -503,7 +501,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
       {/* Why Me */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Why <span className="text-gradient">Work With Me?</span>
             </h2>
@@ -541,7 +539,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Frequently Asked <span className="text-gradient">Questions</span>
             </h2>
@@ -566,8 +564,8 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-pink-500/10 to-blue-500/10">
-        <div className="container-custom text-center">
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Let's Build Your Social Media Strategy
           </h2>

@@ -185,8 +185,6 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
         </div>
         <div className="container-custom relative z-10">
           <nav className="flex items-center gap-2 text-sm text-primary-400 mb-6">
@@ -272,7 +270,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
       {/* Problem Section */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl">
             <h2 className="section-title mb-6">
               What Problems Does This <span className="text-gradient">Service Solve?</span>
             </h2>
@@ -283,48 +281,48 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <DollarSign className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <DollarSign className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Wasted Budget</h3>
               <p className="text-primary-400 text-sm mb-3">You're spending on ads but not getting conversions—money going down the drain.</p>
               <p className="text-accent-400 text-sm">→ Conversion-focused campaign structure and continuous optimization</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Target className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Target className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Poor Targeting</h3>
               <p className="text-primary-400 text-sm mb-3">Your ads aren't reaching the right audience, generating irrelevant clicks.</p>
               <p className="text-accent-400 text-sm">→ Detailed audience analysis and negative keyword management</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Eye className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Eye className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Competitors Winning</h3>
               <p className="text-primary-400 text-sm mb-3">Competitors consistently appear above you in ad positions.</p>
               <p className="text-accent-400 text-sm">→ Competitive analysis and smart bidding strategies</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <MousePointer className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <MousePointer className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Low Conversion Rate</h3>
               <p className="text-primary-400 text-sm mb-3">You're getting clicks but no sales or leads.</p>
               <p className="text-accent-400 text-sm">→ Landing page optimization and conversion tracking</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Time Constraints</h3>
               <p className="text-primary-400 text-sm mb-3">You don't have time to manage and optimize campaigns properly.</p>
               <p className="text-accent-400 text-sm">→ Full-service management and regular reporting</p>
             </div>
             <div className="card p-6">
-              <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-6 h-6 text-red-400" />
+              <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center mb-4">
+                <AlertTriangle className="w-6 h-6 text-primary-300" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Measurement Gaps</h3>
               <p className="text-primary-400 text-sm mb-3">You don't know which campaigns are working and which aren't.</p>
@@ -337,7 +335,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
       {/* Services */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Service <span className="text-gradient">Scope</span>
             </h2>
@@ -349,7 +347,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <div key={i} className="card p-6 hover:border-accent-500/30 transition-colors">
-                <div className="w-14 h-14 rounded-xl bg-accent-500/20 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-md bg-accent-500/20 flex items-center justify-center mb-4">
                   <service.icon className="w-7 h-7 text-accent-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
@@ -363,7 +361,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
       {/* Process */}
       <section id="process" className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               My <span className="text-gradient">Process</span>
             </h2>
@@ -430,7 +428,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
       {/* Why Me */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Why <span className="text-gradient">Work With Me?</span>
             </h2>
@@ -468,7 +466,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
       {/* Platform Comparison */}
       <section className="py-16 md:py-20">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Platform <span className="text-gradient">Comparison</span>
             </h2>
@@ -477,8 +475,8 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="card p-8">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                  <Search className="w-6 h-6 text-blue-400" />
+                <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center">
+                  <Search className="w-6 h-6 text-primary-300" />
                 </div>
                 <h3 className="text-xl font-semibold text-white">Google Ads</h3>
               </div>
@@ -504,8 +502,8 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
 
             <div className="card p-8">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-purple-400" />
+                <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center">
+                  <Users className="w-6 h-6 text-primary-300" />
                 </div>
                 <h3 className="text-xl font-semibold text-white">Meta Ads</h3>
               </div>
@@ -535,7 +533,7 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-surface-card/30">
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="mb-12">
             <h2 className="section-title mb-4">
               Frequently Asked <span className="text-gradient">Questions</span>
             </h2>
@@ -560,8 +558,8 @@ export default function OnlineAdvertisingPage({ params: { locale } }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-accent-500/10 to-indigo-500/10">
-        <div className="container-custom text-center">
+      <section className="py-16 md:py-20">
+        <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Let's Build Your Advertising Strategy
           </h2>
