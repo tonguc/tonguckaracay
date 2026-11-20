@@ -7,8 +7,7 @@ import Insights from "@/components/home/Insights";
 import PersonalStory from "@/components/home/PersonalStory";
 import Offers from "@/components/home/Offers";
 import Engagement from "@/components/home/Engagement";
-import WhyMe from "@/components/home/WhyMe";
-import PreAudit from "@/components/home/PreAudit";
+import PortfolioMarquee from "@/components/home/PortfolioMarquee";
 import FinalCTASection from "@/components/home/FinalCTASection";
 
 type Props = {
@@ -38,15 +37,16 @@ export default async function Home({ params: { locale } }: Props) {
 
   return (
     <>
+      {/* 2026-11 yeniden tasarım: siyah/koyu gri/açık/turuncu bölüm ritmi.
+          WhyMe ve PreAudit dosyaları duruyor; içerikleri Engagement ve FinalCTASection'a katıldı. */}
       <ValueProposition locale={locale} />
       <TrustedBy locale={locale} />
+      <PortfolioMarquee locale={locale} />
       <CaseHighlights locale={locale} />
       <Offers locale={locale} />
       <Engagement locale={locale} />
-      <WhyMe locale={locale} />
-      <PreAudit locale={locale} />
-      <Insights locale={locale} />
       <PersonalStory locale={locale} />
+      <Insights locale={locale} />
       <FinalCTASection locale={locale} />
     </>
   );

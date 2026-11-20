@@ -1,25 +1,29 @@
 import Link from "next/link";
-import { ArrowRight, Search, MousePointerClick, Cpu, Share2, Megaphone, GraduationCap } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { offers } from "@/lib/offers";
 import type { Locale, OfferKey } from "@/lib/cases";
 
 /**
- * Hizmetler — AI Otomasyon üstte tam genişlik (öne çıkan), diğer 4 hizmet altta eşit kutular
- * (masaüstü 4 / tablet 2×2 / mobil alt alta).
+ * Hizmetler (2026-11) — sayfanın tek AÇIK zeminli bölümü (ritim kırılması).
+ * İkonlu kart grid'i yerine numaralı satırlar; AI Otomasyon en üstte siyah "öne çıkan" satır
+ * (alt hizmetler + AI Eğitimi linki). Her satırın sağında ilgili gerçek proje görseli (masaüstü).
+ * SEO & GEO satırında ayrı GEO linki korunur.
  */
-const icons: Record<OfferKey, typeof Search> = {
-  "seo-geo": Search,
-  "ux-conversion": MousePointerClick,
-  "ai-growth": Cpu,
-  social: Share2,
-  "ai-ads": Megaphone,
+const thumbs: Record<OfferKey, string> = {
+  "ai-growth": "/portfolio/251295211.webp",
+  "seo-geo": "/portfolio/251295577.webp",
+  "ux-conversion": "/portfolio/139240279.webp",
+  social: "/portfolio/73081745.webp",
+  "ai-ads": "/portfolio/83025685.webp",
 };
-const tones: Record<OfferKey, string> = {
-  "seo-geo": "bg-accent-500/10 text-accent-400 ring-accent-500/20",
-  "ux-conversion": "bg-sky-500/10 text-sky-400 ring-sky-500/20",
-  "ai-growth": "bg-violet-500/15 text-violet-300 ring-violet-400/30",
-  social: "bg-pink-500/10 text-pink-400 ring-pink-500/20",
-  "ai-ads": "bg-emerald-500/10 text-emerald-400 ring-emerald-500/20",
+
+const tags: Record<OfferKey, { tr: string; en: string }> = {
+  "ai-growth": { tr: "", en: "" },
+  "seo-geo": { tr: "Teknik SEO · İçerik stratejisi · AI görünürlüğü", en: "Technical SEO · Content strategy · AI visibility" },
+  "ux-conversion": { tr: "UX araştırma · Arayüz tasarımı · Dönüşüm optimizasyonu", en: "UX research · Interface design · Conversion optimization" },
+  social: { tr: "Strateji · İçerik takvimi · Topluluk yönetimi", en: "Strategy · Content calendar · Community management" },
+  "ai-ads": { tr: "Google Ads · Meta Ads · YouTube · Dönüşüm takibi", en: "Google Ads · Meta Ads · YouTube · Conversion tracking" },
 };
 
 export default function Offers({ locale }: { locale: string }) {
@@ -31,85 +35,72 @@ export default function Offers({ locale }: { locale: string }) {
   const trainingHref = isTr ? "/ai-egitimi" : "/en/ai-training";
 
   return (
-    <section id="services" className="py-12 md:py-20">
+    <section id="services" className="scroll-mt-20 bg-surface-paper py-20 text-primary-950 md:py-28">
       <div className="container-custom">
-        <div className="mb-8 text-center md:mb-12">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent-400 md:text-sm">
-            {isTr ? "Hizmetler" : "Services"}
+        <div className="mb-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-16">
+          <h2 className="font-display text-3xl font-semibold tracking-tight md:text-5xl">{isTr ? "Hizmetler" : "Services"}</h2>
+          <p className="max-w-xl text-lg leading-relaxed text-primary-700">
+            {isTr
+              ? "Ürün, tasarım ve büyümeyi ayrı ajanslara bölmeden tek elden yürütüyorum. Nereden başlayacağımıza ilk görüşmede birlikte karar veririz."
+              : "Product, design and growth run from one place instead of being split across agencies. We decide where to start together in the first call."}
           </p>
-          <h2 className="section-title mx-auto">
-            {isTr ? "Dijital Ürün ve " : "Digital Products & "}
-            <span className="text-gradient">{isTr ? "Büyüme Çözümleri" : "Growth Solutions"}</span>
-          </h2>
         </div>
 
-        {featured && (
-          <div className="card relative mb-4 overflow-hidden border-violet-400/25 p-6 md:mb-6 md:p-8">
-            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-violet-500/15 blur-3xl" />
-            <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
-              <div className="max-w-2xl">
-                <div className="flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl ring-1 ${tones[featured.key]}`}>
-                    <Cpu className="h-6 w-6" />
-                  </div>
-                  <span className="rounded-full border border-violet-400/30 bg-violet-500/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-violet-200">
-                    {isTr ? "Öne Çıkan" : "Featured"}
-                  </span>
-                </div>
-                <h3 className="mt-4 font-display text-2xl font-bold text-white md:text-3xl">{featured.name[loc]}</h3>
-                <p className="mt-2 leading-relaxed text-primary-300 md:text-lg">{featured.value[loc]}</p>
+        <div className="border-t border-primary-950">
+          {featured && (
+            <div className="my-4 grid gap-6 rounded bg-primary-950 p-6 text-primary-100 md:p-9 lg:grid-cols-[56px_1fr_1.15fr_132px] lg:gap-8">
+              <span className="pt-1 text-sm font-semibold text-accent-400">01</span>
+              <div>
+                <p className="mb-2 text-[13px] font-semibold text-accent-400">{isTr ? "Öne çıkan hizmet" : "Featured service"}</p>
+                <h3 className="font-display text-2xl font-semibold tracking-tight text-white md:text-[2rem] md:leading-tight">
+                  {featured.name[loc]}
+                </h3>
                 {featured.highlights && (
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {featured.highlights[loc].map((h) => (
-                      <li key={h} className="rounded-full border border-surface-border bg-surface-darker/60 px-3 py-1 text-xs text-primary-200 md:text-sm">
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="mt-3 text-sm leading-relaxed text-primary-400">{featured.highlights[loc].join(" · ")}</p>
                 )}
               </div>
-              <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col">
-                <Link href={featured.href[loc]} className="btn-primary group">
-                  {isTr ? "AI Otomasyon Detayı" : "AI Automation Details"}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link href={trainingHref} className="btn-secondary group">
-                  <GraduationCap className="mr-2 h-4 w-4" />
-                  {isTr ? "Ekibiniz için AI Eğitimi" : "AI Training for Your Team"}
-                </Link>
+              <div>
+                <p className="text-[17px] leading-relaxed text-primary-300">{featured.value[loc]}</p>
+                <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+                  <Link href={featured.href[loc]} className="inline-flex items-center gap-1.5 border-b border-accent-500 pb-0.5 font-semibold text-white">
+                    {isTr ? "AI otomasyon detayı" : "AI automation details"}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                  <Link href={trainingHref} className="pb-0.5 font-medium text-primary-300 transition-colors hover:text-white">
+                    {isTr ? "Ekibiniz için AI eğitimi" : "AI training for your team"}
+                  </Link>
+                </div>
+              </div>
+              <div className="relative hidden aspect-[640/501] overflow-hidden rounded lg:block">
+                <Image src={thumbs[featured.key]} alt="" fill sizes="132px" className="object-cover" />
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
-          {rest.map((o) => {
-            const Icon = icons[o.key];
-            return (
-              <div key={o.key} className="card group relative flex flex-col p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-500/40">
-                <div className={`flex h-12 w-12 items-center justify-center rounded-xl ring-1 ${tones[o.key]}`}>
-                  <Icon className="h-6 w-6" />
-                </div>
-                <h3 className="mt-5 font-display text-lg font-bold text-white">
-                  <Link href={o.href[loc]} className="after:absolute after:inset-0">
+          {rest.map((o, i) => (
+            <div key={o.key} className="group relative grid gap-3 border-b border-primary-200 py-8 lg:grid-cols-[56px_1fr_1.15fr_132px] lg:gap-8">
+              <span className="pt-1 text-sm text-primary-600">{String(i + 2).padStart(2, "0")}</span>
+              <div>
+                <h3 className="font-display text-2xl font-semibold tracking-tight">
+                  <Link href={o.href[loc]} className="after:absolute after:inset-0 group-hover:text-accent-700">
                     {o.name[loc]}
                   </Link>
                 </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-primary-300">{o.value[loc]}</p>
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent-400 transition-all group-hover:gap-2.5">
-                    {isTr ? "Detay" : "Details"}
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
-                  {o.key === "seo-geo" && (
-                    <Link href={geoHref} className="relative z-10 text-xs text-primary-400 underline-offset-4 hover:text-accent-400 hover:underline">
-                      {isTr ? "GEO detayı" : "GEO details"}
-                    </Link>
-                  )}
-                </div>
+                <p className="mt-2 text-sm leading-relaxed text-primary-600">{tags[o.key][loc]}</p>
               </div>
-            );
-          })}
+              <div>
+                <p className="text-base leading-relaxed text-primary-700">{o.value[loc]}</p>
+                {o.key === "seo-geo" && (
+                  <Link href={geoHref} className="relative z-10 mt-3 inline-block text-sm font-medium text-primary-950 underline underline-offset-4 hover:text-accent-700">
+                    {isTr ? "GEO optimizasyonu detayı" : "GEO optimization details"}
+                  </Link>
+                )}
+              </div>
+              <div className="relative hidden aspect-[640/501] overflow-hidden rounded lg:block">
+                <Image src={thumbs[o.key]} alt="" fill sizes="132px" className="object-cover" />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

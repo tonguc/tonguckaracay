@@ -1,85 +1,82 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Mail, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { preAuditPath } from "@/lib/offers";
+import type { Locale } from "@/lib/cases";
 
 interface Props {
   locale: string;
 }
 
 /**
- * Bölüm 9 — Büyük premium final CTA.
- * Zenginleştirilmiş: iki aksiyon (görüşme + e-posta), güven satırı,
- * profil imzası ve daha katmanlı arka plan — tek buton + düz metinden
- * daha vurucu, daha kişisel bir kapanış.
+ * Final CTA (2026-11) — sayfanın tek tam turuncu bandı, siyah metin.
+ * Eski PreAudit bölümünün "ilk görüşmede konuştuklarımız" maddeleri buraya taşındı
+ * (iletişim öncesi kaygıyı azaltır). Birincil aksiyon: taahhütsüz ön değerlendirme (preAuditPath).
+ * WhatsApp: layout'taki yüzen buton (WhatsAppFloat) ile aynı numara.
  */
 export default function FinalCTASection({ locale }: Props) {
-  const isTr = locale === "tr";
-  const contactPath = isTr ? "/iletisim" : "/en/contact";
+  const loc = (locale === "tr" ? "tr" : "en") as Locale;
+  const isTr = loc === "tr";
+  const waText = isTr ? "Merhaba Tonguç, web siteniz üzerinden yazıyorum." : "Hi Tonguç, I'm reaching out from your website.";
+  const waHref = `https://wa.me/905323824838?text=${encodeURIComponent(waText)}`;
 
-  const trustPoints = isTr
-    ? ["26+ Yıl Deneyim", "Ürün ve UX Liderliği", "AI Deneyimi"]
-    : ["26+ Years Experience", "Product & UX Leadership", "AI Experience"];
+  const includes = isTr
+    ? [
+        "Ürün ve kullanıcı deneyimindeki kritik müşteri yolculukları",
+        "Yapay zeka ile otomasyon ve karar destek fırsatları",
+        "Analitik, ölçüm ve dönüşüm darboğazları",
+        "Önceliklerin belirlenmesi ve ilk adımlar",
+      ]
+    : [
+        "Critical customer journeys in your product and user experience",
+        "AI automation and decision-support opportunities",
+        "Analytics, measurement gaps and conversion friction",
+        "Agreeing on priorities and first steps",
+      ];
 
   return (
-    <section className="py-14 md:py-24">
-      <div className="container-custom">
-        <div className="card relative overflow-hidden p-8 text-center md:p-16">
-          {/* Katmanlı gradient + blob arka plan */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent-500/15 via-transparent to-indigo-500/10" />
-          <div className="pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-accent-500/10 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:24px_24px]" />
+    <section className="bg-accent-500 py-20 text-primary-950 md:py-28">
+      <div className="container-custom flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-2xl">
+          <h2 className="font-display text-5xl font-semibold leading-[1] tracking-[-0.04em] md:text-7xl">
+            {isTr ? "Projenizi konuşalım." : "Let’s talk about your project."}
+          </h2>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-primary-900">
+            {isTr
+              ? "İlk görüşme taahhütsüz. Ürününüzü, hedefinizi ve önceliklerinizi dinler, nereden başlamanın mantıklı olduğunu konuşuruz. Genellikle 24 saat içinde yanıt veriyorum."
+              : "The first call comes with no commitment. I listen to your product, goals and priorities, and we work out where it makes sense to start. I usually reply within 24 hours."}
+          </p>
+          <p className="mb-3 mt-8 text-[15px] font-semibold">{isTr ? "İlk görüşmede konuştuklarımız" : "What we cover in the first call"}</p>
+          <ul className="border-b border-primary-950/25 text-base leading-normal text-primary-900">
+            {includes.map((i) => (
+              <li key={i} className="border-t border-primary-950/25 py-3">
+                {i}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          <div className="relative z-10 mx-auto max-w-2xl">
-            <div className="mx-auto mb-6 flex w-fit items-center gap-3 rounded-full border border-surface-border/60 bg-surface-darker/40 py-1.5 pl-1.5 pr-4 backdrop-blur-sm">
-              <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full ring-1 ring-accent-500/30">
-                <Image
-                  src="/tonguckaracay-ux-seo-ai.png"
-                  alt="Tonguç Karaçay"
-                  fill
-                  sizes="32px"
-                  className="object-cover"
-                  style={{ transform: "scale(1.7)", transformOrigin: "50% 14%" }}
-                />
-              </div>
-              <span className="text-xs font-medium text-primary-300">
-                {isTr ? "Tonguç Karaçay ile doğrudan görüşün" : "Talk directly with Tonguç Karaçay"}
-              </span>
-            </div>
-
-            <h2 className="font-display text-3xl font-bold text-white md:text-5xl">
-              {isTr ? "Birlikte " : "Let's Build "}
-              <span className="text-gradient">{isTr ? "Değer Üretelim" : "What Matters"}</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-base text-primary-300 md:text-lg">
-              {isTr
-                ? "Dijital ürün, UX, yapay zeka ve teknoloji projeleriniz için iş birliği fırsatlarını konuşalım."
-                : "Discuss collaboration opportunities across digital products, UX, AI and technology."}
-            </p>
-
-            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link href={contactPath} className="btn-primary group w-full text-base sm:w-auto md:text-lg">
-                {isTr ? "İletişime Geç" : "Get in Touch"}
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <a
-                href="mailto:tonguckaracay@gmail.com"
-                className="btn-secondary group w-full text-base sm:w-auto md:text-lg"
-              >
-                {isTr ? "E-posta Gönder" : "Send an Email"}
-                <Mail className="ml-2 h-4 w-4 transition-transform group-hover:scale-110" />
-              </a>
-            </div>
-
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-surface-border/40 pt-6">
-              {trustPoints.map((point) => (
-                <span key={point} className="inline-flex items-center gap-1.5 text-sm text-primary-400">
-                  <CheckCircle2 className="h-4 w-4 text-accent-500" />
-                  {point}
-                </span>
-              ))}
-            </div>
-          </div>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href={preAuditPath(loc)}
+            className="inline-flex min-h-[56px] items-center gap-2 rounded bg-primary-950 px-7 font-semibold text-primary-100 transition-colors hover:bg-primary-800"
+          >
+            {isTr ? "Ön değerlendirme talep et" : "Request an initial review"}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <a
+            href="mailto:tonguckaracay@gmail.com"
+            className="inline-flex min-h-[56px] items-center rounded border-[1.5px] border-primary-950 px-6 font-semibold transition-colors hover:bg-primary-950/10"
+          >
+            {isTr ? "E-posta gönder" : "Send an email"}
+          </a>
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-[56px] items-center rounded border-[1.5px] border-primary-950 px-6 font-semibold transition-colors hover:bg-primary-950/10"
+          >
+            WhatsApp
+          </a>
         </div>
       </div>
     </section>

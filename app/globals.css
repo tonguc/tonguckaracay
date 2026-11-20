@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Schibsted+Grotesk:wght@500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 @tailwind base;
@@ -6,8 +6,10 @@
 @tailwind utilities;
 
 :root {
-  --font-display: 'Poppins', system-ui, sans-serif;
-  --font-body: 'Poppins', system-ui, sans-serif;
+  /* 2026-11 yeniden tasarım: Poppins yerine karakterli grotesk başlık + Inter gövde.
+     Poppins Instagram şablonlarında kalır; sitede kullanılmaz. */
+  --font-display: 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
 }
 
 @layer base {
@@ -17,9 +19,6 @@
   
   body {
     @apply font-body antialiased bg-surface-darker text-primary-100;
-    background-image: 
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(236, 143, 63, 0.08), transparent),
-      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(99, 102, 241, 0.05), transparent);
   }
 
   ::selection {
@@ -32,8 +31,10 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
+  /* Eski gradient metin artık düz turuncu (gradient yazı "AI şablonu" izlenimi veriyordu).
+     Sınıf adı geriye dönük uyumluluk için korunuyor. */
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-400 via-accent-300 to-accent-500;
+    @apply text-accent-400;
   }
   
   .logo-text {
@@ -41,27 +42,22 @@
   }
   
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 
-           bg-gradient-to-r from-accent-500 to-accent-600 
-           text-primary-950 font-semibold rounded-lg
-           hover:from-accent-400 hover:to-accent-500
-           transform hover:scale-[1.02] active:scale-[0.98]
-           transition-all duration-200 ease-out
-           shadow-lg shadow-accent-500/20 hover:shadow-xl hover:shadow-accent-500/30;
+    @apply inline-flex min-h-[48px] items-center justify-center px-6 py-3
+           bg-accent-500 text-primary-950 font-semibold rounded
+           hover:bg-accent-400 transition-colors duration-200 ease-out;
   }
   
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 
-           bg-surface-card border border-surface-border text-primary-100
-           font-medium rounded-lg hover:bg-surface-border
-           transform hover:scale-[1.02] active:scale-[0.98]
-           transition-all duration-200 ease-out;
+    @apply inline-flex min-h-[48px] items-center justify-center px-6 py-3
+           border border-surface-border text-primary-100
+           font-medium rounded hover:border-primary-400
+           transition-colors duration-200 ease-out;
   }
   
   .card {
-    @apply bg-surface-card/50 backdrop-blur-sm border border-surface-border/50 
-           rounded-2xl transition-all duration-300 ease-out
-           hover:border-accent-500/30 hover:bg-surface-card/80;
+    @apply bg-surface-card border border-surface-border/70
+           rounded-md transition-colors duration-300 ease-out
+           hover:border-primary-600;
   }
   
   .card-glow {
@@ -69,7 +65,7 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-display font-bold text-white mb-4;
+    @apply text-3xl md:text-5xl font-display font-semibold tracking-tight text-white mb-4;
   }
   
   .section-subtitle {
@@ -91,6 +87,13 @@
 }
 
 @layer utilities {
+  /* Ana sayfa hero kolajı: dikey sonsuz kayma (liste iki kez render edilir) */
+  @keyframes tk-up { from { transform: translateY(0); } to { transform: translateY(calc(-50% - 7px)); } }
+  @keyframes tk-down { from { transform: translateY(calc(-50% - 7px)); } to { transform: translateY(0); } }
+  .animate-tk-up { animation: tk-up 46s linear infinite; }
+  .animate-tk-down { animation: tk-down 52s linear infinite; }
+  .fade-y { -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent); }
+
   .animation-delay-100 { animation-delay: 100ms; }
   .animation-delay-200 { animation-delay: 200ms; }
   .animation-delay-300 { animation-delay: 300ms; }

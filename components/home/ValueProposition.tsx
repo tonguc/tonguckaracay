@@ -1,134 +1,108 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CalendarDays, Clock3, BookOpen } from "lucide-react";
-import { getAllPosts } from "@/lib/blog-utils";
+import { ArrowRight } from "lucide-react";
+import { portfolio, type PortfolioItem } from "@/lib/portfolio";
 import { countriesWithProjectsCount } from "@/lib/geography";
-import StatCounter from "./StatCounter";
 
 interface Props {
   locale: string;
 }
 
 /**
- * Geçici portfolyo/yayın modu: editoryal olarak seçilmiş Claude MCP yazısı.
- * Blog listesi güncel tarih sırasını korur; hero bilerek sabitlenmiştir.
+ * Hero (2026-11 yeniden tasarım).
+ * Sol: tek H1 + değer önermesi + KOBİ satırı + CTA'lar + tek satır kanıt (sayaç kutuları yok).
+ * Sağ: gerçek işlerden iki kolonlu, zıt yönde yavaşça kayan kolaj (Behance kapakları).
+ * Kolaj fareyle durur, prefers-reduced-motion'da hareket etmez; ikinci kopya ekran okuyucudan gizli.
+ * Turuncu yalnızca butonda — başlıkta vurgu/gradient kelime YOK.
  */
-export default function ValueProposition({ locale }: Props) {
-  const isTr = locale === "tr";
-  const pinnedSlug = isTr
-    ? "claude-mcp-token-maliyeti-olcum"
-    : "claude-mcp-integration-token-cost-comparison-chart";
-  const latest = getAllPosts(isTr ? "tr" : "en").find((post) => post.slug === pinnedSlug);
-  const blogPath = isTr ? "/blog" : "/en/blog";
-  const articlePath = latest ? (isTr ? "/" : "/en/") + latest.slug : blogPath;
+const colA = ["139240279", "73080587", "83025545", "68080669", "251295211"];
+const colB = ["125628811", "73080939", "83026773", "73081745", "83025685"];
 
-  const stats = [
-    { to: 26, suffix: "+", short: isTr ? "Yıl" : "Years", label: isTr ? "Yıl Deneyim" : "Years of Experience" },
-    { to: 200, suffix: "+", short: isTr ? "Dijital Proje" : "Digital Projects", label: isTr ? "Dijital Proje" : "Digital Projects" },
-    { to: 100, suffix: "+", short: isTr ? "Marka" : "Brands", label: isTr ? "Marka" : "Brands" },
-    { to: countriesWithProjectsCount, suffix: "", short: isTr ? "Ülke" : "Countries", label: isTr ? "Ülke" : "Countries" },
+const pick = (ids: string[]) =>
+  ids
+    .map((id) => portfolio.find((p) => p.id === id))
+    .filter((p): p is PortfolioItem => Boolean(p));
+
+function Column({ items, loc, direction }: { items: PortfolioItem[]; loc: "tr" | "en"; direction: "up" | "down" }) {
+  const tile = (p: PortfolioItem, hidden: boolean) => (
+    <div
+      key={`${hidden ? "b" : "a"}-${p.id}`}
+      className="relative aspect-[640/501] w-full overflow-hidden rounded bg-surface-card"
+      aria-hidden={hidden || undefined}
+    >
+      <Image src={`/portfolio/${p.id}.webp`} alt={hidden ? "" : p.title[loc]} fill sizes="(max-width: 1024px) 45vw, 260px" className="object-cover" />
+    </div>
+  );
+  return (
+    <div className="overflow-hidden">
+      <div
+        className={`flex flex-col gap-3.5 motion-reduce:animate-none group-hover/collage:[animation-play-state:paused] ${
+          direction === "up" ? "animate-tk-up" : "animate-tk-down"
+        }`}
+      >
+        {items.map((p) => tile(p, false))}
+        {items.map((p) => tile(p, true))}
+      </div>
+    </div>
+  );
+}
+
+export default function ValueProposition({ locale }: Props) {
+  const loc = locale === "tr" ? "tr" : "en";
+  const isTr = loc === "tr";
+  const contactPath = isTr ? "/iletisim" : "/en/contact";
+
+  const facts = [
+    { v: "26+", l: isTr ? "yıl" : "years" },
+    { v: "200+", l: isTr ? "dijital proje" : "digital projects" },
+    { v: "100+", l: isTr ? "marka" : "brands" },
+    { v: String(countriesWithProjectsCount), l: isTr ? "ülke" : "countries" },
   ];
 
   return (
-    <section className="relative overflow-hidden pt-24 pb-8 md:pt-36 md:pb-12">
-      <div className="container-custom relative z-10">
-        <div className="card relative overflow-hidden p-6 md:p-10">
-          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl" />
-          <div className="relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
-            <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent-400 md:text-sm">
-                {isTr ? "Dijital Ürün · UX · Yapay Zeka" : "Digital Product · UX · AI"}
-              </p>
-              <h1 className="max-w-2xl font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-                {isTr ? (
-                  <>Dijital Ürün, UX ve Yapay Zeka ile <span className="text-gradient">Ölçülebilir Değer</span></>
-                ) : (
-                  <>Digital Products, UX & AI <span className="text-gradient">Built for Impact</span></>
-                )}
-              </h1>
-              <p className="mt-4 max-w-xl leading-relaxed text-primary-300 md:text-lg">
-                {isTr
-                  ? "Kurumsal platformlardan AI otomasyonuna, ürün stratejisini ve kullanıcı deneyimini ekiplerle birlikte fikirden yayına taşıyorum."
-                  : "From enterprise platforms to AI automation, I bring product strategy and user experience from concept to delivery with cross-functional teams."}
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href={isTr ? "/iletisim" : "/en/contact"} className="btn-primary group">
-                  {isTr ? "İş Birliğini Konuşalım" : "Discuss Collaboration"}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link href="#services" className="btn-secondary">
-                  {isTr ? "Çözümleri İncele" : "Explore Services"}
-                </Link>
-              </div>
-              {latest && (
-                <div className="mt-8 border-t border-surface-border/60 pt-5">
-                  <div className="flex flex-wrap items-center gap-3 text-xs text-primary-400">
-                    <span className="inline-flex items-center gap-1.5 font-semibold text-accent-300">
-                      <BookOpen className="h-4 w-4" />
-                      {isTr ? "Öne Çıkan Yazı" : "Featured Article"}
-                    </span>
-                    <span className="inline-flex items-center gap-1">
-                      <CalendarDays className="h-3.5 w-3.5" />
-                      {new Date(latest.date).toLocaleDateString(isTr ? "tr-TR" : "en-US", {
-                        day: "numeric", month: "long", year: "numeric",
-                      })}
-                    </span>
-                    {latest.readTime && (
-                      <span className="inline-flex items-center gap-1">
-                        <Clock3 className="h-3.5 w-3.5" />
-                        {latest.readTime}
-                      </span>
-                    )}
-                  </div>
-                  <h2 className="mt-3 font-display text-lg font-semibold leading-snug text-white md:text-xl">
-                    <Link href={articlePath} className="transition-colors hover:text-accent-300">{latest.title}</Link>
-                  </h2>
-                  <p className="mt-2 line-clamp-2 max-w-xl text-sm leading-relaxed text-primary-300">
-                    {latest.description}
-                  </p>
-                  <Link href={articlePath} className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent-400 transition-colors hover:text-accent-300">
-                    {isTr ? "Yazıyı Oku" : "Read Article"}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              )}
-            </div>
-            <div className="relative min-h-[230px] overflow-hidden rounded-2xl border border-surface-border/60 bg-surface-darker/60 sm:min-h-[340px] lg:min-h-[420px]">
-              {latest?.image ? (
-                <Link href={articlePath} className="group absolute inset-0" aria-label={latest.title}>
-                  <Image
-                    src={latest.image}
-                    alt={latest.title}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 45vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-surface-darker/70 via-transparent to-transparent" />
-                  <span className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-surface-darker/80 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
-                    {latest.category}
-                  </span>
-                </Link>
-              ) : (
-                <div className="flex h-full min-h-[230px] items-center justify-center text-accent-400">
-                  <BookOpen className="h-16 w-16" />
-                </div>
-              )}
-            </div>
+    <section className="pb-16 pt-28 md:pb-24 md:pt-36">
+      <div className="container-custom grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <div>
+          <p className="mb-6 text-[15px] text-primary-400">
+            {isTr ? "Tonguç Karaçay — dijital ürün, UX ve yapay zeka" : "Tonguç Karaçay — digital product, UX and AI"}
+          </p>
+          <h1 className="font-display text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.035em] text-white sm:text-6xl lg:text-7xl">
+            {isTr ? "THY’den BMW’ye 200+ dijital ürün. Şimdi sıra yapay zekada." : "200+ digital products, from Turkish Airlines to BMW. Now it’s AI’s turn."}
+          </h1>
+          <p className="mt-7 max-w-[34em] text-[17px] leading-relaxed text-primary-300 md:text-lg">
+            {isTr
+              ? "Ürün stratejisini, kullanıcı deneyimini ve yapay zeka otomasyonunu fikirden yayına taşıyorum. 26 yıldır kurumsal platformlarda; Türkiye, ABD, Kanada ve Almanya’daki ekiplerle."
+              : "I take product strategy, user experience and AI automation from idea to launch. 26 years on enterprise platforms, with teams in Türkiye, the US, Canada and Germany."}
+          </p>
+          <p className="mt-3 max-w-[34em] text-[17px] leading-relaxed text-white md:text-lg">
+            {isTr
+              ? "Kurumsal markalardan KOBİ’lere, kliniklerden e-ticarete: işinizi anlayan tek bir muhatap."
+              : "From global brands to small businesses, clinics to e-commerce: one partner who understands your business."}
+          </p>
+          <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <Link href={contactPath} className="btn-primary group gap-2 text-base">
+              {isTr ? "İş birliğini konuşalım" : "Let’s talk about your project"}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+            <Link href="#projeler" className="border-b border-primary-600 pb-0.5 font-medium text-white transition-colors hover:border-accent-400">
+              {isTr ? "Projeleri incele" : "See the work"}
+            </Link>
           </div>
+          <p className="mt-12 border-t border-surface-border pt-5 text-[15px] leading-loose text-primary-400">
+            {facts.map((f, i) => (
+              <span key={f.l}>
+                {i > 0 && <span className="mx-2.5 text-primary-600">·</span>}
+                <span className="font-semibold text-white">{f.v}</span> {f.l}
+              </span>
+            ))}
+          </p>
         </div>
 
-        <div className="mt-4 grid grid-cols-4 gap-1.5 sm:gap-2.5 md:mt-6 md:gap-4">
-          {stats.map((st) => (
-            <div key={st.label} className="relative overflow-hidden rounded-xl border border-surface-border/60 bg-surface-card/50 px-1 py-3 text-center sm:rounded-2xl sm:px-4 md:p-5">
-              <p className="text-gradient font-display text-xl font-extrabold leading-none sm:text-3xl md:text-4xl">
-                <StatCounter to={st.to} suffix={st.suffix} />
-              </p>
-              <p className="mt-2 text-[10px] font-semibold leading-tight text-white sm:text-xs md:text-base">
-                {st.short}
-              </p>
-            </div>
-          ))}
+        <div
+          className="group/collage fade-y grid h-[420px] grid-cols-2 gap-3.5 overflow-hidden sm:h-[520px] lg:h-[640px]"
+        >
+          <Column items={pick(colA)} loc={loc} direction="up" />
+          <Column items={pick(colB)} loc={loc} direction="down" />
         </div>
       </div>
     </section>

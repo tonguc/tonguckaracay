@@ -11,18 +11,19 @@ const config: Config = {
     extend: {
       colors: {
         // Primary palette - Deep navy to slate
+        // Primary palette — nötr, sıcak gri (2026-11: lacivert ton kaldırıldı; marka = siyah + turuncu)
         primary: {
-          50: '#f0f4f8',
-          100: '#d9e2ec',
-          200: '#bcccdc',
-          300: '#9fb3c8',
-          400: '#829ab1',
-          500: '#627d98',
-          600: '#486581',
-          700: '#334e68',
-          800: '#243b53',
-          900: '#102a43',
-          950: '#0a1929',
+          50: '#f7f6f3',
+          100: '#f2f0eb',
+          200: '#dedbd4',
+          300: '#c8c5be',
+          400: '#a6a39c',
+          500: '#8a877f',
+          600: '#6b6862',
+          700: '#4a4844',
+          800: '#2e2d2a',
+          900: '#1c1b19',
+          950: '#0c0c0c',
         },
         // Accent - Warm orange (custom ramp, not stock Tailwind amber)
         accent: {
@@ -39,10 +40,11 @@ const config: Config = {
         },
         // Surface colors
         surface: {
-          dark: '#0f172a',
-          darker: '#0a0f1a',
-          card: '#1e293b',
-          border: '#334155',
+          dark: '#121212',
+          darker: '#0c0c0c',
+          card: '#161616',
+          border: '#2a2a2a',
+          paper: '#f2f0eb',
         }
       },
       fontFamily: {
