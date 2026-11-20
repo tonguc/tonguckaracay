@@ -288,7 +288,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               Bu programda sadece araç anlatılmaz. İşinize çalışan sistemler kurmayı öğrenirsiniz.
             </p>
 
-            <ul className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+            <ul className="flex flex-wrap justify-start gap-2 sm:gap-3 mb-10">
               {keyFacts.map((fact, i) => (
                 <li
                   key={fact}
@@ -300,7 +300,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               ))}
             </ul>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-start">
               <a
                 href={waLink("Merhaba, AI Eğitimi hakkında bilgi almak istiyorum.")}
                 target="_blank"

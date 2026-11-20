@@ -11,7 +11,7 @@ export default function NotFound() {
         <p className="text-primary-300 mb-8">
           Aradığınız sayfa taşınmış, silinmiş ya da hiç var olmamış olabilir.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 justify-start">
           <Link
             href="/"
             className="inline-flex items-center justify-center px-6 py-3 bg-accent-500 text-primary-950 font-semibold rounded-md hover:bg-accent-400 transition-colors"

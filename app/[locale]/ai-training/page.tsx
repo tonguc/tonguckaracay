@@ -287,7 +287,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               This program isn't a tool tutorial. You'll learn to build systems that work in your business.
             </p>
 
-            <ul className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+            <ul className="flex flex-wrap justify-start gap-2 sm:gap-3 mb-10">
               {keyFacts.map((fact, i) => (
                 <li
                   key={fact}
@@ -299,7 +299,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               ))}
             </ul>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-start">
               <a
                 href={waLink("Hi, I'd like to know more about the AI Training program.")}
                 target="_blank"

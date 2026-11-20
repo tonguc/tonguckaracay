@@ -242,7 +242,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
           <p className="text-primary-300 mb-8 max-w-xl">
             Kayıt olmadan, hemen tarayıcınızda deneyin.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-4">
             <a href={FINANCE_OS_DEMO_URL} target="_blank" rel="noopener noreferrer" className="btn-primary group text-lg">
               Ücretsiz Demoyu Dene
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -52,7 +52,7 @@ export default function Hero() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 mb-6 md:mb-8 px-4 md:px-0">
+          <div className="flex flex-col sm:flex-row justify-start gap-3 md:gap-4 mb-6 md:mb-8 px-4 md:px-0">
             {hasFeatured ? (
               <>
                 <Link href={postPath!} className="btn-primary group text-base md:text-lg px-6 md:px-8 py-3 md:py-4">
@@ -77,7 +77,7 @@ export default function Hero() {
           </div>
 
           {/* Social Links */}
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12">
+          <div className="flex flex-wrap justify-start gap-3 md:gap-4 mb-8 md:mb-12">
             <a
               href="https://www.linkedin.com/in/tongu%C3%A7-kara%C3%A7ay-36311040/"
               target="_blank"
@@ -99,7 +99,7 @@ export default function Hero() {
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 pt-6 md:pt-8 border-t border-primary-800">
+          <div className="flex flex-wrap justify-start items-center gap-4 md:gap-8 pt-6 md:pt-8 border-t border-primary-800">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent-500" />
               <span className="text-sm md:text-base text-primary-300">26+ {t('experience')}</span>

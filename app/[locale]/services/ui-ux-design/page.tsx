@@ -497,7 +497,7 @@ export default function UIUXDesignPage({ params: { locale } }: Props) {
           <p className="text-primary-300 mb-8 max-w-xl">
             In a free, no-obligation discovery call, let's evaluate your project needs together. After a 30-minute conversation, you'll have a clear roadmap.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-4">
             <Link href="/en/contact" className="btn-primary group text-lg">
               Schedule a Call
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

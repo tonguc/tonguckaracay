@@ -275,7 +275,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
 
           <div className="mt-10 text-center">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-400">{isTr ? "İlk Kurumsal Deneyimler" : "Early Corporate Experience"}</p>
-            <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
+            <div className="mx-auto flex max-w-4xl flex-wrap justify-start gap-2">
               {earlyEmployers.map((employer) => (
                 <span key={employer} className="rounded-lg border border-accent-500/30 bg-accent-500/5 px-3 py-1.5 text-sm font-medium text-primary-200">
                   {employer}
@@ -285,7 +285,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
           </div>
           <div className="mt-8 text-center">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-400">{isTr ? "Sonraki Kurumsal Deneyimler" : "Later Corporate Experience"}</p>
-            <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
+            <div className="mx-auto flex max-w-4xl flex-wrap justify-start gap-2">
               {laterEmployers.map((employer) => (
                 <span key={employer} className="rounded-lg border border-accent-500/30 bg-accent-500/5 px-3 py-1.5 text-sm font-medium text-primary-200">
                   {employer}
@@ -295,7 +295,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
           </div>
           <div className="mt-10 text-center">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-500">{isTr ? "Diğer projelerden markalar" : "More brands from past projects"}</p>
-            <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-2">
+            <div className="mx-auto flex max-w-4xl flex-wrap justify-start gap-2">
               {moreBrands.map((brand) => (
                 <span key={brand} className="rounded-lg border border-surface-border px-3 py-1.5 text-xs text-primary-300 md:text-sm">
                   {brand}

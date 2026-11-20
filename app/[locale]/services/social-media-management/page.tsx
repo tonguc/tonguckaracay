@@ -571,7 +571,7 @@ export default function SocialMediaManagementPage({ params: { locale } }: Props)
           <p className="text-primary-300 mb-8 max-w-xl">
             Schedule a free strategy session to discuss how we can strengthen your social presence.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-4">
             <Link href="/en/contact" className="btn-primary group text-lg">
               Free Strategy Session
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -210,7 +210,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
         </Link>
 
         <header className="max-w-3xl mx-auto text-center mb-12">
-          <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
+          <div className="flex items-center justify-start gap-4 mb-6 flex-wrap">
             <span className="flex items-center gap-1 text-sm text-primary-400">
               <Calendar className="w-4 h-4" />{formattedDate}
             </span>

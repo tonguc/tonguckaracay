@@ -24,7 +24,7 @@ export default function Brands() {
           </h2>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+        <div className="flex flex-wrap justify-start gap-3 max-w-4xl mx-auto">
           {brands.map((brand) => (
             <span 
               key={brand}

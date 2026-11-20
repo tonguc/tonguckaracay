@@ -352,7 +352,7 @@ export default function GeoOptimizationPage({ params: { locale } }: Props) {
           <p className="text-primary-300 mb-8 max-w-xl">
             In a free consultation, let's look at where your brand stands today in ChatGPT, Perplexity and similar tools.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-4">
             <Link href="/en/contact" className="btn-primary group text-lg">
               Free AI Visibility Audit
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

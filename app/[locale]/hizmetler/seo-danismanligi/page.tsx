@@ -518,7 +518,7 @@ export default function SEODanismanligiPage({ params: { locale } }: Props) {
           <p className="text-primary-300 mb-8 max-w-xl">
             Ücretsiz SEO analizi ile sitenizin mevcut durumunu ve fırsat alanlarını değerlendirelim. Herhangi bir taahhüt gerektirmeyen bu görüşmede, net bir yol haritası sunuyorum.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-4">
             <Link href="/iletisim" className="btn-primary group text-lg">
               Ücretsiz SEO Analizi
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

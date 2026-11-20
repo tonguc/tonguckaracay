@@ -580,7 +580,7 @@ export default function YapayZekaCozumleriPage({ params: { locale } }: Props) {
           <p className="text-primary-300 mb-8 max-w-xl">
             Ücretsiz danışmanlık görüşmesiyle AI'ın işletmenize nasıl değer katabileceğini keşfedin.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-4">
             <Link href="/iletisim" className="btn-primary group text-lg">
               Ücretsiz AI Danışmanlığı
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

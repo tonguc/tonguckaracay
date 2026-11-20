@@ -571,7 +571,7 @@ export default function SosyalMedyaYonetimiPage({ params: { locale } }: Props) {
           <p className="text-primary-300 mb-8 max-w-xl">
             Ücretsiz strateji görüşmesiyle sosyal medya varlığınızı nasıl güçlendirebileceğimizi konuşalım.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-4">
             <Link href="/iletisim" className="btn-primary group text-lg">
               Ücretsiz Strateji Görüşmesi
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

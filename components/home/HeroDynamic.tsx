@@ -69,7 +69,7 @@ export default function HeroDynamic({ locale }: Props) {
             </h1>
 
             {/* Servis etiketleri — H1'e sığmayan kapsamı burada gösteriyoruz */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            <div className="mt-6 flex flex-wrap items-center justify-start gap-2">
               {skills.map((skill) => (
                 <span
                   key={skill}

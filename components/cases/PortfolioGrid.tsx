@@ -42,7 +42,7 @@ export default function PortfolioGrid({ locale }: { locale: Locale }) {
         </p>
       </div>
 
-      <div className="mb-8 flex flex-wrap justify-center gap-2" role="group" aria-label={isTr ? "Proje türü" : "Project type"}>
+      <div className="mb-8 flex flex-wrap justify-start gap-2" role="group" aria-label={isTr ? "Proje türü" : "Project type"}>
         {filters.map((f) => (
           <button
             key={f.key}

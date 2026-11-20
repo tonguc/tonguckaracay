@@ -564,7 +564,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
           <p className="text-primary-300 mb-8 max-w-xl">
             Ücretsiz reklam analizi ile mevcut kampanyalarınızı değerlendirelim veya yeni bir strateji için yol haritası çizelim.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-4">
             <Link href="/iletisim" className="btn-primary group text-lg">
               Ücretsiz Reklam Analizi
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

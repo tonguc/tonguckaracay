@@ -518,7 +518,7 @@ export default function SEOConsultingPage({ params: { locale } }: Props) {
           <p className="text-primary-300 mb-8 max-w-xl">
             Get a free SEO audit to evaluate your site's current status and opportunity areas. This no-commitment consultation provides you with a clear roadmap.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-4">
             <Link href="/en/contact" className="btn-primary group text-lg">
               Free SEO Audit
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
