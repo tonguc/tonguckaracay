@@ -99,11 +99,11 @@ export default async function BlogPage({ params: { locale }, searchParams }: Pro
       <div className="container-custom">
 
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="mb-10">
           <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
             {lab ? 'AI Lab' : t('title')}
           </h1>
-          <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+          <p className="text-lg text-primary-300 max-w-2xl">
             {lab
               ? (locale === 'tr'
                   ? 'Modeller, API maliyetleri, MCP ve prompt mühendisliği üzerine teknik notlar ve deneyler.'

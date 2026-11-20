@@ -268,26 +268,22 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
         </div>
 
         <div className="container-custom relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <nav className="flex items-center justify-center gap-2 text-sm text-primary-400 mb-6">
+          <div className="max-w-4xl">
+            <nav className="flex items-center justify-start gap-2 text-sm text-primary-400 mb-6">
               <Link href="/en" className="hover:text-white transition-colors">Home</Link>
               <span>/</span>
               <span className="text-white">AI Training</span>
             </nav>
 
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-surface-border text-primary-300 text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              <span>Individual & Corporate AI Programs</span>
-            </div>
 
             <h1 className="font-display text-4xl md:text-6xl font-bold text-white mb-6 leading-[1.1]">
               Grow your business with AI.{" "}
-              <span className="bg-clip-text text-transparent">
+              
                 Speed up your content, ads, and operations.
-              </span>
+              
             </h1>
 
-            <p className="text-xl text-primary-300 mb-8 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-primary-300 mb-8 leading-relaxed max-w-2xl">
               This program isn't a tool tutorial. You'll learn to build systems that work in your business.
             </p>
 
@@ -428,11 +424,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
       {/* SHOWCASE — Systems I've built */}
       <section className="py-16 md:py-20 bg-surface-darker">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-surface-border text-primary-300 text-sm font-medium mb-4">
-              <Sparkles className="w-4 h-4" />
-              <span>Real examples</span>
-            </div>
+          <div className="mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Products I&apos;ve built with AI
             </h2>
@@ -758,7 +750,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
           <div className="max-w-5xl mx-auto">
             <div className="mb-10">
               <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                Let&apos;s set <span className="bg-clip-text text-transparent">clear expectations</span>
+                Let&apos;s set clear expectations
               </h2>
               <p className="text-lg text-primary-300 max-w-2xl">
                 Start with the right expectations and you&apos;ll see results faster.

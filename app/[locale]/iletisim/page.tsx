@@ -23,8 +23,8 @@ export default function IletisimPage() {
         </div>
 
         <div className="container-custom relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <nav className="flex items-center justify-center gap-2 text-sm text-primary-400 mb-6">
+          <div className="max-w-4xl">
+            <nav className="flex items-center justify-start gap-2 text-sm text-primary-400 mb-6">
               <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
               <span>/</span>
               <span className="text-white">İletişim</span>
@@ -34,7 +34,7 @@ export default function IletisimPage() {
               <span className="text-gradient">İletişime</span> Geçin
             </h1>
 
-            <p className="text-xl text-primary-300 mb-8 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-primary-300 mb-8 leading-relaxed max-w-2xl">
               Projenizi konuşmak, fiyat teklifi almak veya sadece merhaba demek için
               aşağıdaki formu doldurun. Genellikle 24 saat içinde yanıt veriyorum.
             </p>

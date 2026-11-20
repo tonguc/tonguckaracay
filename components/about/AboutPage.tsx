@@ -233,7 +233,7 @@ export default function AboutPage({ locale }: { locale: Locale }) {
       {/* Kariyer boyunca yer alınan marka ve projeler */}
       <section className="border-y border-surface-border/40 bg-surface-card/20 py-16 md:py-20">
         <div className="container-custom">
-          <div className="mb-10 flex flex-col items-center gap-3 text-center md:flex-row md:items-end md:justify-between md:text-left">
+          <div className="mb-10 flex flex-col items-center gap-3 md:flex-row md:items-end md:justify-between md:text-left">
             <div>
               <h2 className="section-title">
                 {isTr ? "Seçili Marka ve " : "Selected Brands & "}

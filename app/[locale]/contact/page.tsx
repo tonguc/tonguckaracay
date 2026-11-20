@@ -23,8 +23,8 @@ export default function ContactPage() {
         </div>
 
         <div className="container-custom relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <nav className="flex items-center justify-center gap-2 text-sm text-primary-400 mb-6">
+          <div className="max-w-4xl">
+            <nav className="flex items-center justify-start gap-2 text-sm text-primary-400 mb-6">
               <Link href="/en" className="hover:text-white transition-colors">Home</Link>
               <span>/</span>
               <span className="text-white">Contact</span>
@@ -34,7 +34,7 @@ export default function ContactPage() {
               <span className="text-gradient">Get in</span> Touch
             </h1>
 
-            <p className="text-xl text-primary-300 mb-8 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-primary-300 mb-8 leading-relaxed max-w-2xl">
               Fill out the form below to discuss your project, get a quote, or just say hello. 
               I usually respond within 24 hours.
             </p>

@@ -43,7 +43,7 @@ export default function HeroDynamic({ locale }: Props) {
       <div className="container-custom relative z-10">
         <div className="mx-auto max-w-4xl">
           {/* Büyük hero paneli — H1 + alt başlık + servis etiketleri + CTA + istatistik, tek görsel bütün */}
-          <div className="card flex flex-col items-center px-6 py-12 text-center md:px-14 md:py-16">
+          <div className="card flex flex-col items-center px-6 py-12 md:px-14 md:py-16">
             {/* Müsaitlik rozeti */}
             <div className="mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-surface-border bg-white/5 px-3 py-1.5">
               <span className="relative flex h-2 w-2">
