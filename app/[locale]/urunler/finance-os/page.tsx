@@ -155,7 +155,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
         <div className="container-custom">
           <div className="mb-12">
             <h2 className="section-title mb-4">Uygulamadan <span className="text-gradient">Görüntüler</span></h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">Örnek verilerle - gerçek uygulama arayüzünden alınmış ekran görüntüleri.</p>
+            <p className="text-primary-300 max-w-2xl">Örnek verilerle - gerçek uygulama arayüzünden alınmış ekran görüntüleri.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="card overflow-hidden p-0">
@@ -201,7 +201,6 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((s, i) => (
               <div key={i} className="card p-6 relative group hover:border-accent-500/30 transition-colors">
-                <div className="absolute top-4 right-4 text-5xl font-bold text-accent-500/10 group-hover:text-accent-500/20 transition-colors">{s.step}</div>
                 <h3 className="text-xl font-semibold text-white mb-3">{s.title}</h3>
                 <p className="text-primary-300">{s.description}</p>
               </div>
@@ -240,7 +239,7 @@ export default function FinanceOSPage({ params: { locale } }: Props) {
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Bütçenizi Bugün Kontrol Altına Alın
           </h2>
-          <p className="text-primary-300 mb-8 max-w-xl mx-auto">
+          <p className="text-primary-300 mb-8 max-w-xl">
             Kayıt olmadan, hemen tarayıcınızda deneyin.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">

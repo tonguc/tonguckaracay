@@ -35,7 +35,7 @@ export default function PortfolioGrid({ locale }: { locale: Locale }) {
           {isTr ? "Seçili " : "Selected "}
           <span className="text-gradient">{isTr ? "Çalışmalar" : "Work"}</span>
         </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-primary-300">
+        <p className=" mt-3 max-w-2xl text-primary-300">
           {isTr
             ? "26 yılı aşkın kariyerimde yer aldığım 200+ dijital projeden seçili örnekler: medya, otomotiv, fintech ve kamu. Her kart Behance'teki proje sayfasını açar."
             : "Selected work from 200+ digital projects across a career spanning more than 26 years, including media, automotive, fintech and the public sector. Each card opens the project on Behance."}

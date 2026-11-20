@@ -19,7 +19,7 @@ export default function FinalCTA() {
             <h2 className="text-2xl md:text-4xl font-bold text-white mb-3 md:mb-4">
               {t('title')}
             </h2>
-            <p className="text-sm md:text-base text-primary-300 mb-6 md:mb-8 max-w-2xl mx-auto">
+            <p className="text-sm md:text-base text-primary-300 mb-6 md:mb-8 max-w-2xl">
               {t('description')}
             </p>
             <Link href={contactPath} className="btn-primary group">

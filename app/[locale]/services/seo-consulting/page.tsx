@@ -338,7 +338,7 @@ export default function SEOConsultingPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Service <span className="text-gradient">Scope</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               We can work on a single area or comprehensive SEO consulting based on your needs.
             </p>
           </div>
@@ -364,7 +364,7 @@ export default function SEOConsultingPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               My <span className="text-gradient">Process</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               The structured and transparent process I follow for SEO consulting.
             </p>
           </div>
@@ -372,7 +372,6 @@ export default function SEOConsultingPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {process.map((step, i) => (
               <div key={i} className="card p-6 relative group hover:border-accent-500/30 transition-colors">
-                <div className="absolute top-4 right-4 text-5xl font-bold text-accent-500/10 group-hover:text-accent-500/20 transition-colors">{step.step}</div>
                 <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
                 <p className="text-primary-300">{step.description}</p>
               </div>
@@ -431,7 +430,7 @@ export default function SEOConsultingPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Why <span className="text-gradient">Work With Me?</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               Advantages I offer that differ from typical SEO agencies.
             </p>
           </div>
@@ -516,7 +515,7 @@ export default function SEOConsultingPage({ params: { locale } }: Props) {
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Let's Build Your SEO Strategy
           </h2>
-          <p className="text-primary-300 mb-8 max-w-xl mx-auto">
+          <p className="text-primary-300 mb-8 max-w-xl">
             Get a free SEO audit to evaluate your site's current status and opportunity areas. This no-commitment consultation provides you with a clear roadmap.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">

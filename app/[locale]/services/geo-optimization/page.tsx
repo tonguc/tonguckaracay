@@ -193,7 +193,7 @@ export default function GeoOptimizationPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Scope of <span className="text-gradient">Work</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               From AI visibility audits to content structuring — end-to-end GEO work.
             </p>
           </div>
@@ -219,7 +219,7 @@ export default function GeoOptimizationPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               My <span className="text-gradient">Process</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               A structured process for GEO consulting.
             </p>
           </div>
@@ -227,7 +227,6 @@ export default function GeoOptimizationPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {process.map((step, i) => (
               <div key={i} className="card p-6 relative group hover:border-accent-500/30 transition-colors">
-                <div className="absolute top-4 right-4 text-5xl font-bold text-accent-500/10 group-hover:text-accent-500/20 transition-colors">{step.step}</div>
                 <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
                 <p className="text-primary-300">{step.description}</p>
               </div>
@@ -286,7 +285,7 @@ export default function GeoOptimizationPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Why Work <span className="text-gradient">With Me</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               A realistic, measurable approach to a new field.
             </p>
           </div>
@@ -350,7 +349,7 @@ export default function GeoOptimizationPage({ params: { locale } }: Props) {
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Let's Assess Your AI Visibility
           </h2>
-          <p className="text-primary-300 mb-8 max-w-xl mx-auto">
+          <p className="text-primary-300 mb-8 max-w-xl">
             In a free consultation, let's look at where your brand stands today in ChatGPT, Perplexity and similar tools.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">

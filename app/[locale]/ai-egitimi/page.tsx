@@ -375,7 +375,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Fark nerede?
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Çoğu AI kullanımı araç dener, sonuç görmez. Bu program sistem kurar.
             </p>
           </div>
@@ -437,7 +437,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Yapay zekâyla geliştirdiğim ürünler
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Eğitimde anlattığım yöntemlerle geliştirdiğim gerçek ürünler: bir klinik sistemi ve Etsy&apos;de satışta olan dijital ürünlerin tamamı.
             </p>
           </div>
@@ -549,7 +549,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Hangi sektördesiniz?
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Her sektörün kendi içerik dili, reklam mantığı ve operasyon ritmi farklı. Program sektörünüze uyarlanır.
             </p>
           </div>
@@ -586,7 +586,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Size uygun olan hangisi?
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               İki ayrı program. İki ayrı kitle. Net hedef.
             </p>
           </div>
@@ -671,7 +671,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Müfredat
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Araçtan değil, ihtiyaçtan başlayan altı modül.
             </p>
           </div>
@@ -700,7 +700,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Sektörel detay
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Üç sektörden somut örnekler. Diğer sektörler için iletişime geçin.
             </p>
           </div>
@@ -761,7 +761,7 @@ export default function AiEgitimiPage({ params }: { params: { locale: string } }
               <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
                 Beklentileri <span className="bg-clip-text text-transparent">baştan netleştirelim</span>
               </h2>
-              <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              <p className="text-lg text-primary-300 max-w-2xl">
                 Doğru beklentiyle başlayan, sonucu da hızlı görür.
               </p>
             </div>

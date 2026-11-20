@@ -374,7 +374,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               What's the difference?
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Most AI use stays at the tool level and never produces results. This program builds systems.
             </p>
           </div>
@@ -436,7 +436,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Products I&apos;ve built with AI
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Real products built with the methods I teach: a clinic system and every digital product I sell on Etsy.
             </p>
           </div>
@@ -548,7 +548,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               What sector are you in?
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Every sector has its own content language, ad logic, and operational rhythm. The program adapts to yours.
             </p>
           </div>
@@ -585,7 +585,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Which one fits you?
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Two programs. Two audiences. Clear focus.
             </p>
           </div>
@@ -670,7 +670,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Curriculum
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Six modules — built around needs, not tools.
             </p>
           </div>
@@ -699,7 +699,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
               Sector deep-dive
             </h2>
-            <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-300 max-w-2xl">
               Three sectors — concrete examples. For other sectors, get in touch.
             </p>
           </div>
@@ -760,7 +760,7 @@ export default function AiTrainingPage({ params }: { params: { locale: string } 
               <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
                 Let&apos;s set <span className="bg-clip-text text-transparent">clear expectations</span>
               </h2>
-              <p className="text-lg text-primary-300 max-w-2xl mx-auto">
+              <p className="text-lg text-primary-300 max-w-2xl">
                 Start with the right expectations and you&apos;ll see results faster.
               </p>
             </div>

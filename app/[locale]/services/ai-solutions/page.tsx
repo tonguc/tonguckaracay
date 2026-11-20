@@ -340,7 +340,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Service <span className="text-gradient">Scope</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               Customizable AI solutions tailored to your business needs.
             </p>
           </div>
@@ -439,7 +439,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               My <span className="text-gradient">Process</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               The structured and transparent process I follow for AI projects.
             </p>
           </div>
@@ -447,7 +447,6 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {process.map((step, i) => (
               <div key={i} className="card p-6 relative group hover:border-accent-500/30 transition-colors">
-                <div className="absolute top-4 right-4 text-5xl font-bold text-accent-500/10 group-hover:text-accent-500/20 transition-colors">{step.step}</div>
                 <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
                 <p className="text-primary-300">{step.description}</p>
               </div>
@@ -463,7 +462,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Industry <span className="text-gradient">Applications</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               Every industry has different AI needs. I provide solutions tailored to your sector.
             </p>
           </div>
@@ -493,7 +492,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Why <span className="text-gradient">Work With Me?</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               Advantages I offer compared to enterprise AI consulting firms.
             </p>
           </div>
@@ -578,7 +577,7 @@ export default function AISolutionsPage({ params: { locale } }: Props) {
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Start Transforming Your Business with AI
           </h2>
-          <p className="text-primary-300 mb-8 max-w-xl mx-auto">
+          <p className="text-primary-300 mb-8 max-w-xl">
             Discover how AI can add value to your business with a free consultation session.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">

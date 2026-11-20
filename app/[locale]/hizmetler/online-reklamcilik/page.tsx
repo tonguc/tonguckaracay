@@ -338,7 +338,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Hizmet <span className="text-gradient">Kapsamı</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               Google, Meta ve diğer platformlarda kapsamlı reklam yönetimi hizmeti.
             </p>
           </div>
@@ -364,7 +364,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Çalışma <span className="text-gradient">Sürecim</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               Reklam yönetiminde izlediğim yapılandırılmış ve şeffaf süreç.
             </p>
           </div>
@@ -372,7 +372,6 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {process.map((step, i) => (
               <div key={i} className="card p-6 relative group hover:border-accent-500/30 transition-colors">
-                <div className="absolute top-4 right-4 text-5xl font-bold text-accent-500/10 group-hover:text-accent-500/20 transition-colors">{step.step}</div>
                 <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
                 <p className="text-primary-300">{step.description}</p>
               </div>
@@ -431,7 +430,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
             <h2 className="section-title mb-4">
               Neden <span className="text-gradient">Benimle Çalışmalısınız?</span>
             </h2>
-            <p className="text-primary-300 max-w-2xl mx-auto">
+            <p className="text-primary-300 max-w-2xl">
               Piyasadaki reklam ajanslarından farklı olarak sunduğum avantajlar.
             </p>
           </div>
@@ -562,7 +561,7 @@ export default function OnlineReklamcilikPage({ params: { locale } }: Props) {
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Reklam Stratejinizi Oluşturalım
           </h2>
-          <p className="text-primary-300 mb-8 max-w-xl mx-auto">
+          <p className="text-primary-300 mb-8 max-w-xl">
             Ücretsiz reklam analizi ile mevcut kampanyalarınızı değerlendirelim veya yeni bir strateji için yol haritası çizelim.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">

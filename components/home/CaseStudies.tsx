@@ -82,7 +82,7 @@ export default function CaseStudies({ locale }: Props) {
             {isTr ? "Öne Çıkan " : "Featured "}
             <span className="text-gradient">{isTr ? "Vaka Çalışmaları" : "Case Studies"}</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-primary-300">
+          <p className=" mt-3 max-w-2xl text-primary-300">
             {isTr
               ? "Strateji değil, sonuç. İşte tipik proje etkilerinden bazıları — her işletmenin hedefine göre uyarlanır."
               : "Outcomes, not just strategy. A few of the typical project impacts — tailored to each business's goals."}
