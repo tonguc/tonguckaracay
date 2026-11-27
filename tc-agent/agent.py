@@ -15,7 +15,8 @@ from bs4 import BeautifulSoup
 
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
-import anthropic, requests
+import anthropic, requests, io
+import squad_rules as SQ
 
 try:
     import yaml as _yaml   # frontmatter doğrulaması için (opsiyonel)
@@ -112,7 +113,7 @@ def _claude_create(**kwargs):
 
 # ── SYSTEM PROMPT ────────────────────────────────────────────────────────────
 
-SYSTEM = f"""Sen Tonguç Karaçay'ın dijital pazarlama ve SEO danışmanlığı blogu için içerik üreten kıdemli SEO stratejisti, AEO/GEO uzmanı ve içerik mimarısın.
+SYSTEM_BASE = f"""Sen Tonguç Karaçay'ın dijital pazarlama ve SEO danışmanlığı blogu için içerik üreten kıdemli SEO stratejisti, AEO/GEO uzmanı ve içerik mimarısın.
 
 BUGÜNÜN TARİHİ: {datetime.now().strftime('%d %B %Y')}
 
@@ -147,7 +148,7 @@ SES TONU:
 AEO (ANSWER ENGINE OPTIMIZATION)
 ══════════════════════════════════
 - İlk paragrafta direkt cevap ver (40-60 kelime, featured snippet hedefi)
-- H2 başlıkları soru formatında yaz: "Nasıl?", "Nedir?", "Neden?", "Hangisi?"
+- Alt soruları H2 olarak kullanırken insanların yazdığı soru biçimini kullan ("… nedir?", "… nasıl yapılır?")
 - Her soru için: önce direkt tek cümle cevap, sonra 2-3 cümle bağlam
 - "People Also Ask" sorularını H2/H3 olarak içeriğe entegre et
 - Her H2 bölümü bağımsız okunabilmeli — okuyucu direkt o bölüme atlasa anlayabilmeli
@@ -160,13 +161,12 @@ TEMEL PRENSİPLER:
 2. ÇIKARILABİLİRLİK: Her kritik iddia bağımsız bir cümle olarak çıkarılabilmeli
 3. BAĞIMSIZ CÜMLELER: Bir cümle önceki cümleye referans vermeden anlam taşımalı
 4. BEYAN EDİCİ YAZIM: "[Konu], [özellik]'e sahip [kategori]'dir" formatı kullan
-5. STRATEJİK TEKRAR: Anahtar gerçeği farklı formatlarda 2-3 kez ifade et
-6. ENTITY NETLİĞİ: Tam isimler kullan — "Google Ads" değil sadece "platform"
+5. ENTITY NETLİĞİ: Tam isimler kullan — "Google Ads" değil sadece "platform"
 
 ALINTILANABİLİR CÜMLE KALIPLARI (her yazıda en az 3 tane):
 - "[Araç/Yöntem], [somut sonuç]'u [zaman diliminde/şartla] sağlar."
 - "[Kategori]'nin en etkili yaklaşımı [yöntem]'dir, çünkü [neden]."
-- "[İstatistik]'e göre, [bulgu] — bu [sonuç] anlamına gelir."
+- "[Kurum]'un [belge]'sine göre, [bulgu] — bu [sonuç] anlamına gelir." (yalnızca kaynak gerçekse)
 
 YAPISAL UNSURLAR (her yazıda):
 - Markdown tablo: karşılaştırma veya özellik listesi
@@ -175,13 +175,11 @@ YAPISAL UNSURLAR (her yazıda):
 - Kalın **vurgu**: her bölümde 1-2 anahtar ifade
 
 ══════════════════════════════════
-E-E-A-T (Aralık 2025 Core Update Sonrası)
+E-E-A-T
 ══════════════════════════════════
-DENEYİM (birinci el kanıt — ZORUNLU):
-- "Müşterilerimizde test ettiğimizde [sonuç] gördük."
-- "Danışmanlık projelerinde karşılaştığımız en yaygın hata..."
-- "Uygulamada gözlemlediğimiz: [spesifik bulgu]"
-- Her yazıda en az 2 birinci el deneyim ifadesi
+DENEYİM: Birinci el deneyim, müşteri ve vaka cümlesi UYDURULMAZ (Squad kural 2).
+Deneyimi yöntemle göster: adım adım süreç, karar çerçevesi, kontrol listesi,
+"Örnek senaryo:" etiketli işlenmiş örnek.
 
 UZMANLIK (teknik derinlik):
 - Platform terminolojisini doğru kullan (Google Search Console, Core Web Vitals, CLS/LCP/INP)
@@ -189,9 +187,9 @@ UZMANLIK (teknik derinlik):
 - Teorik bilgiyi pratik uygulamayla eşleştir
 
 OTORİTE (dış referanslar):
-- Google, Moz, Semrush, HubSpot, Statista, Nielsen, Gartner gibi güvenilir kaynaklara atıf
-- Akademik çalışma veya resmi platform duyurusu mümkünse belirt
-- İstatistikleri her zaman kaynaklı ver
+- Yalnızca var olduğundan emin olduğun resmi kaynaklara atıf (Google Search Central, platformların resmi dokümanları)
+- Rapor/istatistik adı uydurma; emin değilsen rakamsız yaz
+- İstatistik yalnızca kaynaklıysa
 
 GÜVEN (doğruluk ve dürüstlük):
 - Abartısız, kanıta dayalı ifadeler
@@ -219,7 +217,7 @@ TEKNİK SEO & SCHEMA (2026 Durumu)
 DÖNÜŞÜM KATMANI (CRO Sinyalleri)
 ══════════════════════════════════
 - Her yazıda okuyucunun "bir sonraki adımı" net olmalı
-- Transactional intent: net CTA + güven sinyali (garantiler, sonuçlar)
+- Transactional intent: net CTA + yalnızca gerçek güven sinyali (garanti/sonuç vaadi yok)
 - Commercial intent: karar çerçevesi sun, okuyucuyu doğru seçime yönlendir
 - Informational: "Bu bilgiyi uygulamak için..." bağlantısıyla ilgili yazıya yönlendir
 
@@ -258,23 +256,26 @@ Okuyucu makaleyi kapatınca elinde kullanılabilir bir şey olmalı.
 ══════════════════════════════════
 İÇERİK MİMARİSİ (Standart Yapı)
 ══════════════════════════════════
-1. **İçeriğe özgün ilk H2** (40-60 kelime, featured snippet için optimize) — "Kısa Cevap" değil, konuya özel başlık
-2. **Giriş**: neden önemli + okuyucuya ne kazandıracak
+1. **Cevap paragrafı** (gövdenin en başı, ilk H2'den önce, 40-60 kelime): ana soruya doğrudan cevap
+2. **İlk H2**: içeriğe özgün başlık — "Kısa Cevap" değil
 3. **Ana bölümler**: H2 soru formatı, her birinde alıntılanabilir cümle
 4. **Araç içeriği ise**: prompt + before/after + şablon (yukarıdaki kurala göre)
 5. **Karşılaştırma tablosu** (commercial intent için zorunlu)
 6. **Hangi Durumda Hangisi?** — persona/senaryo kılavuzu
-7. **Türkiye'ye özel bağlam**: yerel veri, platform fiyatları (TL), pazar gerçeği
+7. **Türkiye'ye özel bağlam**: yerel platformlar, pazar gerçeği (rakam yalnızca kaynaklıysa)
 8. **CTA** + iç link
-9. **FAQ** (frontmatter + içerik sonu bölümü)
+9. **FAQ**: yalnızca frontmatter `faq` alanında (site kendisi basar) — gövdeye SSS bölümü YAZMA
 
 KESİNLİKLE YASAK:
-- Uydurma istatistik veya kaynak
+- Uydurma istatistik, kaynak, deneyim, vaka veya fiyat
 - "Günümüzde dijital dünya..." gibi klişe girişler
 - Genel, yüzeysel tavsiyeler — spesifik ol
 - Fazla uzun cümleler (30+ kelime)
 - Promosyonel, haber bülteni dili — beyan edici ve nötr yaz
 - "## İçindekiler" / "## Table of Contents" / TOC bölümü YAZMA — site zaten otomatik TOC üretir (mobilde yazı üstünde, desktop'ta sağ sidebar). Manuel TOC eklenirse renderer'ın slugify'ı ile uyuşmaz (Türkçe karakterleri ve tireleri siler), anchor linkler kırılır."""
+
+# AI SEO Squad kuralları en üstte: çelişkide Squad kazanır (squad_rules.py).
+SYSTEM = SQ.SQUAD_RULES + "\n\n" + SYSTEM_BASE
 
 # ── SERP ANALİZİ ─────────────────────────────────────────────────────────────
 
@@ -1110,7 +1111,7 @@ def generate_post(topic: str, tr_serp: str = "", en_serp: str = "",
 COMMERCIAL INTENT — ZORUNLU BÖLÜMLER:
 - Karşılaştırma tablosu: En az 5 satırlı Markdown tablosu ekle (araç/yöntem/seçenek karşılaştırması) — ZORUNLU
 - "Hangi Durumda Hangisi?" bölümü: 3 farklı persona/senaryo için net öneri ver (örn: startup, freelancer, kurumsal şirket) — ZORUNLU
-- Gerçek maliyet analizi: Araç/hizmet maliyetlerini somut rakamlarla tahmin et (TL veya USD) — ZORUNLU"""
+- Maliyet bölümü: maliyeti belirleyen faktörler; rakam yalnızca resmi fiyat sayfasına dayanıyorsa ve "fiyatlar değişebilir" notuyla — tahmin rakamı YAZMA"""
 
     # Commercial intent için zorunlu bölümler (EN)
     en_commercial_sections = ""
@@ -1119,7 +1120,7 @@ COMMERCIAL INTENT — ZORUNLU BÖLÜMLER:
 COMMERCIAL INTENT — MANDATORY SECTIONS:
 - Comparison table: Include a Markdown table with at least 5 rows comparing tools/methods/options — MANDATORY
 - "Which Scenario Uses What?" section: Give clear recommendations for 3 personas/scenarios (e.g. startup, freelancer, enterprise) — MANDATORY
-- Real cost analysis section: Estimate actual costs with specific figures (USD or local currency) — MANDATORY"""
+- Cost section: the factors that drive cost; a figure only if it comes from an official pricing page, marked "prices change" — NEVER an estimated figure"""
 
     # Tool page için zorunlu bölümler (TR)
     tr_tool_sections = ""
@@ -1170,6 +1171,7 @@ TOOL PAGE — MANDATORY SECTIONS (topic involves a specific tool/platform):
     if is_tool_page:
         tr_tool_structure = """
 TOOL PAGE İÇERİK YAPISI — BU SIRAYI KORU (blog yapısı değil, utility yapısı):
+0. Gövde 40-60 kelimelik doğrudan cevap paragrafıyla başlar
 1. İÇERİĞE ÖZGÜN İLK H2 → 5 maddelik NUMARALI LİSTE (her madde bold: başlık + kısa açıklama), snippet için liste formatı
    BAŞLIK KURALI: "Kısa Cevap" yazma — konuyu doğrudan ifade eden başlık yaz (örn: "[Konu] İçin 5 Kritik Adım", "En İyi X [Araç] Komutu", "[Konu] Nasıl Yapılır? X Adımda")
 2. ## Hazır Şablonlar → Çıktı şablonu (açıklamanın nasıl görüneceği, köşeli parantez ile) + Prompt şablonu (ChatGPT'ye gönderilecek metin) — SAYFANIN ÜSTÜNDE, kaydırmadan görünmeli
@@ -1178,12 +1180,13 @@ TOOL PAGE İÇERİK YAPISI — BU SIRAYI KORU (blog yapısı değil, utility yap
 5. Açıklama bölümleri → Avantajlar, nasıl çalışır, detaylar (blog içeriği)
 6. ## Ne Zaman İşe Yaramaz? → Sınırlamalar + riskler + çözüm önerileri
 7. ## Kime Göre Ne Yapmalı? → Yeni başlayan / orta seviye / ileri seviye için karar bloğu
-8. ## Sıkça Sorulan Sorular
+(SSS yalnızca frontmatter faq alanında — gövdeye SSS bölümü yazma)
 
 KRİTİK: Kullanılabilir içerik (şablon + promptlar) ÖNCE gelir, açıklama SONRA."""
 
         en_tool_structure = """
 TOOL PAGE CONTENT STRUCTURE — FOLLOW THIS ORDER (utility structure, not blog structure):
+0. The body opens with a 40-60 word direct-answer paragraph
 1. CONTENT-SPECIFIC FIRST H2 → 5-item NUMBERED LIST (each item bold: title + short explanation), list format for snippet
    HEADING RULE: Never write "Quick Answer" — use a topic-specific, benefit-driven heading (e.g., "5 Critical Steps for [Topic]", "The Best X [Tool] Commands", "How to [Topic] in X Steps")
 2. ## Ready-to-Use Templates → Output template (what the result looks like, with bracketed placeholders) + Prompt template (what to send to ChatGPT) — NEAR TOP, visible without scrolling
@@ -1192,7 +1195,7 @@ TOOL PAGE CONTENT STRUCTURE — FOLLOW THIS ORDER (utility structure, not blog s
 5. Explanation sections → Advantages, how it works, details (blog content)
 6. ## When Does It Fail? → Limitations + risks + workarounds
 7. ## Which Approach for Which Level? → Decision block for beginner / intermediate / advanced
-8. ## Frequently Asked Questions
+(FAQ only in the frontmatter faq field — no FAQ section in the body)
 
 CRITICAL: Usable content (templates + prompts) comes FIRST, explanation comes AFTER."""
 
@@ -1209,21 +1212,22 @@ KURALLAR:
 - Intent: {tr_intent} — {tr_intent_desc}
 - İç link: verilen URL listesinden 3-5 tanesine doğal anchor text ile link ver
 - Dış link: 2-3 güvenilir kaynak (Google, Moz, HubSpot, Statista vb.)
-- FAQ: 6-8 soru, her cevap 60-80 kelime, PAA sorgularından üret{tr_block}{tr_paa_block}{tr_links_block}
+- FAQ (yalnızca frontmatter): en fazla 8 GERÇEK soru — PAA/ilgili aramalardan; uygun soru yoksa faq: [] — cevaplar 40-80 kelime, gövdeyi kopyalamaz{tr_block}{tr_paa_block}{tr_links_block}
 {tr_commercial_sections}
 {tr_tool_sections}
 {tr_tool_structure}
 KARAR MİMARİSİ (tüm intentler için zorunlu):
 - Her H2 başlığı okuyucunun aklındaki bir soruyu cevaplar (karar-odaklı yapı)
-- İlk H2'yi içeriğe özgün, fayda ifaden bir başlık olarak yaz — "Kısa Cevap" YAZMA:
-  • Tool page ise: 5 maddelik NUMARALI LİSTE (her madde: **bold başlık** — kısa açıklama)
-  • Diğer içerik ise: 40-60 kelime net paragraf özet
+- Gövde, ilk H2'den önce 40-60 kelimelik doğrudan cevap paragrafıyla başlar (Squad cevap-önce)
+- Ardından ilk H2: içeriğe özgün, fayda ifaden başlık — "Kısa Cevap" YAZMA:
+  • Tool page ise: bu H2 altında 5 maddelik NUMARALI LİSTE (her madde: **bold başlık** — kısa açıklama)
   • BAŞLIK ÖRNEKLERİ: "[Konu]: X Adımda Nasıl Yapılır?", "X [Araç] Adımı", "[Konu] İçin X Kritik Adım", "En İyi X [Konu] Yöntemi"
 - Yazı sonunda okuyucu ne yapması gerektiğini net olarak bilmeli
 
-EEAT SİNYALLERİ (zorunlu):
-- En az 2 yerde şu ifade kalıplarını kullan: "Uygulamada gördüğümüz...", "Müşterilerimizde test ettiğimizde...", "Danışmanlık projelerinde karşılaştığımız..."
-- Gerçek istatistik veya sayı içeren en az 3 cümle ekle (kaynak belirt veya gerçekçi tahmin sun)
+EEAT SİNYALLERİ (Squad kanıt kuralları):
+- Uydurma deneyim/müşteri/vaka cümlesi YOK; uzmanlığı yöntem, karar çerçevesi, kontrol listesi ve "Örnek senaryo:" etiketli örnekle göster
+- Rakam yalnızca kaynaklıysa (kaynak cümlede); tahmin rakamı yok
+- En az 3 alıntılanabilir cümle (tam fikir, açık özne, doğrulanmış veya kaynaklı)
 
 TAM OLARAK ŞU FORMATTA DÖN (başka hiçbir şey ekleme):
 ===TR_START===
@@ -1245,7 +1249,7 @@ faq:
     answer: "Cevap 2."
 ---
 
-(TR markdown içerik — {tr_word_target} kelime, AEO+GEO+EEAT, iç+dış linkler, EEAT deneyim ifadeleri, istatistikler{', TOOL PAGE YAPISI: İçeriğe özgün ilk H2 (numaralı liste) → Şablonlar → Promptlar → Karşılaştırma → Açıklama → Ne Zaman İşe Yaramaz → Karar Bloğu → SSS' if is_tool_page else ', içeriğe özgün ilk H2 (paragraph özet), karar mimarisi, sonunda ## Sıkça Sorulan Sorular bölümü'})
+(TR markdown içerik — {tr_word_target} kelime, AEO+GEO+EEAT, iç+dış linkler, EEAT deneyim ifadeleri, istatistikler{', TOOL PAGE YAPISI: İçeriğe özgün ilk H2 (numaralı liste) → Şablonlar → Promptlar → Karşılaştırma → Açıklama → Ne Zaman İşe Yaramaz → Karar Bloğu' if is_tool_page else ', başta cevap paragrafı, sonra içeriğe özgün ilk H2, karar mimarisi — gövdede SSS bölümü YOK'})
 
 ===TR_END==="""
 
@@ -1271,21 +1275,22 @@ RULES:
 - Intent: {en_intent} — {en_intent_desc}
 - Internal links: naturally link 3-5 URLs from the list below
 - External links: 2-3 authoritative sources (Google, Moz, HubSpot, Statista etc.)
-- FAQ: 6-8 questions, each answer 60-80 words, based on PAA queries{en_block}{en_paa_block}{en_links_block}
+- FAQ (frontmatter only): up to 8 REAL questions from PAA/related searches; if none fit use faq: [] — answers 40-80 words, never copied from the body{en_block}{en_paa_block}{en_links_block}
 {en_commercial_sections}
 {en_tool_sections}
 {en_tool_structure}
 DECISION ARCHITECTURE (mandatory for all intents):
 - Each H2 heading answers a question the reader has in mind (decision-based structure)
-- Write the first H2 as a content-specific, benefit-driven heading — NEVER write "Quick Answer":
-  • Tool page: 5-item NUMBERED LIST (each item: **bold title** — short explanation)
-  • Other content: 40-60 word concise paragraph summary
+- The body opens, before the first H2, with a 40-60 word paragraph that directly answers the main question (Squad answer-first)
+- Then the first H2: content-specific, benefit-driven heading — NEVER "Quick Answer":
+  • Tool page: under this H2, a 5-item NUMBERED LIST (each item: **bold title** — short explanation)
   • HEADING EXAMPLES: "[Topic]: How to Do It in X Steps", "X [Tool] Steps That Work", "X Critical Steps for [Topic]", "The Best X [Topic] Methods"
 - At the end of the post, the reader must clearly know what action to take next
 
-EEAT SIGNALS (mandatory):
-- Use at least 2 first-person authority phrases such as: "In practice, we've seen...", "When we tested this with clients...", "Across consulting engagements, we've found..."
-- Include at least 3 sentences containing real statistics or specific numbers (cite the source or present a credible estimate)
+EEAT SIGNALS (Squad evidence rules):
+- NO invented first-hand experience, client, or case-study sentences; show expertise through method, decision frameworks, checklists and examples labelled "Example scenario:"
+- Numbers only when sourced (source named in the sentence); never an estimated figure
+- At least 3 citable sentences (complete idea, explicit subject, verified or attributed)
 
 The Turkish version of this post has slug: "{tr_slug}" — this is for cross-language linking ONLY. DO NOT translate the Turkish content. Write a fully native English article for a US/UK audience: USD pricing, global platforms (Shopify, Amazon, Etsy), Western market case studies, English-language SEO/AI ecosystem. The two posts share the topic and core facts but must NOT mirror each other in H2 order, examples, statistics, or framing — design this English version independently for an English-speaking reader.
 
@@ -1309,7 +1314,7 @@ faq:
     answer: "Answer 2."
 ---
 
-(EN markdown content — {en_word_target} words, AEO+GEO+EEAT, internal+external links, EEAT experience phrases, statistics{', TOOL PAGE STRUCTURE: Content-specific first H2 (numbered list) → Templates → Prompts → Comparison → Explanation → When Does It Fail → Decision Block → FAQ' if is_tool_page else ', content-specific first H2 (paragraph summary), decision architecture, end with ## Frequently Asked Questions'})
+(EN markdown content — {en_word_target} words, AEO+GEO+EEAT, internal+external links, EEAT experience phrases, statistics{', TOOL PAGE STRUCTURE: Content-specific first H2 (numbered list) → Templates → Prompts → Comparison → Explanation → When Does It Fail → Decision Block' if is_tool_page else ', opening answer paragraph, then content-specific first H2, decision architecture — NO FAQ section in the body'})
 
 ===EN_END==="""
 
@@ -1356,6 +1361,177 @@ faq:
                "file": f"content/blog/en/{en_slug}.md",
                "content": en_file},
     }
+
+# ── AI SEO SQUAD KAPISI ──────────────────────────────────────────────────────
+# Her yazı/revizyon GitHub'a gitmeden önce buradan geçer:
+#   1) kod kontrolleri (squad_rules.deterministic_checks)
+#   2) Squad denetim çağrısı (VERA + Module A/B/E/G — JSON döner)
+#   3) sorun varsa en fazla 2 düzeltme turu (yalnızca bulunan sorunlar düzeltilir)
+# Sonuç READY ise yayınlanır; değilse taslak olarak bekletilir (/taslaklar, /yayinla).
+# Kapı çalışmazsa (API/JSON hatası) yazı ASLA "geçti" sayılmaz → bekletilir.
+
+SQUAD_MAX_FIX_ROUNDS = 2
+EVIDENCE_CODES = {"E1", "E2", "E3", "E4", "E-EXPERIENCE", "V2", "G1", "G2"}
+
+
+def _claude_json(prompt: str, max_tokens: int = 3000) -> dict | None:
+    """Squad denetim çağrısı. JSON parse edilemezse None (= kapı çalışmadı)."""
+    try:
+        resp = _claude_create(
+            model="claude-sonnet-4-5", max_tokens=max_tokens,
+            system="Sen AI SEO Squad doğrulama kapısısın. Yalnızca istenen JSON'u döndür.",
+            messages=[{"role": "user", "content": prompt}])
+        raw = resp.content[0].text.strip()
+        m = re.search(r"\{.*\}", raw, re.DOTALL)
+        return json.loads(m.group(0)) if m else None
+    except Exception as e:
+        logger.error(f"Squad kapısı çalışmadı: {e}")
+        return None
+
+
+def squad_review(md: str, lang: str, primary_question: str, paa: list[str],
+                 competitor_ctx: str, allowed_slugs: list[str], links_txt: str,
+                 own_slug: str) -> tuple[str, dict]:
+    """Bir dil dosyasını Squad kapısından geçirir. (son_md, rapor) döner."""
+    rounds = 0
+    gate = None
+    issues: list[dict] = []
+    while True:
+        code_issues = SQ.deterministic_checks(md, lang, allowed_slugs, own_slug)
+        gate = _claude_json(SQ.gate_prompt(md, lang, primary_question, paa,
+                                           competitor_ctx[:3000], code_issues))
+        llm_issues = []
+        if gate:
+            for i in gate.get("issues", []) or []:
+                if isinstance(i, dict) and i.get("severity") in ("blocker", "fix", "advisory"):
+                    llm_issues.append({"code": str(i.get("code", "?")), "severity": i["severity"],
+                                       "where": str(i.get("where", ""))[:120],
+                                       "detail": str(i.get("detail", ""))[:300],
+                                       "fix": str(i.get("fix", ""))[:300]})
+        issues = code_issues + llm_issues
+        fixable = [i for i in issues if i["severity"] in ("blocker", "fix") and i["code"] != "E-PENDING"]
+        if gate is None or not fixable or rounds >= SQUAD_MAX_FIX_ROUNDS:
+            break
+        rounds += 1
+        logger.info(f"Squad düzeltme turu {rounds} ({lang}): {len(fixable)} sorun")
+        try:
+            raw = _call_claude(SQ.fix_prompt(md, lang, fixable, links_txt), max_tokens=12000)
+            fixed = _parse_block(raw, "===FIX_START===", "===FIX_END===", lang.upper())
+            fixed = _sanitize_frontmatter(fixed)
+            _validate_frontmatter(fixed, lang.upper())
+            md = fixed
+        except Exception as e:
+            logger.error(f"Squad düzeltme turu başarısız ({lang}): {e}")
+            break
+
+    open_items = [i for i in issues if i["severity"] in ("blocker", "fix")]
+    verdict = "READY" if (gate is not None and not open_items) else "HOLD"
+    report = {
+        "verdict": verdict,
+        "gate_ran": gate is not None,
+        "rounds": rounds,
+        "open_items": open_items,
+        "advisory": [i for i in issues if i["severity"] == "advisory"],
+        "citable_count": (gate or {}).get("citable_count"),
+        "information_gain": (gate or {}).get("information_gain"),
+    }
+    return md, report
+
+
+def squad_gate_post(post: dict, primary_tr: str, primary_en: str,
+                    tr_ctx: str = "", en_ctx: str = "",
+                    tr_links: str = "", en_links: str = "") -> dict:
+    """TR + EN dosyalarını kapıdan geçirir; post'u yerinde günceller, raporu döner."""
+    reports = {}
+    for lang, primary, ctx, links in (("tr", primary_tr, tr_ctx, tr_links),
+                                      ("en", primary_en, en_ctx, en_links)):
+        if not post.get(lang) or not post[lang].get("content"):
+            continue
+        slugs = gh_slugs(lang)
+        md, rep = squad_review(post[lang]["content"], lang, primary, extract_paa(ctx),
+                               ctx, slugs, links, post[lang]["slug"])
+        post[lang]["content"] = md
+        reports[lang] = rep
+    reports["verdict"] = "READY" if reports and all(
+        r["verdict"] == "READY" for k, r in reports.items() if k in ("tr", "en")) else "HOLD"
+    return reports
+
+
+def squad_report_text(reports: dict) -> str:
+    lines = [f"🧭 *Squad kapısı:* {SQ.VERDICT_LABELS[reports['verdict']]}"]
+    for lang in ("tr", "en"):
+        r = reports.get(lang)
+        if not r:
+            continue
+        flag = "🇹🇷" if lang == "tr" else "🇬🇧"
+        if not r["gate_ran"]:
+            lines.append(f"{flag} Kapı çalışmadı (API/JSON hatası) — geçmiş sayılmaz")
+            continue
+        lines.append(f"{flag} {'✅' if r['verdict'] == 'READY' else '⏸'} "
+                     f"düzeltme turu: {r['rounds']} · alıntılanabilir cümle: {r.get('citable_count', '?')}")
+        if r.get("information_gain"):
+            lines.append(f"   Bilgi kazancı: {str(r['information_gain'])[:160]}")
+        for i in r["open_items"][:6]:
+            lines.append(f"   • [{i['code']}] {i['detail'][:160]}")
+        if len(r["open_items"]) > 6:
+            lines.append(f"   • … +{len(r['open_items']) - 6} madde")
+    return "\n".join(lines)
+
+
+# ── BEKLEYEN TASLAKLAR (Squad kapısından geçemeyenler) ───────────────────────
+
+_PENDING_POSTS_FILE = "pending_posts.json"
+
+
+def _load_pending_posts() -> dict:
+    try:
+        with open(_PENDING_POSTS_FILE, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def _save_pending_posts(data: dict) -> None:
+    try:
+        with open(_PENDING_POSTS_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        logger.error(f"pending_posts kaydedilemedi: {e}")
+
+
+def hold_post(post: dict, reports: dict, kind: str, meta: dict | None = None) -> str:
+    """Kapıdan geçemeyen yazıyı bekletir. Anahtar = TR slug."""
+    key = post["tr"]["slug"]
+    data = _load_pending_posts()
+    data[key] = {"kind": kind, "created": datetime.utcnow().isoformat() + "Z",
+                 "post": post, "reports": reports, "meta": meta or {}}
+    _save_pending_posts(data)
+    return key
+
+
+async def send_draft_files(u, post: dict):
+    """Taslak dosyalarını Telegram'a belge olarak gönderir (okumak için)."""
+    for lang in ("tr", "en"):
+        p = post.get(lang)
+        if p and p.get("content"):
+            try:
+                await u.message.reply_document(
+                    document=io.BytesIO(p["content"].encode("utf-8")),
+                    filename=f"{lang}-{p['slug']}.md")
+            except Exception as e:
+                logger.error(f"Taslak dosyası gönderilemedi: {e}")
+
+
+def publish_post(post: dict, kind: str, msg_prefix: str) -> tuple[bool, bool]:
+    ok_tr = ok_en = False
+    if post.get("tr"):
+        ok_tr = gh_push(post["tr"]["file"], post["tr"]["content"], f"{msg_prefix}: {post['tr']['slug']}")
+    if post.get("en") and post["en"].get("content"):
+        ok_en = gh_push(post["en"]["file"], post["en"]["content"], f"{msg_prefix}: {post['en']['slug']}")
+    if kind == "new" and ok_tr and ok_en:
+        gh_update_slug_mappings(post["tr"]["slug"], post["en"]["slug"])
+    return ok_tr, ok_en
+
 
 # ── KONU SEÇİMİ ──────────────────────────────────────────────────────────────
 
@@ -1412,6 +1588,8 @@ async def cmd_start(u, _):
         "🌐 `/site hero [talimat]` — Ana sayfa slider metnini güncelle\n"
         "✏️ `/revize [slug] [istek]` — Mevcut yazıyı düzenle\n"
         "🤖 `/gunluk` — Otomatik konu seç ve yaz\n"
+        "🧭 Her yazı AI SEO Squad kapısından geçer; geçemeyen taslak olarak bekler\n"
+        "📝 `/taslaklar` — Bekleyen taslaklar · `/yayinla [slug]` — yayınla · `/taslak_sil [slug]`\n"
         "📋 `/brief [konu]` — Sadece içerik brief göster\n"
         "📋 `/liste` — Blog yazılarını listele\n"
         "📊 `/durum` — Agent durumu\n",
@@ -1464,6 +1642,121 @@ async def cmd_brief(u, ctx):
     brief = serp_ctx[:3500]
     await msg.edit_text(f"📋 *Brief — {topic}*\n\n```\n{brief}\n```", parse_mode="Markdown")
 
+async def _gate_and_push_update(u, msg, slug, en_slug, new_tr, new_en, prefix):
+    """/revize ve /optimize çıktısını Squad kapısından geçirip yayınlar ya da bekletir."""
+    loop = asyncio.get_event_loop()
+    post = {"tr": {"slug": slug, "title": SQ.fm_value(SQ.split_post(new_tr)[0], "title"),
+                   "file": f"content/blog/tr/{slug}.md", "content": new_tr}}
+    if new_en:
+        post["en"] = {"slug": en_slug, "title": SQ.fm_value(SQ.split_post(new_en)[0], "title"),
+                      "file": f"content/blog/en/{en_slug}.md", "content": new_en}
+    await msg.edit_text("🧭 AI SEO Squad kapısı çalışıyor _(1-3 dk)_...", parse_mode="Markdown")
+    tr_links = await loop.run_in_executor(None, get_internal_links, "tr")
+    en_links = await loop.run_in_executor(None, get_internal_links, "en")
+    reports = await loop.run_in_executor(None, squad_gate_post, post,
+                                         post["tr"]["title"] or slug,
+                                         post.get("en", {}).get("title") or en_slug,
+                                         "", "", tr_links, en_links)
+    report_txt = squad_report_text(reports)
+    if reports["verdict"] != "READY":
+        key = hold_post(post, reports, "update", {"prefix": prefix})
+        await msg.edit_text(
+            f"{report_txt}\n\n📝 {prefix} taslağı bekletiliyor (canlı yazı değişmedi): `{key}`\n"
+            f"`/yayinla {key}` ile yayınlayabilirsin.", parse_mode="Markdown")
+        await send_draft_files(u, post)
+        return
+    ok_tr, ok_en = await loop.run_in_executor(None, publish_post, post, "update", prefix)
+    status = "✅ TR + EN" if (ok_tr and ok_en) else "✅ TR" if ok_tr else "⚠️ Başarısız"
+    await msg.edit_text(
+        f"{report_txt}\n\n{status} {prefix} tamamlandı!\n🇹🇷 `{slug}`\n🇬🇧 `{en_slug}`\n"
+        f"_Vercel deploy ~1-2 dk içinde._", parse_mode="Markdown")
+
+
+async def cmd_taslaklar(u, _):
+    if not auth(u): return await deny(u)
+    data = _load_pending_posts()
+    if not data:
+        return await u.message.reply_text("📭 Bekleyen taslak yok.")
+    lines = ["📝 *Bekleyen taslaklar* (Squad kapısından geçmedi):"]
+    for key, d in sorted(data.items(), key=lambda kv: kv[1].get("created", ""), reverse=True):
+        n = sum(len(d["reports"].get(l, {}).get("open_items", [])) for l in ("tr", "en"))
+        lines.append(f"• `{key}` — {d['kind']} · {n} açık madde · {d.get('created','')[:16]}")
+    lines.append("\n`/yayinla <slug>` → yayınla · `/taslak_sil <slug>` → sil")
+    await u.message.reply_text("\n".join(lines), parse_mode="Markdown")
+
+
+async def cmd_taslak_sil(u, ctx):
+    if not auth(u): return await deny(u)
+    key = (ctx.args or [""])[0].strip()
+    data = _load_pending_posts()
+    if key not in data:
+        return await u.message.reply_text(f"❌ `{key}` bulunamadı. `/taslaklar`", parse_mode="Markdown")
+    data.pop(key); _save_pending_posts(data)
+    await u.message.reply_text(f"🗑 `{key}` taslağı silindi.", parse_mode="Markdown")
+
+
+async def cmd_yayinla(u, ctx):
+    """Bekleyen taslağı yayınlar (Tonguç'un kararı). Squad kuralları:
+    - [DATA NEEDED] işaretli cümleler yayınlanmaz → çıkarılır, liste raporlanır.
+    - Kanıt sorunu (uydurma rakam/deneyim/kaynak) kabul edilemez → önce bir düzeltme
+      turu daha; hâlâ varsa yayınlanmaz."""
+    if not auth(u): return await deny(u)
+    key = (ctx.args or [""])[0].strip()
+    data = _load_pending_posts()
+    if key not in data:
+        return await u.message.reply_text(f"❌ `{key}` bulunamadı. `/taslaklar`", parse_mode="Markdown")
+    d = data[key]
+    post = d["post"]
+    msg = await u.message.reply_text(f"🧭 `{key}` yayına hazırlanıyor...", parse_mode="Markdown")
+    loop = asyncio.get_event_loop()
+
+    removed_all = []
+    for lang in ("tr", "en"):
+        if post.get(lang) and post[lang].get("content"):
+            md, removed = SQ.strip_marked_sentences(post[lang]["content"])
+            post[lang]["content"] = _sanitize_frontmatter(md)
+            removed_all += [f"{lang.upper()}: {r[:120]}" for r in removed]
+
+    def _evidence_open(reps):
+        return [i for l in ("tr", "en") for i in reps.get(l, {}).get("open_items", [])
+                if i["code"] in EVIDENCE_CODES]
+
+    reports = d["reports"]
+    if _evidence_open(reports) or removed_all:
+        tr_links = await loop.run_in_executor(None, get_internal_links, "tr")
+        en_links = await loop.run_in_executor(None, get_internal_links, "en")
+        reports = await loop.run_in_executor(None, squad_gate_post, post,
+                                             post["tr"].get("title") or key,
+                                             post.get("en", {}).get("title") or key,
+                                             "", "", tr_links, en_links)
+    still = _evidence_open(reports)
+    gate_missing = any(not reports.get(l, {}).get("gate_ran", False)
+                       for l in ("tr", "en") if post.get(l))
+    if still or gate_missing:
+        d["post"], d["reports"] = post, reports
+        data[key] = d; _save_pending_posts(data)
+        why = "kapı çalışmadı" if gate_missing else "kanıt sorunları kaldı"
+        await msg.edit_text(
+            f"{squad_report_text(reports)}\n\n⛔ Yayınlanmadı — {why}. "
+            f"Kanıt sorunları kabul edilemez (Squad kuralı); yazıyı `/revize` ile düzelt.",
+            parse_mode="Markdown")
+        return
+    for lang in ("tr", "en"):
+        if post.get(lang) and post[lang].get("content"):
+            _validate_frontmatter(post[lang]["content"], lang.upper())
+
+    ok_tr, ok_en = await loop.run_in_executor(None, publish_post, post, d["kind"],
+                                              d.get("meta", {}).get("prefix", "blog"))
+    if ok_tr:
+        data.pop(key, None); _save_pending_posts(data)
+    rem = ("\n\n✂️ Çıkarılan işaretli cümleler:\n" + "\n".join(f"• {r}" for r in removed_all[:10])) \
+        if removed_all else ""
+    status = "✅ Yayınlandı (senin onayınla)" if ok_tr else "⚠️ Push başarısız"
+    open_left = sum(len(reports.get(l, {}).get("open_items", [])) for l in ("tr", "en"))
+    warn = f"\n⚠️ {open_left} kanıt dışı açık madde kabul edilerek yayınlandı." if open_left else ""
+    await msg.edit_text(f"{status}\n🇹🇷 `{post['tr']['slug']}`{warn}{rem}", parse_mode="Markdown")
+
+
 async def cmd_revize(u, ctx):
     if not auth(u): return await deny(u)
     args = ctx.args if ctx.args else []
@@ -1500,7 +1793,7 @@ async def cmd_revize(u, ctx):
   faq:
     - question: "Soru?"
       answer: "Cevap (2-3 cümle)."
-  En az 5, en fazla 8 soru-cevap. TR yazı için Türkçe, EN için İngilizce yaz.
+  Yalnızca gerçek sorular, en fazla 8. TR yazı için Türkçe, EN için İngilizce yaz. Gövdeye SSS bölümü yazma.
 - Diğer durumlarda frontmatter'ı olduğu gibi koru, sadece içeriği düzenle."""
 
     try:
@@ -1560,22 +1853,7 @@ Respond in exactly this format (nothing else):
             if en_match:
                 new_en = _sanitize_frontmatter(en_match.group(1).strip())
 
-        await msg.edit_text("📦 Revize edilmiş yazı GitHub'a yükleniyor...", parse_mode="Markdown")
-
-        ok_tr = await loop.run_in_executor(None, gh_push,
-            f"content/blog/tr/{slug}.md", new_tr, f"revize: {slug}")
-
-        ok_en = False
-        if new_en:
-            ok_en = await loop.run_in_executor(None, gh_push,
-                f"content/blog/en/{en_slug}.md", new_en, f"revize: {en_slug}")
-
-        status = "✅ TR + EN" if (ok_tr and ok_en) else "✅ TR" if ok_tr else "⚠️ Başarısız"
-        await msg.edit_text(
-            f"{status} revize tamamlandı!\n\n"
-            f"🇹🇷 `{slug}`\n"
-            f"_Vercel deploy ~1-2 dk içinde._",
-            parse_mode="Markdown")
+        await _gate_and_push_update(u, msg, slug, en_slug, new_tr, new_en, "revize")
 
     except Exception as e:
         logger.exception("Revize hatası")
@@ -1616,9 +1894,9 @@ async def cmd_optimize(u, ctx):
 
 4. SENARYO REHBERİ: "Hangi Durumda Hangisi?" veya benzer bir bölüm yoksa ekle — en az 3 kullanıcı profili (başlangıç/freelancer, büyüyen işletme, kurumsal).
 
-5. EEAT SİNYALLERİ: En az 2 yerde "Uygulamada gördüğümüz...", "Müşterilerimizde test ettiğimizde...", "Deneyimlerimize göre..." gibi ifadeler ekle.
+5. EEAT: Uydurma deneyim/müşteri/vaka cümlelerini KALDIR; yerine yöntem, kontrol listesi veya "Örnek senaryo:" etiketli örnek koy.
 
-6. GERÇEK VERİ: En az 3 cümlede somut sayı, istatistik veya maliyet bilgisi olsun.
+6. KANIT: Kaynaksız rakam/istatistik/fiyatı sil veya cümleyi rakamsız kur; yeni rakam uydurma.
 
 7. GEO ALINTILANABİLİR CÜMLELER: Her H2 bölümünde en az 1 bağımsız, alıntılanabilir cümle ekle. Format örnekleri:
    - "[Araç/Yöntem], [somut sonuç]'u [şartla] sağlar."
@@ -1635,7 +1913,7 @@ async def cmd_optimize(u, ctx):
     c) Doldurulabilir şablon ekle (Ürün adı: [...], Hedef kitle: [...] formatında)
     → Bu bloklar yoksa içerik "anlatıyor ama kullandırmıyor" — eklenmesi ZORUNLU
 
-11. FAQ: 6-8 soru-cevap yoksa ekle veya güncelle (frontmatter faq alanına).
+11. FAQ: yalnızca frontmatter faq alanında, gerçek sorular (en fazla 8); gövdede SSS bölümü varsa kaldır.
 
 KURALLAR:
 - slug, translationSlug, date, image, category, tags değiştirme
@@ -1652,9 +1930,9 @@ KURALLAR:
 
 4. SCENARIO GUIDE: Add "Which Option for Which Use Case?" section if missing — at least 3 profiles (starter/freelancer, growing business, enterprise).
 
-5. EEAT SIGNALS: Add at least 2 experience phrases: "In our experience...", "When we tested this with clients...", "We've observed..."
+5. EEAT: REMOVE invented experience/client/case sentences; replace with method, checklist or an example labelled "Example scenario:".
 
-6. REAL DATA: At least 3 sentences with concrete numbers, statistics or cost figures.
+6. EVIDENCE: Delete unsourced numbers/statistics/prices or rewrite the sentence without them; never invent new figures.
 
 7. GEO QUOTABLE SENTENCES: Add at least 1 independently extractable sentence per H2 section. Format examples:
    - "[Tool/Method] delivers [concrete result] when [condition]."
@@ -1671,7 +1949,7 @@ KURALLAR:
     c) Add a fill-in-the-blank template (Product name: [...], Target audience: [...] format)
     → Without these blocks, content "explains but doesn't enable" — MANDATORY to add
 
-11. FAQ: Add or update 6-8 Q&A pairs in frontmatter faq field if missing.
+11. FAQ: frontmatter faq field only, real questions (max 8); remove any FAQ section from the body.
 
 RULES:
 - Do not change slug, translationSlug, date, image, category, tags
@@ -1729,21 +2007,7 @@ Respond in exactly this format (nothing else):
             if en_match:
                 new_en = _sanitize_frontmatter(en_match.group(1).strip())
 
-        await msg.edit_text("📦 GitHub'a yükleniyor...", parse_mode="Markdown")
-        ok_tr = await loop.run_in_executor(None, gh_push,
-            f"content/blog/tr/{slug}.md", new_tr, f"optimize: {slug}")
-        ok_en = False
-        if new_en:
-            ok_en = await loop.run_in_executor(None, gh_push,
-                f"content/blog/en/{en_slug}.md", new_en, f"optimize: {en_slug}")
-
-        status = "✅ TR + EN" if (ok_tr and ok_en) else "✅ TR" if ok_tr else "⚠️ Başarısız"
-        await msg.edit_text(
-            f"{status} *optimize tamamlandı!*\n\n"
-            f"🇹🇷 `{slug}`\n"
-            f"🇬🇧 `{en_slug}`\n\n"
-            f"_Vercel deploy ~1-2 dk içinde._",
-            parse_mode="Markdown")
+        await _gate_and_push_update(u, msg, slug, en_slug, new_tr, new_en, "optimize")
 
     except Exception as e:
         logger.exception("Optimize hatası")
@@ -2347,22 +2611,38 @@ async def _run(u, topic):
             await msg.edit_text("🛑 İptal edildi (yazı üretildi ama GitHub'a yüklenmedi).")
             return
 
+        await msg.edit_text("🧭 AI SEO Squad kapısı: kanıt, cevap-önce, fan-out, link ve tekrar kontrolü _(1-3 dk)_...",
+                            parse_mode="Markdown")
+        reports = await loop.run_in_executor(None, squad_gate_post, post, topic,
+                                             topic_en or topic, tr_ctx, en_ctx, tr_links, en_links)
+        report_txt = squad_report_text(reports)
+
+        if _cancel:
+            await msg.edit_text("🛑 İptal edildi (kapıdan sonra, GitHub'a yüklenmedi).")
+            return
+
+        if reports["verdict"] != "READY":
+            key = hold_post(post, reports, "new")
+            await msg.edit_text(
+                f"{report_txt}\n\n"
+                f"📝 Taslak bekletiliyor: `{key}`\n"
+                f"• Dosyaları aşağıda gönderiyorum, okuyabilirsin.\n"
+                f"• `/yayinla {key}` → [DATA NEEDED] işaretli cümleleri çıkarıp yayınlar "
+                f"(kanıt sorunu kaldıysa önce bir düzeltme turu daha dener).\n"
+                f"• `/taslaklar` → bekleyenler",
+                parse_mode="Markdown")
+            await send_draft_files(u, post)
+            return
+
         await msg.edit_text(
-            f"📦 GitHub'a yükleniyor...\n"
+            f"{report_txt}\n\n📦 GitHub'a yükleniyor...\n"
             f"🇹🇷 `{post['tr']['slug']}`\n🇬🇧 `{post['en']['slug']}`",
             parse_mode="Markdown")
-
-        ok_tr = await loop.run_in_executor(None, gh_push,
-            post["tr"]["file"], post["tr"]["content"], f"blog: {post['tr']['slug']}")
-        ok_en = await loop.run_in_executor(None, gh_push,
-            post["en"]["file"], post["en"]["content"], f"blog: {post['en']['slug']}")
+        ok_tr, ok_en = await loop.run_in_executor(None, publish_post, post, "new", "blog")
 
         if ok_tr and ok_en:
-            # Slug mapping dosyasını güncelle
-            await loop.run_in_executor(None, gh_update_slug_mappings,
-                post["tr"]["slug"], post["en"]["slug"])
             await msg.edit_text(
-                f"✅ *Yayınlandı!*\n\n"
+                f"{report_txt}\n\n✅ *Yayınlandı!*\n\n"
                 f"🇹🇷 [{post['tr']['title']}](https://tonguckaracay.com/{post['tr']['slug']})\n"
                 f"🇬🇧 [{post['en']['title']}](https://tonguckaracay.com/en/{post['en']['slug']})\n\n"
                 f"_Vercel deploy ~1-2 dk içinde tamamlanır._",
@@ -2396,10 +2676,13 @@ async def scheduler(app):
                 serp["tr_ctx"], serp["en_ctx"], serp["tr_intent"], serp["en_intent"],
                 serp["target_words"], tr_links, en_links,
                 serp.get("topic_en", ""))
-            ok_tr = await loop.run_in_executor(None, gh_push, post["tr"]["file"], post["tr"]["content"], f"blog: {post['tr']['slug']}")
-            ok_en = await loop.run_in_executor(None, gh_push, post["en"]["file"], post["en"]["content"], f"blog: {post['en']['slug']}")
-            result = (f"✅ *Günlük yazı yayınlandı!*\n🇹🇷 `{post['tr']['slug']}`\n🇬🇧 `{post['en']['slug']}`"
-                      if ok_tr and ok_en else "⚠️ Günlük yazı başarısız.")
+            # Squad 22.6: zamanlanmış (gözetimsiz) çalışma ASLA yayınlamaz — kapıdan geçse
+            # bile taslak olarak bekletir; Tonguç /yayinla ile yayınlar.
+            reports = await loop.run_in_executor(None, squad_gate_post, post, topic,
+                serp.get("topic_en", "") or topic, serp["tr_ctx"], serp["en_ctx"], tr_links, en_links)
+            key = hold_post(post, reports, "new")
+            result = (f"{squad_report_text(reports)}\n\n📝 Günlük taslak hazır (otomatik yayın yok): "
+                      f"`{key}` → `/yayinla {key}`")
             for uid in ALLOWED:
                 try: await app.bot.send_message(uid, result, parse_mode="Markdown")
                 except: pass
@@ -2417,10 +2700,11 @@ def main():
                     ("liste",cmd_liste),("brief",cmd_brief),("revize",cmd_revize),
                     ("optimize",cmd_optimize),("yazi",cmd_yazi),("fikir",cmd_fikir),
                     ("fikirler",cmd_fikirler),
-                    ("site",cmd_site),("hero",cmd_hero),("gunluk",cmd_gunluk),("stop",cmd_stop)]:
+                    ("site",cmd_site),("hero",cmd_hero),("gunluk",cmd_gunluk),("stop",cmd_stop),
+                    ("taslaklar",cmd_taslaklar),("yayinla",cmd_yayinla),("taslak_sil",cmd_taslak_sil)]:
         app.add_handler(CommandHandler(cmd, fn))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_idea_selection))
-    logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH}")
+    logger.info(f"Agent v2 başlatılıyor → {GH_REPO}:{GH_BRANCH} · {SQ.SQUAD_VERSION}")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
 
 if __name__ == "__main__":
