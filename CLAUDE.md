@@ -223,6 +223,8 @@ faq:
 
 Blog yazıları çoğunlukla **Telegram üzerinden tc-agent** ile üretiliyor (`/yazi`, `/fikir` → numara). Agent TR+EN çift yazı üretip GitHub'a push eder, Vercel otomatik deploy alır.
 
+**AI SEO Squad kapısı (Kasım 2026):** Bot artık her içeriği AI SEO Squad v6.5 kurallarıyla üretir ve yayından önce Squad kapısından geçirir (`tc-agent/squad_rules.py`): kod kontrolleri (title/description uzunluğu, gövdede H1, yıl, TOC, gövdede SSS kopyası, liste dışı iç link, uydurma deneyim kalıpları, `[DATA NEEDED]` işaretleri) + Squad denetim çağrısı (kaynaksız rakam, uydurma kaynak/deneyim, cevap-önce, fan-out, alıntılanabilir cümle, tekrar, YMYL) + en fazla 2 düzeltme turu. Geçen yazı yayınlanır; geçemeyen `pending_posts.json`'da taslak olarak bekler → `/taslaklar`, `/yayinla <slug>` (işaretli cümleleri çıkarır; kanıt sorunu kaldıysa yayınlamaz), `/taslak_sil <slug>`. Zamanlanmış çalışma asla otomatik yayınlamaz. `/revize` ve `/optimize` de aynı kapıdan geçer. Skill dosyaları güncellenirse `squad_rules.py` de güncellenmeli. SSS yalnızca frontmatter `faq` alanında — site onu ayrıca basıyor, gövdeye SSS yazılmaz.
+
 **Bir blog yazısının build'i kırma / yanlış indexlenme riskini önlemek için 3 kural:**
 1. **Frontmatter YAML geçerli olmalı** — iç çift tırnaklar escape (`\"`). Agent bunu otomatik yapar; manuel düzenlemede sen dikkat et. Geçersiz YAML = tüm site deploy'u kilitlenir.
 2. **translationSlug iki yönlü tutarlı olmalı** — TR yazının `translationSlug`'ı EN slug'a, EN yazının `translationSlug`'ı TR slug'a işaret etmeli. Agent bunu zorla senkronlar; ayrıca `lib/slug-mappings.ts` güncellenmeli (dil switcher + hreflang buna bağlı).
