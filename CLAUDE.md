@@ -13,6 +13,15 @@ Deploy: Vercel (otomatik — main'e push = production)
 
 ---
 
+## SEO / GEO Çalışma Kaydı (KRİTİK — her SEO işinde)
+
+SEO/GEO işlerinin tek doğru kaynağı **`docs/seo/`** klasörüdür (sohbet tarafı ile Claude Code burada buluşur):
+- `docs/seo/ROADMAP.md` — açık işler (ID, öncelik, URL, durum). **SEO işine başlamadan önce oku; iş bitince Durum + Tarih sütununu güncelle.**
+- `docs/seo/KARARLAR.md` — verilen kararlar ve gerekçeleri. Yeni karar → yeni satır.
+- `docs/seo/YYYY-MM-*-analiz.md` — tarihli veri analizleri (GSC vb.). Yeni analiz = yeni dosya, eskisi silinmez.
+
+---
+
 ## Tech Stack
 
 - Next.js 15 (App Router, TypeScript)
