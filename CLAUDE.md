@@ -13,6 +13,18 @@ Deploy: Vercel (otomatik — main'e push = production)
 
 ---
 
+## SEO / GEO Çalışma Kaydı (KRİTİK — her SEO işinde)
+
+SEO/GEO işlerinin tek doğru kaynağı **`docs/seo/`** klasörüdür (sohbet tarafı ile Claude Code burada buluşur):
+- `docs/seo/ROADMAP.md` — açık işler (ID, öncelik, URL, durum). **SEO işine başlamadan önce oku; iş bitince Durum + Tarih sütununu güncelle.**
+- `docs/seo/KARARLAR.md` — verilen kararlar ve gerekçeleri. Yeni karar → yeni satır.
+- `docs/seo/YYYY-MM-*-analiz.md` — tarihli veri analizleri (GSC vb.). Yeni analiz = yeni dosya, eskisi silinmez.
+- **Her SEO/GEO işi (analiz, içerik yazma, title/meta, teknik SEO) `ai-seo-squad` skill'i üzerinden yapılır** (o da `seo-engine` / `ai-seo-engine`'e yönlendirir). Skill bu oturumda yoksa işe başlamadan kullanıcıya söyle; skill'siz sessizce devam etme.
+- **İşe başlamadan önce bağlı veri kaynaklarını listele ve hepsinden veri çek** (Squad STEP 1.5). Bağlı olup çekilmeyen kaynak raporda "çekilmedi" diye açıkça yazılır.
+- **Her analizde GSC + Ubersuggest birlikte kullanılır** (Ubersuggest MCP, proje: tonguckaracay.com; TR locId 2792, US 2840). Hacim/zorluk/rank tracking/AI görünürlük Ubersuggest'ten, gerçek performans GSC'den.
+
+---
+
 ## Tech Stack
 
 - Next.js 15 (App Router, TypeScript)
