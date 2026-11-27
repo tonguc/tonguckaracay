@@ -19,6 +19,7 @@ SEO/GEO işlerinin tek doğru kaynağı **`docs/seo/`** klasörüdür (sohbet ta
 - `docs/seo/ROADMAP.md` — açık işler (ID, öncelik, URL, durum). **SEO işine başlamadan önce oku; iş bitince Durum + Tarih sütununu güncelle.**
 - `docs/seo/KARARLAR.md` — verilen kararlar ve gerekçeleri. Yeni karar → yeni satır.
 - `docs/seo/YYYY-MM-*-analiz.md` — tarihli veri analizleri (GSC vb.). Yeni analiz = yeni dosya, eskisi silinmez.
+- **Her analizde GSC + Ubersuggest birlikte kullanılır** (Ubersuggest MCP, proje: tonguckaracay.com; TR locId 2792, US 2840). Hacim/zorluk/rank tracking/AI görünürlük Ubersuggest'ten, gerçek performans GSC'den.
 
 ---
 

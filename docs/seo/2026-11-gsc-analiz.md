@@ -61,7 +61,62 @@ Bilerek atlananlar: "tonguç ai" / "tonguç b2b" (muhtemelen Tonguç Akademi ara
 
 Not: bazı EN yazıların gösterimi eski kök URL varyantında görünüyor (ör. /what-is-seo-specialist-how-to-become-one, 1 gösterim). Sonraki adım: GSC → Sayfa dizine ekleme nedenleri (R-13).
 
-## 6. Teknik
+## 6. Ubersuggest verisi (2026-11-27)
+
+Kaynak: Ubersuggest MCP, proje tonguckaracay.com (rank tracking TR/2792 masaüstü, haftalık; 70 kelime) + keyword_overview + AI Search Visibility. Hacimler üçüncü taraf tahminidir.
+
+**Rank tracking (29.10 → 26.11):** 13 yukarı, 7 aşağı, 50 aynı; ilk 100'de 24 kelime (önce 18), 46 kelime sıralamada yok. Ortalama pozisyon 37,9 → 51,5 (yeni giren kelimeler alttan girdiği için kısmen).
+
+| Kelime | Hacim (TR/ay) | SD | Poz. 29.10 → 26.11 | URL |
+|---|---|---|---|---|
+| ui ux nedir | 1.600 | 13 | 38 → 23 | ui-ux-designer-nedir |
+| ux nedir | 880 | 13 | 27 → 14 | ui-ux-designer-nedir |
+| ux design nedir | 140 | 25 | 31 → 3 | ui-ux-designer-nedir |
+| ui ux design nedir | 210 | 16 | 8 → 8 | ui-ux-designer-nedir |
+| ux ui nedir | 90 | 21 | 89 → 17 | ui-ux-designer-nedir |
+| ui designer nedir | 70 | 18 | **4 → 76** | ui-ux-designer-nedir |
+| h1 nedir | 90 | 18 | — → 2 | heading-tags |
+| seo uzmanı | 1.900 | 26 | yok | — |
+| seo danışmanı | 1.300 | 15 | yok | — |
+| seo uzmanı nedir | 590 | 25 | yok | — |
+| istanbul seo uzmanı | 320 | 10 | yok | — |
+| backlink nedir | 880 | 12 | yok | — |
+| inbound nedir | 480 | 14 | yok | — |
+| serp nedir | 210 | 18 | yok | — |
+
+**Takip edilmeyen ama önemli kelimeler:**
+
+| Kelime | Pazar | Hacim/ay | SD | Not |
+|---|---|---|---|---|
+| ui ux design | TR | 9.900 | 34 | GSC'de poz. 8,3 — en büyük fırsat (R-02) |
+| ui ux design | US | 135.000 | 19 | GSC'deki 882 gösterim büyük olasılıkla TR |
+| seo danışmanlığı | TR | 1.300 | 22 | ticari niyet (R-04) |
+| geo nedir | TR | 1.000 | 8 | 390 → 1.900 yükseliş; niyet karışık olabilir (R-03) |
+| generative engine optimization | US | 4.400 | 10 | EN GEO yazısı 0 gösterim (R-03) |
+| yapay zeka seo | TR | 210 | 8 | (R-07) |
+| how to get cited by chatgpt | US | 110 | 12 | Tem'de 590 (R-06) |
+| ai visibility tools | US | 880 | 57 | zor (R-09) |
+| uizard alternatives | US | 30 | 14 | (R-14) |
+| geo checklist | US | 40 | 13 | (R-11) |
+| vps for ai agents | US | 10 | 15 | küçük (R-10) |
+| yapay zeka seo hizmeti / ai görünürlük | TR | raporlanan 0 | — | eşik altı; sıfır talep demek değil |
+| anahtar kelime analizi nasıl yapılır | TR | 10 | 12 | düşük (R-17) |
+| hatay seo | TR | 10 | 31 | düşük (R-20) |
+
+**Bu veriyle değişen kararlar:**
+- "UI ve UX nedir" için **yeni sayfa açılmayacak**: mevcut yazı bu sorgularda yükseliyor; yeni sayfa onu böler → mevcut yazı güçlendirilecek (R-02, K-04).
+- GEO nedir (TR 1.000/ay, US 4.400/ay, ikisi de düşük zorluk) listeye P1 olarak girdi (R-03).
+- SEO danışmanlığı hizmet sayfası P1'e çıktı (R-04): ticari kelimelerde ilk 100'de yokuz.
+- VPS rehberi (10/ay) ve anahtar kelime rehberi (10/ay) önceliği düştü.
+
+**AI Search Visibility (Ubersuggest, 28.10–27.11, OpenAI, TR):**
+- 15 prompt × 2 yanıt = 30 yanıt. Marka 2 yanıtta geçiyor (%6,67) — **ikisi de prompt'ta marka adının zaten yazdığı tek sorudan.** Marka adı geçmeyen 14 prompt'un 28 yanıtında: **0 / 28**.
+- Prompt seti yanlış kurulu: hepsi "başlık etiketleri / H1 etiketi hizmeti" üzerine (kimsenin satın aldığı bir hizmet değil). Bu yüzden sonuç markanın gerçek hizmetlerindeki görünürlüğü göstermiyor.
+- AI yanıtlarında en çok geçen markalar: WTR Ajans, Agenzia, Magna Dijital (her biri 30 yanıtın 8'inde).
+- Marka adı "Tonguckaracay" olarak girilmiş; "Tonguç Karaçay" ve takma adlar yok.
+- Bu, örneklenmiş bir gözlemdir; tek dönem, tek motor. Ayarlar düzeltilince (R-08) yeniden ölçülecek.
+
+## 7. Teknik
 
 - GSC'de sitemap dışı ~25 URL varyantı var (sonda "/", /en'siz EN slug, /vaka-calismalari, /en/blog/*, /services/ai-solutions, parametreli /blog). **Kodda zaten yönlendiriliyor:** `trailingSlash: false`, `next.config.js` redirect'leri, `middleware.ts` yanlış-locale 301'leri. Bunlar eski kayıt kalıntısı → yalnızca izle (R-17). (İlk analizde P1 yazılmıştı; repo incelenince düzeltildi.)
 - TR /ai-projects/* sayfaları poz. 150–300, EN karşılıkları 2–10 → TR sürümler ince veya EN'nin kopyası olabilir (tahmin).
